@@ -85,10 +85,10 @@ public class ProfessionController {
         return professionService.modifierProfession(professionDto);
     }
 
-    @PostConstruct
+    /*@PostConstruct
     public List<Object> createProfessionFromOpcciel1() {
         return professionService.createProfessionFromOppciel1();
-    }
+    }*/
 
     @DeleteMapping("/{id}")
     public void Supprimer(@Positive @PathVariable long id){

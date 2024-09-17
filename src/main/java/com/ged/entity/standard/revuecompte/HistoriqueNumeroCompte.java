@@ -8,6 +8,7 @@ import jakarta.persistence.*;
 @Table(name = "T_HistoriqueNumeroCompte", schema = "Nomenclature")
 public class HistoriqueNumeroCompte extends Base {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idHistoriqueNumeroCompte;
     @ManyToOne
     @JoinColumn(name = "idPersonne")

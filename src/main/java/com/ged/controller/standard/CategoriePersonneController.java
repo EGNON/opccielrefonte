@@ -108,10 +108,10 @@ public class CategoriePersonneController {
         return categoriePersonneService.modifierCategoriePersonne(categoriePersonneDto);
     }
 
-    @PostConstruct
+    /*@PostConstruct
     public List<Object> createCategorieFromOpcciel1() {
         return categoriePersonneService.createCategorieFromOppciel1();
-    }
+    }*/
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasAuthority('ROLE_CATEGORIE')")
