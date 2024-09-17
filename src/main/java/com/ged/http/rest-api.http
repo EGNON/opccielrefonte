@@ -1,0 +1,70 @@
+### Récupération des dégrés
+GET http://localhost:8181/opcciel/api/degres
+Accept: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyIiwiaWF0IjoxNzA2MzQ3MjI2LCJleHAiOjE3MDY0MzM2MjZ9.Qf3SqeckDQEbxpX6YIr3Urr-bQ0XY33NOtLTByQ5WWk
+
+### Enregistrer un dégré
+POST http://localhost:8181/opcciel/api/degres
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyIiwiaWF0IjoxNzA2MzQ3MjI2LCJleHAiOjE3MDY0MzM2MjZ9.Qf3SqeckDQEbxpX6YIr3Urr-bQ0XY33NOtLTByQ5WWk
+
+{
+  "libelle": "test"
+}
+
+
+###
+
+GET http://localhost:8081/opcciel/api/auth/profile
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTcwNDA5Njk2NywiZXhwIjoxNzA0MTAwNTY3fQ.rgD3ShWemIU-JJpu3Fr3KOib7BYxsoQbMtKAa1J2GNI
+
+###
+
+POST http://localhost:8181/opcciel/api/auth/login
+Content-Type: application/json
+
+{
+  "username": "user",
+  "password": "user1"
+}
+
+###
+
+POST http://localhost:8081/opcciel/api/qualites
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTcwNDA5Njk2NywiZXhwIjoxNzA0MTAwNTY3fQ.rgD3ShWemIU-JJpu3Fr3KOib7BYxsoQbMtKAa1J2GNI
+
+{
+  "libelleQualite": "dirigeant"
+}
+
+###
+
+GET http://localhost:8181/opcciel/api/auth/me
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyIiwiaWF0IjoxNzEzNTM0OTczLCJleHAiOjE3MTM2MjEzNzN9.iv4oHSr9431DrfM5RWLAllD46xBs_D5EVWn8Ll2v1Uc
+
+###
+
+GET http://localhost:8081/opcciel/api/roles
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTcwNDI4NTU4OSwiZXhwIjoxNzA0MzcxOTg5fQ.IN5a7NfRNL5vLTS0O0-wEbO73KpjW-p4UiSdjYN9OVc
+
+###
+
+POST http://localhost:8081/opcciel/api/roles
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTcwNDI4MDc0NCwiZXhwIjoxNzA0MzY3MTQ0fQ.uQ0HaH0h7iyEOPki4-4oGnAE9yvdSaQsiLwChOX5G7s
+
+{
+  "nom": "ROLE_USER"
+}
+
+###
+
+GET http://localhost:8081/opcciel/api/messagesbox
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTcwNDI4MDc0NCwiZXhwIjoxNzA0MzY3MTQ0fQ.uQ0HaH0h7iyEOPki4-4oGnAE9yvdSaQsiLwChOX5G7s
+
+###
+GET http://localhost:8181/opcciel/api/opcciel1/importation/donnees/societe
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyIiwiaWF0IjoxNzE0NDY2MjU2LCJleHAiOjE3MTQ1NTI2NTZ9.hC3NyPI-3BUzjD6ghCvLwPB12SUxDbsz3I53lgn1GLI

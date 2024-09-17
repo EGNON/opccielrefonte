@@ -1,0 +1,59 @@
+package com.ged.entity.titresciel;
+
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "T_SecteurBoursier", schema = "Titre")
+public class SecteurBoursier {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long idSecteurBoursier;
+    private String libelleSecteurBoursier;
+//    @CreationTimestamp
+//    private LocalDateTime dateCreationServeur;
+//    @UpdateTimestamp
+//    private LocalDateTime dateDernModifServeur;
+//    @UpdateTimestamp
+//    private LocalDateTime dateDernModifClient;
+//    private long numLigne;
+//    @Column(columnDefinition = "BIT", length = 1)
+//    private boolean supprimer;
+//
+//    private LocalDateTime rowvers;
+//    @Basic
+//    private String userLogin;
+//    @OneToMany(mappedBy = "SecteurBoursier", fetch = FetchType.LAZY)
+//    @JsonManagedReference
+//    private Set<Opcvm> opcvms = new HashSet<>();
+
+    public SecteurBoursier() {
+    }
+
+    public SecteurBoursier(String libelleSecteurBoursier) {
+        this.libelleSecteurBoursier = libelleSecteurBoursier;
+    }
+
+    public Long getIdSecteurBoursier() {
+        return idSecteurBoursier;
+    }
+
+    public void setIdSecteurBoursier(Long idSecteurBoursier) {
+        this.idSecteurBoursier = idSecteurBoursier;
+    }
+
+    public String getLibelleSecteurBoursier() {
+        return libelleSecteurBoursier;
+    }
+
+    public void setLibelleSecteurBoursier(String libelleSecteurBoursier) {
+        this.libelleSecteurBoursier = libelleSecteurBoursier;
+    }
+
+//    public Set<Opcvm> getOpcvms() {
+//        return opcvms;
+//    }
+//
+//    public void setOpcvms(Set<Opcvm> opcvms) {
+//        this.opcvms = opcvms;
+//    }
+}

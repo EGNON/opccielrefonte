@@ -1,0 +1,20 @@
+### LOGIN TO THE APPLICATION
+POST http://localhost:8181/opcciel/api/auth/login
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "password": "admin1"
+}
+
+> {% client.global.set("auth-token", response.body.data.authToken); %}
+
+### GET USER BY TOKEN
+GET http://localhost:8181/opcciel/api/auth/me
+Content-Type: application/json
+Authorization: Bearer {{ auth-token }}
+
+### GET ALL USERS
+GET http://localhost:8181/opcciel/api/utilisateurs
+Content-Type: application/json
+Authorization: Bearer {{ auth-token }}

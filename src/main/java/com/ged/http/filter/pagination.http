@@ -1,0 +1,32 @@
+### LOGIN TO THE APPLICATION
+POST http://localhost:8181/opcciel/api/auth/login
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "password": "admin1"
+}
+
+> {% client.global.set("auth-token", response.body.data.authToken); %}
+
+### Pagination
+POST http://localhost:8181/opcciel/api/roles/filter/specification/pagination
+Content-Type: application/json
+Authorization: Bearer {{ auth-token }}
+
+{
+  "globalOperator":"OR",
+  "pageDto": {
+    "pageNo": 0,
+    "pageSize": 12,
+    "sort": "ASC",
+    "sortByColumn": "idRole"
+  },
+  "searchRequestDto": [
+    {
+      "column": "nom",
+      "value": "",
+      "operation": "LIKE"
+    }
+  ]
+}

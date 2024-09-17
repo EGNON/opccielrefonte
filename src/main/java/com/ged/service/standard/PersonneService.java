@@ -1,0 +1,34 @@
+package com.ged.service.standard;
+
+import com.ged.datatable.DataTablesResponse;
+import com.ged.datatable.DatatableParameters;
+import com.ged.dto.standard.PersonneDto;
+import com.ged.entity.standard.Personne;
+import com.ged.projection.PersonneProjection;
+import org.springframework.data.domain.Page;
+
+import java.util.List;
+
+public interface PersonneService  {
+    Boolean existsByNumeroCpteDeposit(String numero);
+
+    Page<PersonneDto> afficherPersonnes(int page, int size);
+    DataTablesResponse<PersonneDto> afficherCompteGele(DatatableParameters parameters);
+    DataTablesResponse<PersonneDto> afficherCompteNonGele(DatatableParameters parameters);
+    List<PersonneProjection> afficherPersonnePhysiqueMorales();
+    List<PersonneProjection> afficherPersonne(Long idOpcvm);
+    List<PersonneProjection> afficherPersonneIOpcvm(Long idOpcvm);
+    List<PersonneDto> afficherSelonQualite(String qualite);
+    List<PersonneDto> afficherSelonQualite();
+    List<PersonneDto> recherherNumeroCompteDepositaire(String numero);
+    boolean verifierNumeroCompteDepositaire(String numero);
+    DataTablesResponse<PersonneDto> afficherSelonQualite(DatatableParameters parameters);
+    List<PersonneDto> afficherPersonneTous();
+    List<PersonneDto> afficherCompteGeleNonGele();
+    List<PersonneDto> afficherCompteGeleNonGele(boolean estGele);
+    PersonneProjection afficherPersonnePhysiqueMoraleSelonId(long id);
+    Personne afficherPersonneSelonId(long idPersonne);
+    PersonneDto creerPersonne(PersonneDto personneDto);
+    PersonneDto modifierPersonne(PersonneDto personneDto);
+    void supprimerPersonne(long idPersonne);
+}
