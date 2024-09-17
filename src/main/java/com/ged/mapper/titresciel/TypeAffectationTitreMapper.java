@@ -1,13 +1,13 @@
 package com.ged.mapper.titresciel;
 
 import com.ged.dto.titresciel.TypeAffectationTitreDto;
-import com.ged.entity.titresciel.TypeAffectationTitre;
+import com.ged.entity.titresciel.TypeAffectationVL;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 @Service
 public class TypeAffectationTitreMapper {
-    public TypeAffectationTitreDto deTypeAffectation(TypeAffectationTitre typeAffectationTitre) {
+    public TypeAffectationTitreDto deTypeAffectation(TypeAffectationVL typeAffectationTitre) {
         if(typeAffectationTitre == null)
             return null;
         TypeAffectationTitreDto typeAffectationTitreDto = new TypeAffectationTitreDto();
@@ -16,10 +16,10 @@ public class TypeAffectationTitreMapper {
         return typeAffectationTitreDto;
     }
 
-    public TypeAffectationTitre deTypeAffectationDto(TypeAffectationTitreDto typeAffectationTitreDto) {
+    public TypeAffectationVL deTypeAffectationDto(TypeAffectationTitreDto typeAffectationTitreDto) {
         if(typeAffectationTitreDto == null)
             return null;
-        TypeAffectationTitre typeAffectationTitre = new TypeAffectationTitre();
+        TypeAffectationVL typeAffectationTitre = new TypeAffectationVL();
         BeanUtils.copyProperties(typeAffectationTitreDto, typeAffectationTitre);
 
         return typeAffectationTitre;

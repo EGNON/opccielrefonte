@@ -230,7 +230,7 @@ public class OpcServiceImpl implements OpcService {
                 Opc.setClassificationOPC(classificationOPC);
             }
             if(OpcDto.getTypeAffectationTitre() != null && OpcDto.getTypeAffectationTitre().getIdTypeAffectation() != null) {
-                TypeAffectationTitre typeAffectationTitre = typeAffectationTitreDao.findById(OpcDto.getTypeAffectationTitre().getIdTypeAffectation()).orElse(null);
+                TypeAffectationVL typeAffectationTitre = typeAffectationTitreDao.findById(OpcDto.getTypeAffectationTitre().getIdTypeAffectation()).orElse(null);
                 Opc.setTypeAffectationTitre(typeAffectationTitre);
             }
             Opc = OpcDao.save(Opc);
@@ -297,7 +297,7 @@ public class OpcServiceImpl implements OpcService {
                 Opc.setClassificationOPC(classificationOPC);
             }
             if(OpcDto.getTypeAffectationTitre() != null && OpcDto.getTypeAffectationTitre().getIdTypeAffectation() != null) {
-                TypeAffectationTitre typeAffectationTitre = typeAffectationTitreDao.findById(OpcDto.getTypeAffectationTitre().getIdTypeAffectation()).orElse(null);
+                TypeAffectationVL typeAffectationTitre = typeAffectationTitreDao.findById(OpcDto.getTypeAffectationTitre().getIdTypeAffectation()).orElse(null);
                 Opc.setTypeAffectationTitre(typeAffectationTitre);
             }
             Opc = OpcDao.save(Opc);

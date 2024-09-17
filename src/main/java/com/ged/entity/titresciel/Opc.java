@@ -17,7 +17,7 @@ public class Opc extends Titre {
     private ClassificationOPC classificationOPC;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "idTypeAffectation", referencedColumnName = "idTypeAffectation")
-    private TypeAffectationTitre typeAffectationTitre;
+    private TypeAffectationVL typeAffectationTitre;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "idFormeJuridiqueOpc", referencedColumnName = "idFormeJuridiqueOpc")
     private FormeJuridiqueOpc formeJuridiqueOpc;
@@ -54,11 +54,11 @@ public class Opc extends Titre {
         this.classificationOPC = classificationOPC;
     }
 
-    public TypeAffectationTitre getTypeAffectationTitre() {
+    public TypeAffectationVL getTypeAffectationTitre() {
         return typeAffectationTitre;
     }
 
-    public void setTypeAffectationTitre(TypeAffectationTitre typeAffectationTitre) {
+    public void setTypeAffectationTitre(TypeAffectationVL typeAffectationTitre) {
         this.typeAffectationTitre = typeAffectationTitre;
     }
 

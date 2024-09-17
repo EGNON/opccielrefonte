@@ -5,15 +5,10 @@ import com.ged.dao.titresciel.TypeAffectationTitreDao;
 import com.ged.datatable.DataTablesResponse;
 import com.ged.datatable.DatatableParameters;
 import com.ged.dto.titresciel.TypeAffectationTitreDto;
-import com.ged.entity.titresciel.TypeAffectationTitre;
+import com.ged.entity.titresciel.TypeAffectationVL;
 import com.ged.mapper.titresciel.TypeAffectationTitreMapper;
 import com.ged.response.ResponseHandler;
 import com.ged.service.titresciel.TypeAffectationService;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.ParameterMode;
-import jakarta.persistence.StoredProcedureQuery;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -23,8 +18,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -108,7 +101,7 @@ public class TypeAffectationServiceImpl implements TypeAffectationService {
             Sort sort = Sort.by(Sort.Direction.ASC,"libelleTypeAffectation");
             Pageable pageable = PageRequest.of(
                     parameters.getStart()/ parameters.getLength(), parameters.getLength(),sort);
-            Page<TypeAffectationTitre> typeAffectationPage;
+            Page<TypeAffectationVL> typeAffectationPage;
             typeAffectationPage = typeAffectationTitreDao.findAll(pageable);
             List<TypeAffectationTitreDto> content = typeAffectationPage.getContent().stream().map(typeAffectationTitreMapper::deTypeAffectation).collect(Collectors.toList());
             DataTablesResponse<TypeAffectationTitreDto> dataTablesResponse = new DataTablesResponse<>();
@@ -131,8 +124,8 @@ public class TypeAffectationServiceImpl implements TypeAffectationService {
     }
 
     @Override
-    public TypeAffectationTitre afficherSelonId(Long id) {
-        return typeAffectationTitreDao.findById(id).orElseThrow(() -> new EntityNotFoundException(TypeAffectationTitre.class, "id", id.toString()));
+    public TypeAffectationVL afficherSelonId(Long id) {
+        return typeAffectationTitreDao.findById(id).orElseThrow(() -> new EntityNotFoundException(TypeAffectationVL.class, "id", id.toString()));
     }
 
     @Override
@@ -155,7 +148,7 @@ public class TypeAffectationServiceImpl implements TypeAffectationService {
     @Override
     public ResponseEntity<Object> creer(TypeAffectationTitreDto typeAffectationTitreDto) {
         try {
-            TypeAffectationTitre typeAffectationTitre = typeAffectationTitreMapper.deTypeAffectationDto(typeAffectationTitreDto);
+            TypeAffectationVL typeAffectationTitre = typeAffectationTitreMapper.deTypeAffectationDto(typeAffectationTitreDto);
             typeAffectationTitre = typeAffectationTitreDao.save(typeAffectationTitre);
             return ResponseHandler.generateResponse(
                     "Enregistrement effectué avec succès !",
@@ -173,8 +166,8 @@ public class TypeAffectationServiceImpl implements TypeAffectationService {
     public ResponseEntity<Object> modifier(TypeAffectationTitreDto typeAffectationTitreDto) {
         try {
             if(!typeAffectationTitreDao.existsById(typeAffectationTitreDto.getIdTypeAffectation()))
-                throw  new EntityNotFoundException(TypeAffectationTitre.class, "id", typeAffectationTitreDto.getIdTypeAffectation().toString());
-            TypeAffectationTitre typeAffectationTitre = typeAffectationTitreMapper.deTypeAffectationDto(typeAffectationTitreDto);
+                throw  new EntityNotFoundException(TypeAffectationVL.class, "id", typeAffectationTitreDto.getIdTypeAffectation().toString());
+            TypeAffectationVL typeAffectationTitre = typeAffectationTitreMapper.deTypeAffectationDto(typeAffectationTitreDto);
             typeAffectationTitre = typeAffectationTitreDao.save(typeAffectationTitre);
             return ResponseHandler.generateResponse(
                     "Modification effectuée avec succès !",

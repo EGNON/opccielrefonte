@@ -7,5 +7,5 @@ import java.math.BigDecimal;
 import java.util.Optional;
 
 public interface EmetteurDao extends JpaRepository<Emetteur,Long> {
-    Optional<Emetteur> findByTypePersonneAndIdOcc(String type, Long id);
+//    Optional<Emetteur> findByTypePersonneAndIdOcc(String type, Long id);
 }

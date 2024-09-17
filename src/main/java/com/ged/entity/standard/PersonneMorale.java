@@ -36,9 +36,8 @@ public class PersonneMorale extends Personne{
     @JoinColumn(name = "idTypeGarant")
     private TypeGarant typeGarant;
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "idOrganisme",referencedColumnName = "idPersonne")
+    @JoinColumn(name = "idOrganisme",referencedColumnName = "idOrganisme")
     private Organisme organisme;
-
     private LocalDateTime dateCreationPM;
     private String numCompteDepositaire;
     private String indexFixe1;

@@ -34,7 +34,7 @@ public class Opcvm extends Base {
     private PersonneMorale personneIntervenant;*/
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "idTypeAffectation")
-    private TypeAffectationTitre typeAffectationTitre;
+    private TypeAffectationVL typeAffectationTitre;
     /*@ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "idPersonneEmetteur",referencedColumnName = "idPersonne")
     private PersonneMorale personneEmetteur;*/
@@ -304,11 +304,11 @@ public class Opcvm extends Base {
         this.personneIntervenant = personneIntervenant;
     }*/
 
-    public TypeAffectationTitre getTypeAffectationTitre() {
+    public TypeAffectationVL getTypeAffectationTitre() {
         return typeAffectationTitre;
     }
 
-    public void setTypeAffectationTitre(TypeAffectationTitre typeAffectationTitre) {
+    public void setTypeAffectationTitre(TypeAffectationVL typeAffectationTitre) {
         this.typeAffectationTitre = typeAffectationTitre;
     }
 

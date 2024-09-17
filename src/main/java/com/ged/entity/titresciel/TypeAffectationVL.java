@@ -6,16 +6,16 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "T_TypeAffectation", schema = "Titre")
-public class TypeAffectationTitre {
+public class TypeAffectationVL {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idTypeAffectation;
     private String libelleTypeAffectation;
 
-    public TypeAffectationTitre() {
+    public TypeAffectationVL() {
     }
 
-    public TypeAffectationTitre(Long idTypeAffectation, String libelleTypeAffectation) {
+    public TypeAffectationVL(Long idTypeAffectation, String libelleTypeAffectation) {
         this.idTypeAffectation = idTypeAffectation;
         this.libelleTypeAffectation = libelleTypeAffectation;
     }
@@ -24,7 +24,7 @@ public class TypeAffectationTitre {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        TypeAffectationTitre that = (TypeAffectationTitre) o;
+        TypeAffectationVL that = (TypeAffectationVL) o;
         return Objects.equals(idTypeAffectation, that.idTypeAffectation) && Objects.equals(libelleTypeAffectation, that.libelleTypeAffectation);
     }
 

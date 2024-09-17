@@ -7,6 +7,6 @@ import java.math.BigDecimal;
 import java.util.Optional;
 
 public interface RegistraireDao extends JpaRepository<Registraire,Long> {
-    Optional<Registraire> findByIdOcc(BigDecimal id);
-    Optional<Registraire> findByTypePersonneAndIdOcc(String type, Long id);
+//    Optional<Registraire> findByIdOcc(BigDecimal id);
+//    Optional<Registraire> findByTypePersonneAndIdOcc(String type, Long id);
 }

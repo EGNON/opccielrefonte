@@ -1,27 +1,15 @@
 package com.ged.entity.titresciel;
 
+import com.ged.entity.Base;
 import jakarta.persistence.*;
 
 @Entity
 @Table(name = "T_TypeEvenement", schema = "Titre")
-public class TypeEvenement {
+public class TypeEvenement extends Base {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idTypeEvenement;
     private String libelleTypeEvenement;
-//    @CreationTimestamp
-//    private LocalDateTime dateCreationServeur;
-//    @UpdateTimestamp
-//    private LocalDateTime dateDernModifServeur;
-//    @UpdateTimestamp
-//    private LocalDateTime dateDernModifClient;
-//    private long numLigne;
-//    @Column(columnDefinition = "BIT", length = 1)
-//    private boolean supprimer;
-//
-//    private LocalDateTime rowvers;
-//    @Basic
-//    private String userLogin;
 //    @OneToMany(mappedBy = "typeEvenement", fetch = FetchType.LAZY)
 //    @JsonManagedReference
 //    private Set<Opcvm> opcvms = new HashSet<>();

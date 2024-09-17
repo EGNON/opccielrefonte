@@ -13,7 +13,7 @@ import com.ged.dto.opcciel.OpcvmDto;
 import com.ged.entity.opcciel.Opcvm;
 import com.ged.entity.standard.*;
 import com.ged.entity.titresciel.FormeJuridiqueOpc;
-import com.ged.entity.titresciel.TypeAffectationTitre;
+import com.ged.entity.titresciel.TypeAffectationVL;
 import com.ged.mapper.opcciel.OpcvmMapper;
 import com.ged.response.ResponseHandler;
 import com.ged.service.opcciel.OpcvmService;
@@ -453,8 +453,8 @@ public class OpcvmServiceImpl implements OpcvmService {
             }*/
 
             if(opcvmDto.getTypeAffectationTitre() != null && opcvmDto.getTypeAffectationTitre().getIdTypeAffectation() != null) {
-                TypeAffectationTitre typeAffectationTitre = typeAffectationTitreDao.findById(opcvmDto.getTypeAffectationTitre().getIdTypeAffectation())
-                        .orElseThrow(() -> new com.ged.advice.EntityNotFoundException(TypeAffectationTitre.class, "id", opcvmDto.getTypeAffectationTitre().getIdTypeAffectation().toString()));
+                TypeAffectationVL typeAffectationTitre = typeAffectationTitreDao.findById(opcvmDto.getTypeAffectationTitre().getIdTypeAffectation())
+                        .orElseThrow(() -> new com.ged.advice.EntityNotFoundException(TypeAffectationVL.class, "id", opcvmDto.getTypeAffectationTitre().getIdTypeAffectation().toString()));
                 opcvm.setTypeAffectationTitre(typeAffectationTitre);
             }
 
@@ -520,8 +520,8 @@ public class OpcvmServiceImpl implements OpcvmService {
             }*/
 
             if(opcvmDto.getTypeAffectationTitre() != null && opcvmDto.getTypeAffectationTitre().getIdTypeAffectation() != null) {
-                TypeAffectationTitre typeAffectationTitre = typeAffectationTitreDao.findById(opcvmDto.getTypeAffectationTitre().getIdTypeAffectation())
-                        .orElseThrow(() -> new com.ged.advice.EntityNotFoundException(TypeAffectationTitre.class, "id", opcvmDto.getTypeAffectationTitre().getIdTypeAffectation().toString()));
+                TypeAffectationVL typeAffectationTitre = typeAffectationTitreDao.findById(opcvmDto.getTypeAffectationTitre().getIdTypeAffectation())
+                        .orElseThrow(() -> new com.ged.advice.EntityNotFoundException(TypeAffectationVL.class, "id", opcvmDto.getTypeAffectationTitre().getIdTypeAffectation().toString()));
                 opcvm.setTypeAffectationTitre(typeAffectationTitre);
             }
 
