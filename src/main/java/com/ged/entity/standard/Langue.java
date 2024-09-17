@@ -10,7 +10,7 @@ import java.util.Set;
 @Table(name = "T_Langue", schema = "Parametre")
 public class Langue extends Base {
     @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idLangue;
     //OPCCIEL1
     private String codeLangue;

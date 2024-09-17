@@ -187,6 +187,7 @@ public class UtilisateurServiceImpl implements UtilisateurService {
                     cleUtilisateurRole.setIdRole(rolePermission.getRole().getIdRole());
                     utilisateurRole.setId(cleUtilisateurRole);
                     utilisateurRole.setUtilisateur(utilisateur);
+                    utilisateurRole.setSupprimer(false);
                     utilisateurRole.setRole(rolePermission.getRole());
                     utilisateurRoleDao.save(utilisateurRole);
 

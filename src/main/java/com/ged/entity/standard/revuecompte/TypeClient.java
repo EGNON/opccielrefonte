@@ -7,7 +7,7 @@ import jakarta.persistence.*;
 @Table(name = "T_TypeClient", schema = "Nomenclature")
 public class TypeClient extends Base {
     @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idTypeClient;
     private String libelleTypeClient;
     private String code;
