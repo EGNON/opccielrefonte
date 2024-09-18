@@ -4,10 +4,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.ged.dao.security.RolePermissionDao;
 import com.ged.dao.security.UtilisateurDao;
-import com.ged.entity.security.RolePermission;
-import com.ged.entity.security.Utilisateur;
-import com.ged.entity.security.UtilisateurRolePermission;
-import com.ged.entity.standard.CleUtilisateurRolePermission;
 import com.ged.service.opcciel.OpcvmService;
 import com.ged.service.standard.*;
 import org.modelmapper.ModelMapper;
@@ -26,8 +22,6 @@ import org.springframework.stereotype.Component;
 import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.HashSet;
-import java.util.Set;
 
 @SpringBootApplication
 @EnableScheduling
@@ -79,6 +73,7 @@ public class OpccielWebApplication implements CommandLineRunner {
 	public ObjectMapper objectMapper(){
 		return new ObjectMapper().registerModule(new JavaTimeModule());
 	}
+
 	@Override
 	public void run(String... args)  throws SQLException, IOException {
 		File f = new File(chemin);
@@ -86,10 +81,7 @@ public class OpccielWebApplication implements CommandLineRunner {
 		{
 			f.mkdir();
 		}
-
-
 		//A NE PAS ENLEVER
 		utilisateurService.registerDefaultUsers();
-
 	}
 }

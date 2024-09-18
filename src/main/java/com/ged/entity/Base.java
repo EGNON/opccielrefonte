@@ -5,6 +5,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MappedSuperclass;
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -21,7 +22,7 @@ public abstract class Base implements Serializable {
     @Column(name = "dateDernModifServeur")
     private LocalDateTime dateDernModifServeur;
     private LocalDateTime dateDernModifClient;
-    @Column(insertable = false)
+    @ColumnDefault("0")
     private Boolean supprimer = false;
     @Column(insertable = false, updatable = false)
     private byte[] rowvers;

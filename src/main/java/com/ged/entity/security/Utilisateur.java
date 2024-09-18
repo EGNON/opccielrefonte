@@ -44,18 +44,6 @@ public class Utilisateur extends Personnel implements UserDetails{
     private LocalDateTime dateDernModifMotdePasse;
     @Column(nullable = true)
     private long numeroUtilisateur;
-//    @CreationTimestamp
-//    private LocalDateTime dateCreationServeur;
-//    @UpdateTimestamp
-//    private LocalDateTime dateDernModifServeur;
-//    @UpdateTimestamp
-//    private LocalDateTime dateDernModifClient;
-//    private long numLigne;
-//    @Column(columnDefinition = "BIT", length = 1)
-//    private boolean supprimer;
-//    private LocalDateTime rowvers;
-//    @Basic
-//    private String userLogin;
     //FIN
     private String authToken;
     private String refreshToken;

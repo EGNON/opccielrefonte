@@ -5,6 +5,7 @@ import com.ged.dao.security.UtilisateurDao;
 import com.ged.dao.security.UtilisateurRoleDao;
 import com.ged.dao.security.UtilisateurRolePermissionDao;
 import com.ged.dao.standard.*;
+import com.ged.dto.security.Utilisateur2Dto;
 import com.ged.dto.security.UtilisateurDto;
 import com.ged.entity.security.RolePermission;
 import com.ged.entity.security.Utilisateur;
@@ -71,6 +72,13 @@ public class UtilisateurServiceImpl implements UtilisateurService {
     @Override
     public UtilisateurDto findByUsername(String username) {
         return null;
+    }
+
+    @Override
+    public Page<Utilisateur2Dto> afficherUsers(int page, int size) {
+        PageRequest pageRequest = PageRequest.of(page, size);
+        Page<Utilisateur> utilisateurPage = utilisateurDao.findAll(pageRequest);
+        return new PageImpl<>(utilisateurPage.getContent().stream().map(utilisateurMapper::deUtilisateur2).collect(Collectors.toList()), pageRequest, utilisateurPage.getTotalElements());
     }
 
     @Override
@@ -177,6 +185,7 @@ public class UtilisateurServiceImpl implements UtilisateurService {
                 utilisateur.setDenomination(utilisateur.getNom() + " " + utilisateur.getPrenom());
                 utilisateur.setPassword1(passwordEncoder.encode(utilisateur.getPassword1()));
                 utilisateur.setPassword(passwordEncoder.encode(utilisateur.getPassword()));
+                utilisateur.setSupprimer(false);
                 utilisateur = utilisateurDao.save(utilisateur);
                 utilisateur.getPermissions().clear();
                 for (RolePermission rolePermission : rolePermissionDao.findAll()) {

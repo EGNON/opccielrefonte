@@ -1,4 +1,4 @@
-package com.ged.controller.standard.parametre;
+package com.ged.controller.security;
 
 import com.ged.dao.security.RoleDao;
 import com.ged.datatable.DatatableParameters;

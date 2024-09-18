@@ -1,0 +1,100 @@
+### LOGIN TO THE APPLICATION
+POST http://localhost:9090/opcciel/api/auth/login
+Content-Type: application/json
+
+{
+  "username": "user",
+  "password": "user1"
+}
+
+> {% client.global.set("auth-token", response.body.data.authToken); %}
+
+### GET USER BY TOKEN
+GET http://localhost:9090/opcciel/api/auth/me
+Content-Type: application/json
+Authorization: Bearer {{ auth-token }}
+
+### GET ALL USERS BY GET
+GET http://localhost:9090/opcciel/api/utilisateurs
+Content-Type: application/json
+Authorization: Bearer {{ auth-token }}
+
+### GET ALL USERS BY POST
+POST http://localhost:9090/opcciel/api/utilisateurs/datatable/list
+Content-Type: application/json
+Authorization: Bearer {{ auth-token }}
+
+{
+  "draw": 1,
+  "columns": [
+    {
+      "data": "denomination",
+      "name": "",
+      "searchable": true,
+      "orderable": true,
+      "search": {
+        "value": "",
+        "regex": false,
+        "fixed": []
+      }
+    },
+    {
+      "data": "sexe",
+      "name": "",
+      "searchable": true,
+      "orderable": true,
+      "search": {
+        "value": "",
+        "regex": false,
+        "fixed": []
+      }
+    },
+    {
+      "data": "mobile1",
+      "name": "",
+      "searchable": true,
+      "orderable": true,
+      "search": {
+        "value": "",
+        "regex": false,
+        "fixed": []
+      }
+    },
+    {
+      "data": "emailPro",
+      "name": "",
+      "searchable": true,
+      "orderable": true,
+      "search": {
+        "value": "",
+        "regex": false,
+        "fixed": []
+      }
+    },
+    {
+      "data": 4,
+      "name": "",
+      "searchable": true,
+      "orderable": false,
+      "search": {
+        "value": "",
+        "regex": false,
+        "fixed": []
+      }
+    }
+  ],
+  "order": [
+    {
+      "column": 0,
+      "dir": "asc",
+      "name": ""
+    }
+  ],
+  "start": 0,
+  "length": 10,
+  "search": {
+    "value": "",
+    "regex": false,
+    "fixed": []
+  }
+}

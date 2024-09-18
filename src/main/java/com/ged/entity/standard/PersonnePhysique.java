@@ -61,6 +61,7 @@ public class PersonnePhysique extends Personne{
     @Column(nullable =true)
     private BigDecimal tauxRetroCourRach;
     private LocalDateTime dateFermetureCompte;
+    @Column(name = "motifFermetureCompte")
     private String motifFermetureCompte;
     private String pieceFermetureCompte;
     private String statutCompte;

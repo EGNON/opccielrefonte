@@ -1,7 +1,8 @@
-package com.ged.controller.standard.parametre;
+package com.ged.controller.security;
 
 import com.ged.datatable.DataTablesResponse;
 import com.ged.datatable.DatatableParameters;
+import com.ged.dto.security.Utilisateur2Dto;
 import com.ged.dto.security.UtilisateurDto;
 import com.ged.service.standard.UtilisateurService;
 import org.springframework.data.domain.Page;
@@ -38,11 +39,11 @@ public class UtilisateurController {
     }
 
     @PostMapping("/datatable/list")
-    public DataTablesResponse<UtilisateurDto> datatableList(@RequestBody DatatableParameters datatableParameters)
+    public DataTablesResponse<Utilisateur2Dto> datatableList(@RequestBody DatatableParameters datatableParameters)
     {
-        Page<UtilisateurDto> utilisateurDtoPage = utilisateurService.afficherUtilisateurs(datatableParameters.getStart()/datatableParameters.getLength(), datatableParameters.getLength());
-        List<UtilisateurDto> content = utilisateurDtoPage.getContent().stream().collect(Collectors.toList());
-        DataTablesResponse<UtilisateurDto> dataTablesResponse = new DataTablesResponse<>();
+        Page<Utilisateur2Dto> utilisateurDtoPage = utilisateurService.afficherUsers(datatableParameters.getStart()/datatableParameters.getLength(), datatableParameters.getLength());
+        List<Utilisateur2Dto> content = utilisateurDtoPage.getContent().stream().collect(Collectors.toList());
+        DataTablesResponse<Utilisateur2Dto> dataTablesResponse = new DataTablesResponse<>();
         dataTablesResponse.setDraw(datatableParameters.getDraw());
         dataTablesResponse.setRecordsFiltered(((int) utilisateurDtoPage.getTotalElements()));
         dataTablesResponse.setRecordsTotal(((int) utilisateurDtoPage.getTotalElements()));
