@@ -26,9 +26,9 @@ import java.util.stream.Collectors;
 @Service
 @Transactional
 public class TransactionServiceImpl implements TransactionService {
-    @Autowired
+    /*@Autowired
     @Qualifier("opccielEntityManagerFactory")
-    private EntityManager emOpcciel;
+    private EntityManager emOpcciel;*/
     private final TransactionDao transactionDao;
     private final TransactionMapper transactionMapper;
 

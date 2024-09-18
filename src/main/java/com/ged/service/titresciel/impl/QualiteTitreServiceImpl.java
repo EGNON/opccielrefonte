@@ -27,9 +27,9 @@ import java.util.stream.Collectors;
 @Service
 @Transactional
 public class QualiteTitreServiceImpl implements QualiteTitreService {
-    @Autowired
+    /*@Autowired
     @Qualifier("opccielEntityManagerFactory")
-    private EntityManager emOpcciel;
+    private EntityManager emOpcciel;*/
     private final QualiteTitreDao QualiteTitreDao;
     private final QualiteTitreMapper QualiteTitreMapper;
 

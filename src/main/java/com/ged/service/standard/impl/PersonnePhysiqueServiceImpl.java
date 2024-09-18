@@ -49,9 +49,9 @@ import java.util.stream.Collectors;
 public class PersonnePhysiqueServiceImpl implements PersonnePhysiqueService {
     private static final Logger LOGGER = LoggerFactory.getLogger(PersonneMoraleServiceImpl.class);
 
-    @Autowired
+    /*@Autowired
     @Qualifier("opccielEntityManagerFactory")
-    private EntityManager emOpcciel;
+    private EntityManager emOpcciel;*/
 
     @Value("${media.upload.dir}")
     public String PATH;
@@ -772,7 +772,7 @@ public class PersonnePhysiqueServiceImpl implements PersonnePhysiqueService {
         List<Object> result = new ArrayList<>();
         List<Object[]> personnePhysiques;
         //Se connecter à opcciel1 et récupérer les différentes catégories
-        try {
+        /*try {
             StoredProcedureQuery query = emOpcciel.createStoredProcedureQuery("[Parametre].[PS_PersonnePhysique_SP]");
             //Déclarer les différents paramètres
             query.registerStoredProcedureParameter("IdPersonne", String.class, ParameterMode.IN);
@@ -1070,7 +1070,7 @@ public class PersonnePhysiqueServiceImpl implements PersonnePhysiqueService {
         }
         finally {
             LOGGER.info("Importation Personnes Physiques terminées...");
-        }
+        }*/
 
         return result;
     }

@@ -25,9 +25,9 @@ import java.util.stream.Collectors;
 
 @Service
 public class TypeTitreServiceImpl implements TypeTitreService {
-    @Autowired
+    /*@Autowired
     @Qualifier("opccielEntityManagerFactory")
-    private EntityManager emOpcciel;
+    private EntityManager emOpcciel;*/
     private final TypeTitreDao typeTitreDao;
     private final TypeTitreMapper typeTitreMapper;
 

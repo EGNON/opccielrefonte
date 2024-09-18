@@ -17,7 +17,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
 
-@Configuration
+/*@Configuration
 @EnableTransactionManagement
 @EnableJpaRepositories(
         entityManagerFactoryRef = "refonteEntityManagerFactory",
@@ -31,7 +31,7 @@ import javax.sql.DataSource;
                 "com.ged.dao.security"
         }
 )
-@PropertySource({"classpath:application-dev.properties"})
+@PropertySource({"classpath:application-dev.properties"})*/
 public class RefonteDbConfig {
     @Bean(name="refonteDataSource")
     @Primary

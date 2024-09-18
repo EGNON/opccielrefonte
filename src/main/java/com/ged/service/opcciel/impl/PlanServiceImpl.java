@@ -28,9 +28,9 @@ import java.util.stream.Collectors;
 @Service
 @Transactional
 public class PlanServiceImpl implements PlanService {
-    @Autowired
+    /*@Autowired
     @Qualifier("opccielEntityManagerFactory")
-    private EntityManager emOpcciel;
+    private EntityManager emOpcciel;*/
     private final PlanDao planDao;
     private final PlanMapper planMapper;
 

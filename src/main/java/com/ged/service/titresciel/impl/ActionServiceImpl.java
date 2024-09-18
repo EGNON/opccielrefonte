@@ -40,9 +40,9 @@ import java.util.stream.Collectors;
 @Service
 @Transactional
 public class ActionServiceImpl implements ActionService {
-    @Autowired
+    /*@Autowired
     @Qualifier("opccielEntityManagerFactory")
-    private EntityManager emOpcciel;
+    private EntityManager emOpcciel;*/
     private final ActionDao actionDao;
     private final ActionMapper actionMapper;
     private final PaysDao paysDao;

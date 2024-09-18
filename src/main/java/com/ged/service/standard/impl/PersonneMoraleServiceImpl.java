@@ -10,7 +10,6 @@ import com.ged.datatable.DatatableParameters;
 import com.ged.dto.standard.EnvoiMailDto;
 import com.ged.dto.standard.MailDto;
 import com.ged.dto.standard.PersonneMoraleDto;
-import com.ged.entity.standard.FormeJuridique;
 import com.ged.entity.standard.revuecompte.CategorieClient;
 import com.ged.entity.standard.revuecompte.SousTypeClient;
 import com.ged.mapper.standard.PersonneMoraleMapper;
@@ -20,14 +19,9 @@ import com.ged.service.standard.PersonneMoraleService;
 import com.ged.dao.crm.DegreDao;
 import com.ged.entity.crm.Degre;
 import com.ged.entity.standard.*;
-import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityNotFoundException;
-import jakarta.persistence.ParameterMode;
-import jakarta.persistence.StoredProcedureQuery;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -50,9 +44,9 @@ import java.util.stream.Collectors;
 public class PersonneMoraleServiceImpl implements PersonneMoraleService {
     private static final Logger LOGGER = LoggerFactory.getLogger(PersonneMoraleServiceImpl.class);
 
-    @Autowired
+    /*@Autowired
     @Qualifier("opccielEntityManagerFactory")
-    private EntityManager emOpcciel;
+    private EntityManager emOpcciel;*/
 
     private final PersonneMoraleDao personneMoraleDao;
     private final PersonneMoraleMapper personneMoraleMapper;
@@ -433,7 +427,7 @@ public class PersonneMoraleServiceImpl implements PersonneMoraleService {
         List<Object> result = new ArrayList<>();
         List<Object[]> personneMorales;
         //Se connecter à opcciel1 et récupérer les différentes catégories
-        try {
+        /*try {
             StoredProcedureQuery query = emOpcciel.createStoredProcedureQuery("[Parametre].[PS_PersonneMorale_SP]");
             //Déclarer les différents paramètres
             query.registerStoredProcedureParameter("IdPersonne", String.class, ParameterMode.IN);
@@ -725,7 +719,7 @@ public class PersonneMoraleServiceImpl implements PersonneMoraleService {
             }
         } catch (Exception e) {
             throw e;
-        }
+        }*/
 
         return result;
     }

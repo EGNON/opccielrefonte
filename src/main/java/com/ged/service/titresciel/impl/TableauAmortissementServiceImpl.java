@@ -28,9 +28,9 @@ import java.util.stream.Collectors;
 @Service
 @Transactional
 public class TableauAmortissementServiceImpl implements TableauAmortissementService {
-    @Autowired
+    /*@Autowired
     @Qualifier("opccielEntityManagerFactory")
-    private EntityManager emOpcciel;
+    private EntityManager emOpcciel;*/
     private final TableauAmortissementDao TableauAmortissementDao;
     private final TableauAmortissementMapper TableauAmortissementMapper;
 

@@ -21,9 +21,9 @@ import java.util.List;
 @Service
 @Transactional
 public class RisqueServiceImpl implements RisqueService {
-    @Autowired
+    /*@Autowired
     @Qualifier("refonteEntityManagerFactory")
-    private EntityManager emOpcciel;
+    private EntityManager emOpcciel;*/
 
     @Override
     public ResponseEntity<Object> afficherAlpha(DatatableParameters parameters) {
@@ -33,7 +33,7 @@ public class RisqueServiceImpl implements RisqueService {
     @Override
     public List<AlphaDto> afficherAlpha(long idOpcvm,String anneeDebut,String anneeFin) {
 
-            Sort sort=Sort.by(Sort.Direction.ASC,"dateOuverture");
+            /*Sort sort=Sort.by(Sort.Direction.ASC,"dateOuverture");
             List<Object[]>  alpha;
             List<AlphaDto>  alphaDto=new ArrayList<>();
 //        emOpcciel = emOpcciel.getEntityManagerFactory().createEntityManager();
@@ -64,7 +64,9 @@ public class RisqueServiceImpl implements RisqueService {
                 aph.setAlpha(Double.valueOf(o[5].toString()));
                 alphaDto.add(aph);
             }
-            return alphaDto;
+            return alphaDto;*/
+
+        return null;
     }
 
     @Override
@@ -74,7 +76,7 @@ public class RisqueServiceImpl implements RisqueService {
         List<RatioSharpDto>  ratioSharpDto=new ArrayList<>();
 //        emOpcciel = emOpcciel.getEntityManagerFactory().createEntityManager();
 
-        StoredProcedureQuery query = emOpcciel.createStoredProcedureQuery("[Impression].[PS_RATIOSHARP_SP]");
+        /*StoredProcedureQuery query = emOpcciel.createStoredProcedureQuery("[Impression].[PS_RATIOSHARP_SP]");
         //Déclarer les différents paramètres
         query.registerStoredProcedureParameter("idOpcvm", Long.class, ParameterMode.IN);
         query.registerStoredProcedureParameter("anneeDebut", String.class, ParameterMode.IN);
@@ -99,7 +101,7 @@ public class RisqueServiceImpl implements RisqueService {
             aph.setVolatiliteAnnualisee(Double.valueOf(o[4].toString()));
             aph.setSharp(Double.valueOf(o[5].toString()));
             ratioSharpDto.add(aph);
-        }
+        }*/
         return ratioSharpDto;
     }
 

@@ -29,9 +29,9 @@ public class CategoriePersonneServiceImpl implements CategoriePersonneService {
     private EntityManager emRefonte;
 
 //    @PersistenceContext
-    @Autowired
+    /*@Autowired
     @Qualifier("opccielEntityManagerFactory")
-    private EntityManager emOpcciel;
+    private EntityManager emOpcciel;*/
 
     private final CategoriePersonneDao categoriePersonneDao;
     private final CategoriePersonneMapper categoriePersonneMapper;
@@ -43,7 +43,7 @@ public class CategoriePersonneServiceImpl implements CategoriePersonneService {
 
     @Override
     public Object[] get() {
-        try {
+        /*try {
             StoredProcedureQuery query = emOpcciel.createStoredProcedureQuery("[dbo].[GET_TOTAL_CAT_BY_LIBELLE]")
                     .registerStoredProcedureParameter(
                             "libelle",
@@ -55,7 +55,9 @@ public class CategoriePersonneServiceImpl implements CategoriePersonneService {
             return query.getResultList().toArray();
         } catch (Exception e) {
             throw e;
-        }
+        }*/
+
+        return null;
     }
 
     @Override
@@ -111,7 +113,7 @@ public class CategoriePersonneServiceImpl implements CategoriePersonneService {
     @Override
     public List<Object> createCategorieFromOppciel1() {
         List<Object> result = new ArrayList<>();
-        List<Object[]> categories;
+        /*List<Object[]> categories;
         //Se connecter à opcciel1 et récupérer les différentes catégories
         try {
             StoredProcedureQuery query = emOpcciel.createStoredProcedureQuery("[Parametre].[PS_Categorie_SP]");
@@ -150,7 +152,7 @@ public class CategoriePersonneServiceImpl implements CategoriePersonneService {
             }
         } catch (Exception e) {
             throw e;
-        }
+        }*/
 
         return result;
     }

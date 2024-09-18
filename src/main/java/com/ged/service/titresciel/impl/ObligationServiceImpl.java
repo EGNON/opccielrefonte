@@ -40,9 +40,9 @@ import java.util.stream.Collectors;
 @Service
 //@Transactional
 public class ObligationServiceImpl implements ObligationService {
-    @Autowired
+    /*@Autowired
     @Qualifier("opccielEntityManagerFactory")
-    private EntityManager emOpcciel;
+    private EntityManager emOpcciel;*/
     private final ObligationDao ObligationDao;
     private final ObligationMapper ObligationMapper;
     private final PaysDao paysDao;
@@ -243,7 +243,8 @@ public class ObligationServiceImpl implements ObligationService {
                     HttpStatus.MULTI_STATUS,
                     e);
         } finally {
-            emOpcciel.close();
+            //emOpcciel.close();
+            System.out.println("C'est la fin !!!");
         }
     }
 

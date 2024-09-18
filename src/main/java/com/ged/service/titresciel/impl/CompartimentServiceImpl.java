@@ -26,9 +26,9 @@ import java.util.stream.Collectors;
 @Service
 @Transactional
 public class CompartimentServiceImpl implements CompartimentService {
-    @Autowired
+    /*@Autowired
     @Qualifier("opccielEntityManagerFactory")
-    private EntityManager emOpcciel;
+    private EntityManager emOpcciel;*/
     private final CompartimentDao CompartimentDao;
     private final CompartimentMapper CompartimentMapper;
 

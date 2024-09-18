@@ -33,9 +33,9 @@ import java.util.stream.Collectors;
 
 @Service
 public class ModeleEcritureServiceImpl implements ModeleEcritureService {
-    @Autowired
+    /*@Autowired
     @Qualifier("opccielEntityManagerFactory")
-    private EntityManager emOpcciel;
+    private EntityManager emOpcciel;*/
     private final ModeleEcritureDao ModeleEcritureDao;
     private final FormuleDao formuleDao;
     private final ModeleEcritureFormuleDao modeleEcritureFormuleDao;

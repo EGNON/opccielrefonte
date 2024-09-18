@@ -26,9 +26,9 @@ import java.util.stream.Collectors;
 
 @Service
 public class TypeOperationServiceImpl implements TypeOperationService {
-    @Autowired
+    /*@Autowired
     @Qualifier("opccielEntityManagerFactory")
-    private EntityManager emOpcciel;
+    private EntityManager emOpcciel;*/
     private final TypeOperationDao typeOperationDao;
     private final TypeOperationMapper typeOperationMapper;
 

@@ -27,9 +27,9 @@ import java.util.stream.Collectors;
 @Service
 @Transactional
 public class BanqueServiceImpl implements BanqueService {
-    @Autowired
+    /*@Autowired
     @Qualifier("opccielEntityManagerFactory")
-    private EntityManager emOpcciel;
+    private EntityManager emOpcciel;*/
     private final BanqueDao banqueDao;
     private final BanqueMapper banqueMapper;
 

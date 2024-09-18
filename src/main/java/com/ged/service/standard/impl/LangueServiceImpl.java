@@ -31,9 +31,9 @@ import java.util.stream.Collectors;
 
 @Service
 public class LangueServiceImpl implements LangueService {
-    @Autowired
+    /*@Autowired
     @Qualifier("opccielEntityManagerFactory")
-    private EntityManager emOpcciel;
+    private EntityManager emOpcciel;*/
     private final LangueDao langueDao;
     private final PaysDao paysDao;
     private final PaysLangueDao paysLangueDao;

@@ -25,9 +25,9 @@ import java.util.stream.Collectors;
 
 @Service
 public class TypeRubriqueServiceImpl implements TypeRubriqueService {
-    @Autowired
+    /*@Autowired
     @Qualifier("opccielEntityManagerFactory")
-    private EntityManager emOpcciel;
+    private EntityManager emOpcciel;*/
     private final TypeRubriqueDao typeRubriqueDao;
     private final TypeRubriqueMapper typeRubriqueMapper;
 

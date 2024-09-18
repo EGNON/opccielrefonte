@@ -27,9 +27,9 @@ import java.util.stream.Collectors;
 @Service
 @Transactional
 public class SeanceOpcvmServiceImpl implements SeanceOpcvmService {
-    @Autowired
+    /*@Autowired
     @Qualifier("opccielEntityManagerFactory")
-    private EntityManager emOpcciel;
+    private EntityManager emOpcciel;*/
     private final SeanceOpcvmDao SeanceOpcvmDao;
     private final SeanceOpcvmMapper SeanceOpcvmMapper;
 

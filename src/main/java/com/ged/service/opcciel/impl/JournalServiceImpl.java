@@ -26,9 +26,9 @@ import java.util.stream.Collectors;
 
 @Service
 public class JournalServiceImpl implements JournalService {
-    @Autowired
+    /*@Autowired
     @Qualifier("opccielEntityManagerFactory")
-    private EntityManager emOpcciel;
+    private EntityManager emOpcciel;*/
     private final JournalDao journalDao;
     private final PlanDao planDao;
     private final JournalMapper journalMapper;

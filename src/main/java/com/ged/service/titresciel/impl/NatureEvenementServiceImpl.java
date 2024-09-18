@@ -26,9 +26,9 @@ import java.util.stream.Collectors;
 @Service
 @Transactional
 public class NatureEvenementServiceImpl implements NatureEvenementService {
-    @Autowired
+    /*@Autowired
     @Qualifier("opccielEntityManagerFactory")
-    private EntityManager emOpcciel;
+    private EntityManager emOpcciel;*/
     private final NatureEvenementDao natureEvenementDao;
     private final NatureEvenementMapper natureEvenementMapper;
 

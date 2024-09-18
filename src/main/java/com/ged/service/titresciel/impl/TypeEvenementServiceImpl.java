@@ -27,9 +27,9 @@ import java.util.stream.Collectors;
 @Service
 @Transactional
 public class TypeEvenementServiceImpl implements TypeEvenementService {
-    @Autowired
+    /*@Autowired
     @Qualifier("opccielEntityManagerFactory")
-    private EntityManager emOpcciel;
+    private EntityManager emOpcciel;*/
     private final TypeEvenementDao typeEvenementDao;
     private final TypeEvenementMapper typeEvenementMapper;
 

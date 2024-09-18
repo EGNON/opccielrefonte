@@ -26,9 +26,9 @@ import java.util.stream.Collectors;
 @Service
 @Transactional
 public class SecteurBoursierServiceImpl implements SecteurBoursierService {
-    @Autowired
+    /*@Autowired
     @Qualifier("opccielEntityManagerFactory")
-    private EntityManager emOpcciel;
+    private EntityManager emOpcciel;*/
     private final SecteurBoursierDao secteurBoursierDao;
     private final SecteurBoursierMapper secteurBoursierMapper;
 

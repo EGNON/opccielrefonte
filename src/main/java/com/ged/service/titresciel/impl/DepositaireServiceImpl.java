@@ -27,9 +27,9 @@ import java.util.stream.Collectors;
 @Service
 @Transactional
 public class DepositaireServiceImpl implements DepositaireService {
-    @Autowired
+    /*@Autowired
     @Qualifier("opccielEntityManagerFactory")
-    private EntityManager emOpcciel;
+    private EntityManager emOpcciel;*/
     private final DepositaireDao DepositaireDao;
     private final DepositaireMapper depositaireMapper;
 
