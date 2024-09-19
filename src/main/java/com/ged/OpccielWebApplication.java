@@ -2,9 +2,6 @@ package com.ged;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import com.ged.dao.security.RolePermissionDao;
-import com.ged.dao.security.UtilisateurDao;
-import com.ged.service.opcciel.OpcvmService;
 import com.ged.service.standard.*;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,24 +26,8 @@ import java.sql.SQLException;
 @EnableAsync
 //@ConfigurationProperties(prefix = "spring.mail")
 public class OpccielWebApplication implements CommandLineRunner {
-	@Autowired
-	RolePermissionDao rolePermissionDao;
-	@Autowired
-	DocumentService documentService;
-	@Autowired
-	DocumentMailService documentMailService;
 	@Value("${file.upload-dir}")
 	private String chemin;
-	@Autowired
-	StatistiqueService statistiqueService;
-	@Autowired
-	PersonnePhysiqueService personnePhysiqueService;
-	@Autowired
-	PersonneMoraleService personneMoraleService;
-	@Autowired
-	OpcvmService opcvmService;
-	@Autowired
-	UtilisateurDao utilisateurDao;
 	@Autowired
 	UtilisateurService utilisateurService;
 

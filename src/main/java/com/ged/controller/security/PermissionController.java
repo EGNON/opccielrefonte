@@ -4,7 +4,7 @@ import com.ged.dao.security.PermissionDao;
 import com.ged.dao.security.RoleDao;
 import com.ged.datatable.DatatableParameters;
 import com.ged.dto.security.PermissionDto;
-import com.ged.entity.standard.CleRolePermission;
+import com.ged.entity.security.CleRolePermission;
 import com.ged.entity.security.Permission;
 import com.ged.entity.security.Role;
 import com.ged.entity.security.RolePermission;

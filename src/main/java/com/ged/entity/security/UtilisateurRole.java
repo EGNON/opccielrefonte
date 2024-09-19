@@ -1,7 +1,6 @@
 package com.ged.entity.security;
 
 import com.ged.entity.Base;
-import com.ged.entity.standard.CleUtilisateurRole;
 import jakarta.persistence.*;
 
 import java.util.Objects;

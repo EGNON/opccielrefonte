@@ -1,4 +1,4 @@
-package com.ged.entity.standard;
+package com.ged.entity.security;
 
 import jakarta.persistence.Embeddable;
 
