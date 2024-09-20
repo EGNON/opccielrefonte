@@ -27,9 +27,9 @@ import java.util.stream.Collectors;
 @Service
 @Transactional
 public class TypeObligationServiceImpl implements TypeObligationService {
-    @Autowired
+    /*@Autowired
     @Qualifier("opccielEntityManagerFactory")
-    private EntityManager emOpcciel;
+    private EntityManager emOpcciel;*/
     private final TypeObligationDao typeObligationDao;
     private final TypeObligationMapper typeObligationMapper;
 

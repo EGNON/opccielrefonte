@@ -2,7 +2,6 @@ package com.ged.entity.security;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ged.entity.Base;
-import com.ged.entity.standard.CleRolePermission;
 import jakarta.persistence.*;
 
 @Entity

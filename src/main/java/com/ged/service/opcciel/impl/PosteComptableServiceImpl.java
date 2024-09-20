@@ -32,9 +32,9 @@ import java.util.stream.Collectors;
 @Service
 @Transactional
 public class PosteComptableServiceImpl implements PosteComptableService {
-    @Autowired
+    /*@Autowired
     @Qualifier("opccielEntityManagerFactory")
-    private EntityManager emOpcciel;
+    private EntityManager emOpcciel;*/
     private final PosteComptableDao posteComptableDao;
     private final PlanDao planDao;
     private final PosteComptableMapper posteComptableMapper;

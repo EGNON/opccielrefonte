@@ -28,9 +28,9 @@ import java.util.stream.Collectors;
 @Service
 @Transactional
 public class NormalAssimileServiceImpl implements NormalAssimileService {
-    @Autowired
+    /*@Autowired
     @Qualifier("opccielEntityManagerFactory")
-    private EntityManager emOpcciel;
+    private EntityManager emOpcciel;*/
     private final NormalAssimileDao normalAssimileDao;
     private final NormalAssimileMapper normalAssimileMapper;
 

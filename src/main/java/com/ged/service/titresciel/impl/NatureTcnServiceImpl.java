@@ -27,9 +27,9 @@ import java.util.stream.Collectors;
 @Service
 @Transactional
 public class NatureTcnServiceImpl implements NatureTcnService {
-    @Autowired
+    /*@Autowired
     @Qualifier("opccielEntityManagerFactory")
-    private EntityManager emOpcciel;
+    private EntityManager emOpcciel;*/
     private final NatureTcnDao NatureTcnDao;
     private final NatureTcnMapper NatureTcnMapper;
 

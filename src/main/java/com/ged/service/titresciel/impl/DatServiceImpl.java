@@ -40,9 +40,9 @@ import java.util.stream.Collectors;
 @Service
 @Transactional
 public class DatServiceImpl implements DatService {
-    @Autowired
+    /*@Autowired
     @Qualifier("opccielEntityManagerFactory")
-    private EntityManager emOpcciel;
+    private EntityManager emOpcciel;*/
     private final DatDao DatDao;
     private final DatMapper DatMapper;
     private final PaysDao paysDao;

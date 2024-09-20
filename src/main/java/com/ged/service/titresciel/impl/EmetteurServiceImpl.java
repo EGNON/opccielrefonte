@@ -27,9 +27,9 @@ import java.util.stream.Collectors;
 @Service
 @Transactional
 public class EmetteurServiceImpl implements EmetteurService {
-    @Autowired
+    /*@Autowired
     @Qualifier("opccielEntityManagerFactory")
-    private EntityManager emOpcciel;
+    private EntityManager emOpcciel;*/
     private final EmetteurDao EmetteurDao;
     private final EmetteurMapper emetteurMapper;
 

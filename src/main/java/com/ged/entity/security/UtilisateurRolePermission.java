@@ -2,7 +2,6 @@ package com.ged.entity.security;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.ged.entity.Base;
-import com.ged.entity.standard.CleUtilisateurRolePermission;
 import jakarta.persistence.*;
 
 @Entity

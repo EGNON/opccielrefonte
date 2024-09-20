@@ -27,9 +27,9 @@ import java.util.stream.Collectors;
 @Service
 @Transactional
 public class OrganismeServiceImpl implements OrganismeService {
-    @Autowired
+    /*@Autowired
     @Qualifier("opccielEntityManagerFactory")
-    private EntityManager emOrganismeciel;
+    private EntityManager emOrganismeciel;*/
     private final OrganismeDao OrganismeDao;
     private final OrganismeMapper OrganismeMapper;
 

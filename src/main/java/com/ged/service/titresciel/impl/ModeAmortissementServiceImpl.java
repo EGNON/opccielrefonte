@@ -27,9 +27,9 @@ import java.util.stream.Collectors;
 @Service
 @Transactional
 public class ModeAmortissementServiceImpl implements ModeAmortissementService {
-    @Autowired
+    /*@Autowired
     @Qualifier("opccielEntityManagerFactory")
-    private EntityManager emOpcciel;
+    private EntityManager emOpcciel;*/
     private final ModeAmortissementDao ModeAmortissementDao;
     private final ModeAmortissementMapper ModeAmortissementMapper;
 

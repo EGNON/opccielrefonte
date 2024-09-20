@@ -25,9 +25,9 @@ import java.util.stream.Collectors;
 
 @Service
 public class TypePositionServiceImpl implements TypePositionService {
-    @Autowired
+    /*@Autowired
     @Qualifier("opccielEntityManagerFactory")
-    private EntityManager emOpcciel;
+    private EntityManager emOpcciel;*/
     private final TypePositionDao typePositionDao;
     private final TypePositionMapper typePositionMapper;
 

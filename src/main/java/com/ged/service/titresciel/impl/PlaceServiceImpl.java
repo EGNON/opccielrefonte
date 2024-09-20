@@ -28,9 +28,9 @@ import java.util.stream.Collectors;
 @Service
 @Transactional
 public class PlaceServiceImpl implements PlaceService {
-    @Autowired
+    /*@Autowired
     @Qualifier("opccielEntityManagerFactory")
-    private EntityManager emOpcciel;
+    private EntityManager emOpcciel;*/
     private final PlaceDao placeDao;
     private final PlaceMapper placeMapper;
 

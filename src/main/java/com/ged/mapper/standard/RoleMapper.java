@@ -3,7 +3,6 @@ package com.ged.mapper.standard;
 import com.ged.dto.security.*;
 import com.ged.dto.standard.*;
 import com.ged.entity.security.*;
-import com.ged.entity.standard.*;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 

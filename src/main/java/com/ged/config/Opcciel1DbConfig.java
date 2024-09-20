@@ -17,14 +17,14 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
 
-@Configuration
+/*@Configuration
 @EnableJpaRepositories(
         entityManagerFactoryRef = "opccielEntityManagerFactory",
         transactionManagerRef = "opccielTransactionManager",
         basePackages = {"com.ged.dao.opcciel1"}
 )
 @PropertySource({"classpath:application.properties"})
-@EnableTransactionManagement
+@EnableTransactionManagement*/
 public class Opcciel1DbConfig {
     @Bean(name="opccielDataSource")
     @ConfigurationProperties(prefix="spring.opcciel1.datasource")

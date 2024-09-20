@@ -26,9 +26,9 @@ import java.util.stream.Collectors;
 @Service
 @Transactional
 public class TypeActionServiceImpl implements TypeActionService {
-    @Autowired
+    /*@Autowired
     @Qualifier("opccielEntityManagerFactory")
-    private EntityManager emOpcciel;
+    private EntityManager emOpcciel;*/
     private final TypeActionDao typeActionDao;
     private final TypeActionMapper typeActionMapper;
 

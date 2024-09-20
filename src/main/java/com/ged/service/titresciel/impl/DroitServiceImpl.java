@@ -40,9 +40,9 @@ import java.util.stream.Collectors;
 @Service
 @Transactional
 public class DroitServiceImpl implements DroitService {
-    @Autowired
+    /*@Autowired
     @Qualifier("opccielEntityManagerFactory")
-    private EntityManager emOpcciel;
+    private EntityManager emOpcciel;*/
     private final DroitDao DroitDao;
     private final DroitMapper DroitMapper;
     private final PaysDao paysDao;

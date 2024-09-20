@@ -40,9 +40,9 @@ import java.util.stream.Collectors;
 @Service
 @Transactional
 public class TcnServiceImpl implements TcnService {
-    @Autowired
+    /*@Autowired
     @Qualifier("opccielEntityManagerFactory")
-    private EntityManager emOpcciel;
+    private EntityManager emOpcciel;*/
     private final TcnDao TcnDao;
     private final TcnMapper TcnMapper;
     private final PaysDao paysDao;

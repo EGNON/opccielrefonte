@@ -28,9 +28,9 @@ import java.util.stream.Collectors;
 @Service
 @Transactional
 public class StatutTitreServiceImpl implements StatutTitreService {
-    @Autowired
+    /*@Autowired
     @Qualifier("opccielEntityManagerFactory")
-    private EntityManager emOpcciel;
+    private EntityManager emOpcciel;*/
     private final StatutTitreDao StatutTitreDao;
     private final StatutTitreMapper StatutTitreMapper;
 

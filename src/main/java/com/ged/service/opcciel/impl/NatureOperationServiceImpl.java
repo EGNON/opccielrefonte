@@ -30,9 +30,9 @@ import java.util.stream.Collectors;
 
 @Service
 public class NatureOperationServiceImpl implements NatureOperationService {
-    @Autowired
+    /*@Autowired
     @Qualifier("opccielEntityManagerFactory")
-    private EntityManager emOpcciel;
+    private EntityManager emOpcciel;*/
     private final NatureOperationDao natureOperationDao;
     private final NatureOperationMapper natureOperationMapper;
     private final TypeOperationDao typeOperationDao;

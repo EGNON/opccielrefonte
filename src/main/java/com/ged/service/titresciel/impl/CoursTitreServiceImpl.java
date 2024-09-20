@@ -31,9 +31,9 @@ import java.util.stream.Collectors;
 @Service
 //@Transactional
 public class CoursTitreServiceImpl implements CoursTitreService {
-    @Autowired
+    /*@Autowired
     @Qualifier("opccielEntityManagerFactory")
-    private EntityManager emOpcciel;
+    private EntityManager emOpcciel;*/
     private final CoursTitreDao coursTitreDao;
     private final CoursTitreMapper coursTitreMapper;
 

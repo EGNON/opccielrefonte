@@ -40,9 +40,9 @@ import java.util.stream.Collectors;
 @Service
 @Transactional
 public class OpcServiceImpl implements OpcService {
-    @Autowired
+    /*@Autowired
     @Qualifier("opccielEntityManagerFactory")
-    private EntityManager emOpcciel;
+    private EntityManager emOpcciel;*/
     private final OpcDao OpcDao;
     private final OpcMapper OpcMapper;
     private final PaysDao paysDao;

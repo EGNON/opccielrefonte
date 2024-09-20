@@ -35,9 +35,9 @@ import java.util.stream.Collectors;
 
 @Service
 public class OpcvmServiceImpl implements OpcvmService {
-    @Autowired
+    /*@Autowired
     @Qualifier("opccielEntityManagerFactory")
-    private EntityManager emOpcciel;
+    private EntityManager emOpcciel;*/
     /*@Autowired
     @Qualifier("titrescielEntityManagerFactory")
     private EntityManager emTitre;*/

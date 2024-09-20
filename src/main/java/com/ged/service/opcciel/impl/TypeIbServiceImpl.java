@@ -25,9 +25,9 @@ import java.util.stream.Collectors;
 
 @Service
 public class TypeIbServiceImpl implements TypeIbService {
-    @Autowired
+    /*@Autowired
     @Qualifier("opccielEntityManagerFactory")
-    private EntityManager emOpcciel;
+    private EntityManager emOpcciel;*/
     private final TypeIbDao typeIbDao;
     private final TypeIbMapper typeIbMapper;
 

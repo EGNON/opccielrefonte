@@ -25,9 +25,9 @@ import java.util.stream.Collectors;
 
 @Service
 public class TypeFormuleServiceImpl implements TypeFormuleService {
-    @Autowired
+    /*@Autowired
     @Qualifier("opccielEntityManagerFactory")
-    private EntityManager emOpcciel;
+    private EntityManager emOpcciel;*/
     private final TypeFormuleDao typeFormuleDao;
     private final TypeFormuleMapper typeFormuleMapper;
 

@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-@Transactional
+//@Transactional
 public class RoleServiceImpl implements RoleService {
     private final RoleDao roleDao;
     private final RoleMapper roleMapper;

@@ -25,9 +25,9 @@ import java.util.stream.Collectors;
 @Service
 @Transactional
 public class ProfessionServiceImpl implements ProfessionService {
-    @Autowired
+    /*@Autowired
     @Qualifier("opccielEntityManagerFactory")
-    private EntityManager emOpcciel;
+    private EntityManager emOpcciel;*/
 
     private final ProfessionDao professionDao;
     private final ProfessionMapper professionMapper;
@@ -89,7 +89,7 @@ public class ProfessionServiceImpl implements ProfessionService {
     @Override
     public List<Object> createProfessionFromOppciel1() {
         List<Object> result = new ArrayList<>();
-        List<Object[]> categories;
+        /*List<Object[]> categories;
         //Se connecter à opcciel1 et récupérer les différentes catégories
         try {
             StoredProcedureQuery query = emOpcciel.createStoredProcedureQuery("[Parametre].[PS_Profession_SP]");
@@ -124,7 +124,7 @@ public class ProfessionServiceImpl implements ProfessionService {
             }
         } catch (Exception e) {
             throw e;
-        }
+        }*/
 
         return result;
     }
