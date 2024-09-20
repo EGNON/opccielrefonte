@@ -55,7 +55,7 @@ public class PermissionController {
         return permissionService.afficherTous(params);
     }
 
-    @PostConstruct
+    /*@PostConstruct
     @EventListener(ApplicationReadyEvent.class)
     public void generatePermissions() {
         String[] permissions = {
@@ -97,7 +97,7 @@ public class PermissionController {
             role.setPermissions(rolePermissions);
             roleDao.save(role);
         }
-    }
+    }*/
 
     @PostMapping
     @PreAuthorize("hasAuthority('ROLE_PERMISSION')")

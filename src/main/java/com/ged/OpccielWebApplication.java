@@ -82,6 +82,6 @@ public class OpccielWebApplication implements CommandLineRunner {
 			f.mkdir();
 		}
 		//A NE PAS ENLEVER
-		utilisateurService.registerDefaultUsers();
+		//utilisateurService.registerDefaultUsers();
 	}
 }
