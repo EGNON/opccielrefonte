@@ -1,5 +1,6 @@
 package com.ged.entity.titresciel;
 
+import com.ged.entity.Base;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
@@ -7,7 +8,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "T_TableauAmortissement", schema = "Titre")
-public class TableauAmortissement {
+public class TableauAmortissement extends Base {
     @EmbeddedId
     private CleTableauAmortissement idTabAmortissement;
     @ManyToOne(fetch = FetchType.LAZY)
@@ -24,13 +25,13 @@ public class TableauAmortissement {
     private BigDecimal annuiteTotale;
     private BigDecimal montantFinPeriode;
     private Boolean estGenere;
-    private LocalDateTime dateCreationServeur;
+/*    private LocalDateTime dateCreationServeur;
     private LocalDateTime dateDernModifServeur;
     private LocalDateTime dateDernModifClient;
     private String userLogin;
     private Long numLigne;
-    private Boolean supprimer;
-    private byte[] rowvers;
+    private Boolean supprimer;*/
+    //private byte[] rowvers;
 
     public CleTableauAmortissement getIdTabAmortissement() {
         return idTabAmortissement;
@@ -128,7 +129,7 @@ public class TableauAmortissement {
         this.estGenere = estGenere;
     }
 
-    public LocalDateTime getDateCreationServeur() {
+   /* public LocalDateTime getDateCreationServeur() {
         return dateCreationServeur;
     }
 
@@ -175,14 +176,14 @@ public class TableauAmortissement {
     public void setSupprimer(Boolean supprimer) {
         this.supprimer = supprimer;
     }
-
-    public byte[] getRowvers() {
+*/
+    /*public byte[] getRowvers() {
         return rowvers;
     }
 
     public void setRowvers(byte[] rowvers) {
         this.rowvers = rowvers;
-    }
+    }*/
 
     @Override
     public String toString() {

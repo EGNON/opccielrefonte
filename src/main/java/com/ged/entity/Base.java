@@ -25,7 +25,7 @@ public abstract class Base implements Serializable {
     @ColumnDefault("0")
     private Boolean supprimer = false;
     @Column(insertable = false, updatable = false)
-    private byte[] rowvers;
+    //private byte[] rowvers;
     private String creerPar;
     private String modifierPar;
     @ManyToOne
@@ -99,11 +99,11 @@ public abstract class Base implements Serializable {
         this.supprimer = supprimer;
     }
 
-    public byte[] getRowvers() {
+/*    public byte[] getRowvers() {
         return rowvers;
     }
 
     public void setRowvers(byte[] rowvers) {
         this.rowvers = rowvers;
-    }
+    }*/
 }

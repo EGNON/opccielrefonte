@@ -1,6 +1,7 @@
 package com.ged.entity.titresciel;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.ged.entity.Base;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
@@ -8,7 +9,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "TJ_CoursTitre", schema = "Titre")
-public class CoursTitre {
+public class CoursTitre extends Base {
     @EmbeddedId
     private CleCoursTitre idCoursTitre;
     @ManyToOne(fetch = FetchType.LAZY)
@@ -29,13 +30,13 @@ public class CoursTitre {
     private Integer resteDemande;
     private BigDecimal coursReference;
     private Boolean estValider;
-    private LocalDateTime dateCreationServeur;
+    /*private LocalDateTime dateCreationServeur;
     private LocalDateTime dateDernModifServeur;
     private LocalDateTime dateDernModifClient;
     private String userLogin;
     private Long numLigne;
-    private Boolean supprimer;
-    private byte[] rowvers;
+    private Boolean supprimer;*/
+    //private byte[] rowvers;
     private Boolean estVerifie1;
     private LocalDateTime dateVerification1;
     private String userLoginVerificateur1;
@@ -155,7 +156,7 @@ public class CoursTitre {
         this.estValider = estValider;
     }
 
-    public LocalDateTime getDateCreationServeur() {
+    /*public LocalDateTime getDateCreationServeur() {
         return dateCreationServeur;
     }
 
@@ -202,14 +203,14 @@ public class CoursTitre {
     public void setSupprimer(Boolean supprimer) {
         this.supprimer = supprimer;
     }
-
-    public byte[] getRowvers() {
-        return rowvers;
-    }
-
-    public void setRowvers(byte[] rowvers) {
-        this.rowvers = rowvers;
-    }
+*/
+//    public byte[] getRowvers() {
+//        return rowvers;
+//    }
+//
+//    public void setRowvers(byte[] rowvers) {
+//        this.rowvers = rowvers;
+//    }
 
     public Boolean getEstVerifie1() {
         return estVerifie1;
