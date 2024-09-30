@@ -3,6 +3,7 @@ package com.ged.service.opcciel.impl;
 import com.ged.advice.EntityNotFoundException;
 import com.ged.dao.opcciel.comptabilite.JournalDao;
 import com.ged.dao.opcciel.comptabilite.PlanDao;
+import com.ged.datatable.DataTablesResponse;
 import com.ged.datatable.DatatableParameters;
 import com.ged.dto.opcciel.comptabilite.JournalDto;
 import com.ged.entity.opcciel.comptabilite.Journal;
@@ -11,6 +12,7 @@ import com.ged.mapper.opcciel.JournalMapper;
 import com.ged.response.ResponseHandler;
 import com.ged.service.opcciel.JournalService;
 import jakarta.persistence.EntityManager;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
@@ -47,11 +49,12 @@ public class JournalServiceImpl implements JournalService {
             Pageable pageable = PageRequest.of(
                     parameters.getStart()/ parameters.getLength(), parameters.getLength(),sort);
             Page<Journal> JournalPage;
-            /*if (parameters.getSearch() != null && !StringUtils.isEmpty(parameters.getSearch().getValue())) {
+            if (parameters.getSearch() != null && !StringUtils.isEmpty(parameters.getSearch().getValue())) {
                 JournalPage = journalDao.rechercher(
                         parameters.getSearch().getValue(),
                         pageable);
-            } else {
+            }
+            else {
                 JournalPage = journalDao.findBySupprimer(false,pageable);
             }
 
@@ -60,11 +63,11 @@ public class JournalServiceImpl implements JournalService {
             dataTablesResponse.setDraw(parameters.getDraw());
             dataTablesResponse.setRecordsFiltered((int)JournalPage.getTotalElements());
             dataTablesResponse.setRecordsTotal((int)JournalPage.getTotalElements());
-            dataTablesResponse.setData(content);*/
+            dataTablesResponse.setData(content);
             return ResponseHandler.generateResponse(
                     "Liste des journaux par page datatable",
                     HttpStatus.OK,
-                    null);
+                    dataTablesResponse);
         }
         catch(Exception e)
         {

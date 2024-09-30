@@ -4,6 +4,7 @@ import com.ged.advice.EntityNotFoundException;
 import com.ged.dao.opcciel.comptabilite.CorrespondanceDao;
 import com.ged.dao.opcciel.comptabilite.IbDao;
 import com.ged.dao.opcciel.comptabilite.PlanDao;
+import com.ged.datatable.DataTablesResponse;
 import com.ged.datatable.DatatableParameters;
 import com.ged.dto.opcciel.comptabilite.CorrespondanceDto;
 import com.ged.entity.opcciel.comptabilite.CleCorrespondance;
@@ -14,6 +15,7 @@ import com.ged.mapper.opcciel.CorrespondanceMapper;
 import com.ged.projection.CorrespondanceProjection;
 import com.ged.response.ResponseHandler;
 import com.ged.service.opcciel.CorrespondanceService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -23,6 +25,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
@@ -47,7 +50,7 @@ public class CorrespondanceServiceImpl implements CorrespondanceService {
             Pageable pageable = PageRequest.of(
                     parameters.getStart()/ parameters.getLength(), parameters.getLength());
             Page<CorrespondanceProjection> correspondancePage;
-            /*if(parameters.getSearch() != null && !StringUtils.isEmpty(parameters.getSearch().getValue()))
+            if(parameters.getSearch() != null && !StringUtils.isEmpty(parameters.getSearch().getValue()))
             {
                 correspondancePage = correspondanceDao.rechercher(parameters.getSearch().getValue(), pageable);
             }
@@ -59,11 +62,11 @@ public class CorrespondanceServiceImpl implements CorrespondanceService {
             dataTablesResponse.setDraw(parameters.getDraw());
             dataTablesResponse.setRecordsFiltered((int)correspondancePage.getTotalElements());
             dataTablesResponse.setRecordsTotal((int)correspondancePage.getTotalElements());
-            dataTablesResponse.setData(content);*/
+            dataTablesResponse.setData(content);
             return ResponseHandler.generateResponse(
                     "Liste des correspondances par page datatable",
                     HttpStatus.OK,
-                    null);
+                    dataTablesResponse);
         }
         catch(Exception e)
         {
@@ -118,7 +121,7 @@ public class CorrespondanceServiceImpl implements CorrespondanceService {
         try {
             Correspondance correspondance = correspondanceMapper.deCorrespondanceDto(correspondanceDto);
             CleCorrespondance cleCorrespondance=new CleCorrespondance();
-            cleCorrespondance.setNumeroCompteComptable(correspondanceDto.getNumCompteComptable());
+            cleCorrespondance.setNumeroCompteComptable(correspondanceDto.getNumeroCompteComptable());
             cleCorrespondance.setCodeRubrique(correspondanceDto.getCodeRubrique());
             cleCorrespondance.setCodePosition(correspondanceDto.getCodePosition());
             cleCorrespondance.setCodePlan(correspondanceDto.getPlan().getCodePlan());
@@ -154,7 +157,7 @@ public class CorrespondanceServiceImpl implements CorrespondanceService {
             Correspondance correspondance = correspondanceMapper.deCorrespondanceDto(correspondanceDto);
             correspondance.setSupprimer(false);
             CleCorrespondance cleCorrespondance=new CleCorrespondance();
-            cleCorrespondance.setNumeroCompteComptable(correspondanceDto.getNumCompteComptable());
+            cleCorrespondance.setNumeroCompteComptable(correspondanceDto.getNumeroCompteComptable());
             cleCorrespondance.setCodeRubrique(correspondanceDto.getCodeRubrique());
             cleCorrespondance.setCodePosition(correspondanceDto.getCodePosition());
             cleCorrespondance.setCodePlan(correspondanceDto.getPlan().getCodePlan());

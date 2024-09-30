@@ -12,8 +12,8 @@ public class CompteComptable extends Base {
     @JoinColumn(name = "codePlan", referencedColumnName = "codePlan")
     @MapsId("codePlan")
     private Plan plan;
-    /*@Column(insertable = false,updatable = false)
-    private String numCompteComptable;*/
+    @Column(insertable = false,updatable = false)
+    private String numCompteComptable;
 	private String libelleCompteComptable;
     private Character sensMvt;
     private boolean estMvt;
@@ -31,13 +31,13 @@ public class CompteComptable extends Base {
         this.idCompteComptable = idCompteComptable;
     }
 
-    /*public String getNumCompteComptable() {
+    public String getNumCompteComptable() {
         return numCompteComptable;
     }
 
     public void setNumCompteComptable(String numCompteComptable) {
         this.numCompteComptable = numCompteComptable;
-    }*/
+    }
 
     public Plan getPlan() {
         return plan;

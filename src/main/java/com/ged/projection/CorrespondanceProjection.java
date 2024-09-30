@@ -4,7 +4,7 @@ import com.ged.entity.opcciel.comptabilite.Ib;
 import com.ged.entity.opcciel.comptabilite.Plan;
 
 public interface CorrespondanceProjection {
-    String getNumCompteComptable() ;
+    String getNumeroCompteComptable() ;
     String getLibelleCompteComptable() ;
     Double getTotalBlocage();
     Double getValeur();

@@ -62,7 +62,7 @@ public class CorrespondanceController {
             @PathVariable String codePlan,
             @PathVariable String numCompteComptable)
     {
-        correspondanceDto.setNumCompteComptable(numCompteComptable);
+        correspondanceDto.setNumeroCompteComptable(numCompteComptable);
         correspondanceDto.setCodePosition(codePosition);
         correspondanceDto.setCodeRubrique(codeRubrique);
         correspondanceDto.getIb().setCodeIB(codeIB);

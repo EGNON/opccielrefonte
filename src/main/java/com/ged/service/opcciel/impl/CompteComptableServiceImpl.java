@@ -3,6 +3,7 @@ package com.ged.service.opcciel.impl;
 import com.ged.advice.EntityNotFoundException;
 import com.ged.dao.opcciel.comptabilite.CompteComptableDao;
 import com.ged.dao.opcciel.comptabilite.PlanDao;
+import com.ged.datatable.DataTablesResponse;
 import com.ged.datatable.DatatableParameters;
 import com.ged.dto.opcciel.comptabilite.CompteComptableDto;
 import com.ged.entity.opcciel.comptabilite.CleCompteComptable;
@@ -11,11 +12,15 @@ import com.ged.entity.opcciel.comptabilite.Plan;
 import com.ged.mapper.opcciel.CompteComptableMapper;
 import com.ged.response.ResponseHandler;
 import com.ged.service.opcciel.CompteComptableService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -37,23 +42,23 @@ public class CompteComptableServiceImpl implements CompteComptableService {
             Pageable pageable = PageRequest.of(
                     parameters.getStart()/ parameters.getLength(), parameters.getLength());
             Page<CompteComptable> compteComptablePage = null;
-            /*if(parameters.getSearch() != null && !StringUtils.isEmpty(parameters.getSearch().getValue()))
+            if(parameters.getSearch() != null && !StringUtils.isEmpty(parameters.getSearch().getValue()))
             {
                 compteComptablePage = compteComptableDao.rechercher(parameters.getSearch().getValue(), pageable);
             }
             else {
                 compteComptablePage = compteComptableDao.findBySupprimerOrderByNumCompteComptableAsc(false,pageable);
-            }*/
-            /*List<CompteComptableDto> content = compteComptablePage.getContent().stream().map(compteComptableMapper::deCompteComptable).collect(Collectors.toList());
+            }
+            List<CompteComptableDto> content = compteComptablePage.getContent().stream().map(compteComptableMapper::deCompteComptable).collect(Collectors.toList());
             DataTablesResponse<CompteComptableDto> dataTablesResponse = new DataTablesResponse<>();
             dataTablesResponse.setDraw(parameters.getDraw());
             dataTablesResponse.setRecordsFiltered((int)compteComptablePage.getTotalElements());
             dataTablesResponse.setRecordsTotal((int)compteComptablePage.getTotalElements());
-            dataTablesResponse.setData(content);*/
+            dataTablesResponse.setData(content);
             return ResponseHandler.generateResponse(
                     "Liste des comptes comptables par page datatable",
                     HttpStatus.OK,
-                    null);
+                    dataTablesResponse);
         }
         catch(Exception e)
         {
@@ -68,15 +73,10 @@ public class CompteComptableServiceImpl implements CompteComptableService {
     public ResponseEntity<Object> afficherTous() {
         try {
             Sort sort=Sort.by(Sort.Direction.ASC,"numCompteComptable");
-            /*return ResponseHandler.generateResponse(
-                    "Liste de tous les comptes comptables",
-                    HttpStatus.OK,
-                    compteComptableDao.findBySupprimerOrderByNumCompteComptableAsc(false).stream().map(compteComptableMapper::deCompteComptable).collect(Collectors.toList()));*/
-
             return ResponseHandler.generateResponse(
                     "Liste de tous les comptes comptables",
                     HttpStatus.OK,
-                    null);
+                    compteComptableDao.findBySupprimerOrderByNumCompteComptableAsc(false).stream().map(compteComptableMapper::deCompteComptable).collect(Collectors.toList()));
         }
         catch(Exception e)
         {
@@ -91,15 +91,10 @@ public class CompteComptableServiceImpl implements CompteComptableService {
     public ResponseEntity<Object> afficherSelonNumCompteComptable(String numCompteComptable) {
         try {
             Sort sort=Sort.by(Sort.Direction.ASC,"numCompteComptable");
-            /*return ResponseHandler.generateResponse(
-                    "compte comptable dont numero="+numCompteComptable,
-                    HttpStatus.OK,
-                   compteComptableMapper.deCompteComptable(compteComptableDao.findByNumCompteComptable(numCompteComptable)));*/
-
             return ResponseHandler.generateResponse(
                     "compte comptable dont numero="+numCompteComptable,
                     HttpStatus.OK,
-                    null);
+                   compteComptableMapper.deCompteComptable(compteComptableDao.findByNumCompteComptable(numCompteComptable)));
         }
         catch(Exception e)
         {
@@ -118,23 +113,23 @@ public class CompteComptableServiceImpl implements CompteComptableService {
             Pageable pageable = PageRequest.of(
                     parameters.getStart()/ parameters.getLength(), parameters.getLength());
             Page<CompteComptable> compteComptablePage;
-//             if(parameters.getSearch() != null && !StringUtils.isEmpty(parameters.getSearch().getValue()))
-//            {
-//              compteComptablePage = compteComptableDao.rechercher(parameters.getSearch().getValue(), pageable);
-//            }
-//            else {
-//            compteComptablePage = compteComptableDao.findByPlanAndSupprimerOrderByNumCompteComptableAsc(plan,false,pageable);
-//            }
-            /*List<CompteComptableDto> content = compteComptablePage.getContent().stream().map(compteComptableMapper::deCompteComptable).collect(Collectors.toList());
+             if(parameters.getSearch() != null && !StringUtils.isEmpty(parameters.getSearch().getValue()))
+            {
+              compteComptablePage = compteComptableDao.rechercher(parameters.getSearch().getValue(), pageable);
+            }
+            else {
+            compteComptablePage = compteComptableDao.findByPlanAndSupprimerOrderByNumCompteComptableAsc(plan,false,pageable);
+            }
+            List<CompteComptableDto> content = compteComptablePage.getContent().stream().map(compteComptableMapper::deCompteComptable).collect(Collectors.toList());
             DataTablesResponse<CompteComptableDto> dataTablesResponse = new DataTablesResponse<>();
             dataTablesResponse.setDraw(parameters.getDraw());
             dataTablesResponse.setRecordsFiltered((int)compteComptablePage.getTotalElements());
             dataTablesResponse.setRecordsTotal((int)compteComptablePage.getTotalElements());
-            dataTablesResponse.setData(content);*/
+            dataTablesResponse.setData(content);
             return ResponseHandler.generateResponse(
                     "Liste des comptes comptables selon plan",
                     HttpStatus.OK,
-                    null);
+                    dataTablesResponse);
         }
         catch(Exception e)
         {
@@ -149,15 +144,10 @@ public class CompteComptableServiceImpl implements CompteComptableService {
     public ResponseEntity<Object> afficherSelonPlan(String codePlan) {
         try {
             Plan plan=planDao.findById(codePlan).orElseThrow();
-            /*return ResponseHandler.generateResponse(
-                    "Compte Comptable selon plan = " + codePlan,
-                    HttpStatus.OK,
-                    compteComptableDao.findByPlanAndSupprimerOrderByNumCompteComptableAsc(plan,false).stream().map(compteComptableMapper::deCompteComptable).collect(Collectors.toList()));*/
-
             return ResponseHandler.generateResponse(
                     "Compte Comptable selon plan = " + codePlan,
                     HttpStatus.OK,
-                    null);
+                    compteComptableDao.findByPlanAndSupprimerOrderByNumCompteComptableAsc(plan,false).stream().map(compteComptableMapper::deCompteComptable).collect(Collectors.toList()));
         }
         catch (Exception e)
         {
@@ -172,15 +162,11 @@ public class CompteComptableServiceImpl implements CompteComptableService {
     public ResponseEntity<Object> afficherSelonPlanEtEstMvt(String codePlan, boolean estMvt) {
         try {
             Plan plan=planDao.findById(codePlan).orElseThrow();
-            /*return ResponseHandler.generateResponse(
-                    "Compte Comptable selon plan = " + codePlan,
-                    HttpStatus.OK,
-                    compteComptableDao.findByPlanAndEstMvtAndSupprimerOrderByNumCompteComptableAsc(plan,estMvt,false).stream().map(compteComptableMapper::deCompteComptable).collect(Collectors.toList()));*/
-
             return ResponseHandler.generateResponse(
                     "Compte Comptable selon plan = " + codePlan,
                     HttpStatus.OK,
-                    null);
+                    compteComptableDao.findByPlanAndEstMvtAndSupprimerOrderByNumCompteComptableAsc(plan,estMvt,false).stream().map(compteComptableMapper::deCompteComptable).collect(Collectors.toList()));
+
         }
         catch (Exception e)
         {

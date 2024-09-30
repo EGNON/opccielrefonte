@@ -26,9 +26,9 @@ public class Correspondance extends Base {
     @JoinColumn(name = "codeIB")
     @MapsId("codeIB")
     private Ib ib;
-    /*@Column(insertable = false,updatable = false)
-    @MapsId("numCompteComptable")
-    private String numCompteComptable;*/
+    @Column(insertable = false,updatable = false)
+    //@MapsId("numeroCompteComptable")
+    private String numeroCompteComptable;
 
     public Correspondance() {
     }
@@ -89,11 +89,11 @@ public class Correspondance extends Base {
         this.codePosition = codePosition;
     }
 
-    /*public String getNumCompteComptable() {
-        return numCompteComptable;
+    public String getNumeroCompteComptable() {
+        return numeroCompteComptable;
     }
 
-    public void setNumCompteComptable(String numCompteComptable) {
-        this.numCompteComptable = numCompteComptable;
-    }*/
+    public void setNumeroCompteComptable(String numeroCompteComptable) {
+        this.numeroCompteComptable = numeroCompteComptable;
+    }
 }

@@ -35,6 +35,7 @@ public interface JournalDao extends JpaRepository<Journal,String> {
             "order by j.libelleJournal ASC ")
     List<JournalProjection> afficherJournal();*/
     List<Journal> findBySupprimerOrderByLibelleJournalAsc(boolean supprimer);
+    Page<Journal> findBySupprimer(boolean supprimer,Pageable pageable);
     @Query(value = "select j from Journal j " +
             "where (j.codeJournal like %:valeur% or j.libelleJournal like %:valeur%) " +
             "and j.supprimer=false")

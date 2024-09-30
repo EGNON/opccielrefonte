@@ -1,6 +1,7 @@
 package com.ged.entity.opcciel.comptabilite;
 
 import com.ged.entity.Base;
+import com.ged.entity.titresciel.TypeTitre;
 import jakarta.persistence.*;
 
 @Entity
@@ -16,10 +17,10 @@ public class ModeleEcritureNatureOperation extends Base {
     @JoinColumn(name = "codeNatureOperation")
     @MapsId("codeNatureOperation")
     private  NatureOperation natureOperation;
-    /*@ManyToOne()
+    @ManyToOne()
     @JoinColumn(name = "codeTypeTitre")
     @MapsId("codeTypeTitre")
-    private TypeTitre typeTitre;*/
+    private TypeTitre typeTitre;
 	private int numeroOrdre;
 
     public ModeleEcritureNatureOperation() {
@@ -49,13 +50,13 @@ public class ModeleEcritureNatureOperation extends Base {
         this.natureOperation = natureOperation;
     }
 
-    /*public TypeTitre getTypeTitre() {
+    public TypeTitre getTypeTitre() {
         return typeTitre;
     }
 
     public void setTypeTitre(TypeTitre typeTitre) {
         this.typeTitre = typeTitre;
-    }*/
+    }
 
     public int getNumeroOrdre() {
         return numeroOrdre;

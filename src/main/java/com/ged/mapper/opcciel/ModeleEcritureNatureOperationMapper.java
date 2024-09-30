@@ -32,9 +32,9 @@ public class ModeleEcritureNatureOperationMapper {
         if(ModeleEcritureNatureOperation.getNatureOperation()!=null){
             ModeleEcritureNatureOperationDto.setNatureOperation(NatureOperationMapper.deNatureOperation(ModeleEcritureNatureOperation.getNatureOperation()));
         }
-        /*if(ModeleEcritureNatureOperation.getTypeTitre()!=null){
+        if(ModeleEcritureNatureOperation.getTypeTitre()!=null){
             ModeleEcritureNatureOperationDto.setTypeTitre(typeTitreMapper.deTypeTitre(ModeleEcritureNatureOperation.getTypeTitre()));
-        }*/
+        }
         return ModeleEcritureNatureOperationDto;
     }
 

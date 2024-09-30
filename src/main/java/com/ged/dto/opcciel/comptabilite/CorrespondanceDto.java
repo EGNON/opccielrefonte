@@ -6,7 +6,7 @@ import com.ged.entity.Base;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class CorrespondanceDto extends Base {
-    private String numCompteComptable;
+    private String numeroCompteComptable;
     private String libelleCompteComptable;
     private String codeRubrique;
     private String codePosition;
@@ -51,12 +51,12 @@ public class CorrespondanceDto extends Base {
         this.ib = ib;
     }
 
-    public String getNumCompteComptable() {
-        return numCompteComptable;
+    public String getNumeroCompteComptable() {
+        return numeroCompteComptable;
     }
 
-    public void setNumCompteComptable(String numCompteComptable) {
-        this.numCompteComptable = numCompteComptable;
+    public void setNumeroCompteComptable(String numeroCompteComptable) {
+        this.numeroCompteComptable = numeroCompteComptable;
     }
 
     public String getCodeRubrique() {
