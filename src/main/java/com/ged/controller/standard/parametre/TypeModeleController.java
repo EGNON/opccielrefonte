@@ -9,7 +9,6 @@ import jakarta.annotation.PostConstruct;
 import jakarta.validation.Valid;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
-import org.springframework.core.annotation.Order;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

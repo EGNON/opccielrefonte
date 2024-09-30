@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/arrondissements")
-@PreAuthorize("hasAuthority('ROLE_ARRONDISSEMENT')")
+//@PreAuthorize("hasAuthority('ROLE_ARRONDISSEMENT')")
 public class ArrondissementController {
     private final ArrondissementService arrondissementService;
 

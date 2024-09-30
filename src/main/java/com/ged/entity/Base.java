@@ -7,9 +7,11 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MappedSuperclass;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.io.Serializable;
+import java.sql.Types;
 import java.time.LocalDateTime;
 
 @MappedSuperclass
@@ -25,6 +27,7 @@ public abstract class Base implements Serializable {
     @ColumnDefault("0")
     private Boolean supprimer = false;
     /*@Column(insertable = false, updatable = false)
+    @JdbcTypeCode(Types.TIMESTAMP)
     private byte[] rowvers;*/
     private String creerPar;
     private String modifierPar;

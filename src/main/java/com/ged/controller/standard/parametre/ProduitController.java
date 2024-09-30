@@ -11,7 +11,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.http.MediaType;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
@@ -37,14 +36,17 @@ public class ProduitController {
                                             @RequestParam(value = "size",defaultValue = "10") int size){
         return produitService.afficherProduits(page,size);
     }
+
     @GetMapping("/liste")
     public List<ProduitDto> afficherTous(){
         return produitService.afficherProduits();
     }
+
     @GetMapping("/{idProduit}")
     public ProduitDto afficherProduit(@PathVariable("idProduit") long idProduit){
         return produitService.afficherProduit(idProduit);
     }
+
     @PostMapping("/datatable/list")
     public DataTablesResponse<ProduitDto> datatableList(@RequestBody DatatableParameters datatableParameters)
     {
@@ -67,16 +69,19 @@ public class ProduitController {
 
         return dataTablesResponse;
     }
+
     @PostMapping()
     public ProduitDto ajouter(@RequestBody ProduitDto produitDto)
     {
         return produitService.creerProduit(produitDto);
     }
+
     @PutMapping("/{id}")
     public ProduitDto modifier(@PathVariable long id, @RequestBody ProduitDto produitDto){
         produitDto.setIdProd(id);
         return produitService.modifierProduit(produitDto);
     }
+
     @DeleteMapping("/{id}")
     public void Supprimer(@PathVariable long id){
         produitService.supprimerProduit(id);

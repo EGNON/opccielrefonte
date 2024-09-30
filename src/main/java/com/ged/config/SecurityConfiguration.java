@@ -31,11 +31,10 @@ import java.util.List;
 @EnableMethodSecurity(prePostEnabled = true, securedEnabled = true)
 public class SecurityConfiguration {
     private final AppUserDetailsService userDetailsService;
-    private final JwtAuthenticationFilter jwtAuthenticationFilter;
+//    private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
-    public SecurityConfiguration(AppUserDetailsService userDetailsService, JwtAuthenticationFilter jwtAuthenticationFilter) {
+    public SecurityConfiguration(AppUserDetailsService userDetailsService) {
         this.userDetailsService = userDetailsService;
-        this.jwtAuthenticationFilter = jwtAuthenticationFilter;
     }
 
     @Bean
@@ -66,10 +65,10 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain securityFilterChainGlobalAPI(HttpSecurity httpSecurity) throws Exception {
         sharedSecurityConfiguration(httpSecurity);
-        httpSecurity.authorizeHttpRequests((authorize) -> authorize
+        /*httpSecurity.authorizeHttpRequests((authorize) -> authorize
                 .requestMatchers("/", "/auth/**").permitAll()
                 .anyRequest().authenticated()
-        ).addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+        ).addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);*/
         return httpSecurity.build();
     }
 

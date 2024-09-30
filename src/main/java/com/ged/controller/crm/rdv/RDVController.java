@@ -107,16 +107,19 @@ public class RDVController {
     {
         return rdvService.creerRDV(rdvDto);
     }
+
     @PutMapping("/{id}")
     public RDVDto modifier(@PathVariable long id, @RequestBody RDVDto rdvDto){
         rdvDto.setIdRdv(id);
         return rdvService.modifierRDV(rdvDto);
     }
+
     @PutMapping("/reelle/{id}")
     public int modifierUnePartieDeRDV(@PathVariable long id, @RequestBody RDVDto rdvDto){
         rdvDto.setIdRdv(id);
         return rdvService.modifierUnePartieDeRDV(rdvDto);
     }
+
     @DeleteMapping("/{id}")
     public void Supprimer(@PathVariable long id){
 

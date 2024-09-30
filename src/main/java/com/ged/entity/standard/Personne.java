@@ -56,26 +56,26 @@ public class Personne extends Base {
     private String CodePays;
     private String CodeLangue;
     @Column(columnDefinition="BIT")
-    private boolean EstActifPersonne = false;
+    private Boolean EstActifPersonne = false;
     private String codeCategorieClient;
     private String codeSousTypeClient;
     @Column(nullable =true)
-    private long numOrdre=0;
+    private Long numOrdre=0L;
     //FIN OPCCIEL1
     @Column(columnDefinition="BIT")
-    private boolean estsgi = false;
+    private Boolean estsgi = false;
     @Column(columnDefinition="BIT")
-    private boolean estGele = false;
+    private Boolean estGele = false;
     @Column(columnDefinition="BIT")
-    private boolean ppe1 = false;
+    private Boolean ppe1 = false;
     @Column(columnDefinition="BIT")
-    private boolean ppe2 = false;
+    private Boolean ppe2 = false;
     @Column(columnDefinition="BIT")
-    private boolean ppe3 = false;
+    private Boolean ppe3 = false;
     @Column(columnDefinition="BIT")
-    private boolean ppe4 = false;
+    private Boolean ppe4 = false;
     @Column(columnDefinition="BIT")
-    private boolean estConvertie;
+    private Boolean estConvertie;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "idSecteur", referencedColumnName = "idSecteur")
     //@JsonBackReference
@@ -129,9 +129,9 @@ public class Personne extends Base {
     //@JsonManagedReference
     private Set<DiffusionAlerte> diffusionAlertes = new HashSet<>();
     @Column(columnDefinition="BIT")
-    private boolean estExpose=false;
+    private Boolean estExpose=false;
     @Column(columnDefinition="BIT")
-    private boolean estJuge=false;
+    private Boolean estJuge=false;
     @Column(columnDefinition="BIT")
     private Boolean estSanctionNationale = false;
     @Column(columnDefinition="BIT")
@@ -273,19 +273,19 @@ public class Personne extends Base {
         this.estGele = estGele;
     }
 
-    public boolean isEstExpose() {
+    public Boolean isEstExpose() {
         return estExpose;
     }
 
-    public void setEstExpose(boolean estExpose) {
+    public void setEstExpose(Boolean estExpose) {
         this.estExpose = estExpose;
     }
 
-    public boolean isEstJuge() {
+    public Boolean isEstJuge() {
         return estJuge;
     }
 
-    public void setEstJuge(boolean estJuge) {
+    public void setEstJuge(Boolean estJuge) {
         this.estJuge = estJuge;
     }
 
@@ -585,11 +585,11 @@ public class Personne extends Base {
         this.diffusionAlertes = diffusionAlertes;
     }
 
-    public boolean isEstConvertie() {
+    public Boolean isEstConvertie() {
         return estConvertie;
     }
 
-    public void setEstConvertie(boolean estConvertie) {
+    public void setEstConvertie(Boolean estConvertie) {
         this.estConvertie = estConvertie;
     }
 
@@ -609,28 +609,92 @@ public class Personne extends Base {
         this.codeSousTypeClient = codeSousTypeClient;
     }
 
-    public long getNumOrdre() {
+    public Long getNumOrdre() {
         return numOrdre;
     }
 
-    public void setNumOrdre(long numOrdre) {
+    public void setNumOrdre(Long numOrdre) {
         this.numOrdre = numOrdre;
     }
 
-    public boolean isEstSanctionNationale() {
+    public Boolean isEstSanctionNationale() {
         return estSanctionNationale;
     }
 
-    public void setEstSanctionNationale(boolean estSanctionNationale) {
+    public void setEstSanctionNationale(Boolean estSanctionNationale) {
         this.estSanctionNationale = estSanctionNationale;
     }
 
-    public boolean isEstSanctionOnusienne() {
+    public Boolean isEstSanctionOnusienne() {
         return estSanctionOnusienne;
     }
 
-    public void setEstSanctionOnusienne(boolean estSanctionOnusienne) {
-        this.estSanctionOnusienne = estSanctionOnusienne;
+    public Boolean getEstActifPersonne() {
+        return EstActifPersonne;
+    }
+
+    public void setEstActifPersonne(Boolean estActifPersonne) {
+        EstActifPersonne = estActifPersonne;
+    }
+
+    public Boolean getEstsgi() {
+        return estsgi;
+    }
+
+    public void setEstsgi(Boolean estsgi) {
+        this.estsgi = estsgi;
+    }
+
+    public Boolean getEstGele() {
+        return estGele;
+    }
+
+    public void setEstGele(Boolean estGele) {
+        this.estGele = estGele;
+    }
+
+    public Boolean getPpe1() {
+        return ppe1;
+    }
+
+    public void setPpe1(Boolean ppe1) {
+        this.ppe1 = ppe1;
+    }
+
+    public Boolean getPpe2() {
+        return ppe2;
+    }
+
+    public void setPpe2(Boolean ppe2) {
+        this.ppe2 = ppe2;
+    }
+
+    public Boolean getPpe3() {
+        return ppe3;
+    }
+
+    public void setPpe3(Boolean ppe3) {
+        this.ppe3 = ppe3;
+    }
+
+    public Boolean getPpe4() {
+        return ppe4;
+    }
+
+    public void setPpe4(Boolean ppe4) {
+        this.ppe4 = ppe4;
+    }
+
+    public Boolean getEstConvertie() {
+        return estConvertie;
+    }
+
+    public Boolean getEstExpose() {
+        return estExpose;
+    }
+
+    public Boolean getEstJuge() {
+        return estJuge;
     }
 
     public Long getIdOcc() {
@@ -643,10 +707,6 @@ public class Personne extends Base {
 
     public Boolean getEstSanctionNationale() {
         return estSanctionNationale;
-    }
-
-    public void setEstSanctionNationale(Boolean estSanctionNationale) {
-        this.estSanctionNationale = estSanctionNationale;
     }
 
     public Boolean getEstSanctionOnusienne() {

@@ -41,27 +41,27 @@ public class DegreController {
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasAuthority('ROLE_DEGRE')")
+//    @PreAuthorize("hasAuthority('ROLE_DEGRE')")
     public ResponseEntity<Object> afficher(@PathVariable(name = "id") Long id)
     {
         return degreService.afficherDegre(id);
     }
 
     @PostMapping("/datatable/list")
-    @PreAuthorize("hasAuthority('ROLE_DEGRE')")
+//    @PreAuthorize("hasAuthority('ROLE_DEGRE')")
     public ResponseEntity<Object> datatableList(@RequestBody DatatableParameters params) throws JsonProcessingException {
         return degreService.afficherTous(params);
     }
 
     @PostMapping
-    @PreAuthorize("hasAuthority('ROLE_DEGRE')")
+//    @PreAuthorize("hasAuthority('ROLE_DEGRE')")
     public ResponseEntity<Object> ajouter(@Valid @RequestBody DegreDto degreDto)
     {
         return degreService.creerDegre(degreDto);
     }
 
     @PutMapping("/{id}")
-    @PreAuthorize("hasAuthority('ROLE_DEGRE')")
+//    @PreAuthorize("hasAuthority('ROLE_DEGRE')")
     public ResponseEntity<Object> modifier(@Valid @RequestBody DegreDto degreDto, @Positive @PathVariable("id") Long id)
     {
         degreDto.setIdDegre(id);
@@ -69,7 +69,7 @@ public class DegreController {
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasAuthority('ROLE_DEGRE')")
+//    @PreAuthorize("hasAuthority('ROLE_DEGRE')")
     public ResponseEntity<Object> supprimer(@Positive @PathVariable("id") Long id)
     {
         return degreService.supprimerDegre(id);

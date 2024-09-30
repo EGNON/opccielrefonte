@@ -43,14 +43,14 @@ public class PermissionController {
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasAuthority('ROLE_PERMISSION')")
+//    @PreAuthorize("hasAuthority('ROLE_PERMISSION')")
     public ResponseEntity<Object> afficher(@PathVariable(name = "id") Long id)
     {
         return permissionService.afficher(id);
     }
 
     @PostMapping("/datatable/list")
-    @PreAuthorize("hasAuthority('ROLE_PERMISSION')")
+//    @PreAuthorize("hasAuthority('ROLE_PERMISSION')")
     public ResponseEntity<Object> datatableList(@RequestBody DatatableParameters params) {
         return permissionService.afficherTous(params);
     }
@@ -100,14 +100,14 @@ public class PermissionController {
     }*/
 
     @PostMapping
-    @PreAuthorize("hasAuthority('ROLE_PERMISSION')")
+//    @PreAuthorize("hasAuthority('ROLE_PERMISSION')")
     public ResponseEntity<Object> creer(@Valid @RequestBody PermissionDto permissionDto)
     {
         return permissionService.creer(permissionDto);
     }
 
     @PutMapping("/{id}")
-    @PreAuthorize("hasAuthority('ROLE_PERMISSION')")
+//    @PreAuthorize("hasAuthority('ROLE_PERMISSION')")
     public ResponseEntity<Object> modifier(@Valid @RequestBody PermissionDto permissionDto, @Positive @PathVariable("id") Long id)
     {
         permissionDto.setIdPermis(id);
@@ -115,7 +115,7 @@ public class PermissionController {
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasAuthority('ROLE_PERMISSION')")
+//    @PreAuthorize("hasAuthority('ROLE_PERMISSION')")
     public ResponseEntity<Object> supprimer(@Positive @PathVariable("id") Long id)
     {
         return permissionService.supprimer(id);

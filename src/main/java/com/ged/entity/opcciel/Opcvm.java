@@ -401,7 +401,7 @@ public class Opcvm extends Base {
     }
 
     public String getCoursInitial() {
-        return coursInitial;
+        return coursInitial.trim();
     }
 
     public void setCoursInitial(String coursInitial) {
@@ -409,7 +409,7 @@ public class Opcvm extends Base {
     }
 
     public String getCoursActuel() {
-        return coursActuel;
+        return coursActuel.trim();
     }
 
     public void setCoursActuel(String coursActuel) {

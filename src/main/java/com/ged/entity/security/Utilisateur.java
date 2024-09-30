@@ -19,6 +19,7 @@ import java.util.*;
         uniqueConstraints = {
             @UniqueConstraint(columnNames = "username")
         })
+//@SQLInsert(sql = "insert into utilisateur ()")
 public class Utilisateur extends Personnel implements UserDetails{
     @Transient
     private Long id;
@@ -47,7 +48,7 @@ public class Utilisateur extends Personnel implements UserDetails{
     //FIN
     private String authToken;
     private String refreshToken;
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     //@JsonManagedReference
     private Set<Token> tokens = new HashSet<>();
 //    @OneToMany(fetch = FetchType.LAZY, mappedBy = "utilisateur", cascade = CascadeType.ALL)
@@ -67,18 +68,29 @@ public class Utilisateur extends Personnel implements UserDetails{
             inverseJoinColumns = @JoinColumn(name = "idRole"))
     private Set<Role> roles = new HashSet<>();*/
 
-    @OneToMany(
+    /*@OneToMany(
             mappedBy = "utilisateur",
             cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE},
-            orphanRemoval = true
-    )
+            orphanRemoval = true,
+            fetch = FetchType.LAZY
+    )*/
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "idUtilisateur")
     private Set<UtilisateurRole> roles1 = new HashSet<>();
-    @OneToMany(
+    /*@OneToMany(
             mappedBy = "utilisateur",
             cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE},
-            orphanRemoval = true
-    )
+            orphanRemoval = true,
+            fetch = FetchType.LAZY
+    )*/
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "idUtilisateur")
     private Set<UtilisateurRolePermission> permissions = new HashSet<>();
+
+    public void addUtilisateurRole(Set<UtilisateurRole> utilisateurRoles) {
+        this.roles1 = utilisateurRoles;
+        this.roles1.forEach(c -> c.setUtilisateur(this));
+    }
 
     //Getters and setters omitted for brevity
     public void ajouterRole(Role role) {

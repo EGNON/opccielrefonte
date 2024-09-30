@@ -59,6 +59,7 @@ public class TypePlanificationController {
         typePlanificationDto.setIdTypePlanification(id);
         return typePlanificationService.modifierTypePlanification(typePlanificationDto);
     }
+
     @DeleteMapping("/{id}")
     public void Supprimer(@PathVariable long id){
         typePlanificationService.supprimerTypePlanification(id);

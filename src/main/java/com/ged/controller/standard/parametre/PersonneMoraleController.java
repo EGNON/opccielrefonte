@@ -18,7 +18,7 @@ import java.util.List;
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/personnemorales")
-@PreAuthorize("hasAuthority('ROLE_MORALE')")
+//@PreAuthorize("hasAuthority('ROLE_MORALE')")
 public class PersonneMoraleController {
     private final PersonneMoraleService personneMoraleService;
 
@@ -59,6 +59,7 @@ public class PersonneMoraleController {
     {
         return personneMoraleService.afficherTous(qualite, params);
     }
+
     @PostMapping("/datatable/moralesanctionnee")
     public DataTablesResponse<PersonneMoraleDto> datatableList_Sanctionnee(
             @RequestBody DatatableParameters params)
@@ -73,6 +74,7 @@ public class PersonneMoraleController {
     {
         return personneMoraleService.afficherPersonneMoraleJuge(qualite, params);
     }
+
     @PostMapping("/datatable/expose/list-{qualite}")
     public DataTablesResponse<PersonneMoraleDto> datatableListExpose(
             @RequestBody DatatableParameters params,
@@ -80,6 +82,7 @@ public class PersonneMoraleController {
     {
         return personneMoraleService.afficherPersonneMoralePolitiquementExpose(qualite, params);
     }
+
     @PostMapping
     public PersonneMoraleDto ajouter(@RequestBody PersonneMoraleDto personneMoraleDto)
     {

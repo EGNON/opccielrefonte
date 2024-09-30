@@ -20,6 +20,7 @@ public class PersonnePhysiqueDtoEJ extends PersonneDtoEJ{
     private PaysDto paysNationalite;
     private Set<PersonnePhysiquePaysDto> personnePhysiquePaysDtos = new HashSet<>();
     private String lieuNaissance;
+
     public PersonnePhysiqueDtoEJ() {
     }
 

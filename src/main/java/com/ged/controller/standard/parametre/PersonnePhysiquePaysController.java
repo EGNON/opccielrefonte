@@ -33,11 +33,13 @@ public class PersonnePhysiquePaysController {
     {
         return personnePhysiquePaysService.creerPersonnePhysiquePays(personnePhysiquePaysDto);
     }
+
     @PostMapping("/EJ")
     public PersonnePhysiquePaysDtoEJ ajouter(@RequestBody PersonnePhysiquePaysDtoEJ personnePhysiquePaysDto)
     {
         return personnePhysiquePaysService.creerPersonnePhysiquePaysEJ(personnePhysiquePaysDto);
     }
+
     @PutMapping("/{idPersonne}/{idPays}")
     public PersonnePhysiquePaysDto modifier(@PathVariable long idPersonne,
                                             @PathVariable long idPays,
@@ -46,6 +48,7 @@ public class PersonnePhysiquePaysController {
         personnePhysiquePaysDto.getPaysDto().setIdPays(idPays);
         return personnePhysiquePaysService.modifierPersonnePhysiquePays(personnePhysiquePaysDto);
     }
+
     @DeleteMapping("/{idPersonne}/{idPays}")
     public void Supprimer(@PathVariable long idPersonne,
                           @PathVariable long idPays){
@@ -54,6 +57,7 @@ public class PersonnePhysiquePaysController {
         clePersonnePhysiquePays.setIdPays(idPays);
         personnePhysiquePaysService.supprimerPersonnePhysiquePays(clePersonnePhysiquePays);
     }
+
     @DeleteMapping("/{idPersonne}")
     public void SupprimerSelonPersonne(@PathVariable long idPersonne){
         personnePhysiquePaysService.supprimerSelonPersonne(idPersonne);

@@ -5,6 +5,7 @@ import com.ged.dto.security.UtilisateurDto;
 import com.ged.entity.security.Utilisateur;
 import com.ged.dto.security.LoginRequest;
 import org.springframework.data.domain.Page;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
@@ -13,11 +14,11 @@ public interface UtilisateurService {
     UtilisateurDto findByUsername(String username);
     Page<Utilisateur2Dto> afficherUsers(int page, int size);
     Page<UtilisateurDto> afficherUtilisateurs(int page, int size);
-    List<UtilisateurDto> afficherTous();
-    UtilisateurDto afficherUtilisateur(Long id);
+    ResponseEntity<Object> afficherTous();
+    ResponseEntity<Object> afficherUtilisateur(Long id);
     Utilisateur afficherUtilisateurSelonId(Long idUtilisateur);
-    UtilisateurDto creerUtilisateur(UtilisateurDto utilisateurDto);
-    UtilisateurDto modifierUtilisateur(UtilisateurDto utilisateurDto);
+    ResponseEntity<Object> creerUtilisateur(UtilisateurDto utilisateurDto);
+    ResponseEntity<Object> modifierUtilisateur(UtilisateurDto utilisateurDto);
 
     void registerDefaultUsers();
 

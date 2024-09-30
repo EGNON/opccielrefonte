@@ -87,7 +87,6 @@ public class TypeIbServiceImpl implements TypeIbService {
                     HttpStatus.MULTI_STATUS,
                     e);
         }
-
     }
 
     @Override

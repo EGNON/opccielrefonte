@@ -7,7 +7,6 @@ import com.ged.dto.standard.ProfessionDto;
 import com.ged.entity.standard.Profession;
 import com.ged.mapper.standard.ProfessionMapper;
 import com.ged.service.standard.ProfessionService;
-import jakarta.annotation.PostConstruct;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Positive;
 import org.springframework.data.domain.Page;
@@ -51,6 +50,7 @@ public class ProfessionController {
     {
         return professionService.afficher(id);
     }
+
     @PostMapping("/datatable/list")
     public DataTablesResponse<ProfessionDto> datatableList(@RequestBody DatatableParameters datatableParameters)
     {
@@ -73,11 +73,13 @@ public class ProfessionController {
 
         return dataTablesResponse;
     }
+
     @PostMapping
     public ProfessionDto ajouter(@Valid @RequestBody ProfessionDto professionDto)
     {
         return professionService.creerProfession(professionDto);
     }
+
     @PutMapping("/{id}")
     public ProfessionDto modifier(@Positive @PathVariable long id,
                                   @Valid @RequestBody ProfessionDto professionDto) {

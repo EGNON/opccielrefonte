@@ -7,10 +7,12 @@ import com.ged.dao.security.UtilisateurRolePermissionDao;
 import com.ged.dao.standard.*;
 import com.ged.dto.security.Utilisateur2Dto;
 import com.ged.dto.security.UtilisateurDto;
+import com.ged.entity.opcciel.comptabilite.TypeIb;
 import com.ged.entity.security.*;
 import com.ged.entity.standard.*;
 import com.ged.mapper.standard.UtilisateurMapper;
 import com.ged.dto.security.LoginRequest;
+import com.ged.response.ResponseHandler;
 import com.ged.service.standard.UtilisateurService;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityNotFoundException;
@@ -18,9 +20,14 @@ import jakarta.persistence.PersistenceContext;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -31,6 +38,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@Scope(proxyMode = ScopedProxyMode.INTERFACES)
 //@Transactional("refonteTransactionManager")
 public class UtilisateurServiceImpl implements UtilisateurService {
     @PersistenceContext
@@ -86,13 +94,39 @@ public class UtilisateurServiceImpl implements UtilisateurService {
     }
 
     @Override
-    public List<UtilisateurDto> afficherTous() {
-        return utilisateurDao.findAll().stream().map(utilisateurMapper::deUtilisateur).collect(Collectors.toList());
+    public ResponseEntity<Object> afficherTous() {
+        try {
+            List<UtilisateurDto> utilisateurDtos = utilisateurDao.findAll().stream().map(utilisateurMapper::deUtilisateur).toList();
+            return ResponseHandler.generateResponse(
+                    "Liste des utilisateurs",
+                    HttpStatus.OK,
+                    utilisateurDtos);
+        }
+        catch (Exception e)
+        {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e);
+        }
     }
 
     @Override
-    public UtilisateurDto afficherUtilisateur(Long id) {
-        return utilisateurMapper.deUtilisateur(afficherUtilisateurSelonId(id));
+    public ResponseEntity<Object> afficherUtilisateur(Long id) {
+        try {
+            return ResponseHandler.generateResponse(
+                    "Utilisateur dont ID = " + id.toString(),
+                    HttpStatus.OK,
+                    utilisateurMapper.deUtilisateur(afficherUtilisateurSelonId(id))
+            );
+        }
+        catch (Exception e)
+        {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e);
+        }
     }
 
     @Override
@@ -101,68 +135,89 @@ public class UtilisateurServiceImpl implements UtilisateurService {
     }
 
     @Override
-    public UtilisateurDto creerUtilisateur(UtilisateurDto utilisateurDto) {
-        Utilisateur utilisateur = utilisateurMapper.deUtilisateurDto(utilisateurDto);
+//    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    public ResponseEntity<Object> creerUtilisateur(UtilisateurDto utilisateurDto) {
         try {
+            Utilisateur utilisateur = utilisateurMapper.deUtilisateurDto(utilisateurDto);
+            try {
+                utilisateur.setDenomination(utilisateurDto.getNom() + " " + utilisateurDto.getPrenom());
+                utilisateur.setPassword(passwordEncoder.encode(utilisateurDto.getPassword()));
+
+                Base64.Encoder encoder = Base64.getEncoder();
+                //String originalString = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxys0123456789";
+                String encodedString = encoder.encodeToString(secretKey.getBytes());
+
+                utilisateur.setMotDePasse(encodedString);
+
+                if (utilisateurDto.getProfession() != null && utilisateurDto.getProfession().getIdProf() != null) {
+                    Profession profession = professionDao.findById(utilisateurDto.getProfession().getIdProf()).orElseThrow(() -> new com.ged.advice.EntityNotFoundException(Profession.class, utilisateurDto.getProfession().getIdProf().toString()));
+                    utilisateur.setProfession(profession);
+                }
+
+                if (utilisateurDto.getPaysNationalite() != null && utilisateurDto.getPaysNationalite().getIdPays() != null) {
+                    Pays paysNat = paysDao.findById(utilisateurDto.getPaysNationalite().getIdPays()).orElse(null);
+                    utilisateur.setPaysNationalite(paysNat);
+                }
+
+                if (utilisateurDto.getPaysResidence() != null && utilisateurDto.getPaysResidence().getIdPays() != null) {
+                    Pays paysRed = paysDao.findById(utilisateurDto.getPaysResidence().getIdPays()).orElse(null);
+                    utilisateur.setPaysResidence(paysRed);
+                }
+
+                utilisateurDao.save(utilisateur);
+                //em.merge(utilisateur);
+            } finally {
+                //em.close();
+            }
+            return ResponseHandler.generateResponse(
+                    "Enregistrement effectué avec succès !",
+                    HttpStatus.OK,
+                    utilisateurMapper.deUtilisateur(utilisateur));
+        } catch (Exception e) {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e);
+        }
+    }
+
+    @Override
+//    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    public ResponseEntity<Object> modifierUtilisateur(UtilisateurDto utilisateurDto) {
+        try {
+            /*if (utilisateurDto.getIdPersonne() != null) {
+                utilisateurRoleDao.deleteUtilisateurRolesByUtilisateurIdPersonne(utilisateurDto.getIdPersonne());
+            }*/
+            Utilisateur utilisateur = utilisateurMapper.deUtilisateurDto(utilisateurDto);
             utilisateur.setDenomination(utilisateurDto.getNom() + " " + utilisateurDto.getPrenom());
             utilisateur.setPassword(passwordEncoder.encode(utilisateurDto.getPassword()));
-
-            Base64.Encoder encoder = Base64.getEncoder();
-            //String originalString = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxys0123456789";
-            String encodedString = encoder.encodeToString(secretKey.getBytes());
-
-            utilisateur.setMotDePasse(encodedString);
-
             if (utilisateurDto.getProfession() != null && utilisateurDto.getProfession().getIdProf() != null) {
                 Profession profession = professionDao.findById(utilisateurDto.getProfession().getIdProf()).orElseThrow(() -> new com.ged.advice.EntityNotFoundException(Profession.class, utilisateurDto.getProfession().getIdProf().toString()));
                 utilisateur.setProfession(profession);
             }
-
             if (utilisateurDto.getPaysNationalite() != null && utilisateurDto.getPaysNationalite().getIdPays() != null) {
                 Pays paysNat = paysDao.findById(utilisateurDto.getPaysNationalite().getIdPays()).orElse(null);
                 utilisateur.setPaysNationalite(paysNat);
             }
-
             if (utilisateurDto.getPaysResidence() != null && utilisateurDto.getPaysResidence().getIdPays() != null) {
                 Pays paysRed = paysDao.findById(utilisateurDto.getPaysResidence().getIdPays()).orElse(null);
                 utilisateur.setPaysResidence(paysRed);
             }
-
-            em.merge(utilisateur);
-        } finally {
-            em.close();
+            Utilisateur utilisateurSave = utilisateurDao.save(utilisateur);
+            return ResponseHandler.generateResponse(
+                    "Modification effectuée avec succès !",
+                    HttpStatus.OK,
+                    utilisateurMapper.deUtilisateur(utilisateurSave));
+        } catch (Exception e) {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e);
         }
-        //Utilisateur utilisateurSave = em.merge(utilisateur);
-        return utilisateurMapper.deUtilisateur(utilisateur);
     }
 
     @Override
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
-    public UtilisateurDto modifierUtilisateur(UtilisateurDto utilisateurDto) {
-        if (utilisateurDto.getIdPersonne() != null) {
-            utilisateurRoleDao.deleteUtilisateurRolesByUtilisateurIdPersonne(utilisateurDto.getIdPersonne());
-        }
-        Utilisateur utilisateur = utilisateurMapper.deUtilisateurDto(utilisateurDto);
-        utilisateur.setDenomination(utilisateurDto.getNom() + " " + utilisateurDto.getPrenom());
-        utilisateur.setPassword(passwordEncoder.encode(utilisateurDto.getPassword()));
-        if (utilisateurDto.getProfession() != null && utilisateurDto.getProfession().getIdProf() != null) {
-            Profession profession = professionDao.findById(utilisateurDto.getProfession().getIdProf()).orElseThrow(() -> new com.ged.advice.EntityNotFoundException(Profession.class, utilisateurDto.getProfession().getIdProf().toString()));
-            utilisateur.setProfession(profession);
-        }
-        if (utilisateurDto.getPaysNationalite() != null && utilisateurDto.getPaysNationalite().getIdPays() != null) {
-            Pays paysNat = paysDao.findById(utilisateurDto.getPaysNationalite().getIdPays()).orElse(null);
-            utilisateur.setPaysNationalite(paysNat);
-        }
-        if (utilisateurDto.getPaysResidence() != null && utilisateurDto.getPaysResidence().getIdPays() != null) {
-            Pays paysRed = paysDao.findById(utilisateurDto.getPaysResidence().getIdPays()).orElse(null);
-            utilisateur.setPaysResidence(paysRed);
-        }
-        Utilisateur utilisateurSave = utilisateurDao.save(utilisateur);
-        return utilisateurMapper.deUtilisateur(utilisateurSave);
-    }
-
-    @Override
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
+//    @Transactional(propagation = Propagation.REQUIRES_NEW)
     public void registerDefaultUsers() {
         String[] usernames = {"admin", "user"};
         int cpt = 0;

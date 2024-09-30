@@ -17,7 +17,7 @@ public class PersonneMoraleDto extends PersonneDto{
     private String NumeroINSAE;
     private String numRegistre;
     private String codeSecteur;
-    private long CapitalSocial;
+    private Long CapitalSocial;
     private String SiglePersonneMorale;
     private String RaisonSociale;
     private FormeJuridiqueDto formeJuridique;
@@ -36,8 +36,8 @@ public class PersonneMoraleDto extends PersonneDto{
     private String email;
     private String boitePostale;
     private String adresseComplete;
-    private long tauxRetroCourSous=0;
-    private long tauxRetroCourRach=0;
+    private Long tauxRetroCourSous=0L;
+    private Long tauxRetroCourRach=0L;
     private String numCompteSgi;
     private String libelleSousCategorie;
     private LocalDateTime dateFermetureCompte;
@@ -106,11 +106,11 @@ public class PersonneMoraleDto extends PersonneDto{
         this.codeSecteur = codeSecteur;
     }
 
-    public long getCapitalSocial() {
+    public Long getCapitalSocial() {
         return CapitalSocial;
     }
 
-    public void setCapitalSocial(long capitalSocial) {
+    public void setCapitalSocial(Long capitalSocial) {
         CapitalSocial = capitalSocial;
     }
 
@@ -250,19 +250,19 @@ public class PersonneMoraleDto extends PersonneDto{
         this.adresseComplete = adresseComplete;
     }
 
-    public long getTauxRetroCourSous() {
+    public Long getTauxRetroCourSous() {
         return tauxRetroCourSous;
     }
 
-    public void setTauxRetroCourSous(long tauxRetroCourSous) {
+    public void setTauxRetroCourSous(Long tauxRetroCourSous) {
         this.tauxRetroCourSous = tauxRetroCourSous;
     }
 
-    public long getTauxRetroCourRach() {
+    public Long getTauxRetroCourRach() {
         return tauxRetroCourRach;
     }
 
-    public void setTauxRetroCourRach(long tauxRetroCourRach) {
+    public void setTauxRetroCourRach(Long tauxRetroCourRach) {
         this.tauxRetroCourRach = tauxRetroCourRach;
     }
 

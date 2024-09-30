@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/departements")
-@PreAuthorize("hasAuthority('ROLE_DEPARTEMENT')")
+//@PreAuthorize("hasAuthority('ROLE_DEPARTEMENT')")
 public class DepartementController {
     private final DepartementService departementService;
 
@@ -18,7 +18,7 @@ public class DepartementController {
     }
 
     @GetMapping
-    @PreAuthorize("hasAuthority('ROLE_DEPARTEMENT')")
+//    @PreAuthorize("hasAuthority('ROLE_DEPARTEMENT')")
     public Page<DepartementDto> afficherTous(@RequestParam(value = "page", defaultValue = "0") int page,
                                              @RequestParam(value = "size", defaultValue = "10") int size)
     {
@@ -26,14 +26,14 @@ public class DepartementController {
     }
 
     @PostMapping
-    @PreAuthorize("hasAuthority('ROLE_DEPARTEMENT')")
+//    @PreAuthorize("hasAuthority('ROLE_DEPARTEMENT')")
     public DepartementDto ajouter(@RequestBody DepartementDto departementDto)
     {
         return departementService.creerDepartement(departementDto);
     }
 
     @PutMapping("/{id}")
-    @PreAuthorize("hasAuthority('ROLE_DEPARTEMENT')")
+//    @PreAuthorize("hasAuthority('ROLE_DEPARTEMENT')")
     public DepartementDto modifier(@RequestBody DepartementDto departementDto, @PathVariable Long id)
     {
         departementDto.setIdDepartement(id);
@@ -41,7 +41,7 @@ public class DepartementController {
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasAuthority('ROLE_DEPARTEMENT')")
+//    @PreAuthorize("hasAuthority('ROLE_DEPARTEMENT')")
     public void supprimer(@PathVariable Long id)
     {
         departementService.supprimerDepartement(id);

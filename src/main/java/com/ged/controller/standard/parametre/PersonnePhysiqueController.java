@@ -22,7 +22,7 @@ import java.util.List;
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/personnephysiques")
-@PreAuthorize("hasAuthority('ROLE_PHYSIQUE')")
+//@PreAuthorize("hasAuthority('ROLE_PHYSIQUE')")
 public class PersonnePhysiqueController {
     public static final String DIRECTORY = System.getProperty("user.home") + "/Downloads/uploads";
     private final PersonnePhysiqueService personnePhysiqueService;
@@ -81,6 +81,7 @@ public class PersonnePhysiqueController {
     {
         return personnePhysiqueService.afficherTous(qualite, params);
     }
+
     @PostMapping("/datatable/physiquesanctionnee")
     public DataTablesResponse<PersonnePhysiqueDto> datatableList_Sanctionnee(
             @RequestBody DatatableParameters params)
@@ -164,7 +165,6 @@ public class PersonnePhysiqueController {
     public void Supprimer(@PathVariable long idPersonne,@PathVariable long idQualite){
         personnePhysiqueService.supprimerPersonnePhysique(idPersonne,idQualite);
     }
-
 
     @PostMapping("/EJ")
     public PersonnePhysiqueDtoEJ ajouter(@RequestBody PersonnePhysiqueDtoEJ personnePhysiqueDto)

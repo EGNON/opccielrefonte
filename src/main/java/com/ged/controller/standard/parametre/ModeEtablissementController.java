@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/modeetablissements")
-@PreAuthorize("hasAuthority('ROLE_MODE_ETABLISSEMENT')")
+//@PreAuthorize("hasAuthority('ROLE_MODE_ETABLISSEMENT')")
 public class ModeEtablissementController {
     private final ModeEtablissementService modeEtablissementService;
     private final ModeEtablissementDao modeEtablissementDao;

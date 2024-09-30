@@ -67,13 +67,13 @@ public class RoleController {
     }
 
     @PostMapping("/datatable/list")
-    @PreAuthorize("hasAuthority('ROLE_ACCESS')")
+//    @PreAuthorize("hasAuthority('ROLE_ACCESS')")
     public ResponseEntity<Object> datatableList(@RequestBody DatatableParameters params)
     {
         return roleService.afficherTous(params);
     }
 
-   /* @Order(1)
+    /*@Order(1)
     @PostConstruct
     @EventListener(ApplicationReadyEvent.class)
     public void generate()

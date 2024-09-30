@@ -79,17 +79,17 @@ public class PersonnePhysique extends Personne{
     @Basic
     private String lieuTravail;
     @Column(name = "autresRevenus")
-    private double autresRevenus;
+    private Double autresRevenus;
     @Basic
     private String periodicite;
     @Basic
     private String statutMatrimonial;
     @Basic
     @Column(nullable = true)
-    private int nbrEnfant=0;
+    private Integer nbrEnfant=0;
     @Basic
     @Column(nullable = true)
-    private int nbrPersonneACharge=0;
+    private Integer nbrPersonneACharge=0;
     @Basic
     private String nomEmployeur;
     @Basic
@@ -128,10 +128,10 @@ public class PersonnePhysique extends Personne{
     private String autresBiens;
     @Basic
     @Column(nullable = true)
-    private double surfaceTotale=0;
+    private Double surfaceTotale=0D;
     @Basic
     @Column(nullable = true)
-    private double salaire=0;
+    private Double salaire=0D;
 //    @Basic
 //    private LocalDateTime dateCreationServeur;
 //    @Basic
@@ -334,11 +334,11 @@ public class PersonnePhysique extends Personne{
         this.lieuTravail = lieuTravail;
     }
 
-    public double getAutresRevenus() {
+    public Double getAutresRevenus() {
         return autresRevenus;
     }
 
-    public void setAutresRevenus(double autresRevenus) {
+    public void setAutresRevenus(Double autresRevenus) {
         this.autresRevenus = autresRevenus;
     }
 
@@ -358,19 +358,19 @@ public class PersonnePhysique extends Personne{
         this.statutMatrimonial = statutMatrimonial;
     }
 
-    public int getNbrEnfant() {
+    public Integer getNbrEnfant() {
         return nbrEnfant;
     }
 
-    public void setNbrEnfant(int nbrEnfant) {
+    public void setNbrEnfant(Integer nbrEnfant) {
         this.nbrEnfant = nbrEnfant;
     }
 
-    public int getNbrPersonneACharge() {
+    public Integer getNbrPersonneACharge() {
         return nbrPersonneACharge;
     }
 
-    public void setNbrPersonneACharge(int nbrPersonneACharge) {
+    public void setNbrPersonneACharge(Integer nbrPersonneACharge) {
         this.nbrPersonneACharge = nbrPersonneACharge;
     }
 
@@ -518,19 +518,19 @@ public class PersonnePhysique extends Personne{
         this.autresBiens = autresBiens;
     }
 
-    public double getSurfaceTotale() {
+    public Double getSurfaceTotale() {
         return surfaceTotale;
     }
 
-    public void setSurfaceTotale(double surfaceTotale) {
+    public void setSurfaceTotale(Double surfaceTotale) {
         this.surfaceTotale = surfaceTotale;
     }
 
-    public double getSalaire() {
+    public Double getSalaire() {
         return salaire;
     }
 
-    public void setSalaire(double salaire) {
+    public void setSalaire(Double salaire) {
         this.salaire = salaire;
     }
 

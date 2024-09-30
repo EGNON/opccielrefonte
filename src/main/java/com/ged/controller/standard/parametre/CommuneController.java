@@ -13,7 +13,7 @@ import java.util.List;
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/communes")
-@PreAuthorize("hasAuthority('ROLE_COMMUNE')")
+//@PreAuthorize("hasAuthority('ROLE_COMMUNE')")
 public class CommuneController {
     private final CommuneService communeService;
 

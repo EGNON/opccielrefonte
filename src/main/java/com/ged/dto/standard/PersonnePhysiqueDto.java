@@ -18,11 +18,11 @@ public class PersonnePhysiqueDto extends PersonneDto{
     private LocalDateTime dateNaissance;
     private String civilite;
     private String lieuTravail;
-    private double autresRevenus;
+    private Double autresRevenus;
     private String periodicite;
     private String statutMatrimonial;
-    private int nbrEnfant;
-    private int nbrPersonneACharge;
+    private Integer nbrEnfant;
+    private Integer nbrPersonneACharge;
     private String nomEmployeur;
     private String adressePostaleEmp;
     private String adresseGeoEmp;
@@ -41,8 +41,8 @@ public class PersonnePhysiqueDto extends PersonneDto{
     private String transactionEnvisagee;
     private String immobilier;
     private String autresBiens;
-    private double surfaceTotale;
-    private double salaire;
+    private Double surfaceTotale;
+    private Double salaire;
     private ProfessionDto profession;
     private PaysDto paysPere;
     private PaysDto paysMere;
@@ -54,6 +54,7 @@ public class PersonnePhysiqueDto extends PersonneDto{
     private String teint;
     private String exposeMotif;
     private LangueDto langue;
+
     public PersonnePhysiqueDto() {
     }
 
@@ -140,7 +141,7 @@ public class PersonnePhysiqueDto extends PersonneDto{
         this.secteurEmp = secteur;
     }
 
-    public PersonnePhysiqueDto(String nom, String prenom, String sexe, LocalDateTime dateNaissance, String civilite, String lieuTravail, double autresRevenus, String periodicite, String statutMatrimonial, int nbrEnfant, int nbrPersonneACharge, String nomEmployeur, String adressePostaleEmp, String adresseGeoEmp, String telEmp, String emailEmp, String nomPere, String prenomsPere, LocalDateTime dateNaissancePere, String nomMere, String prenomsMere, LocalDateTime dateNaissanceMere, String nomConjoint, String prenomConjoint, LocalDateTime dateNaissanceConjoint, String origineFonds, String transactionEnvisagee, String immobilier, String autresBiens, double surfaceTotale, double salaire) {
+    public PersonnePhysiqueDto(String nom, String prenom, String sexe, LocalDateTime dateNaissance, String civilite, String lieuTravail, Double autresRevenus, String periodicite, String statutMatrimonial, Integer nbrEnfant, Integer nbrPersonneACharge, String nomEmployeur, String adressePostaleEmp, String adresseGeoEmp, String telEmp, String emailEmp, String nomPere, String prenomsPere, LocalDateTime dateNaissancePere, String nomMere, String prenomsMere, LocalDateTime dateNaissanceMere, String nomConjoint, String prenomConjoint, LocalDateTime dateNaissanceConjoint, String origineFonds, String transactionEnvisagee, String immobilier, String autresBiens, Double surfaceTotale, Double salaire) {
         this.nom = nom;
         this.prenom = prenom;
         this.sexe = sexe;
@@ -240,11 +241,11 @@ public class PersonnePhysiqueDto extends PersonneDto{
         this.lieuTravail = lieuTravail;
     }
 
-    public double getAutresRevenus() {
+    public Double getAutresRevenus() {
         return autresRevenus;
     }
 
-    public void setAutresRevenus(double autresRevenus) {
+    public void setAutresRevenus(Double autresRevenus) {
         this.autresRevenus = autresRevenus;
     }
 
@@ -264,19 +265,19 @@ public class PersonnePhysiqueDto extends PersonneDto{
         this.statutMatrimonial = statutMatrimonial;
     }
 
-    public int getNbrEnfant() {
+    public Integer getNbrEnfant() {
         return nbrEnfant;
     }
 
-    public void setNbrEnfant(int nbrEnfant) {
+    public void setNbrEnfant(Integer nbrEnfant) {
         this.nbrEnfant = nbrEnfant;
     }
 
-    public int getNbrPersonneACharge() {
+    public Integer getNbrPersonneACharge() {
         return nbrPersonneACharge;
     }
 
-    public void setNbrPersonneACharge(int nbrPersonneACharge) {
+    public void setNbrPersonneACharge(Integer nbrPersonneACharge) {
         this.nbrPersonneACharge = nbrPersonneACharge;
     }
 
@@ -424,19 +425,19 @@ public class PersonnePhysiqueDto extends PersonneDto{
         this.autresBiens = autresBiens;
     }
 
-    public double getSurfaceTotale() {
+    public Double getSurfaceTotale() {
         return surfaceTotale;
     }
 
-    public void setSurfaceTotale(double surfaceTotale) {
+    public void setSurfaceTotale(Double surfaceTotale) {
         this.surfaceTotale = surfaceTotale;
     }
 
-    public double getSalaire() {
+    public Double getSalaire() {
         return salaire;
     }
 
-    public void setSalaire(double salaire) {
+    public void setSalaire(Double salaire) {
         this.salaire = salaire;
     }
 

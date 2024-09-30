@@ -26,11 +26,13 @@ public class AgentConcerneController {
     {
         return agentConcerneService.afficherAgentConcernes(page, size);
     }
+
     @GetMapping("/{idRdv}")
     public List<AgentConcerneDto> afiicherAgentConcerneSelonRDV(@PathVariable("idRdv") long idRdv)
     {
         return agentConcerneService.afficherAgentConcerneSelonRDV(idRdv);
     }
+
     @GetMapping("/personnel/{idPersonnel}")
     public List<AgentConcerneDto> afiicherAgentConcerneSelonPersonnel(@PathVariable("idPersonnel") long idPersonnel)
     {
@@ -42,6 +44,7 @@ public class AgentConcerneController {
     {
         return agentConcerneService.creerAgentConcerne(agentConcerneDto);
     }
+
     @PostMapping("/group")
     public void ajouter(@Valid @RequestBody AgentConcerneDto[] agentConcerneDto)
     {
@@ -57,6 +60,7 @@ public class AgentConcerneController {
         agentConcerneDto.getPersonnelDto().setIdPersonne(idPersonnel);
         return agentConcerneService.modifierAgentConcerne(agentConcerneDto);
     }
+
     @PutMapping("/update/{idPersonnel}/{idRdv}")
     public int modifierUnePartieDeAgentConcerne(@Valid @RequestBody AgentConcerneDto agentConcerneDto,
                                      @Positive @PathVariable("idPersonnel") Long idPersonnel,
@@ -76,6 +80,7 @@ public class AgentConcerneController {
         cleAgentConcerne.setIdPersonne(idPersonnel);
         agentConcerneService.supprimerAgentConcerne(cleAgentConcerne);
     }
+
     @DeleteMapping("/{idRdv}")
     public void supprimerSelonRDV(@Positive @PathVariable("idRdv") Long idRdv)
     {

@@ -2,6 +2,7 @@ package com.ged.dto.standard;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.ged.dto.security.Utilisateur2Dto;
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -24,7 +25,8 @@ public class BaseDto implements Serializable {
     private LocalDateTime dateDernModifClient;
     private String userLogin;
     private Long numLigne;
-    private Boolean supprimer;
+    @ColumnDefault("0")
+    private Boolean supprimer = false;
     private byte[] rowvers;
 
     public String getCreatedBy() {

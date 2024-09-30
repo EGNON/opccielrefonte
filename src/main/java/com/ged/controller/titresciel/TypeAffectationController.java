@@ -28,14 +28,14 @@ public class TypeAffectationController {
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasAuthority('ROLE_TYPEAFFECTATION_TITRE')")
+//    @PreAuthorize("hasAuthority('ROLE_TYPEAFFECTATION_TITRE')")
     public ResponseEntity<Object> afficher(@PathVariable(name = "id") Long id)
     {
         return typeAffectationService.afficher(id);
     }
 
     @PostMapping("/datatable/list")
-    @PreAuthorize("hasAuthority('ROLE_TYPEAFFECTATION_TITRE')")
+//    @PreAuthorize("hasAuthority('ROLE_TYPEAFFECTATION_TITRE')")
     public ResponseEntity<Object> datatableList(@RequestBody DatatableParameters params) {
         return typeAffectationService.afficherTous(params);
     }
@@ -46,14 +46,14 @@ public class TypeAffectationController {
     }*/
 
     @PostMapping
-    @PreAuthorize("hasAuthority('ROLE_TYPEAFFECTATION_TITRE')")
+//    @PreAuthorize("hasAuthority('ROLE_TYPEAFFECTATION_TITRE')")
     public ResponseEntity<Object> creer(@Valid @RequestBody TypeAffectationTitreDto typeAffectationTitreDto)
     {
         return typeAffectationService.creer(typeAffectationTitreDto);
     }
 
     @PutMapping("/{id}")
-    @PreAuthorize("hasAuthority('ROLE_TYPEAFFECTATION_TITRE')")
+//    @PreAuthorize("hasAuthority('ROLE_TYPEAFFECTATION_TITRE')")
     public ResponseEntity<Object> modifier(
             @Valid @RequestBody TypeAffectationTitreDto typeAffectationTitreDto,
             @Positive @PathVariable("id") Long id)
@@ -63,7 +63,7 @@ public class TypeAffectationController {
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasAuthority('ROLE_TYPEAFFECTATION_TITRE')")
+//    @PreAuthorize("hasAuthority('ROLE_TYPEAFFECTATION_TITRE')")
     public ResponseEntity<Object> supprimer(@Positive @PathVariable("id") Long id)
     {
         return typeAffectationService.supprimer(id);

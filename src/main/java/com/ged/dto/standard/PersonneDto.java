@@ -31,11 +31,11 @@ public class PersonneDto {
     private LocalDateTime dateExpirationPiece;
     private String modeEtablissement;
     private ModeEtablissementDto modeEtablissementDto;
-    private boolean estsgi;
-    private boolean ppe1;
-    private boolean ppe2;
-    private boolean ppe3;
-    private boolean ppe4;
+    private Boolean estsgi;
+    private Boolean ppe1;
+    private Boolean ppe2;
+    private Boolean ppe3;
+    private Boolean ppe4;
     private SecteurDto secteur;
     private DegreDto degre;
     private PersonneDto distributeur;
@@ -47,13 +47,13 @@ public class PersonneDto {
     private String emailContact;
     private String titreContact;
     private String numeroCpteDeposit;
-    private boolean estConvertie;
+    private Boolean estConvertie;
     private CommuneDto commune;
     private Set<DocumentDto> documents = new HashSet<>();
     private Set<StatutPersonneDto> statutPersonnes = new HashSet<>();
-    private boolean estExpose;
-    private boolean estJuge;
-    private boolean estGele;
+    private Boolean estExpose;
+    private Boolean estJuge;
+    private Boolean estGele;
     private String typePersonne;
     private CategorieClientDto categorieClient;
     private SousTypeClientDto sousTypeClient;
@@ -106,7 +106,7 @@ public class PersonneDto {
         this.commune = commune;
     }
 
-    public boolean isEstGele() {
+    public Boolean isEstGele() {
         return estGele;
     }
 
@@ -118,63 +118,63 @@ public class PersonneDto {
         this.typePersonne = typePersonne;
     }
 
-    public void setEstGele(boolean estGele) {
+    public void setEstGele(Boolean estGele) {
         this.estGele = estGele;
     }
 
-    public boolean isEstsgi() {
+    public Boolean isEstsgi() {
         return estsgi;
     }
 
-    public void setEstsgi(boolean estsgi) {
+    public void setEstsgi(Boolean estsgi) {
         this.estsgi = estsgi;
     }
 
-    public boolean isPpe1() {
+    public Boolean isPpe1() {
         return ppe1;
     }
 
-    public void setPpe1(boolean ppe1) {
+    public void setPpe1(Boolean ppe1) {
         this.ppe1 = ppe1;
     }
 
-    public boolean isEstExpose() {
+    public Boolean isEstExpose() {
         return estExpose;
     }
 
-    public void setEstExpose(boolean estExpose) {
+    public void setEstExpose(Boolean estExpose) {
         this.estExpose = estExpose;
     }
 
-    public boolean isEstJuge() {
+    public Boolean isEstJuge() {
         return estJuge;
     }
 
-    public void setEstJuge(boolean estJuge) {
+    public void setEstJuge(Boolean estJuge) {
         this.estJuge = estJuge;
     }
 
-    public boolean isPpe2() {
+    public Boolean isPpe2() {
         return ppe2;
     }
 
-    public void setPpe2(boolean ppe2) {
+    public void setPpe2(Boolean ppe2) {
         this.ppe2 = ppe2;
     }
 
-    public boolean isPpe3() {
+    public Boolean isPpe3() {
         return ppe3;
     }
 
-    public void setPpe3(boolean ppe3) {
+    public void setPpe3(Boolean ppe3) {
         this.ppe3 = ppe3;
     }
 
-    public boolean isPpe4() {
+    public Boolean isPpe4() {
         return ppe4;
     }
 
-    public void setPpe4(boolean ppe4) {
+    public void setPpe4(Boolean ppe4) {
         this.ppe4 = ppe4;
     }
 
@@ -378,13 +378,47 @@ public class PersonneDto {
         this.numeroCpteDeposit = numeroCpteDeposit;
     }
 
-    public boolean isEstConvertie() {
+    public Boolean isEstConvertie() {
         return estConvertie;
     }
 
-    public void setEstConvertie(boolean estConvertie) {
+    public void setEstConvertie(Boolean estConvertie) {
         this.estConvertie = estConvertie;
     }
 
+    public Boolean getEstsgi() {
+        return estsgi;
+    }
 
+    public Boolean getPpe1() {
+        return ppe1;
+    }
+
+    public Boolean getPpe2() {
+        return ppe2;
+    }
+
+    public Boolean getPpe3() {
+        return ppe3;
+    }
+
+    public Boolean getPpe4() {
+        return ppe4;
+    }
+
+    public Boolean getEstConvertie() {
+        return estConvertie;
+    }
+
+    public Boolean getEstExpose() {
+        return estExpose;
+    }
+
+    public Boolean getEstJuge() {
+        return estJuge;
+    }
+
+    public Boolean getEstGele() {
+        return estGele;
+    }
 }

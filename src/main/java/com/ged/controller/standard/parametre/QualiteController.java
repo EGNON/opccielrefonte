@@ -21,49 +21,49 @@ public class QualiteController {
     }
 
     @PostMapping("tous/{phOrPm}")
-    @PreAuthorize("hasAuthority('ROLE_QUALITE')")
+//    @PreAuthorize("hasAuthority('ROLE_QUALITE')")
     public ResponseEntity<Object> afficherTous(@PathVariable Boolean phOrPm)
     {
         return qualiteService.afficherTous(phOrPm);
     }
 
     @GetMapping
-    @PreAuthorize("hasAuthority('ROLE_QUALITE')")
+//    @PreAuthorize("hasAuthority('ROLE_QUALITE')")
     public Page<QualiteDto> afficherTous(@RequestParam(value = "page",defaultValue = "0") int page,
                                          @RequestParam(value = "size",defaultValue = "10") int size){
         return qualiteService.afficherQualites(page,size);
     }
 
     @GetMapping("qualite/{qualite}")
-    @PreAuthorize("hasAuthority('ROLE_QUALITE')")
+//    @PreAuthorize("hasAuthority('ROLE_QUALITE')")
     public QualiteDto afficherSelonLibelle(@PathVariable("qualite") String qualite)
     {
         return qualiteService.afficherSelonLibelle(qualite);
     }
 
     @PostMapping("/datatable/list")
-    @PreAuthorize("hasAuthority('ROLE_QUALITE')")
+//    @PreAuthorize("hasAuthority('ROLE_QUALITE')")
     public DataTablesResponse<QualiteDto> datatableList(@RequestBody DatatableParameters params)
     {
         return qualiteService.afficherTous(params);
     }
 
     @PostMapping("/datatable/list-ph/{idPersonne}")
-    @PreAuthorize("hasAuthority('ROLE_QUALITE')")
+//    @PreAuthorize("hasAuthority('ROLE_QUALITE')")
     public ResponseEntity<Object> datatableListPh(@PathVariable Long idPersonne)
     {
         return qualiteService.afficherTousPh(idPersonne);
     }
 
     @PostMapping("/datatable/list-pm/{idPersonne}")
-    @PreAuthorize("hasAuthority('ROLE_QUALITE')")
+//    @PreAuthorize("hasAuthority('ROLE_QUALITE')")
     public ResponseEntity<Object> datatableListPm(@PathVariable Long idPersonne)
     {
         return qualiteService.afficherTousPm(idPersonne);
     }
 
     @GetMapping("/{idQualite}")
-    @PreAuthorize("hasAuthority('ROLE_QUALITE')")
+//    @PreAuthorize("hasAuthority('ROLE_QUALITE')")
     public QualiteDto afficher(@PathVariable("idQualite") long idQualite) {
         return qualiteService.afficherQualite(idQualite);
     }
@@ -73,7 +73,7 @@ public class QualiteController {
 //    }
 
     @PostMapping
-    @PreAuthorize("hasAuthority('ROLE_QUALITE')")
+//    @PreAuthorize("hasAuthority('ROLE_QUALITE')")
     public QualiteDto ajouter(@RequestBody QualiteDto qualiteDto)
     {
         return qualiteService.creerQualite(qualiteDto);
@@ -126,14 +126,14 @@ public class QualiteController {
     }*/
 
     @PutMapping("/{id}")
-    @PreAuthorize("hasAuthority('ROLE_QUALITE')")
+//    @PreAuthorize("hasAuthority('ROLE_QUALITE')")
     public QualiteDto modifier(@PathVariable long id, @RequestBody QualiteDto qualiteDto){
         qualiteDto.setIdQualite(id);
         return qualiteService.modifierQualite(qualiteDto);
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasAuthority('ROLE_QUALITE')")
+//    @PreAuthorize("hasAuthority('ROLE_QUALITE')")
     public void Supprimer(@PathVariable long id){
         qualiteService.supprimerQualite(id);
     }

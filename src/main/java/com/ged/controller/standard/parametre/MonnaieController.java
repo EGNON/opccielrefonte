@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/monnaies")
-@PreAuthorize("hasAuthority('ROLE_MONNAIE')")
+//@PreAuthorize("hasAuthority('ROLE_MONNAIE')")
 public class MonnaieController {
     private final MonnaieService monnaieService;
     private final MonnaieDao monnaieDao;

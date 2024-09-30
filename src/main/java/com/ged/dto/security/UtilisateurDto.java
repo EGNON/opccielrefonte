@@ -4,6 +4,9 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.ged.dto.standard.PaysDto;
 import com.ged.dto.standard.PersonnelDto;
 import com.ged.dto.standard.ProfessionDto;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
@@ -24,8 +27,16 @@ public class UtilisateurDto extends PersonnelDto {
     private String mobile2;
     private String emailPro;
     private String emailPerso;
+    @NotEmpty(message = "Le nom d'utilisateur est obligatoire")
+    @NotBlank(message = "Le mot d'utilisateur est obligatoire")
     private String username;
+    @NotEmpty(message = "Le mot de passe est obligatoire")
+    @NotBlank(message = "Le mot de passe est obligatoire")
+    @Size(min = 8, message = "Le mot de passe doit contenir au moins 8 caractères")
     private String password1;
+    @NotEmpty(message = "Le mot de passe est obligatoire")
+    @NotBlank(message = "Le mot de passe est obligatoire")
+    @Size(min = 8, message = "Le mot de passe doit contenir au moins 8 caractères")
     private String password;
     private Boolean estActif = false;
     private String authToken;

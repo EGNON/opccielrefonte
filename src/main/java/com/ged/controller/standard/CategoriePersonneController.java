@@ -37,46 +37,46 @@ public class CategoriePersonneController {
     }
 
     @GetMapping("/recuperer/total/categorie")
-    @PreAuthorize("hasAuthority('ROLE_CATEGORIE')")
+//    @PreAuthorize("hasAuthority('ROLE_CATEGORIE')")
     public Object[] getTotalCat() {
         return this.categoriePersonneService.get();
     }
 
     @GetMapping
-    @PreAuthorize("hasAuthority('ROLE_CATEGORIE')")
+//    @PreAuthorize("hasAuthority('ROLE_CATEGORIE')")
     public Page<CategoriePersonneDto> afficherTous(@RequestParam(value = "page", defaultValue = "0") int page,
                                                    @RequestParam(value = "size", defaultValue = "10") int size)
     {
         return categoriePersonneService.afficherCategoriePersonnes(page, size);
     }
     @GetMapping("/liste")
-    @PreAuthorize("hasAuthority('ROLE_CATEGORIE')")
+//    @PreAuthorize("hasAuthority('ROLE_CATEGORIE')")
     public List<CategoriePersonneDto> afficherTous()
     {
         return categoriePersonneService.afficherCategoriePersonnes();
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasAuthority('ROLE_CATEGORIE')")
+//    @PreAuthorize("hasAuthority('ROLE_CATEGORIE')")
     public CategoriePersonneDto afficher(@PathVariable("id") Long id)
     {
         return categoriePersonneService.afficher(id);
     }
 
     @GetMapping("/recherche/{libelle}")
-    @PreAuthorize("hasAuthority('ROLE_CATEGORIE')")
+//    @PreAuthorize("hasAuthority('ROLE_CATEGORIE')")
     public CategoriePersonneDto recherherCategoriePersonneParLibelle(@PathVariable("libelle") String libelle)
     {
         return categoriePersonneService.rechercherCategoriePersonneParLibelle(libelle);
     }
 
     @PostMapping
-    @PreAuthorize("hasAuthority('ROLE_CATEGORIE')")
+//    @PreAuthorize("hasAuthority('ROLE_CATEGORIE')")
     public CategoriePersonneDto ajouter(@Valid @RequestBody CategoriePersonneDto categoriePersonneDto) throws JsonProcessingException {
         return categoriePersonneService.creerCategoriePersonne(categoriePersonneDto);
     }
     @PostMapping("/datatable/list")
-    @PreAuthorize("hasAuthority('ROLE_CATEGORIE')")
+//    @PreAuthorize("hasAuthority('ROLE_CATEGORIE')")
     public DataTablesResponse<CategoriePersonneDto> datatableList(@RequestBody DatatableParameters datatableParameters)
     {
         Page<CategoriePersonne> categoriePersonneDtoPage;
@@ -100,7 +100,7 @@ public class CategoriePersonneController {
     }
 
     @PutMapping("/{id}")
-    @PreAuthorize("hasAuthority('ROLE_CATEGORIE')")
+//    @PreAuthorize("hasAuthority('ROLE_CATEGORIE')")
     public CategoriePersonneDto modifier(@Valid @RequestBody CategoriePersonneDto categoriePersonneDto,
                                          @Positive @PathVariable("id") Long id)
     {
@@ -114,7 +114,7 @@ public class CategoriePersonneController {
     }*/
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasAuthority('ROLE_CATEGORIE')")
+//    @PreAuthorize("hasAuthority('ROLE_CATEGORIE')")
     public void supprimer(@Positive @PathVariable("id") Long id)
     {
         categoriePersonneService.supprimerCategoriePersonne(id);

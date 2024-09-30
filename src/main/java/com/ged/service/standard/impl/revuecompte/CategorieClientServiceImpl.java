@@ -24,7 +24,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-@Transactional
+//@Transactional
 public class CategorieClientServiceImpl implements CategorieClientService {
     private final CategorieClientDao categorieClientDao;
     private final CategorieClientMapper categorieClientMapper;
@@ -71,11 +71,12 @@ public class CategorieClientServiceImpl implements CategorieClientService {
     @Override
     public ResponseEntity<Object> afficherTous() {
         try {
-            Sort sort=Sort.by(Sort.Direction.ASC,"codeCategorieClient");
+            Sort sort=Sort.by(Sort.Direction.ASC,"code");
+            List<CategorieClientDto> categorieClientDtos = categorieClientDao.findAll(sort).stream().map(categorieClientMapper::deCatClient).toList();
             return ResponseHandler.generateResponse(
                     "Liste de tous les Categorie Clients",
                     HttpStatus.OK,
-                    categorieClientDao.findAll(sort).stream().map(categorieClientMapper::deCatClient).collect(Collectors.toList()));
+                    categorieClientDtos);
         }
         catch(Exception e)
         {

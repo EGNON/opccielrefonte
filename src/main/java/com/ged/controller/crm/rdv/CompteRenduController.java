@@ -30,28 +30,28 @@ public class CompteRenduController {
     }
 
     @GetMapping
-    @PreAuthorize("hasAuthority('ROLE_COMPTE_RENDU')")
+//    @PreAuthorize("hasAuthority('ROLE_COMPTE_RENDU')")
     public List<CompteRenduDto> afficherTous()
     {
         return compteRenduService.afficherTous();
     }
 
     @GetMapping("/etats/tous")
-    @PreAuthorize("hasAuthority('ROLE_COMPTE_RENDU')")
+//    @PreAuthorize("hasAuthority('ROLE_COMPTE_RENDU')")
     public List<CompteRenduDto> afficherTousEtat()
     {
         return compteRenduService.afficherTousEtat();
     }
 
     @GetMapping("/liste/{id}")
-    @PreAuthorize("hasAuthority('ROLE_COMPTE_RENDU')")
+//    @PreAuthorize("hasAuthority('ROLE_COMPTE_RENDU')")
     public List<CompteRenduDto> afficherCompteRenduSelonUtilisateur(@PathVariable("id") long id)
     {
         return compteRenduService.afficherCompteRenduSelonUtilisateur(id);
     }
 
     @GetMapping("/realisation/{id}/{dateDeb}/{dateFin}")
-    @PreAuthorize("hasAuthority('ROLE_COMPTE_RENDU')")
+//    @PreAuthorize("hasAuthority('ROLE_COMPTE_RENDU')")
     public List<CompteRenduDto> afficherCompteRenduSelonRealisation(@PathVariable("id") long id,
                                                                     @PathVariable("dateDeb")LocalDateTime dateDeb,
                                                                     @PathVariable("dateFin") LocalDateTime dateFin)
@@ -60,21 +60,21 @@ public class CompteRenduController {
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasAuthority('ROLE_COMPTE_RENDU')")
+//    @PreAuthorize("hasAuthority('ROLE_COMPTE_RENDU')")
     public CompteRenduDto afficherCompteRendu(@PathVariable(name = "id") Long id)
     {
         return compteRenduService.afficherCompteRendu(id);
     }
 
     @PostMapping("/validate-{id}")
-    @PreAuthorize("hasAuthority('ROLE_COMPTE_RENDU')")
+//    @PreAuthorize("hasAuthority('ROLE_COMPTE_RENDU')")
     public CompteRenduDto validateCR(@PathVariable Long id, @RequestBody CrStateRequest crStateRequest)
     {
         return compteRenduService.validateCR(id, crStateRequest);
     }
 
     @PostMapping("/datatable/list")
-    @PreAuthorize("hasAuthority('ROLE_COMPTE_RENDU')")
+//    @PreAuthorize("hasAuthority('ROLE_COMPTE_RENDU')")
     public DataTablesResponse<CompteRenduDto> datatableList(@RequestBody DatatableParameters datatableParameters)
     {
         Page<CompteRenduDto> compteRenduDtoPage = compteRenduService.afficherCompteRendus(datatableParameters.getStart()/datatableParameters.getLength(), datatableParameters.getLength());
@@ -89,7 +89,7 @@ public class CompteRenduController {
     }
 
     @PostMapping
-    @PreAuthorize("hasAuthority('ROLE_COMPTE_RENDU')")
+//    @PreAuthorize("hasAuthority('ROLE_COMPTE_RENDU')")
     public CompteRenduDto ajouter(@RequestBody CompteRenduDto compteRenduDto) throws Throwable {
         return compteRenduService.creerCompteRendu(null, compteRenduDto);
     }
@@ -110,7 +110,7 @@ public class CompteRenduController {
     }
 
     @PutMapping("/{id}")
-    @PreAuthorize("hasAuthority('ROLE_COMPTE_RENDU')")
+//    @PreAuthorize("hasAuthority('ROLE_COMPTE_RENDU')")
     public CompteRenduDto modifier(@RequestBody CompteRenduDto compteRenduDto, @PathVariable Long id) throws Throwable {
         compteRenduDto.setIdCR(id);
         return compteRenduService.modifierCompteRendu(null, compteRenduDto);
@@ -135,7 +135,7 @@ public class CompteRenduController {
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasAuthority('ROLE_COMPTE_RENDU')")
+//    @PreAuthorize("hasAuthority('ROLE_COMPTE_RENDU')")
     public void supprimer(@PathVariable Long id)
     {
         compteRenduService.supprimerCompteRendu(id);

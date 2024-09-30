@@ -31,5 +31,4 @@ public class RisqueController {
     {
         return risqueService.afficherRatioSharp(idOpcvm, anneeDebut, anneeFin);
     }
-
 }

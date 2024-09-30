@@ -12,18 +12,17 @@ import java.util.*;
 
 @Entity
 @Table(name = "T_Role", schema = "Parametre")
-@NaturalIdCache
+/*@NaturalIdCache
 @org.hibernate.annotations.Cache(
         usage = CacheConcurrencyStrategy.READ_WRITE
-)
+)*/
 //@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "idRole")
 public class Role extends Base {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idRole;
-    @Basic
     @Column(nullable = false, length = 45, unique = true)
-    @NaturalId
+//    @NaturalId
     private String nom;
     private String description;
 

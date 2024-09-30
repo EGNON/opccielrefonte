@@ -13,7 +13,7 @@ import java.util.List;
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/personnels")
-@PreAuthorize("hasAuthority('ROLE_PERSONNEL')")
+//@PreAuthorize("hasAuthority('ROLE_PERSONNEL')")
 public class PersonnelController {
     private final PersonnelService personnelService;
 

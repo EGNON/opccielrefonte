@@ -6,6 +6,7 @@ import com.ged.dto.security.Utilisateur2Dto;
 import com.ged.dto.security.UtilisateurDto;
 import com.ged.service.standard.UtilisateurService;
 import org.springframework.data.domain.Page;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,18 +23,18 @@ public class UtilisateurController {
     }
 
     @GetMapping
-    public List<UtilisateurDto> afficherTous(){
+    public ResponseEntity<Object> afficherTous(){
         return utilisateurService.afficherTous();
     }
 
     @GetMapping("/{id}")
-    public UtilisateurDto afficherUtilisateur(@PathVariable("id") Long id)
+    public ResponseEntity<Object> afficherUtilisateur(@PathVariable("id") Long id)
     {
         return utilisateurService.afficherUtilisateur(id);
     }
 
     @PostMapping
-    public UtilisateurDto ajouter(@RequestBody UtilisateurDto utilisateurDto)
+    public ResponseEntity<Object> ajouter(@RequestBody UtilisateurDto utilisateurDto)
     {
         return utilisateurService.creerUtilisateur(utilisateurDto);
     }
@@ -52,7 +53,7 @@ public class UtilisateurController {
     }
 
     @PutMapping("/{id}")
-    public UtilisateurDto modifier(@PathVariable long id, @RequestBody UtilisateurDto utilisateurDto){
+    public ResponseEntity<Object> modifier(@PathVariable long id, @RequestBody UtilisateurDto utilisateurDto){
         utilisateurDto.setIdPersonne(id);
         return utilisateurService.modifierUtilisateur(utilisateurDto);
     }

@@ -28,14 +28,14 @@ public class ClassificationController {
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasAuthority('ROLE_CLASSIFICATION')")
+//    @PreAuthorize("hasAuthority('ROLE_CLASSIFICATION')")
     public ResponseEntity<Object> afficher(@PathVariable(name = "id") String codeClassification)
     {
         return classificationService.afficher(codeClassification);
     }
 
     @PostMapping("/datatable/list")
-    @PreAuthorize("hasAuthority('ROLE_CLASSIFICATION')")
+//    @PreAuthorize("hasAuthority('ROLE_CLASSIFICATION')")
     public ResponseEntity<Object> datatableList(@RequestBody DatatableParameters params) {
         return classificationService.afficherTous(params);
     }
@@ -46,14 +46,14 @@ public class ClassificationController {
     }*/
 
     @PostMapping
-    @PreAuthorize("hasAuthority('ROLE_CLASSIFICATION')")
+//    @PreAuthorize("hasAuthority('ROLE_CLASSIFICATION')")
     public ResponseEntity<Object> creer(@Valid @RequestBody ClassificationOPCDto classificationOPCDto)
     {
         return classificationService.creer(classificationOPCDto);
     }
 
     @PutMapping("/{id}")
-    @PreAuthorize("hasAuthority('ROLE_CLASSIFICATION')")
+//    @PreAuthorize("hasAuthority('ROLE_CLASSIFICATION')")
     public ResponseEntity<Object> modifier(
             @Valid @RequestBody ClassificationOPCDto classificationOPCDto,
             @Positive @PathVariable("id") String codeClassification)
@@ -63,7 +63,7 @@ public class ClassificationController {
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasAuthority('ROLE_CLASSIFICATION')")
+//    @PreAuthorize("hasAuthority('ROLE_CLASSIFICATION')")
     public ResponseEntity<Object> supprimer(@Positive @PathVariable("id") String codeClassification)
     {
         return classificationService.supprimer(codeClassification);
