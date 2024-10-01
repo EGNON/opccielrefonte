@@ -7,7 +7,7 @@ import com.ged.entity.Base;
 public class SousTypeCompteDto extends Base {
     private Long idSousTypeCompte;
     private String libelleSousTypeCompte;
-    private String codeSousTypeCompte;
+    private String code;
     private TypeCompteDto typeCompte;
     public SousTypeCompteDto() {
     }
@@ -36,11 +36,11 @@ public class SousTypeCompteDto extends Base {
         this.libelleSousTypeCompte = libelleSousTypeCompte;
     }
 
-    public String getCodeSousTypeCompte() {
-        return codeSousTypeCompte;
+    public String getCode() {
+        return code;
     }
 
-    public void setCodeSousTypeCompte(String codeSousTypeCompte) {
-        this.codeSousTypeCompte = codeSousTypeCompte;
+    public void setCode(String code) {
+        this.code = code;
     }
 }

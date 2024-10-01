@@ -7,7 +7,7 @@ import com.ged.entity.Base;
 public class SousTypeClientDto extends Base {
     private Long idSousTypeClient;
     private String libelleSousTypeClient;
-    private String codeSousTypeClient;
+    private String code;
     private TypeClientDto typeClient;
 
     public SousTypeClientDto() {
@@ -37,11 +37,11 @@ public class SousTypeClientDto extends Base {
         this.libelleSousTypeClient = libelleSousTypeClient;
     }
 
-    public String getCodeSousTypeClient() {
-        return codeSousTypeClient;
+    public String getCode() {
+        return code;
     }
 
-    public void setCodeSousTypeClient(String codeSousTypeClient) {
-        this.codeSousTypeClient = codeSousTypeClient;
+    public void setCode(String code) {
+        this.code = code;
     }
 }

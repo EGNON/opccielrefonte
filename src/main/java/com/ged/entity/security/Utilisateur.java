@@ -14,11 +14,12 @@ import java.util.*;
 @DiscriminatorValue("U")
 @PrimaryKeyJoinColumn(name = "idPersonne")
 @Table(
-        name = "T_User",
-        schema = "Parametre",
-        uniqueConstraints = {
-            @UniqueConstraint(columnNames = "username")
-        })
+    name = "T_User",
+    schema = "Parametre",
+    uniqueConstraints = {
+        @UniqueConstraint(columnNames = "username")
+    }
+)
 //@SQLInsert(sql = "insert into utilisateur ()")
 public class Utilisateur extends Personnel implements UserDetails{
     @Transient

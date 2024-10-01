@@ -15,7 +15,6 @@ public class SousTypeCompteController {
     private final SousTypeCompteService SousTypeCompteService;
 
     public SousTypeCompteController(SousTypeCompteService SousTypeCompteService) {
-
         this.SousTypeCompteService = SousTypeCompteService;
     }
 

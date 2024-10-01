@@ -8,7 +8,8 @@ public class TypeCompteDto extends Base {
 
     private Long idTypeCompte;
     private String libelleTypeCompte;
-    private String codeTypeCompte;
+    private String code;
+
     public TypeCompteDto() {
     }
 
@@ -28,11 +29,11 @@ public class TypeCompteDto extends Base {
         this.libelleTypeCompte = libelleTypeCompte;
     }
 
-    public String getCodeTypeCompte() {
-        return codeTypeCompte;
+    public String getCode() {
+        return code;
     }
 
-    public void setCodeTypeCompte(String codeTypeCompte) {
-        this.codeTypeCompte = codeTypeCompte;
+    public void setCode(String code) {
+        this.code = code;
     }
 }

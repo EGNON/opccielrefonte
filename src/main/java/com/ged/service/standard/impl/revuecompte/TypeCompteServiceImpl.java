@@ -37,7 +37,7 @@ public class TypeCompteServiceImpl implements TypeCompteService {
     @Override
     public ResponseEntity<Object> afficherTous(DatatableParameters parameters) {
         try {
-            Sort sort=Sort.by(Sort.Direction.ASC,"codeTypeCompte");
+            Sort sort=Sort.by(Sort.Direction.ASC,"code");
             Pageable pageable = PageRequest.of(
                     parameters.getStart()/ parameters.getLength(), parameters.getLength(),sort);
             Page<TypeCompte> TypeComptePage;

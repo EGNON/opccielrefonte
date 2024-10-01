@@ -44,7 +44,7 @@ public class SousTypeCompteServiceImpl implements SousTypeCompteService {
     @Override
     public ResponseEntity<Object> afficherTous(DatatableParameters parameters) {
         try {
-            Sort sort=Sort.by(Sort.Direction.ASC,"codeSousTypeCompte");
+            Sort sort=Sort.by(Sort.Direction.ASC,"code");
             Pageable pageable = PageRequest.of(
                     parameters.getStart()/ parameters.getLength(), parameters.getLength(),sort);
             Page<SousTypeCompte> SousTypeComptePage;
@@ -78,7 +78,7 @@ public class SousTypeCompteServiceImpl implements SousTypeCompteService {
     @Override
     public ResponseEntity<Object> afficherTous() {
         try {
-            Sort sort=Sort.by(Sort.Direction.ASC,"codeSousTypeCompte");
+            Sort sort=Sort.by(Sort.Direction.ASC,"code");
             return ResponseHandler.generateResponse(
                     "Liste de tous les Sous Type Comptes",
                     HttpStatus.OK,

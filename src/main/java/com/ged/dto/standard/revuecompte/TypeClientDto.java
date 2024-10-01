@@ -8,7 +8,7 @@ public class TypeClientDto extends Base {
 
     private Long idTypeClient;
     private String libelleTypeClient;
-    private String codeTypeClient;
+    private String code;
 
     public TypeClientDto() {
     }
@@ -29,11 +29,11 @@ public class TypeClientDto extends Base {
         this.libelleTypeClient = libelleTypeClient;
     }
 
-    public String getCodeTypeClient() {
-        return codeTypeClient;
+    public String getCode() {
+        return code;
     }
 
-    public void setCodeTypeClient(String codeTypeClient) {
-        this.codeTypeClient = codeTypeClient;
+    public void setCode(String code) {
+        this.code = code;
     }
 }

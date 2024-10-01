@@ -37,7 +37,7 @@ public class TypeClientServiceImpl implements TypeClientService {
     @Override
     public ResponseEntity<Object> afficherTous(DatatableParameters parameters) {
         try {
-            Sort sort=Sort.by(Sort.Direction.ASC,"codeTypeClient");
+            Sort sort=Sort.by(Sort.Direction.ASC,"code");
             Pageable pageable = PageRequest.of(
                     parameters.getStart()/ parameters.getLength(), parameters.getLength(),sort);
             Page<TypeClient> TypeClientPage;
@@ -71,7 +71,7 @@ public class TypeClientServiceImpl implements TypeClientService {
     @Override
     public ResponseEntity<Object> afficherTous() {
         try {
-            Sort sort=Sort.by(Sort.Direction.ASC,"codeTypeClient");
+            Sort sort=Sort.by(Sort.Direction.ASC,"code");
             return ResponseHandler.generateResponse(
                     "Liste de tous les Type Clients",
                     HttpStatus.OK,

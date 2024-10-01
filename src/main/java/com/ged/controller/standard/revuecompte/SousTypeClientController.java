@@ -24,11 +24,13 @@ public class SousTypeClientController {
     {
         return SousTypeClientService.afficherTous();
     }
+
     @GetMapping("/filtre/personnephysique")
     public ResponseEntity<Object> afficherPersonnePhysique()
     {
         return SousTypeClientService.afficherPersonnePhysique();
     }
+
     @GetMapping("/filtre/autre")
     public ResponseEntity<Object> afficherAutresTypePersonne()
     {

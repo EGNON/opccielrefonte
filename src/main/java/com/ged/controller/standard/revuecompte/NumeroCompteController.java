@@ -2,9 +2,7 @@ package com.ged.controller.standard.revuecompte;
 
 import com.ged.datatable.DatatableParameters;
 import com.ged.dto.standard.revuecompte.NumeroCompteDto;
-import com.ged.dto.standard.revuecompte.NumeroCompteDto;
 import com.ged.entity.standard.revuecompte.CleNumeroCompte;
-import com.ged.service.standard.revuecompte.NumeroCompteService;
 import com.ged.service.standard.revuecompte.NumeroCompteService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +22,7 @@ public class NumeroCompteController {
     public ResponseEntity<Object> afficherTous() {
         return NumeroCompteService.afficherTous();
     }
+
     @GetMapping("/{idPersonne}/{idSousTypeCompte}")
     //@PreAuthorize("hasAuthority('ROLE_NumeroCompte')")
     public ResponseEntity<Object> afficher(@PathVariable Long idPersonne,
@@ -33,6 +32,7 @@ public class NumeroCompteController {
         idNumeroCompte.setIdSousTypeCompte(idSousTypeCompte);
         return NumeroCompteService.afficher(idNumeroCompte);
     }
+
     @PostMapping("/datatable/list")
     //@PreAuthorize("hasAuthority('ROLE_NumeroCompte')")
     public ResponseEntity<Object> datatableList(@RequestBody DatatableParameters params) {
