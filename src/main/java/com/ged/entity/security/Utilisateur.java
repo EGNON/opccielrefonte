@@ -1,8 +1,10 @@
 package com.ged.entity.security;
 
+import com.ged.dto.security.UtilisateurDto;
 import com.ged.entity.standard.Personnel;
 import com.ged.entity.security.token.Token;
 import jakarta.persistence.*;
+import org.springframework.beans.BeanUtils;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -87,6 +89,17 @@ public class Utilisateur extends Personnel implements UserDetails{
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "idUtilisateur")
     private Set<UtilisateurRolePermission> permissions = new HashSet<>();
+
+    public static UtilisateurDto deUtilisateur(Utilisateur user) {
+        if (user == null) {
+            return null;
+        }
+
+        UtilisateurDto utilisateurDto = new UtilisateurDto();
+        BeanUtils.copyProperties(user, utilisateurDto);
+
+        return utilisateurDto;
+    }
 
     public void addUtilisateurRole(Set<UtilisateurRole> utilisateurRoles) {
         this.roles1 = utilisateurRoles;

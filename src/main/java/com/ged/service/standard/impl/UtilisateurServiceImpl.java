@@ -28,6 +28,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.lang.NonNullApi;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -131,7 +132,7 @@ public class UtilisateurServiceImpl implements UtilisateurService {
 
     @Override
     public Utilisateur afficherUtilisateurSelonId(Long idUtilisateur) {
-        return utilisateurDao.findById(idUtilisateur).orElseThrow(() -> new EntityNotFoundException("Utilisateur avec ID " + idUtilisateur + " introuvable"));
+        return utilisateurDao.findByIdPersonne(idUtilisateur).orElseThrow(() -> new EntityNotFoundException("Utilisateur avec ID " + idUtilisateur + " introuvable"));
     }
 
     @Override

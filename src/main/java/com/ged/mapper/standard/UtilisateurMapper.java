@@ -32,6 +32,7 @@ public class UtilisateurMapper {
         UtilisateurDto utilisateurDto = new UtilisateurDto();
         BeanUtils.copyProperties(utilisateur, utilisateurDto);
         utilisateurDto.setTokens(utilisateur.getTokens().stream().map(tokenMapper::deToken).collect(Collectors.toSet()));
+
         if(utilisateur.getProfession() != null) {
             utilisateurDto.setProfession(modelMapper.map(utilisateur.getProfession(), ProfessionDto.class));
         }
@@ -41,6 +42,7 @@ public class UtilisateurMapper {
         if(utilisateur.getPaysNationalite()!=null) {
             utilisateurDto.setPaysNationalite(modelMapper.map(utilisateur.getPaysNationalite(), PaysDto.class));
         }
+
         utilisateurDto.getRoles1().clear();
         utilisateurDto.setRoles1(utilisateur.getRoles1().stream().map(utilisateurRole -> {
             UtilisateurRoleDto r = new UtilisateurRoleDto();
@@ -131,6 +133,7 @@ public class UtilisateurMapper {
         }).collect(Collectors.toSet()));
         return utilisateurDto;
     }
+
     public Utilisateur2Dto deUtilisateur2(Utilisateur utilisateur)
     {
         if(utilisateur == null)

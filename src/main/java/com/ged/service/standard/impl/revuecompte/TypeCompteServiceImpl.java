@@ -71,7 +71,7 @@ public class TypeCompteServiceImpl implements TypeCompteService {
     @Override
     public ResponseEntity<Object> afficherTous() {
         try {
-            Sort sort=Sort.by(Sort.Direction.ASC,"codeTypeCompte");
+            Sort sort=Sort.by(Sort.Direction.ASC,"code");
             return ResponseHandler.generateResponse(
                     "Liste de tous les Type Comptes",
                     HttpStatus.OK,
