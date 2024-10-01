@@ -70,10 +70,16 @@ public class StatutPersonneController {
         //System.out.println("qualité="+qualite1.getLibelleQualite());
         if(!qualite1.getLibelleQualite().toLowerCase().equals("prospect")) {
             Personne personne = personneDao.findById(statutPersonneDto.getPersonne().getIdPersonne()).orElseThrow();
-            if(personne.getSousTypeClient().getTypeClient().getLibelleTypeClient().toLowerCase().contains("personne physique"))
-                personne.setNumOrdre(personnePhysiqueService.afficherMaxNumordre()+1);
-            else
-                personne.setNumOrdre(personneMoraleService.afficherMaxNumordre(personne.getSousTypeClient().getTypeClient().getLibelleTypeClient())+1);
+           if(personne.getSousTypeClient()!=null)
+           {
+               if(personne.getSousTypeClient().getTypeClient()!=null)
+               {
+                   if(personne.getSousTypeClient().getTypeClient().getLibelleTypeClient().toLowerCase().contains("personne physique"))
+                       personne.setNumOrdre(personnePhysiqueService.afficherMaxNumordre()+1);
+                   else
+                       personne.setNumOrdre(personneMoraleService.afficherMaxNumordre(personne.getSousTypeClient().getTypeClient().getLibelleTypeClient())+1);
+               }
+           }
 
             personneDao.save(personne);
         }

@@ -62,10 +62,10 @@ public class CompteRenduMapper {
         {
             compteRenduDto.setRdv(rdvMapper.deRDV(compteRendu.getRdv()));
         }
-        if(compteRendu.getCreateur() != null)
+        /*if(compteRendu.getCreateur() != null)
         {
             compteRenduDto.setCreateur(utilisateurMapper.deUtilisateur2(compteRendu.getCreateur()));
-        }
+        }*/
         if(compteRendu.getDocuments() != null)
         {
             Set<DocumentDto> documents=new HashSet<>();
@@ -94,10 +94,10 @@ public class CompteRenduMapper {
         {
             compteRendu.setRdv(rdvMapper.deRDVDto(compteRenduDto.getRdv()));
         }
-        if(compteRenduDto.getCreateur() != null)
-        {
-            compteRendu.setCreateur(utilisateurMapper.deUtilisateur2Dto(compteRenduDto.getCreateur()));
-        }
+//        if(compteRenduDto.getCreateur() != null)
+//        {
+//            compteRendu.setCreateur(utilisateurMapper.deUtilisateur2Dto(compteRenduDto.getCreateur()));
+//        }
         if(compteRenduDto.getDocuments() != null)
         {
             Set<Document> documents=new HashSet<>();

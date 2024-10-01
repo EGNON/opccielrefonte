@@ -13,8 +13,8 @@ public interface CompteRenduService {
     Page<CompteRenduDto> afficherCompteRendus(int page, int size);
     List<CompteRenduDto> afficherTous();
     List<CompteRenduDto> afficherTousEtat();
-    List<CompteRenduDto> afficherCompteRenduSelonUtilisateur(long idUtilisateur);
-    List<CompteRenduDto> afficherCompteRenduSelonRealisation(long idUtilisateur, LocalDateTime dateDeb, LocalDateTime dateFin);
+    List<CompteRenduDto> afficherCompteRenduSelonUtilisateur(Long idUtilisateur);
+    List<CompteRenduDto> afficherCompteRenduSelonRealisation(Long idUtilisateur, LocalDateTime dateDeb, LocalDateTime dateFin);
     CompteRenduDto afficherCompteRendu(Long id);
     CompteRendu afficherCompteRenduSelonId(Long idCompteRendu);
     CompteRenduDto creerCompteRendu(List<MultipartFile> files, CompteRenduDto compteRenduDto) throws Throwable;

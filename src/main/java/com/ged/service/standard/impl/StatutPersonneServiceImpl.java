@@ -49,7 +49,7 @@ public class StatutPersonneServiceImpl implements StatutPersonneService {
 
     @Override
     public StatutPersonne afficherStatutPersonneSelonId(CleStatutPersonne idStatutPersonne) {
-        return statutPersonneDao.findById(idStatutPersonne).orElse(null);
+        return statutPersonneDao.afficherStatutSelonId(idStatutPersonne);
     }
 
     @Override
@@ -73,6 +73,9 @@ public class StatutPersonneServiceImpl implements StatutPersonneService {
             statutPersonne.setPersonnel(personnelMapper.dePersonnelDto(statutPersonneDto.getPersonnel()));
         }
         statutPersonne = statutPersonneDao.save(statutPersonne);
+        /*statutPersonneDao.insertStatutPersonne(statutPersonneDto.getPersonne().getIdPersonne(),
+        statutPersonneDto.getPersonnel().getIdPersonne(),statutPersonneDto.getQualite().getIdQualite());
+        */
         return statutPersonneMapper.deStatutPersonne(statutPersonne);
     }
 

@@ -31,11 +31,11 @@ public class PersonneDto {
     private LocalDateTime dateExpirationPiece;
     private String modeEtablissement;
     private ModeEtablissementDto modeEtablissementDto;
-    private Boolean estsgi;
-    private Boolean ppe1;
-    private Boolean ppe2;
-    private Boolean ppe3;
-    private Boolean ppe4;
+    private boolean estsgi;
+    private boolean ppe1;
+    private boolean ppe2;
+    private boolean ppe3;
+    private boolean ppe4;
     private SecteurDto secteur;
     private DegreDto degre;
     private PersonneDto distributeur;
@@ -47,200 +47,16 @@ public class PersonneDto {
     private String emailContact;
     private String titreContact;
     private String numeroCpteDeposit;
-    private Boolean estConvertie;
+    private boolean estConvertie;
     private CommuneDto commune;
     private Set<DocumentDto> documents = new HashSet<>();
     private Set<StatutPersonneDto> statutPersonnes = new HashSet<>();
-    private Boolean estExpose;
-    private Boolean estJuge;
-    private Boolean estGele;
+    private boolean estExpose;
+    private boolean estJuge;
+    private boolean estGele;
     private String typePersonne;
     private CategorieClientDto categorieClient;
     private SousTypeClientDto sousTypeClient;
-
-    public CategorieClientDto getCategorieClient() {
-        return categorieClient;
-    }
-
-    public void setCategorieClient(CategorieClientDto categorieClient) {
-        this.categorieClient = categorieClient;
-    }
-
-    public SousTypeClientDto getSousTypeClient() {
-        return sousTypeClient;
-    }
-
-    public void setSousTypeClient(SousTypeClientDto sousTypeClient) {
-        this.sousTypeClient = sousTypeClient;
-    }
-
-    public ModeEtablissementDto getModeEtablissementDto() {
-        return modeEtablissementDto;
-    }
-
-    public void setModeEtablissementDto(ModeEtablissementDto modeEtablissementDto) {
-        this.modeEtablissementDto = modeEtablissementDto;
-    }
-
-    public Set<DocumentDto> getDocuments() {
-        return documents;
-    }
-
-    public void setDocuments(Set<DocumentDto> documents) {
-        this.documents = documents;
-    }
-
-    public Set<StatutPersonneDto> getStatutPersonnes() {
-        return statutPersonnes;
-    }
-
-    public void setStatutPersonnes(Set<StatutPersonneDto> statutPersonnes) {
-        this.statutPersonnes = statutPersonnes;
-    }
-
-    public CommuneDto getCommune() {
-        return commune;
-    }
-
-    public void setCommune(CommuneDto commune) {
-        this.commune = commune;
-    }
-
-    public Boolean isEstGele() {
-        return estGele;
-    }
-
-    public String getTypePersonne() {
-        return typePersonne;
-    }
-
-    public void setTypePersonne(String typePersonne) {
-        this.typePersonne = typePersonne;
-    }
-
-    public void setEstGele(Boolean estGele) {
-        this.estGele = estGele;
-    }
-
-    public Boolean isEstsgi() {
-        return estsgi;
-    }
-
-    public void setEstsgi(Boolean estsgi) {
-        this.estsgi = estsgi;
-    }
-
-    public Boolean isPpe1() {
-        return ppe1;
-    }
-
-    public void setPpe1(Boolean ppe1) {
-        this.ppe1 = ppe1;
-    }
-
-    public Boolean isEstExpose() {
-        return estExpose;
-    }
-
-    public void setEstExpose(Boolean estExpose) {
-        this.estExpose = estExpose;
-    }
-
-    public Boolean isEstJuge() {
-        return estJuge;
-    }
-
-    public void setEstJuge(Boolean estJuge) {
-        this.estJuge = estJuge;
-    }
-
-    public Boolean isPpe2() {
-        return ppe2;
-    }
-
-    public void setPpe2(Boolean ppe2) {
-        this.ppe2 = ppe2;
-    }
-
-    public Boolean isPpe3() {
-        return ppe3;
-    }
-
-    public void setPpe3(Boolean ppe3) {
-        this.ppe3 = ppe3;
-    }
-
-    public Boolean isPpe4() {
-        return ppe4;
-    }
-
-    public void setPpe4(Boolean ppe4) {
-        this.ppe4 = ppe4;
-    }
-
-    public String getDenomination() {
-        return denomination;
-    }
-
-    public void setDenomination(String denomination) {
-        this.denomination = denomination;
-    }
-
-    public String getNomContact() {
-        return nomContact;
-    }
-
-    public void setNomContact(String nomContact) {
-        this.nomContact = nomContact;
-    }
-
-    public String getPrenomContact() {
-        return prenomContact;
-    }
-
-    public void setPrenomContact(String prenomContact) {
-        this.prenomContact = prenomContact;
-    }
-
-    public String getTelContact() {
-        return telContact;
-    }
-
-    public void setTelContact(String telContact) {
-        this.telContact = telContact;
-    }
-
-    public String getEmailContact() {
-        return emailContact;
-    }
-
-    public void setEmailContact(String emailContact) {
-        this.emailContact = emailContact;
-    }
-
-    public String getTitreContact() {
-        return titreContact;
-    }
-
-    public void setTitreContact(String titreContact) {
-        this.titreContact = titreContact;
-    }
-
-    public PersonneDto getDistributeur() {
-        return distributeur;
-    }
-
-    public void setDistributeur(PersonneDto distributeur) {
-        this.distributeur = distributeur;
-    }
-
-    public PaysDto getPaysResidence() {
-        return paysResidence;
-    }
-
-    public void setPaysResidence(PaysDto paysResidence) {
-        this.paysResidence = paysResidence;
-    }
 
     public Long getIdPersonne() {
         return idPersonne;
@@ -354,6 +170,54 @@ public class PersonneDto {
         this.modeEtablissement = modeEtablissement;
     }
 
+    public ModeEtablissementDto getModeEtablissementDto() {
+        return modeEtablissementDto;
+    }
+
+    public void setModeEtablissementDto(ModeEtablissementDto modeEtablissementDto) {
+        this.modeEtablissementDto = modeEtablissementDto;
+    }
+
+    public boolean isEstsgi() {
+        return estsgi;
+    }
+
+    public void setEstsgi(boolean estsgi) {
+        this.estsgi = estsgi;
+    }
+
+    public boolean isPpe1() {
+        return ppe1;
+    }
+
+    public void setPpe1(boolean ppe1) {
+        this.ppe1 = ppe1;
+    }
+
+    public boolean isPpe2() {
+        return ppe2;
+    }
+
+    public void setPpe2(boolean ppe2) {
+        this.ppe2 = ppe2;
+    }
+
+    public boolean isPpe3() {
+        return ppe3;
+    }
+
+    public void setPpe3(boolean ppe3) {
+        this.ppe3 = ppe3;
+    }
+
+    public boolean isPpe4() {
+        return ppe4;
+    }
+
+    public void setPpe4(boolean ppe4) {
+        this.ppe4 = ppe4;
+    }
+
     public SecteurDto getSecteur() {
         return secteur;
     }
@@ -370,6 +234,70 @@ public class PersonneDto {
         this.degre = degre;
     }
 
+    public PersonneDto getDistributeur() {
+        return distributeur;
+    }
+
+    public void setDistributeur(PersonneDto distributeur) {
+        this.distributeur = distributeur;
+    }
+
+    public PaysDto getPaysResidence() {
+        return paysResidence;
+    }
+
+    public void setPaysResidence(PaysDto paysResidence) {
+        this.paysResidence = paysResidence;
+    }
+
+    public String getDenomination() {
+        return denomination;
+    }
+
+    public void setDenomination(String denomination) {
+        this.denomination = denomination;
+    }
+
+    public String getNomContact() {
+        return nomContact;
+    }
+
+    public void setNomContact(String nomContact) {
+        this.nomContact = nomContact;
+    }
+
+    public String getPrenomContact() {
+        return prenomContact;
+    }
+
+    public void setPrenomContact(String prenomContact) {
+        this.prenomContact = prenomContact;
+    }
+
+    public String getTelContact() {
+        return telContact;
+    }
+
+    public void setTelContact(String telContact) {
+        this.telContact = telContact;
+    }
+
+    public String getEmailContact() {
+        return emailContact;
+    }
+
+    public void setEmailContact(String emailContact) {
+        this.emailContact = emailContact;
+    }
+
+    public String getTitreContact() {
+        return titreContact;
+    }
+
+    public void setTitreContact(String titreContact) {
+        this.titreContact = titreContact;
+    }
+
     public String getNumeroCpteDeposit() {
         return numeroCpteDeposit;
     }
@@ -378,47 +306,83 @@ public class PersonneDto {
         this.numeroCpteDeposit = numeroCpteDeposit;
     }
 
-    public Boolean isEstConvertie() {
+    public boolean isEstConvertie() {
         return estConvertie;
     }
 
-    public void setEstConvertie(Boolean estConvertie) {
+    public void setEstConvertie(boolean estConvertie) {
         this.estConvertie = estConvertie;
     }
 
-    public Boolean getEstsgi() {
-        return estsgi;
+    public CommuneDto getCommune() {
+        return commune;
     }
 
-    public Boolean getPpe1() {
-        return ppe1;
+    public void setCommune(CommuneDto commune) {
+        this.commune = commune;
     }
 
-    public Boolean getPpe2() {
-        return ppe2;
+    public Set<DocumentDto> getDocuments() {
+        return documents;
     }
 
-    public Boolean getPpe3() {
-        return ppe3;
+    public void setDocuments(Set<DocumentDto> documents) {
+        this.documents = documents;
     }
 
-    public Boolean getPpe4() {
-        return ppe4;
+    public Set<StatutPersonneDto> getStatutPersonnes() {
+        return statutPersonnes;
     }
 
-    public Boolean getEstConvertie() {
-        return estConvertie;
+    public void setStatutPersonnes(Set<StatutPersonneDto> statutPersonnes) {
+        this.statutPersonnes = statutPersonnes;
     }
 
-    public Boolean getEstExpose() {
+    public boolean isEstExpose() {
         return estExpose;
     }
 
-    public Boolean getEstJuge() {
+    public void setEstExpose(boolean estExpose) {
+        this.estExpose = estExpose;
+    }
+
+    public boolean isEstJuge() {
         return estJuge;
     }
 
-    public Boolean getEstGele() {
+    public void setEstJuge(boolean estJuge) {
+        this.estJuge = estJuge;
+    }
+
+    public boolean isEstGele() {
         return estGele;
+    }
+
+    public void setEstGele(boolean estGele) {
+        this.estGele = estGele;
+    }
+
+    public String getTypePersonne() {
+        return typePersonne;
+    }
+
+    public void setTypePersonne(String typePersonne) {
+        this.typePersonne = typePersonne;
+    }
+
+    public CategorieClientDto getCategorieClient() {
+        return categorieClient;
+    }
+
+    public void setCategorieClient(CategorieClientDto categorieClient) {
+        this.categorieClient = categorieClient;
+    }
+
+    public SousTypeClientDto getSousTypeClient() {
+        return sousTypeClient;
+    }
+
+    public void setSousTypeClient(SousTypeClientDto sousTypeClient) {
+        this.sousTypeClient = sousTypeClient;
     }
 }

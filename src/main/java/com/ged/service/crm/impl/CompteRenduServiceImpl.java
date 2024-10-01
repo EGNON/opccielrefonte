@@ -78,17 +78,18 @@ public class CompteRenduServiceImpl implements CompteRenduService {
     }
 
     @Override
-    public List<CompteRenduDto> afficherCompteRenduSelonUtilisateur(long idUtilisateur) {
-        Utilisateur utilisateur=utilisateurDao.findById(idUtilisateur);
-        return compteRenduDao.findByCreateur(utilisateur).stream().map(compteRenduMapper::deCompteRendu).collect(Collectors.toList());
+    public List<CompteRenduDto> afficherCompteRenduSelonUtilisateur(Long idUtilisateur) {
+        //Utilisateur utilisateur=utilisateurDao.findById(idUtilisateur);
+        //return  null;
+        return compteRenduDao.findByIdCreateur(idUtilisateur).stream().map(compteRenduMapper::deCompteRendu).collect(Collectors.toList());
     }
 
     @Override
-    public List<CompteRenduDto> afficherCompteRenduSelonRealisation(long idUtilisateur, LocalDateTime dateDeb, LocalDateTime dateFin) {
+    public List<CompteRenduDto> afficherCompteRenduSelonRealisation(Long idUtilisateur, LocalDateTime dateDeb, LocalDateTime dateFin) {
         if(idUtilisateur==0)
             return compteRenduDao.afficherCompteRenduSelonRealisationAll(dateDeb,dateFin).stream().map((compteRenduMapper::deCompteRenduProjection)).collect(Collectors.toList());
         else
-            return compteRenduDao.afficherCompteRenduSelonRealisation(idUtilisateur,dateDeb,dateFin).stream().map((compteRenduMapper::deCompteRenduProjection)).collect(Collectors.toList());
+           return compteRenduDao.afficherCompteRenduSelonRealisation(idUtilisateur,dateDeb,dateFin).stream().map((compteRenduMapper::deCompteRenduProjection)).collect(Collectors.toList());
     }
 
     @Override

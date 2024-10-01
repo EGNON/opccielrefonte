@@ -52,13 +52,13 @@ public class Personne extends Base {
     private String titreContact;
     private String numeroCpteDeposit;
     //OPCCIEL1
-    private String libelleTypePersonne;
-    private String CodePays;
-    private String CodeLangue;
-    @Column(columnDefinition="BIT")
-    private Boolean EstActifPersonne = false;
-    private String codeCategorieClient;
-    private String codeSousTypeClient;
+   private String libelleTypePersonne;
+    /*private String CodePays;
+   private String CodeLangue;
+   @Column(columnDefinition="BIT")
+   private Boolean EstActifPersonne = false;
+   private String codeCategorieClient;
+   private String codeSousTypeClient;*/
     @Column(nullable =true)
     private Long numOrdre=0L;
     //FIN OPCCIEL1
@@ -182,19 +182,6 @@ public class Personne extends Base {
         this.modeEtablissement = modeEtablissement;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Personne personne = (Personne) o;
-        return EstActifPersonne == personne.EstActifPersonne && numOrdre == personne.numOrdre && estsgi == personne.estsgi && estGele == personne.estGele && ppe1 == personne.ppe1 && ppe2 == personne.ppe2 && ppe3 == personne.ppe3 && ppe4 == personne.ppe4 && estConvertie == personne.estConvertie && estExpose == personne.estExpose && estJuge == personne.estJuge && Objects.equals(idPersonne, personne.idPersonne) && Objects.equals(typePersonne, personne.typePersonne) && Objects.equals(denomination, personne.denomination) && Objects.equals(ifu, personne.ifu) && Objects.equals(mobile1, personne.mobile1) && Objects.equals(mobile2, personne.mobile2) && Objects.equals(fixe1, personne.fixe1) && Objects.equals(fixe2, personne.fixe2) && Objects.equals(bp, personne.bp) && Objects.equals(emailPerso, personne.emailPerso) && Objects.equals(emailPro, personne.emailPro) && Objects.equals(domicile, personne.domicile) && Objects.equals(numeroPiece, personne.numeroPiece) && Objects.equals(typePiece, personne.typePiece) && Objects.equals(dateExpirationPiece, personne.dateExpirationPiece) && Objects.equals(modeEtablissement, personne.modeEtablissement) && Objects.equals(nomContact, personne.nomContact) && Objects.equals(prenomContact, personne.prenomContact) && Objects.equals(telContact, personne.telContact) && Objects.equals(emailContact, personne.emailContact) && Objects.equals(titreContact, personne.titreContact) && Objects.equals(numeroCpteDeposit, personne.numeroCpteDeposit) && Objects.equals(libelleTypePersonne, personne.libelleTypePersonne) && Objects.equals(CodePays, personne.CodePays) && Objects.equals(CodeLangue, personne.CodeLangue) && Objects.equals(codeCategorieClient, personne.codeCategorieClient) && Objects.equals(codeSousTypeClient, personne.codeSousTypeClient) && Objects.equals(secteur, personne.secteur) && Objects.equals(degre, personne.degre) && Objects.equals(distributeur, personne.distributeur) && Objects.equals(paysResidence, personne.paysResidence) && Objects.equals(documents, personne.documents) && Objects.equals(envoiMails, personne.envoiMails) && Objects.equals(gelDegels, personne.gelDegels) && Objects.equals(quartier, personne.quartier) && Objects.equals(statutPersonnes, personne.statutPersonnes) && Objects.equals(messageBox, personne.messageBox) && Objects.equals(diffusionAlertes, personne.diffusionAlertes);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(idPersonne, typePersonne, denomination, ifu, mobile1, mobile2, fixe1, fixe2, bp, emailPerso, emailPro, domicile, numeroPiece, typePiece, dateExpirationPiece, modeEtablissement, nomContact, prenomContact, telContact, emailContact, titreContact, numeroCpteDeposit, libelleTypePersonne, CodePays, CodeLangue, EstActifPersonne, codeCategorieClient, codeSousTypeClient, numOrdre, estsgi, estGele, ppe1, ppe2, ppe3, ppe4, estConvertie, secteur, degre, distributeur, paysResidence, documents, envoiMails, gelDegels, quartier, statutPersonnes, messageBox, diffusionAlertes, estExpose, estJuge);
-    }
-
     public void ajouterDocument(Document document)
     {
         this.documents.add(document);
@@ -233,20 +220,12 @@ public class Personne extends Base {
         this.commune = commune;
     }
 
-    public String getCodePays() {
-        return CodePays;
+    public boolean isEstGele() {
+        return estGele;
     }
 
-    public void setCodePays(String codePays) {
-        CodePays = codePays;
-    }
-
-    public boolean isEstActifPersonne() {
-        return EstActifPersonne;
-    }
-
-    public void setEstActifPersonne(boolean estActifPersonne) {
-        EstActifPersonne = estActifPersonne;
+    public void setEstGele(boolean estGele) {
+        this.estGele = estGele;
     }
 
     public String getLibelleTypePersonne() {
@@ -255,22 +234,6 @@ public class Personne extends Base {
 
     public void setLibelleTypePersonne(String libelleTypePersonne) {
         this.libelleTypePersonne = libelleTypePersonne;
-    }
-
-    public String getCodeLangue() {
-        return CodeLangue;
-    }
-
-    public void setCodeLangue(String codeLangue) {
-        CodeLangue = codeLangue;
-    }
-
-    public boolean isEstGele() {
-        return estGele;
-    }
-
-    public void setEstGele(boolean estGele) {
-        this.estGele = estGele;
     }
 
     public Boolean isEstExpose() {
@@ -593,30 +556,6 @@ public class Personne extends Base {
         this.estConvertie = estConvertie;
     }
 
-    public String getCodeCategorieClient() {
-        return codeCategorieClient;
-    }
-
-    public void setCodeCategorieClient(String codeCategorieClient) {
-        this.codeCategorieClient = codeCategorieClient;
-    }
-
-    public String getCodeSousTypeClient() {
-        return codeSousTypeClient;
-    }
-
-    public void setCodeSousTypeClient(String codeSousTypeClient) {
-        this.codeSousTypeClient = codeSousTypeClient;
-    }
-
-    public Long getNumOrdre() {
-        return numOrdre;
-    }
-
-    public void setNumOrdre(Long numOrdre) {
-        this.numOrdre = numOrdre;
-    }
-
     public Boolean isEstSanctionNationale() {
         return estSanctionNationale;
     }
@@ -627,14 +566,6 @@ public class Personne extends Base {
 
     public Boolean isEstSanctionOnusienne() {
         return estSanctionOnusienne;
-    }
-
-    public Boolean getEstActifPersonne() {
-        return EstActifPersonne;
-    }
-
-    public void setEstActifPersonne(Boolean estActifPersonne) {
-        EstActifPersonne = estActifPersonne;
     }
 
     public Boolean getEstsgi() {
@@ -651,6 +582,14 @@ public class Personne extends Base {
 
     public void setEstGele(Boolean estGele) {
         this.estGele = estGele;
+    }
+
+    public Long getNumOrdre() {
+        return numOrdre;
+    }
+
+    public void setNumOrdre(Long numOrdre) {
+        this.numOrdre = numOrdre;
     }
 
     public Boolean getPpe1() {

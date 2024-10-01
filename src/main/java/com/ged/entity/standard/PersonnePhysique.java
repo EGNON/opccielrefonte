@@ -18,11 +18,11 @@ import java.util.Set;
 @Table(name = "T_PersonnePhysique", schema = "Parametre")
 public class PersonnePhysique extends Personne{
     //OPCCIEL 1
-    @Basic
+    /*@Basic
     private String NomPersonnePhysique;
     @Basic
     private String PrenomPersonnePhysique;
-    private String CodePaysNaissance;
+    private String CodePaysNaissance;*/
     @Basic
     private String Sexe;
     @Basic
@@ -34,13 +34,13 @@ public class PersonnePhysique extends Personne{
 //    @Column(nullable =true)
     @Column(columnDefinition="BIT")
     private boolean EstMineur=false;
-    private String nomDeJeuneFille;
+    /*private String nomDeJeuneFille;
     private String PhotoPersonnePhysique;
     private String SignaturePersonnePhysique;
     private String LibelleSecteurActivite;
-    private String LibelleProfession;
+    private String LibelleProfession;*/
     private String numCompteDepositaire;
-    @Column(length = 20)
+   /* @Column(length = 20)
     private String telephoneFixe;
     @Column(length = 20)
     private String telephoneMobile1;
@@ -54,9 +54,9 @@ public class PersonnePhysique extends Personne{
     private String adresseComplete;
     private String typePieceIdentite;
     private String nomPrenomMere;
-    @Column(length = 16)
+     @Column(length = 16)
     private String numCompteSgi;
-    @Column(nullable =true)
+   @Column(nullable =true)
     private BigDecimal tauxRetroCourSous;
     @Column(nullable =true)
     private BigDecimal tauxRetroCourRach;
@@ -64,7 +64,7 @@ public class PersonnePhysique extends Personne{
     @Column(name = "motifFermetureCompte")
     private String motifFermetureCompte;
     private String pieceFermetureCompte;
-    private String statutCompte;
+    private String statutCompte;*/
     private String teint;
     private String exposeMotif;
 
@@ -536,7 +536,7 @@ public class PersonnePhysique extends Personne{
 
     //OPCCIEL1
 
-    public String getNomPersonnePhysique() {
+   /* public String getNomPersonnePhysique() {
         return NomPersonnePhysique;
     }
 
@@ -559,7 +559,7 @@ public class PersonnePhysique extends Personne{
     public void setCodePaysNaissance(String codePaysNaissance) {
         CodePaysNaissance = codePaysNaissance;
     }
-
+*/
     public boolean isEstMineur() {
         return EstMineur;
     }
@@ -568,7 +568,7 @@ public class PersonnePhysique extends Personne{
         EstMineur = estMineur;
     }
 
-    public String getNomDeJeuneFille() {
+    /*public String getNomDeJeuneFille() {
         return nomDeJeuneFille;
     }
 
@@ -607,7 +607,7 @@ public class PersonnePhysique extends Personne{
     public void setLibelleProfession(String libelleProfession) {
         LibelleProfession = libelleProfession;
     }
-
+*/
     public String getNumCompteDepositaire() {
         return numCompteDepositaire;
     }
@@ -616,7 +616,7 @@ public class PersonnePhysique extends Personne{
         this.numCompteDepositaire = numCompteDepositaire;
     }
 
-    public String getTelephoneFixe() {
+    /*public String getTelephoneFixe() {
         return telephoneFixe;
     }
 
@@ -640,6 +640,7 @@ public class PersonnePhysique extends Personne{
         this.telephoneMobile2 = telephoneMobile2;
     }
 
+
     public String getEmail() {
         return email;
     }
@@ -648,6 +649,7 @@ public class PersonnePhysique extends Personne{
         this.email = email;
     }
 
+
     public String getBoitePostale() {
         return boitePostale;
     }
@@ -655,6 +657,7 @@ public class PersonnePhysique extends Personne{
     public void setBoitePostale(String boitePostale) {
         this.boitePostale = boitePostale;
     }
+
 
     public String getAdresseComplete() {
         return adresseComplete;
@@ -735,6 +738,7 @@ public class PersonnePhysique extends Personne{
     public void setStatutCompte(String statutCompte) {
         this.statutCompte = statutCompte;
     }
+*/
 
 
     @Override

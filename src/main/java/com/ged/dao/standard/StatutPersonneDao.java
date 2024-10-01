@@ -6,6 +6,7 @@ import com.ged.entity.standard.Qualite;
 import com.ged.entity.standard.StatutPersonne;
 import com.ged.projection.StatistiqueProjection;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -16,6 +17,11 @@ public interface StatutPersonneDao extends JpaRepository<StatutPersonne, CleStat
     @Query(value = "select sp from StatutPersonne as sp inner join Personne as p inner join Qualite as q " +
             "where q.libelleQualite like %:qualite%")
     StatutPersonne afficherStatutSelonQualite(@Param("qualite") String qualite);
+
+    @Query(value = "select sp from StatutPersonne as sp " +
+            "where sp.idStatutPersonne=:idStatut")
+    StatutPersonne afficherStatutSelonId( CleStatutPersonne idStatut);
+
     Boolean existsByPersonneAndQualite(Personne personne, Qualite qualite);
     Boolean existsByPersonne_IdPersonneAndQualite_IdQualite(Long idPersonne, Long idQualite);
     @Query(value = "select count(sp.personne.idPersonne) as nbre," +
@@ -25,4 +31,8 @@ public interface StatutPersonneDao extends JpaRepository<StatutPersonne, CleStat
             "where (q.libelleQualite = :qualite or :qualite is null or :qualite = '') "+
             "group by q.libelleQualite")
     List<StatistiqueProjection> afficherNbrePersonneParQualite(@Param("qualite") Optional<String> qualite);
+
+    @Modifying
+    @Query(value = "insert into Parametre.TJ_StatutPersonne(idPersonne,idPersonnel,idQualite) values(?,?,?)",nativeQuery = true)
+    int insertStatutPersonne(long idPersonne,long idPersonnel,long idQualite);
 }

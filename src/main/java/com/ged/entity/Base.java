@@ -31,18 +31,19 @@ public abstract class Base implements Serializable {
     private byte[] rowvers;*/
     private String creerPar;
     private String modifierPar;
-    @ManyToOne
+   /* @ManyToOne
     @JoinColumn(name = "idCreateur")
-    private Utilisateur createur;
+    private Utilisateur createur;*/
+    private Long idCreateur;
     private Long idOcc;
 
-    public Utilisateur getCreateur() {
-        return createur;
-    }
-
-    public void setCreateur(Utilisateur createur) {
-        this.createur = createur;
-    }
+//    public Utilisateur getCreateur() {
+//        return createur;
+//    }
+//
+//    public void setCreateur(Utilisateur createur) {
+//        this.createur = createur;
+//    }
 
     //Champ Commun Getters and Setters
 
@@ -60,6 +61,14 @@ public abstract class Base implements Serializable {
 
     public void setDateDernModifServeur(LocalDateTime dateDernModifServeur) {
         this.dateDernModifServeur = dateDernModifServeur;
+    }
+
+    public Long getIdCreateur() {
+        return idCreateur;
+    }
+
+    public void setIdCreateur(Long idCreateur) {
+        this.idCreateur = idCreateur;
     }
 
     public LocalDateTime getDateDernModifClient() {
