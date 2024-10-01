@@ -11,7 +11,7 @@ import java.util.List;
 
 public interface CompteRenduDao extends JpaRepository<CompteRendu,Long> {
     CompteRendu findById(long id);
-    List<CompteRendu> findByCreateur(Utilisateur utilisateur);
+    List<CompteRendu> findByIdCreateur(long idCreateur);
     @Query(value = "SELECT  " +
             "cr.idCR as idCR," +
             "cr.dateCR as dateCR," +
@@ -34,7 +34,7 @@ public interface CompteRenduDao extends JpaRepository<CompteRendu,Long> {
             "left outer join Opcvm op2 ON op2.idOpcvm=cr.opcvmSouscrit.idOpcvm " +
             "inner join RDV r on r.idRdv=cr.rdv.idRdv "+
             "where cr.realisation is not null "+
-            "and cr.createur.idPersonne=:idUtilisateur "+
+            "and cr.idCreateur=:idUtilisateur "+
             "and cr.dateCR between :dateDeb and :dateFin " +
             "order by cr.dateCR desc,cr.objetCR asc")
     List<CompteRenduProjection> afficherCompteRenduSelonRealisation(long idUtilisateur, LocalDateTime dateDeb, LocalDateTime dateFin);

@@ -91,12 +91,33 @@ public class PersonnelServiceImpl implements PersonnelService {
     }
 
     @Override
-    public PersonnelDto afficherPersonnel(long idPersonne) {
-        return personnelMapper.dePersonnel(afficherPersonnelSelonId(idPersonne));
+    public  ResponseEntity<Object> afficherPersonnel(long idPersonne) {
+        try {
+            return ResponseHandler.generateResponse(
+                    "Personnel dont id = " + idPersonne,
+                    HttpStatus.OK,
+                    personnelMapper.dePersonnel(afficherPersonnelSelonId(idPersonne)));
+        }
+        catch (Exception e)
+        {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e);
+        }
+
     }
 
     @Override
     public PersonnelDto creerPersonnel(PersonnelDto personnelDto) {
+        personnelDto.setEstGele(false);
+        personnelDto.setEstsgi(false);
+        personnelDto.setEstJuge(false);
+        personnelDto.setEstExpose(false);
+        personnelDto.setPpe1(false);
+        personnelDto.setPpe2(false);
+        personnelDto.setPpe3(false);
+        personnelDto.setPpe4(false);
         Personnel personnel = personnelMapper.dePersonnelDto(personnelDto);
         personnel.setDenomination(personnelDto.getNom() + " " + personnelDto.getPrenom());
         if (personnelDto.getProfession() != null && personnelDto.getProfession().getIdProf() != null) {
@@ -120,6 +141,14 @@ public class PersonnelServiceImpl implements PersonnelService {
 
     @Override
     public PersonnelDto modifierPersonnel(PersonnelDto personnelDto) {
+        personnelDto.setEstGele(false);
+        personnelDto.setEstsgi(false);
+        personnelDto.setEstJuge(false);
+        personnelDto.setEstExpose(false);
+        personnelDto.setPpe1(false);
+        personnelDto.setPpe2(false);
+        personnelDto.setPpe3(false);
+        personnelDto.setPpe4(false);
         Personnel personnel = personnelMapper.dePersonnelDto(personnelDto);
         personnel.setDenomination(personnelDto.getNom() + " " + personnelDto.getPrenom());
         if (personnelDto.getProfession() != null && personnelDto.getProfession().getIdProf() != null) {

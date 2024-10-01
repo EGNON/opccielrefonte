@@ -33,7 +33,7 @@ public class PersonnelController {
     }
 
     @GetMapping("/{idPersonne}")
-    public PersonnelDto afficher(@PathVariable("idPersonne") long idPersonne) {
+    public ResponseEntity<Object> afficher(@PathVariable("idPersonne") long idPersonne) {
         return personnelService.afficherPersonnel(idPersonne);
     }
 

@@ -14,7 +14,7 @@ public interface PersonnelService {
     List<PersonnelDto> afficherPersonnelListe();
     List<PersonnelDto> afficherPersonnelSelonEstCommercil(boolean estCommercial);
     Personnel afficherPersonnelSelonId(long idPersonne);
-    PersonnelDto afficherPersonnel(long idPersonne);
+    ResponseEntity<Object> afficherPersonnel(long idPersonne);
     PersonnelDto creerPersonnel(PersonnelDto personnelDto);
     PersonnelDto modifierPersonnel(PersonnelDto personnelDto);
     void supprimerPersonnel(long idPersonne);
