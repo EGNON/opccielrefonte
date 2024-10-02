@@ -6,7 +6,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
-public interface ModeleEcritureNatureOperationDao extends JpaRepository<ModeleEcritureNatureOperation, Long> {
+public interface ModeleEcritureNatureOperationDao extends JpaRepository<ModeleEcritureNatureOperation, CleModeleEcritureNatureOperation> {
     /*ModeleEcritureNatureOperation findByModeleEcritureAndNatureOperationAndTypeTitre(ModeleEcriture modeleEcriture,
                                                                                      NatureOperation natureOperation,
                                                                                      TypeTitre typeTitre);*/

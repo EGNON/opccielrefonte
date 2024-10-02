@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ModeleEcritureNatureOperationDto {
-    private Long idModeleEcritureNatureOperation;
+    private CleModeleEcritureNatureOperationDto idModeleEcritureNatureOperation;
     private ModeleEcritureDto modeleEcriture;
     private NatureOperationDto natureOperation;
     private TypeTitreDto typeTitre;
@@ -22,11 +22,11 @@ public class ModeleEcritureNatureOperationDto {
     public ModeleEcritureNatureOperationDto() {
     }
 
-    public Long getIdModeleEcritureNatureOperation() {
+    public CleModeleEcritureNatureOperationDto getIdModeleEcritureNatureOperation() {
         return idModeleEcritureNatureOperation;
     }
 
-    public void setIdModeleEcritureNatureOperation(Long idModeleEcritureNatureOperation) {
+    public void setIdModeleEcritureNatureOperation(CleModeleEcritureNatureOperationDto idModeleEcritureNatureOperation) {
         this.idModeleEcritureNatureOperation = idModeleEcritureNatureOperation;
     }
 

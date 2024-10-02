@@ -29,7 +29,7 @@ public class DetailModeleController {
                                            @PathVariable String numCompteComptable)
     {
         CleDetailModele idDetailModele=new CleDetailModele();
-        idDetailModele.setCodeModeleEcriture(codeModeleEcriture);
+        idDetailModele.setCoodeModeleEcriture(codeModeleEcriture);
         idDetailModele.setNumeroOrdre(numOrdre);
         idDetailModele.setNumCompteComptable(numCompteComptable);
         return DetailModeleService.afficher(idDetailModele);
@@ -78,7 +78,7 @@ public class DetailModeleController {
                                             @PathVariable String numCompteComptable)
     {
         CleDetailModele idDetailModele=new CleDetailModele();
-        idDetailModele.setCodeModeleEcriture(codeModeleEcriture);
+        idDetailModele.setCoodeModeleEcriture(codeModeleEcriture);
         idDetailModele.setNumeroOrdre(numOrdre);
         idDetailModele.setNumCompteComptable(numCompteComptable);
         return DetailModeleService.supprimer(idDetailModele);

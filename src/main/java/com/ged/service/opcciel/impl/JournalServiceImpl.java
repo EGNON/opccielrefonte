@@ -132,9 +132,11 @@ public class JournalServiceImpl implements JournalService {
             JournalDto.setSupprimer(false);
 
             Journal Journal = journalMapper.deJournalDto(JournalDto);
-            Plan plan = planDao.findById(JournalDto.getPlan().getCodePlan())
-                    .orElseThrow(() -> new com.ged.advice.EntityNotFoundException(Plan.class,JournalDto.getPlan().getCodePlan().toString()));
-            Journal.setPlan(plan);
+            if(JournalDto.getPlan()!=null) {
+                Plan plan = planDao.findById(JournalDto.getPlan().getCodePlan())
+                        .orElseThrow(() -> new com.ged.advice.EntityNotFoundException(Plan.class, JournalDto.getPlan().getCodePlan().toString()));
+                Journal.setPlan(plan);
+            }
             Journal = journalDao.save(Journal);
             return ResponseHandler.generateResponse(
                     "Enregistrement effectué avec succès !",
@@ -156,9 +158,11 @@ public class JournalServiceImpl implements JournalService {
             JournalDto.setSupprimer(false);
 
             Journal Journal = journalMapper.deJournalDto(JournalDto);
-            Plan plan = planDao.findById(JournalDto.getPlan().getCodePlan())
-                    .orElseThrow(() -> new com.ged.advice.EntityNotFoundException(Plan.class,JournalDto.getPlan().getCodePlan().toString()));
-            Journal.setPlan(plan);
+            if(JournalDto.getPlan()!=null) {
+                Plan plan = planDao.findById(JournalDto.getPlan().getCodePlan())
+                        .orElseThrow(() -> new com.ged.advice.EntityNotFoundException(Plan.class, JournalDto.getPlan().getCodePlan().toString()));
+                Journal.setPlan(plan);
+            }
             Journal = journalDao.save(Journal);
             return ResponseHandler.generateResponse(
                     "Modification effectuée avec succès !",

@@ -28,7 +28,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-@Transactional
+//@Transactional
 public class FormuleServiceImpl implements FormuleService {
     private final FormuleDao formuleDao;
     private final FormuleMapper formuleMapper;
@@ -124,12 +124,14 @@ public class FormuleServiceImpl implements FormuleService {
     public ResponseEntity<Object> creer(FormuleDto formuleDto) {
         try {
             formuleDto.setSupprimer(false);
+            formuleDto.setEstSysteme(true);
             Formule formule = formuleMapper.deFormuleDto(formuleDto);
             TypeFormule typeFormule=new TypeFormule();
             if(formuleDto.getTypeFormule()!=null){
                 typeFormule=typeFormuleDao.findById(formuleDto.getTypeFormule().getCodeTypeFormule()).orElseThrow();
+                formule.setTypeFormule(typeFormule);
             }
-            formule.setTypeFormule(typeFormule);
+
             Formule formuleSaved = formuleDao.save(formule);
             /*if(formuleDto.getModeleEcritureFormules()!=null){
                 for(ModeleEcritureFormuleDto o:formuleDto.getModeleEcritureFormules()){
@@ -162,12 +164,14 @@ public class FormuleServiceImpl implements FormuleService {
               //  throw  new EntityNotFoundException(Formule.class, "id", formuleDto.getIdFormule().toString());
 //            formuleDao.findById(code);
             formuleDto.setSupprimer(false);
+            formuleDto.setEstSysteme(true);
             Formule formule = formuleMapper.deFormuleDto(formuleDto);
             TypeFormule typeFormule=new TypeFormule();
             if(formuleDto.getTypeFormule()!=null){
                 typeFormule=typeFormuleDao.findById(formuleDto.getTypeFormule().getCodeTypeFormule()).orElseThrow();
+                formule.setTypeFormule(typeFormule);
             }
-            formule.setTypeFormule(typeFormule);
+
             formule = formuleDao.save(formule);
             /*if(formuleDto.getModeleEcritureFormules()!=null){
                 for(ModeleEcritureFormuleDto o:formuleDto.getModeleEcritureFormules()){
