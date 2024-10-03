@@ -68,7 +68,7 @@ public class StatutPersonneController {
         else statutPersonneDto = statutPersonneService.creerStatutPersonne(statutPersonneDto);
 
         //System.out.println("qualité="+qualite1.getLibelleQualite());
-        if(!qualite1.getLibelleQualite().toLowerCase().equals("prospect")) {
+        if(!qualite1.getLibelleQualite().equalsIgnoreCase("prospect")) {
             Personne personne = personneDao.findById(statutPersonneDto.getPersonne().getIdPersonne()).orElseThrow();
            if(personne.getSousTypeClient()!=null)
            {
