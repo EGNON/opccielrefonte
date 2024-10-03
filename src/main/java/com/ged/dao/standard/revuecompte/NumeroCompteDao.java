@@ -12,7 +12,7 @@ public interface NumeroCompteDao extends JpaRepository<NumeroCompte, CleNumeroCo
     @Query(value = "select n from NumeroCompte n " +
             "where (n.codeSousTypeClient like %:valeur% or n.codeCategorieClient like %:valeur% " +
             "or n.codeSousTypeCompte like %:valeur% or n.codeAgence like %:valeur% or " +
-            "n.codeTeneurCompte like %:valeur% or n.sousTypeCompte.libelleSousTypeCompte like %:valeur% " +
+            "n.codeTeneurCompte like %:valeur% or n.sousTypeCompte.intitule like %:valeur% " +
             "or n.personne.denomination like %:valeur%) " +
             "and n.supprimer=false ")
     Page<NumeroCompte> rechercher(String valeur, Pageable pageable);

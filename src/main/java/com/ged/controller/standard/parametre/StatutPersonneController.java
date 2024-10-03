@@ -74,10 +74,10 @@ public class StatutPersonneController {
            {
                if(personne.getSousTypeClient().getTypeClient()!=null)
                {
-                   if(personne.getSousTypeClient().getTypeClient().getLibelleTypeClient().toLowerCase().contains("personne physique"))
+                   if(personne.getSousTypeClient().getTypeClient().getIntitule().toLowerCase().contains("personne physique"))
                        personne.setNumOrdre(personnePhysiqueService.afficherMaxNumordre()+1);
                    else
-                       personne.setNumOrdre(personneMoraleService.afficherMaxNumordre(personne.getSousTypeClient().getTypeClient().getLibelleTypeClient())+1);
+                       personne.setNumOrdre(personneMoraleService.afficherMaxNumordre(personne.getSousTypeClient().getTypeClient().getIntitule())+1);
                }
            }
 

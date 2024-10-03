@@ -19,7 +19,7 @@ public interface PersonneMoraleDao extends JpaRepository<PersonneMorale, Long> {
             "from PersonneMorale p " +
             "inner join SousTypeClient s on s.idSousTypeClient=p.sousTypeClient.idSousTypeClient " +
             "inner join TypeClient t on t.idTypeClient=s.typeClient.idTypeClient " +
-            "where t.libelleTypeClient =:valeur")
+            "where t.intitule =:valeur")
     NumOrdreProjection maxNumordre(String valeur);
     @Query(value = "select pm from PersonneMorale as pm inner join StatutPersonne as sp " +
             "on sp.idStatutPersonne.idPersonne = pm.idPersonne inner join Qualite as q " +

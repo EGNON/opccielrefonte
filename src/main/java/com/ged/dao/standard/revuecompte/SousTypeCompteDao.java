@@ -9,7 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface SousTypeCompteDao extends JpaRepository<SousTypeCompte, Long> {
     @Query(value = "select s from SousTypeCompte s " +
-            "where (s.code like %:valeur% or s.libelleSousTypeCompte like %:valeur% " +
-            "or s.typeCompte.libelleTypeCompte like %:valeur%) and s.supprimer=false")
+            "where (s.code like %:valeur% or s.intitule like %:valeur% " +
+            "or s.typeCompte.intitule like %:valeur%) and s.supprimer=false")
     Page<SousTypeCompte> rechercher(String valeur, Pageable pageable);
 }

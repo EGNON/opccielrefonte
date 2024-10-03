@@ -7,7 +7,7 @@ import com.ged.entity.Base;
 public class TypeCompteDto extends Base {
 
     private Long idTypeCompte;
-    private String libelleTypeCompte;
+    private String intitule;
     private String code;
 
     public TypeCompteDto() {
@@ -21,12 +21,12 @@ public class TypeCompteDto extends Base {
         this.idTypeCompte = idTypeCompte;
     }
 
-    public String getLibelleTypeCompte() {
-        return libelleTypeCompte;
+    public String getIntitule() {
+        return intitule;
     }
 
-    public void setLibelleTypeCompte(String libelleTypeCompte) {
-        this.libelleTypeCompte = libelleTypeCompte;
+    public void setIntitule(String intitule) {
+        this.intitule = intitule;
     }
 
     public String getCode() {

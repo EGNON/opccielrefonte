@@ -21,7 +21,7 @@ public interface PersonnePhysiqueDao extends JpaRepository<PersonnePhysique, Lon
                     "from PersonnePhysique p " +
                     "inner join SousTypeClient s on s.idSousTypeClient=p.sousTypeClient.idSousTypeClient " +
                     "inner join TypeClient t on t.idTypeClient=s.typeClient.idTypeClient " +
-                    "where t.libelleTypeClient like '%personne physique%'")
+                    "where t.intitule like '%personne physique%'")
     NumOrdreProjection maxNumordre();
 
     @Query(value = "select ph from PersonnePhysique as ph inner join StatutPersonne as sp " +

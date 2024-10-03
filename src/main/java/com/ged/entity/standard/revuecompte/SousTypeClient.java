@@ -9,7 +9,7 @@ public class SousTypeClient extends Base {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idSousTypeClient;
-    private String libelleSousTypeClient;
+    private String intitule;
     private String code;
     @ManyToOne
     @JoinColumn(name = "idTypeClient")
@@ -34,12 +34,12 @@ public class SousTypeClient extends Base {
         this.idSousTypeClient = idSousTypeClient;
     }
 
-    public String getLibelleSousTypeClient() {
-        return libelleSousTypeClient;
+    public String getIntitule() {
+        return intitule;
     }
 
-    public void setLibelleSousTypeClient(String libelleSousTypeClient) {
-        this.libelleSousTypeClient = libelleSousTypeClient;
+    public void setIntitule(String intitule) {
+        this.intitule = intitule;
     }
 
     public String getCode() {
