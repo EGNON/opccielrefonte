@@ -335,6 +335,9 @@ public class PersonnePhysique extends Personne{
     }
 
     public Double getAutresRevenus() {
+        if(autresRevenus==null)
+            autresRevenus=Double.valueOf(0);
+
         return autresRevenus;
     }
 
@@ -359,6 +362,8 @@ public class PersonnePhysique extends Personne{
     }
 
     public Integer getNbrEnfant() {
+        if(nbrEnfant==null)
+            nbrEnfant=0;
         return nbrEnfant;
     }
 
@@ -367,6 +372,8 @@ public class PersonnePhysique extends Personne{
     }
 
     public Integer getNbrPersonneACharge() {
+        if(nbrPersonneACharge==null)
+            nbrPersonneACharge=0;
         return nbrPersonneACharge;
     }
 
@@ -519,6 +526,8 @@ public class PersonnePhysique extends Personne{
     }
 
     public Double getSurfaceTotale() {
+        if(surfaceTotale==null)
+            surfaceTotale=Double.valueOf(0);
         return surfaceTotale;
     }
 
@@ -527,6 +536,8 @@ public class PersonnePhysique extends Personne{
     }
 
     public Double getSalaire() {
+        if(salaire==null)
+            salaire=Double.valueOf(0);
         return salaire;
     }
 

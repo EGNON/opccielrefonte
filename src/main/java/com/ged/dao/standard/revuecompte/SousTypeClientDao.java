@@ -12,15 +12,15 @@ import java.util.List;
 public interface SousTypeClientDao extends JpaRepository<SousTypeClient, Long> {
     @Query(value = "select s " +
                     " from SousTypeClient s " +
-                    "where s.typeClient.libelleTypeClient like '%personne physique%' ")
+                    "where s.typeClient.intitule like '%personne physique%' ")
     List<SousTypeClient> afficherPersonnePhysique();
     @Query(value = "select s " +
                     " from SousTypeClient s " +
-                    "where s.typeClient.libelleTypeClient not like '%personne physique%' ")
+                    "where s.typeClient.intitule not like '%personne physique%' ")
     List<SousTypeClient> afficherAutresTypeCLient();
 
     @Query(value = "select s from SousTypeClient s " +
-            "where (s.code like %:valeur% or s.libelleSousTypeClient like %:valeur% " +
-            "or s.typeClient.libelleTypeClient like %:valeur%) and s.supprimer=false")
+            "where (s.code like %:valeur% or s.intitule like %:valeur% " +
+            "or s.typeClient.intitule like %:valeur%) and s.supprimer=false")
     Page<SousTypeClient> rechercher(String valeur, Pageable pageable);
 }

@@ -40,14 +40,14 @@ public class FormuleController {
 
     @PostMapping
 //    @PreAuthorize("hasAuthority('ROLE_DEGRE')")
-    public ResponseEntity<Object> ajouter(@Valid @RequestBody FormuleDto formuleDto)
+    public ResponseEntity<Object> ajouter( @RequestBody FormuleDto formuleDto)
     {
         return formuleService.creer(formuleDto);
     }
 
     @PutMapping("/{id}")
 //    @PreAuthorize("hasAuthority('ROLE_DEGRE')")
-    public ResponseEntity<Object> modifier(@Valid @RequestBody FormuleDto formuleDto,
+    public ResponseEntity<Object> modifier( @RequestBody FormuleDto formuleDto,
                                            @PathVariable Long id)
     {
         formuleDto.setIdFormule(id);

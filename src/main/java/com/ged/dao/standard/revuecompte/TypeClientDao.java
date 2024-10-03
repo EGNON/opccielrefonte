@@ -9,7 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface TypeClientDao extends JpaRepository<TypeClient, Long> {
     @Query(value = "select t from TypeClient t " +
-            "where (t.code like %:valeur% or t.libelleTypeClient like %:valeur%) " +
+            "where (t.code like %:valeur% or t.intitule like %:valeur%) " +
             "and t.supprimer=false")
     Page<TypeClient> rechercher(String valeur, Pageable pageable);
 }

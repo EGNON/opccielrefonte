@@ -3,7 +3,7 @@ package com.ged.entity.titresciel;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "T_Compartiment", schema = "Titre")
+@Table(name = "T_Compartiments", schema = "Titre")
 public class Compartiment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

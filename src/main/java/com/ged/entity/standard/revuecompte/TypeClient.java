@@ -9,7 +9,7 @@ public class TypeClient extends Base {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idTypeClient;
-    private String libelleTypeClient;
+    private String intitule;
     private String code;
 
     public TypeClient() {
@@ -23,12 +23,12 @@ public class TypeClient extends Base {
         this.idTypeClient = idTypeClient;
     }
 
-    public String getLibelleTypeClient() {
-        return libelleTypeClient;
+    public String getIntitule() {
+        return intitule;
     }
 
-    public void setLibelleTypeClient(String libelleTypeClient) {
-        this.libelleTypeClient = libelleTypeClient;
+    public void setIntitule(String intitule) {
+        this.intitule = intitule;
     }
 
     public String getCode() {

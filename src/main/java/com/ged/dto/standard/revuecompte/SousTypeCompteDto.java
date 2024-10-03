@@ -6,7 +6,7 @@ import com.ged.entity.Base;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class SousTypeCompteDto extends Base {
     private Long idSousTypeCompte;
-    private String libelleSousTypeCompte;
+    private String intitule;
     private String code;
     private TypeCompteDto typeCompte;
     public SousTypeCompteDto() {
@@ -28,12 +28,12 @@ public class SousTypeCompteDto extends Base {
         this.idSousTypeCompte = idSousTypeCompte;
     }
 
-    public String getLibelleSousTypeCompte() {
-        return libelleSousTypeCompte;
+    public String getIntitule() {
+        return intitule;
     }
 
-    public void setLibelleSousTypeCompte(String libelleSousTypeCompte) {
-        this.libelleSousTypeCompte = libelleSousTypeCompte;
+    public void setIntitule(String intitule) {
+        this.intitule = intitule;
     }
 
     public String getCode() {

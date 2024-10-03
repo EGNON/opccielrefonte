@@ -139,7 +139,7 @@ public class DetailModeleServiceImpl implements DetailModeleService {
             CleDetailModele cleDetailModele=new CleDetailModele();
             cleDetailModele.setNumeroOrdre(DetailModeleDto.getNumeroOrdre());
             cleDetailModele.setNumCompteComptable(DetailModeleDto.getNumCompteComptable());
-            cleDetailModele.setCodeModeleEcriture(DetailModeleDto.getModeleEcriture().getCodeModeleEcriture());
+            cleDetailModele.setCoodeModeleEcriture(DetailModeleDto.getModeleEcriture().getCodeModeleEcriture());
             DetailModele.setIdDetailModele(cleDetailModele);
             ModeleEcriture modeleEcriture=new ModeleEcriture();
             Formule formule=new Formule();
@@ -192,7 +192,7 @@ public class DetailModeleServiceImpl implements DetailModeleService {
             CleDetailModele cleDetailModele=new CleDetailModele();
             cleDetailModele.setNumeroOrdre(DetailModeleDto.getNumeroOrdre());
             cleDetailModele.setNumCompteComptable(DetailModeleDto.getNumCompteComptable());
-            cleDetailModele.setCodeModeleEcriture(DetailModeleDto.getModeleEcriture().getCodeModeleEcriture());
+            cleDetailModele.setCoodeModeleEcriture(DetailModeleDto.getModeleEcriture().getCodeModeleEcriture());
             DetailModele.setIdDetailModele(cleDetailModele);
 
 

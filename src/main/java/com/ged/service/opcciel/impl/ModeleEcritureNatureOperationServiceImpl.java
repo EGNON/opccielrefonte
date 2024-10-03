@@ -7,6 +7,7 @@ import com.ged.dao.titresciel.TypeTitreDao;
 import com.ged.datatable.DataTablesResponse;
 import com.ged.datatable.DatatableParameters;
 import com.ged.dto.opcciel.comptabilite.ModeleEcritureNatureOperationDto;
+import com.ged.entity.opcciel.comptabilite.CleModeleEcritureNatureOperation;
 import com.ged.entity.opcciel.comptabilite.NatureOperation;
 import com.ged.entity.opcciel.comptabilite.ModeleEcriture;
 import com.ged.entity.opcciel.comptabilite.ModeleEcritureNatureOperation;
@@ -95,12 +96,12 @@ public class ModeleEcritureNatureOperationServiceImpl implements ModeleEcritureN
     }
 
     @Override
-    public ModeleEcritureNatureOperation afficherSelonId(Long idModeleEcritureNatureOperation) {
+    public ModeleEcritureNatureOperation afficherSelonId(CleModeleEcritureNatureOperation idModeleEcritureNatureOperation) {
         return ModeleEcritureNatureOperationDao.findById(idModeleEcritureNatureOperation).orElseThrow();
     }
 
     @Override
-    public ResponseEntity<Object> afficher(Long codeModeleEcritureNatureOperation) {
+    public ResponseEntity<Object> afficher(CleModeleEcritureNatureOperation codeModeleEcritureNatureOperation) {
         try {
             return ResponseHandler.generateResponse(
                     "Modele nature operation dont id = " + codeModeleEcritureNatureOperation,
@@ -120,6 +121,13 @@ public class ModeleEcritureNatureOperationServiceImpl implements ModeleEcritureN
             ModeleEcritureNatureOperation ModeleEcritureNatureOperation = ModeleEcritureNatureOperationMapper.deModeleEcritureNatureOperationDto(ModeleEcritureNatureOperationDto);
             ModeleEcriture modeleEcriture=new ModeleEcriture();
             NatureOperation NatureOperation=new NatureOperation();
+
+            CleModeleEcritureNatureOperation cleModeleEcritureNatureOperation=new CleModeleEcritureNatureOperation();
+            cleModeleEcritureNatureOperation.setCodeModeleEcriture(ModeleEcritureNatureOperationDto.getModeleEcriture().getCodeModeleEcriture());
+            cleModeleEcritureNatureOperation.setCodeNatureOperation(ModeleEcritureNatureOperationDto.getNatureOperation().getCodeNatureOperation());
+            cleModeleEcritureNatureOperation.setCodeTypeTitre(ModeleEcritureNatureOperationDto.getTypeTitre().getCodeTypeTitre());
+            ModeleEcritureNatureOperation.setIdModeleEcritureNatureOperation(cleModeleEcritureNatureOperation);
+
             TypeTitre typeTitre=new TypeTitre();
             if(ModeleEcritureNatureOperationDto.getModeleEcriture()!=null){
                 modeleEcriture=modeleEcritureDao.findById(ModeleEcritureNatureOperationDto.getModeleEcriture().getCodeModeleEcriture()).orElseThrow();
@@ -129,10 +137,10 @@ public class ModeleEcritureNatureOperationServiceImpl implements ModeleEcritureN
                 NatureOperation=NatureOperationDao.findById(ModeleEcritureNatureOperationDto.getNatureOperation().getCodeNatureOperation()).orElseThrow();
                 ModeleEcritureNatureOperation.setNatureOperation(NatureOperation);
             }
-            /*if(ModeleEcritureNatureOperationDto.getTypeTitre()!=null){
+            if(ModeleEcritureNatureOperationDto.getTypeTitre()!=null){
                 typeTitre=typeTitreDao.findById(ModeleEcritureNatureOperationDto.getTypeTitre().getCodeTypeTitre()).orElseThrow();
                 ModeleEcritureNatureOperation.setTypeTitre(typeTitre);
-            }*/
+            }
             ModeleEcritureNatureOperation = ModeleEcritureNatureOperationDao.save(ModeleEcritureNatureOperation);
             return ResponseHandler.generateResponse(
                     "Enregistrement effectué avec succès !",
@@ -153,6 +161,11 @@ public class ModeleEcritureNatureOperationServiceImpl implements ModeleEcritureN
             ModeleEcritureNatureOperation ModeleEcritureNatureOperation = ModeleEcritureNatureOperationMapper.deModeleEcritureNatureOperationDto(ModeleEcritureNatureOperationDto);
             ModeleEcriture modeleEcriture=new ModeleEcriture();
             NatureOperation NatureOperation=new NatureOperation();
+            CleModeleEcritureNatureOperation cleModeleEcritureNatureOperation=new CleModeleEcritureNatureOperation();
+            cleModeleEcritureNatureOperation.setCodeModeleEcriture(ModeleEcritureNatureOperationDto.getModeleEcriture().getCodeModeleEcriture());
+            cleModeleEcritureNatureOperation.setCodeNatureOperation(ModeleEcritureNatureOperationDto.getNatureOperation().getCodeNatureOperation());
+            cleModeleEcritureNatureOperation.setCodeTypeTitre(ModeleEcritureNatureOperationDto.getTypeTitre().getCodeTypeTitre());
+            ModeleEcritureNatureOperation.setIdModeleEcritureNatureOperation(cleModeleEcritureNatureOperation);
             TypeTitre typeTitre=new TypeTitre();
             if(ModeleEcritureNatureOperationDto.getModeleEcriture()!=null){
                 modeleEcriture=modeleEcritureDao.findById(ModeleEcritureNatureOperationDto.getModeleEcriture().getCodeModeleEcriture()).orElseThrow();
@@ -162,10 +175,10 @@ public class ModeleEcritureNatureOperationServiceImpl implements ModeleEcritureN
                 NatureOperation=NatureOperationDao.findById(ModeleEcritureNatureOperationDto.getNatureOperation().getCodeNatureOperation()).orElseThrow();
                 ModeleEcritureNatureOperation.setNatureOperation(NatureOperation);
             }
-            /*if(ModeleEcritureNatureOperationDto.getTypeTitre()!=null){
+            if(ModeleEcritureNatureOperationDto.getTypeTitre()!=null){
                 typeTitre=typeTitreDao.findById(ModeleEcritureNatureOperationDto.getTypeTitre().getCodeTypeTitre()).orElseThrow();
                 ModeleEcritureNatureOperation.setTypeTitre(typeTitre);
-            }*/
+            }
             ModeleEcritureNatureOperation = ModeleEcritureNatureOperationDao.save(ModeleEcritureNatureOperation);
             return ResponseHandler.generateResponse(
                     "Modification effectuée avec succès !",
@@ -180,7 +193,7 @@ public class ModeleEcritureNatureOperationServiceImpl implements ModeleEcritureN
     }
 
     @Override
-    public ResponseEntity<Object> supprimer(Long codeModeleEcritureNatureOperation) {
+    public ResponseEntity<Object> supprimer(CleModeleEcritureNatureOperation codeModeleEcritureNatureOperation) {
         try {
             ModeleEcritureNatureOperationDao.deleteById(codeModeleEcritureNatureOperation);
             return ResponseHandler.generateResponse(

@@ -11,7 +11,7 @@ import org.springframework.data.repository.query.Param;
 
 public interface CategorieClientDao extends JpaRepository<CategorieClient, Long> {
     @Query(value = "select c from CategorieClient c " +
-            "where (c.code like %:valeur% or c.libelleCategorieClient like %:valeur%) " +
+            "where (c.code like %:valeur% or c.intitule like %:valeur%) " +
             "and c.supprimer=false")
     Page<CategorieClient> rechercher(String valeur, Pageable pageable);
 }

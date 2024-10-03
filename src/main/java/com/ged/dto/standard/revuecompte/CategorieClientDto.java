@@ -6,7 +6,7 @@ import com.ged.entity.Base;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class CategorieClientDto extends Base {
     private Long idCategorieClient;
-    private String libelleCategorieClient;
+    private String intitule;
     private String code;
 
     public CategorieClientDto() {
@@ -20,12 +20,12 @@ public class CategorieClientDto extends Base {
         this.idCategorieClient = idCategorieClient;
     }
 
-    public String getLibelleCategorieClient() {
-        return libelleCategorieClient;
+    public String getIntitule() {
+        return intitule;
     }
 
-    public void setLibelleCategorieClient(String libelleCategorieClient) {
-        this.libelleCategorieClient = libelleCategorieClient;
+    public void setIntitule(String intitule) {
+        this.intitule = intitule;
     }
 
     public String getCode() {

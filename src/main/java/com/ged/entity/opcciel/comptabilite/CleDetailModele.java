@@ -9,33 +9,21 @@ import java.util.Objects;
 @Embeddable
 public class CleDetailModele implements Serializable {
     @Column(length = 16)
-    private String codeModeleEcriture;
+    private String coodeModeleEcriture;
     @Column(length = 16)
     private String numCompteComptable;
     private int numeroOrdre;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        CleDetailModele that = (CleDetailModele) o;
-        return numeroOrdre == that.numeroOrdre && Objects.equals(codeModeleEcriture, that.codeModeleEcriture) && Objects.equals(numCompteComptable, that.numCompteComptable);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(codeModeleEcriture, numCompteComptable, numeroOrdre);
-    }
 
     public CleDetailModele() {
     }
 
-    public String getCodeModeleEcriture() {
-        return codeModeleEcriture;
+    public String getCoodeModeleEcriture() {
+        return coodeModeleEcriture;
     }
 
-    public void setCodeModeleEcriture(String codeModeleEcriture) {
-        this.codeModeleEcriture = codeModeleEcriture;
+    public void setCoodeModeleEcriture(String coodeModeleEcriture) {
+        this.coodeModeleEcriture = coodeModeleEcriture;
     }
 
     public String getNumCompteComptable() {

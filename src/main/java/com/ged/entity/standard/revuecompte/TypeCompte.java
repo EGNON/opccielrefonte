@@ -9,7 +9,7 @@ public class TypeCompte extends Base {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idTypeCompte;
-    private String libelleTypeCompte;
+    private String intitule;
     private String code;
 
     public TypeCompte() {
@@ -23,12 +23,12 @@ public class TypeCompte extends Base {
         this.idTypeCompte = idTypeCompte;
     }
 
-    public String getLibelleTypeCompte() {
-        return libelleTypeCompte;
+    public String getIntitule() {
+        return intitule;
     }
 
-    public void setLibelleTypeCompte(String libelleTypeCompte) {
-        this.libelleTypeCompte = libelleTypeCompte;
+    public void setIntitule(String intitule) {
+        this.intitule = intitule;
     }
 
     public String getCode() {

@@ -10,7 +10,7 @@ public class DetailModele extends Base {
     private CleDetailModele idDetailModele;
     @ManyToOne()
     @JoinColumn(name="coodeModeleEcriture")
-    @MapsId("codeModeleEcriture")
+    @MapsId("coodeModeleEcriture")
     private ModeleEcriture modeleEcriture;
 	private String sensMvt;
     @ManyToOne()

@@ -9,7 +9,7 @@ import java.util.Set;
 @Table(name = "T_Formule", schema = "Comptabilite")
 public class Formule extends Base {
 	@Id
-//	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idFormule;
 	private Long idOcc;
 	private String libelleFormule;
