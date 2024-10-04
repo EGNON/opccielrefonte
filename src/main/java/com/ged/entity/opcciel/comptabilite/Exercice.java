@@ -11,6 +11,8 @@ import java.time.LocalDateTime;
 public class Exercice extends Base {
     @EmbeddedId
     private CleExercice idExercie;
+    @Column(insertable = false,updatable = false)
+    private String codeExercice;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "idOpcvm")
     @MapsId("idOpcvm")
@@ -29,6 +31,14 @@ public class Exercice extends Base {
     private String declassement;
 
     public Exercice() {
+    }
+
+    public String getCodeExercice() {
+        return codeExercice;
+    }
+
+    public void setCodeExercice(String codeExercice) {
+        this.codeExercice = codeExercice;
     }
 
     public CleExercice getIdExercie() {
