@@ -7,7 +7,7 @@ import com.ged.dto.opcciel.PlanDto;
 import java.time.LocalDateTime;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ExerciceDto {
-    private String codeExercie;
+    private String codeExercice;
     private OpcvmDto opcvm;
 	private LocalDateTime dateDebut;
     private LocalDateTime dateFin;
@@ -45,6 +45,15 @@ public class ExerciceDto {
 
     public void setDateFin(LocalDateTime dateFin) {
         this.dateFin = dateFin;
+    }
+
+
+    public String getCodeExercice() {
+        return codeExercice;
+    }
+
+    public void setCodeExercice(String codeExercice) {
+        this.codeExercice = codeExercice;
     }
 
     public PlanDto getPlan() {
