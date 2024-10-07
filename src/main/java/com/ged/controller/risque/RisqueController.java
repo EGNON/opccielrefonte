@@ -1,7 +1,7 @@
 package com.ged.controller.risque;
 
-import com.ged.dto.risque.AlphaDto;
-import com.ged.dto.risque.RatioSharpDto;
+import com.ged.dto.lab.reportings.BeginEndDateParameter;
+import com.ged.dto.risque.*;
 import com.ged.service.risque.RisqueService;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,4 +31,23 @@ public class RisqueController {
     {
         return risqueService.afficherRatioSharp(idOpcvm, anneeDebut, anneeFin);
     }
+    @PostMapping("/risque/correlation/{idOpcvm}")
+    public List<CorrelationDto> afficherCorrelation(@PathVariable long idOpcvm,
+                                                    @RequestBody BeginEndDateParameter beginEndDateParamet)
+    {
+        return risqueService.afficherCorrelation(idOpcvm,beginEndDateParamet);
+    }
+    @PostMapping("/risque/covariance/{idOpcvm}")
+    public List<CovarianceDto> afficherCovariance(@PathVariable long idOpcvm,
+                                                  @RequestBody BeginEndDateParameter beginEndDateParamet)
+    {
+        return risqueService.afficherCovariance(idOpcvm, beginEndDateParamet);
+    }
+    @PostMapping("/risque/beta/{idOpcvm}")
+    public List<BetaDto> afficherBeta(@PathVariable long idOpcvm,
+                                      @RequestBody BeginEndDateParameter beginEndDateParamet)
+    {
+        return risqueService.afficherBeta(idOpcvm, beginEndDateParamet);
+    }
+
 }

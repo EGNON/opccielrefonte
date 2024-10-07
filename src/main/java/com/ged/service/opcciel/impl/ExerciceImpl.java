@@ -21,6 +21,6 @@ public class ExerciceImpl implements ExerciceService {
 
     @Override
     public List<ExerciceDto> afficherTous() {
-        return exerciceDao.afficherExercice().stream().map(exerciceMapper::deExercice).collect(Collectors.toList());
+        return exerciceDao.afficherExercice().stream().map(exerciceMapper::deExerciceProjection).collect(Collectors.toList());
     }
 }
