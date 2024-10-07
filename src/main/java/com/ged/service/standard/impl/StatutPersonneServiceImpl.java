@@ -1,6 +1,5 @@
 package com.ged.service.standard.impl;
 
-import com.ged.advice.EntityNotFoundException;
 import com.ged.dao.standard.StatutPersonneDao;
 import com.ged.dto.standard.StatutPersonneDto;
 import com.ged.entity.standard.CleStatutPersonne;

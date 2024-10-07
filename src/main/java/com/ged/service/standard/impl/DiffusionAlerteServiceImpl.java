@@ -22,7 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.TextStyle;
+//import java.time.format.TextStyle;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
@@ -82,7 +82,13 @@ public class DiffusionAlerteServiceImpl implements DiffusionAlerteService {
                 }
 
                 //Get week day
-                String weekDay = LocalDateTime.now().toLocalDate().getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.FRENCH);
+                DateTimeFormatter dtfFrench = DateTimeFormatter.ofPattern("EEEE").localizedBy(Locale.forLanguageTag("fr"));
+                String weekDay = dtfFrench.format(LocalDateTime.now().toLocalDate());
+                System.out.println(weekDay);
+
+                /*String weekDay = LocalDateTime.now().toLocalDate().getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.FRENCH);
+                SimpleDateFormat formater = new SimpleDateFormat("EEEE");
+                System.out.println("TEST === " + formater.format(LocalDateTime.now().toLocalDate()));*/
 
                 //Formattage de datetime sous la forme dd/MM/yyyy
                 DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");

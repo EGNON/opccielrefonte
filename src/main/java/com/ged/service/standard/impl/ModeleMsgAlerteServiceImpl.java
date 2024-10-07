@@ -80,8 +80,7 @@ public class ModeleMsgAlerteServiceImpl implements ModeleMsgAlerteService {
         ModeleMsgAlerte modeleMsgAlerte=modeleMsgAlerteMapper.deModeleMsgAlerteDto(modeleMsgAlerteDto);
         if(modeleMsgAlerteDto.getTypeModele()!=null)
         {
-            TypeModele typeModele=new TypeModele();
-            typeModele=typeModeleDao.findById(modeleMsgAlerteDto.getTypeModele().getIdTypeModele()).orElseThrow();
+            TypeModele typeModele = typeModeleDao.findById(modeleMsgAlerteDto.getTypeModele().getIdTypeModele()).orElseThrow();
             modeleMsgAlerte.setTypeModele(typeModele);
         }
         ModeleMsgAlerte modeleMsgAlerteMaj=modeleMsgAlerteDao.save(modeleMsgAlerte);

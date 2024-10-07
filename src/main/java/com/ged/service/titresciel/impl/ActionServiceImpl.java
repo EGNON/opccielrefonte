@@ -71,7 +71,6 @@ public class ActionServiceImpl implements ActionService {
     @Override
     public ResponseEntity<Object> afficherTous(DatatableParameters parameters) {
         try {
-            Sort sort = Sort.by(Sort.Direction.ASC,"nomAction");
             Pageable pageable = PageRequest.of(
                     parameters.getStart()/ parameters.getLength(), parameters.getLength());
             Page<Action> ActionPage;
