@@ -32,6 +32,10 @@ public class ModeleMsgAlerteMapper {
 
     public ModeleMsgAlerteDto deModeleMsgAlerte(ModeleMsgAlerte modeleMsgAlerte)
     {
+        if(modeleMsgAlerte == null) {
+            return null;
+        }
+
         ModeleMsgAlerteDto modeleMsgAlerteDto = new ModeleMsgAlerteDto();
         BeanUtils.copyProperties(modeleMsgAlerte, modeleMsgAlerteDto);
         if(modeleMsgAlerte.getTypeModele()!=null)
@@ -39,8 +43,6 @@ public class ModeleMsgAlerteMapper {
 
         if(modeleMsgAlerte.getRdvs() != null)
         {
-
-
             Set<RDVDto> rdvDtoSet=new HashSet<>();
             modeleMsgAlerte.getRdvs().forEach(rdv -> {
                 RDVDto rdvDto = new RDVDto();
@@ -57,6 +59,10 @@ public class ModeleMsgAlerteMapper {
 
     public ModeleMsgAlerte deModeleMsgAlerteDto(ModeleMsgAlerteDto modeleMsgAlerteDto)
     {
+        if(modeleMsgAlerteDto == null) {
+            return null;
+        }
+        
         ModeleMsgAlerte modeleMsgAlerte = new ModeleMsgAlerte();
         BeanUtils.copyProperties(modeleMsgAlerteDto, modeleMsgAlerte);
         return modeleMsgAlerte;
