@@ -15,6 +15,7 @@ import java.util.Optional;
 public interface PersonneDao extends JpaRepository<Personne, Long> {
     boolean existsByNumeroCpteDeposit(String numero);
     List<Personne> findByNumeroCpteDeposit(String numero);
+
     @Query(value = "SELECT  p.idPersonne as idPersonne, " +
             "p.denomination AS denomination," +
             "p.ifu as ifu,p.mobile1 as mobile1,p.mobile2 as mobile2,p.fixe1 as fixe1," +
@@ -65,7 +66,6 @@ public interface PersonneDao extends JpaRepository<Personne, Long> {
             " select a.personne.idPersonne from ActionnaireOpcvm a" +
             " where a.opcvm.idOpcvm=:idOpcvm) "+
             "order by COALESCE(pm.raisonSociale, CONCAT(pp.nom, ' ', pp.prenom)) asc")
-
     List<PersonneProjection> afficherPersonne(Long idOpcvm);
 
     @Query(value = "SELECT distinct p.idPersonne as idPersonne, " +
@@ -84,7 +84,6 @@ public interface PersonneDao extends JpaRepository<Personne, Long> {
             " select a.personne.idPersonne from ActionnaireOpcvm a" +
             " where a.opcvm.idOpcvm=:idOpcvm) "+
             "order by COALESCE(pm.raisonSociale, CONCAT(pp.nom, ' ', pp.prenom)) asc")
-
     List<PersonneProjection> afficherPersonneInOpcvm(Long idOpcvm);
 
     @Query(value = "SELECT  p.idPersonne as idPersonne, " +
@@ -98,7 +97,6 @@ public interface PersonneDao extends JpaRepository<Personne, Long> {
             "left outer join PersonnePhysique pp ON p.idPersonne=pp.idPersonne " +
             "left outer join PersonneMorale pm on p.idPersonne=pm.idPersonne "+
             "where p.idPersonne=:id")
-
     PersonneProjection afficherPersonnePhysiqueMoraleSelonId(long id);
 
     @Query(value = "select p from Personne as p inner join StatutPersonne as sp " +

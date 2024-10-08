@@ -104,6 +104,7 @@ public class ActionServiceImpl implements ActionService {
                 ActionPage = actionDao.findAll(searchSpecification, pageable);
             }
             else {
+                System.out.println("C'est ici !!");
                 ActionPage = actionDao.findAll(pageable);
             }
             List<ActionDto> content = ActionPage.getContent().stream().map(actionMapper::deAction).collect(Collectors.toList());
