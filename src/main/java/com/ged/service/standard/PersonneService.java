@@ -16,6 +16,7 @@ public interface PersonneService  {
     DataTablesResponse<PersonneDto> afficherCompteGele(DatatableParameters parameters);
     DataTablesResponse<PersonneDto> afficherCompteNonGele(DatatableParameters parameters);
     List<PersonneProjection> afficherPersonnePhysiqueMorales();
+    List<PersonneProjection> afficherPersonnePhysiqueMoralesListe();
     List<PersonneProjection> afficherPersonne(Long idOpcvm);
     List<PersonneProjection> afficherPersonneIOpcvm(Long idOpcvm);
     List<PersonneDto> afficherSelonQualite(String qualite);

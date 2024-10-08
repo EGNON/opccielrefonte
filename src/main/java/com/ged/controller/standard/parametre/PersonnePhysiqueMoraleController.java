@@ -21,6 +21,11 @@ public class PersonnePhysiqueMoraleController {
         return personneService.afficherPersonnePhysiqueMorales();
     }
 
+    @GetMapping("/tous")
+    public List<PersonneProjection> afficherListe(){
+        return personneService.afficherPersonnePhysiqueMoralesListe();
+    }
+
     @GetMapping("/{id}")
     public PersonneProjection afficherSelonId(@PathVariable("id") long id){
         return personneService.afficherPersonnePhysiqueMoraleSelonId(id);
