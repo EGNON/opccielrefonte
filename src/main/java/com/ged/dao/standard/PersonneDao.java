@@ -31,6 +31,20 @@ public interface PersonneDao extends JpaRepository<Personne, Long> {
             "order by p.denomination asc")
     List<PersonneProjection> afficherPersonnePhysiqueMorale();
 
+    @Query(value = "SELECT  p.idPersonne as idPersonne, " +
+            "p.denomination AS denomination," +
+            "p.ifu as ifu,p.mobile1 as mobile1,p.mobile2 as mobile2,p.fixe1 as fixe1," +
+            "p.fixe2 as fixe2,p.bp as bp,p.emailPerso as emailPerso" +
+            ",p.emailPro as emailPro,p.domicile as domicile,p.numeroPiece as numeroPiece," +
+            "p.typePiece as typePiece,p.dateExpirationPiece as dateExpirationPiece" +
+            ",p.modeEtablissement as modeEtablissement " +
+            "from Personne as p " +
+            "inner join StatutPersonne st on st.personne.idPersonne=p.idPersonne "+
+            "inner join Qualite q on q.idQualite=st.qualite.idQualite "+
+            "where (q.libelleQualite='actionnaires' or q.libelleQualite='prospect') " +
+            "order by p.denomination asc")
+    List<PersonneProjection> afficherPersonnePhysiqueMoraleListe();
+
     @Query(value = "SELECT  p "+
             "from Personne as p " +
             "where p.idPersonne=:idPersonne")

@@ -89,6 +89,12 @@ public class PersonneServiceImpl implements PersonneService {
     }
 
     @Override
+    public List<PersonneProjection> afficherPersonnePhysiqueMoralesListe() {
+        List<PersonneProjection> personneProjections=personneDao.afficherPersonnePhysiqueMoraleListe();
+        return personneProjections;
+    }
+
+    @Override
     public List<PersonneProjection> afficherPersonne(Long idOpcvm) {
         return personneDao.afficherPersonne(idOpcvm);
     }
