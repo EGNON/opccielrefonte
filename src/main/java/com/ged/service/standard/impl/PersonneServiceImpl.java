@@ -85,20 +85,17 @@ public class PersonneServiceImpl implements PersonneService {
     @Override
     public List<PersonneProjection> afficherPersonnePhysiqueMorales() {
 
-        List<PersonneProjection> personneProjections=personneDao.afficherPersonnePhysiqueMorale();
-        return personneProjections;
+        return personneDao.afficherPersonnePhysiqueMorale();
     }
 
     @Override
     public List<PersonneProjection> afficherPersonne(Long idOpcvm) {
-        List<PersonneProjection> personneProjections=personneDao.afficherPersonne(idOpcvm);
-        return personneProjections;
+        return personneDao.afficherPersonne(idOpcvm);
     }
 
     @Override
     public List<PersonneProjection> afficherPersonneIOpcvm(Long idOpcvm) {
-        List<PersonneProjection> personneProjections=personneDao.afficherPersonneInOpcvm(idOpcvm);
-        return personneProjections;
+        return personneDao.afficherPersonneInOpcvm(idOpcvm);
     }
 
     @Override
@@ -255,9 +252,8 @@ public class PersonneServiceImpl implements PersonneService {
         for (DocumentDto doc : documents) {
             personne.ajouterDocument(documentMapper.deDocumentDto(doc));
         }
-        PersonneDto personneSave = personneMapper.dePersonne(personneDao.save(personne));
 
-        return personneSave;
+        return personneMapper.dePersonne(personneDao.save(personne));
     }
 
     @Override

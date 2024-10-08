@@ -84,7 +84,7 @@ public class DiffusionAlerteServiceImpl implements DiffusionAlerteService {
                 //Get week day
                 DateTimeFormatter dtfFrench = DateTimeFormatter.ofPattern("EEEE").localizedBy(Locale.forLanguageTag("fr"));
                 String weekDay = dtfFrench.format(LocalDateTime.now().toLocalDate());
-                System.out.println(weekDay);
+//                System.out.println(weekDay);
 
                 /*String weekDay = LocalDateTime.now().toLocalDate().getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.FRENCH);
                 SimpleDateFormat formater = new SimpleDateFormat("EEEE");
