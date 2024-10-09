@@ -18,6 +18,9 @@ public class Opc extends Titre {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "idTypeAffectation", referencedColumnName = "idTypeAffectation")
     private TypeAffectationVL typeAffectationTitre;
+    private String codeClassificationOPC;
+    private String codeFormeJuridiqueOPC;
+    private String libelleTypeAffectationVL;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "idFormeJuridiqueOpc", referencedColumnName = "idFormeJuridiqueOpc")
     private FormeJuridiqueOpc formeJuridiqueOpc;
@@ -44,6 +47,30 @@ public class Opc extends Titre {
 
     public void setPeriodiciteVlUnite(String periodiciteVlUnite) {
         this.periodiciteVlUnite = periodiciteVlUnite;
+    }
+
+    public String getCodeClassificationOPC() {
+        return codeClassificationOPC;
+    }
+
+    public void setCodeClassificationOPC(String codeClassificationOPC) {
+        this.codeClassificationOPC = codeClassificationOPC;
+    }
+
+    public String getCodeFormeJuridiqueOPC() {
+        return codeFormeJuridiqueOPC;
+    }
+
+    public void setCodeFormeJuridiqueOPC(String codeFormeJuridiqueOPC) {
+        this.codeFormeJuridiqueOPC = codeFormeJuridiqueOPC;
+    }
+
+    public String getLibelleTypeAffectationVL() {
+        return libelleTypeAffectationVL;
+    }
+
+    public void setLibelleTypeAffectationVL(String libelleTypeAffectationVL) {
+        this.libelleTypeAffectationVL = libelleTypeAffectationVL;
     }
 
     public ClassificationOPC getClassificationOPC() {

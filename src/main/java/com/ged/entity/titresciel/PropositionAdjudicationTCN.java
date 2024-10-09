@@ -12,7 +12,6 @@ public class PropositionAdjudicationTCN extends Base {
     @JoinColumn(name = "idEmetteurNew")
 //    @MapsId("idEmetteur")
     private Emetteur emetteur;
-
 	private double interetUnitaire;
     private double montantAPayerUnitaire;
     private double tauxRendementPeriodique;

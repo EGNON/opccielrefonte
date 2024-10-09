@@ -1,6 +1,7 @@
 package com.ged.entity.titresciel;
 
 import com.ged.entity.Base;
+import com.ged.entity.standard.FormeJuridique;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
@@ -19,7 +20,7 @@ public class Garant extends Base {
     @Column(name = "idGarant")
     private Long idPersonne;
     private Long idOcc;
-    @Column(insertable = false,updatable = false)
+    @Column(insertable = false, updatable = false)
     private String typePersonne;
     private String denomination;
     private String ifu;
@@ -64,12 +65,12 @@ public class Garant extends Base {
     private String libelleTypePersonne;
     private String CodePays;
     private String CodeLangue;
-    @Column(columnDefinition="BIT")
+    @Column(columnDefinition = "BIT")
     private boolean EstActifPersonne = false;
     private String codeCategorieClient;
     private String codeSousTypeClient;
-    @Column(nullable =true)
-    private long numOrdre=0;
+    @Column(nullable = true)
+    private long numOrdre = 0;
     //FIN OPCCIEL1
     /*@Column(columnDefinition="BIT")
     private boolean estsgi = false;
@@ -149,16 +150,18 @@ public class Garant extends Base {
     private String numeroINSAE;
     private String numRegistre;
     private String codeSecteur;
-    @Column(nullable =true)
+    @Column(nullable = true)
     private BigDecimal CapitalSocial;
     private String siglePersonneMorale;
     private String raisonSociale;
-    /* @ManyToOne(cascade = CascadeType.ALL)
-     @JoinColumn(name = "codeFormeJuridique")
-     private FormeJuridique  formeJuridique;*/
+    private String codeFormeJuridique;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "codeFormeJuridiqueNew")
+    private FormeJuridique formeJuridique;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "codePlace")
     private Place place;
+    private String codeTypeGrant;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "codeTypeEmetteur")
     private TypeEmetteur typeEmetteur;
@@ -184,9 +187,9 @@ public class Garant extends Base {
     private String email;
     private String boitePostale;
     private String adresseComplete;
-    @Column(nullable =true)
+    @Column(nullable = true)
     private BigDecimal tauxRetroCourSous;
-    @Column(nullable =true)
+    @Column(nullable = true)
     private BigDecimal tauxRetroCourRach;
     private String numCompteSgi;
     private String libelleSousCategorie;
@@ -530,6 +533,30 @@ public class Garant extends Base {
 
     public void setPlace(Place place) {
         this.place = place;
+    }
+
+    public String getCodeFormeJuridique() {
+        return codeFormeJuridique;
+    }
+
+    public void setCodeFormeJuridique(String codeFormeJuridique) {
+        this.codeFormeJuridique = codeFormeJuridique;
+    }
+
+    public FormeJuridique getFormeJuridique() {
+        return formeJuridique;
+    }
+
+    public void setFormeJuridique(FormeJuridique formeJuridique) {
+        this.formeJuridique = formeJuridique;
+    }
+
+    public String getCodeTypeGrant() {
+        return codeTypeGrant;
+    }
+
+    public void setCodeTypeGrant(String codeTypeGrant) {
+        this.codeTypeGrant = codeTypeGrant;
     }
 
     public TypeEmetteur getTypeEmetteur() {
