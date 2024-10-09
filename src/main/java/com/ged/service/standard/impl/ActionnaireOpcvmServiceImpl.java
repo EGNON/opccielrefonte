@@ -14,6 +14,7 @@ import com.ged.mapper.standard.ActionnaireOpcvmMapper;
 import com.ged.mapper.standard.PersonneMapper;
 import com.ged.response.ResponseHandler;
 import com.ged.service.standard.ActionnaireOpcvmService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -52,16 +53,16 @@ public class ActionnaireOpcvmServiceImpl implements ActionnaireOpcvmService {
             Pageable pageable = PageRequest.of(
                     parameters.getStart()/ parameters.getLength(), parameters.getLength());
             Page<ActionnaireOpcvm> ActionnaireOpcvmPage;
-//            if(parameters.getSearch() != null && !StringUtils.isEmpty(parameters.getSearch().getValue()))
-//            {
-//                ActionnaireOpcvmPage = ActionnaireOpcvmDao.rechercher(parameters.getSearch().getValue(), pageable);
-//            }
-//            else {
-                Opcvm opcvm=new Opcvm();
+            if(parameters.getSearch() != null && !StringUtils.isEmpty(parameters.getSearch().getValue()))
+            {
+                ActionnaireOpcvmPage = ActionnaireOpcvmDao.rechercher(idOpcvm,parameters.getSearch().getValue(), pageable);
+            }
+            else {
+                /*Opcvm opcvm=new Opcvm();
                 System.out.println("idOpcvm="+idOpcvm);
-                opcvm=opcvmDao.findById(idOpcvm).orElseThrow();
-                ActionnaireOpcvmPage = ActionnaireOpcvmDao.findByOpcvm(opcvm,pageable);
-//            }
+                opcvm=opcvmDao.findById(idOpcvm).orElseThrow();*/
+                ActionnaireOpcvmPage = ActionnaireOpcvmDao.afficherParOpcvm(idOpcvm,pageable);
+           }
             List<ActionnaireOpcvmDto> content = ActionnaireOpcvmPage.getContent().stream().map(ActionnaireOpcvmMapper::deActionnaireOpcvm).collect(Collectors.toList());
             DataTablesResponse<ActionnaireOpcvmDto> dataTablesResponse = new DataTablesResponse<>();
             dataTablesResponse.setDraw(parameters.getDraw());
@@ -120,7 +121,7 @@ public class ActionnaireOpcvmServiceImpl implements ActionnaireOpcvmService {
         }
     }
     @Override
-    public ResponseEntity<Object> creer(ActionnaireOpcvmDto ActionnaireOpcvmDto) {
+    public ResponseEntity<Object> creer(ActionnaireOpcvmDto[] ActionnaireOpcvmDto) {
         try {
 //            ActionnaireOpcvmDto.setSupprimer(false);
 //            ActionnaireOpcvm ActionnaireOpcvm = ActionnaireOpcvmMapper.deActionnaireOpcvmDto(ActionnaireOpcvmDto);
@@ -147,8 +148,10 @@ public class ActionnaireOpcvmServiceImpl implements ActionnaireOpcvmService {
 //                System.out.println("opcvm="+opcvm1.getIdOpcvm());
 //            }
 //            ActionnaireOpcvm = ActionnaireOpcvmDao.save(ActionnaireOpcvm);
-            ActionnaireOpcvmDao.enregistrer(ActionnaireOpcvmDto.getPersonne().getIdPersonne(),
-                    ActionnaireOpcvmDto.getOpcvm().getIdOpcvm(),false);
+            for(ActionnaireOpcvmDto o:ActionnaireOpcvmDto) {
+                ActionnaireOpcvmDao.enregistrer(o.getPersonne().getIdPersonne(),
+                        o.getOpcvm().getIdOpcvm(), false);
+            }
             return ResponseHandler.generateResponse(
                     "Enregistrement effectué avec succès !",
                     HttpStatus.OK,

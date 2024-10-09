@@ -13,11 +13,19 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ActionnaireOpcvmDao extends JpaRepository<ActionnaireOpcvm,CleActionnaireOpcvm> {
-    Page<ActionnaireOpcvm> findByOpcvm(Opcvm opcvm,Pageable pageable);
+    @Query("select a from ActionnaireOpcvm a " +
+            "where a.opcvm.idOpcvm =:idOpcvm " +
+            "order by a.personne.denomination asc")
+    Page<ActionnaireOpcvm> afficherParOpcvm(long idOpcvm,Pageable pageable);
+
+    @Query("select a from ActionnaireOpcvm a " +
+            "where a.opcvm.idOpcvm =:idOpcvm and a.personne.denomination like %:valeur% " +
+            "order by a.personne.denomination asc")
+    Page<ActionnaireOpcvm> rechercher(long idOpcvm,String valeur,Pageable pageable);
 
     @Modifying
     @Transactional
-    @Query(value = "insert into Tarification.TJ_ActionnaireOpcvm (idPersonne, idOpcvm,supprimer) " +
+    @Query(value = "insert into Tarification.TJ_OpcvmActionnaire (idPersonne, idOpcvm,supprimer) " +
             "VALUES (?, ?,?)", nativeQuery = true)
     int enregistrer(Long idPersonne, Long idOpcvm,boolean supprimer);
 

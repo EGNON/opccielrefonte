@@ -5,7 +5,7 @@ import com.ged.entity.opcciel.Opcvm;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "TJ_ActionnaireOpcvm", schema = "Tarification")
+@Table(name = "TJ_OpcvmActionnaire", schema = "Tarification")
 public class ActionnaireOpcvm extends Base {
     @EmbeddedId
     private CleActionnaireOpcvm cleActionnaireOpcvm;
