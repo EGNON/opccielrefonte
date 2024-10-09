@@ -1,13 +1,14 @@
 package com.ged.entity.titresciel;
 
-import com.ged.entity.Base;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "T_Classification", schema = "Titre")
-public class ClassificationOPC extends Base {
+@Table(name = "T_ClassificationOPC", schema = "Titre")
+public class ClassificationOPC {
     @Id
+    @Column(name = "codeClassificationOPC")
     private String codeClassification;
+    @Column(name = "libelleClassificationOPC")
     private String libelleClassification;
     /*@OneToMany(mappedBy = "classification", fetch = FetchType.LAZY)
     //@JsonManagedReference

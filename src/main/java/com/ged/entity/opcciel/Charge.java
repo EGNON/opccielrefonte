@@ -28,9 +28,10 @@ public class Charge extends Base {
     @JoinColumn(name = "codeModele")
     private NatureOperation natureOperation;
     private String typeCommission;
+    private String typeAmortissement;
     @ManyToOne()
-    @JoinColumn(name = "idTypeAmortissement")
-    private TypeAmortissement typeAmortissement;
+    @JoinColumn(name = "idTypeAmortissementNew",referencedColumnName = "idTypeAmortissement")
+    private TypeAmortissement typeAmortissementNew;
     private boolean appliquerSurActifNet;
     private String codeFiscalite;
     private boolean reference;
@@ -128,12 +129,20 @@ public class Charge extends Base {
         this.typeCommission = typeCommission;
     }
 
-    public TypeAmortissement getTypeAmortissement() {
+    public String getTypeAmortissement() {
         return typeAmortissement;
     }
 
-    public void setTypeAmortissement(TypeAmortissement typeAmortissement) {
+    public void setTypeAmortissement(String typeAmortissement) {
         this.typeAmortissement = typeAmortissement;
+    }
+
+    public TypeAmortissement getTypeAmortissementNew() {
+        return typeAmortissementNew;
+    }
+
+    public void setTypeAmortissementNew(TypeAmortissement typeAmortissementNew) {
+        this.typeAmortissementNew = typeAmortissementNew;
     }
 
     public boolean isAppliquerSurActifNet() {

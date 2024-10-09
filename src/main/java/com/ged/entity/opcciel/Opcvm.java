@@ -22,25 +22,29 @@ public class Opcvm extends Base {
     private LocalDateTime dateAgrement;
     private String registreDeCommerce;
     private Boolean estCompteSysteme;
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "idPersonneGestionnaire",referencedColumnName = "idPersonne")
+    private long idPersonneGestionnaire;
+    @ManyToOne()
+    @JoinColumn(name = "idPersonneGestionnaireNew",referencedColumnName = "idPersonne")
     private PersonnePhysique personneGestionnaire;
     private String codeFormeJuridique;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne()
     @JoinColumn(name = "idFormeJuridiqueOpc", referencedColumnName = "idFormeJuridiqueOpc")
     private FormeJuridiqueOpc formeJuridiqueOpc;
-    /*@ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "idPersonneIntervenant",referencedColumnName = "idPersonne")
-    private PersonneMorale personneIntervenant;*/
-    @ManyToOne(cascade = CascadeType.ALL)
+    private long idPersonneIntervenant;
+    @ManyToOne()
+    @JoinColumn(name = "idPersonneIntervenantNew",referencedColumnName = "idPersonne")
+    private PersonneMorale personneIntervenant;
+    private String codeTypeAffectation;
+    @ManyToOne()
     @JoinColumn(name = "idTypeAffectation")
     private TypeAffectationVL typeAffectationTitre;
-    /*@ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "idPersonneEmetteur",referencedColumnName = "idPersonne")
-    private PersonneMorale personneEmetteur;*/
-    /*@ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "codeClassification")
-    private ClassificationOPC classification;*/
+    private long idPersonneEmetteur;
+    @ManyToOne()
+    @JoinColumn(name = "idPersonneEmetteurNew",referencedColumnName = "idPersonne")
+    private PersonneMorale personneEmetteur;
+    @ManyToOne()
+    @JoinColumn(name = "codeClassification",referencedColumnName = "codeClassificationOPC")
+    private ClassificationOPC classification;
     @Column(nullable = true)
     private LocalDateTime dateCreationOpcvm;
     @Column(nullable = true)
@@ -164,17 +168,20 @@ public class Opcvm extends Base {
     private String email;
     @Column(nullable = true)
     private String boitePostale;
-    @ManyToOne(cascade = CascadeType.ALL)
+    private String codePays;
+    @ManyToOne()
     @JoinColumn(name = "idPays", nullable = true)
     private Pays pays;
-    @ManyToOne(cascade = CascadeType.ALL)
+    private String codeVille;
+    @ManyToOne()
     @JoinColumn(name = "idVille", nullable = true)
     private Ville ville;
     @Column(nullable = true, precision = 18, scale = 6)
     private BigDecimal tauxRendement;
-    /*@ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "idTitre", nullable = true)
-    private Titre titre;*/
+    private long idTitre;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "idTitreNew",referencedColumnName = "idTitre",nullable = true)
+    private Titre titre;
     //FIN
     private Boolean estObligataire;
     private BigDecimal proportionIndice;
@@ -192,6 +199,95 @@ public class Opcvm extends Base {
     public void setIdOcc(Long idOcc) {
         this.idOcc = idOcc;
     }
+
+    public long getIdPersonneGestionnaire() {
+        return idPersonneGestionnaire;
+    }
+
+    public void setIdPersonneGestionnaire(long idPersonneGestionnaire) {
+        this.idPersonneGestionnaire = idPersonneGestionnaire;
+    }
+
+    public long getIdPersonneIntervenant() {
+        return idPersonneIntervenant;
+    }
+
+    public void setIdPersonneIntervenant(long idPersonneIntervenant) {
+        this.idPersonneIntervenant = idPersonneIntervenant;
+    }
+
+    public PersonneMorale getPersonneIntervenant() {
+        return personneIntervenant;
+    }
+
+    public void setPersonneIntervenant(PersonneMorale personneIntervenant) {
+        this.personneIntervenant = personneIntervenant;
+    }
+
+    public String getCodeTypeAffectation() {
+        return codeTypeAffectation;
+    }
+
+    public void setCodeTypeAffectation(String codeTypeAffectation) {
+        this.codeTypeAffectation = codeTypeAffectation;
+    }
+
+    public long getIdPersonneEmetteur() {
+        return idPersonneEmetteur;
+    }
+
+    public void setIdPersonneEmetteur(long idPersonneEmetteur) {
+        this.idPersonneEmetteur = idPersonneEmetteur;
+    }
+
+    public PersonneMorale getPersonneEmetteur() {
+        return personneEmetteur;
+    }
+
+    public void setPersonneEmetteur(PersonneMorale personneEmetteur) {
+        this.personneEmetteur = personneEmetteur;
+    }
+
+    public ClassificationOPC getClassification() {
+        return classification;
+    }
+
+    public void setClassification(ClassificationOPC classification) {
+        this.classification = classification;
+    }
+
+    public String getCodePays() {
+        return codePays;
+    }
+
+    public void setCodePays(String codePays) {
+        this.codePays = codePays;
+    }
+
+    public String getCodeVille() {
+        return codeVille;
+    }
+
+    public void setCodeVille(String codeVille) {
+        this.codeVille = codeVille;
+    }
+
+    public long getIdTitre() {
+        return idTitre;
+    }
+
+    public void setIdTitre(long idTitre) {
+        this.idTitre = idTitre;
+    }
+
+    public Titre getTitre() {
+        return titre;
+    }
+
+    public void setTitre(Titre titre) {
+        this.titre = titre;
+    }
+
     public Boolean getEstObligataire() {
         return estObligataire;
     }

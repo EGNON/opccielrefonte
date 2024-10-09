@@ -2,6 +2,8 @@ package com.ged.entity.opcciel.comptabilite;
 
 import com.ged.entity.Base;
 import com.ged.entity.opcciel.Opcvm;
+import com.ged.entity.standard.Personne;
+import com.ged.entity.titresciel.Titre;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -14,20 +16,22 @@ public class Operation extends Base {
 //    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idOperation;
     private Long idOcc;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne()
     @JoinColumn(name = "idOpcvm")
     private Opcvm opcvm;
-    /*@ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "idActionnaire",referencedColumnName = "idPersonne")
-    private Personne personne;*/
-    /*@ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "idTitre")
-    private Titre titre;*/
-    /*@ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "idTransaction")
-    private Transaction transaction;*/
+    private long idActionnaire;
+    @ManyToOne()
+    @JoinColumn(name = "idActionnaireNew",referencedColumnName = "idPersonne")
+    private Personne personne;
+    private long idTitre;
+    @ManyToOne()
+    @JoinColumn(name = "idTitreNew",referencedColumnName = "idTitre")
+    private Titre titre;
+    @ManyToOne()
+    @JoinColumn(name = "idTransactionNew",referencedColumnName = "idTransaction")
+    private Transaction transaction;
     private Long idSeance;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne()
     @JoinColumn(name = "codeNatureOperation")
     private NatureOperation natureOperation;
     private LocalDateTime dateOperation;
@@ -45,9 +49,10 @@ public class Operation extends Base {
     private String valeurCodeAnalytique;
     private boolean estExtournee;
     private boolean estOpExtournee;
-    /*@ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name ="idOpExtournee" ,referencedColumnName = "idOperation")
-    private Operation operation;*/
+    private long idOpExtournee;
+    @ManyToOne()
+    @JoinColumn(name ="idOpExtourneeNew" ,referencedColumnName = "idOperation")
+    private Operation operation;
     private boolean estVerifie1;
     private LocalDateTime dateVerification1;
     private String userLoginVerificateur1;
@@ -56,6 +61,62 @@ public class Operation extends Base {
     private String userLoginVerificateur2;
 
     public Operation() {
+    }
+
+    public long getIdActionnaire() {
+        return idActionnaire;
+    }
+
+    public void setIdActionnaire(long idActionnaire) {
+        this.idActionnaire = idActionnaire;
+    }
+
+    public Personne getPersonne() {
+        return personne;
+    }
+
+    public void setPersonne(Personne personne) {
+        this.personne = personne;
+    }
+
+    public long getIdTitre() {
+        return idTitre;
+    }
+
+    public void setIdTitre(long idTitre) {
+        this.idTitre = idTitre;
+    }
+
+    public Titre getTitre() {
+        return titre;
+    }
+
+    public void setTitre(Titre titre) {
+        this.titre = titre;
+    }
+
+    public Transaction getTransaction() {
+        return transaction;
+    }
+
+    public void setTransaction(Transaction transaction) {
+        this.transaction = transaction;
+    }
+
+    public long getIdOpExtournee() {
+        return idOpExtournee;
+    }
+
+    public void setIdOpExtournee(long idOpExtournee) {
+        this.idOpExtournee = idOpExtournee;
+    }
+
+    public Operation getOperation() {
+        return operation;
+    }
+
+    public void setOperation(Operation operation) {
+        this.operation = operation;
     }
 
     public Long getIdOperation() {

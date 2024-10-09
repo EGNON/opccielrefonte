@@ -16,10 +16,11 @@ public class Nantissement extends Base {
     private LocalDateTime dateOperation;
     private Double montant;
     private Double quantite;
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "idActionnaire",referencedColumnName = "idPersonne")
+    private long idActionnaire;
+    @ManyToOne()
+    @JoinColumn(name = "idActionnaireNew",referencedColumnName = "idPersonne")
     private Personne personneActionnaire;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne()
     @JoinColumn(name = "idOpcvm")
     private Opcvm opcvm;
     private Long idSeance;
@@ -48,6 +49,14 @@ public class Nantissement extends Base {
     private String banque;
 
     public Nantissement() {
+    }
+
+    public long getIdActionnaire() {
+        return idActionnaire;
+    }
+
+    public void setIdActionnaire(long idActionnaire) {
+        this.idActionnaire = idActionnaire;
     }
 
     public Long getIdOperation() {
