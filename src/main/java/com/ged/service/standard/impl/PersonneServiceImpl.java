@@ -95,12 +95,12 @@ public class PersonneServiceImpl implements PersonneService {
     }
 
     @Override
-    public List<PersonneProjection> afficherPersonne(Long idOpcvm) {
+    public List<PersonneProjection> afficherPersonneNotInOpcvm(Long idOpcvm) {
         return personneDao.afficherPersonne(idOpcvm);
     }
 
     @Override
-    public List<PersonneProjection> afficherPersonneIOpcvm(Long idOpcvm) {
+    public List<PersonneProjection> afficherPersonneInOpcvm(Long idOpcvm) {
         return personneDao.afficherPersonneInOpcvm(idOpcvm);
     }
 

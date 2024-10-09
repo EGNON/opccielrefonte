@@ -46,15 +46,15 @@ public class PersonneController {
     {
         return personneService.afficherSelonQualite(qualite);
     }
-    @GetMapping("opcvm/{idOpcvm}")
+    @GetMapping("personnenotinopcvm/{idOpcvm}")
     public List<PersonneProjection> afficherPersonne(@PathVariable Long idOpcvm)
     {
-        return personneService.afficherPersonne(idOpcvm);
+        return personneService.afficherPersonneNotInOpcvm(idOpcvm);
     }
     @GetMapping("personneinopcvm/{idOpcvm}")
     public List<PersonneProjection> afficherPersonneInOpcvm(@PathVariable Long idOpcvm)
     {
-        return personneService.afficherPersonneIOpcvm(idOpcvm);
+        return personneService.afficherPersonneInOpcvm(idOpcvm);
     }
     @GetMapping("/gele")
     public List<PersonneDto> afficherCompteGeleNonGele()
