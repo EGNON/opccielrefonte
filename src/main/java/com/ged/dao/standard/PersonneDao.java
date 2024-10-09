@@ -62,7 +62,7 @@ public interface PersonneDao extends JpaRepository<Personne, Long> {
             "left outer join PersonneMorale pm on p.idPersonne=pm.idPersonne " +
             "inner join StatutPersonne st on st.personne.idPersonne=p.idPersonne "+
             "inner join Qualite q on q.idQualite=st.qualite.idQualite "+
-            "where q.libelleQualite='actionnaire' and p.idPersonne not in(" +
+            "where q.libelleQualite='ACTIONNAIRES' and p.idPersonne not in(" +
             " select a.personne.idPersonne from ActionnaireOpcvm a" +
             " where a.opcvm.idOpcvm=:idOpcvm) "+
             "order by COALESCE(pm.raisonSociale, CONCAT(pp.nom, ' ', pp.prenom)) asc")
@@ -80,7 +80,7 @@ public interface PersonneDao extends JpaRepository<Personne, Long> {
             "left outer join PersonneMorale pm on p.idPersonne=pm.idPersonne " +
             "inner join StatutPersonne st on st.personne.idPersonne=p.idPersonne "+
             "inner join Qualite q on q.idQualite=st.qualite.idQualite "+
-            "where q.libelleQualite='actionnaire' and p.idPersonne  in(" +
+            "where q.libelleQualite='ACTIONNAIRES' and p.idPersonne  in(" +
             " select a.personne.idPersonne from ActionnaireOpcvm a" +
             " where a.opcvm.idOpcvm=:idOpcvm) "+
             "order by COALESCE(pm.raisonSociale, CONCAT(pp.nom, ' ', pp.prenom)) asc")
