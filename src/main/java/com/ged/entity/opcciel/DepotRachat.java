@@ -1,7 +1,10 @@
 package com.ged.entity.opcciel;
 
 import com.ged.entity.opcciel.comptabilite.Operation;
+import com.ged.entity.titresciel.Titre;
 import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 import java.time.LocalDateTime;
@@ -17,9 +20,10 @@ public class DepotRachat extends Operation {
     private String nomVerificateur;
     private LocalDateTime dateVerification;
     private Double montantSouscrit;
-    /*@ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "idTitre")
-    private Titre titre;*/
+    @ManyToOne()
+    @JoinColumn(name = "idTitreNew",referencedColumnName = "idTitre")
+    private Titre titre;
+    private long idTitre;
     private Double qte;
     private Double cours;
     private Double commission;
@@ -36,6 +40,26 @@ public class DepotRachat extends Operation {
 //    public void setIdOperation(Long idOperation) {
 //        IdOperation = idOperation;
 //    }
+
+    @Override
+    public Titre getTitre() {
+        return titre;
+    }
+
+    @Override
+    public void setTitre(Titre titre) {
+        this.titre = titre;
+    }
+
+    @Override
+    public long getIdTitre() {
+        return idTitre;
+    }
+
+    @Override
+    public void setIdTitre(long idTitre) {
+        this.idTitre = idTitre;
+    }
 
     public Long getIdOcc() {
         return idOcc;

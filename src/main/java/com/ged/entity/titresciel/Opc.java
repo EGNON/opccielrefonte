@@ -13,7 +13,7 @@ public class Opc extends Titre {
     private Integer periodiciteVlNbre;
     private String periodiciteVlUnite;
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "codeClassification", referencedColumnName = "codeClassification")
+    @JoinColumn(name = "codeClassification", referencedColumnName = "codeClassificationOPC")
     private ClassificationOPC classificationOPC;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "idTypeAffectation", referencedColumnName = "idTypeAffectation")
