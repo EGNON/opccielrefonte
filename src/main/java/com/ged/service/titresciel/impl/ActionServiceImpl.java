@@ -73,8 +73,6 @@ public class ActionServiceImpl implements ActionService {
         try {
             Pageable pageable = PageRequest.of(
                     parameters.getStart()/ parameters.getLength(), parameters.getLength());
-            System.out.println("PageNumber = " + parameters.getStart()/ parameters.getLength()
-                    + ", PageSize = " + parameters.getLength());
             Page<Action> ActionPage;
             if (parameters.getSearch() != null && !StringUtils.isEmpty(parameters.getSearch().getValue())) {
                 RequestDto requestDto = new RequestDto();

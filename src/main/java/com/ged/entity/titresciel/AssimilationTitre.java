@@ -6,17 +6,35 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "T_AssimilationTitre", schema = "OperationCapital")
 public class AssimilationTitre extends Operation {
+    private Long idTitreAncien;
+    private Long idTitreAncienNouveau;
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "idTitreAncien",referencedColumnName = "idTitre")
+    @JoinColumn(name = "idTitreAncienNew",referencedColumnName = "idTitre")
     private Titre titreAncien;
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "idTitreAncienNouveau",referencedColumnName = "idTitre")
+    @JoinColumn(name = "idTitreAncienNouveauNew",referencedColumnName = "idTitre")
     private Titre titreAncienNouveau;
     private Double qteAncienTitre;
     private Double qteNouveauuTitre;
     private Double qteApresOperation;
 
     public AssimilationTitre() {
+    }
+
+    public Long getIdTitreAncien() {
+        return idTitreAncien;
+    }
+
+    public void setIdTitreAncien(Long idTitreAncien) {
+        this.idTitreAncien = idTitreAncien;
+    }
+
+    public Long getIdTitreAncienNouveau() {
+        return idTitreAncienNouveau;
+    }
+
+    public void setIdTitreAncienNouveau(Long idTitreAncienNouveau) {
+        this.idTitreAncienNouveau = idTitreAncienNouveau;
     }
 
     public Titre getTitreAncien() {

@@ -10,6 +10,8 @@ import java.math.BigDecimal;
 @Table(name = "T_Action", schema = "Titre")
 public class Action extends Titre{
     private BigDecimal per;
+    private String codeTypeAction;
+    private String codeSousTypeAction;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "idTypeAction", referencedColumnName = "idTypeAction")
     private TypeAction typeAction;
@@ -24,6 +26,22 @@ public class Action extends Titre{
 
     public void setPer(BigDecimal per) {
         this.per = per;
+    }
+
+    public String getCodeTypeAction() {
+        return codeTypeAction;
+    }
+
+    public void setCodeTypeAction(String codeTypeAction) {
+        this.codeTypeAction = codeTypeAction;
+    }
+
+    public String getCodeSousTypeAction() {
+        return codeSousTypeAction;
+    }
+
+    public void setCodeSousTypeAction(String codeSousTypeAction) {
+        this.codeSousTypeAction = codeSousTypeAction;
     }
 
     public TypeAction getTypeAction() {

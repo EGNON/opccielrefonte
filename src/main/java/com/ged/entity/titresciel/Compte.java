@@ -9,8 +9,8 @@ public class Compte extends Base {
     @EmbeddedId
     private CleCompte idCompte;
     @ManyToOne
-    @JoinColumn(name = "idRegistraire")
-    @MapsId("idRegistraire")
+    @JoinColumn(name = "idRegistraireNew")
+//    @MapsId("idRegistraireNew")
     private Registraire registraire;
 	private String intitule;
     private String typeGestion;

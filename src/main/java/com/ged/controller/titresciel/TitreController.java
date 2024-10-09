@@ -2,7 +2,9 @@ package com.ged.controller.titresciel;
 
 import com.ged.datatable.DatatableParameters;
 import com.ged.dto.titresciel.ObligationDto;
+import com.ged.response.ResponseHandler;
 import com.ged.service.titresciel.*;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -47,7 +49,8 @@ public class TitreController {
             case "dat" -> datService.afficherTous(params);
             case "obligations" -> obligationService.afficherTous(params);
             case "actions" -> actionService.afficherTous(params);
-            case "autres" -> null;
+            case "autres" -> ResponseHandler.generateResponse(
+                    "Liste des Autres titres par page datatable",HttpStatus.OK,null);
             default -> titreService.afficherTous(params);
         };
     }

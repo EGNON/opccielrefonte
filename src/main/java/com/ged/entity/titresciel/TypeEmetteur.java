@@ -1,10 +1,11 @@
 package com.ged.entity.titresciel;
 
+import com.ged.entity.Base;
 import jakarta.persistence.*;
 
 @Entity
 @Table(name = "T_TypeEmetteur", schema = "Titre")
-public class TypeEmetteur {
+public class TypeEmetteur extends Base {
     @Id
     private String codeTypeEmetteur;
     private String libelleTypeEmetteur;

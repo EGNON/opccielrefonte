@@ -1,10 +1,11 @@
 package com.ged.entity.titresciel;
 
+import com.ged.entity.Base;
 import jakarta.persistence.*;
 
 @Entity
 @Table(name = "T_Classification", schema = "Titre")
-public class ClassificationOPC {
+public class ClassificationOPC extends Base {
     @Id
     private String codeClassification;
     private String libelleClassification;

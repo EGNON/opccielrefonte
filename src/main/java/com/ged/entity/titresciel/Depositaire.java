@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 
 @Entity
 //@PrimaryKeyJoinColumn(name="idPersonne")
-@DiscriminatorValue("DP")
+//@DiscriminatorValue("DP")
 @Table(name = "T_Depositaire", schema = "Titre")
 public class Depositaire extends Base {
     @Id

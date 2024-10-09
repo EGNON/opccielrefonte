@@ -11,8 +11,8 @@ public class AdjudicationTcn extends Base {
     @EmbeddedId
     private CleAdjudicationTcn idAdjudicationTcn;
     @ManyToOne
-    @JoinColumn(name = "idEmetteur")
-    @MapsId("idEmetteur")
+    @JoinColumn(name = "idEmetteurNew")
+//    @MapsId("idEmetteurNew")
     private Emetteur emetteur;
     private LocalDateTime dateValeur;
     private LocalDateTime dateLimite;
@@ -22,8 +22,9 @@ public class AdjudicationTcn extends Base {
     private int duree;
     private String uniteDuree;
     private String denominationEmission;
+    private Long idDepositaire;
     @ManyToOne
-    @JoinColumn(name = "idDepositaire")
+    @JoinColumn(name = "idDepositaireNew")
     private Depositaire depositaire;
 
     public AdjudicationTcn() {
@@ -99,6 +100,14 @@ public class AdjudicationTcn extends Base {
 
     public void setDenominationEmission(String denominationEmission) {
         this.denominationEmission = denominationEmission;
+    }
+
+    public Long getIdDepositaire() {
+        return idDepositaire;
+    }
+
+    public void setIdDepositaire(Long idDepositaire) {
+        this.idDepositaire = idDepositaire;
     }
 
     public Depositaire getDepositaire() {

@@ -9,8 +9,8 @@ public class PropositionAdjudicationTCN extends Base {
     @EmbeddedId
     private ClePropositionAdjudicationTCN idPropositionAdjudicationTCN;
     @ManyToOne
-    @JoinColumn(name = "idEmetteur")
-    @MapsId("idEmetteur")
+    @JoinColumn(name = "idEmetteurNew")
+//    @MapsId("idEmetteur")
     private Emetteur emetteur;
 
 	private double interetUnitaire;
