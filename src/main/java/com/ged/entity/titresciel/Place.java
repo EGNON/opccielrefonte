@@ -1,27 +1,14 @@
 package com.ged.entity.titresciel;
 
+import com.ged.entity.Base;
 import jakarta.persistence.*;
 
 @Entity
 @Table(name = "T_Place", schema = "Titre")
-public class Place {
+public class Place extends Base {
     @Id
     private String codePlace;
-
     private String libellePlace;
-//    @CreationTimestamp
-//    private LocalDateTime dateCreationServeur;
-//    @UpdateTimestamp
-//    private LocalDateTime dateDernModifServeur;
-//    @UpdateTimestamp
-//    private LocalDateTime dateDernModifClient;
-//    private long numLigne;
-//    @Column(columnDefinition = "BIT", length = 1)
-//    private boolean supprimer;
-//
-//    private LocalDateTime rowvers;
-//    @Basic
-//    private String userLogin;
 
     public Place() {
     }

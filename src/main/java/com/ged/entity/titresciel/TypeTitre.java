@@ -1,6 +1,5 @@
 package com.ged.entity.titresciel;
 
-import com.ged.entity.titresciel.ClasseTitre;
 import jakarta.persistence.*;
 
 @Entity

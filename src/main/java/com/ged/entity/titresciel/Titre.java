@@ -31,7 +31,7 @@ public class Titre extends Base {
     @JoinColumn(name = "codePlace")
     private Place place;
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "idDepositaire", referencedColumnName = "idPersonne")
+    @JoinColumn(name = "idDepositaireNew", referencedColumnName = "idPersonne")
     private PersonneMorale depositaire;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "idTypeEmission")
@@ -49,13 +49,13 @@ public class Titre extends Base {
     @JoinColumn(name = "codeNormalAssimile")
     private NormalAssimile normalAssimile;
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "idPays")
+    @JoinColumn(name = "idPaysNew")
     private Pays pays;
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "idRegistraire",referencedColumnName = "idPersonne")
+    @JoinColumn(name = "idRegistraireNew",referencedColumnName = "idPersonne")
     private PersonneMorale registraire;
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "idEmetteur",referencedColumnName = "idPersonne")
+    @JoinColumn(name = "idEmetteurNew",referencedColumnName = "idPersonne")
     private PersonneMorale emetteur;
     @Column(name = "lotMinimum")
     private Integer lotMinimum;

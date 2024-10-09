@@ -1,10 +1,11 @@
 package com.ged.entity.titresciel;
 
+import com.ged.entity.Base;
 import jakarta.persistence.*;
 
 @Entity
 @Table(name = "T_TypeEmission", schema = "Titre")
-public class TypeEmission {
+public class TypeEmission extends Base {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idTypeEmission;

@@ -1,29 +1,15 @@
 package com.ged.entity.titresciel;
 
+import com.ged.entity.Base;
 import jakarta.persistence.*;
 
 @Entity
 @Table(name = "T_Compartiments", schema = "Titre")
-public class Compartiment {
+public class Compartiment extends Base {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idCompartiment;
     private String libelleCompartiment;
-//    @Basic
-//    private LocalDateTime dateCreationServeur;
-//    @Basic
-//    private LocalDateTime dateDernModifServeur;
-//    @Basic
-//    private LocalDateTime dateDernModifClient;
-//    @Basic
-//    private long numLigne;
-//    @Basic
-//    private boolean supprimer;
-//    @CreationTimestamp
-//    @Column(name="rowvers", nullable = false, updatable = false, insertable = false)
-//    private Timestamp rowvers;
-//    @Basic
-//    private String userLogin;
 
     public Compartiment() {
     }

@@ -1,5 +1,6 @@
 package com.ged.entity.titresciel;
 
+import com.ged.entity.Base;
 import jakarta.persistence.*;
 
 import java.util.HashSet;
@@ -7,26 +8,12 @@ import java.util.Set;
 
 @Entity
 @Table(name = "T_ClasseTitre", schema = "Titre")
-public class ClasseTitre {
+public class ClasseTitre extends Base {
     @Id
     private String codeClasseTitre;
     private String libelleClasseTitre;
     @OneToMany(mappedBy = "classeTitre")
     private Set<QualiteTitre> qualiteTitres = new HashSet<>();
-//    @Basic
-//    private LocalDateTime dateCreationServeur;
-//    @Basic
-//    private LocalDateTime dateDernModifServeur;
-//    @Basic
-//    private LocalDateTime dateDernModifClient;
-//    @Basic
-//    private long numLigne;
-//    @Basic
-//    private boolean supprimer;
-//    @Basic
-//    private LocalDateTime rowvers;
-//    @Basic
-//    private String userLogin;
 
     public ClasseTitre() {
     }
