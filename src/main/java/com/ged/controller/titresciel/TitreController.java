@@ -39,8 +39,7 @@ public class TitreController {
             @PathVariable String qualite,
             @PathVariable String classname) throws ClassNotFoundException, InstantiationException, IllegalAccessException {
         Class<?> cls = Class.forName("com.ged.entity.titresciel." + classname);
-        Object clsInstance = cls.newInstance();
-        System.out.println("Qualité === " + qualite.toLowerCase());
+//        Object clsInstance = cls.newInstance();
         return switch (qualite.toLowerCase()) {
             case "opc" -> opcService.afficherTous(params);
             case "tcn" -> tcnService.afficherTous(params);
@@ -48,6 +47,7 @@ public class TitreController {
             case "dat" -> datService.afficherTous(params);
             case "obligations" -> obligationService.afficherTous(params);
             case "actions" -> actionService.afficherTous(params);
+            case "autres" -> null;
             default -> titreService.afficherTous(params);
         };
     }
