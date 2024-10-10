@@ -40,7 +40,7 @@ public class ActionnaireOpcvmController {
 
     @PostMapping
 //    @PreAuthorize("hasAuthority('ROLE_ActionnaireOpcvm')")
-    public ResponseEntity<Object> creer(@Valid @RequestBody ActionnaireOpcvmDto ActionnaireOpcvmDto)
+    public ResponseEntity<Object> creer(@Valid @RequestBody ActionnaireOpcvmDto[] ActionnaireOpcvmDto)
     {
         return ActionnaireOpcvmService.creer(ActionnaireOpcvmDto);
     }

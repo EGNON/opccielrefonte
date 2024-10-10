@@ -11,7 +11,7 @@ public interface ActionnaireOpcvmService {
     ResponseEntity<Object> afficherTous();
     ActionnaireOpcvm afficherSelonId(CleActionnaireOpcvm idActionnaireOpcvm);
     ResponseEntity<Object> afficher(CleActionnaireOpcvm idActionnaireOpcvm);
-    ResponseEntity<Object> creer(ActionnaireOpcvmDto ActionnaireOpcvmDto);
+    ResponseEntity<Object> creer(ActionnaireOpcvmDto[] ActionnaireOpcvmDto);
     ResponseEntity<Object> modifier(ActionnaireOpcvmDto ActionnaireOpcvmDto);
     ResponseEntity<Object> supprimer(CleActionnaireOpcvm idActionnaireOpcvm);
 }
