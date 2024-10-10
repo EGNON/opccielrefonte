@@ -1,7 +1,6 @@
 package com.ged.dto.standard;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.ged.entity.standard.Langue;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;

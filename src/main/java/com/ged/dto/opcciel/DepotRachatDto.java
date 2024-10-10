@@ -6,8 +6,8 @@ import com.ged.dto.standard.PersonneDto;
 import com.ged.dto.titresciel.TitreDto;
 
 import java.time.LocalDateTime;
-@JsonIgnoreProperties(ignoreUnknown = true)
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class DepotRachatDto {
 
     private long IdOperation;

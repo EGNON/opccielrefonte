@@ -2,8 +2,12 @@ package com.ged.service.opcciel.impl;
 
 import com.ged.dao.opcciel.comptabilite.ExerciceDao;
 import com.ged.dto.opcciel.comptabilite.ExerciceDto;
+import com.ged.entity.opcciel.comptabilite.Exercice;
 import com.ged.mapper.opcciel.ExerciceMapper;
+import com.ged.response.ResponseHandler;
 import com.ged.service.opcciel.ExerciceService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,5 +26,23 @@ public class ExerciceImpl implements ExerciceService {
     @Override
     public List<ExerciceDto> afficherTous() {
         return exerciceDao.afficherExercice().stream().map(exerciceMapper::deExerciceProjection).collect(Collectors.toList());
+    }
+
+    @Override
+    public ResponseEntity<Object> exerciceCourant(Long idOpcvm) {
+        try {
+            Exercice exercice = exerciceDao.exerciceCourant(idOpcvm).orElse(null);
+            return ResponseHandler.generateResponse(
+                    "Exercice courant",
+                    HttpStatus.OK,
+                    exercice);
+        }
+        catch (Exception e)
+        {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e);
+        }
     }
 }

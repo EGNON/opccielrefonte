@@ -39,6 +39,14 @@ public class Titre extends Base {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "codeTypeTitre")
     private TypeTitre typeTitre;
+    //
+    private String libelleSecteurBoursier;
+    private String libelleCompartiment;
+    private String codeNormalAssimile;
+    private String codePays;
+    private Long idEmetteur;
+    private Long idRegistraire;
+    //
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "idSecteur")
     private Secteur secteur;
@@ -46,7 +54,7 @@ public class Titre extends Base {
     @JoinColumn(name = "idCompartiment")
     private Compartiment compartiment;
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "codeNormalAssimile")
+    @JoinColumn(name = "codeNormalAssimileNew")
     private NormalAssimile normalAssimile;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "idPaysNew")
@@ -143,6 +151,58 @@ public class Titre extends Base {
     public void setDesignationTitre(String designationTitre) {
         this.designationTitre = designationTitre;
     }
+
+    //
+
+    public String getLibelleSecteurBoursier() {
+        return libelleSecteurBoursier;
+    }
+
+    public void setLibelleSecteurBoursier(String libelleSecteurBoursier) {
+        this.libelleSecteurBoursier = libelleSecteurBoursier;
+    }
+
+    public String getLibelleCompartiment() {
+        return libelleCompartiment;
+    }
+
+    public void setLibelleCompartiment(String libelleCompartiment) {
+        this.libelleCompartiment = libelleCompartiment;
+    }
+
+    public String getCodeNormalAssimile() {
+        return codeNormalAssimile;
+    }
+
+    public void setCodeNormalAssimile(String codeNormalAssimile) {
+        this.codeNormalAssimile = codeNormalAssimile;
+    }
+
+    public String getCodePays() {
+        return codePays;
+    }
+
+    public void setCodePays(String codePays) {
+        this.codePays = codePays;
+    }
+
+    public Long getIdEmetteur() {
+        return idEmetteur;
+    }
+
+    public void setIdEmetteur(Long idEmetteur) {
+        this.idEmetteur = idEmetteur;
+    }
+
+    public Long getIdRegistraire() {
+        return idRegistraire;
+    }
+
+    public void setIdRegistraire(Long idRegistraire) {
+        this.idRegistraire = idRegistraire;
+    }
+
+    //
 
     public Place getPlace() {
         return place;

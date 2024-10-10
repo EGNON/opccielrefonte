@@ -100,7 +100,6 @@ public class JournalServiceImpl implements JournalService {
                     HttpStatus.MULTI_STATUS,
                     e);
         }
-
     }
 
     @Override
