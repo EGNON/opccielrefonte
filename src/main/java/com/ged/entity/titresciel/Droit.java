@@ -10,15 +10,15 @@ import java.time.LocalDateTime;
 @DiscriminatorValue("DRT")
 @Table(name = "T_Droit", schema = "Titre")
 public class Droit extends Titre{
-    private BigDecimal idActionLiee;
+//    private BigDecimal idActionLiee;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "idAction", referencedColumnName = "idTitre")
+    @JoinColumn(name = "idActionLiee", referencedColumnName = "idTitre")
     private Action actionLiee;
     private LocalDateTime dateDebutNegociation;
     private LocalDateTime dateFinNegociation;
-    private BigDecimal idNouvelleAction;
+//    private BigDecimal idNouvelleAction;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "idActionNouvelle", referencedColumnName = "idTitre")
+    @JoinColumn(name = "idNouvelleAction", referencedColumnName = "idTitre")
     private Action nouvelleAction;
     private LocalDateTime dateJouissance;
     private Integer pariteAncienNbre;
@@ -123,21 +123,5 @@ public class Droit extends Titre{
 
     public void setNouvelleAction(Action nouvelleAction) {
         this.nouvelleAction = nouvelleAction;
-    }
-
-    public BigDecimal getIdActionLiee() {
-        return idActionLiee;
-    }
-
-    public void setIdActionLiee(BigDecimal idActionLiee) {
-        this.idActionLiee = idActionLiee;
-    }
-
-    public BigDecimal getIdNouvelleAction() {
-        return idNouvelleAction;
-    }
-
-    public void setIdNouvelleAction(BigDecimal idNouvelleAction) {
-        this.idNouvelleAction = idNouvelleAction;
     }
 }

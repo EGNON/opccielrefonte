@@ -30,7 +30,7 @@ public class Charge extends Base {
     private String typeCommission;
     private String typeAmortissement;
     @ManyToOne()
-    @JoinColumn(name = "idTypeAmortissementNew",referencedColumnName = "idTypeAmortissement")
+    @JoinColumn(name = "idTypeAmortissement",referencedColumnName = "idTypeAmortissement")
     private TypeAmortissement typeAmortissementNew;
     private boolean appliquerSurActifNet;
     private String codeFiscalite;

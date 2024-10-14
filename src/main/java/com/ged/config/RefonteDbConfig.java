@@ -17,25 +17,20 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
 
-/*@Configuration
+@Configuration
 @EnableTransactionManagement
 @EnableJpaRepositories(
         entityManagerFactoryRef = "refonteEntityManagerFactory",
         transactionManagerRef = "refonteTransactionManager",
         basePackages = {
-                "com.ged.dao.crm",
-                "com.ged.dao.lab",
-                "com.ged.dao.standard",
-                "com.ged.dao.opcciel",
-                "com.ged.dao.titresciel",
-                "com.ged.dao.security"
+                "com.ged.dao"
         }
 )
-@PropertySource({"classpath:application-dev.properties"})*/
+@PropertySource({"classpath:application-dev.properties"})
 public class RefonteDbConfig {
     @Bean(name="refonteDataSource")
     @Primary
-    @ConfigurationProperties(prefix="spring.refonte.datasource")
+    @ConfigurationProperties(prefix="spring.datasource")
     public DataSource refonteDataSource() {
         return DataSourceBuilder.create().build();
     }
@@ -49,12 +44,7 @@ public class RefonteDbConfig {
         return builder
                 .dataSource(refonteDataSource)
                 .packages(
-                        "com.ged.entity.crm",
-                        "com.ged.entity.lab",
-                        "com.ged.entity.standard",
-                        "com.ged.entity.opcciel",
-                        "com.ged.entity.titresciel",
-                        "com.ged.entity.security"
+                        "com.ged.entity"
                 )
                 .persistenceUnit("refonte")
                 .build();

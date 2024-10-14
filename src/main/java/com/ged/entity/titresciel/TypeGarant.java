@@ -10,21 +10,6 @@ public class TypeGarant {
     private Long idTypeGarant;
     private String codeTypeGarant;
     private String libelleTypeGarant;
-//    @Basic
-//    private LocalDateTime dateCreationServeur;
-//    @Basic
-//    private LocalDateTime dateDernModifServeur;
-//    @Basic
-//    private LocalDateTime dateDernModifClient;
-//    @Basic
-//    private long numLigne;
-//    @Basic
-//    private boolean supprimer;
-//    @CreationTimestamp
-//    @Column(nullable = false, updatable = false, insertable = false)
-//    private Timestamp rowvers;
-//    @Basic
-//    private String userLogin;
 //    @OneToMany(mappedBy = "TypeGarant", fetch = FetchType.LAZY)
 //    @JsonManagedReference
 //    private Set<Opcvm> opcvms = new HashSet<>();

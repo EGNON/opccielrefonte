@@ -8,6 +8,7 @@ import java.util.Objects;
 
 @Embeddable
 public class CleCompte implements Serializable {
+    @Column(name = "idRegistraire")
     private Long idRegistraire;
     @Column(length = 16)
     private String numeroCompte;

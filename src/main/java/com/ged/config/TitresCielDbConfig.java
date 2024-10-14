@@ -14,14 +14,14 @@ import org.springframework.transaction.PlatformTransactionManager;
 
 import javax.sql.DataSource;
 
-/*@Configuration
+@Configuration
 @EnableJpaRepositories(
         entityManagerFactoryRef = "titrescielEntityManagerFactory",
         transactionManagerRef = "titrescielTransactionManager",
         basePackages = {
-                "com.ged.dao.titresciel"
+                "com.ged.dao.titresciel1"
         }
-)*/
+)
 public class TitresCielDbConfig {
     @Bean(name="titrescielDataSource")
     @ConfigurationProperties(prefix="spring.titresciel.datasource")
@@ -31,11 +31,11 @@ public class TitresCielDbConfig {
 
     @Bean(name = "titrescielEntityManagerFactory")
     public LocalContainerEntityManagerFactoryBean titrescielEntityManagerFactory(EntityManagerFactoryBuilder builder,
-                                                                              @Qualifier("titrescielDataSource") DataSource titrescielDataSource) {
+        @Qualifier("titrescielDataSource") DataSource titrescielDataSource) {
         return builder
                 .dataSource(titrescielDataSource)
                 .packages(
-                        "com.ged.entity.titresciel"
+                        "com.ged.entity.titresciel1"
                 )
                 .build();
     }

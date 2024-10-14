@@ -1,6 +1,7 @@
 package com.ged.entity.titresciel;
 
 import com.ged.entity.Base;
+import com.ged.entity.standard.PersonneMorale;
 import jakarta.persistence.*;
 
 @Entity
@@ -9,9 +10,9 @@ public class Compte extends Base {
     @EmbeddedId
     private CleCompte idCompte;
     @ManyToOne
-    @JoinColumn(name = "idRegistraireNew")
-//    @MapsId("idRegistraireNew")
-    private Registraire registraire;
+    @JoinColumn(name = "idRegistraire")
+    @MapsId("idRegistraire")
+    private PersonneMorale registraire;
 	private String intitule;
     private String typeGestion;
 
@@ -26,11 +27,11 @@ public class Compte extends Base {
         this.idCompte = idCompte;
     }
 
-    public Registraire getRegistraire() {
+    public PersonneMorale getRegistraire() {
         return registraire;
     }
 
-    public void setRegistraire(Registraire registraire) {
+    public void setRegistraire(PersonneMorale registraire) {
         this.registraire = registraire;
     }
 

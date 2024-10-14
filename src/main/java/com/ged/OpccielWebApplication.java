@@ -2,7 +2,9 @@ package com.ged;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.ged.dao.importation.DataImportationDao;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -30,6 +32,8 @@ public class OpccielWebApplication implements CommandLineRunner {
 	private String chemin;
 	/*@Autowired
 	UtilisateurService utilisateurService;*/
+	@Autowired
+	private DataImportationDao dataImportationDao;
 
 	public static void main(String[] args) {
 		SpringApplication.run(OpccielWebApplication.class, args);
@@ -70,5 +74,9 @@ public class OpccielWebApplication implements CommandLineRunner {
 		}
 		//A NE PAS ENLEVER
 //		utilisateurService.registerDefaultUsers();
+//		dataImportationDao.emetteur();
+//		dataImportationDao.registraire();
+//		dataImportationDao.depositaire();
+		dataImportationDao.garant();
 	}
 }

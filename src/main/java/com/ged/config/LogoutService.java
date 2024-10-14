@@ -3,16 +3,18 @@ package com.ged.config;
 import com.ged.dao.security.token.TokenDao;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
 import org.springframework.stereotype.Service;
 
 @Service
-@RequiredArgsConstructor
 public class LogoutService implements LogoutHandler {
     private final TokenDao tokenDao;
+
+    public LogoutService(TokenDao tokenDao) {
+        this.tokenDao = tokenDao;
+    }
 
     @Override
     public void logout(

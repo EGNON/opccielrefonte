@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @Table(name = "T_Opcvm", schema = "Parametre")
 public class Opcvm extends Base {
     @Id
-//    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long idOpcvm;
     private Long idOcc;
     //OPCCIEL 1
@@ -22,123 +22,77 @@ public class Opcvm extends Base {
     private LocalDateTime dateAgrement;
     private String registreDeCommerce;
     private Boolean estCompteSysteme;
-    private long idPersonneGestionnaire;
-    @ManyToOne()
-    @JoinColumn(name = "idPersonneGestionnaireNew",referencedColumnName = "idPersonne")
+    @ManyToOne
+    @JoinColumn(name = "idPersonneGestionnaire",referencedColumnName = "idPersonne")
     private PersonnePhysique personneGestionnaire;
     private String codeFormeJuridique;
-    @ManyToOne()
+    @ManyToOne
     @JoinColumn(name = "idFormeJuridiqueOpc", referencedColumnName = "idFormeJuridiqueOpc")
     private FormeJuridiqueOpc formeJuridiqueOpc;
     private long idPersonneIntervenant;
-    @ManyToOne()
+    @ManyToOne
     @JoinColumn(name = "idPersonneIntervenantNew",referencedColumnName = "idPersonne")
     private PersonneMorale personneIntervenant;
     private String codeTypeAffectation;
-    @ManyToOne()
+    @ManyToOne
     @JoinColumn(name = "idTypeAffectation")
     private TypeAffectationVL typeAffectationTitre;
     private long idPersonneEmetteur;
-    @ManyToOne()
+    @ManyToOne
     @JoinColumn(name = "idPersonneEmetteurNew",referencedColumnName = "idPersonne")
     private PersonneMorale personneEmetteur;
-    @ManyToOne()
+    @ManyToOne
     @JoinColumn(name = "codeClassification",referencedColumnName = "codeClassificationOPC")
     private ClassificationOPC classification;
-    @Column(nullable = true)
     private LocalDateTime dateCreationOpcvm;
-    @Column(nullable = true)
     private String sigleOpcvm;
-    @Column(nullable = true)
     private String denominationOpcvm;
-    @Column(nullable = true)
     private BigDecimal nbrePartInitial;
-    @Column(nullable = true)
     private BigDecimal nbrePartDebutExercice;
-    @Column(nullable = true)
     private BigDecimal nbrePartActuelle;
-    @Column(nullable = true)
     private BigDecimal valeurLiquidativeOrigine;
-    @Column(nullable = true)
     private BigDecimal valeurLiquidativeActuelle;
-    @Column(nullable = true)
     private BigDecimal capitalInitialOpcvm;
-    @Column(nullable = true)
     private String coursInitial;
     private String coursActuel;
-    @Column(nullable = true)
     private Integer dureeExerciceOpcvm;
-    @Column(nullable = true)
     private LocalDateTime debutExerciceActuelOpcvm;
-    @Column(nullable = true)
     private String uniteDureeExerciceOpcvm;
-    @Column(nullable = true)
     private Short periodiciteAffectationOpcvm;
-    @Column(nullable = true)
     private String unitePeriodiciteAffectationOpcvm;
-    @Column(nullable = true)
     private LocalDateTime derniereDateAffectationOpcvm;
-    @Column(nullable = true)
     private Short periodiciteCalculValeurLiquidativeOpcvm;
-    @Column(nullable = true)
     private String unitePeriodiciteCalculValeurLiquidative;
-    @Column(nullable = true)
     private BigDecimal valeurMinimalPlacement;
-    @Column(nullable = true)
     private Short dureeMinimalPlacement;
-    @Column(nullable = true)
     private String uniteDureeMinimalPlacement;
-    @Column(nullable = true)
     private LocalDateTime dateProchainCalculVL;
     private Boolean appliqueeTVA;
-    @Column(nullable = true)
     private Boolean appliqueeTAF;
-    @Column(nullable = true)
     private Integer nombreDecimaux;
-    @Column(nullable = true)
     private Boolean estArrondiSupInf;
-    @Column(nullable = true)
     private Integer nombreDecimauxCompta;
-    @Column(nullable = true)
     private Boolean estArrondiSupInfCompta;
-    @Column(nullable = true)
     private Integer nombreDecimauxPart;
-    @Column(nullable = true)
     private BigDecimal tauxCommissionSouscription;
-    @Column(nullable = true)
     private BigDecimal tauxCommissionRachat;
-    @Column(nullable = true)
     private BigDecimal tauxTAF;
-    @Column(nullable = true)
     private BigDecimal tauxRetrocessionSouscription;
-    @Column(nullable = true)
     private BigDecimal tauxRetrocessionRachat;
-    @Column(nullable = true)
     private BigDecimal tauxFraisGestion;
-    @Column(nullable = true)
     private Boolean AppliquerSurActifNet;
-    @Column(nullable = true)
     private Short delaiLivraisonOpcvm;
-    @Column(nullable = true)
     private String uniteDelaiLivraisonOpcvm;
-    @Column(nullable = true)
     private String nomContact;
     private String prenomContact;
-    @Column(nullable = true)
     private String adresseContact;
-    @Column(nullable = true)
     private BigDecimal borneInferieureSensibilite;
-    @Column(nullable = true)
     private BigDecimal borneSuperieureSensibilite;
-    @Column(nullable = true)
     private Boolean inclusBorneInferieureSensibilite;
-    @Column(nullable = true)
     private Boolean inclusBorneSuperieureSensibilite;
-    @Column(nullable = true, length = 150)
+    @Column(length = 150)
     private String visaNoteInformation;
-    @Column(nullable = true)
     private Boolean verifier;
-    @Column(nullable = true)
     private Boolean verifierNiveau1;
     @Column(nullable = true)
     private Boolean verifierNiveau2;
@@ -170,17 +124,16 @@ public class Opcvm extends Base {
     private String boitePostale;
     private String codePays;
     @ManyToOne()
-    @JoinColumn(name = "idPays", nullable = true)
+    @JoinColumn(name = "idPays")
     private Pays pays;
     private String codeVille;
     @ManyToOne()
-    @JoinColumn(name = "idVille", nullable = true)
+    @JoinColumn(name = "idVille")
     private Ville ville;
-    @Column(nullable = true, precision = 18, scale = 6)
+    @Column(precision = 18, scale = 6)
     private BigDecimal tauxRendement;
-    private long idTitre;
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "idTitreNew",referencedColumnName = "idTitre",nullable = true)
+    @JoinColumn(name = "idTitre", referencedColumnName = "idTitre")
     private Titre titre;
     //FIN
     private Boolean estObligataire;
@@ -198,14 +151,6 @@ public class Opcvm extends Base {
     @Override
     public void setIdOcc(Long idOcc) {
         this.idOcc = idOcc;
-    }
-
-    public long getIdPersonneGestionnaire() {
-        return idPersonneGestionnaire;
-    }
-
-    public void setIdPersonneGestionnaire(long idPersonneGestionnaire) {
-        this.idPersonneGestionnaire = idPersonneGestionnaire;
     }
 
     public long getIdPersonneIntervenant() {
@@ -270,14 +215,6 @@ public class Opcvm extends Base {
 
     public void setCodeVille(String codeVille) {
         this.codeVille = codeVille;
-    }
-
-    public long getIdTitre() {
-        return idTitre;
-    }
-
-    public void setIdTitre(long idTitre) {
-        this.idTitre = idTitre;
     }
 
     public Titre getTitre() {
