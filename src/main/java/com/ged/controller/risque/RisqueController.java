@@ -49,5 +49,11 @@ public class RisqueController {
     {
         return risqueService.afficherBeta(idOpcvm, beginEndDateParamet);
     }
-
+    @GetMapping("/risque/ratiotreynor/{idOpcvm}/{annee}/{rf}")
+    public RatioTreynorDto afficherRatioTreynor(@PathVariable long idOpcvm,
+                                                  @PathVariable String annee,
+                                                  @PathVariable double rf)
+    {
+        return risqueService.afficherRatioTreynor(idOpcvm, annee, rf);
+    }
 }

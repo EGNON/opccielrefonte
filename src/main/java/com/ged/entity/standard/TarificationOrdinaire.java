@@ -6,28 +6,37 @@ import com.ged.entity.titresciel.ClasseTitre;
 import com.ged.entity.titresciel.Place;
 import jakarta.persistence.*;
 
-/*@Entity
-@Table(name = "TJ_TarificationOrdinaire", schema = "Tarification")*/
+@Entity
+@Table(name = "TJ_TarificationOrdinaire", schema = "Tarification")
 public class TarificationOrdinaire extends Base {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idTarificationOrdinaire;
+    @Column(insertable = false,updatable = false)
     private String codeRole;
     @ManyToOne
     @JoinColumn(name = "codeClasseTitre")
+    //@MapsId("codeClasseTitre")
     private ClasseTitre classeTitre;
+    private String codePlace;
     @ManyToOne
-    @JoinColumn(name = "codePlace")
+    @JoinColumn(name = "codePlaceNew",referencedColumnName = "codePlace")
+    //@MapsId("codePlace")
     private Place place;
+    private long idDepositaire;
     @ManyToOne
-    @JoinColumn(name = "idDepositaire")
+    @JoinColumn(name = "idDepositaireNew",referencedColumnName = "idPersonne")
+    //@MapsId("idDepositaireNew")
     private Personne depositaire;
     @ManyToOne
     @JoinColumn(name = "idOpcvm")
     private Opcvm opcvm;
+    private long idRegistraire;
     @ManyToOne
-    @JoinColumn(name = "idRegistraire")
+    @JoinColumn(name = "idRegistraireNew",referencedColumnName = "idPersonne")
+    //@MapsId("idRegistraireNew")
     private Personne registraire;
+
     private double borneInferieur;
     private double borneSuperieur;
     private double taux;
@@ -42,6 +51,30 @@ public class TarificationOrdinaire extends Base {
 
     public void setIdTarificationOrdinaire(Long idTarificationOrdinaire) {
         this.idTarificationOrdinaire = idTarificationOrdinaire;
+    }
+
+    public String getCodePlace() {
+        return codePlace;
+    }
+
+    public void setCodePlace(String codePlace) {
+        this.codePlace = codePlace;
+    }
+
+    public long getIdDepositaire() {
+        return idDepositaire;
+    }
+
+    public void setIdDepositaire(long idDepositaire) {
+        this.idDepositaire = idDepositaire;
+    }
+
+    public long getIdRegistraire() {
+        return idRegistraire;
+    }
+
+    public void setIdRegistraire(long idRegistraire) {
+        this.idRegistraire = idRegistraire;
     }
 
     public String getCodeRole() {

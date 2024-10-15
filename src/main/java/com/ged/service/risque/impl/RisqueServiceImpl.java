@@ -111,7 +111,7 @@ public class RisqueServiceImpl implements RisqueService {
         List<CorrelationDto>  correlationDtos=new ArrayList<>();
 //        emOpcciel = emOpcciel.getEntityManagerFactory().createEntityManager();
 
-        StoredProcedureQuery query = emOpcciel.createStoredProcedureQuery("[Impression].[PS_CORRELATION_SP]");
+        /*StoredProcedureQuery query = emOpcciel.createStoredProcedureQuery("[Impression].[PS_CORRELATION_SP]");
         //Déclarer les différents paramètres
         query.registerStoredProcedureParameter("idOpcvm", Long.class, ParameterMode.IN);
         query.registerStoredProcedureParameter("dateDebut", LocalDateTime.class, ParameterMode.IN);
@@ -122,21 +122,38 @@ public class RisqueServiceImpl implements RisqueService {
         query.setParameter("dateDebut", beginEndDateParameter.getStartDate());
         query.setParameter("dateFin", beginEndDateParameter.getEndDate());
 
-        query.execute();
+        query.execute();*/
+        var q = emOpcciel.createNativeQuery("SELECT * FROM [Impression].[FT_CORRELATION](:idOpcvm, :dateDebut, :dateFin)");
+        q.setParameter("idOpcvm", idOpcvm);
+        q.setParameter("dateDebut", beginEndDateParameter.getStartDate());
+        q.setParameter("dateFin", beginEndDateParameter.getEndDate());
 
-        correlation= query.getResultList();
+        try {
+            // Execute query
+            //list = q.getResultList();
+            correlation= q.getResultList();
 
-        for(Object[] o:correlation)
-        {
-            CorrelationDto corr=new CorrelationDto();
-            corr.setDateFermeture(LocalDateTime.parse(o[1].toString().replace(' ', 'T')));
-            corr.setVL(Double.valueOf(o[2].toString()));
-            corr.setNav(Double.valueOf(o[3].toString()));
-            corr.setPerformancePortefeuille(Double.valueOf(o[4].toString()));
-            corr.setPerformanceBenchMark(Double.valueOf(o[5].toString()));
-            corr.setCorrelation(Double.valueOf(o[6].toString()));
-            correlationDtos.add(corr);
+            for(Object[] o:correlation)
+            {
+                CorrelationDto corr=new CorrelationDto();
+                corr.setDateFermeture(LocalDateTime.parse(o[1].toString().replace(' ', 'T')));
+                corr.setVL(Double.valueOf(o[2].toString()));
+                corr.setNav(Double.valueOf(o[3].toString()));
+                corr.setPerformancePortefeuille(Double.valueOf(o[4].toString()));
+                corr.setPerformanceBenchMark(Double.valueOf(o[5].toString()));
+                corr.setCorrelation(Double.valueOf(o[6].toString()));
+                correlationDtos.add(corr);
+            }
+        } finally {
+            try
+            {
+
+            }
+            catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
         }
+
         return correlationDtos;
     }
 
@@ -183,7 +200,7 @@ public class RisqueServiceImpl implements RisqueService {
         List<BetaDto>  betaDtos=new ArrayList<>();
 //        emOpcciel = emOpcciel.getEntityManagerFactory().createEntityManager();
 
-        StoredProcedureQuery query = emOpcciel.createStoredProcedureQuery("[Impression].[PS_BETA_SP]");
+        /*StoredProcedureQuery query = emOpcciel.createStoredProcedureQuery("[Impression].[PS_BETA_SP]");
         //Déclarer les différents paramètres
         query.registerStoredProcedureParameter("idOpcvm", Long.class, ParameterMode.IN);
         query.registerStoredProcedureParameter("dateDebut", LocalDateTime.class, ParameterMode.IN);
@@ -195,23 +212,71 @@ public class RisqueServiceImpl implements RisqueService {
         query.setParameter("dateFin", beginEndDateParameter.getEndDate());
 
         query.execute();
+*/
+        var q = emOpcciel.createNativeQuery("SELECT * FROM [Impression].[FT_BETA](:idOpcvm, :dateDebut, :dateFin)");
+        q.setParameter("idOpcvm", idOpcvm);
+        q.setParameter("dateDebut", beginEndDateParameter.getStartDate());
+        q.setParameter("dateFin", beginEndDateParameter.getEndDate());
 
-        beta= query.getResultList();
+        try {
+            // Execute query
+            //list = q.getResultList();
+            beta=q.getResultList();
 
-        for(Object[] o:beta)
-        {
-            BetaDto bet =new BetaDto();
-            bet.setDateFermeture(LocalDateTime.parse(o[1].toString().replace(' ', 'T')));
-            bet.setVL(Double.valueOf(o[2].toString()));
-            bet.setNav(Double.valueOf(o[3].toString()));
-            bet.setPerformancePortefeuille(Double.valueOf(o[4].toString()));
-            bet.setPerformanceBenchMark(Double.valueOf(o[5].toString()));
-            bet.setVolatiliteAnnualiseeBenchMark(Double.valueOf(o[8].toString()));
-            bet.setVolatiliteAnnualiseeOpcvm(Double.valueOf(o[9].toString()));
-            bet.setBeta(Double.valueOf(o[10].toString()));
-            betaDtos.add(bet);
+            for(Object[] o:beta)
+            {
+                BetaDto bet =new BetaDto();
+                bet.setDateFermeture(LocalDateTime.parse(o[1].toString().replace(' ', 'T')));
+                bet.setVL(Double.valueOf(o[2].toString()));
+                bet.setNav(Double.valueOf(o[3].toString()));
+                bet.setPerformancePortefeuille(Double.valueOf(o[4].toString()));
+                bet.setPerformanceBenchMark(Double.valueOf(o[5].toString()));
+                bet.setVolatiliteAnnualiseeBenchMark(Double.valueOf(o[8].toString()));
+                bet.setVolatiliteAnnualiseeOpcvm(Double.valueOf(o[9].toString()));
+                bet.setBeta(Double.valueOf(o[10].toString()));
+                betaDtos.add(bet);
+            }
+        } finally {
+            try
+            {
+
+            }
+            catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
         }
+
         return betaDtos;
+    }
+
+    @Override
+    public RatioTreynorDto afficherRatioTreynor(long idOpcvm, String annee, double rf) {
+        Sort sort=Sort.by(Sort.Direction.ASC,"dateOuverture");
+        Object ratiotreynor;
+        List<RatioTreynorDto>  ratioTreynorDtos=new ArrayList<>();
+//        emOpcciel = emOpcciel.getEntityManagerFactory().createEntityManager();
+
+        StoredProcedureQuery query = emOpcciel.createStoredProcedureQuery("[Impression].[PS_RATIOTREYNOR_SP]");
+        //Déclarer les différents paramètres
+        query.registerStoredProcedureParameter("idOpcvm", Long.class, ParameterMode.IN);
+        query.registerStoredProcedureParameter("annee", String.class, ParameterMode.IN);
+        query.registerStoredProcedureParameter("rf", Double.class, ParameterMode.IN);
+
+        //Fournir les différents paramètres
+        query.setParameter("idOpcvm", idOpcvm);
+        query.setParameter("annee", annee);
+        query.setParameter("rf", rf);
+
+        query.execute();
+
+        ratiotreynor= query.getSingleResult();
+        RatioTreynorDto rTreynor=new RatioTreynorDto();
+
+
+        rTreynor.setRtp(Double.valueOf(ratiotreynor.toString()));
+
+
+        return rTreynor;
     }
 
 }
