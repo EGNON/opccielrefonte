@@ -16,5 +16,5 @@ public interface RisqueService {
     List<CorrelationDto> afficherCorrelation(long idOpcvm, BeginEndDateParameter beginEndDateParameter);
     List<CovarianceDto> afficherCovariance(long idOpcvm, BeginEndDateParameter beginEndDateParameter);
     List<BetaDto> afficherBeta(long idOpcvm, BeginEndDateParameter beginEndDateParameter);
-
+    RatioTreynorDto afficherRatioTreynor(long idOpcvm, String annee, double rf);
 }

@@ -14,6 +14,7 @@ import com.ged.entity.standard.Personne;
 import com.ged.mapper.standard.ActionnaireCommissionMapper;
 import com.ged.response.ResponseHandler;
 import com.ged.service.standard.ActionnaireCommissionService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -50,16 +51,16 @@ public class ActionnaireCommissionServiceImpl implements ActionnaireCommissionSe
             Pageable pageable = PageRequest.of(
                     parameters.getStart()/ parameters.getLength(), parameters.getLength());
             Page<ActionnaireCommission> ActionnaireCommissionPage;
-//            if(parameters.getSearch() != null && !StringUtils.isEmpty(parameters.getSearch().getValue()))
-//            {
-//                ActionnaireCommissionPage = ActionnaireCommissionDao.rechercher(parameters.getSearch().getValue(), pageable);
-//            }
-//            else {
-                Opcvm opcvm=new Opcvm();
+            if(parameters.getSearch() != null && !StringUtils.isEmpty(parameters.getSearch().getValue()))
+            {
+                ActionnaireCommissionPage = ActionnaireCommissionDao.rechercher(idOpcvm,parameters.getSearch().getValue(), pageable);
+            }
+            else {
+                /*Opcvm opcvm=new Opcvm();
                 //System.out.println("idOpcvm="+idOpcvm);
-                opcvm=opcvmDao.findById(idOpcvm).orElseThrow();
-                ActionnaireCommissionPage = ActionnaireCommissionDao.findByOpcvm(opcvm,pageable);
-//            }
+                opcvm=opcvmDao.findById(idOpcvm).orElseThrow();*/
+                ActionnaireCommissionPage = ActionnaireCommissionDao.afficherSelonOpcvm(idOpcvm,pageable);
+            }
             List<ActionnaireCommissionDto> content = ActionnaireCommissionPage.getContent().stream().map(ActionnaireCommissionMapper::deActionnaireCommission).collect(Collectors.toList());
             DataTablesResponse<ActionnaireCommissionDto> dataTablesResponse = new DataTablesResponse<>();
             dataTablesResponse.setDraw(parameters.getDraw());

@@ -123,35 +123,38 @@ public class ActionnaireOpcvmServiceImpl implements ActionnaireOpcvmService {
     @Override
     public ResponseEntity<Object> creer(ActionnaireOpcvmDto[] ActionnaireOpcvmDto) {
         try {
-//            ActionnaireOpcvmDto.setSupprimer(false);
-//            ActionnaireOpcvm ActionnaireOpcvm = ActionnaireOpcvmMapper.deActionnaireOpcvmDto(ActionnaireOpcvmDto);
-//            Personne Personne;
-//            Opcvm opcvm=new Opcvm();
-//            CleActionnaireOpcvm cleActionnaireOpcvm=new CleActionnaireOpcvm();
-//            cleActionnaireOpcvm.setIdOpcvm(ActionnaireOpcvmDto.getOpcvm().getIdOpcvm());
-//            cleActionnaireOpcvm.setIdPersonne(ActionnaireOpcvmDto.getPersonne().getIdPersonne());
-//            ActionnaireOpcvm.setCleActionnaireOpcvm(cleActionnaireOpcvm);
-//
-//            if(ActionnaireOpcvmDto.getPersonne()!=null){
-//                Personne=personneDao.afficherPersonneSelonId(ActionnaireOpcvmDto.getPersonne().getIdPersonne());
-//                //Personne personne=personneMapper.dePersonnePhysiqueMoraleDto(Personne);
-//                Personne personne=new Personne();
-//                personne.setIdPersonne(personne.getIdPersonne());
-//                ActionnaireOpcvm.setPersonne(personne);
-//                //System.out.println("personne="+Personne.getIdPersonne());
-//            }
-//            if(ActionnaireOpcvmDto.getOpcvm()!=null){
-//                opcvm=opcvmDao.findById(ActionnaireOpcvmDto.getOpcvm().getIdOpcvm()).orElseThrow();
-//                Opcvm opcvm1=new Opcvm();
-//                opcvm1.setIdOpcvm(opcvm.getIdOpcvm());
-//                ActionnaireOpcvm.setOpcvm(opcvm1);
-//                System.out.println("opcvm="+opcvm1.getIdOpcvm());
-//            }
-//            ActionnaireOpcvm = ActionnaireOpcvmDao.save(ActionnaireOpcvm);
             for(ActionnaireOpcvmDto o:ActionnaireOpcvmDto) {
+                o.setSupprimer(false);
+                ActionnaireOpcvm ActionnaireOpcvm = ActionnaireOpcvmMapper.deActionnaireOpcvmDto(o);
+                Personne Personne;
+                Opcvm opcvm=new Opcvm();
+                CleActionnaireOpcvm cleActionnaireOpcvm=new CleActionnaireOpcvm();
+                cleActionnaireOpcvm.setIdOpcvm(o.getOpcvm().getIdOpcvm());
+                cleActionnaireOpcvm.setIdPersonne(o.getPersonne().getIdPersonne());
+                ActionnaireOpcvm.setCleActionnaireOpcvm(cleActionnaireOpcvm);
+
+                if(o.getPersonne()!=null){
+                    Personne=personneDao.afficherPersonneSelonId(o.getPersonne().getIdPersonne());
+                    //Personne personne=personneMapper.dePersonnePhysiqueMoraleDto(Personne);
+                    Personne personne=new Personne();
+                    personne.setIdPersonne(Personne.getIdPersonne());
+                    ActionnaireOpcvm.setPersonne(personne);
+                    //System.out.println("personne="+Personne.getIdPersonne());
+                }
+                if(o.getOpcvm()!=null){
+                    opcvm=opcvmDao.findById(o.getOpcvm().getIdOpcvm()).orElseThrow();
+                    Opcvm opcvm1=new Opcvm();
+                    opcvm1.setIdOpcvm(opcvm.getIdOpcvm());
+                    ActionnaireOpcvm.setOpcvm(opcvm1);
+                    //System.out.println("opcvm="+opcvm1.getIdOpcvm());
+                }
+                ActionnaireOpcvm = ActionnaireOpcvmDao.save(ActionnaireOpcvm);
+            }
+
+            /*for(ActionnaireOpcvmDto o:ActionnaireOpcvmDto) {
                 ActionnaireOpcvmDao.enregistrer(o.getPersonne().getIdPersonne(),
                         o.getOpcvm().getIdOpcvm(), false);
-            }
+            }*/
             return ResponseHandler.generateResponse(
                     "Enregistrement effectué avec succès !",
                     HttpStatus.OK,
