@@ -6,6 +6,7 @@ import com.ged.dto.standard.PersonneDto;
 import com.ged.mapper.standard.PersonneMapper;
 import com.ged.projection.PersonneProjection;
 import com.ged.service.standard.PersonneService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -88,6 +89,10 @@ public class PersonneController {
             @RequestBody DatatableParameters params)
     {
         return personneService.afficherSelonQualite(params);
+    }
+    @PostMapping("/rechercherpar/sigle-{sigle}")
+    public ResponseEntity<?> searchBySigle(@PathVariable("sigle") String sigle) {
+        return personneService.searchBySigleIgnoreCase(sigle);
     }
     @PostMapping("/datatable/list/nongele")
     public DataTablesResponse<PersonneDto> datatableListCompteNonGele(

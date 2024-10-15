@@ -8,17 +8,19 @@ import com.ged.datatable.DatatableParameters;
 import com.ged.mapper.standard.DocumentMapper;
 import com.ged.mapper.standard.PersonneMapper;
 import com.ged.projection.PersonneProjection;
+import com.ged.response.ResponseHandler;
 import com.ged.service.standard.PersonneService;
 import com.ged.dto.standard.DocumentDto;
 import com.ged.dto.standard.PersonneDto;
 import com.ged.entity.standard.Pays;
 import com.ged.entity.standard.Personne;
 import com.ged.entity.standard.Secteur;
-import jakarta.persistence.EntityNotFoundException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
@@ -260,6 +262,25 @@ public class PersonneServiceImpl implements PersonneService {
         }
 
         return personneMapper.dePersonne(personneDao.save(personne));
+    }
+
+    @Override
+    public ResponseEntity<?> searchBySigleIgnoreCase(String sigle) {
+        try {
+            Sort sort = Sort.by(Sort.Direction.ASC,"libellePlan");
+            Personne personne = personneDao.searchBySigleIgnoreCase(sigle).orElse(null);
+            return ResponseHandler.generateResponse(
+                    "Recherche de personne dont Sigle = " + sigle,
+                    HttpStatus.OK,
+                    personne);
+        }
+        catch (Exception e)
+        {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e);
+        }
     }
 
     @Override

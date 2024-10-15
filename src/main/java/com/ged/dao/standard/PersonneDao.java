@@ -153,6 +153,9 @@ public interface PersonneDao extends JpaRepository<Personne, Long> {
             "and p.estGele=:search " +
             "order by p.denomination asc")
     List<Personne> compteEstGeleListe(boolean search);
-    Optional<Personne> findByIdOcc(BigDecimal id);
     Boolean existsByNumeroCpteDepositIgnoreCase(String numero);
+
+    @Query(value = "select p from Personne p inner join PersonneMorale pm " +
+            "on pm.idPersonne = p.idPersonne where lower(trim(pm.siglePersonneMorale)) = :sigle")
+    Optional<Personne> searchBySigleIgnoreCase(@Param("sigle") String sigle);
 }

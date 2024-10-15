@@ -6,6 +6,7 @@ import com.ged.dto.standard.PersonneDto;
 import com.ged.entity.standard.Personne;
 import com.ged.projection.PersonneProjection;
 import org.springframework.data.domain.Page;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
@@ -31,5 +32,8 @@ public interface PersonneService  {
     Personne afficherPersonneSelonId(long idPersonne);
     PersonneDto creerPersonne(PersonneDto personneDto);
     PersonneDto modifierPersonne(PersonneDto personneDto);
+
+    ResponseEntity<?> searchBySigleIgnoreCase(String sigle);
+
     void supprimerPersonne(long idPersonne);
 }

@@ -18,6 +18,10 @@ public class PlaceMapper {
 
     public Place dePlaceDto(PlaceDto placeDto)
     {
+        if(placeDto == null)
+        {
+            return null;
+        }
         Place place = new Place();
         BeanUtils.copyProperties(placeDto, place);
         return place;

@@ -96,7 +96,6 @@ public class PlanServiceImpl implements PlanService {
                     HttpStatus.MULTI_STATUS,
                     e);
         }
-
     }
 
     @Override
