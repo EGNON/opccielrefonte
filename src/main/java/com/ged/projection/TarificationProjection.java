@@ -1,6 +1,7 @@
 package com.ged.projection;
 
 import com.ged.entity.opcciel.Opcvm;
+import com.ged.entity.standard.Personne;
 import com.ged.entity.standard.PersonneMorale;
 import com.ged.entity.titresciel.ClasseTitre;
 import com.ged.entity.titresciel.Depositaire;
@@ -18,11 +19,11 @@ public interface TarificationProjection  {
 
     Place getPlace() ;
 
-    Depositaire getDepositaire();
+    Personne getDepositaire();
 
     Opcvm getOpcvm() ;
 
-    Registraire getRegistraire();
+    Personne getRegistraire();
 
     double getBorneInferieur() ;
 

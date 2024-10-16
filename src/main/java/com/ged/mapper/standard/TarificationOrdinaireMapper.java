@@ -83,10 +83,10 @@ public class TarificationOrdinaireMapper {
             tarificationOrdinaireDto.setClasseTitre(classeTitreMapper.deClasseTitre(tarificationProjection.getClasseTitre()));
         }
         if(tarificationProjection.getDepositaire()!=null) {
-            tarificationOrdinaireDto.setDepositaire(depositaireMapper.deDepositaire(tarificationProjection.getDepositaire()));
+            tarificationOrdinaireDto.setDepositaire(personneMapper.dePersonne(tarificationProjection.getDepositaire()));
         }
         if(tarificationProjection.getRegistraire()!=null) {
-            tarificationOrdinaireDto.setRegistraire(registraireMapper.deRegistraire(tarificationProjection.getRegistraire()));
+            tarificationOrdinaireDto.setRegistraire(personneMapper.dePersonne(tarificationProjection.getRegistraire()));
         }
         if(tarificationProjection.getOpcvm()!=null) {
             tarificationOrdinaireDto.setOpcvm(opcvmMapper.deOpcvm(tarificationProjection.getOpcvm()));
