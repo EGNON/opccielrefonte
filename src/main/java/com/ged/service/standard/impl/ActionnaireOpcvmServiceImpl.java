@@ -2,17 +2,18 @@ package com.ged.service.standard.impl;
 import com.ged.dao.opcciel.OpcvmDao;
 import com.ged.dao.standard.PersonneDao;
 import com.ged.dao.standard.ActionnaireOpcvmDao;
+import com.ged.dao.standard.ProfilCommissionSousRachDao;
 import com.ged.dao.titresciel.TypeTitreDao;
 import com.ged.datatable.DataTablesResponse;
 import com.ged.datatable.DatatableParameters;
+import com.ged.dto.standard.ActionnaireCommissionDto;
 import com.ged.dto.standard.ActionnaireOpcvmDto;
 import com.ged.entity.opcciel.Opcvm;
-import com.ged.entity.standard.Personne;
-import com.ged.entity.standard.CleActionnaireOpcvm;
-import com.ged.entity.standard.ActionnaireOpcvm;
+import com.ged.entity.standard.*;
 import com.ged.mapper.standard.ActionnaireOpcvmMapper;
 import com.ged.mapper.standard.PersonneMapper;
 import com.ged.response.ResponseHandler;
+import com.ged.service.standard.ActionnaireCommissionService;
 import com.ged.service.standard.ActionnaireOpcvmService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Page;
@@ -31,15 +32,19 @@ import java.util.stream.Collectors;
 @Transactional
 public class ActionnaireOpcvmServiceImpl implements ActionnaireOpcvmService {
     private final ActionnaireOpcvmDao ActionnaireOpcvmDao;
+    private final ActionnaireCommissionService actionnaireCommissionService;
     private final PersonneDao personneDao;
+    private final ProfilCommissionSousRachDao profilCommissionSousRachDao;
     private final PersonneMapper personneMapper;
     private final OpcvmDao opcvmDao;
     private final TypeTitreDao typeTitreDao;
     private final ActionnaireOpcvmMapper ActionnaireOpcvmMapper;
 
-    public ActionnaireOpcvmServiceImpl(ActionnaireOpcvmDao ActionnaireOpcvmDao, PersonneDao personneDao, PersonneMapper personneMapper, OpcvmDao opcvmDao, TypeTitreDao typeTitreDao, ActionnaireOpcvmMapper ActionnaireOpcvmMapper) {
+    public ActionnaireOpcvmServiceImpl(ActionnaireOpcvmDao ActionnaireOpcvmDao, ActionnaireCommissionService actionnaireCommissionService, PersonneDao personneDao, ProfilCommissionSousRachDao profilCommissionSousRachDao, PersonneMapper personneMapper, OpcvmDao opcvmDao, TypeTitreDao typeTitreDao, ActionnaireOpcvmMapper ActionnaireOpcvmMapper) {
         this.ActionnaireOpcvmDao = ActionnaireOpcvmDao;
+        this.actionnaireCommissionService = actionnaireCommissionService;
         this.personneDao = personneDao;
+        this.profilCommissionSousRachDao = profilCommissionSousRachDao;
         this.personneMapper = personneMapper;
         this.opcvmDao = opcvmDao;
         this.typeTitreDao = typeTitreDao;
@@ -123,6 +128,7 @@ public class ActionnaireOpcvmServiceImpl implements ActionnaireOpcvmService {
     @Override
     public ResponseEntity<Object> creer(ActionnaireOpcvmDto[] ActionnaireOpcvmDto) {
         try {
+
             for(ActionnaireOpcvmDto o:ActionnaireOpcvmDto) {
                 o.setSupprimer(false);
                 ActionnaireOpcvm ActionnaireOpcvm = ActionnaireOpcvmMapper.deActionnaireOpcvmDto(o);
@@ -149,6 +155,17 @@ public class ActionnaireOpcvmServiceImpl implements ActionnaireOpcvmService {
                     //System.out.println("opcvm="+opcvm1.getIdOpcvm());
                 }
                 ActionnaireOpcvm = ActionnaireOpcvmDao.save(ActionnaireOpcvm);
+                List<ProfilCommissionSousRach> profilCommissionSousRaches=profilCommissionSousRachDao.findByOpcvmAndStandard(ActionnaireOpcvm.getOpcvm(),true);
+                for(ProfilCommissionSousRach p:profilCommissionSousRaches){
+                    ActionnaireCommissionDto actionnaireCommissionDto=new ActionnaireCommissionDto();
+                    actionnaireCommissionDto.setOpcvm(o.getOpcvm());
+                    actionnaireCommissionDto.setPersonne(o.getPersonne());
+                    actionnaireCommissionDto.setCodeProfil(p.getCodeProfil());
+                    actionnaireCommissionDto.setTypeCommission(p.getTypeCommission());
+                    actionnaireCommissionDto.setLibelleProfil(p.getLibelleProfil());
+                    actionnaireCommissionService.creer(actionnaireCommissionDto);
+                }
+
             }
 
             /*for(ActionnaireOpcvmDto o:ActionnaireOpcvmDto) {
