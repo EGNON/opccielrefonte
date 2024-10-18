@@ -9,6 +9,7 @@ import jakarta.persistence.*;
 @DiscriminatorValue("RG")
 @Table(name = "T_Registraire", schema = "Titre")
 public class Registraire extends PersonneMorale {
+//public class Registraire extends Base {
     /*@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)*/
     private Long idRegistraire;

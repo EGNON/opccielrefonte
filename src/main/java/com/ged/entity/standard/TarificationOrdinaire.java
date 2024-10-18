@@ -23,7 +23,7 @@ public class TarificationOrdinaire extends Base {
     @JoinColumn(name = "codePlaceNew",referencedColumnName = "codePlace")
     //@MapsId("codePlace")
     private Place place;
-    private long idDepositaire;
+    private Long idDepositaire;
     @ManyToOne
     @JoinColumn(name = "idDepositaireNew",referencedColumnName = "idPersonne")
     //@MapsId("idDepositaireNew")
@@ -31,7 +31,7 @@ public class TarificationOrdinaire extends Base {
     @ManyToOne
     @JoinColumn(name = "idOpcvm")
     private Opcvm opcvm;
-    private long idRegistraire;
+    private Long idRegistraire;
     @ManyToOne
     @JoinColumn(name = "idRegistraireNew",referencedColumnName = "idPersonne")
     //@MapsId("idRegistraireNew")
@@ -61,19 +61,19 @@ public class TarificationOrdinaire extends Base {
         this.codePlace = codePlace;
     }
 
-    public long getIdDepositaire() {
+    public Long getIdDepositaire() {
         return idDepositaire;
     }
 
-    public void setIdDepositaire(long idDepositaire) {
+    public void setIdDepositaire(Long idDepositaire) {
         this.idDepositaire = idDepositaire;
     }
 
-    public long getIdRegistraire() {
+    public Long getIdRegistraire() {
         return idRegistraire;
     }
 
-    public void setIdRegistraire(long idRegistraire) {
+    public void setIdRegistraire(Long idRegistraire) {
         this.idRegistraire = idRegistraire;
     }
 

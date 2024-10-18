@@ -20,10 +20,10 @@ public class DepotRachat extends Operation {
     private String nomVerificateur;
     private LocalDateTime dateVerification;
     private Double montantSouscrit;
-    @ManyToOne()
-    @JoinColumn(name = "idTitreNew",referencedColumnName = "idTitre")
+    @ManyToOne
+    @JoinColumn(name = "idTitre",referencedColumnName = "idTitre")
     private Titre titre;
-    private long idTitre;
+//    private long idTitre;
     private Double qte;
     private Double cours;
     private Double commission;
@@ -32,14 +32,6 @@ public class DepotRachat extends Operation {
 
     public DepotRachat() {
     }
-//
-//    public Long getIdOperation() {
-//        return IdOperation;
-//    }
-//
-//    public void setIdOperation(Long idOperation) {
-//        IdOperation = idOperation;
-//    }
 
     @Override
     public Titre getTitre() {
@@ -51,7 +43,7 @@ public class DepotRachat extends Operation {
         this.titre = titre;
     }
 
-    @Override
+    /*@Override
     public long getIdTitre() {
         return idTitre;
     }
@@ -59,7 +51,7 @@ public class DepotRachat extends Operation {
     @Override
     public void setIdTitre(long idTitre) {
         this.idTitre = idTitre;
-    }
+    }*/
 
     public Long getIdOcc() {
         return idOcc;

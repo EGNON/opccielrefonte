@@ -8,13 +8,10 @@ import com.ged.datatable.DataTablesResponse;
 import com.ged.datatable.DatatableParameters;
 import com.ged.dto.standard.TarificationOrdinaireDto;
 import com.ged.entity.opcciel.Opcvm;
-import com.ged.entity.standard.CleTarificationOrdinaire;
 import com.ged.entity.standard.PersonneMorale;
 import com.ged.entity.standard.TarificationOrdinaire;
 import com.ged.entity.titresciel.ClasseTitre;
-import com.ged.entity.titresciel.Depositaire;
 import com.ged.entity.titresciel.Place;
-import com.ged.entity.titresciel.Registraire;
 import com.ged.mapper.standard.TarificationOrdinaireMapper;
 import com.ged.projection.TarificationProjection;
 import com.ged.response.ResponseHandler;
@@ -49,7 +46,6 @@ public class TarificationOrdinaireServiceImpl implements TarificationOrdinaireSe
         this.placeDao = placeDao;
         TarificationOrdinaireMapper = tarificationOrdinaireMapper;
     }
-
 
     @Override
     public ResponseEntity<Object> afficherTousSGI(DatatableParameters parameters,Long idOpcvm) {
@@ -94,7 +90,7 @@ public class TarificationOrdinaireServiceImpl implements TarificationOrdinaireSe
             Sort sort = Sort.by(Sort.Direction.ASC,"numCompte");
             Pageable pageable = PageRequest.of(
                     parameters.getStart()/ parameters.getLength(), parameters.getLength());
-            Page<TarificationProjection> TarificationOrdinairePage;
+            Page<TarificationOrdinaire> TarificationOrdinairePage;
 //            if(parameters.getSearch() != null && !StringUtils.isEmpty(parameters.getSearch().getValue()))
 //            {
 //                TarificationOrdinairePage = TarificationOrdinaireDao.rechercher(parameters.getSearch().getValue(), pageable);
@@ -103,9 +99,9 @@ public class TarificationOrdinaireServiceImpl implements TarificationOrdinaireSe
             Opcvm opcvm=new Opcvm();
 //                System.out.println("idOpcvm="+idOpcvm);
             opcvm=opcvmDao.findById(idOpcvm).orElseThrow();
-            TarificationOrdinairePage = TarificationOrdinaireDao.afficherDepositaire(idOpcvm,pageable);
+            TarificationOrdinairePage = TarificationOrdinaireDao.findByIdDepositaireIsNot(0L, pageable);
 //            }
-            List<TarificationOrdinaireDto> content = TarificationOrdinairePage.getContent().stream().map(TarificationOrdinaireMapper::deTarificationProjection).collect(Collectors.toList());
+            List<TarificationOrdinaireDto> content = TarificationOrdinairePage.getContent().stream().map(TarificationOrdinaireMapper::deTarificationOrdinaire).collect(Collectors.toList());
             DataTablesResponse<TarificationOrdinaireDto> dataTablesResponse = new DataTablesResponse<>();
             dataTablesResponse.setDraw(parameters.getDraw());
             dataTablesResponse.setRecordsFiltered((int)TarificationOrdinairePage.getTotalElements());
@@ -131,7 +127,7 @@ public class TarificationOrdinaireServiceImpl implements TarificationOrdinaireSe
             Sort sort = Sort.by(Sort.Direction.ASC,"numCompte");
             Pageable pageable = PageRequest.of(
                     parameters.getStart()/ parameters.getLength(), parameters.getLength());
-            Page<TarificationProjection> TarificationOrdinairePage;
+            Page<TarificationOrdinaire> TarificationOrdinairePage;
 //            if(parameters.getSearch() != null && !StringUtils.isEmpty(parameters.getSearch().getValue()))
 //            {
 //                TarificationOrdinairePage = TarificationOrdinaireDao.rechercher(parameters.getSearch().getValue(), pageable);
@@ -140,9 +136,10 @@ public class TarificationOrdinaireServiceImpl implements TarificationOrdinaireSe
             Opcvm opcvm=new Opcvm();
 //                System.out.println("idOpcvm="+idOpcvm);
             opcvm=opcvmDao.findById(idOpcvm).orElseThrow();
-            TarificationOrdinairePage = TarificationOrdinaireDao.afficherPlace(idOpcvm,pageable);
+            TarificationOrdinairePage = TarificationOrdinaireDao.findByPlaceIsNotNull(pageable);
+            var o = TarificationOrdinaireDao.findAll();
 //            }
-            List<TarificationOrdinaireDto> content = TarificationOrdinairePage.getContent().stream().map(TarificationOrdinaireMapper::deTarificationProjection).collect(Collectors.toList());
+            List<TarificationOrdinaireDto> content = TarificationOrdinairePage.getContent().stream().map(TarificationOrdinaireMapper::deTarificationOrdinaire).collect(Collectors.toList());
             DataTablesResponse<TarificationOrdinaireDto> dataTablesResponse = new DataTablesResponse<>();
             dataTablesResponse.setDraw(parameters.getDraw());
             dataTablesResponse.setRecordsFiltered((int)TarificationOrdinairePage.getTotalElements());

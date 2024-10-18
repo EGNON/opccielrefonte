@@ -272,7 +272,7 @@ public class PersonneServiceImpl implements PersonneService {
             return ResponseHandler.generateResponse(
                     "Recherche de personne dont Sigle = " + sigle,
                     HttpStatus.OK,
-                    personne);
+                    personneMapper.dePersonne(personne));
         }
         catch (Exception e)
         {

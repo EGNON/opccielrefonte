@@ -9,21 +9,19 @@ import com.ged.entity.titresciel.Place;
 import com.ged.entity.titresciel.Registraire;
 
 public interface TarificationProjection  {
-
     Long getIdTarificationOrdinaire() ;
-
 
     String getCodeRole();
 
-    ClasseTitre getClasseTitre() ;
+    ClasseTitre getClasseTitre();
 
     Place getPlace() ;
 
-    Personne getDepositaire();
+    Depositaire getDepositaire();
 
-    Opcvm getOpcvm() ;
+    Opcvm getOpcvm();
 
-    Personne getRegistraire();
+    Registraire getRegistraire();
 
     double getBorneInferieur() ;
 
@@ -31,6 +29,5 @@ public interface TarificationProjection  {
 
     double getTaux();
 
-    double getForfait() ;
-
+    double getForfait();
 }
