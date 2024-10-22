@@ -16,22 +16,22 @@ public class Operation extends Base {
 //    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idOperation;
     private Long idOcc;
-    @ManyToOne()
+    @ManyToOne
     @JoinColumn(name = "idOpcvm")
     private Opcvm opcvm;
     private long idActionnaire;
-    @ManyToOne()
+    @ManyToOne
     @JoinColumn(name = "idActionnaireNew",referencedColumnName = "idPersonne")
     private Personne personne;
     private long idTitre;
-    @ManyToOne()
+    @ManyToOne
     @JoinColumn(name = "idTitreNew",referencedColumnName = "idTitre")
     private Titre titre;
-    @ManyToOne()
+    @ManyToOne
     @JoinColumn(name = "idTransactionNew",referencedColumnName = "idTransaction")
     private Transaction transaction;
     private Long idSeance;
-    @ManyToOne()
+    @ManyToOne
     @JoinColumn(name = "codeNatureOperation")
     private NatureOperation natureOperation;
     private LocalDateTime dateOperation;
@@ -50,7 +50,7 @@ public class Operation extends Base {
     private boolean estExtournee;
     private boolean estOpExtournee;
     private long idOpExtournee;
-    @ManyToOne()
+    @ManyToOne
     @JoinColumn(name ="idOpExtourneeNew" ,referencedColumnName = "idOperation")
     private Operation operation;
     private boolean estVerifie1;

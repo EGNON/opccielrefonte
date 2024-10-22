@@ -34,13 +34,13 @@ public interface TarificationOrdinaireDao extends JpaRepository<TarificationOrdi
             "t.forfait as forfait," +
             "t.taux as taux," +
             "t.opcvm as opcvm "+
-            "from TarificationOrdinaire t " +
-            "inner join Depositaire d on d.idDepositaire=t.idDepositaire  " +
-            "where t.opcvm.idOpcvm=:id")
-    Page<TarificationProjection> afficherDepositaire(Long id,Pageable pageable);
+            "from TarificationOrdinaire t, Depositaire d " +
+            "where d.idDepositaire=t.idDepositaire")
+    Page<TarificationProjection> afficherDepositaire(Pageable pageable);
     //Page<TarificationOrdinaire> findByOpcvmAndIdDepositaireIsNotNull(Opcvm opcvm, Pageable pageable);
+    Page<TarificationOrdinaire> findByIdDepositaireIsNot(Long id, Pageable pageable);
     @Query(value = "select t.idTarificationOrdinaire as idTarificationOrdinaire, " +
-            "p as place," +
+            "'' as place," +
             "t.borneInferieur as borneInferieur," +
             "t.borneSuperieur as borneSuperieur," +
             "t.classeTitre as classeTitre," +
@@ -48,12 +48,9 @@ public interface TarificationOrdinaireDao extends JpaRepository<TarificationOrdi
             "t.forfait as forfait," +
             "t.taux as taux," +
             "t.opcvm as opcvm "+
-            "from TarificationOrdinaire t " +
-            "inner join Place p on p.codePlace=t.codePlace " +
-            "where t.opcvm.idOpcvm=:id")
-    Page<TarificationProjection> afficherPlace(Long id,Pageable pageable);
-
-    //Page<TarificationOrdinaire> findByOpcvmAndCodePlaceIsNotNull(Opcvm opcvm, Pageable pageable);
+            "from TarificationOrdinaire t")
+    Page<TarificationProjection> afficherPlace(Pageable pageable);
+    Page<TarificationOrdinaire> findByPlaceIsNotNull(Pageable pageable);
     @Query(value = "select t.idTarificationOrdinaire as idTarificationOrdinaire, " +
                     "r as registraire," +
                     "t.borneInferieur as borneInferieur," +

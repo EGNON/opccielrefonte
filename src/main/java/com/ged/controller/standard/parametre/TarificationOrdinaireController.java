@@ -15,13 +15,9 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/tarificationordinaires")
 public class TarificationOrdinaireController {
     private final TarificationOrdinaireService TarificationOrdinaireService;
-    private final TarificationOrdinaireDao TarificationOrdinaireDao;
-    private final TarificationOrdinaireMapper tarificationOrdinaireMapper;
 
-    public TarificationOrdinaireController(TarificationOrdinaireService tarificationOrdinaireService, com.ged.dao.standard.TarificationOrdinaireDao tarificationOrdinaireDao, TarificationOrdinaireMapper tarificationOrdinaireMapper) {
+    public TarificationOrdinaireController(TarificationOrdinaireService tarificationOrdinaireService) {
         this.TarificationOrdinaireService = tarificationOrdinaireService;
-        TarificationOrdinaireDao = tarificationOrdinaireDao;
-        this.tarificationOrdinaireMapper = tarificationOrdinaireMapper;
     }
 
     @GetMapping
