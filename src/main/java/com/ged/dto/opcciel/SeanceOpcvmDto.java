@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 public class SeanceOpcvmDto {
 	private CleSeanceOpcvm idSeanceOpcvm;
 	private OpcvmDto opcvm;
+	private long idSeance;
 	private LocalDateTime dateOuverture;
 	private LocalDateTime dateFermeture;
 	private boolean genere;
@@ -20,6 +21,14 @@ public class SeanceOpcvmDto {
 	private BigDecimal navBenchmark ;
 	private BigDecimal tauxEquiMarche  ;
 	public SeanceOpcvmDto() {
+	}
+
+	public long getIdSeance() {
+		return idSeance;
+	}
+
+	public void setIdSeance(long idSeance) {
+		this.idSeance = idSeance;
 	}
 
 	public BigDecimal getNavBenchmark() {

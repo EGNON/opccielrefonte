@@ -23,6 +23,7 @@ public class Operation extends Base {
     @ManyToOne
     @JoinColumn(name = "idActionnaireNew",referencedColumnName = "idPersonne")
     private Personne actionnaire;
+//    private Personne personneActionnaire;
     private long idTitre;
     @ManyToOne
     @JoinColumn(name = "idTitreNew",referencedColumnName = "idTitre")
@@ -71,12 +72,12 @@ public class Operation extends Base {
         this.idActionnaire = idActionnaire;
     }
 
-    public Personne getPersonne() {
+    public Personne getActionnaire() {
         return actionnaire;
     }
 
-    public void setPersonne(Personne personne) {
-        this.actionnaire = personne;
+    public void setActionnaire(Personne actionnaire) {
+        this.actionnaire = actionnaire;
     }
 
     public long getIdTitre() {

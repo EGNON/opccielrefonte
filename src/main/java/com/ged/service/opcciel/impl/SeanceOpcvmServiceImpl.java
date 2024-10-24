@@ -98,6 +98,28 @@ public class SeanceOpcvmServiceImpl implements SeanceOpcvmService {
     }
 
     @Override
+    public SeanceOpcvm afficherSeanceEnCours(long idOpcvm) {
+        return SeanceOpcvmDao.afficherSeanceEnCours(idOpcvm);
+    }
+
+    @Override
+    public ResponseEntity<Object> afficher(long idOpcvm) {
+        try {
+            return ResponseHandler.generateResponse(
+                    "Seance en cours de l'opcvm = " + idOpcvm,
+                    HttpStatus.OK,
+                    SeanceOpcvmMapper.deSeanceOpcvm(afficherSeanceEnCours(idOpcvm)));
+        }
+        catch (Exception e)
+        {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e);
+        }
+    }
+
+    @Override
     public ResponseEntity<Object> afficher(CleSeanceOpcvm id) {
         try {
             return ResponseHandler.generateResponse(
