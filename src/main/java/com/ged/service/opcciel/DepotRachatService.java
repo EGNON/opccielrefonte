@@ -7,10 +7,14 @@ import com.ged.entity.opcciel.DepotRachat;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 
+import java.time.LocalDateTime;
+import java.util.List;
+
 public interface DepotRachatService {
-    ResponseEntity<Object> afficherTous(DatatableParameters parameters);
+    ResponseEntity<Object> afficherTous(DatatableParameters parameters,long idOpcvm,long idSeance,String codeNatureOperation);
     Page<DepotRachatDto> afficherTousParPage(int page, int size);
     ResponseEntity<Object> afficherTous();
+    List<Object[]> afficherNbrePart(Long idOpcvm, Long idActionnaire);
     DepotRachat afficherSelonId(Long IdOperation);
     ResponseEntity<Object> afficher(Long IdOperation);
     ResponseEntity<Object> creer(DepotRachatDto depotRachatDto);

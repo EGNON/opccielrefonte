@@ -12,6 +12,8 @@ public interface SeanceOpcvmService {
     Page<SeanceOpcvmDto> afficherTousParPage(int page, int size);
     ResponseEntity<Object> afficherTous();
     SeanceOpcvm afficherSelonId(CleSeanceOpcvm id);
+    SeanceOpcvm afficherSeanceEnCours(long idOpcvm);
+    ResponseEntity<Object> afficher(long idOpcvm);
     ResponseEntity<Object> afficher(CleSeanceOpcvm id);
     ResponseEntity<Object> creer(SeanceOpcvmDto seanceOpcvmDto);
     ResponseEntity<Object> modifier(SeanceOpcvmDto seanceOpcvmDto);

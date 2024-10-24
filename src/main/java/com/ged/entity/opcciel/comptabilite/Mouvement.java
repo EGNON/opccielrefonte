@@ -4,6 +4,8 @@ import com.ged.entity.Base;
 import com.ged.entity.opcciel.Opcvm;
 import jakarta.persistence.*;
 
+import java.math.BigDecimal;
+
 @Entity
 @Table(name = "T_Mouvement", schema = "Comptabilite")
 public class Mouvement extends Base {
@@ -29,7 +31,8 @@ public class Mouvement extends Base {
 	private int numeroOdreLigneMvt;
 	private String numCompteComptable;
 	private String sensMvt;
-	private Double valeur;
+	@Column(precision = 18,scale = 6)
+	private BigDecimal valeur;
 	private String typeValeur;
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "codeIB")
@@ -130,11 +133,11 @@ public class Mouvement extends Base {
 		this.sensMvt = sensMvt;
 	}
 
-	public Double getValeur() {
+	public BigDecimal getValeur() {
 		return valeur;
 	}
 
-	public void setValeur(Double valeur) {
+	public void setValeur(BigDecimal valeur) {
 		this.valeur = valeur;
 	}
 

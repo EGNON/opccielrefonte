@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class DepotRachatDto {
 
-    private long IdOperation;
+    private long idOperation;
     private TransactionDto transaction;
     private NatureOperationDto natureOperation;
     private LocalDateTime dateOperation;
@@ -25,7 +25,7 @@ public class DepotRachatDto {
     private boolean estOD;
     private String type;
     private PersonneDto personneActionnaire;
-    private long IdSeance;
+    private long idSeance;
     private PersonneDto personne;
     private OpcvmDto opcvm;
     private String modeVL;
@@ -51,11 +51,11 @@ public class DepotRachatDto {
     }
 
     public Long getIdOperation() {
-        return IdOperation;
+        return idOperation;
     }
 
     public void setIdOperation(long idOperation) {
-        IdOperation = idOperation;
+        this.idOperation = idOperation;
     }
 
     public TransactionDto getTransaction() {
@@ -171,11 +171,11 @@ public class DepotRachatDto {
     }
 
     public long getIdSeance() {
-        return IdSeance;
+        return idSeance;
     }
 
     public void setIdSeance(long idSeance) {
-        IdSeance = idSeance;
+        this.idSeance = idSeance;
     }
 
     public PersonneDto getPersonne() {

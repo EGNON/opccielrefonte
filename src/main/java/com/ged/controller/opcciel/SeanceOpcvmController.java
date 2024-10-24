@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/SeanceOpcvms")
+@RequestMapping("/seanceopcvms")
 public class SeanceOpcvmController {
     private final SeanceOpcvmService SeanceOpcvmService;
 
@@ -35,6 +35,12 @@ public class SeanceOpcvmController {
         cleSeanceOpcvm.setIdSeance(idSeance);
         cleSeanceOpcvm.setIdOpcvm(idOpcvm);
         return SeanceOpcvmService.afficher(cleSeanceOpcvm);
+    }
+    @GetMapping("encours/{idOpcvm}")
+//    @PreAuthorize("hasAuthority('ROLE_DEGRE')")
+    public ResponseEntity<Object> afficherSeanceEnCours(@PathVariable(name = "idOpcvm") Long idOpcvm)
+    {
+        return SeanceOpcvmService.afficher(idOpcvm);
     }
 
     @PostMapping("/datatable/list")

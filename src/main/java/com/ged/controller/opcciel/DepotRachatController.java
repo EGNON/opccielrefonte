@@ -9,6 +9,9 @@ import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
+import java.util.List;
+
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/depotrachats")
@@ -30,10 +33,17 @@ public class DepotRachatController {
     {
         return depotRachatService.afficher(id);
     }
-
-    @PostMapping("/datatable/list")
-    public ResponseEntity<Object> datatableList(@RequestBody DatatableParameters params) throws JsonProcessingException {
-        return depotRachatService.afficherTous(params);
+    @GetMapping("/{idOpcvm}/{idActionnaire}")
+    public List<Object[]> afficherNbrePart(@PathVariable Long idOpcvm,
+                                           @PathVariable Long idActionnaire) {
+        return depotRachatService.afficherNbrePart(idOpcvm,idActionnaire);
+    }
+    @PostMapping("/datatable/list/{idOpcvm}/{idSeance}/{codeNatureOperation}")
+    public ResponseEntity<Object> datatableList(@RequestBody DatatableParameters params,
+                                                @PathVariable long idOpcvm,
+                                                @PathVariable long idSeance,
+                                                @PathVariable String codeNatureOperation) throws JsonProcessingException {
+        return depotRachatService.afficherTous(params,idOpcvm,idSeance,codeNatureOperation);
     }
 
     @PostMapping
