@@ -10,10 +10,10 @@ import java.math.BigDecimal;
 //@PrimaryKeyJoinColumn(name="idPersonne")
 @DiscriminatorValue("EM")
 @Table(name = "T_Emetteur", schema = "Titre")
-//public class Emetteur extends PersonneMorale {
-public class Emetteur extends Base {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class Emetteur extends PersonneMorale {
+//public class Emetteur extends Base {
+    /*@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)*/
     private Long idEmetteur;
     private Long idPersonne;
 

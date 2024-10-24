@@ -43,9 +43,9 @@ public class DepotRachatImpl implements DepotRachatService {
         try {
 //            Sort sort = Sort.by(Sort.Direction.ASC,"libelleDepotRachat");
             Pageable pageable = PageRequest.of(
-                    parameters.getStart()/ parameters.getLength(), parameters.getLength());
+                    parameters.getStart() / parameters.getLength(), parameters.getLength());
             Page<DepotRachat> DepotRachatPage;
-            DepotRachatPage = depotRachatDao.findAll(pageable);
+            DepotRachatPage = depotRachatDao.listeDesDepotSeance(pageable);
             List<DepotRachatDto> content = DepotRachatPage.getContent().stream().map(depotRachatMapper::deDepotRachat).collect(Collectors.toList());
             DataTablesResponse<DepotRachatDto> dataTablesResponse = new DataTablesResponse<>();
             dataTablesResponse.setDraw(parameters.getDraw());

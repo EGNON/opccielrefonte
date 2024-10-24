@@ -13,7 +13,7 @@ public class OperationDto {
     private Long idOperation;
     private Long idOcc;
     private OpcvmDto opcvm;
-    private PersonneDto personne;
+    private PersonneDto actionnaire;
     private TitreDto titre;
     private TransactionDto transaction;
     private Long idSeance;
@@ -68,11 +68,11 @@ public class OperationDto {
     }
 
     public PersonneDto getPersonne() {
-        return personne;
+        return actionnaire;
     }
 
-    public void setPersonne(PersonneDto personne) {
-        this.personne = personne;
+    public void setPersonne(PersonneDto actionnaire) {
+        this.actionnaire = actionnaire;
     }
 
     public TitreDto getTitre() {
