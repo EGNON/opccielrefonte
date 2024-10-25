@@ -4,13 +4,13 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.ged.dto.opcciel.comptabilite.NatureOperationDto;
 import com.ged.dto.standard.PersonneDto;
 import com.ged.dto.titresciel.TitreDto;
+import jakarta.persistence.Column;
 
 import java.time.LocalDateTime;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class DepotRachatDto {
-
-    private long idOperation;
+    private Long idOperation;
     private TransactionDto transaction;
     private NatureOperationDto natureOperation;
     private LocalDateTime dateOperation;
@@ -47,6 +47,11 @@ public class DepotRachatDto {
     private Double interetCouru;
     private Double interetPrecompte;
 
+    /**************************************************************************/
+    @Column(length = 4000)
+    private String valeurFormule;
+    private String valeurCodeAnalytique;
+
     public DepotRachatDto() {
     }
 
@@ -54,7 +59,7 @@ public class DepotRachatDto {
         return idOperation;
     }
 
-    public void setIdOperation(long idOperation) {
+    public void setIdOperation(Long idOperation) {
         this.idOperation = idOperation;
     }
 
@@ -336,5 +341,22 @@ public class DepotRachatDto {
 
     public void setInteretPrecompte(Double interetPrecompte) {
         this.interetPrecompte = interetPrecompte;
+    }
+
+    /************************************************************************/
+    public String getValeurFormule() {
+        return valeurFormule;
+    }
+
+    public void setValeurFormule(String valeurFormule) {
+        this.valeurFormule = valeurFormule;
+    }
+
+    public String getValeurCodeAnalytique() {
+        return valeurCodeAnalytique;
+    }
+
+    public void setValeurCodeAnalytique(String valeurCodeAnalytique) {
+        this.valeurCodeAnalytique = valeurCodeAnalytique;
     }
 }

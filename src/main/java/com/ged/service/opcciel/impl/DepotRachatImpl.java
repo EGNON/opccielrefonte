@@ -124,6 +124,7 @@ public class DepotRachatImpl implements DepotRachatService {
     public DepotRachat afficherSelonId(Long idOperation) {
         return depotRachatDao.findById(idOperation).orElseThrow(() -> new EntityNotFoundException(DepotRachat.class, "id",idOperation.toString()));
     }
+
     @Override
     public List<Object[]> afficherNbrePart(Long idOpcvm,
                                            Long idActionnaire) {
@@ -161,6 +162,7 @@ public class DepotRachatImpl implements DepotRachatService {
 
         return list;
     }
+
     @Override
     public ResponseEntity<Object> afficher(Long idOperation) {
         try {
@@ -196,6 +198,7 @@ public class DepotRachatImpl implements DepotRachatService {
                 DepotRachat.setOpcvm(opcvmMapper.deOpcvmDto(DepotRachatDto.getOpcvm()));
             }
             DepotRachat = depotRachatDao.save(DepotRachat);
+            System.out.println("Dep === " + DepotRachat);
             return ResponseHandler.generateResponse(
                     "Enregistrement effectué avec succès !",
                     HttpStatus.OK,

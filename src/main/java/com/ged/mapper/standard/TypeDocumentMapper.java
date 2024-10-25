@@ -18,6 +18,9 @@ public class TypeDocumentMapper {
 
     public TypeDocument deTypeDocumentDto(TypeDocumentDto typeDocumentDto)
     {
+        if(typeDocumentDto == null) {
+            return null;
+        }
         TypeDocument typeDocument = new TypeDocument();
         BeanUtils.copyProperties(typeDocumentDto, typeDocument);
         return typeDocument;

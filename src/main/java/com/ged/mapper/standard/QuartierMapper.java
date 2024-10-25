@@ -18,9 +18,11 @@ public class QuartierMapper {
 
     public Quartier deQuartierDto(QuartierDto quartierDto)
     {
+        if(quartierDto == null) {
+            return null;
+        }
         Quartier quartier= new Quartier();
         BeanUtils.copyProperties(quartierDto, quartier);
         return quartier;
     }
-
 }

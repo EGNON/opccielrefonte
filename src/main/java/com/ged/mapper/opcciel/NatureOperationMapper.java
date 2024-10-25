@@ -32,6 +32,9 @@ public class NatureOperationMapper {
 
     public NatureOperation deNatureOperationDto(NatureOperationDto natureOperationDto)
     {
+        if(natureOperationDto == null) {
+            return null;
+        }
         NatureOperation natureOperation = new NatureOperation();
         BeanUtils.copyProperties(natureOperationDto, natureOperation);
         return natureOperation;
