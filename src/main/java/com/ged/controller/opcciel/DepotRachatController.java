@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.ged.datatable.DatatableParameters;
 import com.ged.dto.opcciel.DepotRachatDto;
 import com.ged.dto.opcciel.ImportationDepotDto;
+import com.ged.projection.NbrePartProjection;
 import com.ged.service.opcciel.DepotRachatService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
@@ -34,8 +35,8 @@ public class DepotRachatController {
         return depotRachatService.afficher(id);
     }
     @GetMapping("/{idOpcvm}/{idActionnaire}")
-    public List<Object[]> afficherNbrePart(@PathVariable Long idOpcvm,
-                                           @PathVariable Long idActionnaire) {
+    public List<NbrePartProjection> afficherNbrePart(@PathVariable Long idOpcvm,
+                                                     @PathVariable Long idActionnaire) {
         return depotRachatService.afficherNbrePart(idOpcvm,idActionnaire);
     }
     @PostMapping("/datatable/list/{idOpcvm}/{idSeance}/{codeNatureOperation}")
@@ -62,7 +63,7 @@ public class DepotRachatController {
     public ResponseEntity<Object> modifier(@Valid @RequestBody DepotRachatDto DepotRachatDto,
                                            @PathVariable Long id)
     {
-        DepotRachatDto.setIdOperation(id);
+        DepotRachatDto.setIdDepotRachat(id);
         return depotRachatService.modifier(DepotRachatDto);
     }
 

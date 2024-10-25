@@ -1,21 +1,23 @@
-package com.ged.dto.opcciel;
+package com.ged.dto.opcciel.comptabilite;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.ged.dto.opcciel.comptabilite.NatureOperationDto;
+import com.ged.dto.opcciel.OpcvmDto;
+import com.ged.dto.opcciel.TransactionDto;
 import com.ged.dto.standard.PersonneDto;
 import com.ged.dto.titresciel.TitreDto;
-import com.ged.entity.opcciel.comptabilite.Transaction;
 import jakarta.persistence.Column;
 
 import java.time.LocalDateTime;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class DepotRachatDto {
+public class DepotRachatDto2 {
     private Long idOperation;
     private Long idDepotRachat;
     private Long idActionnaire;
     private Long idPersonne;
     private Long idTransaction;
+    @JsonIgnore
     private TransactionDto transaction;
     private NatureOperationDto natureOperation;
     private LocalDateTime dateOperation;
@@ -44,20 +46,9 @@ public class DepotRachatDto {
     private boolean estVerifier;
     private String nomVerificateur;
     private LocalDateTime dateVerification;
-    private Double montantSouscrit;
     private TitreDto titre;
-    private Double qte;
-    private Double cours;
-    private Double commission;
-    private Double interetCouru;
-    private Double interetPrecompte;
 
-    /**************************************************************************/
-    @Column(length = 4000)
-    private String valeurFormule;
-    private String valeurCodeAnalytique;
-
-    public DepotRachatDto() {
+    public DepotRachatDto2() {
     }
 
     public Long getIdTransaction() {
@@ -100,7 +91,7 @@ public class DepotRachatDto {
         this.idOperation = idOperation;
     }
 
-    public TransactionDto getTransaction() {
+    public com.ged.dto.opcciel.TransactionDto getTransaction() {
         return transaction;
     }
 
@@ -203,7 +194,6 @@ public class DepotRachatDto {
     public void setType(String type) {
         this.type = type;
     }
-
     public PersonneDto getActionnaire() {
         return actionnaire;
     }
@@ -219,7 +209,6 @@ public class DepotRachatDto {
     public void setIdSeance(long idSeance) {
         this.idSeance = idSeance;
     }
-
     public PersonneDto getPersonne() {
         return personne;
     }
@@ -324,14 +313,6 @@ public class DepotRachatDto {
         this.dateVerification = dateVerification;
     }
 
-    public Double getMontantSouscrit() {
-        return montantSouscrit;
-    }
-
-    public void setMontantSouscrit(Double montantSouscrit) {
-        this.montantSouscrit = montantSouscrit;
-    }
-
     public TitreDto getTitre() {
         return titre;
     }
@@ -340,60 +321,4 @@ public class DepotRachatDto {
         this.titre = titre;
     }
 
-    public Double getQte() {
-        return qte;
-    }
-
-    public void setQte(Double qte) {
-        this.qte = qte;
-    }
-
-    public Double getCours() {
-        return cours;
-    }
-
-    public void setCours(Double cours) {
-        this.cours = cours;
-    }
-
-    public Double getCommission() {
-        return commission;
-    }
-
-    public void setCommission(Double commission) {
-        this.commission = commission;
-    }
-
-    public Double getInteretCouru() {
-        return interetCouru;
-    }
-
-    public void setInteretCouru(Double interetCouru) {
-        this.interetCouru = interetCouru;
-    }
-
-    public Double getInteretPrecompte() {
-        return interetPrecompte;
-    }
-
-    public void setInteretPrecompte(Double interetPrecompte) {
-        this.interetPrecompte = interetPrecompte;
-    }
-
-    /************************************************************************/
-    public String getValeurFormule() {
-        return valeurFormule;
-    }
-
-    public void setValeurFormule(String valeurFormule) {
-        this.valeurFormule = valeurFormule;
-    }
-
-    public String getValeurCodeAnalytique() {
-        return valeurCodeAnalytique;
-    }
-
-    public void setValeurCodeAnalytique(String valeurCodeAnalytique) {
-        this.valeurCodeAnalytique = valeurCodeAnalytique;
-    }
 }
