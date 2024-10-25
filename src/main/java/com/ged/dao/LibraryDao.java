@@ -10,4 +10,5 @@ import java.math.BigDecimal;
 public interface LibraryDao extends JpaRepository<BaseEntity, Long> {
     @Query(value = "select [Comptabilite].[FS_SoldeCompteClient](:idActionnaire, :idOpcvm)", nativeQuery = true)
     BigDecimal solde(@Param("idActionnaire") Long idActionnaire, @Param("idOpcvm") Long idOpcvm);
+
 }

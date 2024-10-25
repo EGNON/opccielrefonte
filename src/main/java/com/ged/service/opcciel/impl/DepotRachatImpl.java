@@ -17,10 +17,7 @@ import com.ged.mapper.standard.PersonneMapper;
 import com.ged.response.ResponseHandler;
 import com.ged.service.opcciel.DepotRachatService;
 import com.ged.service.opcciel.SeanceOpcvmService;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.ParameterMode;
-import jakarta.persistence.PersistenceContext;
-import jakarta.persistence.StoredProcedureQuery;
+import jakarta.persistence.*;
 import org.hibernate.procedure.ProcedureOutputs;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -62,6 +59,34 @@ public class DepotRachatImpl implements DepotRachatService {
     }
 
     @Override
+    public ResponseEntity<Object> afficherTousLesDepots(DatatableParameters parameters, Long idOpcvm, Long idSeance) {
+        try {
+            Opcvm opcvm = opcvmDao.findById(idOpcvm).orElseThrow();
+            Pageable pageable = PageRequest.of(
+                    parameters.getStart() / parameters.getLength(), parameters.getLength());
+            Page<DepotRachat> DepotRachatPage;
+            DepotRachatPage = depotRachatDao.listeDesDepotSeance(pageable);
+            List<DepotRachatDto> content = DepotRachatPage.getContent().stream().map(depotRachatMapper::deDepotRachat).collect(Collectors.toList());
+            DataTablesResponse<DepotRachatDto> dataTablesResponse = new DataTablesResponse<>();
+            dataTablesResponse.setDraw(parameters.getDraw());
+            dataTablesResponse.setRecordsFiltered((int)DepotRachatPage.getTotalElements());
+            dataTablesResponse.setRecordsTotal((int)DepotRachatPage.getTotalElements());
+            dataTablesResponse.setData(content);
+            return ResponseHandler.generateResponse(
+                    "Liste des dépôts rachats par page datatable",
+                    HttpStatus.OK,
+                    dataTablesResponse);
+        }
+        catch(Exception e)
+        {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e);
+        }
+    }
+
+    @Override
     public ResponseEntity<Object> afficherTous(DatatableParameters parameters,long idOpcvm,long idSeance,String codeNatureOperation) {
         try {
             Opcvm opcvm=new Opcvm();
@@ -72,7 +97,6 @@ public class DepotRachatImpl implements DepotRachatService {
             Pageable pageable = PageRequest.of(
                     parameters.getStart() / parameters.getLength(), parameters.getLength());
             Page<DepotRachat> DepotRachatPage;
-//            DepotRachatPage = depotRachatDao.listeDesDepotSeance(pageable);
             DepotRachatPage = depotRachatDao.findByOpcvmAndIdSeanceAndNatureOperation(
                     opcvm,idSeance,natureOperation,pageable);
             List<DepotRachatDto> content = DepotRachatPage.getContent().stream().map(depotRachatMapper::deDepotRachat).collect(Collectors.toList());
@@ -117,7 +141,6 @@ public class DepotRachatImpl implements DepotRachatService {
                     HttpStatus.MULTI_STATUS,
                     e);
         }
-
     }
 
     @Override

@@ -28,6 +28,14 @@ public class DepotRachatController {
         return depotRachatService.afficherTous();
     }
 
+    @PostMapping("/datatable/list/{idOpcvm}/{idSeance}")
+    public ResponseEntity<Object> afficherTousLesDepots(@RequestBody DatatableParameters params,
+                                                        @PathVariable("idOpcvm") Long idOpcvm,
+                                                        @PathVariable("idSeance") Long idSeance)
+    {
+        return depotRachatService.afficherTousLesDepots(params, idOpcvm, idSeance);
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<Object> afficher(@PathVariable(name = "id") Long id)
     {
