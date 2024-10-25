@@ -79,6 +79,25 @@ public interface PersonneDao extends JpaRepository<Personne, Long> {
             " where a.opcvm.idOpcvm=:idOpcvm) "+
             "order by COALESCE(pm.raisonSociale, CONCAT(pp.nom, ' ', pp.prenom)) asc")
     List<PersonneProjection> afficherPersonneInOpcvm(Long idOpcvm);
+
+    @Query(value = "SELECT distinct p.idPersonne as idPersonne, " +
+            "COALESCE(pm.raisonSociale, CONCAT(pp.nom, ' ', pp.prenom)) AS denomination," +
+            "p.ifu as ifu,p.mobile1 as mobile1,p.mobile2 as mobile2,p.fixe1 as fixe1," +
+            "p.fixe2 as fixe2,p.bp as bp,p.emailPerso as emailPerso" +
+            ",p.emailPro as emailPro,p.domicile as domicile,p.numeroPiece as numeroPiece," +
+            "p.typePiece as typePiece,p.dateExpirationPiece as dateExpirationPiece" +
+            ",p.modeEtablissement as modeEtablissement " +
+            "from Personne as p " +
+            "left outer join PersonnePhysique pp ON p.idPersonne=pp.idPersonne " +
+            "left outer join PersonneMorale pm on p.idPersonne=pm.idPersonne " +
+            "inner join StatutPersonne st on st.personne.idPersonne=p.idPersonne "+
+            "inner join Qualite q on q.idQualite=st.qualite.idQualite "+
+            "where q.libelleQualite='ACTIONNAIRES' and p.idPersonne  in(" +
+            " select a.personne.idPersonne from ActionnaireOpcvm a" +
+            " where a.opcvm.idOpcvm=:idOpcvm ) and p.statutCompte='OUVERT' "+
+            "order by COALESCE(pm.raisonSociale, CONCAT(pp.nom, ' ', pp.prenom)) asc")
+    List<PersonneProjection> afficherPersonneInOpcvmEtStatutCompte(Long idOpcvm);
+
     @Query(value = "SELECT  p.idPersonne as idPersonne, " +
             "COALESCE(pm.raisonSociale, CONCAT(pp.nom, ' ', pp.prenom)) AS denomination," +
             "p.ifu as ifu,p.mobile1 as mobile1,p.mobile2 as mobile2,p.fixe1 as fixe1," +

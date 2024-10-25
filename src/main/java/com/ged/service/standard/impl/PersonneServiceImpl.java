@@ -107,6 +107,11 @@ public class PersonneServiceImpl implements PersonneService {
     }
 
     @Override
+    public List<PersonneProjection> afficherPersonneInOpcvmEtStatutCompte(Long idOpcvm) {
+        return personneDao.afficherPersonneInOpcvmEtStatutCompte(idOpcvm);
+    }
+
+    @Override
     public List<PersonneDto> afficherSelonQualite(String qualite) {
         return personneDao.afficherTousSelonQualite(qualite).stream().map(personneMapper::dePersonne).collect(Collectors.toList());
     }

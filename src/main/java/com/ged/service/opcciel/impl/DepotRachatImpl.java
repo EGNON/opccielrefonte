@@ -7,6 +7,7 @@ import com.ged.dao.opcciel.comptabilite.NatureOperationDao;
 import com.ged.datatable.DataTablesResponse;
 import com.ged.datatable.DatatableParameters;
 import com.ged.dto.opcciel.DepotRachatDto;
+import com.ged.dto.risque.BetaDto;
 import com.ged.entity.opcciel.DepotRachat;
 import com.ged.entity.opcciel.Opcvm;
 import com.ged.entity.opcciel.SeanceOpcvm;
@@ -22,15 +23,18 @@ import jakarta.persistence.ParameterMode;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.StoredProcedureQuery;
 import org.hibernate.procedure.ProcedureOutputs;
+import org.springframework.cglib.core.Local;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -126,7 +130,7 @@ public class DepotRachatImpl implements DepotRachatService {
     @Override
     public List<Object[]> afficherNbrePart(Long idOpcvm,
                                            Long idActionnaire) {
-        List<Object[]> list;
+        /*List<Object[]> list;
         StoredProcedureQuery q = em.createStoredProcedureQuery("[Parametre].[PS_PersonnePhysiqueMorale_SP]");
         q.registerStoredProcedureParameter("idOpcvm", Long.class, ParameterMode.IN);
         q.registerStoredProcedureParameter("idActionnaire", Long.class, ParameterMode.IN);
@@ -152,6 +156,37 @@ public class DepotRachatImpl implements DepotRachatService {
             try
             {
                 q.unwrap(ProcedureOutputs.class).release();
+            }
+            catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }
+
+        return list;*/
+        Sort sort=Sort.by(Sort.Direction.ASC,"dateOuverture");
+        List<Object[]>  list;
+        var q = em.createNativeQuery("SELECT * FROM [Operation].[FT_NbrePart](:idActionnaire,:idOpcvm,:estLevee," +
+                ":estVerifie1,:estVerifie2,:dateEstimation)");
+        SeanceOpcvm seanceOpcvm=seanceOpcvmService.afficherSeanceEnCours(idOpcvm);
+        LocalDateTime dateEstimation=seanceOpcvm.getDateFermeture();
+        q.setParameter("idActionnaire", idActionnaire);
+        q.setParameter("idOpcvm", idOpcvm);
+        q.setParameter("estLevee",false);
+        q.setParameter("estVerifie1", true);
+        q.setParameter("estVerifie2", true);
+        q.setParameter("dateEstimation", dateEstimation);
+
+        try {
+            // Execute query
+            //list = q.getResultList();
+            list=q.getResultList();
+
+
+
+        } finally {
+            try
+            {
+
             }
             catch (Exception e) {
                 System.out.println(e.getMessage());
