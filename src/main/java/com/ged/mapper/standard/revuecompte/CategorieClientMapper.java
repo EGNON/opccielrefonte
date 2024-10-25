@@ -9,6 +9,9 @@ import org.springframework.stereotype.Service;
 public class CategorieClientMapper {
     public CategorieClientDto deCatClient(CategorieClient categorieClient)
     {
+        if(categorieClient == null) {
+            return null;
+        }
         CategorieClientDto categorieClientDto = new CategorieClientDto();
         BeanUtils.copyProperties(categorieClient, categorieClientDto);
         return categorieClientDto;
@@ -16,6 +19,9 @@ public class CategorieClientMapper {
 
     public CategorieClient deCatClientDto(CategorieClientDto categorieClientDto)
     {
+        if(categorieClientDto == null) {
+            return null;
+        }
         CategorieClient categorieClient = new CategorieClient();
         BeanUtils.copyProperties(categorieClientDto, categorieClient);
         return categorieClient;

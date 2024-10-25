@@ -15,6 +15,9 @@ public class CommuneMapper {
 
     public CommuneDto deCommune(Commune commune)
     {
+        if(commune == null) {
+            return null;
+        }
         CommuneDto communeDto = new CommuneDto();
         BeanUtils.copyProperties(commune, communeDto);
         communeDto.setDepartement(departementMapper.deDepartement(commune.getDepartement()));
@@ -23,6 +26,9 @@ public class CommuneMapper {
 
     public Commune deCommuneDto(CommuneDto communeDTO)
     {
+        if(communeDTO == null) {
+            return null;
+        }
         Commune commune = new Commune();
         BeanUtils.copyProperties(communeDTO, commune);
         return commune;

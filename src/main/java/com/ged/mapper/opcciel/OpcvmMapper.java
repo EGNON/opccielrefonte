@@ -37,6 +37,9 @@ public class OpcvmMapper {
 
     public OpcvmDto deOpcvm(Opcvm opcvm)
     {
+        if(opcvm == null) {
+            return null;
+        }
         OpcvmDto opcvmDto = new OpcvmDto();
         BeanUtils.copyProperties(opcvm, opcvmDto);
         /*if(opcvm.getClassification()!=null)

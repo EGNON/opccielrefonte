@@ -74,8 +74,9 @@ public class DepotRachatImpl implements DepotRachatService {
             natureOperation=natureOperationDao.findById(codeNatureOperation).orElseThrow();
 //            Sort sort = Sort.by(Sort.Direction.ASC,"libelleDepotRachat");
             Pageable pageable = PageRequest.of(
-                    parameters.getStart()/ parameters.getLength(), parameters.getLength());
+                    parameters.getStart() / parameters.getLength(), parameters.getLength());
             Page<DepotRachat> DepotRachatPage;
+//            DepotRachatPage = depotRachatDao.listeDesDepotSeance(pageable);
             DepotRachatPage = depotRachatDao.findByOpcvmAndIdSeanceAndNatureOperation(
                     opcvm,idSeance,natureOperation,pageable);
             List<DepotRachatDto> content = DepotRachatPage.getContent().stream().map(depotRachatMapper::deDepotRachat).collect(Collectors.toList());
@@ -127,6 +128,7 @@ public class DepotRachatImpl implements DepotRachatService {
     public DepotRachat afficherSelonId(Long idOperation) {
         return depotRachatDao.findById(idOperation).orElseThrow(() -> new EntityNotFoundException(DepotRachat.class, "id",idOperation.toString()));
     }
+
     @Override
     public List<Object[]> afficherNbrePart(Long idOpcvm,
                                            Long idActionnaire) {
@@ -195,6 +197,7 @@ public class DepotRachatImpl implements DepotRachatService {
 
         return list;
     }
+
     @Override
     public ResponseEntity<Object> afficher(Long idOperation) {
         try {
@@ -221,15 +224,16 @@ public class DepotRachatImpl implements DepotRachatService {
             {
                 DepotRachat.setPersonne(personneMapper.dePersonneDto(DepotRachatDto.getPersonne()));
             }
-            if(DepotRachatDto.getPersonneActionnaire()!=null)
+            if(DepotRachatDto.getActionnaire()!=null)
             {
-                DepotRachat.setPersonneActionnaire(personneMapper.dePersonneDto(DepotRachatDto.getPersonneActionnaire()));
+                DepotRachat.setActionnaire(personneMapper.dePersonneDto(DepotRachatDto.getActionnaire()));
             }
             if(DepotRachatDto.getOpcvm()!=null)
             {
                 DepotRachat.setOpcvm(opcvmMapper.deOpcvmDto(DepotRachatDto.getOpcvm()));
             }
             DepotRachat = depotRachatDao.save(DepotRachat);
+            System.out.println("Dep === " + DepotRachat);
             return ResponseHandler.generateResponse(
                     "Enregistrement effectué avec succès !",
                     HttpStatus.OK,
@@ -252,9 +256,9 @@ public class DepotRachatImpl implements DepotRachatService {
             {
                 DepotRachat.setPersonne(personneMapper.dePersonneDto(depotRachatDto.getPersonne()));
             }
-            if(depotRachatDto.getPersonneActionnaire()!=null)
+            if(depotRachatDto.getActionnaire()!=null)
             {
-                DepotRachat.setPersonneActionnaire(personneMapper.dePersonneDto(depotRachatDto.getPersonneActionnaire()));
+                DepotRachat.setActionnaire(personneMapper.dePersonneDto(depotRachatDto.getActionnaire()));
             }
             if(depotRachatDto.getOpcvm()!=null)
             {

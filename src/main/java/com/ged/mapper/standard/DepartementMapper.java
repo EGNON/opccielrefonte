@@ -9,6 +9,9 @@ import org.springframework.stereotype.Service;
 public class DepartementMapper {
     public DepartementDto deDepartement(Departement departement)
     {
+        if(departement == null) {
+            return null;
+        }
         DepartementDto departementDto = new DepartementDto();
         BeanUtils.copyProperties(departement, departementDto);
         return departementDto;
@@ -16,6 +19,9 @@ public class DepartementMapper {
 
     public Departement deDepartementDto(DepartementDto departementDTO)
     {
+        if(departementDTO == null) {
+            return null;
+        }
         Departement departement = new Departement();
         BeanUtils.copyProperties(departementDTO, departement);
         return departement;

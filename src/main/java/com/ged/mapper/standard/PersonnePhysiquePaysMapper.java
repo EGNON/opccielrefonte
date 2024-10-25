@@ -35,20 +35,23 @@ public class PersonnePhysiquePaysMapper {
 
     public PersonnePhysiquePaysDto dePersonnePhysiquePays(PersonnePhysiquePays personnePhysiquePays)
     {
+        if(personnePhysiquePays == null) {
+            return null;
+        }
         PersonnePhysiquePaysDto personnePhysiquePaysDto = new PersonnePhysiquePaysDto();
         BeanUtils.copyProperties(personnePhysiquePays, personnePhysiquePaysDto);
         //System.out.println(personnePhysiquePays.toString());
         if(personnePhysiquePays.getPays()!=null) {
             personnePhysiquePaysDto.setPaysDto(paysMapper.dePays(personnePhysiquePays.getPays()));
         }
-        if(personnePhysiquePays.getPersonnePhysique()!=null) {
-
-        }
         return personnePhysiquePaysDto;
     }
 
     public PersonnePhysiquePays dePersonnePhysiquePaysDto(PersonnePhysiquePaysDto personnePhysiquePaysDto)
     {
+        if(personnePhysiquePaysDto == null) {
+            return null;
+        }
         PersonnePhysiquePays personnePhysiquePays= new PersonnePhysiquePays();
         BeanUtils.copyProperties(personnePhysiquePaysDto, personnePhysiquePays);
         if(personnePhysiquePaysDto.getPaysDto()!=null) {

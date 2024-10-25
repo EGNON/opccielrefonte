@@ -18,6 +18,9 @@ public class ModeEtablissementMapper {
 
     public ModeEtablissement deModeEtablissementDto(ModeEtablissementDto modeEtablissementDto)
     {
+        if(modeEtablissementDto == null) {
+            return null;
+        }
         ModeEtablissement modeEtablissement = new ModeEtablissement();
         BeanUtils.copyProperties(modeEtablissementDto, modeEtablissement);
         return modeEtablissement;

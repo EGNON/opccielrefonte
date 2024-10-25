@@ -12,11 +12,13 @@ public class DepotRachatMapper {
     private final PersonneMapper personneMapper;
     private final OpcvmMapper opcvmMapper;
     private final TitreMapper titreMapper;
+    private final NatureOperationMapper natureOperationMapper;
 
-    public DepotRachatMapper(PersonneMapper personneMapper, OpcvmMapper opcvmMapper, TitreMapper titreMapper) {
+    public DepotRachatMapper(PersonneMapper personneMapper, OpcvmMapper opcvmMapper, TitreMapper titreMapper, NatureOperationMapper natureOperationMapper) {
         this.personneMapper = personneMapper;
         this.opcvmMapper = opcvmMapper;
         this.titreMapper = titreMapper;
+        this.natureOperationMapper = natureOperationMapper;
     }
 
     public DepotRachatDto deDepotRachat(DepotRachat depotRachat)
@@ -28,8 +30,8 @@ public class DepotRachatMapper {
         if(depotRachat.getPersonne()!=null)
             depotRachatDto.setPersonne(personneMapper.dePersonne(depotRachat.getPersonne()));
 
-        if(depotRachat.getPersonneActionnaire()!=null)
-            depotRachatDto.setPersonneActionnaire(personneMapper.dePersonne(depotRachat.getPersonneActionnaire()));
+        if(depotRachat.getActionnaire()!=null)
+            depotRachatDto.setActionnaire(personneMapper.dePersonne(depotRachat.getActionnaire()));
 
         if(depotRachat.getOpcvm()!=null)
             depotRachatDto.setOpcvm(opcvmMapper.deOpcvm(depotRachat.getOpcvm()));
@@ -42,8 +44,13 @@ public class DepotRachatMapper {
 
     public DepotRachat deDepotRachatDto(DepotRachatDto depotRachatDto)
     {
+        if(depotRachatDto == null)
+        {
+            return null;
+        }
         DepotRachat depotRachat = new DepotRachat();
         BeanUtils.copyProperties(depotRachatDto, depotRachat);
+        depotRachat.setNatureOperation(natureOperationMapper.deNatureOperationDto(depotRachatDto.getNatureOperation()));
         return depotRachat;
     }
 }

@@ -49,6 +49,9 @@ public class LangueMapper {
 
     public Langue deLangueDto(LangueDto LangueDto)
     {
+        if(LangueDto == null) {
+            return null;
+        }
         Langue Langue = new Langue();
         BeanUtils.copyProperties(LangueDto, Langue);
         if(LangueDto.getPaysLangues() != null)

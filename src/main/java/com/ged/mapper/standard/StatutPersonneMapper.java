@@ -20,6 +20,9 @@ public class StatutPersonneMapper {
 
     public StatutPersonneDto deStatutPersonne(StatutPersonne statutPersonne)
     {
+        if(statutPersonne == null) {
+            return null;
+        }
         StatutPersonneDto statutPersonneDto = new StatutPersonneDto();
         BeanUtils.copyProperties(statutPersonne, statutPersonneDto);
         statutPersonneDto.setPersonneDto(personneMapper.dePersonne(statutPersonne.getPersonne()));
@@ -35,6 +38,9 @@ public class StatutPersonneMapper {
 
     public StatutPersonne deStatutPersonneDto(StatutPersonneDto statutPersonneDto)
     {
+        if(statutPersonneDto == null) {
+            return null;
+        }
         StatutPersonne statutPersonne = new StatutPersonne();
         BeanUtils.copyProperties(statutPersonneDto, statutPersonne);
         /*if(statutPersonneDto.getPersonne().getIdPersonne() != null && statutPersonneDto.getQualite().getIdQualite() != null) {

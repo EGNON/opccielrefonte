@@ -90,6 +90,9 @@ public class PersonnePhysiqueMapper {
 
     public PersonnePhysique dePersonnePhysiqueDto(PersonnePhysiqueDto personnePhysiqueDto)
     {
+        if(personnePhysiqueDto == null) {
+            return null;
+        }
         PersonnePhysique personnePhysique = new PersonnePhysique();
         BeanUtils.copyProperties(personnePhysiqueDto, personnePhysique);
         /*if(personnePhysiqueDto.getStatutPersonnes() != null)

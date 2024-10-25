@@ -15,6 +15,9 @@ public class SousTypeClientMapper {
 
     public SousTypeClientDto deSousTypeClient(SousTypeClient SousTypeClient)
     {
+        if(SousTypeClient == null) {
+            return null;
+        }
         SousTypeClientDto SousTypeClientDTO = new SousTypeClientDto();
         BeanUtils.copyProperties(SousTypeClient, SousTypeClientDTO);
         SousTypeClientDTO.setTypeClient(typeClientMapper.deTypeClient(SousTypeClient.getTypeClient()));
@@ -23,6 +26,9 @@ public class SousTypeClientMapper {
 
     public SousTypeClient deSousTypeClientDto(SousTypeClientDto SousTypeClientDto)
     {
+        if(SousTypeClientDto == null) {
+            return null;
+        }
         SousTypeClient SousTypeClient = new SousTypeClient();
         BeanUtils.copyProperties(SousTypeClientDto, SousTypeClient);
         SousTypeClient.setTypeClient(typeClientMapper.deTypeClientDto(SousTypeClientDto.getTypeClient()));

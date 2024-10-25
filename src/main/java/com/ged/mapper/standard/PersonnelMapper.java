@@ -15,6 +15,9 @@ public class PersonnelMapper {
     private ModelMapper modelMapper;
     public PersonnelDto dePersonnel(Personnel personnel)
     {
+        if(personnel == null) {
+            return null;
+        }
         PersonnelDto personnelDto = new PersonnelDto();
         BeanUtils.copyProperties(personnel, personnelDto);
         if(personnel.getProfession() != null) {
@@ -31,9 +34,11 @@ public class PersonnelMapper {
 
     public Personnel dePersonnelDto(PersonnelDto personnelDto)
     {
+        if(personnelDto == null) {
+            return null;
+        }
         Personnel personnel= new Personnel();
         BeanUtils.copyProperties(personnelDto, personnel);
         return personnel;
     }
-
 }

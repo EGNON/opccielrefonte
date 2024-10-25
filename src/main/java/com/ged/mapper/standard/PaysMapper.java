@@ -26,6 +26,9 @@ public class PaysMapper {
 
     public Pays dePaysDto(PaysDto paysDto)
     {
+        if(paysDto == null) {
+            return null;
+        }
         Pays pays = new Pays();
         BeanUtils.copyProperties(paysDto, pays);
         if(paysDto.getMonnaieDto()!=null) {

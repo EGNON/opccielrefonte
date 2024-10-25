@@ -18,6 +18,9 @@ public class MonnaieMapper {
 
     public Monnaie deMonnaieDto(MonnaieDto monnaieDto)
     {
+        if(monnaieDto == null) {
+            return null;
+        }
         Monnaie monnaie = new Monnaie();
         BeanUtils.copyProperties(monnaieDto, monnaie);
         return monnaie;

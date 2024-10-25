@@ -14,7 +14,7 @@
 	<name>crm-web</name>
 	<description>Logiciel de gestion des OPCVM</description>
 	<properties>
-		<java.version>20</java.version>
+		<java.version>23</java.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 	<dependencies>
@@ -160,14 +160,23 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<goals>
+							<goal>repackage</goal>
+						</goals>
+						<configuration>
+							<classifier>exec</classifier>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
-				<version>2.22.2</version>
 				<configuration>
 					<skipTests>true</skipTests>
-					<forkMode>true</forkMode>
+<!--					<forkMode>true</forkMode>-->
 					<argLine>-Xmx1024m</argLine>
 				</configuration>
 			</plugin>

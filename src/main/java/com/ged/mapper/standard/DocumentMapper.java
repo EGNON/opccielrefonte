@@ -54,6 +54,9 @@ public class DocumentMapper {
 
     public Document deDocumentDto(DocumentDto documentDto)
     {
+        if(documentDto == null) {
+            return null;
+        }
         Document document = new Document();
         BeanUtils.copyProperties(documentDto, document);
         if(documentDto.getTypeDocument() != null)
