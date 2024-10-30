@@ -1,7 +1,9 @@
 package com.ged.entity.opcciel;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ged.entity.opcciel.comptabilite.NatureOperation;
 import com.ged.entity.opcciel.comptabilite.Operation;
+import com.ged.entity.opcciel.comptabilite.Transaction;
 import com.ged.entity.standard.Personne;
 import com.ged.entity.titresciel.Titre;
 import jakarta.persistence.*;
@@ -14,7 +16,11 @@ import java.time.LocalDateTime;
 public class DepotRachat {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long idDepotRachat;
     private Long idOperation;
+    private Long idActionnaire;
+    private Long idPersonne;
+    private Long idTransaction;
     private Long idOcc;
     private Double quantite;
     private String modeVL;
@@ -70,10 +76,46 @@ public class DepotRachat {
     @JoinColumn(name = "idTitreNew",referencedColumnName = "idTitre")
     private Titre titre;
 
+    /*@JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "idTransactionNew",referencedColumnName = "idTransaction")
+    private Transaction transaction;*/
+
     public DepotRachat() {
     }
 
-   /* @Override
+    public Long getIdActionnaire() {
+        return idActionnaire;
+    }
+
+    public void setIdActionnaire(Long idActionnaire) {
+        this.idActionnaire = idActionnaire;
+    }
+
+    public Long getIdPersonne() {
+        return idPersonne;
+    }
+
+    public void setIdPersonne(Long idPersonne) {
+        this.idPersonne = idPersonne;
+    }
+
+    public Long getIdTransaction() {
+        return idTransaction;
+    }
+
+    public void setIdTransaction(Long idTransaction) {
+        this.idTransaction = idTransaction;
+    }
+
+    /*public Transaction getTransaction() {
+        return transaction;
+    }
+
+    public void setTransaction(Transaction transaction) {
+        this.transaction = transaction;
+    }*/
+    /* @Override
     public Titre getTitre() {
         return titre;
     }
@@ -92,6 +134,14 @@ public class DepotRachat {
     public void setIdTitre(long idTitre) {
         this.idTitre = idTitre;
     }*/
+
+    public Long getIdDepotRachat() {
+        return idDepotRachat;
+    }
+
+    public void setIdDepotRachat(Long idDepotRachat) {
+        this.idDepotRachat = idDepotRachat;
+    }
 
     public Personne getPersonne() {
         return personne;
@@ -588,6 +638,7 @@ public class DepotRachat {
     public String toString() {
         return "DepotRachat{" +
                 "idOperation=" + idOperation +
+                "idSeance=" + idSeance +
                 ", quantite=" + quantite +
                 ", montantSouscrit=" + montantSouscrit +
                 ", montant=" + montant +

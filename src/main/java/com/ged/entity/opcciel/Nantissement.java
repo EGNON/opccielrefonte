@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @Table(name = "T_Nantissement", schema = "Operation")
 public class Nantissement extends Base {
     @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idOperation;
     private Long idOcc;
     private LocalDateTime dateOperation;

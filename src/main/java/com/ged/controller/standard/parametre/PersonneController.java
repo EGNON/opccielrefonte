@@ -57,6 +57,11 @@ public class PersonneController {
     {
         return personneService.afficherPersonneInOpcvm(idOpcvm);
     }
+    @GetMapping("personneinopcvmstatutcompte/{idOpcvm}")
+    public List<PersonneProjection> afficherPersonneInOpcvmEtStatutCompte(@PathVariable Long idOpcvm)
+    {
+        return personneService.afficherPersonneInOpcvmEtStatutCompte(idOpcvm);
+    }
     @GetMapping("/gele")
     public List<PersonneDto> afficherCompteGeleNonGele()
     {

@@ -20,6 +20,7 @@ public interface PersonneService  {
     List<PersonneProjection> afficherPersonnePhysiqueMoralesListe();
     List<PersonneProjection> afficherPersonneNotInOpcvm(Long idOpcvm);
     List<PersonneProjection> afficherPersonneInOpcvm(Long idOpcvm);
+    List<PersonneProjection> afficherPersonneInOpcvmEtStatutCompte(Long idOpcvm);
     List<PersonneDto> afficherSelonQualite(String qualite);
     List<PersonneDto> afficherSelonQualite();
     List<PersonneDto> recherherNumeroCompteDepositaire(String numero);

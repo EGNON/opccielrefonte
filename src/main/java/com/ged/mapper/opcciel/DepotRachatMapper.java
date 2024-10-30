@@ -1,6 +1,7 @@
 package com.ged.mapper.opcciel;
 
 import com.ged.dto.opcciel.DepotRachatDto;
+import com.ged.dto.opcciel.comptabilite.DepotRachatDto2;
 import com.ged.entity.opcciel.DepotRachat;
 import com.ged.mapper.standard.PersonneMapper;
 import com.ged.mapper.titresciel.TitreMapper;
@@ -33,6 +34,26 @@ public class DepotRachatMapper {
         if(depotRachat.getActionnaire()!=null)
             depotRachatDto.setActionnaire(personneMapper.dePersonne(depotRachat.getActionnaire()));
 
+        if(depotRachat.getOpcvm()!=null)
+            depotRachatDto.setOpcvm(opcvmMapper.deOpcvm(depotRachat.getOpcvm()));
+
+        if(depotRachat.getTitre()!=null)
+            depotRachatDto.setTitre(titreMapper.deTitre(depotRachat.getTitre()));
+
+        return depotRachatDto;
+    }
+
+    public DepotRachatDto2 deDepotRachat2(DepotRachat depotRachat)
+    {
+        if(depotRachat == null)
+            return null;
+        DepotRachatDto2 depotRachatDto = new DepotRachatDto2();
+        BeanUtils.copyProperties(depotRachat, depotRachatDto);
+        if(depotRachat.getPersonne()!=null)
+            depotRachatDto.setPersonne(personneMapper.dePersonne(depotRachat.getPersonne()));
+
+        if(depotRachat.getActionnaire()!=null)
+            depotRachatDto.setActionnaire(personneMapper.dePersonne(depotRachat.getActionnaire()));
         if(depotRachat.getOpcvm()!=null)
             depotRachatDto.setOpcvm(opcvmMapper.deOpcvm(depotRachat.getOpcvm()));
 

@@ -1,9 +1,11 @@
 package com.ged.service.opcciel.impl;
 
 import com.ged.advice.EntityNotFoundException;
+import com.ged.dao.LibraryDao;
 import com.ged.dao.opcciel.DepotRachatDao;
 import com.ged.dao.opcciel.OpcvmDao;
 import com.ged.dao.opcciel.comptabilite.NatureOperationDao;
+import com.ged.dao.standard.PersonneDao;
 import com.ged.datatable.DataTablesResponse;
 import com.ged.datatable.DatatableParameters;
 import com.ged.dto.opcciel.DepotRachatDto;
@@ -11,17 +13,20 @@ import com.ged.entity.opcciel.DepotRachat;
 import com.ged.entity.opcciel.Opcvm;
 import com.ged.entity.opcciel.SeanceOpcvm;
 import com.ged.entity.opcciel.comptabilite.NatureOperation;
+import com.ged.entity.standard.Personne;
 import com.ged.mapper.opcciel.DepotRachatMapper;
 import com.ged.mapper.opcciel.OpcvmMapper;
 import com.ged.mapper.standard.PersonneMapper;
+import com.ged.projection.NbrePartProjection;
 import com.ged.response.ResponseHandler;
 import com.ged.service.opcciel.DepotRachatService;
 import com.ged.service.opcciel.SeanceOpcvmService;
-import jakarta.persistence.*;
-import org.hibernate.procedure.ProcedureOutputs;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -44,16 +49,20 @@ public class DepotRachatImpl implements DepotRachatService {
     private final NatureOperationDao natureOperationDao;
     private final DepotRachatMapper depotRachatMapper;
     private final PersonneMapper personneMapper;
+    private final PersonneDao personneDao;
+    private final LibraryDao libraryDao;
     private final OpcvmMapper opcvmMapper;
     private final SeanceOpcvmService seanceOpcvmService;
 
-    public DepotRachatImpl(DepotRachatDao DepotRachatDao, OpcvmDao opcvmDao, NatureOperationDao natureOperationDao, DepotRachatMapper DepotRachatMapper, PersonneMapper personneMapper, OpcvmMapper opcvmMapper, SeanceOpcvmService seanceOpcvmService){
+    public DepotRachatImpl(DepotRachatDao DepotRachatDao, OpcvmDao opcvmDao, NatureOperationDao natureOperationDao, DepotRachatMapper DepotRachatMapper, PersonneMapper personneMapper, PersonneDao personneDao, LibraryDao libraryDao, OpcvmMapper opcvmMapper, SeanceOpcvmService seanceOpcvmService){
         this.depotRachatDao = DepotRachatDao;
         this.opcvmDao = opcvmDao;
         this.natureOperationDao = natureOperationDao;
 
         this.depotRachatMapper = DepotRachatMapper;
         this.personneMapper = personneMapper;
+        this.personneDao = personneDao;
+        this.libraryDao = libraryDao;
         this.opcvmMapper = opcvmMapper;
         this.seanceOpcvmService = seanceOpcvmService;
     }
@@ -61,11 +70,12 @@ public class DepotRachatImpl implements DepotRachatService {
     @Override
     public ResponseEntity<Object> afficherTousLesDepots(DatatableParameters parameters, Long idOpcvm, Long idSeance) {
         try {
+            System.out.println(idOpcvm + ";" + idSeance);
             Opcvm opcvm = opcvmDao.findById(idOpcvm).orElseThrow();
             Pageable pageable = PageRequest.of(
                     parameters.getStart() / parameters.getLength(), parameters.getLength());
             Page<DepotRachat> DepotRachatPage;
-            DepotRachatPage = depotRachatDao.listeDesDepotSeance(pageable);
+            DepotRachatPage = depotRachatDao.listeDesDepotSeance(idOpcvm, idSeance, pageable);
             List<DepotRachatDto> content = DepotRachatPage.getContent().stream().map(depotRachatMapper::deDepotRachat).collect(Collectors.toList());
             DataTablesResponse<DepotRachatDto> dataTablesResponse = new DataTablesResponse<>();
             dataTablesResponse.setDraw(parameters.getDraw());
@@ -149,39 +159,40 @@ public class DepotRachatImpl implements DepotRachatService {
     }
 
     @Override
-    public List<Object[]> afficherNbrePart(Long idOpcvm,
-                                           Long idActionnaire) {
-        List<Object[]> list;
-        StoredProcedureQuery q = em.createStoredProcedureQuery("[Parametre].[PS_PersonnePhysiqueMorale_SP]");
-        q.registerStoredProcedureParameter("idOpcvm", Long.class, ParameterMode.IN);
-        q.registerStoredProcedureParameter("idActionnaire", Long.class, ParameterMode.IN);
-        q.registerStoredProcedureParameter("libelleQualite", String.class, ParameterMode.IN);
-        q.registerStoredProcedureParameter("dateEstimation", LocalDateTime.class, ParameterMode.IN);
-        q.registerStoredProcedureParameter("statutCompte", String.class, ParameterMode.IN);
+    public List<NbrePartProjection> afficherNbrePart(Long idOpcvm,
+                                                     Long idActionnaire) {
+        Sort sort=Sort.by(Sort.Direction.ASC,"dateOuverture");
+        SeanceOpcvm seanceOpcvm=seanceOpcvmService.afficherSeanceEnCours(idOpcvm);
+        LocalDateTime dateEstimation=seanceOpcvm.getDateFermeture();
+        List<NbrePartProjection>  list=libraryDao.afficherNbrePart(idActionnaire,idOpcvm,false,
+                true,true,dateEstimation);
+        /*var q = em.createNativeQuery("SELECT * FROM [Operation].[FT_NbrePart](:idActionnaire,:idOpcvm,:estLevee," +
+                ":estVerifie1,:estVerifie2,:dateEstimation)");
+        SeanceOpcvm seanceOpcvm=seanceOpcvmService.afficherSeanceEnCours(idOpcvm);
+        LocalDateTime dateEstimation=seanceOpcvm.getDateFermeture();
+        q.setParameter("idActionnaire", idActionnaire);
+        q.setParameter("idOpcvm", idOpcvm);
+        q.setParameter("estLevee",false);
+        q.setParameter("estVerifie1", true);
+        q.setParameter("estVerifie2", true);
+        q.setParameter("dateEstimation", dateEstimation);
 
         try {
-            String libelleQualite="ACTIONNAIRES";
-            SeanceOpcvm seanceOpcvm=seanceOpcvmService.afficherSeanceEnCours(idOpcvm);
-            LocalDateTime dateEstimation=seanceOpcvm.getDateFermeture();
-
-            q.setParameter("idOpcvm", idOpcvm);
-            q.setParameter("idActionnaire", idActionnaire);
-            q.setParameter("libelleQualite", libelleQualite);
-            q.setParameter("dateEstimation", dateEstimation);
-            q.setParameter("statutCompte", null);
-
             // Execute query
-            q.execute();
-            list = q.getResultList();
+            //list = q.getResultList();
+            list=q.getResultList();
+
+
+
         } finally {
             try
             {
-                q.unwrap(ProcedureOutputs.class).release();
+
             }
             catch (Exception e) {
                 System.out.println(e.getMessage());
             }
-        }
+        }*/
 
         return list;
     }
@@ -192,7 +203,7 @@ public class DepotRachatImpl implements DepotRachatService {
             return ResponseHandler.generateResponse(
                     "DepotRachat dont ID = " + idOperation,
                     HttpStatus.OK,
-                    depotRachatMapper.deDepotRachat(afficherSelonId(idOperation)));
+                    depotRachatMapper.deDepotRachat2(afficherSelonId(idOperation)));
         }
         catch (Exception e)
         {
@@ -208,18 +219,28 @@ public class DepotRachatImpl implements DepotRachatService {
     public ResponseEntity<Object> creer(DepotRachatDto DepotRachatDto) {
         try {
             DepotRachat DepotRachat = depotRachatMapper.deDepotRachatDto(DepotRachatDto);
+
             if(DepotRachatDto.getPersonne()!=null)
             {
-                DepotRachat.setPersonne(personneMapper.dePersonneDto(DepotRachatDto.getPersonne()));
+                Personne personne=personneDao.findById(DepotRachatDto.getPersonne().getIdPersonne()).orElseThrow();
+                if(personne!=null)
+                    DepotRachat.setPersonne(personne);
             }
             if(DepotRachatDto.getActionnaire()!=null)
             {
-                DepotRachat.setActionnaire(personneMapper.dePersonneDto(DepotRachatDto.getActionnaire()));
+                Personne personne=personneDao.findById(DepotRachatDto.getActionnaire().getIdPersonne()).orElseThrow();
+                DepotRachat.setActionnaire(personne);
             }
-            if(DepotRachatDto.getOpcvm()!=null)
+            /*if(DepotRachatDto.getOpcvm()!=null)
             {
-                DepotRachat.setOpcvm(opcvmMapper.deOpcvmDto(DepotRachatDto.getOpcvm()));
-            }
+                Opcvm opcvm=opcvmDao.findById(DepotRachatDto.getOpcvm().getIdOpcvm()).orElseThrow();
+                if(opcvm!=null)
+                    DepotRachat.setOpcvm(opcvm);
+            }*/
+            /*NatureOperation natureOperation=natureOperationDao.findById("INT_RACH").orElseThrow();
+            if(natureOperation!=null)
+                DepotRachat.setNatureOperation(natureOperation);*/
+
             DepotRachat = depotRachatDao.save(DepotRachat);
             System.out.println("Dep === " + DepotRachat);
             return ResponseHandler.generateResponse(
@@ -237,21 +258,31 @@ public class DepotRachatImpl implements DepotRachatService {
     @Override
     public ResponseEntity<Object> modifier(DepotRachatDto depotRachatDto) {
         try {
-            if(!depotRachatDao.existsById(depotRachatDto.getIdOperation()))
-                throw  new EntityNotFoundException(DepotRachat.class, "ID", depotRachatDto.getIdOperation().toString());
+            if(!depotRachatDao.existsById(depotRachatDto.getIdDepotRachat()))
+                throw  new EntityNotFoundException(DepotRachat.class, "ID", depotRachatDto.getIdDepotRachat().toString());
             DepotRachat DepotRachat = depotRachatMapper.deDepotRachatDto(depotRachatDto);
+
             if(depotRachatDto.getPersonne()!=null)
             {
-                DepotRachat.setPersonne(personneMapper.dePersonneDto(depotRachatDto.getPersonne()));
+                Personne personne=personneDao.findById(depotRachatDto.getPersonne().getIdPersonne()).orElseThrow();
+                if(personne!=null)
+                    DepotRachat.setPersonne(personne);
             }
             if(depotRachatDto.getActionnaire()!=null)
             {
-                DepotRachat.setActionnaire(personneMapper.dePersonneDto(depotRachatDto.getActionnaire()));
+                Personne personne=personneDao.findById(depotRachatDto.getActionnaire().getIdPersonne()).orElseThrow();
+                DepotRachat.setActionnaire(personne);
             }
             if(depotRachatDto.getOpcvm()!=null)
             {
-                DepotRachat.setOpcvm(opcvmMapper.deOpcvmDto(depotRachatDto.getOpcvm()));
+                Opcvm opcvm=opcvmDao.findById(depotRachatDto.getOpcvm().getIdOpcvm()).orElseThrow();
+                if(opcvm!=null)
+                    DepotRachat.setOpcvm(opcvm);
             }
+            NatureOperation natureOperation=natureOperationDao.findById("INT_RACH").orElseThrow();
+            if(natureOperation!=null)
+                DepotRachat.setNatureOperation(natureOperation);
+
             DepotRachat = depotRachatDao.save(DepotRachat);
             return ResponseHandler.generateResponse(
                     "Modification effectuée avec succès !",

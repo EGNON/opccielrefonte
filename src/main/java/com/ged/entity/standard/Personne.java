@@ -29,6 +29,7 @@ public class Personne extends Base {
     @Column(insertable = false,updatable = false)
     private String typePersonne;
     private String denomination;
+    private String statutCompte;
     private String ifu;
     private String mobile1;
     private String mobile2;
@@ -186,6 +187,14 @@ public class Personne extends Base {
     {
         this.documents.add(document);
         document.setPersonne(this);
+    }
+
+    public String getStatutCompte() {
+        return statutCompte;
+    }
+
+    public void setStatutCompte(String statutCompte) {
+        this.statutCompte = statutCompte;
     }
 
     public CategorieClient getCategorieClient() {

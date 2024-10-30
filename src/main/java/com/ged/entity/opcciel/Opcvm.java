@@ -166,7 +166,7 @@ public class Opcvm extends Base {
     }
 
     public void setPersonneIntervenant(PersonneMorale personneIntervenant) {
-        this.personneIntervenant = personneIntervenant;
+        this.personneIntervenant = null;
     }
 
     public String getCodeTypeAffectation() {

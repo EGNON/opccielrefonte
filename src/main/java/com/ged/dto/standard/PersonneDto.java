@@ -22,6 +22,7 @@ public class PersonneDto {
     private String mobile2;
     private String fixe1;
     private String fixe2;
+    private String statutCompte;
     private String bp;
     private String emailPerso;
     private String emailPro;
@@ -57,6 +58,14 @@ public class PersonneDto {
     private String typePersonne;
     private CategorieClientDto categorieClient;
     private SousTypeClientDto sousTypeClient;
+
+    public String getStatutCompte() {
+        return statutCompte;
+    }
+
+    public void setStatutCompte(String statutCompte) {
+        this.statutCompte = statutCompte;
+    }
 
     public Long getIdPersonne() {
         return idPersonne;

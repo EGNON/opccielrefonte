@@ -1,11 +1,18 @@
 package com.ged.service;
 
-import org.springframework.http.ResponseEntity;
+import com.ged.dao.LibraryDao;
+import com.ged.entity.opcciel.SeanceOpcvm;
 import org.springframework.stereotype.Service;
 
 @Service
 public class AppService {
-    public ResponseEntity<?> currentSeance(Long idOpcvm) {
+    private final LibraryDao libraryDao;
 
+    public AppService(LibraryDao libraryDao) {
+        this.libraryDao = libraryDao;
+    }
+
+    public SeanceOpcvm currentSeance(Long idOpcvm) {
+        return libraryDao.currentSeance(idOpcvm);
     }
 }
