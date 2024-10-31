@@ -74,9 +74,9 @@ public class OpccielWebApplication implements CommandLineRunner {
 		}
 		//A NE PAS ENLEVER
 //		utilisateurService.registerDefaultUsers();
-		//dataImportationDao.emetteur();
-		//dataImportationDao.registraire();
-		//dataImportationDao.depositaire();
-		//dataImportationDao.garant();
+		dataImportationDao.emetteur();
+		dataImportationDao.registraire();
+		dataImportationDao.depositaire();
+		dataImportationDao.garant();
 	}
 }
