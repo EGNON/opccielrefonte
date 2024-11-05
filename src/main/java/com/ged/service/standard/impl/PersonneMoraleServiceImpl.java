@@ -270,7 +270,7 @@ public class PersonneMoraleServiceImpl implements PersonneMoraleService {
         }
 
         personneMorale.setDenomination(personneMoraleDto.getRaisonSociale() + " [" + personneMoraleDto.getSigle() + "]");
-        if(personneMoraleDto.isEstExpose()||personneMoraleDto.isEstJuge())
+        if(personneMoraleDto.getEstExpose()||personneMoraleDto.getEstJuge())
         {
             if (personneMoraleSelonId.getSiteWeb() != null && personneMoraleDto.getSiteWeb()== null) {
                 personneMorale.setSiteWeb(personneMoraleSelonId.getSiteWeb());

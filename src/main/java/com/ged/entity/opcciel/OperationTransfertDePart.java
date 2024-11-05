@@ -1,28 +1,30 @@
 package com.ged.entity.opcciel;
 
 import com.ged.entity.standard.Personne;
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-/*@Entity
-@Table(name = "T_OperationTransfertDePart", schema = "Operation")*/
+@Entity
+@Table(name = "T_OperationTransfertDePart", schema = "Operation")
 public class OperationTransfertDePart {
     @Id
     private String idOperation;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "idDemandeur",referencedColumnName = "idPersonne")
     private Personne personneDemandeur;
-    private Double qteInitialeD;
+    @Column(precision = 18, scale = 6)
+    private BigDecimal qteInitialeD;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "idBeneficiaire",referencedColumnName = "idPersonne")
     private Personne personneBeneficiaire;
-    private Double qteInitialeB;
-    private Double cumpEntre;
-    private Double qteTransfert;
+    @Column(precision = 18, scale = 6)
+    private BigDecimal qteInitialeB;
+    @Column(precision = 18, scale = 6)
+    private BigDecimal cumpEntre;
+    @Column(precision = 18, scale = 6)
+    private BigDecimal qteTransfert;
     private LocalDateTime dateOperation;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "idOpcvm")
@@ -39,6 +41,38 @@ public class OperationTransfertDePart {
         this.idOperation = idOperation;
     }
 
+    public BigDecimal getQteInitialeD() {
+        return qteInitialeD;
+    }
+
+    public void setQteInitialeD(BigDecimal qteInitialeD) {
+        this.qteInitialeD = qteInitialeD;
+    }
+
+    public BigDecimal getQteInitialeB() {
+        return qteInitialeB;
+    }
+
+    public void setQteInitialeB(BigDecimal qteInitialeB) {
+        this.qteInitialeB = qteInitialeB;
+    }
+
+    public BigDecimal getCumpEntre() {
+        return cumpEntre;
+    }
+
+    public void setCumpEntre(BigDecimal cumpEntre) {
+        this.cumpEntre = cumpEntre;
+    }
+
+    public BigDecimal getQteTransfert() {
+        return qteTransfert;
+    }
+
+    public void setQteTransfert(BigDecimal qteTransfert) {
+        this.qteTransfert = qteTransfert;
+    }
+
     public Personne getPersonneDemandeur() {
         return personneDemandeur;
     }
@@ -47,44 +81,12 @@ public class OperationTransfertDePart {
         this.personneDemandeur = personneDemandeur;
     }
 
-    public Double getQteInitialeD() {
-        return qteInitialeD;
-    }
-
-    public void setQteInitialeD(Double qteInitialeD) {
-        this.qteInitialeD = qteInitialeD;
-    }
-
     public Personne getPersonneBeneficiaire() {
         return personneBeneficiaire;
     }
 
     public void setPersonneBeneficiaire(Personne personneBeneficiaire) {
         this.personneBeneficiaire = personneBeneficiaire;
-    }
-
-    public Double getQteInitialeB() {
-        return qteInitialeB;
-    }
-
-    public void setQteInitialeB(Double qteInitialeB) {
-        this.qteInitialeB = qteInitialeB;
-    }
-
-    public Double getCumpEntre() {
-        return cumpEntre;
-    }
-
-    public void setCumpEntre(Double cumpEntre) {
-        this.cumpEntre = cumpEntre;
-    }
-
-    public Double getQteTransfert() {
-        return qteTransfert;
-    }
-
-    public void setQteTransfert(Double qteTransfert) {
-        this.qteTransfert = qteTransfert;
     }
 
     public LocalDateTime getDateOperation() {

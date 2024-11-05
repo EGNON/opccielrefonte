@@ -194,7 +194,7 @@ public class PersonneServiceImpl implements PersonneService {
 //        if(personneDto.getIdPersonne()!=null)
 //            personneSelonId=afficherPersonneSelonId(personneDto.getIdPersonne());
 
-        personne.setEstGele(personneDto.isEstGele());
+        personne.setEstGele(personneDto.getEstGele());
         personne.setDenomination(personneDto.getDenomination());
 
 //        if (personneSelonId.getMobile1() != null && personneDto.getMobile1() == null) {

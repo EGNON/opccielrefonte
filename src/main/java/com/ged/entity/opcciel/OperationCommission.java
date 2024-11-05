@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @Table(name = "T_OperationCommission", schema = "Operation")
 public class OperationCommission extends Operation {
     private LocalDateTime dateSolde;
-    @Column(precision = 18,scale = 6)
+    @Column(precision = 18, scale = 6)
     private BigDecimal montantCommission;
     private String typeCommission;
 

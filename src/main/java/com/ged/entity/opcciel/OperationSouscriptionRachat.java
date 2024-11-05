@@ -2,9 +2,14 @@ package com.ged.entity.opcciel;
 
 
 import com.ged.entity.opcciel.comptabilite.Operation;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 
-/*@Entity
-@Table(name = "T_OperationSouscriptionRachat", schema = "Operation")*/
+import java.math.BigDecimal;
+
+@Entity
+@Table(name = "T_OperationSouscriptionRachat", schema = "Operation")
 public class OperationSouscriptionRachat extends Operation {
     private Long idOcc;
 //    @ManyToOne(cascade = CascadeType.ALL)
@@ -28,32 +33,53 @@ public class OperationSouscriptionRachat extends Operation {
 //    private LocalDateTime datePiece;
 //    private LocalDateTime dateValeur;
 //    private String referencePiece;
-    private Double montantSousALiquider;
-    private Double SousRachatPart;
-    private Double commisiionSousRachat;
-    private Double TAFCommissionSousRachat;
-    private Double retrocessionSousRachat;
-    private Double TAFRetrocessionSousRachat;
-    private Double commissionSousRachatRetrocedee;
+    @Column(precision = 18, scale = 6)
+    private BigDecimal montantSousALiquider;
+    @Column(precision = 18, scale = 6)
+    private BigDecimal SousRachatPart;
+    @Column(precision = 18, scale = 6)
+    private BigDecimal commisiionSousRachat;
+    @Column(precision = 18, scale = 6)
+    private BigDecimal TAFCommissionSousRachat;
+    @Column(precision = 18, scale = 6)
+    private BigDecimal retrocessionSousRachat;
+    @Column(precision = 18, scale = 6)
+    private BigDecimal TAFRetrocessionSousRachat;
+    @Column(precision = 18, scale = 6)
+    private BigDecimal commissionSousRachatRetrocedee;
     private String modeValeurLiquidative;
-    private Double coursVL;
-    private Double nombrePartSousRachat;
-    private Double regulResultatExoEnCours;
-    private Double regulSommeNonDistribuable;
-    private Double regulReportANouveau;
-    private Double regulautreResultatBeneficiaire;
-    private Double regulautreResultatDeficitaire;
-    private Double regulResultatEnInstanceBeneficiaire;
-    private Double regulResultatEnInstanceDeficitaire;
-    private Double regulExoDistribution;
-    private Double fraisSouscriptionRachat;
-    private Double reste;
+    @Column(precision = 18, scale = 6)
+    private BigDecimal coursVL;
+    @Column(precision = 18, scale = 6)
+    private BigDecimal nombrePartSousRachat;
+    @Column(precision = 18, scale = 6)
+    private BigDecimal regulResultatExoEnCours;
+    @Column(precision = 18, scale = 6)
+    private BigDecimal regulSommeNonDistribuable;
+    @Column(precision = 18, scale = 6)
+    private BigDecimal regulReportANouveau;
+    @Column(precision = 18, scale = 6)
+    private BigDecimal regulautreResultatBeneficiaire;
+    @Column(precision = 18, scale = 6)
+    private BigDecimal regulautreResultatDeficitaire;
+    @Column(precision = 18, scale = 6)
+    private BigDecimal regulResultatEnInstanceBeneficiaire;
+    @Column(precision = 18, scale = 6)
+    private BigDecimal regulResultatEnInstanceDeficitaire;
+    @Column(precision = 18, scale = 6)
+    private BigDecimal regulExoDistribution;
+    @Column(precision = 18, scale = 6)
+    private BigDecimal fraisSouscriptionRachat;
+    @Column(precision = 18, scale = 6)
+    private BigDecimal reste;
     private Long quantiteSouhaite;
-    private Double montantDepose;
-    private Double montantConvertiEnPart;
-    private boolean estRetrocede;
-    private boolean resteRembourse;
-    private boolean rachatPaye;
+    @Column(precision = 18, scale = 6)
+    private BigDecimal montantDepose;
+    @Column(precision = 18, scale = 6)
+    private BigDecimal montantConvertiEnPart;
+    private Boolean estRetrocede;
+    private Boolean resteRembourse;
+    private Boolean rachatPaye;
 //    private String ecriture;
 
     public OperationSouscriptionRachat() {
@@ -163,60 +189,196 @@ public class OperationSouscriptionRachat extends Operation {
 //        this.referencePiece = referencePiece;
 //    }
 
-    public Double getMontantSousALiquider() {
+    public BigDecimal getMontantSousALiquider() {
         return montantSousALiquider;
     }
 
-    public void setMontantSousALiquider(Double montantSousALiquider) {
+    public void setMontantSousALiquider(BigDecimal montantSousALiquider) {
         this.montantSousALiquider = montantSousALiquider;
     }
 
-    public Double getSousRachatPart() {
+    public BigDecimal getSousRachatPart() {
         return SousRachatPart;
     }
 
-    public void setSousRachatPart(Double sousRachatPart) {
+    public void setSousRachatPart(BigDecimal sousRachatPart) {
         SousRachatPart = sousRachatPart;
     }
 
-    public Double getCommisiionSousRachat() {
+    public BigDecimal getCommisiionSousRachat() {
         return commisiionSousRachat;
     }
 
-    public void setCommisiionSousRachat(Double commisiionSousRachat) {
+    public void setCommisiionSousRachat(BigDecimal commisiionSousRachat) {
         this.commisiionSousRachat = commisiionSousRachat;
     }
 
-    public Double getTAFCommissionSousRachat() {
+    public BigDecimal getTAFCommissionSousRachat() {
         return TAFCommissionSousRachat;
     }
 
-    public void setTAFCommissionSousRachat(Double TAFCommissionSousRachat) {
+    public void setTAFCommissionSousRachat(BigDecimal TAFCommissionSousRachat) {
         this.TAFCommissionSousRachat = TAFCommissionSousRachat;
     }
 
-    public Double getRetrocessionSousRachat() {
+    public BigDecimal getRetrocessionSousRachat() {
         return retrocessionSousRachat;
     }
 
-    public void setRetrocessionSousRachat(Double retrocessionSousRachat) {
+    public void setRetrocessionSousRachat(BigDecimal retrocessionSousRachat) {
         this.retrocessionSousRachat = retrocessionSousRachat;
     }
 
-    public Double getTAFRetrocessionSousRachat() {
+    public BigDecimal getTAFRetrocessionSousRachat() {
         return TAFRetrocessionSousRachat;
     }
 
-    public void setTAFRetrocessionSousRachat(Double TAFRetrocessionSousRachat) {
+    public void setTAFRetrocessionSousRachat(BigDecimal TAFRetrocessionSousRachat) {
         this.TAFRetrocessionSousRachat = TAFRetrocessionSousRachat;
     }
 
-    public Double getCommissionSousRachatRetrocedee() {
+    public BigDecimal getCommissionSousRachatRetrocedee() {
         return commissionSousRachatRetrocedee;
     }
 
-    public void setCommissionSousRachatRetrocedee(Double commissionSousRachatRetrocedee) {
+    public void setCommissionSousRachatRetrocedee(BigDecimal commissionSousRachatRetrocedee) {
         this.commissionSousRachatRetrocedee = commissionSousRachatRetrocedee;
+    }
+
+    public BigDecimal getCoursVL() {
+        return coursVL;
+    }
+
+    public void setCoursVL(BigDecimal coursVL) {
+        this.coursVL = coursVL;
+    }
+
+    public BigDecimal getNombrePartSousRachat() {
+        return nombrePartSousRachat;
+    }
+
+    public void setNombrePartSousRachat(BigDecimal nombrePartSousRachat) {
+        this.nombrePartSousRachat = nombrePartSousRachat;
+    }
+
+    public BigDecimal getRegulResultatExoEnCours() {
+        return regulResultatExoEnCours;
+    }
+
+    public void setRegulResultatExoEnCours(BigDecimal regulResultatExoEnCours) {
+        this.regulResultatExoEnCours = regulResultatExoEnCours;
+    }
+
+    public BigDecimal getRegulSommeNonDistribuable() {
+        return regulSommeNonDistribuable;
+    }
+
+    public void setRegulSommeNonDistribuable(BigDecimal regulSommeNonDistribuable) {
+        this.regulSommeNonDistribuable = regulSommeNonDistribuable;
+    }
+
+    public BigDecimal getRegulReportANouveau() {
+        return regulReportANouveau;
+    }
+
+    public void setRegulReportANouveau(BigDecimal regulReportANouveau) {
+        this.regulReportANouveau = regulReportANouveau;
+    }
+
+    public BigDecimal getRegulautreResultatBeneficiaire() {
+        return regulautreResultatBeneficiaire;
+    }
+
+    public void setRegulautreResultatBeneficiaire(BigDecimal regulautreResultatBeneficiaire) {
+        this.regulautreResultatBeneficiaire = regulautreResultatBeneficiaire;
+    }
+
+    public BigDecimal getRegulautreResultatDeficitaire() {
+        return regulautreResultatDeficitaire;
+    }
+
+    public void setRegulautreResultatDeficitaire(BigDecimal regulautreResultatDeficitaire) {
+        this.regulautreResultatDeficitaire = regulautreResultatDeficitaire;
+    }
+
+    public BigDecimal getRegulResultatEnInstanceBeneficiaire() {
+        return regulResultatEnInstanceBeneficiaire;
+    }
+
+    public void setRegulResultatEnInstanceBeneficiaire(BigDecimal regulResultatEnInstanceBeneficiaire) {
+        this.regulResultatEnInstanceBeneficiaire = regulResultatEnInstanceBeneficiaire;
+    }
+
+    public BigDecimal getRegulResultatEnInstanceDeficitaire() {
+        return regulResultatEnInstanceDeficitaire;
+    }
+
+    public void setRegulResultatEnInstanceDeficitaire(BigDecimal regulResultatEnInstanceDeficitaire) {
+        this.regulResultatEnInstanceDeficitaire = regulResultatEnInstanceDeficitaire;
+    }
+
+    public BigDecimal getRegulExoDistribution() {
+        return regulExoDistribution;
+    }
+
+    public void setRegulExoDistribution(BigDecimal regulExoDistribution) {
+        this.regulExoDistribution = regulExoDistribution;
+    }
+
+    public BigDecimal getFraisSouscriptionRachat() {
+        return fraisSouscriptionRachat;
+    }
+
+    public void setFraisSouscriptionRachat(BigDecimal fraisSouscriptionRachat) {
+        this.fraisSouscriptionRachat = fraisSouscriptionRachat;
+    }
+
+    public BigDecimal getReste() {
+        return reste;
+    }
+
+    public void setReste(BigDecimal reste) {
+        this.reste = reste;
+    }
+
+    public BigDecimal getMontantDepose() {
+        return montantDepose;
+    }
+
+    public void setMontantDepose(BigDecimal montantDepose) {
+        this.montantDepose = montantDepose;
+    }
+
+    public BigDecimal getMontantConvertiEnPart() {
+        return montantConvertiEnPart;
+    }
+
+    public void setMontantConvertiEnPart(BigDecimal montantConvertiEnPart) {
+        this.montantConvertiEnPart = montantConvertiEnPart;
+    }
+
+    public Boolean getEstRetrocede() {
+        return estRetrocede;
+    }
+
+    public void setEstRetrocede(Boolean estRetrocede) {
+        this.estRetrocede = estRetrocede;
+    }
+
+    public Boolean getResteRembourse() {
+        return resteRembourse;
+    }
+
+    public void setResteRembourse(Boolean resteRembourse) {
+        this.resteRembourse = resteRembourse;
+    }
+
+    public Boolean getRachatPaye() {
+        return rachatPaye;
+    }
+
+    public void setRachatPaye(Boolean rachatPaye) {
+        this.rachatPaye = rachatPaye;
     }
 
     public String getModeValeurLiquidative() {
@@ -227,124 +389,12 @@ public class OperationSouscriptionRachat extends Operation {
         this.modeValeurLiquidative = modeValeurLiquidative;
     }
 
-    public Double getCoursVL() {
-        return coursVL;
-    }
-
-    public void setCoursVL(Double coursVL) {
-        this.coursVL = coursVL;
-    }
-
-    public Double getNombrePartSousRachat() {
-        return nombrePartSousRachat;
-    }
-
-    public void setNombrePartSousRachat(Double nombrePartSousRachat) {
-        this.nombrePartSousRachat = nombrePartSousRachat;
-    }
-
-    public Double getRegulResultatExoEnCours() {
-        return regulResultatExoEnCours;
-    }
-
-    public void setRegulResultatExoEnCours(Double regulResultatExoEnCours) {
-        this.regulResultatExoEnCours = regulResultatExoEnCours;
-    }
-
-    public Double getRegulSommeNonDistribuable() {
-        return regulSommeNonDistribuable;
-    }
-
-    public void setRegulSommeNonDistribuable(Double regulSommeNonDistribuable) {
-        this.regulSommeNonDistribuable = regulSommeNonDistribuable;
-    }
-
-    public Double getRegulReportANouveau() {
-        return regulReportANouveau;
-    }
-
-    public void setRegulReportANouveau(Double regulReportANouveau) {
-        this.regulReportANouveau = regulReportANouveau;
-    }
-
-    public Double getRegulautreResultatBeneficiaire() {
-        return regulautreResultatBeneficiaire;
-    }
-
-    public void setRegulautreResultatBeneficiaire(Double regulautreResultatBeneficiaire) {
-        this.regulautreResultatBeneficiaire = regulautreResultatBeneficiaire;
-    }
-
-    public Double getRegulautreResultatDeficitaire() {
-        return regulautreResultatDeficitaire;
-    }
-
-    public void setRegulautreResultatDeficitaire(Double regulautreResultatDeficitaire) {
-        this.regulautreResultatDeficitaire = regulautreResultatDeficitaire;
-    }
-
-    public Double getRegulResultatEnInstanceBeneficiaire() {
-        return regulResultatEnInstanceBeneficiaire;
-    }
-
-    public void setRegulResultatEnInstanceBeneficiaire(Double regulResultatEnInstanceBeneficiaire) {
-        this.regulResultatEnInstanceBeneficiaire = regulResultatEnInstanceBeneficiaire;
-    }
-
-    public Double getRegulResultatEnInstanceDeficitaire() {
-        return regulResultatEnInstanceDeficitaire;
-    }
-
-    public void setRegulResultatEnInstanceDeficitaire(Double regulResultatEnInstanceDeficitaire) {
-        this.regulResultatEnInstanceDeficitaire = regulResultatEnInstanceDeficitaire;
-    }
-
-    public Double getRegulExoDistribution() {
-        return regulExoDistribution;
-    }
-
-    public void setRegulExoDistribution(Double regulExoDistribution) {
-        this.regulExoDistribution = regulExoDistribution;
-    }
-
-    public Double getFraisSouscriptionRachat() {
-        return fraisSouscriptionRachat;
-    }
-
-    public void setFraisSouscriptionRachat(Double fraisSouscriptionRachat) {
-        this.fraisSouscriptionRachat = fraisSouscriptionRachat;
-    }
-
-    public Double getReste() {
-        return reste;
-    }
-
-    public void setReste(Double reste) {
-        this.reste = reste;
-    }
-
     public Long getQuantiteSouhaite() {
         return quantiteSouhaite;
     }
 
     public void setQuantiteSouhaite(Long quantiteSouhaite) {
         this.quantiteSouhaite = quantiteSouhaite;
-    }
-
-    public Double getMontantDepose() {
-        return montantDepose;
-    }
-
-    public void setMontantDepose(Double montantDepose) {
-        this.montantDepose = montantDepose;
-    }
-
-    public Double getMontantConvertiEnPart() {
-        return montantConvertiEnPart;
-    }
-
-    public void setMontantConvertiEnPart(Double montantConvertiEnPart) {
-        this.montantConvertiEnPart = montantConvertiEnPart;
     }
 
     public boolean isEstRetrocede() {

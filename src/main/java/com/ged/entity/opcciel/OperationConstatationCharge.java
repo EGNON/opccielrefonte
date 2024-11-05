@@ -1,17 +1,22 @@
 package com.ged.entity.opcciel;
 
 import com.ged.entity.opcciel.comptabilite.Operation;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-/*@Entity
-@Table(name = "T_OperationConstatationCharge", schema = "Operation")*/
+@Entity
+@Table(name = "T_OperationConstatationCharge", schema = "Operation")
 public class OperationConstatationCharge extends Operation {
-   private LocalDateTime dateSolde;
-   private Double montantCharge;
-   private String codeCharge;
-   private boolean estPayee;
-   private Long idSeancePaiement;
+    private LocalDateTime dateSolde;
+    @Column(precision = 18, scale = 6)
+    private BigDecimal montantCharge;
+    private String codeCharge;
+    private boolean estPayee;
+    private Long idSeancePaiement;
 
     public OperationConstatationCharge() {
     }
@@ -24,11 +29,11 @@ public class OperationConstatationCharge extends Operation {
         this.dateSolde = dateSolde;
     }
 
-    public Double getMontantCharge() {
+    public BigDecimal getMontantCharge() {
         return montantCharge;
     }
 
-    public void setMontantCharge(Double montantCharge) {
+    public void setMontantCharge(BigDecimal montantCharge) {
         this.montantCharge = montantCharge;
     }
 

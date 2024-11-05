@@ -1,65 +1,76 @@
 package com.ged.entity.opcciel;
 
 import com.ged.entity.opcciel.comptabilite.Operation;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 
-/*@Entity
-@Table(name = "T_OperationDeclassementResultat", schema = "Operation")*/
+import java.math.BigDecimal;
+
+@Entity
+@Table(name = "T_OperationDeclassementResultat", schema = "Operation")
 public class OperationDeclassementResultat extends Operation {
-    private Double ranBeneficiaire;
-    private Double ranDeficitaire;
-    private Double benefice;
-    private Double perte;
-    private Double beneficeInstanceAffec;
-    private Double perteInstanceAffec;
+    @Column(precision = 18, scale = 6)
+    private BigDecimal ranBeneficiaire;
+    @Column(precision = 18, scale = 6)
+    private BigDecimal ranDeficitaire;
+    @Column(precision = 18, scale = 6)
+    private BigDecimal benefice;
+    @Column(precision = 18, scale = 6)
+    private BigDecimal perte;
+    @Column(precision = 18, scale = 6)
+    private BigDecimal beneficeInstanceAffec;
+    @Column(precision = 18, scale = 6)
+    private BigDecimal perteInstanceAffec;
 
     public OperationDeclassementResultat() {
     }
 
-    public Double getRanBeneficiaire() {
+    public BigDecimal getRanBeneficiaire() {
         return ranBeneficiaire;
     }
 
-    public void setRanBeneficiaire(Double ranBeneficiaire) {
+    public void setRanBeneficiaire(BigDecimal ranBeneficiaire) {
         this.ranBeneficiaire = ranBeneficiaire;
     }
 
-    public Double getRanDeficitaire() {
+    public BigDecimal getRanDeficitaire() {
         return ranDeficitaire;
     }
 
-    public void setRanDeficitaire(Double ranDeficitaire) {
+    public void setRanDeficitaire(BigDecimal ranDeficitaire) {
         this.ranDeficitaire = ranDeficitaire;
     }
 
-    public Double getBenefice() {
+    public BigDecimal getBenefice() {
         return benefice;
     }
 
-    public void setBenefice(Double benefice) {
+    public void setBenefice(BigDecimal benefice) {
         this.benefice = benefice;
     }
 
-    public Double getPerte() {
+    public BigDecimal getPerte() {
         return perte;
     }
 
-    public void setPerte(Double perte) {
+    public void setPerte(BigDecimal perte) {
         this.perte = perte;
     }
 
-    public Double getBeneficeInstanceAffec() {
+    public BigDecimal getBeneficeInstanceAffec() {
         return beneficeInstanceAffec;
     }
 
-    public void setBeneficeInstanceAffec(Double beneficeInstanceAffec) {
+    public void setBeneficeInstanceAffec(BigDecimal beneficeInstanceAffec) {
         this.beneficeInstanceAffec = beneficeInstanceAffec;
     }
 
-    public Double getPerteInstanceAffec() {
+    public BigDecimal getPerteInstanceAffec() {
         return perteInstanceAffec;
     }
 
-    public void setPerteInstanceAffec(Double perteInstanceAffec) {
+    public void setPerteInstanceAffec(BigDecimal perteInstanceAffec) {
         this.perteInstanceAffec = perteInstanceAffec;
     }
 }
