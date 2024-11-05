@@ -8,9 +8,7 @@ import java.util.Objects;
 
 @Embeddable
 public class ClePosteComptable implements Serializable {
-    @Column(length = 16)
     private String codePosteComptable;
-    @Column(length = 16)
     private String codePlan;
 
     @Override

@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 @Table(name = "T_Mouvement", schema = "Comptabilite")
 public class Mouvement extends Base {
 	@Id
-//	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idMvt;
     private Long idOcc;
 	@ManyToOne(cascade = CascadeType.ALL)

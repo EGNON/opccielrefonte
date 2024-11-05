@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @Table(name = "T_Operation", schema = "Comptabilite")
 public class Operation extends Base {
     @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idOperation;
     private Long idOcc;
     @ManyToOne
@@ -28,6 +28,7 @@ public class Operation extends Base {
     @ManyToOne
     @JoinColumn(name = "idTitreNew",referencedColumnName = "idTitre")
     private Titre titre;
+    private long idTransaction;
     @ManyToOne
     @JoinColumn(name = "idTransactionNew",referencedColumnName = "idTransaction")
     private Transaction transaction;
@@ -62,6 +63,14 @@ public class Operation extends Base {
     private String userLoginVerificateur2;
 
     public Operation() {
+    }
+
+    public long getIdTransaction() {
+        return idTransaction;
+    }
+
+    public void setIdTransaction(long idTransaction) {
+        this.idTransaction = idTransaction;
     }
 
     public long getIdActionnaire() {

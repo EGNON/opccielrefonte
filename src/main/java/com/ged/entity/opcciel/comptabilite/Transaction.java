@@ -12,12 +12,12 @@ public class Transaction extends Base {
     @Id
 //    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idTransaction;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne()
     @JoinColumn(name = "idOpcvm")
     private Opcvm opcvm;
 	private Long idSeance;
     private LocalDateTime dateTransaction;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne()
     @JoinColumn(name = "codeNatureOperation")
     private NatureOperation natureOperation;
     private boolean estVerifie;

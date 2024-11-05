@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @Table(name = "T_MiseEnAffectation", schema = "Comptabilite")
 public class MiseEnAffectation extends Base {
     @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idMiseEnAffectation;
     private Long idOcc;
     @ManyToOne(cascade = CascadeType.ALL)

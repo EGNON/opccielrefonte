@@ -8,9 +8,7 @@ import java.util.Objects;
 
 @Embeddable
 public class CleDetailModele implements Serializable {
-    @Column(length = 16)
     private String coodeModeleEcriture;
-    @Column(length = 16)
     private String numCompteComptable;
     private int numeroOrdre;
 

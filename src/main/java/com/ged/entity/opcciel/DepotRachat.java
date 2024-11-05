@@ -1,6 +1,7 @@
 package com.ged.entity.opcciel;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.ged.entity.Base;
 import com.ged.entity.opcciel.comptabilite.NatureOperation;
 import com.ged.entity.opcciel.comptabilite.Operation;
 import com.ged.entity.opcciel.comptabilite.Transaction;
@@ -13,7 +14,7 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "T_DepotRachat", schema = "Parametre")
 //public class DepotRachat extends Operation {
-public class DepotRachat {
+public class DepotRachat extends Base {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idDepotRachat;

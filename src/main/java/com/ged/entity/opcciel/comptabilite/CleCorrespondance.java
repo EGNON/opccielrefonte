@@ -10,9 +10,7 @@ import java.util.Objects;
 public class CleCorrespondance implements Serializable {
     @Column(length = 16)
     private String numeroCompteComptable;
-    @Column(length = 16)
     private String codePlan;
-    @Column(length = 50)
     private String codeIB;
     @Column(length = 16)
     private String codeRubrique;

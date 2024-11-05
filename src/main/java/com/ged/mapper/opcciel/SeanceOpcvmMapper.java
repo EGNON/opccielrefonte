@@ -7,8 +7,9 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class SeanceOpcvmMapper {
-
-    public SeanceOpcvmMapper() {
+    private final OpcvmMapper opcvmMapper;
+    public SeanceOpcvmMapper(OpcvmMapper opcvmMapper) {
+        this.opcvmMapper = opcvmMapper;
     }
 
     public SeanceOpcvmDto deSeanceOpcvm(SeanceOpcvm seanceOpcvm)
@@ -17,6 +18,8 @@ public class SeanceOpcvmMapper {
             return  null;
         SeanceOpcvmDto seanceOpcvmDto = new SeanceOpcvmDto();
         BeanUtils.copyProperties(seanceOpcvm, seanceOpcvmDto);
+        if(seanceOpcvm.getOpcvm()!=null)
+            seanceOpcvmDto.setOpcvm(opcvmMapper.deOpcvm(seanceOpcvm.getOpcvm()));
         return seanceOpcvmDto;
     }
 
@@ -24,6 +27,8 @@ public class SeanceOpcvmMapper {
     {
         SeanceOpcvm seanceOpcvm = new SeanceOpcvm();
         BeanUtils.copyProperties(seanceOpcvmDto, seanceOpcvm);
+        if(seanceOpcvmDto.getOpcvm()!=null)
+            seanceOpcvm.setOpcvm(opcvmMapper.deOpcvmDto(seanceOpcvmDto.getOpcvm()));
         return seanceOpcvm;
     }
 }

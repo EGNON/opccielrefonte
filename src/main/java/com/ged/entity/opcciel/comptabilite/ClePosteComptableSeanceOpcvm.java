@@ -8,9 +8,7 @@ import java.util.Objects;
 
 @Embeddable
 public class ClePosteComptableSeanceOpcvm implements Serializable {
-    @Column(length = 20)
     private String codePosteComptable;
-    @Column(length = 20)
     private String codePlan;
     private Long idOpcvm;
     private Long idSeance;

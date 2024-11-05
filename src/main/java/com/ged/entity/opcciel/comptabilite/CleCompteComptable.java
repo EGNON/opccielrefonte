@@ -8,7 +8,6 @@ import java.util.Objects;
 
 @Embeddable
 public class CleCompteComptable implements Serializable {
-    @Column(length = 16)
     private String numCompteComptable;
     private String codePlan;
 

@@ -4,6 +4,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.ged.datatable.DatatableParameters;
 import com.ged.dto.opcciel.DepotRachatDto;
 import com.ged.dto.opcciel.ImportationDepotDto;
+import com.ged.dto.opcciel.comptabilite.VerifDepSouscriptionIntRachatDto;
+import com.ged.projection.FT_DepotRachatProjection;
 import com.ged.projection.NbrePartProjection;
 import com.ged.service.opcciel.DepotRachatService;
 import jakarta.validation.Valid;
@@ -39,6 +41,22 @@ public class DepotRachatController {
                                                      @PathVariable Long idActionnaire) {
         return depotRachatService.afficherNbrePart(idOpcvm,idActionnaire);
     }
+    @GetMapping("/{idOpcvm}/{idSeance}/{codeNatureOperation}/{estVerifier}/{estVerifie1}/{estVerifie2}")
+    public ResponseEntity<Object> afficherTous( @PathVariable long idOpcvm,
+                                                @PathVariable long idSeance,
+                                                @PathVariable String codeNatureOperation,
+                                                @PathVariable boolean estVerifier,
+                                                @PathVariable boolean estVerifie1,
+                                                @PathVariable boolean estVerifie2) throws JsonProcessingException {
+        return depotRachatService.afficherTous(idOpcvm,idSeance,codeNatureOperation,estVerifier,estVerifie1,estVerifie2);
+    }
+    @GetMapping("depotrachat/{idOpcvm}/{niveau1}/{niveau2}")
+    public List<FT_DepotRachatProjection> afficherFT_DepotRachat(
+                                                           @PathVariable Long idOpcvm,
+                                                           @PathVariable boolean niveau1,
+                                                           @PathVariable boolean niveau2) {
+        return depotRachatService.afficherFT_DepotRachat(idOpcvm,niveau1,niveau2);
+    }
     @PostMapping("/datatable/list/{idOpcvm}/{idSeance}/{codeNatureOperation}")
     public ResponseEntity<Object> datatableList(@RequestBody DatatableParameters params,
                                                 @PathVariable long idOpcvm,
@@ -51,6 +69,17 @@ public class DepotRachatController {
     public ResponseEntity<Object> ajouter(@Valid @RequestBody DepotRachatDto DepotRachatDto)
     {
         return depotRachatService.creer(DepotRachatDto);
+    }
+    @PostMapping("/creer")
+    public ResponseEntity<Object> creer(@RequestBody VerifDepSouscriptionIntRachatDto verifDepSouscriptionIntRachatDto)
+    {
+        return depotRachatService.creer(verifDepSouscriptionIntRachatDto);
+    }
+    @PostMapping("/creer/{id}/{userLogin}")
+    public ResponseEntity<Object> creer(@PathVariable Long[] id,
+                                        @PathVariable String userLogin)
+    {
+        return depotRachatService.creer(id,userLogin);
     }
 
     @PostMapping("/importation/depot")
@@ -65,6 +94,12 @@ public class DepotRachatController {
     {
         DepotRachatDto.setIdDepotRachat(id);
         return depotRachatService.modifier(DepotRachatDto);
+    }
+    @PutMapping("/{id}/{userLogin}")
+    public ResponseEntity<Object> modifier(@PathVariable Long[] id,
+                                           @PathVariable String userLogin)
+    {
+        return depotRachatService.modifier(id,userLogin);
     }
 
     @DeleteMapping("/{id}")

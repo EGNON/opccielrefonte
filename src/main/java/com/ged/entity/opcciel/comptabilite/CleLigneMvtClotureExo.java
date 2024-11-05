@@ -9,11 +9,9 @@ import java.util.Objects;
 @Embeddable
 public class CleLigneMvtClotureExo implements Serializable {
     private Long idOpcvm;
-    @Column(length = 16)
     private String codeExercice;
     private int etape;
     private int numeroOrdeEtape;
-    @Column(length = 16)
     private String numeroCompteComptable;
 
     @Override

@@ -8,11 +8,8 @@ import java.util.Objects;
 
 @Embeddable
 public class CleIbRubriquePosition implements Serializable {
-    @Column(length = 50)
     private String codeIB;
-    @Column(length = 16)
     private String codeRubrique;
-    @Column(length = 16)
     private String codePosition;
 
     @Override

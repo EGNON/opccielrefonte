@@ -9,9 +9,7 @@ import java.util.Objects;
 @Embeddable
 public class CleOperationCodeAnalytique implements Serializable {
     private Long idOperation;
-    @Column(length = 16)
     private String codeAnalytique;
-    @Column(length = 16)
     private String typeCodeAnalytique;
 
     @Override

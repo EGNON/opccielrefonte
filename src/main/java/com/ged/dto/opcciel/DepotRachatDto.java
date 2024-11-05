@@ -4,13 +4,14 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.ged.dto.opcciel.comptabilite.NatureOperationDto;
 import com.ged.dto.standard.PersonneDto;
 import com.ged.dto.titresciel.TitreDto;
+import com.ged.entity.Base;
 import com.ged.entity.opcciel.comptabilite.Transaction;
 import jakarta.persistence.Column;
 
 import java.time.LocalDateTime;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class DepotRachatDto {
+public class DepotRachatDto extends Base {
     private Long idOperation;
     private Long idDepotRachat;
     private Long idActionnaire;

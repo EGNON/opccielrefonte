@@ -9,7 +9,6 @@ import java.util.Objects;
 @Embeddable
 public class CleExercice implements Serializable {
     private Long idOpcvm;
-    @Column(length = 16)
     private String codeExercice;
 
     @Override
