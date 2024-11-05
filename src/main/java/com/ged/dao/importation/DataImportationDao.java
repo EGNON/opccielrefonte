@@ -208,7 +208,7 @@ public class DataImportationDao {
             Query qEmetteur = emTitre.createNativeQuery("SELECT * FROM Titre.T_Emetteur");
             result = (List<Object[]>) qEmetteur.getResultList();
             for (Object[] oEmetteur : result) {
-                List<PersonneMorale> oListeEmetteur = personneMoraleDao.findBySigleContainsIgnoreCaseOrRaisonSocialeContainsIgnoreCase(((String)oEmetteur[1]).trim(), ((String)oEmetteur[2]).trim());
+                List<PersonneMorale> oListeEmetteur = personneMoraleDao.findBySigleIgnoreCaseOrRaisonSocialeIgnoreCase(((String)oEmetteur[1]).trim(), ((String)oEmetteur[2]).trim());
                 PersonneMorale emetteur = new PersonneMorale();
                 if(oListeEmetteur != null && oListeEmetteur.size() > 0) {
                     emetteur = oListeEmetteur.get(0);
@@ -217,9 +217,9 @@ public class DataImportationDao {
                 emetteur.setSigle((String) oEmetteur[1]);
                 emetteur.setDenomination((String) oEmetteur[2]);
                 emetteur.setRaisonSociale((String) oEmetteur[2]);
-                Qualite qualite = this.qualiteDao.findByLibelleQualiteIgnoreCase("EMETTEUR").orElse(new Qualite());
+                Qualite qualite = this.qualiteDao.findByLibelleQualiteIgnoreCase("EMETTEURS").orElse(new Qualite());
                 if (qualite.getIdQualite() == null) {
-                    qualite.setLibelleQualite("EMETTEUR");
+                    qualite.setLibelleQualite("EMETTEURS");
                     qualite.setEstPH(false);
                     qualite.setEstPM(true);
                     qualite = this.emRefonte.merge(qualite);
@@ -255,7 +255,7 @@ public class DataImportationDao {
             Query qRegistraire = emTitre.createNativeQuery("SELECT * FROM Titre.T_Registraire");
             result = (List<Object[]>) qRegistraire.getResultList();
             for (Object[] oRegistraire : result) {
-                List<PersonneMorale> oListeRegistraire = personneMoraleDao.findBySigleContainsIgnoreCaseOrRaisonSocialeContainsIgnoreCase(((String)oRegistraire[1]).trim(), ((String)oRegistraire[2]).trim());
+                List<PersonneMorale> oListeRegistraire = personneMoraleDao.findBySigleIgnoreCaseOrRaisonSocialeIgnoreCase(((String)oRegistraire[1]).trim(), ((String)oRegistraire[2]).trim());
                 PersonneMorale registraire = new PersonneMorale();
                 if(oListeRegistraire != null && oListeRegistraire.size() > 0) {
                     registraire = oListeRegistraire.get(0);
@@ -264,9 +264,9 @@ public class DataImportationDao {
                 registraire.setSigle((String) oRegistraire[1]);
                 registraire.setDenomination((String) oRegistraire[2]);
                 registraire.setRaisonSociale((String) oRegistraire[2]);
-                Qualite qualite = this.qualiteDao.findByLibelleQualiteIgnoreCase("REGISTRAIRE").orElse(new Qualite());
+                Qualite qualite = this.qualiteDao.findByLibelleQualiteIgnoreCase("REGISTRAIRES").orElse(new Qualite());
                 if (qualite.getIdQualite() == null) {
-                    qualite.setLibelleQualite("REGISTRAIRE");
+                    qualite.setLibelleQualite("REGISTRAIRES");
                     qualite = this.emRefonte.merge(qualite);
                 }
                 registraire = this.emRefonte.merge(registraire);
@@ -301,7 +301,7 @@ public class DataImportationDao {
             Query qDepositaire = emTitre.createNativeQuery("SELECT * FROM Titre.T_Depositaire");
             result = (List<Object[]>) qDepositaire.getResultList();
             for (Object[] oDepositaire : result) {
-                List<PersonneMorale> oListe = personneMoraleDao.findBySigleContainsIgnoreCaseOrRaisonSocialeContainsIgnoreCase(((String) oDepositaire[1]).trim(), ((String) oDepositaire[2]).trim());
+                List<PersonneMorale> oListe = personneMoraleDao.findBySigleIgnoreCaseOrRaisonSocialeIgnoreCase(((String) oDepositaire[1]).trim(), ((String) oDepositaire[2]).trim());
                 PersonneMorale depositaire = new PersonneMorale();
                 if(oListe != null && oListe.size() > 0) {
                     depositaire = oListe.get(0);
@@ -312,9 +312,9 @@ public class DataImportationDao {
                 depositaire.setSigle((String) oDepositaire[1]);
                 depositaire.setDenomination((String) oDepositaire[2]);
                 depositaire.setRaisonSociale((String) oDepositaire[2]);
-                Qualite qualite = this.qualiteDao.findByLibelleQualiteIgnoreCase("DEPOSITAIRE").orElse(new Qualite());
+                Qualite qualite = this.qualiteDao.findByLibelleQualiteIgnoreCase("DEPOSITAIRES").orElse(new Qualite());
                 if (qualite.getIdQualite() == null) {
-                    qualite.setLibelleQualite("DEPOSITAIRE");
+                    qualite.setLibelleQualite("DEPOSITAIRES");
                     qualite = this.emRefonte.merge(qualite);
                 }
                 depositaire = this.emRefonte.merge(depositaire);
@@ -348,7 +348,7 @@ public class DataImportationDao {
             Query q = emTitre.createNativeQuery("SELECT * FROM Titre.T_Garant");
             result = (List<Object[]>)q.getResultList();
             for (Object[] o : result) {
-                List<PersonneMorale> oListe = personneMoraleDao.findBySigleContainsIgnoreCaseOrRaisonSocialeContainsIgnoreCase(((String)o[1]).trim(), ((String)o[2]).trim());
+                List<PersonneMorale> oListe = personneMoraleDao.findBySigleIgnoreCaseOrRaisonSocialeIgnoreCase(((String)o[1]).trim(), ((String)o[2]).trim());
                 PersonneMorale garant = new PersonneMorale();
                 if(oListe != null && oListe.size() > 0) {
                     garant = oListe.get(0);
@@ -359,9 +359,9 @@ public class DataImportationDao {
                 garant.setSigle((String) o[1]);
                 garant.setDenomination((String) o[2]);
                 garant.setRaisonSociale((String) o[2]);
-                Qualite qualite = this.qualiteDao.findByLibelleQualiteIgnoreCase("GARANT").orElse(new Qualite());
+                Qualite qualite = this.qualiteDao.findByLibelleQualiteIgnoreCase("GARANTS").orElse(new Qualite());
                 if (qualite.getIdQualite() == null) {
-                    qualite.setLibelleQualite("GARANT");
+                    qualite.setLibelleQualite("GARANTS");
                     qualite = this.emRefonte.merge(qualite);
                 }
                 TypeGarant typeGarant = typeGarantDao.findByCodeTypeGarantIgnoreCase((String)o[4]).orElse(null);

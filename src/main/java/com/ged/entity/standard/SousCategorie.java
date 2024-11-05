@@ -4,7 +4,7 @@ import com.ged.entity.Base;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "T_SousCategorie", schema = "Titre")
+@Table(name = "T_SousCategorie", schema = "Parametre")
 public class SousCategorie extends Base {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
