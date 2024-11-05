@@ -1,38 +1,45 @@
 package com.ged.entity.opcciel;
 
 import com.ged.entity.opcciel.comptabilite.Operation;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 
-/*@Entity
-@Table(name = "T_OperationDetachementDAT", schema = "Operation")*/
+import java.math.BigDecimal;
+
+@Entity
+@Table(name = "T_OperationDetachementDAT", schema = "Operation")
 public class OperationDetachementDAT extends Operation {
-    private Double montantRemb;
-    private Double interet;
-    private boolean estPaye;
+    @Column(precision = 18, scale = 6)
+    private BigDecimal montantRemb;
+    @Column(precision = 18, scale = 6)
+    private BigDecimal interet;
+    private Boolean estPaye;
 
     public OperationDetachementDAT() {
     }
 
-    public Double getMontantRemb() {
+    public BigDecimal getMontantRemb() {
         return montantRemb;
     }
 
-    public void setMontantRemb(Double montantRemb) {
+    public void setMontantRemb(BigDecimal montantRemb) {
         this.montantRemb = montantRemb;
     }
 
-    public Double getInteret() {
+    public BigDecimal getInteret() {
         return interet;
     }
 
-    public void setInteret(Double interet) {
+    public void setInteret(BigDecimal interet) {
         this.interet = interet;
     }
 
-    public boolean isEstPaye() {
+    public Boolean getEstPaye() {
         return estPaye;
     }
 
-    public void setEstPaye(boolean estPaye) {
+    public void setEstPaye(Boolean estPaye) {
         this.estPaye = estPaye;
     }
 }

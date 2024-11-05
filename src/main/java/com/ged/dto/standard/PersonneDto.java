@@ -4,11 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.ged.dto.crm.DegreDto;
 import com.ged.dto.standard.revuecompte.CategorieClientDto;
 import com.ged.dto.standard.revuecompte.SousTypeClientDto;
-import com.ged.entity.standard.revuecompte.CategorieClient;
-import com.ged.entity.standard.revuecompte.SousTypeClient;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
@@ -32,11 +27,11 @@ public class PersonneDto {
     private LocalDateTime dateExpirationPiece;
     private String modeEtablissement;
     private ModeEtablissementDto modeEtablissementDto;
-    private boolean estsgi;
-    private boolean ppe1;
-    private boolean ppe2;
-    private boolean ppe3;
-    private boolean ppe4;
+    private Boolean estsgi;
+    private Boolean ppe1;
+    private Boolean ppe2;
+    private Boolean ppe3;
+    private Boolean ppe4;
     private SecteurDto secteur;
     private DegreDto degre;
     private PersonneDto distributeur;
@@ -52,9 +47,9 @@ public class PersonneDto {
     private CommuneDto commune;
     private Set<DocumentDto> documents = new HashSet<>();
     private Set<StatutPersonneDto> statutPersonnes = new HashSet<>();
-    private boolean estExpose;
-    private boolean estJuge;
-    private boolean estGele;
+    private Boolean estExpose;
+    private Boolean estJuge;
+    private Boolean estGele;
     private String typePersonne;
     private CategorieClientDto categorieClient;
     private SousTypeClientDto sousTypeClient;
@@ -187,48 +182,72 @@ public class PersonneDto {
         this.modeEtablissementDto = modeEtablissementDto;
     }
 
-    public boolean isEstsgi() {
+    public Boolean getEstsgi() {
         return estsgi;
     }
 
-    public void setEstsgi(boolean estsgi) {
+    public void setEstsgi(Boolean estsgi) {
         this.estsgi = estsgi;
     }
 
-    public boolean isPpe1() {
+    public Boolean getPpe1() {
         return ppe1;
     }
 
-    public void setPpe1(boolean ppe1) {
+    public void setPpe1(Boolean ppe1) {
         this.ppe1 = ppe1;
     }
 
-    public boolean isPpe2() {
+    public Boolean getPpe2() {
         return ppe2;
     }
 
-    public void setPpe2(boolean ppe2) {
+    public void setPpe2(Boolean ppe2) {
         this.ppe2 = ppe2;
     }
 
-    public boolean isPpe3() {
+    public Boolean getPpe3() {
         return ppe3;
     }
 
-    public void setPpe3(boolean ppe3) {
+    public void setPpe3(Boolean ppe3) {
         this.ppe3 = ppe3;
     }
 
-    public boolean isPpe4() {
+    public Boolean getPpe4() {
         return ppe4;
     }
 
-    public void setPpe4(boolean ppe4) {
+    public void setPpe4(Boolean ppe4) {
         this.ppe4 = ppe4;
     }
 
     public SecteurDto getSecteur() {
         return secteur;
+    }
+
+    public Boolean getEstExpose() {
+        return estExpose;
+    }
+
+    public void setEstExpose(Boolean estExpose) {
+        this.estExpose = estExpose;
+    }
+
+    public Boolean getEstJuge() {
+        return estJuge;
+    }
+
+    public void setEstJuge(Boolean estJuge) {
+        this.estJuge = estJuge;
+    }
+
+    public Boolean getEstGele() {
+        return estGele;
+    }
+
+    public void setEstGele(Boolean estGele) {
+        this.estGele = estGele;
     }
 
     public void setSecteur(SecteurDto secteur) {
@@ -345,30 +364,6 @@ public class PersonneDto {
 
     public void setStatutPersonnes(Set<StatutPersonneDto> statutPersonnes) {
         this.statutPersonnes = statutPersonnes;
-    }
-
-    public boolean isEstExpose() {
-        return estExpose;
-    }
-
-    public void setEstExpose(boolean estExpose) {
-        this.estExpose = estExpose;
-    }
-
-    public boolean isEstJuge() {
-        return estJuge;
-    }
-
-    public void setEstJuge(boolean estJuge) {
-        this.estJuge = estJuge;
-    }
-
-    public boolean isEstGele() {
-        return estGele;
-    }
-
-    public void setEstGele(boolean estGele) {
-        this.estGele = estGele;
     }
 
     public String getTypePersonne() {

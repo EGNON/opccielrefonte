@@ -245,60 +245,12 @@ public class Personne extends Base {
         this.libelleTypePersonne = libelleTypePersonne;
     }
 
-    public Boolean isEstExpose() {
-        return estExpose;
-    }
-
     public void setEstExpose(Boolean estExpose) {
         this.estExpose = estExpose;
     }
 
-    public Boolean isEstJuge() {
-        return estJuge;
-    }
-
     public void setEstJuge(Boolean estJuge) {
         this.estJuge = estJuge;
-    }
-
-    public boolean isEstsgi() {
-        return estsgi;
-    }
-
-    public void setEstsgi(boolean estsgi) {
-        this.estsgi = estsgi;
-    }
-
-    public boolean isPpe1() {
-        return ppe1;
-    }
-
-    public void setPpe1(boolean ppe1) {
-        this.ppe1 = ppe1;
-    }
-
-    public boolean isPpe2() {
-        return ppe2;
-    }
-
-    public void setPpe2(boolean ppe2) {
-        this.ppe2 = ppe2;
-    }
-
-    public boolean isPpe3() {
-        return ppe3;
-    }
-
-    public void setPpe3(boolean ppe3) {
-        this.ppe3 = ppe3;
-    }
-
-    public boolean isPpe4() {
-        return ppe4;
-    }
-
-    public void setPpe4(boolean ppe4) {
-        this.ppe4 = ppe4;
     }
 
     public Personne getDistributeur() {

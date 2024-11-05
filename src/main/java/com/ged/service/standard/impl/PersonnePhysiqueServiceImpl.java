@@ -393,7 +393,7 @@ public class PersonnePhysiqueServiceImpl implements PersonnePhysiqueService {
         PersonnePhysique personnePhysiqueSelonId = new PersonnePhysique();
         personnePhysique.setDenomination(personnePhysiqueDto.getNom() + " " + personnePhysiqueDto.getPrenom());
 
-            if (personnePhysiqueDto.isEstExpose() || personnePhysiqueDto.isEstJuge()) {
+            if (personnePhysiqueDto.getEstExpose() || personnePhysiqueDto.getEstJuge()) {
                 if (personnePhysiqueDto.getIdPersonne() != null) {
                     personnePhysiqueSelonId = afficherPersonnePhysiqueSelonId(personnePhysiqueDto.getIdPersonne());
                     personnePhysique.setStatutPersonnes(personnePhysiqueSelonId.getStatutPersonnes());

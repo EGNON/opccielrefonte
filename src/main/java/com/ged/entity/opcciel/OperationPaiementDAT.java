@@ -1,40 +1,28 @@
 package com.ged.entity.opcciel;
 
 import com.ged.entity.opcciel.comptabilite.Operation;
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 
-/*@Entity
-@Table(name = "T_OperationPaiementDAT", schema = "Operation")*/
+import java.math.BigDecimal;
+
+@Entity
+@Table(name = "T_OperationPaiementDAT", schema = "Operation")
 public class OperationPaiementDAT extends Operation {
-    private Double montantRemb;
-    private Double interet;
+    @Column(precision = 18, scale = 6)
+    private BigDecimal montantRemb;
+    @Column(precision = 18, scale = 6)
+    private BigDecimal interet;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "idDetachementDAT",referencedColumnName = "idOperation")
     private OperationDetachementDAT operationDetachementDAT;
-    private Double irc;
+    @Column(precision = 18, scale = 6)
+    private BigDecimal irc;
     private String codeBanqueA;
     private String numCompteA;
-    private Double interetMoratoire;
+    @Column(precision = 18, scale = 6)
+    private BigDecimal interetMoratoire;
 
     public OperationPaiementDAT() {
-    }
-
-    public Double getMontantRemb() {
-        return montantRemb;
-    }
-
-    public void setMontantRemb(Double montantRemb) {
-        this.montantRemb = montantRemb;
-    }
-
-    public Double getInteret() {
-        return interet;
-    }
-
-    public void setInteret(Double interet) {
-        this.interet = interet;
     }
 
     public OperationDetachementDAT getOperationDetachementDAT() {
@@ -43,14 +31,6 @@ public class OperationPaiementDAT extends Operation {
 
     public void setOperationDetachementDAT(OperationDetachementDAT operationDetachementDAT) {
         this.operationDetachementDAT = operationDetachementDAT;
-    }
-
-    public Double getIrc() {
-        return irc;
-    }
-
-    public void setIrc(Double irc) {
-        this.irc = irc;
     }
 
     public String getCodeBanqueA() {
@@ -69,11 +49,35 @@ public class OperationPaiementDAT extends Operation {
         this.numCompteA = numCompteA;
     }
 
-    public Double getInteretMoratoire() {
+    public BigDecimal getMontantRemb() {
+        return montantRemb;
+    }
+
+    public void setMontantRemb(BigDecimal montantRemb) {
+        this.montantRemb = montantRemb;
+    }
+
+    public BigDecimal getInteret() {
+        return interet;
+    }
+
+    public void setInteret(BigDecimal interet) {
+        this.interet = interet;
+    }
+
+    public BigDecimal getIrc() {
+        return irc;
+    }
+
+    public void setIrc(BigDecimal irc) {
+        this.irc = irc;
+    }
+
+    public BigDecimal getInteretMoratoire() {
         return interetMoratoire;
     }
 
-    public void setInteretMoratoire(Double interetMoratoire) {
+    public void setInteretMoratoire(BigDecimal interetMoratoire) {
         this.interetMoratoire = interetMoratoire;
     }
 }

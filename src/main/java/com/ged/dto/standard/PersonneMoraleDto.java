@@ -50,7 +50,6 @@ public class PersonneMoraleDto extends PersonneDto{
     private String sigle;
 //    private String raisonSociale;
     private String siteWeb;
-
     private PlaceDto place;
     private TypeEmetteurDto typeEmetteur;
     private TypeGarantDto typeGarant;
