@@ -36,7 +36,7 @@ public class DepotRachat extends Base {
    /* @ManyToOne
     @JoinColumn(name = "idTitre",referencedColumnName = "idTitre")
     private Titre titre;*/
-//    private long idTitre;
+    private Long idTitre;
     private Double qte;
     private Double cours;
     private Double commission;
@@ -110,15 +110,14 @@ public class DepotRachat extends Base {
         this.titre = titre;
     }*/
 
-    /*@Override
-    public long getIdTitre() {
+    public Long getIdTitre() {
         return idTitre;
     }
 
-    @Override
-    public void setIdTitre(long idTitre) {
+    public void setIdTitre(Long idTitre) {
+
         this.idTitre = idTitre;
-    }*/
+    }
 
     public Long getIdDepotRachat() {
         return idDepotRachat;

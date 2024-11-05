@@ -374,7 +374,9 @@ public class DepotRachatImpl implements DepotRachatService {
                 LocalDateTime dateEstimation = seanceOpcvm.getDateFermeture();
                 q.setParameter("IdOperation", 0);
                 q.setParameter("idOpcvm", depotRachat.getOpcvm().getIdOpcvm());
-                q.setParameter("idActionnaire", depotRachat.getIdActionnaire());
+                if(depotRachat.getActionnaire() != null && depotRachat.getActionnaire().getIdPersonne() != null) {
+                    q.setParameter("idActionnaire", depotRachat.getActionnaire().getIdPersonne());
+                }
                 q.setParameter("idTitre",null);
                 q.setParameter("IdTransaction",0);
                 q.setParameter("idSeance",depotRachat.getIdSeance());
@@ -394,8 +396,10 @@ public class DepotRachatImpl implements DepotRachatService {
                 q.setParameter("estOD",false);
                 q.setParameter("type", "R");
                 q.setParameter("valeurFormule", "6:" + depotRachat.getQuantite().toString().replace(',', '.'));
-                q.setParameter("valeurCodeAnalytique", "OPC:" + depotRachat.getOpcvm().getIdOpcvm().toString() +
-                        ";ACT:" + depotRachat.getIdActionnaire().toString());
+                if(depotRachat.getActionnaire() != null && depotRachat.getActionnaire().getIdPersonne() != null) {
+                    q.setParameter("valeurCodeAnalytique", "OPC:" + depotRachat.getOpcvm().getIdOpcvm().toString() +
+                            ";ACT:" + depotRachat.getActionnaire().getIdPersonne().toString());
+                }
                 q.setParameter("userLogin", userLogin);
                 q.setParameter("dateDernModifClient",LocalDateTime.now());
                 q.setParameter("CodeLangue", "fr-FR");
