@@ -1,5 +1,6 @@
 package com.ged.entity.opcciel;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ged.entity.Base;
 import jakarta.persistence.*;
 
@@ -14,6 +15,7 @@ public class SeanceOpcvm extends Base {
     @ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "idOpcvm")
 	@MapsId("idOpcvm")
+	@JsonIgnore
 	private Opcvm opcvm;
 	private LocalDateTime dateOuverture;
 	private LocalDateTime dateFermeture;

@@ -8,10 +8,10 @@ import jakarta.persistence.*;
 //@PrimaryKeyJoinColumn(name="idPersonne")
 @DiscriminatorValue("RG")
 @Table(name = "T_Registraire", schema = "Titre")
-public class Registraire extends PersonneMorale {
-//public class Registraire extends Base {
-    /*@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)*/
+//public class Registraire extends PersonneMorale {
+public class Registraire extends Base {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idRegistraire;
     private String siglePersonneMorale;
     private String raisonSociale;

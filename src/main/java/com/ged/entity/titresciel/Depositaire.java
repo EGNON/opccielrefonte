@@ -8,10 +8,10 @@ import jakarta.persistence.*;
 //@PrimaryKeyJoinColumn(name="idPersonne")
 @DiscriminatorValue("DP")
 @Table(name = "T_Depositaire", schema = "Titre")
-public class Depositaire extends PersonneMorale {
-//public class Depositaire extends Base {
-    /*@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)*/
+//public class Depositaire extends PersonneMorale {
+public class Depositaire extends Base {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idDepositaire;
     //OPCCIEL 1
     @ManyToOne(cascade = CascadeType.ALL)

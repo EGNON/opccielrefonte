@@ -2,6 +2,7 @@ package com.ged.dao;
 
 import com.ged.entity.BaseEntity;
 import com.ged.projection.FT_DepotRachatProjection;
+import com.ged.entity.opcciel.SeanceOpcvm;
 import com.ged.projection.NbrePartProjection;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -14,15 +15,14 @@ import java.util.List;
 public interface LibraryDao extends JpaRepository<BaseEntity, Long> {
     @Query(value = "select [Comptabilite].[FS_SoldeCompteClient](:idActionnaire, :idOpcvm)", nativeQuery = true)
     BigDecimal solde(@Param("idActionnaire") Long idActionnaire, @Param("idOpcvm") Long idOpcvm);
-
-    @Query(value = "SELECT * FROM [Operation].[FT_NbrePart](:idActionnaire,:idOpcvm,:estLevee," +
-            ":estVerifie1,:estVerifie2,:dateEstimation)",nativeQuery = true)
+    @Query(value = "SELECT * FROM [Operation].[FT_NbrePart](:idActionnaire, :idOpcvm, :estLevee," +
+            ":estVerifie1, :estVerifie2, :dateEstimation)", nativeQuery = true)
     List<NbrePartProjection> afficherNbrePart(@Param("idActionnaire") Long idActionnaire,
-                                          @Param("idOpcvm") Long idOpcvm,
-                                          @Param("estLevee") boolean estLevee,
-                                          @Param("estVerifie1") boolean estVerifie1,
-                                          @Param("estVerifie2") boolean estVerifie2,
-                                          @Param("dateEstimation") LocalDateTime dateEstimation
+                                              @Param("idOpcvm") Long idOpcvm,
+                                              @Param("estLevee") boolean estLevee,
+                                              @Param("estVerifie1") boolean estVerifie1,
+                                              @Param("estVerifie2") boolean estVerifie2,
+                                              @Param("dateEstimation") LocalDateTime dateEstimation
                                           );
     @Query(value = "SELECT * FROM [Parametre].[FT_DepotRachat2](:IdSeance," +
             ":IdPersonne,:IdOpcvm,:codeNatureOperation,:niveau1" +
@@ -34,4 +34,6 @@ public interface LibraryDao extends JpaRepository<BaseEntity, Long> {
                                                     @Param("niveau1") boolean niveau1,
                                                     @Param("niveau2") boolean niveau2
                                           );
+    @Query(value = "select s from SeanceOpcvm s join s.opcvm o where s.opcvm.idOpcvm = :idOpcvm and s.estEnCours = true")
+    SeanceOpcvm currentSeance(@Param("idOpcvm") Long idOpcvm);
 }

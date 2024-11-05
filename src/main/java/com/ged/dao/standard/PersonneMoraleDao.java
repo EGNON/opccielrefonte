@@ -84,6 +84,7 @@ public interface PersonneMoraleDao extends JpaRepository<PersonneMorale, Long> {
     Optional<PersonneMorale> findByLibelleTypePersonneContainsAndSigleContains(String libelleTypePersonne, String sigle);
     List<PersonneMorale> findBySigleContainsIgnoreCase(String sigle);
     List<PersonneMorale> findBySigleContainsIgnoreCaseOrRaisonSocialeContainsIgnoreCase(String sigle, String raisonSociale);
+    List<PersonneMorale> findBySigleIgnoreCaseOrRaisonSocialeIgnoreCase(String sigle, String raisonSociale);
     Optional<PersonneMorale> findByLibelleTypePersonneContainsAndIdOcc(String libelle, Long id);
     Optional<PersonneMorale> findByLibelleTypePersonneContainsAndIdOccAndSigleIgnoreCase(String libelleTypePersonne, Long idOcc, String sigle);
     @Query(value = "select pm from PersonneMorale as pm "+

@@ -15,7 +15,9 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public interface DepotRachatService {
-    ResponseEntity<Object> afficherTous(DatatableParameters parameters,long idOpcvm,long idSeance,String codeNatureOperation);
+    ResponseEntity<Object> afficherTousLesDepots(DatatableParameters parameters, Long idOpcvm, Long idSeance);
+
+    ResponseEntity<Object> afficherTous(DatatableParameters parameters, long idOpcvm, long idSeance, String codeNatureOperation);
     ResponseEntity<Object> afficherTous(long idOpcvm,
                                         long idSeance,
                                         String codeNatureOperation,

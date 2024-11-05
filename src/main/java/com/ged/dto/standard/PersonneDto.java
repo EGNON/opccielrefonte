@@ -48,7 +48,7 @@ public class PersonneDto {
     private String emailContact;
     private String titreContact;
     private String numeroCpteDeposit;
-    private boolean estConvertie;
+    private Boolean estConvertie;
     private CommuneDto commune;
     private Set<DocumentDto> documents = new HashSet<>();
     private Set<StatutPersonneDto> statutPersonnes = new HashSet<>();
@@ -315,11 +315,11 @@ public class PersonneDto {
         this.numeroCpteDeposit = numeroCpteDeposit;
     }
 
-    public boolean isEstConvertie() {
+    public Boolean getEstConvertie() {
         return estConvertie;
     }
 
-    public void setEstConvertie(boolean estConvertie) {
+    public void setEstConvertie(Boolean estConvertie) {
         this.estConvertie = estConvertie;
     }
 

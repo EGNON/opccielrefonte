@@ -639,6 +639,7 @@ public class DepotRachat extends Base {
     public String toString() {
         return "DepotRachat{" +
                 "idOperation=" + idOperation +
+                "idSeance=" + idSeance +
                 ", quantite=" + quantite +
                 ", montantSouscrit=" + montantSouscrit +
                 ", montant=" + montant +
