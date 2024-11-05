@@ -1,14 +1,19 @@
 package com.ged.entity.opcciel;
 
 import com.ged.entity.opcciel.comptabilite.Operation;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-/*@Entity
-@Table(name = "T_OperationCommission", schema = "Operation")*/
+@Entity
+@Table(name = "T_OperationCommission", schema = "Operation")
 public class OperationCommission extends Operation {
     private LocalDateTime dateSolde;
-    private Double montantCommission;
+    @Column(precision = 18,scale = 6)
+    private BigDecimal montantCommission;
     private String typeCommission;
 
     public OperationCommission() {
@@ -22,11 +27,11 @@ public class OperationCommission extends Operation {
         this.dateSolde = dateSolde;
     }
 
-    public Double getMontantCommission() {
+    public BigDecimal getMontantCommission() {
         return montantCommission;
     }
 
-    public void setMontantCommission(Double montantCommission) {
+    public void setMontantCommission(BigDecimal montantCommission) {
         this.montantCommission = montantCommission;
     }
 

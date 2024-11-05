@@ -9,7 +9,6 @@ import java.util.Objects;
 @Embeddable
 public class CleCharge implements Serializable {
     private Long idOpcvm;
-    @Column(length = 16)
     private String codeCharge;
 
     @Override

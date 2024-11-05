@@ -19,8 +19,8 @@ public class DepotRachat extends Base {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idDepotRachat;
     private Long idOperation;
-    private Long idActionnaire;
-    private Long idPersonne;
+//    private Long idActionnaire;
+    //private Long idPersonne;
     private Long idTransaction;
     private Long idOcc;
     private Double quantite;
@@ -31,7 +31,7 @@ public class DepotRachat extends Base {
     private LocalDateTime dateVerification;
     private Double montantSouscrit;
     @ManyToOne
-    @JoinColumn(name = "idPersonneNew",referencedColumnName = "idPersonne")
+    @JoinColumn(name = "idPersonne",referencedColumnName = "idPersonne")
     private Personne personne;
    /* @ManyToOne
     @JoinColumn(name = "idTitre",referencedColumnName = "idTitre")
@@ -48,7 +48,7 @@ public class DepotRachat extends Base {
     @JoinColumn(name = "idOpcvm")
     private Opcvm opcvm;
     @ManyToOne
-    @JoinColumn(name = "idActionnaireNew",referencedColumnName = "idPersonne")
+    @JoinColumn(name = "idActionnaire",referencedColumnName = "idPersonne")
     private Personne actionnaire;
     @ManyToOne
     @JoinColumn(name = "codeNatureOperation")
@@ -83,22 +83,6 @@ public class DepotRachat extends Base {
     private Transaction transaction;*/
 
     public DepotRachat() {
-    }
-
-    public Long getIdActionnaire() {
-        return idActionnaire;
-    }
-
-    public void setIdActionnaire(Long idActionnaire) {
-        this.idActionnaire = idActionnaire;
-    }
-
-    public Long getIdPersonne() {
-        return idPersonne;
-    }
-
-    public void setIdPersonne(Long idPersonne) {
-        this.idPersonne = idPersonne;
     }
 
     public Long getIdTransaction() {
