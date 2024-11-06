@@ -229,14 +229,6 @@ public class Personne extends Base {
         this.commune = commune;
     }
 
-    public boolean isEstGele() {
-        return estGele;
-    }
-
-    public void setEstGele(boolean estGele) {
-        this.estGele = estGele;
-    }
-
     public String getLibelleTypePersonne() {
         return libelleTypePersonne;
     }
