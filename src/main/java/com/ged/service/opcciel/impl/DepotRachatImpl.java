@@ -10,7 +10,6 @@ import com.ged.datatable.DataTablesResponse;
 import com.ged.datatable.DatatableParameters;
 import com.ged.dto.opcciel.DepotRachatDto;
 import com.ged.dto.opcciel.comptabilite.VerifDepSouscriptionIntRachatDto;
-import com.ged.entity.opcciel.CleSeanceOpcvm;
 import com.ged.entity.opcciel.DepotRachat;
 import com.ged.entity.opcciel.Opcvm;
 import com.ged.entity.opcciel.SeanceOpcvm;
@@ -27,7 +26,6 @@ import com.ged.service.opcciel.SeanceOpcvmService;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.ParameterMode;
 import jakarta.persistence.PersistenceContext;
-import org.hibernate.result.Output;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -35,7 +33,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -251,6 +248,39 @@ public class DepotRachatImpl implements DepotRachatService {
                     e);
         }
 
+    }
+
+    @Override
+    public ResponseEntity<Object> creer(DepotRachatDto DepotRachatDto, String type) {
+        try {
+            DepotRachat DepotRachat = depotRachatMapper.deDepotRachatDto(DepotRachatDto);
+            if (DepotRachatDto.getPersonne() != null) {
+                Personne personne = personneDao.findById(DepotRachatDto.getPersonne().getIdPersonne()).orElseThrow();
+                DepotRachat.setPersonne(personne);
+            }
+            if (DepotRachatDto.getActionnaire() != null) {
+                Personne personne = personneDao.findById(DepotRachatDto.getActionnaire().getIdPersonne()).orElseThrow();
+                DepotRachat.setActionnaire(personne);
+            }
+            if (DepotRachatDto.getOpcvm() != null) {
+                Opcvm opcvm = opcvmDao.findById(DepotRachatDto.getOpcvm().getIdOpcvm()).orElseThrow();
+                DepotRachat.setOpcvm(opcvm);
+            }
+            NatureOperation natureOperation = natureOperationDao.findById(DepotRachatDto.getNatureOperation().getCodeNatureOperation()).orElseThrow();
+            DepotRachat.setNatureOperation(natureOperation);
+
+            DepotRachat = depotRachatDao.save(DepotRachat);
+            System.out.println("Dep === " + DepotRachat);
+            return ResponseHandler.generateResponse(
+                    "Enregistrement effectué avec succès !",
+                    HttpStatus.OK,
+                    depotRachatMapper.deDepotRachat(DepotRachat));
+        } catch (Exception e) {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e);
+        }
     }
 
     @Override

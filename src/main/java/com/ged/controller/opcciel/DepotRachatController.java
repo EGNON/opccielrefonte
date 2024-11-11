@@ -78,6 +78,14 @@ public class DepotRachatController {
     {
         return depotRachatService.creer(DepotRachatDto);
     }
+
+    @PostMapping("/{type}")
+    public ResponseEntity<Object> creer(
+            @Valid @RequestBody DepotRachatDto depotRachatDto, @PathVariable("type") String type)
+    {
+        return depotRachatService.creer(depotRachatDto, type);
+    }
+
     @PostMapping("/creer")
     public ResponseEntity<Object> creer(@RequestBody VerifDepSouscriptionIntRachatDto verifDepSouscriptionIntRachatDto)
     {

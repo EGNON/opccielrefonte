@@ -30,6 +30,9 @@ public interface DepotRachatService {
     List<FT_DepotRachatProjection> afficherFT_DepotRachat(Long IdOpcvm,boolean niveau1,boolean niveau2);
     DepotRachat afficherSelonId(Long IdOperation);
     ResponseEntity<Object> afficher(Long IdOperation);
+
+    ResponseEntity<Object> creer(DepotRachatDto DepotRachatDto, String type);
+
     ResponseEntity<Object> creer(DepotRachatDto depotRachatDto);
     ResponseEntity<Object> creer(VerifDepSouscriptionIntRachatDto verifDepSouscriptionIntRachatDto);
     ResponseEntity<Object> creer(Long[] ids,String userLogin);
