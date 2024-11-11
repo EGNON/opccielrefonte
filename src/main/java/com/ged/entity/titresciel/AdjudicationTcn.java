@@ -1,6 +1,7 @@
 package com.ged.entity.titresciel;
 
 import com.ged.entity.Base;
+import com.ged.entity.standard.Personne;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -13,7 +14,7 @@ public class AdjudicationTcn extends Base {
     @ManyToOne
     @JoinColumn(name = "idEmetteurNew")
 //    @MapsId("idEmetteurNew")
-    private Emetteur emetteur;
+    private Personne emetteur;
     private LocalDateTime dateValeur;
     private LocalDateTime dateLimite;
     private LocalDateTime dateEcheance;
@@ -25,7 +26,7 @@ public class AdjudicationTcn extends Base {
     private Long idDepositaire;
     @ManyToOne
     @JoinColumn(name = "idDepositaireNew")
-    private Depositaire depositaire;
+    private Personne depositaire;
 
     public AdjudicationTcn() {
     }
@@ -110,19 +111,19 @@ public class AdjudicationTcn extends Base {
         this.idDepositaire = idDepositaire;
     }
 
-    public Depositaire getDepositaire() {
-        return depositaire;
-    }
-
-    public void setDepositaire(Depositaire depositaire) {
-        this.depositaire = depositaire;
-    }
-
-    public Emetteur getEmetteur() {
+    public Personne getEmetteur() {
         return emetteur;
     }
 
-    public void setEmetteur(Emetteur emetteur) {
+    public void setEmetteur(Personne emetteur) {
         this.emetteur = emetteur;
+    }
+
+    public Personne getDepositaire() {
+        return depositaire;
+    }
+
+    public void setDepositaire(Personne depositaire) {
+        this.depositaire = depositaire;
     }
 }
