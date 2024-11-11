@@ -35,19 +35,11 @@ public class Garant extends Base {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "codeFormeJuridique")
     private FormeJuridique formeJuridique;
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "codePlace")
-    private Place place;
     private String codeTypeGarant;
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "codeTypeEmetteur")
-    private TypeEmetteur typeEmetteur;
+
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "idTypeGarant")
     private TypeGarant typeGarant;
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "idOrganisme", referencedColumnName = "idOrganisme")
-    private Organisme organisme;
     //FIN
 
     @Basic
@@ -171,14 +163,6 @@ public class Garant extends Base {
         this.raisonSociale = raisonSociale;
     }
 
-    public Place getPlace() {
-        return place;
-    }
-
-    public void setPlace(Place place) {
-        this.place = place;
-    }
-
     public FormeJuridique getFormeJuridique() {
         return formeJuridique;
     }
@@ -195,28 +179,12 @@ public class Garant extends Base {
         this.codeTypeGarant = codeTypeGarant;
     }
 
-    public TypeEmetteur getTypeEmetteur() {
-        return typeEmetteur;
-    }
-
-    public void setTypeEmetteur(TypeEmetteur typeEmetteur) {
-        this.typeEmetteur = typeEmetteur;
-    }
-
     public TypeGarant getTypeGarant() {
         return typeGarant;
     }
 
     public void setTypeGarant(TypeGarant typeGarant) {
         this.typeGarant = typeGarant;
-    }
-
-    public Organisme getOrganisme() {
-        return organisme;
-    }
-
-    public void setOrganisme(Organisme organisme) {
-        this.organisme = organisme;
     }
 
     public String getSigle() {
