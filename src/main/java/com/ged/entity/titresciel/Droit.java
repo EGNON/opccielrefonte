@@ -28,7 +28,6 @@ public class Droit extends Titre{
     private BigDecimal coursTheorique;
     private BigDecimal prixUnitaireSouscription;
     private BigDecimal coursActionExDroit;
-
     public LocalDateTime getDateDebutNegociation() {
         return dateDebutNegociation;
     }

@@ -8,11 +8,11 @@ import jakarta.validation.constraints.Positive;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@CrossOrigin(origins = "*")
+/*@CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/secteurboursiers")
+@RequestMapping("/secteurboursiers")*/
 public class SecteurBoursierController {
-    private final SecteurBoursierService SecteurBoursierService;
+    /*private final SecteurBoursierService SecteurBoursierService;
 
     public SecteurBoursierController(SecteurBoursierService SecteurBoursierService) {
         this.SecteurBoursierService = SecteurBoursierService;
@@ -54,5 +54,5 @@ public class SecteurBoursierController {
     public ResponseEntity<Object> supprimer(@Positive @PathVariable Long id)
     {
         return SecteurBoursierService.supprimer(id);
-    }
+    }*/
 }

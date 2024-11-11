@@ -30,7 +30,7 @@ public class Ordre extends Base {
     private TypeOrdre typeOrdre;
     private BigDecimal quantiteLimite;
     @ManyToOne()
-    @JoinColumn(name = "idIntervenant",referencedColumnName = "idPersonne")
+    @JoinColumn(name = "idIntervenantNew",referencedColumnName = "idPersonne")
     private Personne personne;
     private LocalDateTime dateEnvoi;
     private LocalDateTime dateLimite;

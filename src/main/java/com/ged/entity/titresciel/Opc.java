@@ -13,12 +13,12 @@ public class Opc extends Titre {
     private Integer periodiciteVlNbre;
     private String periodiciteVlUnite;
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "codeClassification", referencedColumnName = "codeClassificationOPC")
+    @JoinColumn(name = "codeClassificationOPC", referencedColumnName = "codeClassificationOPC")
     private ClassificationOPC classificationOPC;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "idTypeAffectation", referencedColumnName = "idTypeAffectation")
     private TypeAffectationVL typeAffectationTitre;
-    private String codeClassificationOPC;
+//    private String codeClassificationOPC;
     private String codeFormeJuridiqueOPC;
     private String libelleTypeAffectationVL;
     @ManyToOne(cascade = CascadeType.ALL)
@@ -49,13 +49,13 @@ public class Opc extends Titre {
         this.periodiciteVlUnite = periodiciteVlUnite;
     }
 
-    public String getCodeClassificationOPC() {
+    /*public String getCodeClassificationOPC() {
         return codeClassificationOPC;
     }
 
     public void setCodeClassificationOPC(String codeClassificationOPC) {
         this.codeClassificationOPC = codeClassificationOPC;
-    }
+    }*/
 
     public String getCodeFormeJuridiqueOPC() {
         return codeFormeJuridiqueOPC;

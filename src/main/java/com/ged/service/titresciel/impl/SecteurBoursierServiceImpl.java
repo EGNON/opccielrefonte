@@ -25,11 +25,12 @@ import java.util.stream.Collectors;
 
 @Service
 @Transactional
-public class SecteurBoursierServiceImpl implements SecteurBoursierService {
+public class SecteurBoursierServiceImpl {
+//public class SecteurBoursierServiceImpl implements SecteurBoursierService {
     /*@Autowired
     @Qualifier("opccielEntityManagerFactory")
     private EntityManager emOpcciel;*/
-    private final SecteurBoursierDao secteurBoursierDao;
+    /*private final SecteurBoursierDao secteurBoursierDao;
     private final SecteurBoursierMapper secteurBoursierMapper;
 
     public SecteurBoursierServiceImpl(SecteurBoursierDao SecteurBoursierDao, SecteurBoursierMapper SecteurBoursierMapper){
@@ -164,5 +165,5 @@ public class SecteurBoursierServiceImpl implements SecteurBoursierService {
                     HttpStatus.MULTI_STATUS,
                     e);
         }
-    }
+    }*/
 }

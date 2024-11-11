@@ -2,11 +2,11 @@ package com.ged.entity.titresciel;
 
 import jakarta.persistence.*;
 
-@Entity
-@Table(name = "T_SecteurBoursier", schema = "Titre")
+/*@Entity
+@Table(name = "T_SecteurBoursier", schema = "Titre")*/
 public class SecteurBoursier {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    /*@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)*/
     private Long idSecteurBoursier;
     private String libelleSecteurBoursier;
 //    @CreationTimestamp

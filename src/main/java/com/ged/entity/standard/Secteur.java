@@ -6,12 +6,12 @@ import jakarta.persistence.*;
 import java.util.*;
 
 @Entity
-@Table(name = "T_Secteur", schema = "Parametre")
+@Table(name = "T_SecteurBoursier", schema = "Titre")
 public class Secteur extends Base {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idSecteur;
-    @Basic
+    @Column(name = "libelleSecteurBoursier")
     private String libelleSecteur;
     @OneToMany(mappedBy = "secteur", fetch = FetchType.LAZY)
     //@JsonManagedReference

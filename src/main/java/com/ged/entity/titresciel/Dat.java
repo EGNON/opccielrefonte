@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 @PrimaryKeyJoinColumn(name="idTitre")
 @DiscriminatorValue("DAT")
 @Table(name = "T_DAT", schema = "Titre")
-public class Dat extends Titre{
+public class Dat extends Titre {
     private LocalDateTime datePremierPaiement;
     private LocalDateTime dateDernierPaiement;
     private LocalDateTime dateJouissance;

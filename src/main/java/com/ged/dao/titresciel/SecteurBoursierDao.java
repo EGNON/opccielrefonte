@@ -4,6 +4,7 @@ import com.ged.entity.titresciel.SecteurBoursier;
 import com.ged.entity.titresciel.TypeEvenement;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface SecteurBoursierDao extends JpaRepository<SecteurBoursier, Long> {
+public interface SecteurBoursierDao {
+//public interface SecteurBoursierDao extends JpaRepository<SecteurBoursier, Long> {
 
 }

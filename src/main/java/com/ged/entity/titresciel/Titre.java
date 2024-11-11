@@ -42,7 +42,7 @@ public class Titre extends Base {
     //
     private String libelleSecteurBoursier;
     private String libelleCompartiment;
-    private String codeNormalAssimile;
+//    private String codeNormalAssimile;
     private String codePays;
     private Long idEmetteur;
     private Long idRegistraire;
@@ -54,7 +54,7 @@ public class Titre extends Base {
     @JoinColumn(name = "idCompartiment")
     private Compartiment compartiment;
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "codeNormalAssimileNew")
+    @JoinColumn(name = "codeNormalAssimile")
     private NormalAssimile normalAssimile;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "idPaysNew")
@@ -170,13 +170,13 @@ public class Titre extends Base {
         this.libelleCompartiment = libelleCompartiment;
     }
 
-    public String getCodeNormalAssimile() {
+    /*public String getCodeNormalAssimile() {
         return codeNormalAssimile;
     }
 
     public void setCodeNormalAssimile(String codeNormalAssimile) {
         this.codeNormalAssimile = codeNormalAssimile;
-    }
+    }*/
 
     public String getCodePays() {
         return codePays;
