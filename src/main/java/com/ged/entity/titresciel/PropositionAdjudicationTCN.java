@@ -1,6 +1,7 @@
 package com.ged.entity.titresciel;
 
 import com.ged.entity.Base;
+import com.ged.entity.standard.Personne;
 import jakarta.persistence.*;
 
 @Entity
@@ -11,7 +12,7 @@ public class PropositionAdjudicationTCN extends Base {
     @ManyToOne
     @JoinColumn(name = "idEmetteurNew")
 //    @MapsId("idEmetteur")
-    private Emetteur emetteur;
+    private Personne personne;
 	private double interetUnitaire;
     private double montantAPayerUnitaire;
     private double tauxRendementPeriodique;
@@ -23,12 +24,12 @@ public class PropositionAdjudicationTCN extends Base {
     public PropositionAdjudicationTCN() {
     }
 
-    public Emetteur getEmetteur() {
-        return emetteur;
+    public Personne getPersonne() {
+        return personne;
     }
 
-    public void setEmetteur(Emetteur emetteur) {
-        this.emetteur = emetteur;
+    public void setPersonne(Personne personne) {
+        this.personne = personne;
     }
 
     public ClePropositionAdjudicationTCN getIdPropositionAdjudicationTCN() {
