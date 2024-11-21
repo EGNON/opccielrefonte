@@ -1,4 +1,4 @@
-package com.ged.service.opcciel;
+package com.ged.service.lab;
 
 
 import com.ged.dto.opcciel.comptabilite.Operation2Dto;

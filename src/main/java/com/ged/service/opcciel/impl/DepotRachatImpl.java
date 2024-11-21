@@ -21,6 +21,7 @@ import com.ged.mapper.opcciel.OpcvmMapper;
 import com.ged.mapper.standard.PersonneMapper;
 import com.ged.projection.FT_DepotRachatProjection;
 import com.ged.projection.NbrePartProjection;
+import com.ged.projection.PrecalculRachatProjection;
 import com.ged.response.ResponseHandler;
 import com.ged.service.opcciel.DepotRachatService;
 import com.ged.service.opcciel.SeanceOpcvmService;
@@ -38,7 +39,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.sql.Array;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -227,6 +230,18 @@ public class DepotRachatImpl implements DepotRachatService {
     }
 
     @Override
+    public List<PrecalculRachatProjection> afficherPrecalculRachat(Long idSeance,Long idOpcvm, Long idPersonne) {
+        List<PrecalculRachatProjection> list = libraryDao.afficherPrecalculRachat(idSeance, idOpcvm, idPersonne);
+        List<PrecalculRachatProjection> precalculRachatProjections=new ArrayList<>();
+        for(PrecalculRachatProjection o:list){
+            if(o.getQtePart().compareTo(BigDecimal.valueOf(0))==1){
+                precalculRachatProjections.add(o);
+            }
+        }
+        return precalculRachatProjections;
+    }
+
+    @Override
     public List<FT_DepotRachatProjection> afficherFT_DepotRachat(Long IdOpcvm,boolean niveau1,boolean niveau2) {
         SeanceOpcvm seanceOpcvm = seanceOpcvmService.afficherSeanceEnCours(IdOpcvm);
         Long idSeance = seanceOpcvm.getIdSeanceOpcvm().getIdSeance();
@@ -369,9 +384,9 @@ public class DepotRachatImpl implements DepotRachatService {
                 q.registerStoredProcedureParameter("Sortie", String.class, ParameterMode.OUT);
 
                 DepotRachat depotRachat=depotRachatDao.findById(o).orElseThrow();
-                SeanceOpcvm seanceOpcvm = seanceOpcvmService.afficherSeanceEnCours(depotRachat.getIdSeance());
-
-                LocalDateTime dateEstimation = seanceOpcvm.getDateFermeture();
+//                SeanceOpcvm seanceOpcvm = seanceOpcvmService.afficherSeanceEnCours(depotRachat.getIdSeance());
+//
+//                LocalDateTime dateEstimation = seanceOpcvm.getDateFermeture();
                 q.setParameter("IdOperation", 0);
                 q.setParameter("idOpcvm", depotRachat.getOpcvm().getIdOpcvm());
                 if(depotRachat.getActionnaire() != null && depotRachat.getActionnaire().getIdPersonne() != null) {
@@ -407,7 +422,17 @@ public class DepotRachatImpl implements DepotRachatService {
 
                 try {
                     // Execute query
-                    sortie=q.getSingleResult().toString();
+                    q.execute();
+                    String result=(String) q.getOutputParameterValue("Sortie");
+                    String[] s=result.split("#");
+
+                    depotRachat.setIdDepotRachat(o);
+                    depotRachat.setIdOperation(Long.valueOf(s[s.length-1]));
+                    depotRachat.setEstVerifie2(true);
+                    depotRachat.setDateVerification2(LocalDateTime.now());
+                    depotRachat.setUserLoginVerificateur2(userLogin);
+                    depotRachatDao.save(depotRachat);
+                    //System.out.println("idOperation="+s[s.length-1]);
                 } finally {
                     try {
 

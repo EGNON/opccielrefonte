@@ -9,7 +9,9 @@ public interface OperationSouscriptionRachatService {
     ResponseEntity<Object> afficherTous(DatatableParameters parameters);
     OperationSouscriptionRachat afficherSelonId(Long id);
     ResponseEntity<Object> afficher(Long id);
+    ResponseEntity<Object> afficherTous();
     ResponseEntity<Object> creer(OperationSouscriptionRachatDto operationSouscriptionRachatDto);
+    ResponseEntity<Object> creer(OperationSouscriptionRachatDto[] operationSouscriptionRachatTab);
     ResponseEntity<Object> modifier(OperationSouscriptionRachatDto operationSouscriptionRachatDto);
     ResponseEntity<Object> supprimer(Long id);
 }

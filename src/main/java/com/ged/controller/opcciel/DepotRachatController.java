@@ -7,6 +7,7 @@ import com.ged.dto.opcciel.ImportationDepotDto;
 import com.ged.dto.opcciel.comptabilite.VerifDepSouscriptionIntRachatDto;
 import com.ged.projection.FT_DepotRachatProjection;
 import com.ged.projection.NbrePartProjection;
+import com.ged.projection.PrecalculRachatProjection;
 import com.ged.service.opcciel.DepotRachatService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
@@ -64,6 +65,13 @@ public class DepotRachatController {
                                                            @PathVariable boolean niveau1,
                                                            @PathVariable boolean niveau2) {
         return depotRachatService.afficherFT_DepotRachat(idOpcvm,niveau1,niveau2);
+    }
+    @GetMapping("precalculrachat/{idSeance}/{idOpcvm}/{idPersonne}")
+    public List<PrecalculRachatProjection> afficherPrecalculRachat(
+                                                           @PathVariable Long idSeance,
+                                                           @PathVariable Long idOpcvm,
+                                                           @PathVariable Long idPersonne) {
+        return depotRachatService.afficherPrecalculRachat(idSeance,idOpcvm,idPersonne);
     }
     @PostMapping("/datatable/list/{idOpcvm}/{idSeance}/{codeNatureOperation}")
     public ResponseEntity<Object> datatableList(@RequestBody DatatableParameters params,

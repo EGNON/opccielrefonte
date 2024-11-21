@@ -1,7 +1,7 @@
 package com.ged.controller.opcciel;
 
 import com.ged.dto.opcciel.comptabilite.Operation2Dto;
-import com.ged.service.opcciel.OperationService;
+import com.ged.service.lab.OperationService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

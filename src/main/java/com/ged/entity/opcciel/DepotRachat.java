@@ -8,6 +8,8 @@ import com.ged.entity.opcciel.comptabilite.Transaction;
 import com.ged.entity.standard.Personne;
 import com.ged.entity.titresciel.Titre;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 import java.time.LocalDateTime;
 
@@ -17,6 +19,7 @@ import java.time.LocalDateTime;
 public class DepotRachat extends Base {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private Long idDepotRachat;
     private Long idOperation;
 //    private Long idActionnaire;

@@ -1,14 +1,12 @@
-package com.ged.service.opcciel.impl;
+package com.ged.service.lab.impl;
 
 import com.ged.dto.opcciel.comptabilite.Operation2Dto;
-import com.ged.service.opcciel.OperationService;
+import com.ged.service.lab.OperationService;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.ParameterMode;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.StoredProcedureQuery;
 import jakarta.transaction.Transactional;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;

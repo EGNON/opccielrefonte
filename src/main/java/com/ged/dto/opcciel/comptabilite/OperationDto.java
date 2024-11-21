@@ -5,16 +5,21 @@ import com.ged.dto.opcciel.OpcvmDto;
 import com.ged.dto.opcciel.TransactionDto;
 import com.ged.dto.standard.PersonneDto;
 import com.ged.dto.titresciel.TitreDto;
+import com.ged.entity.Base;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class OperationDto {
+public class OperationDto extends Base {
     private Long idOperation;
+    private Long idActionnaire;
+    private Long idTitre;
     private Long idOcc;
     private OpcvmDto opcvm;
     private PersonneDto actionnaire;
     private TitreDto titre;
+    private Long idTransaction;
     private TransactionDto transaction;
     private Long idSeance;
     private NatureOperationDto natureOperation;
@@ -24,7 +29,7 @@ public class OperationDto {
     private LocalDateTime datePiece;
     private LocalDateTime dateValeur;
     private String referencePiece;
-    private Double montant;
+    private BigDecimal montant;
     private String ecriture;
     private boolean estOD;
     private String  type;
@@ -41,6 +46,22 @@ public class OperationDto {
     private String userLoginVerificateur2;
 
     public OperationDto() {
+    }
+
+    public PersonneDto getActionnaire() {
+        return actionnaire;
+    }
+
+    public void setActionnaire(PersonneDto actionnaire) {
+        this.actionnaire = actionnaire;
+    }
+
+    public Long getIdTransaction() {
+        return idTransaction;
+    }
+
+    public void setIdTransaction(Long idTransaction) {
+        this.idTransaction = idTransaction;
     }
 
     public Long getIdOperation() {
@@ -155,11 +176,11 @@ public class OperationDto {
         this.referencePiece = referencePiece;
     }
 
-    public Double getMontant() {
+    public BigDecimal getMontant() {
         return montant;
     }
 
-    public void setMontant(Double montant) {
+    public void setMontant(BigDecimal montant) {
         this.montant = montant;
     }
 

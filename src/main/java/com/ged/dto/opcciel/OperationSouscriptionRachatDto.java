@@ -2,13 +2,15 @@ package com.ged.dto.opcciel;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.ged.dto.opcciel.comptabilite.NatureOperationDto;
+import com.ged.dto.opcciel.comptabilite.OperationDto;
 import com.ged.dto.standard.PersonneDto;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class OperationSouscriptionRachatDto {
+public class OperationSouscriptionRachatDto extends OperationDto {
     private long idOperation;
-    private TransactionDto transaction;
+    /*private TransactionDto transaction;
     private long idSeance;
     private PersonneDto personneActionnaiare;
     private OpcvmDto opcvm;
@@ -19,30 +21,30 @@ public class OperationSouscriptionRachatDto {
     private LocalDateTime dateSaisie;
     private LocalDateTime datePiece;
     private LocalDateTime dateValeur;
-    private String referencePiece;
-    private Double montantSousALiquider;
-    private Double SousRachatPart;
-    private Double commisiionSousRachat;
-    private Double TAFCommissionSousRachat;
-    private Double retrocessionSousRachat;
-    private Double TAFRetrocessionSousRachat;
-    private Double commissionSousRachatRetrocedee;
+    private String referencePiece;*/
+    private BigDecimal montantSousALiquider;
+    private BigDecimal sousRachatPart;
+    private BigDecimal commisiionSousRachat;
+    private BigDecimal tAFCommissionSousRachat;
+    private BigDecimal retrocessionSousRachat;
+    private BigDecimal tAFRetrocessionSousRachat;
+    private BigDecimal commissionSousRachatRetrocedee;
     private String modeValeurLiquidative;
-    private Double coursVL;
-    private Double nombrePartSousRachat;
-    private Double regulResultatExoEnCours;
-    private Double regulSommeNonDistribuable;
-    private Double regulReportANouveau;
-    private Double regulautreResultatBeneficiaire;
-    private Double regulautreResultatDeficitaire;
-    private Double regulResultatEnInstanceBeneficiaire;
-    private Double regulResultatEnInstanceDeficitaire;
-    private Double regulExoDistribution;
-    private Double fraisSouscriptionRachat;
-    private Double reste;
+    private BigDecimal coursVL;
+    private BigDecimal nombrePartSousRachat;
+    private BigDecimal regulResultatExoEnCours;
+    private BigDecimal regulSommeNonDistribuable;
+    private BigDecimal regulReportANouveau;
+    private BigDecimal regulautreResultatBeneficiaire;
+    private BigDecimal regulautreResultatDeficitaire;
+    private BigDecimal regulResultatEnInstanceBeneficiaire;
+    private BigDecimal regulResultatEnInstanceDeficitaire;
+    private BigDecimal regulExoDistribution;
+    private BigDecimal fraisSouscriptionRachat;
+    private BigDecimal reste;
     private Long quantiteSouhaite;
-    private Double montantDepose;
-    private Double montantConvertiEnPart;
+    private BigDecimal montantDepose;
+    private BigDecimal montantConvertiEnPart;
     private boolean estRetrocede;
     private boolean resteRembourse;
     private boolean rachatPaye;
@@ -59,7 +61,7 @@ public class OperationSouscriptionRachatDto {
         this.idOperation = idOperation;
     }
 
-    public TransactionDto getTransaction() {
+   /* public TransactionDto getTransaction() {
         return transaction;
     }
 
@@ -67,7 +69,7 @@ public class OperationSouscriptionRachatDto {
         this.transaction = transaction;
     }
 
-    public long getIdSeance() {
+    public Long getIdSeance() {
         return idSeance;
     }
 
@@ -154,60 +156,61 @@ public class OperationSouscriptionRachatDto {
     public void setReferencePiece(String referencePiece) {
         this.referencePiece = referencePiece;
     }
+*/
 
-    public Double getMontantSousALiquider() {
+    public BigDecimal getMontantSousALiquider() {
         return montantSousALiquider;
     }
 
-    public void setMontantSousALiquider(Double montantSousALiquider) {
+    public void setMontantSousALiquider(BigDecimal montantSousALiquider) {
         this.montantSousALiquider = montantSousALiquider;
     }
 
-    public Double getSousRachatPart() {
-        return SousRachatPart;
+    public BigDecimal getSousRachatPart() {
+        return sousRachatPart;
     }
 
-    public void setSousRachatPart(Double sousRachatPart) {
-        SousRachatPart = sousRachatPart;
+    public void setSousRachatPart(BigDecimal sousRachatPart) {
+        sousRachatPart = sousRachatPart;
     }
 
-    public Double getCommisiionSousRachat() {
+    public BigDecimal getCommisiionSousRachat() {
         return commisiionSousRachat;
     }
 
-    public void setCommisiionSousRachat(Double commisiionSousRachat) {
+    public void setCommisiionSousRachat(BigDecimal commisiionSousRachat) {
         this.commisiionSousRachat = commisiionSousRachat;
     }
 
-    public Double getTAFCommissionSousRachat() {
-        return TAFCommissionSousRachat;
+    public BigDecimal getTAFCommissionSousRachat() {
+        return tAFCommissionSousRachat;
     }
 
-    public void setTAFCommissionSousRachat(Double TAFCommissionSousRachat) {
-        this.TAFCommissionSousRachat = TAFCommissionSousRachat;
+    public void setTAFCommissionSousRachat(BigDecimal TAFCommissionSousRachat) {
+        this.tAFCommissionSousRachat = TAFCommissionSousRachat;
     }
 
-    public Double getRetrocessionSousRachat() {
+    public BigDecimal getRetrocessionSousRachat() {
         return retrocessionSousRachat;
     }
 
-    public void setRetrocessionSousRachat(Double retrocessionSousRachat) {
+    public void setRetrocessionSousRachat(BigDecimal retrocessionSousRachat) {
         this.retrocessionSousRachat = retrocessionSousRachat;
     }
 
-    public Double getTAFRetrocessionSousRachat() {
-        return TAFRetrocessionSousRachat;
+    public BigDecimal getTAFRetrocessionSousRachat() {
+        return tAFRetrocessionSousRachat;
     }
 
-    public void setTAFRetrocessionSousRachat(Double TAFRetrocessionSousRachat) {
-        this.TAFRetrocessionSousRachat = TAFRetrocessionSousRachat;
+    public void setTAFRetrocessionSousRachat(BigDecimal TAFRetrocessionSousRachat) {
+        this.tAFRetrocessionSousRachat = TAFRetrocessionSousRachat;
     }
 
-    public Double getCommissionSousRachatRetrocedee() {
+    public BigDecimal getCommissionSousRachatRetrocedee() {
         return commissionSousRachatRetrocedee;
     }
 
-    public void setCommissionSousRachatRetrocedee(Double commissionSousRachatRetrocedee) {
+    public void setCommissionSousRachatRetrocedee(BigDecimal commissionSousRachatRetrocedee) {
         this.commissionSousRachatRetrocedee = commissionSousRachatRetrocedee;
     }
 
@@ -219,99 +222,99 @@ public class OperationSouscriptionRachatDto {
         this.modeValeurLiquidative = modeValeurLiquidative;
     }
 
-    public Double getCoursVL() {
+    public BigDecimal getCoursVL() {
         return coursVL;
     }
 
-    public void setCoursVL(Double coursVL) {
+    public void setCoursVL(BigDecimal coursVL) {
         this.coursVL = coursVL;
     }
 
-    public Double getNombrePartSousRachat() {
+    public BigDecimal getNombrePartSousRachat() {
         return nombrePartSousRachat;
     }
 
-    public void setNombrePartSousRachat(Double nombrePartSousRachat) {
+    public void setNombrePartSousRachat(BigDecimal nombrePartSousRachat) {
         this.nombrePartSousRachat = nombrePartSousRachat;
     }
 
-    public Double getRegulResultatExoEnCours() {
+    public BigDecimal getRegulResultatExoEnCours() {
         return regulResultatExoEnCours;
     }
 
-    public void setRegulResultatExoEnCours(Double regulResultatExoEnCours) {
+    public void setRegulResultatExoEnCours(BigDecimal regulResultatExoEnCours) {
         this.regulResultatExoEnCours = regulResultatExoEnCours;
     }
 
-    public Double getRegulSommeNonDistribuable() {
+    public BigDecimal getRegulSommeNonDistribuable() {
         return regulSommeNonDistribuable;
     }
 
-    public void setRegulSommeNonDistribuable(Double regulSommeNonDistribuable) {
+    public void setRegulSommeNonDistribuable(BigDecimal regulSommeNonDistribuable) {
         this.regulSommeNonDistribuable = regulSommeNonDistribuable;
     }
 
-    public Double getRegulReportANouveau() {
+    public BigDecimal getRegulReportANouveau() {
         return regulReportANouveau;
     }
 
-    public void setRegulReportANouveau(Double regulReportANouveau) {
+    public void setRegulReportANouveau(BigDecimal regulReportANouveau) {
         this.regulReportANouveau = regulReportANouveau;
     }
 
-    public Double getRegulautreResultatBeneficiaire() {
+    public BigDecimal getRegulautreResultatBeneficiaire() {
         return regulautreResultatBeneficiaire;
     }
 
-    public void setRegulautreResultatBeneficiaire(Double regulautreResultatBeneficiaire) {
+    public void setRegulautreResultatBeneficiaire(BigDecimal regulautreResultatBeneficiaire) {
         this.regulautreResultatBeneficiaire = regulautreResultatBeneficiaire;
     }
 
-    public Double getRegulautreResultatDeficitaire() {
+    public BigDecimal getRegulautreResultatDeficitaire() {
         return regulautreResultatDeficitaire;
     }
 
-    public void setRegulautreResultatDeficitaire(Double regulautreResultatDeficitaire) {
+    public void setRegulautreResultatDeficitaire(BigDecimal regulautreResultatDeficitaire) {
         this.regulautreResultatDeficitaire = regulautreResultatDeficitaire;
     }
 
-    public Double getRegulResultatEnInstanceBeneficiaire() {
+    public BigDecimal getRegulResultatEnInstanceBeneficiaire() {
         return regulResultatEnInstanceBeneficiaire;
     }
 
-    public void setRegulResultatEnInstanceBeneficiaire(Double regulResultatEnInstanceBeneficiaire) {
+    public void setRegulResultatEnInstanceBeneficiaire(BigDecimal regulResultatEnInstanceBeneficiaire) {
         this.regulResultatEnInstanceBeneficiaire = regulResultatEnInstanceBeneficiaire;
     }
 
-    public Double getRegulResultatEnInstanceDeficitaire() {
+    public BigDecimal getRegulResultatEnInstanceDeficitaire() {
         return regulResultatEnInstanceDeficitaire;
     }
 
-    public void setRegulResultatEnInstanceDeficitaire(Double regulResultatEnInstanceDeficitaire) {
+    public void setRegulResultatEnInstanceDeficitaire(BigDecimal regulResultatEnInstanceDeficitaire) {
         this.regulResultatEnInstanceDeficitaire = regulResultatEnInstanceDeficitaire;
     }
 
-    public Double getRegulExoDistribution() {
+    public BigDecimal getRegulExoDistribution() {
         return regulExoDistribution;
     }
 
-    public void setRegulExoDistribution(Double regulExoDistribution) {
+    public void setRegulExoDistribution(BigDecimal regulExoDistribution) {
         this.regulExoDistribution = regulExoDistribution;
     }
 
-    public Double getFraisSouscriptionRachat() {
+    public BigDecimal getFraisSouscriptionRachat() {
         return fraisSouscriptionRachat;
     }
 
-    public void setFraisSouscriptionRachat(Double fraisSouscriptionRachat) {
+    public void setFraisSouscriptionRachat(BigDecimal fraisSouscriptionRachat) {
         this.fraisSouscriptionRachat = fraisSouscriptionRachat;
     }
 
-    public Double getReste() {
+    public BigDecimal getReste() {
         return reste;
     }
 
-    public void setReste(Double reste) {
+    public void setReste(BigDecimal reste) {
         this.reste = reste;
     }
 
@@ -323,19 +326,19 @@ public class OperationSouscriptionRachatDto {
         this.quantiteSouhaite = quantiteSouhaite;
     }
 
-    public Double getMontantDepose() {
+    public BigDecimal getMontantDepose() {
         return montantDepose;
     }
 
-    public void setMontantDepose(Double montantDepose) {
+    public void setMontantDepose(BigDecimal montantDepose) {
         this.montantDepose = montantDepose;
     }
 
-    public Double getMontantConvertiEnPart() {
+    public BigDecimal getMontantConvertiEnPart() {
         return montantConvertiEnPart;
     }
 
-    public void setMontantConvertiEnPart(Double montantConvertiEnPart) {
+    public void setMontantConvertiEnPart(BigDecimal montantConvertiEnPart) {
         this.montantConvertiEnPart = montantConvertiEnPart;
     }
 
@@ -363,10 +366,12 @@ public class OperationSouscriptionRachatDto {
         this.rachatPaye = rachatPaye;
     }
 
+    @Override
     public String getEcriture() {
         return ecriture;
     }
 
+    @Override
     public void setEcriture(String ecriture) {
         this.ecriture = ecriture;
     }

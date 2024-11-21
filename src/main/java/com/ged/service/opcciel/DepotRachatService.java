@@ -7,6 +7,7 @@ import com.ged.dto.opcciel.comptabilite.VerifDepSouscriptionIntRachatDto;
 import com.ged.entity.opcciel.DepotRachat;
 import com.ged.projection.FT_DepotRachatProjection;
 import com.ged.projection.NbrePartProjection;
+import com.ged.projection.PrecalculRachatProjection;
 import org.springframework.data.domain.Page;
 import org.springframework.data.repository.query.Param;
 import org.springframework.http.ResponseEntity;
@@ -27,6 +28,7 @@ public interface DepotRachatService {
     Page<DepotRachatDto> afficherTousParPage(int page, int size);
     ResponseEntity<Object> afficherTous();
     List<NbrePartProjection> afficherNbrePart(Long idOpcvm, Long idActionnaire);
+    List<PrecalculRachatProjection> afficherPrecalculRachat(Long idSeance,Long idOpcvm, Long idPersonne);
     List<FT_DepotRachatProjection> afficherFT_DepotRachat(Long IdOpcvm,boolean niveau1,boolean niveau2);
     DepotRachat afficherSelonId(Long IdOperation);
     ResponseEntity<Object> afficher(Long IdOperation);
