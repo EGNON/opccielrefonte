@@ -9,6 +9,7 @@ import com.ged.entity.standard.Personne;
 import com.ged.entity.titresciel.Titre;
 import jakarta.persistence.*;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
@@ -23,13 +24,13 @@ public class DepotRachat extends Base {
     //private Long idPersonne;
     private Long idTransaction;
     private Long idOcc;
-    private Double quantite;
+    private BigDecimal quantite;
     private String modeVL;
-    private boolean estGenere;
-    private boolean estVerifier;
+    private Boolean estGenere;
+    private Boolean estVerifier;
     private String nomVerificateur;
     private LocalDateTime dateVerification;
-    private Double montantSouscrit;
+    private BigDecimal montantSouscrit;
     @ManyToOne
     @JoinColumn(name = "idPersonne",referencedColumnName = "idPersonne")
     private Personne personne;
@@ -37,11 +38,16 @@ public class DepotRachat extends Base {
     @JoinColumn(name = "idTitre",referencedColumnName = "idTitre")
     private Titre titre;*/
     private Long idTitre;
-    private Double qte;
-    private Double cours;
-    private Double commission;
-    private Double interetCouru;
-    private Double interetPrecompte;
+    @Column(precision = 18, scale = 6)
+    private BigDecimal qte;
+    @Column(precision = 18, scale = 6)
+    private BigDecimal cours;
+    @Column(precision = 18, scale = 6)
+    private BigDecimal commission;
+    @Column(precision = 18, scale = 6)
+    private BigDecimal interetCouru;
+    @Column(precision = 18, scale = 6)
+    private BigDecimal interetPrecompte;
 
     /***********************************************************************/
     @ManyToOne
@@ -59,7 +65,8 @@ public class DepotRachat extends Base {
     private LocalDateTime datePiece;
     private LocalDateTime dateValeur;
     private String referencePiece;
-    private Double montant;
+    @Column(precision = 18, scale = 6)
+    private BigDecimal montant;
     private String ecriture;
     private Boolean estOD;
     private String  type;
@@ -216,14 +223,6 @@ public class DepotRachat extends Base {
 //        this.montant = montant;
 //    }
 
-    public Double getQuantite() {
-        return quantite;
-    }
-
-    public void setQuantite(Double quantite) {
-        this.quantite = quantite;
-    }
-
 //    public String getEcriture() {
 //        return ecriture;
 //    }
@@ -336,19 +335,19 @@ public class DepotRachat extends Base {
 //        this.userLoginVerificateur2 = userLoginVerificateur2;
 //    }
 
-    public boolean isEstGenere() {
+    public Boolean getEstGenere() {
         return estGenere;
     }
 
-    public void setEstGenere(boolean estGenere) {
+    public void setEstGenere(Boolean estGenere) {
         this.estGenere = estGenere;
     }
 
-    public boolean isEstVerifier() {
+    public Boolean getEstVerifier() {
         return estVerifier;
     }
 
-    public void setEstVerifier(boolean estVerifier) {
+    public void setEstVerifier(Boolean estVerifier) {
         this.estVerifier = estVerifier;
     }
 
@@ -368,15 +367,14 @@ public class DepotRachat extends Base {
         this.dateVerification = dateVerification;
     }
 
-    public Double getMontantSouscrit() {
+    public BigDecimal getMontantSouscrit() {
         return montantSouscrit;
     }
 
-    public void setMontantSouscrit(Double montantSouscrit) {
+    public void setMontantSouscrit(BigDecimal montantSouscrit) {
         this.montantSouscrit = montantSouscrit;
     }
-
-    /*public Titre getTitre() {
+/*public Titre getTitre() {
         return titre;
     }
 
@@ -384,45 +382,46 @@ public class DepotRachat extends Base {
         this.titre = titre;
     }*/
 
-    public Double getQte() {
+    public BigDecimal getQte() {
         return qte;
     }
 
-    public void setQte(Double qte) {
+    public void setQte(BigDecimal qte) {
         this.qte = qte;
     }
 
-    public Double getCours() {
+    public BigDecimal getCours() {
         return cours;
     }
 
-    public void setCours(Double cours) {
+    public void setCours(BigDecimal cours) {
         this.cours = cours;
     }
 
-    public Double getCommission() {
+    public BigDecimal getCommission() {
         return commission;
     }
 
-    public void setCommission(Double commission) {
+    public void setCommission(BigDecimal commission) {
         this.commission = commission;
     }
 
-    public Double getInteretCouru() {
+    public BigDecimal getInteretCouru() {
         return interetCouru;
     }
 
-    public void setInteretCouru(Double interetCouru) {
+    public void setInteretCouru(BigDecimal interetCouru) {
         this.interetCouru = interetCouru;
     }
 
-    public Double getInteretPrecompte() {
+    public BigDecimal getInteretPrecompte() {
         return interetPrecompte;
     }
 
-    public void setInteretPrecompte(Double interetPrecompte) {
+    public void setInteretPrecompte(BigDecimal interetPrecompte) {
         this.interetPrecompte = interetPrecompte;
     }
+
     /************************************************************************************/
     public Long getIdOperation() {
         return idOperation;
@@ -504,11 +503,19 @@ public class DepotRachat extends Base {
         this.referencePiece = referencePiece;
     }
 
-    public Double getMontant() {
+    public BigDecimal getQuantite() {
+        return quantite;
+    }
+
+    public void setQuantite(BigDecimal quantite) {
+        this.quantite = quantite;
+    }
+
+    public BigDecimal getMontant() {
         return montant;
     }
 
-    public void setMontant(Double montant) {
+    public void setMontant(BigDecimal montant) {
         this.montant = montant;
     }
 

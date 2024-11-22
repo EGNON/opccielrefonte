@@ -35,8 +35,8 @@ import java.io.IOException;
 import java.security.Principal;
 import java.util.HashSet;
 
-//@Service
-//@Transactional("refonteTransactionManager")
+@Service
+@Transactional("refonteTransactionManager")
 public class AuthenticationService {
     @Value("${application.currentinfo.user}")
     public String currentUser;

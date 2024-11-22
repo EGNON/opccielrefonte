@@ -9,20 +9,24 @@ import com.ged.dao.standard.PersonneDao;
 import com.ged.datatable.DataTablesResponse;
 import com.ged.datatable.DatatableParameters;
 import com.ged.dto.opcciel.DepotRachatDto;
+import com.ged.dto.opcciel.comptabilite.OperationDto;
 import com.ged.dto.opcciel.comptabilite.VerifDepSouscriptionIntRachatDto;
+import com.ged.dto.request.ChargerLigneMvtRequest;
+import com.ged.dto.request.VerificationListeDepotRequest;
 import com.ged.entity.opcciel.DepotRachat;
 import com.ged.entity.opcciel.Opcvm;
 import com.ged.entity.opcciel.SeanceOpcvm;
+import com.ged.entity.opcciel.comptabilite.Mouvement;
 import com.ged.entity.opcciel.comptabilite.NatureOperation;
 import com.ged.entity.standard.Personne;
 import com.ged.mapper.opcciel.DepotRachatMapper;
-import com.ged.mapper.opcciel.OpcvmMapper;
-import com.ged.mapper.standard.PersonneMapper;
 import com.ged.projection.FT_DepotRachatProjection;
 import com.ged.projection.NbrePartProjection;
 import com.ged.response.ResponseHandler;
+import com.ged.service.AppService;
 import com.ged.service.opcciel.DepotRachatService;
 import com.ged.service.opcciel.SeanceOpcvmService;
+import com.ged.validator.opcciel.DepotRachatValidator;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.ParameterMode;
 import jakarta.persistence.PersistenceContext;
@@ -50,23 +54,28 @@ public class DepotRachatImpl implements DepotRachatService {
     private final OpcvmDao opcvmDao;
     private final NatureOperationDao natureOperationDao;
     private final DepotRachatMapper depotRachatMapper;
-    private final PersonneMapper personneMapper;
     private final PersonneDao personneDao;
     private final LibraryDao libraryDao;
-    private final OpcvmMapper opcvmMapper;
     private final SeanceOpcvmService seanceOpcvmService;
+    private final AppService appService;
 
-    public DepotRachatImpl(DepotRachatDao DepotRachatDao, OpcvmDao opcvmDao, NatureOperationDao natureOperationDao, DepotRachatMapper DepotRachatMapper, PersonneMapper personneMapper, PersonneDao personneDao, LibraryDao libraryDao, OpcvmMapper opcvmMapper, SeanceOpcvmService seanceOpcvmService) {
+    public DepotRachatImpl(
+            DepotRachatDao DepotRachatDao,
+            OpcvmDao opcvmDao,
+            NatureOperationDao natureOperationDao,
+            DepotRachatMapper DepotRachatMapper,
+            PersonneDao personneDao,
+            LibraryDao libraryDao,
+            SeanceOpcvmService seanceOpcvmService, AppService appService) {
         this.depotRachatDao = DepotRachatDao;
         this.opcvmDao = opcvmDao;
         this.natureOperationDao = natureOperationDao;
 
         this.depotRachatMapper = DepotRachatMapper;
-        this.personneMapper = personneMapper;
         this.personneDao = personneDao;
         this.libraryDao = libraryDao;
-        this.opcvmMapper = opcvmMapper;
         this.seanceOpcvmService = seanceOpcvmService;
+        this.appService = appService;
     }
 
     @Override
@@ -88,6 +97,42 @@ public class DepotRachatImpl implements DepotRachatService {
                     "Liste des dépôts rachats par page datatable",
                     HttpStatus.OK,
                     dataTablesResponse);
+        }
+        catch(Exception e)
+        {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e);
+        }
+    }
+
+    @Override
+    public ResponseEntity<Object> listeDepotAVerifier(VerificationListeDepotRequest verificationListeDepotRequest) {
+        try {
+            Pageable pageable = PageRequest.of(
+                    verificationListeDepotRequest.getDatatableParameters().getStart() / verificationListeDepotRequest.getDatatableParameters().getLength(),
+                    verificationListeDepotRequest.getDatatableParameters().getLength());
+            Page<DepotRachat> DepotRachatPage;
+            DepotRachatPage = depotRachatDao.tousLesDepotsSouscription(
+                    verificationListeDepotRequest.getOpcvmDto().getIdOpcvm(),
+                    verificationListeDepotRequest.getSeanceOpcvmDto().getIdSeanceOpcvm().getIdSeance(),
+                    verificationListeDepotRequest.getEstVerifier(),
+                    verificationListeDepotRequest.getEstVerifie1(),
+                    verificationListeDepotRequest.getEstVerifie2(),
+                    pageable);
+            List<DepotRachatDto> content = DepotRachatPage.getContent().stream().map(depotRachatMapper::deDepotRachat).collect(Collectors.toList());
+            DataTablesResponse<DepotRachatDto> dataTablesResponse = new DataTablesResponse<>();
+            dataTablesResponse.setDraw(verificationListeDepotRequest.getDatatableParameters().getDraw());
+            dataTablesResponse.setRecordsFiltered((int)DepotRachatPage.getTotalElements());
+            dataTablesResponse.setRecordsTotal((int)DepotRachatPage.getTotalElements());
+            dataTablesResponse.setData(content);
+
+            return ResponseHandler.generateResponse(
+                    "LISTE DE VERIFICATION DES SOUSCRIPTIONS",
+                    HttpStatus.OK,
+                    dataTablesResponse
+            );
         }
         catch(Exception e)
         {
@@ -286,8 +331,15 @@ public class DepotRachatImpl implements DepotRachatService {
     @Override
     public ResponseEntity<Object> creer(DepotRachatDto DepotRachatDto) {
         try {
+            List<String> errors = DepotRachatValidator.validate(DepotRachatDto);
+            if(!errors.isEmpty()) {
+                return ResponseHandler.generateResponse(
+                    "Certains champs sont obligatoires.",
+                    HttpStatus.BAD_REQUEST,
+                    errors
+                );
+            }
             DepotRachat DepotRachat = depotRachatMapper.deDepotRachatDto(DepotRachatDto);
-
             if (DepotRachatDto.getPersonne() != null) {
                 Personne personne = personneDao.findById(DepotRachatDto.getPersonne().getIdPersonne()).orElseThrow();
                 if (personne != null)
@@ -459,6 +511,44 @@ public class DepotRachatImpl implements DepotRachatService {
         }
     }
 
+    @Override
+    public ResponseEntity<Object> modifier(DepotRachatDto depotRachatDto, String type, Long id) {
+        try {
+            if(!depotRachatDao.existsById(id))
+                throw  new EntityNotFoundException(DepotRachat.class, "ID", id.toString());
+            DepotRachat DepotRachat = depotRachatMapper.deDepotRachatDto(depotRachatDto);
+            if(depotRachatDto.getPersonne()!=null)
+            {
+                Personne personne=personneDao.findById(depotRachatDto.getPersonne().getIdPersonne()).orElseThrow();
+                DepotRachat.setPersonne(personne);
+            }
+            if(depotRachatDto.getActionnaire()!=null)
+            {
+                Personne personne=personneDao.findById(depotRachatDto.getActionnaire().getIdPersonne()).orElseThrow();
+                DepotRachat.setActionnaire(personne);
+            }
+            if(depotRachatDto.getOpcvm()!=null)
+            {
+                Opcvm opcvm=opcvmDao.findById(depotRachatDto.getOpcvm().getIdOpcvm()).orElseThrow();
+                DepotRachat.setOpcvm(opcvm);
+            }
+            if(depotRachatDto.getNatureOperation() != null) {
+                NatureOperation natureOperation=natureOperationDao.findById(depotRachatDto.getNatureOperation().getCodeNatureOperation()).orElseThrow();
+                DepotRachat.setNatureOperation(natureOperation);
+            }
+
+            DepotRachat = depotRachatDao.save(DepotRachat);
+            return ResponseHandler.generateResponse(
+                    "Modification effectuée avec succès !",
+                    HttpStatus.OK,
+                    depotRachatMapper.deDepotRachat(DepotRachat));
+        } catch (Exception e) {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e);
+        }
+    }
 
     @Override
     public ResponseEntity<Object> modifier(DepotRachatDto depotRachatDto) {
@@ -520,6 +610,78 @@ public class DepotRachatImpl implements DepotRachatService {
                     "Modification effectuée avec succès !",
                     HttpStatus.OK,
                     depotRachatMapper.deDepotRachat(DepotRachat));
+        } catch (Exception e) {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e);
+        }
+    }
+
+    @Override
+    public ResponseEntity<Object> confirmerListeVerifDepot(List<DepotRachatDto> depotRachatDtos) {
+        try {
+            List<DepotRachat> depotRachats = depotRachatDtos.stream().map(depotRachatMapper::deDepotRachatDto).toList();
+            if(depotRachats.size() > 0) {
+                depotRachatDtos = depotRachatDao.saveAll(depotRachats).stream().map(depotRachatMapper::deDepotRachat).collect(Collectors.toList());
+            }
+            return ResponseHandler.generateResponse(
+                    "Liste des dépôts confirmée avec succès.",
+                    HttpStatus.OK,
+                    depotRachatDtos);
+        } catch (Exception e) {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e);
+        }
+    }
+
+    @Override
+    public ResponseEntity<Object> confirmerListeVerifNiv2Depot(List<DepotRachatDto> depotRachatDtos) {
+        try {
+            List<DepotRachat> depotRachats = depotRachatDtos.stream().map(depotRachatMapper::deDepotRachatDto).toList();
+            if(depotRachats.size() > 0) {
+                for (DepotRachat d : depotRachats) {
+//                    d = depotRachatDao.save(d);
+                    DepotRachatDto depotRachatDto = depotRachatMapper.deDepotRachat(d);
+                    OperationDto op = new OperationDto();
+                    op.setActionnaire(depotRachatDto.getActionnaire());
+                    op.setNatureOperation(depotRachatDto.getNatureOperation());
+                    op.setDateOperation(depotRachatDto.getDateOperation());
+                    op.setDatePiece(depotRachatDto.getDatePiece());
+                    op.setDateSaisie(depotRachatDto.getDateSaisie());
+                    op.setDateValeur(depotRachatDto.getDateValeur());
+                    op.setOpcvm(depotRachatDto.getOpcvm());
+                    op.setIdSeance(depotRachatDto.getIdSeance());
+                    op.setMontant(depotRachatDto.getMontant());
+                    op.setReferencePiece(depotRachatDto.getReferencePiece());
+                    op.setValeurCodeAnalytique("OPC:" + depotRachatDto.getOpcvm().getIdOpcvm()
+                            + ";ACT:" + depotRachatDto.getActionnaire().getIdPersonne());
+                    op.setValeurFormule("2:" + depotRachatDto.getMontant());
+                    op.setLibelleOperation(depotRachatDto.getLibelleOperation());
+                    op.setType(depotRachatDto.getType());
+                    //Operation op1 = operationDao.save(operationMapper.deOperationDto(op));
+
+                    //Récupérer les mouvements
+                    ChargerLigneMvtRequest chargerLigneMvtRequest = new ChargerLigneMvtRequest(
+                            op.getNatureOperation() != null ? op.getNatureOperation().getCodeNatureOperation() : null,
+                            op.getValeurCodeAnalytique(),
+                            op.getValeurFormule(),
+                            op.getOpcvm() != null ? op.getOpcvm().getIdOpcvm() : null,
+                            op.getActionnaire() != null ? op.getActionnaire().getIdPersonne() : null,
+                            op.getTitre() != null ? op.getTitre().getIdTitre() : null
+                    );
+                    List<Mouvement> mouvements = appService.chargerLigneMvt(chargerLigneMvtRequest);
+                    if(mouvements != null) {
+                        System.out.println("Mouvements récupérés avec succès !");
+                    }
+                }
+            }
+            return ResponseHandler.generateResponse(
+                    "Liste des dépôts confirmée avec succès.",
+                    HttpStatus.OK,
+                    depotRachatDtos);
         } catch (Exception e) {
             return ResponseHandler.generateResponse(
                     e.getMessage(),

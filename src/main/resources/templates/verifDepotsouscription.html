@@ -1,0 +1,79 @@
+<div align="center">
+    <div style="width: 100%; height: 35px; border: 1px solid blue; margin-left: auto; margin-right: auto;
+        margin-bottom: 20px; background-color: #9fcdff;">
+        LISTE DE VERIFICATION DES SOUSCRIPTIONS</div>
+    <div style="width: 100%; height: 50px; margin-left: auto; margin-right: auto;
+        margin-bottom: 20px; border: 1px solid blue;">
+        <span><strong>OPCVM :</strong> </span><span th:text="${opcvm.denominationOpcvm}"></span>
+        <span><strong>SEANCE :</strong> </span><span th:text="${seance.idSeanceOpcvm.idSeance}"></span>
+        <span><strong>OUV. :</strong> </span><span th:text="${df.format(seance.dateOuverture)}"></span>
+        <span><strong>FERM. :</strong> </span><span th:text="${df.format(seance.dateFermeture)}"></span>
+    </div>
+    <table style="width: 100%; border-collapse: collapse;">
+        <thead>
+        <tr>
+            <th style="border: 1px solid blue;">Référence</th>
+            <th style="border: 1px solid blue;">Date opération</th>
+            <th style="border: 1px solid blue;">Dénomination</th>
+            <th style="border: 1px solid blue;">Montant Déposé</th>
+            <th style="border: 1px solid blue;">Montant Souscrit</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="depot: ${depots}">
+            <td th:text="${depot.referencePiece}" style="border: 1px solid blue;"></td>
+            <td th:text="${df.format(depot.dateOperation)}" style="border: 1px solid blue;"></td>
+            <td th:text="${depot.actionnaire.denomination}" style="border: 1px solid blue;"></td>
+            <td th:text="${#numbers.formatDecimal(depot.montant, 0, 'WHITESPACE', 0, 'POINT')}" style="border: 1px solid blue;">FCFA</td>
+            <td th:text="${#numbers.formatDecimal(depot.montantSouscrit, 0, 'WHITESPACE', 0, 'POINT')}" style="border: 1px solid blue;">FCFA</td>
+            <!--<p th:with="totalDepot=${totalDepot + depot.montant}"></p>
+            <p th:with="totaSouscrit=${totaSouscrit + depot.montantSouscrit}"></p>-->
+        </tr>
+        <tr>
+            <td colspan="3" style="border: 1px solid blue;">Total</td>
+            <td th:text="${#numbers.formatDecimal(totalDepot, 0, 'WHITESPACE', 0, 'POINT')}" style="border: 1px solid blue;"></td>
+            <td th:text="${#numbers.formatDecimal(totalSouscrit, 0, 'WHITESPACE', 0, 'POINT')}" style="border: 1px solid blue;"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+
+<!--<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>V�rification des d�p�ts pour souscription</title>
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+          crossorigin="anonymous">
+    &lt;!&ndash;<link href="../static/css/bootstrap.min.css" rel="stylesheet" th:href="@{/css/bootstrap.min.css}">&ndash;&gt;
+</head>
+<body>
+    <div align="center">
+        <div style="width: 100%; border: 1px solid black; margin-bottom: 5px; background-color: #005cbf">
+            LISTE DE VERIFICATION DES SOUSCRIPTIONS</div>
+        <table class="table table-responsive table-bordered table-striped" border="1">
+            <thead>
+            <tr>
+                <th>R�f�rence</th>
+                <th>Date op�ration</th>
+                <th>D�nomination</th>
+                <th>Montant D�pos�</th>
+                <th>Montant Souscrit</th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr th:each="depot: ${depots}">
+                    <td th:text="${depot.referencePiece}"></td>
+                    <td th:text="${depot.dateOperation}"></td>
+                    <td th:text="${depot.actionnaire.denomination}"></td>
+                    <td th:text="${depot.montant}"></td>
+                    <td th:text="${depot.montantSouscrit}"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>-->

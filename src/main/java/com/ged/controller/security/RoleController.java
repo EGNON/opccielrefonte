@@ -73,7 +73,7 @@ public class RoleController {
         return roleService.afficherTous(params);
     }
 
-    /*@Order(1)
+    @Order(1)
     @PostConstruct
     @EventListener(ApplicationReadyEvent.class)
     public void generate()
@@ -115,11 +115,11 @@ public class RoleController {
             {
                 RoleDto roleDto = new RoleDto(role);
                 roleDto.setSupprimer(false);
-                roleDto.setNumLigne(0L);
+//                roleDto.setNumLigne(0L);
                 roleService.creerRole(roleDto);
             }
         }
-    }*/
+    }
 
     @PutMapping("/{id}")
     public ResponseEntity<Object> modifier(@PathVariable Long id, @RequestBody RoleDto roleDto){

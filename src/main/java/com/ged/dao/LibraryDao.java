@@ -3,6 +3,7 @@ package com.ged.dao;
 import com.ged.entity.BaseEntity;
 import com.ged.projection.FT_DepotRachatProjection;
 import com.ged.entity.opcciel.SeanceOpcvm;
+import com.ged.projection.LigneMvtClotureProjection;
 import com.ged.projection.NbrePartProjection;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -36,4 +37,18 @@ public interface LibraryDao extends JpaRepository<BaseEntity, Long> {
                                           );
     @Query(value = "select s from SeanceOpcvm s join s.opcvm o where s.opcvm.idOpcvm = :idOpcvm and s.estEnCours = true")
     SeanceOpcvm currentSeance(@Param("idOpcvm") Long idOpcvm);
+
+    @Query(value = "SELECT idOpcvm, idActionnaire, codeNatureOperation, libelleNatureOperation, codeModeleEcriture, " +
+            "libelleModeleEcriture, numeroOrdreModele, numeroOrdreLigneMvt, codeIb, " +
+            "codeRubrique, codePosition, libellePosition, numCompteComptable, libelleCompteComptable, " +
+            "codePlan, sensMvt, idFormule, valeur, codeTypeFormule FROM [Comptabilite].[FT_ChargerLigneMvt] (:codeNatureOperation, " +
+            ":valeurCodeAnalytique, :valeurFormule, :idOpcvm, :idActionnaire, :idTitre)", nativeQuery = true)
+    List<LigneMvtClotureProjection> chargerLigneMvt(
+            @Param("codeNatureOperation") String codeNatureOperation,
+            @Param("valeurCodeAnalytique") String valeurCodeAnalytique,
+            @Param("valeurFormule") String valeurFormule,
+            @Param("idOpcvm") Long idOpcvm,
+            @Param("idActionnaire") Long idActionnaire,
+            @Param("idTitre") Long idTitre
+    );
 }

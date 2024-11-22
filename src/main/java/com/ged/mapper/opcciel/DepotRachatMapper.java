@@ -28,15 +28,15 @@ public class DepotRachatMapper {
             return null;
         DepotRachatDto depotRachatDto = new DepotRachatDto();
         BeanUtils.copyProperties(depotRachat, depotRachatDto);
+
+        if(depotRachat.getNatureOperation() != null)
+            depotRachatDto.setNatureOperation(natureOperationMapper.deNatureOperation(depotRachat.getNatureOperation()));
         if(depotRachat.getPersonne()!=null)
             depotRachatDto.setPersonne(personneMapper.dePersonne(depotRachat.getPersonne()));
-
         if(depotRachat.getActionnaire()!=null)
             depotRachatDto.setActionnaire(personneMapper.dePersonne(depotRachat.getActionnaire()));
-
         if(depotRachat.getOpcvm()!=null)
             depotRachatDto.setOpcvm(opcvmMapper.deOpcvm(depotRachat.getOpcvm()));
-
         if(depotRachat.getTitre()!=null)
             depotRachatDto.setTitre(titreMapper.deTitre(depotRachat.getTitre()));
 
@@ -71,7 +71,18 @@ public class DepotRachatMapper {
         }
         DepotRachat depotRachat = new DepotRachat();
         BeanUtils.copyProperties(depotRachatDto, depotRachat);
-        depotRachat.setNatureOperation(natureOperationMapper.deNatureOperationDto(depotRachatDto.getNatureOperation()));
+
+        if(depotRachatDto.getNatureOperation() != null)
+            depotRachat.setNatureOperation(natureOperationMapper.deNatureOperationDto(depotRachatDto.getNatureOperation()));
+        if(depotRachatDto.getPersonne()!=null)
+            depotRachat.setPersonne(personneMapper.dePersonneDto(depotRachatDto.getPersonne()));
+        if(depotRachatDto.getActionnaire()!=null)
+            depotRachat.setActionnaire(personneMapper.dePersonneDto(depotRachatDto.getActionnaire()));
+        if(depotRachatDto.getOpcvm()!=null)
+            depotRachat.setOpcvm(opcvmMapper.deOpcvmDto(depotRachatDto.getOpcvm()));
+        if(depotRachatDto.getTitre()!=null)
+            depotRachat.setTitre(titreMapper.deTitreDto(depotRachatDto.getTitre()));
+
         return depotRachat;
     }
 }

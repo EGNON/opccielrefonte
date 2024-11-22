@@ -335,7 +335,6 @@ public class PersonnePhysiqueServiceImpl implements PersonnePhysiqueService {
                 personnePhysique.setLangue(langue);
             }
 
-
             Set<DocumentDto> documents = personnePhysiqueDto.getDocuments();
             for (DocumentDto doc : documents) {
                 personnePhysique.ajouterDocument(documentMapper.deDocumentDto(doc));

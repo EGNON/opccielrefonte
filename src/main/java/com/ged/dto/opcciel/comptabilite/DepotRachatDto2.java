@@ -8,6 +8,7 @@ import com.ged.dto.standard.PersonneDto;
 import com.ged.dto.titresciel.TitreDto;
 import jakarta.persistence.Column;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -26,8 +27,9 @@ public class DepotRachatDto2 {
     private LocalDateTime datePiece;
     private LocalDateTime dateValeur;
     private String referencePiece;
-    private Double montant;
-    private Double quantite;
+    private BigDecimal montant;
+    private BigDecimal quantite;
+    private BigDecimal montantSouscrit;
     private String ecriture;
     private boolean estOD;
     private String type;
@@ -47,6 +49,11 @@ public class DepotRachatDto2 {
     private String nomVerificateur;
     private LocalDateTime dateVerification;
     private TitreDto titre;
+    private BigDecimal qte;
+    private BigDecimal cours;
+    private BigDecimal commission;
+    private BigDecimal interetCouru;
+    private BigDecimal interetPrecompte;
 
     public DepotRachatDto2() {
     }
@@ -153,22 +160,6 @@ public class DepotRachatDto2 {
 
     public void setReferencePiece(String referencePiece) {
         this.referencePiece = referencePiece;
-    }
-
-    public Double getMontant() {
-        return montant;
-    }
-
-    public void setMontant(Double montant) {
-        this.montant = montant;
-    }
-
-    public Double getQuantite() {
-        return quantite;
-    }
-
-    public void setQuantite(Double quantite) {
-        this.quantite = quantite;
     }
 
     public String getEcriture() {
@@ -321,4 +312,67 @@ public class DepotRachatDto2 {
         this.titre = titre;
     }
 
+    public BigDecimal getMontant() {
+        return montant;
+    }
+
+    public void setMontant(BigDecimal montant) {
+        this.montant = montant;
+    }
+
+    public BigDecimal getQuantite() {
+        return quantite;
+    }
+
+    public void setQuantite(BigDecimal quantite) {
+        this.quantite = quantite;
+    }
+
+    public BigDecimal getMontantSouscrit() {
+        return montantSouscrit;
+    }
+
+    public void setMontantSouscrit(BigDecimal montantSouscrit) {
+        this.montantSouscrit = montantSouscrit;
+    }
+
+    public BigDecimal getQte() {
+        return qte;
+    }
+
+    public void setQte(BigDecimal qte) {
+        this.qte = qte;
+    }
+
+    public BigDecimal getCours() {
+        return cours;
+    }
+
+    public void setCours(BigDecimal cours) {
+        this.cours = cours;
+    }
+
+    public BigDecimal getCommission() {
+        return commission;
+    }
+
+    public void setCommission(BigDecimal commission) {
+        this.commission = commission;
+    }
+
+    public BigDecimal getInteretCouru() {
+        return interetCouru;
+    }
+
+    public void setInteretCouru(BigDecimal interetCouru) {
+        this.interetCouru = interetCouru;
+    }
+
+    public BigDecimal getInteretPrecompte() {
+        return interetPrecompte;
+    }
+
+    public void setInteretPrecompte(BigDecimal interetPrecompte) {
+        this.interetPrecompte = interetPrecompte;
+    }
 }

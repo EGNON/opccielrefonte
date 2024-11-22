@@ -15,6 +15,8 @@ public class IbMapper {
 
     public IbDto deIb(Ib Ib)
     {
+        if(Ib == null)
+            return null;
         IbDto IbDto = new IbDto();
         BeanUtils.copyProperties(Ib, IbDto);
         if(Ib.getTypeIb()!=null){
@@ -25,6 +27,8 @@ public class IbMapper {
 
     public Ib deIbDto(IbDto IbDto)
     {
+        if(IbDto == null)
+            return null;
         Ib Ib = new Ib();
         BeanUtils.copyProperties(IbDto, Ib);
         return Ib;
