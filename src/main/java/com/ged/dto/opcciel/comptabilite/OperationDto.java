@@ -5,17 +5,21 @@ import com.ged.dto.opcciel.OpcvmDto;
 import com.ged.dto.opcciel.TransactionDto;
 import com.ged.dto.standard.PersonneDto;
 import com.ged.dto.titresciel.TitreDto;
+import com.ged.entity.Base;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class OperationDto {
+public class OperationDto extends Base {
     private Long idOperation;
+    private Long idActionnaire;
+    private Long idTitre;
     private Long idOcc;
     private OpcvmDto opcvm;
     private PersonneDto actionnaire;
     private TitreDto titre;
+    private Long idTransaction;
     private TransactionDto transaction;
     private Long idSeance;
     private NatureOperationDto natureOperation;
@@ -42,6 +46,14 @@ public class OperationDto {
     private String userLoginVerificateur2;
 
     public OperationDto() {
+    }
+
+    public Long getIdTransaction() {
+        return idTransaction;
+    }
+
+    public void setIdTransaction(Long idTransaction) {
+        this.idTransaction = idTransaction;
     }
 
     public Long getIdOperation() {

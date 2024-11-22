@@ -6,6 +6,7 @@ import com.ged.entity.standard.Personne;
 import com.ged.entity.titresciel.Titre;
 import jakarta.persistence.*;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
@@ -42,7 +43,7 @@ public class Operation extends Base {
     private LocalDateTime datePiece;
     private LocalDateTime dateValeur;
     private String referencePiece;
-    private Double montant;
+    private BigDecimal montant;
     private String ecriture;
     private boolean estOD;
     private String  type;
@@ -241,11 +242,11 @@ public class Operation extends Base {
         this.referencePiece = referencePiece;
     }
 
-    public Double getMontant() {
+    public BigDecimal getMontant() {
         return montant;
     }
 
-    public void setMontant(Double montant) {
+    public void setMontant(BigDecimal montant) {
         this.montant = montant;
     }
 

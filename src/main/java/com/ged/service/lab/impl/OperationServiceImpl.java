@@ -1,4 +1,4 @@
-package com.ged.service.opcciel.impl;
+package com.ged.service.lab.impl;
 
 import com.ged.dao.opcciel.OpcvmDao;
 import com.ged.dao.opcciel.comptabilite.NatureOperationDao;
@@ -12,7 +12,7 @@ import com.ged.entity.opcciel.comptabilite.Operation;
 import com.ged.entity.standard.Personne;
 import com.ged.mapper.opcciel.OperationMapper;
 import com.ged.response.ResponseHandler;
-import com.ged.service.opcciel.OperationService;
+import com.ged.service.lab.OperationService;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.ParameterMode;
 import jakarta.persistence.PersistenceContext;

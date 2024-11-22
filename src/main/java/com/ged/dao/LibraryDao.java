@@ -5,6 +5,7 @@ import com.ged.projection.FT_DepotRachatProjection;
 import com.ged.entity.opcciel.SeanceOpcvm;
 import com.ged.projection.LigneMvtClotureProjection;
 import com.ged.projection.NbrePartProjection;
+import com.ged.projection.PrecalculRachatProjection;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -51,4 +52,10 @@ public interface LibraryDao extends JpaRepository<BaseEntity, Long> {
             @Param("idActionnaire") Long idActionnaire,
             @Param("idTitre") Long idTitre
     );
+
+    @Query(value = "SELECT * FROM [Parametre].[PrecalculRachat](:idSeance," +
+            ":idOpcvm,:idPersonne)",nativeQuery = true)
+    List<PrecalculRachatProjection> afficherPrecalculRachat(@Param("idSeance") Long idSeance,
+                                                            @Param("idOpcvm") Long idOpcvm,
+                                                            @Param("idPersonne") Long idPersonne);
 }

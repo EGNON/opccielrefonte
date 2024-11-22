@@ -1,35 +1,34 @@
 package com.ged.dto.opcciel;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.ged.dto.opcciel.comptabilite.NatureOperationDto;
 import com.ged.dto.opcciel.comptabilite.OperationDto;
-import com.ged.dto.standard.PersonneDto;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class OperationSouscriptionRachatDto extends OperationDto {
-    private long idOperation;
-    /*private TransactionDto transaction;
-    private long idSeance;
-    private PersonneDto personneActionnaiare;
-    private OpcvmDto opcvm;
-    private PersonneDto personne;
-    private NatureOperationDto natureOperation;
+public class OperationSouscriptionRachatDto2  {
+    private Long idOperation;
+    private Long idTransaction;
+    private Long idSeance;
+    private Long idActionnaire;
+    private Long idOpcvm;
+    private Long idPersonne;
+    private String codeNatureOperation;
     private LocalDateTime dateOperation;
-    private String libelleOperation  ;
+    private String libelleOperation;
     private LocalDateTime dateSaisie;
     private LocalDateTime datePiece;
     private LocalDateTime dateValeur;
-    private String referencePiece;*/
+    private String referencePiece;
     private BigDecimal montantSousALiquider;
-    private BigDecimal sousRachatPart;
+    private BigDecimal SousRachatPart;
     private BigDecimal commisiionSousRachat;
     private BigDecimal tAFCommissionSousRachat;
     private BigDecimal retrocessionSousRachat;
     private BigDecimal tAFRetrocessionSousRachat;
     private BigDecimal commissionSousRachatRetrocedee;
-    private String modeValeurLiquidative;
+    private BigDecimal modeValeurLiquidative;
     private BigDecimal coursVL;
     private BigDecimal nombrePartSousRachat;
     private BigDecimal regulResultatExoEnCours;
@@ -49,64 +48,66 @@ public class OperationSouscriptionRachatDto extends OperationDto {
     private boolean resteRembourse;
     private boolean rachatPaye;
     private String ecriture;
+    private String valeurFormule;
+    private String valeurCodeAnalytique;
 
-    public OperationSouscriptionRachatDto() {
+    public OperationSouscriptionRachatDto2() {
     }
 
     public Long getIdOperation() {
         return idOperation;
     }
 
-    public void setIdOperation(long idOperation) {
+    public void setIdOperation(Long idOperation) {
         this.idOperation = idOperation;
     }
 
-   /* public TransactionDto getTransaction() {
-        return transaction;
+    public Long getIdTransaction() {
+        return idTransaction;
     }
 
-    public void setTransaction(TransactionDto transaction) {
-        this.transaction = transaction;
+    public void setIdTransaction(Long idTransaction) {
+        this.idTransaction = idTransaction;
     }
 
     public Long getIdSeance() {
         return idSeance;
     }
 
-    public void setIdSeance(long idSeance) {
+    public void setIdSeance(Long idSeance) {
         this.idSeance = idSeance;
     }
 
-    public PersonneDto getPersonneActionnaiare() {
-        return personneActionnaiare;
+    public Long getIdActionnaire() {
+        return idActionnaire;
     }
 
-    public void setPersonneActionnaiare(PersonneDto personneActionnaiare) {
-        this.personneActionnaiare = personneActionnaiare;
+    public void setIdActionnaire(Long idActionnaire) {
+        this.idActionnaire = idActionnaire;
     }
 
-    public OpcvmDto getOpcvm() {
-        return opcvm;
+    public Long getIdOpcvm() {
+        return idOpcvm;
     }
 
-    public void setOpcvm(OpcvmDto opcvm) {
-        this.opcvm = opcvm;
+    public void setIdOpcvm(Long idOpcvm) {
+        this.idOpcvm = idOpcvm;
     }
 
-    public PersonneDto getPersonne() {
-        return personne;
+    public Long getIdPersonne() {
+        return idPersonne;
     }
 
-    public void setPersonne(PersonneDto personne) {
-        this.personne = personne;
+    public void setIdPersonne(Long idPersonne) {
+        this.idPersonne = idPersonne;
     }
 
-    public NatureOperationDto getNatureOperation() {
-        return natureOperation;
+    public String getCodeNatureOperation() {
+        return codeNatureOperation;
     }
 
-    public void setNatureOperation(NatureOperationDto natureOperation) {
-        this.natureOperation = natureOperation;
+    public void setCodeNatureOperation(String codeNatureOperation) {
+        this.codeNatureOperation = codeNatureOperation;
     }
 
     public LocalDateTime getDateOperation() {
@@ -156,7 +157,6 @@ public class OperationSouscriptionRachatDto extends OperationDto {
     public void setReferencePiece(String referencePiece) {
         this.referencePiece = referencePiece;
     }
-*/
 
     public BigDecimal getMontantSousALiquider() {
         return montantSousALiquider;
@@ -167,11 +167,11 @@ public class OperationSouscriptionRachatDto extends OperationDto {
     }
 
     public BigDecimal getSousRachatPart() {
-        return sousRachatPart;
+        return SousRachatPart;
     }
 
     public void setSousRachatPart(BigDecimal sousRachatPart) {
-        sousRachatPart = sousRachatPart;
+        SousRachatPart = sousRachatPart;
     }
 
     public BigDecimal getCommisiionSousRachat() {
@@ -182,12 +182,12 @@ public class OperationSouscriptionRachatDto extends OperationDto {
         this.commisiionSousRachat = commisiionSousRachat;
     }
 
-    public BigDecimal getTAFCommissionSousRachat() {
+    public BigDecimal gettAFCommissionSousRachat() {
         return tAFCommissionSousRachat;
     }
 
-    public void setTAFCommissionSousRachat(BigDecimal TAFCommissionSousRachat) {
-        this.tAFCommissionSousRachat = TAFCommissionSousRachat;
+    public void settAFCommissionSousRachat(BigDecimal tAFCommissionSousRachat) {
+        this.tAFCommissionSousRachat = tAFCommissionSousRachat;
     }
 
     public BigDecimal getRetrocessionSousRachat() {
@@ -198,12 +198,12 @@ public class OperationSouscriptionRachatDto extends OperationDto {
         this.retrocessionSousRachat = retrocessionSousRachat;
     }
 
-    public BigDecimal getTAFRetrocessionSousRachat() {
+    public BigDecimal gettAFRetrocessionSousRachat() {
         return tAFRetrocessionSousRachat;
     }
 
-    public void setTAFRetrocessionSousRachat(BigDecimal TAFRetrocessionSousRachat) {
-        this.tAFRetrocessionSousRachat = TAFRetrocessionSousRachat;
+    public void settAFRetrocessionSousRachat(BigDecimal tAFRetrocessionSousRachat) {
+        this.tAFRetrocessionSousRachat = tAFRetrocessionSousRachat;
     }
 
     public BigDecimal getCommissionSousRachatRetrocedee() {
@@ -214,11 +214,11 @@ public class OperationSouscriptionRachatDto extends OperationDto {
         this.commissionSousRachatRetrocedee = commissionSousRachatRetrocedee;
     }
 
-    public String getModeValeurLiquidative() {
+    public BigDecimal getModeValeurLiquidative() {
         return modeValeurLiquidative;
     }
 
-    public void setModeValeurLiquidative(String modeValeurLiquidative) {
+    public void setModeValeurLiquidative(BigDecimal modeValeurLiquidative) {
         this.modeValeurLiquidative = modeValeurLiquidative;
     }
 
@@ -366,13 +366,27 @@ public class OperationSouscriptionRachatDto extends OperationDto {
         this.rachatPaye = rachatPaye;
     }
 
-    @Override
     public String getEcriture() {
         return ecriture;
     }
 
-    @Override
     public void setEcriture(String ecriture) {
         this.ecriture = ecriture;
+    }
+
+    public String getValeurFormule() {
+        return valeurFormule;
+    }
+
+    public void setValeurFormule(String valeurFormule) {
+        this.valeurFormule = valeurFormule;
+    }
+
+    public String getValeurCodeAnalytique() {
+        return valeurCodeAnalytique;
+    }
+
+    public void setValeurCodeAnalytique(String valeurCodeAnalytique) {
+        this.valeurCodeAnalytique = valeurCodeAnalytique;
     }
 }
