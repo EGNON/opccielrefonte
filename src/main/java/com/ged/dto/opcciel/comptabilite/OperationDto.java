@@ -31,29 +31,21 @@ public class OperationDto extends Base {
     private String referencePiece;
     private BigDecimal montant;
     private String ecriture;
-    private boolean estOD;
+    private Boolean estOD;
     private String  type;
     private String valeurFormule;
     private String valeurCodeAnalytique;
-    private boolean estExtournee;
-    private boolean estOpExtournee;
+    private Boolean estExtournee;
+    private Boolean estOpExtournee;
     private OperationDto operationDto;
-    private boolean estVerifie1;
+    private Boolean estVerifie1;
     private LocalDateTime dateVerification1;
     private String userLoginVerificateur1;
-    private boolean estVerifie2;
+    private Boolean estVerifie2;
     private LocalDateTime dateVerification2;
     private String userLoginVerificateur2;
 
     public OperationDto() {
-    }
-
-    public PersonneDto getActionnaire() {
-        return actionnaire;
-    }
-
-    public void setActionnaire(PersonneDto actionnaire) {
-        this.actionnaire = actionnaire;
     }
 
     public Long getIdTransaction() {
@@ -88,12 +80,60 @@ public class OperationDto extends Base {
         this.opcvm = opcvm;
     }
 
-    public PersonneDto getPersonne() {
+    public PersonneDto getActionnaire() {
         return actionnaire;
     }
 
-    public void setPersonne(PersonneDto actionnaire) {
+    public void setActionnaire(PersonneDto actionnaire) {
         this.actionnaire = actionnaire;
+    }
+
+    public BigDecimal getMontant() {
+        return montant;
+    }
+
+    public void setMontant(BigDecimal montant) {
+        this.montant = montant;
+    }
+
+    public Boolean getEstOD() {
+        return estOD;
+    }
+
+    public void setEstOD(Boolean estOD) {
+        this.estOD = estOD;
+    }
+
+    public Boolean getEstExtournee() {
+        return estExtournee;
+    }
+
+    public void setEstExtournee(Boolean estExtournee) {
+        this.estExtournee = estExtournee;
+    }
+
+    public Boolean getEstOpExtournee() {
+        return estOpExtournee;
+    }
+
+    public void setEstOpExtournee(Boolean estOpExtournee) {
+        this.estOpExtournee = estOpExtournee;
+    }
+
+    public Boolean getEstVerifie1() {
+        return estVerifie1;
+    }
+
+    public void setEstVerifie1(Boolean estVerifie1) {
+        this.estVerifie1 = estVerifie1;
+    }
+
+    public Boolean getEstVerifie2() {
+        return estVerifie2;
+    }
+
+    public void setEstVerifie2(Boolean estVerifie2) {
+        this.estVerifie2 = estVerifie2;
     }
 
     public TitreDto getTitre() {
@@ -176,28 +216,12 @@ public class OperationDto extends Base {
         this.referencePiece = referencePiece;
     }
 
-    public BigDecimal getMontant() {
-        return montant;
-    }
-
-    public void setMontant(BigDecimal montant) {
-        this.montant = montant;
-    }
-
     public String getEcriture() {
         return ecriture;
     }
 
     public void setEcriture(String ecriture) {
         this.ecriture = ecriture;
-    }
-
-    public boolean isEstOD() {
-        return estOD;
-    }
-
-    public void setEstOD(boolean estOD) {
-        this.estOD = estOD;
     }
 
     public String getType() {

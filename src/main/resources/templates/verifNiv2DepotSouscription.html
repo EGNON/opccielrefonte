@@ -1,0 +1,83 @@
+<div align="center">
+    <div style="width: 100%; height: 35px; border: 1px solid blue; margin-left: auto; margin-right: auto;
+        margin-bottom: 20px; background-color: #9fcdff;">
+        LISTE DE VERIFICATION DES SOUSCRIPTIONS</div>
+    <div style="width: 100%; height: 50px; margin-left: auto; margin-right: auto;
+        margin-bottom: 20px; border: 1px solid blue;">
+        <span><strong>OPCVM :</strong> </span><span th:text="${opcvm.denominationOpcvm}"></span>
+        <span><strong>SEANCE :</strong> </span><span th:text="${seance.idSeanceOpcvm.idSeance}"></span>
+        <span><strong>OUV. :</strong> </span><span th:text="${df.format(seance.dateOuverture)}"></span>
+        <span><strong>FERM. :</strong> </span><span th:text="${df.format(seance.dateFermeture)}"></span>
+    </div>
+    <table style="width: 100%; border-collapse: collapse;">
+        <thead>
+        <tr>
+            <th style="border: 1px solid blue;">Référence</th>
+            <th style="border: 1px solid blue;">Date opération</th>
+            <th style="border: 1px solid blue;">Dénomination</th>
+            <th style="border: 1px solid blue;">Montant Déposé</th>
+            <th style="border: 1px solid blue;">Montant Souscrit</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="depot: ${depots}">
+            <td th:text="${depot.referencePiece}" style="border: 1px solid blue;"></td>
+            <td th:text="${df.format(depot.dateOperation)}" style="border: 1px solid blue;"></td>
+            <td th:text="${depot.actionnaire.denomination}" style="border: 1px solid blue;"></td>
+            <td th:text="${#numbers.formatDecimal(depot.montant, 0, 'WHITESPACE', 0, 'POINT')}" style="border: 1px solid blue;">FCFA</td>
+            <td th:text="${#numbers.formatDecimal(depot.montantSouscrit, 0, 'WHITESPACE', 0, 'POINT')}" style="border: 1px solid blue;">FCFA</td>
+            <!--<p th:with="totalDepot=${totalDepot + depot.montant}"></p>
+            <p th:with="totaSouscrit=${totaSouscrit + depot.montantSouscrit}"></p>-->
+        </tr>
+        <tr>
+            <td colspan="3" style="border: 1px solid blue;">Total</td>
+            <td th:text="${#numbers.formatDecimal(totalDepot, 0, 'WHITESPACE', 0, 'POINT')}" style="border: 1px solid blue;"></td>
+            <td th:text="${#numbers.formatDecimal(totalSouscrit, 0, 'WHITESPACE', 0, 'POINT')}" style="border: 1px solid blue;"></td>
+        </tr>
+        </tbody>
+    </table>
+    <div class="verif" style="margin-top: 150px; height: 100vh;">
+        <div class="verif1" style="width:50vw; float: left;">
+            <div style="border: 1px solid blue;">
+                <h5>VERIFICATION N1</h5>
+            </div>
+            <div>
+                <table style="border-collapse: collapse;">
+                    <thead>
+                    <tr>
+                        <th style="border: 1px solid blue;">DATE VERIFICATION</th>
+                        <th style="border: 1px solid blue;">VERIFICATEUR</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td th:text="${dateVerification1}" style="border: 1px solid blue;"></td>
+                        <td th:text="${userVerification1}" style="border: 1px solid blue;"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="verif2" style="width:50vw; float: right;">
+            <div style="border: 1px solid blue;">
+                <h5>VERIFICATION N2</h5>
+            </div>
+            <div>
+                <table style="border-collapse: collapse;">
+                    <thead>
+                    <tr>
+                        <th style="border: 1px solid blue;">DATE VERIFICATION</th>
+                        <th style="border: 1px solid blue;">VERIFICATEUR</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td th:text="${dateVerification2}" style="border: 1px solid blue;"></td>
+                        <td th:text="${userVerification2}" style="border: 1px solid blue;"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

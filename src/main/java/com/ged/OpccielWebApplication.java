@@ -3,6 +3,7 @@ package com.ged;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.ged.dao.importation.DataImportationDao;
+import com.ged.service.standard.UtilisateurService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -30,8 +31,8 @@ import java.sql.SQLException;
 public class OpccielWebApplication implements CommandLineRunner {
 	@Value("${file.upload-dir}")
 	private String chemin;
-	/*@Autowired
-	UtilisateurService utilisateurService;*/
+	@Autowired
+	UtilisateurService utilisateurService;
 	@Autowired
 	private DataImportationDao dataImportationDao;
 
@@ -74,9 +75,9 @@ public class OpccielWebApplication implements CommandLineRunner {
 		}
 		//A NE PAS ENLEVER
 //		utilisateurService.registerDefaultUsers();
-		dataImportationDao.emetteur();
+		/*dataImportationDao.emetteur();
 		dataImportationDao.registraire();
 		dataImportationDao.depositaire();
-		dataImportationDao.garant();
+		dataImportationDao.garant();*/
 	}
 }

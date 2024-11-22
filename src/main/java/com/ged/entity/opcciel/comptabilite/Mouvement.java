@@ -37,10 +37,11 @@ public class Mouvement extends Base {
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "codeIB")
 	private Ib ib;
+	private String iB;
 	@Column(length = 16)
 	private String  rubrique;
 	@Column(length = 16)
-	private String codePosition;
+	private String position;
 
 	public Mouvement() {
 	}
@@ -157,6 +158,14 @@ public class Mouvement extends Base {
 		this.ib = ib;
 	}
 
+	public String getiB() {
+		return iB;
+	}
+
+	public void setiB(String iB) {
+		this.iB = iB;
+	}
+
 	public String getRubrique() {
 		return rubrique;
 	}
@@ -165,11 +174,11 @@ public class Mouvement extends Base {
 		this.rubrique = rubrique;
 	}
 
-	public String getCodePosition() {
-		return codePosition;
+	public String getPosition() {
+		return position;
 	}
 
-	public void setCodePosition(String codePosition) {
-		this.codePosition = codePosition;
+	public void setPosition(String position) {
+		this.position = position;
 	}
 }

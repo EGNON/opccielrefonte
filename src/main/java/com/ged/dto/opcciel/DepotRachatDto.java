@@ -8,6 +8,7 @@ import com.ged.entity.Base;
 import com.ged.entity.opcciel.comptabilite.Transaction;
 import jakarta.persistence.Column;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -25,36 +26,35 @@ public class DepotRachatDto extends Base {
     private LocalDateTime datePiece;
     private LocalDateTime dateValeur;
     private String referencePiece;
-    private Double montant;
-    private Double quantite;
+    private BigDecimal montant;
+    private BigDecimal quantite;
     private String ecriture;
-    private boolean estOD;
+    private Boolean estOD;
     private String type;
     private PersonneDto actionnaire;
-    private long idSeance;
+    private Long idSeance;
     private PersonneDto personne;
     private OpcvmDto opcvm;
     private String modeVL;
-    private boolean estVerifie1;
+    private Boolean estVerifie1;
     private LocalDateTime dateVerification1;
     private String userLoginVerificateur1;
-    private boolean estVerifie2;
+    private Boolean estVerifie2;
     private LocalDateTime dateVerification2;
     private String userLoginVerificateur2;
-    private boolean estGenere;
-    private boolean estVerifier;
+    private Boolean estGenere;
+    private Boolean estVerifier;
     private String nomVerificateur;
     private LocalDateTime dateVerification;
-    private Double montantSouscrit;
+    private BigDecimal montantSouscrit;
     private TitreDto titre;
-    private Double qte;
-    private Double cours;
-    private Double commission;
-    private Double interetCouru;
-    private Double interetPrecompte;
+    private BigDecimal qte;
+    private BigDecimal cours;
+    private BigDecimal commission;
+    private BigDecimal interetCouru;
+    private BigDecimal interetPrecompte;
 
     /**************************************************************************/
-    @Column(length = 4000)
     private String valeurFormule;
     private String valeurCodeAnalytique;
 
@@ -165,36 +165,12 @@ public class DepotRachatDto extends Base {
         this.referencePiece = referencePiece;
     }
 
-    public Double getMontant() {
-        return montant;
-    }
-
-    public void setMontant(Double montant) {
-        this.montant = montant;
-    }
-
-    public Double getQuantite() {
-        return quantite;
-    }
-
-    public void setQuantite(Double quantite) {
-        this.quantite = quantite;
-    }
-
     public String getEcriture() {
         return ecriture;
     }
 
     public void setEcriture(String ecriture) {
         this.ecriture = ecriture;
-    }
-
-    public boolean isEstOD() {
-        return estOD;
-    }
-
-    public void setEstOD(boolean estOD) {
-        this.estOD = estOD;
     }
 
     public String getType() {
@@ -211,14 +187,6 @@ public class DepotRachatDto extends Base {
 
     public void setActionnaire(PersonneDto actionnaire) {
         this.actionnaire = actionnaire;
-    }
-
-    public long getIdSeance() {
-        return idSeance;
-    }
-
-    public void setIdSeance(long idSeance) {
-        this.idSeance = idSeance;
     }
 
     public PersonneDto getPersonne() {
@@ -245,14 +213,6 @@ public class DepotRachatDto extends Base {
         this.modeVL = modeVL;
     }
 
-    public boolean isEstVerifie1() {
-        return estVerifie1;
-    }
-
-    public void setEstVerifie1(boolean estVerifie1) {
-        this.estVerifie1 = estVerifie1;
-    }
-
     public LocalDateTime getDateVerification1() {
         return dateVerification1;
     }
@@ -267,14 +227,6 @@ public class DepotRachatDto extends Base {
 
     public void setUserLoginVerificateur1(String userLoginVerificateur1) {
         this.userLoginVerificateur1 = userLoginVerificateur1;
-    }
-
-    public boolean isEstVerifie2() {
-        return estVerifie2;
-    }
-
-    public void setEstVerifie2(boolean estVerifie2) {
-        this.estVerifie2 = estVerifie2;
     }
 
     public LocalDateTime getDateVerification2() {
@@ -293,22 +245,6 @@ public class DepotRachatDto extends Base {
         this.userLoginVerificateur2 = userLoginVerificateur2;
     }
 
-    public boolean isEstGenere() {
-        return estGenere;
-    }
-
-    public void setEstGenere(boolean estGenere) {
-        this.estGenere = estGenere;
-    }
-
-    public boolean isEstVerifier() {
-        return estVerifier;
-    }
-
-    public void setEstVerifier(boolean estVerifier) {
-        this.estVerifier = estVerifier;
-    }
-
     public String getNomVerificateur() {
         return nomVerificateur;
     }
@@ -325,14 +261,6 @@ public class DepotRachatDto extends Base {
         this.dateVerification = dateVerification;
     }
 
-    public Double getMontantSouscrit() {
-        return montantSouscrit;
-    }
-
-    public void setMontantSouscrit(Double montantSouscrit) {
-        this.montantSouscrit = montantSouscrit;
-    }
-
     public TitreDto getTitre() {
         return titre;
     }
@@ -341,43 +269,67 @@ public class DepotRachatDto extends Base {
         this.titre = titre;
     }
 
-    public Double getQte() {
+    public BigDecimal getMontant() {
+        return montant;
+    }
+
+    public void setMontant(BigDecimal montant) {
+        this.montant = montant;
+    }
+
+    public BigDecimal getQuantite() {
+        return quantite;
+    }
+
+    public void setQuantite(BigDecimal quantite) {
+        this.quantite = quantite;
+    }
+
+    public BigDecimal getMontantSouscrit() {
+        return montantSouscrit;
+    }
+
+    public void setMontantSouscrit(BigDecimal montantSouscrit) {
+        this.montantSouscrit = montantSouscrit;
+    }
+
+    public BigDecimal getQte() {
         return qte;
     }
 
-    public void setQte(Double qte) {
+    public void setQte(BigDecimal qte) {
         this.qte = qte;
     }
 
-    public Double getCours() {
+    public BigDecimal getCours() {
         return cours;
     }
 
-    public void setCours(Double cours) {
+    public void setCours(BigDecimal cours) {
         this.cours = cours;
     }
 
-    public Double getCommission() {
+    public BigDecimal getCommission() {
         return commission;
     }
 
-    public void setCommission(Double commission) {
+    public void setCommission(BigDecimal commission) {
         this.commission = commission;
     }
 
-    public Double getInteretCouru() {
+    public BigDecimal getInteretCouru() {
         return interetCouru;
     }
 
-    public void setInteretCouru(Double interetCouru) {
+    public void setInteretCouru(BigDecimal interetCouru) {
         this.interetCouru = interetCouru;
     }
 
-    public Double getInteretPrecompte() {
+    public BigDecimal getInteretPrecompte() {
         return interetPrecompte;
     }
 
-    public void setInteretPrecompte(Double interetPrecompte) {
+    public void setInteretPrecompte(BigDecimal interetPrecompte) {
         this.interetPrecompte = interetPrecompte;
     }
 
@@ -396,5 +348,53 @@ public class DepotRachatDto extends Base {
 
     public void setValeurCodeAnalytique(String valeurCodeAnalytique) {
         this.valeurCodeAnalytique = valeurCodeAnalytique;
+    }
+
+    public Boolean getEstOD() {
+        return estOD;
+    }
+
+    public void setEstOD(Boolean estOD) {
+        this.estOD = estOD;
+    }
+
+    public Long getIdSeance() {
+        return idSeance;
+    }
+
+    public void setIdSeance(Long idSeance) {
+        this.idSeance = idSeance;
+    }
+
+    public Boolean getEstVerifie1() {
+        return estVerifie1;
+    }
+
+    public void setEstVerifie1(Boolean estVerifie1) {
+        this.estVerifie1 = estVerifie1;
+    }
+
+    public Boolean getEstVerifie2() {
+        return estVerifie2;
+    }
+
+    public void setEstVerifie2(Boolean estVerifie2) {
+        this.estVerifie2 = estVerifie2;
+    }
+
+    public Boolean getEstGenere() {
+        return estGenere;
+    }
+
+    public void setEstGenere(Boolean estGenere) {
+        this.estGenere = estGenere;
+    }
+
+    public Boolean getEstVerifier() {
+        return estVerifier;
+    }
+
+    public void setEstVerifier(Boolean estVerifier) {
+        this.estVerifier = estVerifier;
     }
 }

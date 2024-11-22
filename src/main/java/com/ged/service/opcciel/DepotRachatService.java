@@ -1,9 +1,11 @@
 
 package com.ged.service.opcciel;
 
+import com.ged.datatable.DataTablesResponse;
 import com.ged.datatable.DatatableParameters;
 import com.ged.dto.opcciel.DepotRachatDto;
 import com.ged.dto.opcciel.comptabilite.VerifDepSouscriptionIntRachatDto;
+import com.ged.dto.request.VerificationListeDepotRequest;
 import com.ged.entity.opcciel.DepotRachat;
 import com.ged.projection.FT_DepotRachatProjection;
 import com.ged.projection.NbrePartProjection;
@@ -17,6 +19,8 @@ import java.util.List;
 
 public interface DepotRachatService {
     ResponseEntity<Object> afficherTousLesDepots(DatatableParameters parameters, Long idOpcvm, Long idSeance);
+
+    ResponseEntity<Object> listeDepotAVerifier(VerificationListeDepotRequest verificationListeDepotRequest);
 
     ResponseEntity<Object> afficherTous(DatatableParameters parameters, long idOpcvm, long idSeance, String codeNatureOperation);
     ResponseEntity<Object> afficherTous(long idOpcvm,
@@ -32,10 +36,21 @@ public interface DepotRachatService {
     List<FT_DepotRachatProjection> afficherFT_DepotRachat(Long IdOpcvm,boolean niveau1,boolean niveau2);
     DepotRachat afficherSelonId(Long IdOperation);
     ResponseEntity<Object> afficher(Long IdOperation);
+
+    ResponseEntity<Object> creer(DepotRachatDto DepotRachatDto, String type);
+
     ResponseEntity<Object> creer(DepotRachatDto depotRachatDto);
     ResponseEntity<Object> creer(VerifDepSouscriptionIntRachatDto verifDepSouscriptionIntRachatDto);
     ResponseEntity<Object> creer(Long[] ids,String userLogin);
+
+    ResponseEntity<Object> modifier(DepotRachatDto depotRachatDto, String type, Long id);
+
     ResponseEntity<Object> modifier(DepotRachatDto depotRachatDto);
     ResponseEntity<Object> modifier(Long[] id,String userLogin);
+
+    ResponseEntity<Object> confirmerListeVerifDepot(List<DepotRachatDto> depotRachatDtos);
+
+    ResponseEntity<Object> confirmerListeVerifNiv2Depot(List<DepotRachatDto> depotRachatDtos);
+
     ResponseEntity<Object> supprimer(Long IdOperation);
 }

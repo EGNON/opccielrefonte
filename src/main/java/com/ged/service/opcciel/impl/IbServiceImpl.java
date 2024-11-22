@@ -97,7 +97,8 @@ public class IbServiceImpl implements IbService {
 
     @Override
     public Ib afficherSelonId(String codeIb) {
-        return IbDao.findById(codeIb).orElseThrow(() -> new EntityNotFoundException(Ib.class, "code",codeIb));
+//        return IbDao.findById(codeIb).orElseThrow(() -> new EntityNotFoundException(Ib.class, "code",codeIb));
+        return IbDao.findById(codeIb).orElse(null);
     }
 
     @Override

@@ -17,10 +17,33 @@ public interface DepotRachatDao extends JpaRepository<DepotRachat,Long> {
     List<DepotRachat> findByOpcvmAndIdSeanceAndNatureOperationAndEstVerifierAndEstVerifie1AndEstVerifie2AndSupprimer
             (Opcvm opcvm, long idSeance, NatureOperation natureOperation,
              boolean estVerifier,boolean estVerifie1,boolean estVerifie2,boolean supprimer);
-    @Query(value = "select d from DepotRachat d join d.natureOperation n where n.codeNatureOperation = 'DEP_SOUS' " +
-            "and d.opcvm.idOpcvm = :idOpcvm and d.idSeance = :idSeance order by d.idOperation desc")
+    @Query(value = "select d from DepotRachat d join d.natureOperation n where trim(n.codeNatureOperation) = 'DEP_SOUS' " +
+            "and d.opcvm.idOpcvm = :idOpcvm and d.idSeance = :idSeance and d.supprimer = false order by d.idDepotRachat desc")
     Page<DepotRachat> listeDesDepotSeance(
             @Param("idOpcvm") Long idOpcvm, @Param("idSeance") Long idSeance, Pageable pageable);
+    @Query(value = "select d from DepotRachat d join d.natureOperation n join d.actionnaire join d.personne " +
+            "where trim(n.codeNatureOperation) = 'DEP_SOUS' " +
+            "and d.opcvm.idOpcvm = :idOpcvm and d.idSeance = :idSeance " +
+            "and d.estVerifie1 = false and d.estVerifie2 = false order by d.idDepotRachat desc")
+    List<DepotRachat> listeVerifDepotSeance(@Param("idOpcvm") Long idOpcvm, @Param("idSeance") Long idSeance);
+    @Query(value = "select d from DepotRachat d join d.natureOperation n join d.actionnaire join d.personne " +
+            "where trim(n.codeNatureOperation) = 'DEP_SOUS' " +
+            "and d.opcvm.idOpcvm = :idOpcvm and d.idSeance = :idSeance and (d.estVerifier = :estVerifier or :estVerifier is null) " +
+            "and (d.estVerifie1 = :estVerifie1 or :estVerifie1 is null) and " +
+            "(:estVerifie2 is null or d.estVerifie2 = :estVerifie2) order by d.idDepotRachat desc")
+    Page<DepotRachat> tousLesDepotsSouscription(
+            @Param("idOpcvm") Long idOpcvm, @Param("idSeance") Long idSeance,
+            @Param("estVerifier") Boolean estVerifier, @Param("estVerifie1") Boolean estVerifie1,
+            @Param("estVerifie2") Boolean estVerifie2, Pageable pageable);
+    @Query(value = "select d from DepotRachat d join d.natureOperation n join d.actionnaire join d.personne " +
+            "where trim(n.codeNatureOperation) = 'DEP_SOUS' " +
+            "and d.opcvm.idOpcvm = :idOpcvm and d.idSeance = :idSeance and (d.estVerifier = :estVerifier or :estVerifier is null) " +
+            "and (d.estVerifie1 = :estVerifie1 or :estVerifie1 is null) and " +
+            "(:estVerifie2 is null or d.estVerifie2 = :estVerifie2) order by d.idDepotRachat desc")
+    List<DepotRachat> tousLesDepotsSouscription(
+            @Param("idOpcvm") Long idOpcvm, @Param("idSeance") Long idSeance,
+            @Param("estVerifier") Boolean estVerifier, @Param("estVerifie1") Boolean estVerifie1,
+            @Param("estVerifie2") Boolean estVerifie2);
     Page<DepotRachat> findByOpcvmAndIdSeanceAndNatureOperation(
             Opcvm opcvm, long idSeance, NatureOperation natureOperation, Pageable pageable);
 }
