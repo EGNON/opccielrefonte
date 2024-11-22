@@ -9,6 +9,7 @@ import com.ged.dto.opcciel.comptabilite.VerifDepSouscriptionIntRachatDto;
 import com.ged.dto.request.DownloadRequest;
 import com.ged.dto.request.VerificationListeDepotRequest;
 import com.ged.dto.titresciel.CoursTitreDto;
+import com.ged.entity.opcciel.DepotRachat;
 import com.ged.entity.opcciel.Opcvm;
 import com.ged.entity.opcciel.SeanceOpcvm;
 import com.ged.mapper.opcciel.DepotRachatMapper;
@@ -20,6 +21,7 @@ import com.ged.projection.PrecalculRachatProjection;
 import com.ged.service.opcciel.DepotRachatService;
 import com.ged.service.opcciel.OpcvmService;
 import com.ged.service.opcciel.SeanceOpcvmService;
+import com.ged.validator.opcciel.DepotRachatValidator;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
@@ -30,6 +32,7 @@ import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -198,14 +201,31 @@ public class DepotRachatController {
         }
         else
         {
-            depots = new ArrayList<>();
-            templateName = "";
+            depots = depotRachatDao.tousLesDepotsSouscription(
+                downloadRequest.getIdOpcvm(),
+                downloadRequest.getIdSeance(),
+                null,
+                    Boolean.TRUE,
+                    Boolean.FALSE
+            ).stream().map(depotRachatMapper::deDepotRachat).toList();
+            templateName = "verifNiv2DepotSouscription";
         }
-        LocalDateTime dateVerification1 = null;
+        String dateVerification1 = "";
         String userVerification1 = "";
+        String dateVerification2 = "";
+        String userVerification2 = "";
         if(depots.size() > 0) {
-            dateVerification1 = depots.get(0).getDateVerification1();
-            userVerification1 = depots.get(0).getUserLoginVerificateur1();
+            DepotRachatDto depot = depots.get(0);
+            if(depot != null) {
+                if(depot.getDateVerification1() != null  && depot.getUserLoginVerificateur1() != null) {
+                    dateVerification1 = DateTimeFormatter.ofPattern("dd/MM/yyyy").format(depot.getDateVerification1());
+                    userVerification1 = depots.get(0).getUserLoginVerificateur1();
+                }
+                if(depot.getDateVerification2() != null  && depot.getUserLoginVerificateur2() != null) {
+                    dateVerification2 = DateTimeFormatter.ofPattern("dd/MM/yyyy").format(depot.getDateVerification2());
+                    userVerification2 = depot.getUserLoginVerificateur2();
+                }
+            }
         }
         BigDecimal totalDepot = depots.stream()
                 .map(x -> x.getMontant().add(BigDecimal.valueOf(0)))
@@ -221,7 +241,9 @@ public class DepotRachatController {
                 "totalSouscrit", totalSouscrit,
                 "user", downloadRequest.getUser(),
                 "dateVerification1", dateVerification1,
-                "userVerification1", userVerification1
+                "userVerification1", userVerification1,
+                "dateVerification2", dateVerification2,
+                "userVerification2", userVerification2
         ));
         context.setVariable("df", DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
         String html2Convert = templateEngine.process(templateName, context);

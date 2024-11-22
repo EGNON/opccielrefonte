@@ -3,6 +3,7 @@ package com.ged.service;
 import com.ged.dao.LibraryDao;
 import com.ged.dao.opcciel.comptabilite.LigneMvtClotureExoDao;
 import com.ged.dao.opcciel.comptabilite.MouvementDao;
+import com.ged.dto.opcciel.comptabilite.OperationDto;
 import com.ged.dto.request.ChargerLigneMvtRequest;
 import com.ged.entity.opcciel.Opcvm;
 import com.ged.entity.opcciel.SeanceOpcvm;
@@ -87,5 +88,20 @@ public class AppService {
 //            mvt = mouvementDao.save(mvt);
             return mvt;
         }).toList();
+    }
+
+    public OperationDto genererEcriture(OperationDto op) {
+        //Récupérer les mouvements
+        ChargerLigneMvtRequest chargerLigneMvtRequest = new ChargerLigneMvtRequest(
+                op.getNatureOperation() != null ? op.getNatureOperation().getCodeNatureOperation() : null,
+                op.getValeurCodeAnalytique(),
+                op.getValeurFormule(),
+                op.getOpcvm() != null ? op.getOpcvm().getIdOpcvm() : null,
+                op.getActionnaire() != null ? op.getActionnaire().getIdPersonne() : null,
+                op.getTitre() != null ? op.getTitre().getIdTitre() : null
+        );
+        List<Mouvement> mouvements = chargerLigneMvt(chargerLigneMvtRequest);
+
+        return null;
     }
 }
