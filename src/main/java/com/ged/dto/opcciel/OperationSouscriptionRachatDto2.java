@@ -50,8 +50,16 @@ public class OperationSouscriptionRachatDto2  {
     private String ecriture;
     private String valeurFormule;
     private String valeurCodeAnalytique;
-
+    private String userLogin;
     public OperationSouscriptionRachatDto2() {
+    }
+
+    public String getUserLogin() {
+        return userLogin;
+    }
+
+    public void setUserLogin(String userLogin) {
+        this.userLogin = userLogin;
     }
 
     public Long getIdOperation() {
