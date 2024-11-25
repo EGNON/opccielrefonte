@@ -192,7 +192,7 @@ public class OperationSouscriptionRachatServiceImpl implements OperationSouscrip
             String sortie="";
             for(OperationSouscriptionRachatDto2 o:operationSouscriptionRachatTab)
             {
-                var q = em.createStoredProcedureQuery("[Comptabilite].[PS_Operation_IP]");
+                var q = em.createStoredProcedureQuery("[Operation].[PS_OperationSouscriptionRachat_IP]");
                 q.registerStoredProcedureParameter("idOperation", Long.class, ParameterMode.IN);
                 q.registerStoredProcedureParameter("idTransaction", Long.class, ParameterMode.IN);
                 q.registerStoredProcedureParameter("idSeance", Long.class, ParameterMode.IN);
@@ -210,6 +210,8 @@ public class OperationSouscriptionRachatServiceImpl implements OperationSouscrip
                 q.registerStoredProcedureParameter("SousRachatPart", BigDecimal.class, ParameterMode.IN);
                 q.registerStoredProcedureParameter("commisiionSousRachat", BigDecimal.class, ParameterMode.IN);
                 q.registerStoredProcedureParameter("TAFCommissionSousRachat", BigDecimal.class, ParameterMode.IN);
+                q.registerStoredProcedureParameter("retrocessionSousRachat", BigDecimal.class, ParameterMode.IN);
+                q.registerStoredProcedureParameter("TAFRetrocessionSousRachat", BigDecimal.class, ParameterMode.IN);
                 q.registerStoredProcedureParameter("commissionSousRachatRetrocedee", BigDecimal.class, ParameterMode.IN);
                 q.registerStoredProcedureParameter("modeValeurLiquidative", String.class, ParameterMode.IN);
                 q.registerStoredProcedureParameter("coursVL", BigDecimal.class, ParameterMode.IN);
@@ -256,6 +258,8 @@ public class OperationSouscriptionRachatServiceImpl implements OperationSouscrip
                 q.setParameter("SousRachatPart",o.getSousRachatPart());
                 q.setParameter("commisiionSousRachat", o.getCommisiionSousRachat());
                 q.setParameter("TAFCommissionSousRachat", o.gettAFCommissionSousRachat());
+                q.setParameter("retrocessionSousRachat",o.getRetrocessionSousRachat());
+                q.setParameter("TAFRetrocessionSousRachat", o.gettAFRetrocessionSousRachat());
                 q.setParameter("commissionSousRachatRetrocedee",o.getCommissionSousRachatRetrocedee());
                 q.setParameter("modeValeurLiquidative", o.getModeValeurLiquidative());
                 q.setParameter("coursVL", o.getCoursVL());
@@ -273,9 +277,9 @@ public class OperationSouscriptionRachatServiceImpl implements OperationSouscrip
                 q.setParameter("quantiteSouhaite", o.getQuantiteSouhaite());
                 q.setParameter("montantDepose",o.getMontantDepose());
                 q.setParameter("montantConvertiEnPart", o.getMontantConvertiEnPart());
-                q.setParameter("estRetrocede", o.isEstRetrocede());
-                q.setParameter("resteRembourse", o.isResteRembourse());
-                q.setParameter("rachatPaye", o.isRachatPaye());
+                q.setParameter("estRetrocede", o.getEstRetrocede());
+                q.setParameter("resteRembourse", o.getResteRembourse());
+                q.setParameter("rachatPaye",o.getRachatPaye());
                 q.setParameter("ecriture", o.getEcriture());
                 q.setParameter("valeurFormule",o.getValeurFormule());
                 q.setParameter("valeurCodeAnalytique", o.getValeurCodeAnalytique());
@@ -287,8 +291,8 @@ public class OperationSouscriptionRachatServiceImpl implements OperationSouscrip
                 try {
                     // Execute query
                     q.execute();
-                    String result=(String) q.getOutputParameterValue("Sortie");
-                    String[] s=result.split("#");
+//                    String result=(String) q.getOutputParameterValue("Sortie");
+//                    String[] s=result.split("#");
 
 
                     //System.out.println("idOperation="+s[s.length-1]);
@@ -300,6 +304,22 @@ public class OperationSouscriptionRachatServiceImpl implements OperationSouscrip
                     }
                 }
             }
+            int taille=operationSouscriptionRachatTab.length;
+            if(taille!=0){
+                var q = em.createStoredProcedureQuery("[Parametre].[PS_ValiderSousRachat]");
+                q.registerStoredProcedureParameter("idSeance", Long.class, ParameterMode.IN);
+                q.registerStoredProcedureParameter("idOpcvm", Long.class, ParameterMode.IN);
+                q.registerStoredProcedureParameter("idPersonne", Long.class, ParameterMode.IN);
+                q.registerStoredProcedureParameter("codeNatureOperation", String.class, ParameterMode.IN);
+
+                q.setParameter("idSeance",operationSouscriptionRachatTab[0].getIdSeance());
+                q.setParameter("idOpcvm",operationSouscriptionRachatTab[0].getIdOpcvm());
+                q.setParameter("idPersonne",operationSouscriptionRachatTab[0].getIdPersonne());
+                q.setParameter("codeNatureOperation","INT_RACH");
+                q.execute();
+            }
+
+
 
             return ResponseHandler.generateResponse(
                     "Enregistrement effectué avec succès !",
