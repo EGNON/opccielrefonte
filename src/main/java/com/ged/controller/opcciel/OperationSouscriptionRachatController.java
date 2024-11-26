@@ -3,6 +3,7 @@ package com.ged.controller.opcciel;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.ged.datatable.DatatableParameters;
 import com.ged.dto.opcciel.OperationSouscriptionRachatDto;
+import com.ged.dto.opcciel.OperationSouscriptionRachatDto2;
 import com.ged.dto.opcciel.PlanDto;
 import com.ged.service.opcciel.OperationSouscriptionRachatService;
 import com.ged.service.opcciel.PlanService;
@@ -47,7 +48,7 @@ public class OperationSouscriptionRachatController {
     }
     @PostMapping("/creer")
 //    @PreAuthorize("hasAuthority('ROLE_DEGRE')")
-    public ResponseEntity<Object> ajouter(@Valid @RequestBody OperationSouscriptionRachatDto[] operationSouscriptionRachatDto)
+    public ResponseEntity<Object> ajouter(@Valid @RequestBody OperationSouscriptionRachatDto2[] operationSouscriptionRachatDto)
     {
         return operationSouscriptionRachatService.creer(operationSouscriptionRachatDto);
     }

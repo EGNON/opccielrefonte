@@ -3,6 +3,7 @@ package com.ged.dto.opcciel;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.ged.dto.opcciel.comptabilite.OperationDto;
 
+
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
@@ -22,13 +23,13 @@ public class OperationSouscriptionRachatDto2  {
     private LocalDateTime dateValeur;
     private String referencePiece;
     private BigDecimal montantSousALiquider;
-    private BigDecimal SousRachatPart;
+    private BigDecimal sousRachatPart;
     private BigDecimal commisiionSousRachat;
     private BigDecimal tAFCommissionSousRachat;
     private BigDecimal retrocessionSousRachat;
     private BigDecimal tAFRetrocessionSousRachat;
     private BigDecimal commissionSousRachatRetrocedee;
-    private BigDecimal modeValeurLiquidative;
+    private String modeValeurLiquidative;
     private BigDecimal coursVL;
     private BigDecimal nombrePartSousRachat;
     private BigDecimal regulResultatExoEnCours;
@@ -44,14 +45,46 @@ public class OperationSouscriptionRachatDto2  {
     private Long quantiteSouhaite;
     private BigDecimal montantDepose;
     private BigDecimal montantConvertiEnPart;
-    private boolean estRetrocede;
-    private boolean resteRembourse;
-    private boolean rachatPaye;
+    private Boolean estRetrocede;
+    private Boolean resteRembourse;
+    private Boolean rachatPaye;
     private String ecriture;
     private String valeurFormule;
     private String valeurCodeAnalytique;
-
+    private String userLogin;
     public OperationSouscriptionRachatDto2() {
+    }
+
+    public String getUserLogin() {
+        return userLogin;
+    }
+
+    public void setUserLogin(String userLogin) {
+        this.userLogin = userLogin;
+    }
+
+    public Boolean getEstRetrocede() {
+        return estRetrocede;
+    }
+
+    public void setEstRetrocede(Boolean estRetrocede) {
+        this.estRetrocede = estRetrocede;
+    }
+
+    public Boolean getResteRembourse() {
+        return resteRembourse;
+    }
+
+    public void setResteRembourse(Boolean resteRembourse) {
+        this.resteRembourse = resteRembourse;
+    }
+
+    public Boolean getRachatPaye() {
+        return rachatPaye;
+    }
+
+    public void setRachatPaye(Boolean rachatPaye) {
+        this.rachatPaye = rachatPaye;
     }
 
     public Long getIdOperation() {
@@ -167,11 +200,11 @@ public class OperationSouscriptionRachatDto2  {
     }
 
     public BigDecimal getSousRachatPart() {
-        return SousRachatPart;
+        return sousRachatPart;
     }
 
     public void setSousRachatPart(BigDecimal sousRachatPart) {
-        SousRachatPart = sousRachatPart;
+        this.sousRachatPart = sousRachatPart;
     }
 
     public BigDecimal getCommisiionSousRachat() {
@@ -214,11 +247,11 @@ public class OperationSouscriptionRachatDto2  {
         this.commissionSousRachatRetrocedee = commissionSousRachatRetrocedee;
     }
 
-    public BigDecimal getModeValeurLiquidative() {
+    public String getModeValeurLiquidative() {
         return modeValeurLiquidative;
     }
 
-    public void setModeValeurLiquidative(BigDecimal modeValeurLiquidative) {
+    public void setModeValeurLiquidative(String modeValeurLiquidative) {
         this.modeValeurLiquidative = modeValeurLiquidative;
     }
 
@@ -340,30 +373,6 @@ public class OperationSouscriptionRachatDto2  {
 
     public void setMontantConvertiEnPart(BigDecimal montantConvertiEnPart) {
         this.montantConvertiEnPart = montantConvertiEnPart;
-    }
-
-    public boolean isEstRetrocede() {
-        return estRetrocede;
-    }
-
-    public void setEstRetrocede(boolean estRetrocede) {
-        this.estRetrocede = estRetrocede;
-    }
-
-    public boolean isResteRembourse() {
-        return resteRembourse;
-    }
-
-    public void setResteRembourse(boolean resteRembourse) {
-        this.resteRembourse = resteRembourse;
-    }
-
-    public boolean isRachatPaye() {
-        return rachatPaye;
-    }
-
-    public void setRachatPaye(boolean rachatPaye) {
-        this.rachatPaye = rachatPaye;
     }
 
     public String getEcriture() {

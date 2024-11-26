@@ -408,10 +408,10 @@ public class DepotRachatImpl implements DepotRachatService {
             q.setParameter("niveau", verifDepSouscriptionIntRachatDto.getNiveau());
             q.setParameter("dateVerif", LocalDateTime.now());
             q.setParameter("userLoginVerif", verifDepSouscriptionIntRachatDto.getUserLoginVerif());
-            System.out.println("idseance="+seanceOpcvm.getIdSeanceOpcvm().getIdSeance());
-            System.out.println("idOpcvm="+verifDepSouscriptionIntRachatDto.getIdOpcvm());
-            System.out.println("niveau="+verifDepSouscriptionIntRachatDto.getNiveau());
-            System.out.println("userloginverif="+verifDepSouscriptionIntRachatDto.getUserLoginVerif());
+//            System.out.println("idseance="+seanceOpcvm.getIdSeanceOpcvm().getIdSeance());
+//            System.out.println("idOpcvm="+verifDepSouscriptionIntRachatDto.getIdOpcvm());
+//            System.out.println("niveau="+verifDepSouscriptionIntRachatDto.getNiveau());
+//            System.out.println("userloginverif="+verifDepSouscriptionIntRachatDto.getUserLoginVerif());
             try {
                 // Execute query
                 q.getSingleResult();

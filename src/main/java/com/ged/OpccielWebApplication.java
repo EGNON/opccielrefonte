@@ -50,11 +50,11 @@ public class OpccielWebApplication implements CommandLineRunner {
 		return threadPoolTaskExecutor;
 	}
 
-	@Bean
-	public PasswordEncoder passwordEncoder()
-	{
-		return new BCryptPasswordEncoder();
-	}
+//	@Bean
+//	public PasswordEncoder passwordEncoder()
+//	{
+//		return new BCryptPasswordEncoder();
+//	}
 
 	@Bean
 	public ModelMapper modelMapper(){
