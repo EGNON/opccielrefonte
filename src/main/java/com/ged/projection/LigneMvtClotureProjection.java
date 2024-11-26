@@ -18,7 +18,7 @@ public interface LigneMvtClotureProjection {
     String getNumCompteComptable();
     String getLibelleCompteComptable();
     String getCodePlan();
-    String getSens();
+    String getSensMvt();
     String getIdFormule();
     BigDecimal getValeur();
     String getCodeTypeFormule();

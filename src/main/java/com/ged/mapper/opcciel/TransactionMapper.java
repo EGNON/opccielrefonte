@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 public class TransactionMapper {
     public TransactionDto deTransaction(Transaction transaction)
     {
+        if(transaction == null)
+            return null;
         TransactionDto transactionDto = new TransactionDto();
         BeanUtils.copyProperties(transaction, transactionDto);
         return transactionDto;
@@ -16,6 +18,8 @@ public class TransactionMapper {
 
     public Transaction deTransactionDto(TransactionDto transactionDto)
     {
+        if(transactionDto == null)
+            return null;
         Transaction transaction = new Transaction();
         BeanUtils.copyProperties(transactionDto, transaction);
         return transaction;

@@ -1,5 +1,6 @@
 package com.ged.dto.opcciel.comptabilite;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.ged.dto.opcciel.OpcvmDto;
 import com.ged.dto.opcciel.TransactionDto;
@@ -46,6 +47,22 @@ public class OperationDto extends Base {
     private String userLoginVerificateur2;
 
     public OperationDto() {
+    }
+
+    public Long getIdActionnaire() {
+        return idActionnaire;
+    }
+
+    public void setIdActionnaire(Long idActionnaire) {
+        this.idActionnaire = idActionnaire;
+    }
+
+    public Long getIdTitre() {
+        return idTitre;
+    }
+
+    public void setIdTitre(Long idTitre) {
+        this.idTitre = idTitre;
     }
 
     public Long getIdTransaction() {
@@ -248,36 +265,12 @@ public class OperationDto extends Base {
         this.valeurCodeAnalytique = valeurCodeAnalytique;
     }
 
-    public boolean isEstExtournee() {
-        return estExtournee;
-    }
-
-    public void setEstExtournee(boolean estExtournee) {
-        this.estExtournee = estExtournee;
-    }
-
-    public boolean isEstOpExtournee() {
-        return estOpExtournee;
-    }
-
-    public void setEstOpExtournee(boolean estOpExtournee) {
-        this.estOpExtournee = estOpExtournee;
-    }
-
     public OperationDto getOperationDto() {
         return operationDto;
     }
 
     public void setOperationDto(OperationDto operationDto) {
         this.operationDto = operationDto;
-    }
-
-    public boolean isEstVerifie1() {
-        return estVerifie1;
-    }
-
-    public void setEstVerifie1(boolean estVerifie1) {
-        this.estVerifie1 = estVerifie1;
     }
 
     public LocalDateTime getDateVerification1() {
@@ -294,14 +287,6 @@ public class OperationDto extends Base {
 
     public void setUserLoginVerificateur1(String userLoginVerificateur1) {
         this.userLoginVerificateur1 = userLoginVerificateur1;
-    }
-
-    public boolean isEstVerifie2() {
-        return estVerifie2;
-    }
-
-    public void setEstVerifie2(boolean estVerifie2) {
-        this.estVerifie2 = estVerifie2;
     }
 
     public LocalDateTime getDateVerification2() {

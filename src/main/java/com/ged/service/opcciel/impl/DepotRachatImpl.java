@@ -11,12 +11,11 @@ import com.ged.datatable.DatatableParameters;
 import com.ged.dto.opcciel.DepotRachatDto;
 import com.ged.dto.opcciel.comptabilite.OperationDto;
 import com.ged.dto.opcciel.comptabilite.VerifDepSouscriptionIntRachatDto;
-import com.ged.dto.request.ChargerLigneMvtRequest;
+import com.ged.dto.request.PrecalculSouscriptionRequest;
 import com.ged.dto.request.VerificationListeDepotRequest;
 import com.ged.entity.opcciel.DepotRachat;
 import com.ged.entity.opcciel.Opcvm;
 import com.ged.entity.opcciel.SeanceOpcvm;
-import com.ged.entity.opcciel.comptabilite.Mouvement;
 import com.ged.entity.opcciel.comptabilite.NatureOperation;
 import com.ged.entity.standard.Personne;
 import com.ged.mapper.opcciel.DepotRachatMapper;
@@ -38,15 +37,16 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
-import java.sql.Array;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@Transactional
 public class DepotRachatImpl implements DepotRachatService {
     /*@Autowired
     @Qualifier("opccielEntityManagerFactory")
@@ -668,9 +668,10 @@ public class DepotRachatImpl implements DepotRachatService {
             List<DepotRachat> depotRachats = depotRachatDtos.stream().map(depotRachatMapper::deDepotRachatDto).toList();
             if(depotRachats.size() > 0) {
                 for (DepotRachat d : depotRachats) {
-//                    d = depotRachatDao.save(d);
                     DepotRachatDto depotRachatDto = depotRachatMapper.deDepotRachat(d);
                     OperationDto op = new OperationDto();
+                    op.setIdActionnaire(d.getActionnaire().getIdPersonne());
+                    op.setIdTitre(0L);
                     op.setActionnaire(depotRachatDto.getActionnaire());
                     op.setNatureOperation(depotRachatDto.getNatureOperation());
                     op.setDateOperation(depotRachatDto.getDateOperation());
@@ -686,27 +687,31 @@ public class DepotRachatImpl implements DepotRachatService {
                     op.setValeurFormule("2:" + depotRachatDto.getMontant());
                     op.setLibelleOperation(depotRachatDto.getLibelleOperation());
                     op.setType(depotRachatDto.getType());
-                    //Operation op1 = operationDao.save(operationMapper.deOperationDto(op));
-
-                    //Récupérer les mouvements
-                    ChargerLigneMvtRequest chargerLigneMvtRequest = new ChargerLigneMvtRequest(
-                            op.getNatureOperation() != null ? op.getNatureOperation().getCodeNatureOperation() : null,
-                            op.getValeurCodeAnalytique(),
-                            op.getValeurFormule(),
-                            op.getOpcvm() != null ? op.getOpcvm().getIdOpcvm() : null,
-                            op.getActionnaire() != null ? op.getActionnaire().getIdPersonne() : null,
-                            op.getTitre() != null ? op.getTitre().getIdTitre() : null
-                    );
-                    List<Mouvement> mouvements = appService.chargerLigneMvt(chargerLigneMvtRequest);
-                    if(mouvements != null) {
-                        System.out.println("Mouvements récupérés avec succès !");
-                    }
+                    op = appService.genererEcritureComptable(op);
+                    d.setIdOperation(op.getIdOperation());
+                    depotRachatDao.save(d);
+                    System.out.println("Résultat final => " + d);
                 }
             }
             return ResponseHandler.generateResponse(
                     "Liste des dépôts confirmée avec succès.",
                     HttpStatus.OK,
                     depotRachatDtos);
+        } catch (Exception e) {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e);
+        }
+    }
+
+    @Override
+    public ResponseEntity<Object> precalculSouscription(PrecalculSouscriptionRequest precalcul) {
+        try {
+            return ResponseHandler.generateResponse(
+                    "Précalcul effectué avec succès.",
+                    HttpStatus.OK,
+                    appService.precalculSouscription(precalcul));
         } catch (Exception e) {
             return ResponseHandler.generateResponse(
                     e.getMessage(),

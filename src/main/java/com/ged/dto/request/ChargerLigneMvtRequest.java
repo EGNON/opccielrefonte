@@ -16,13 +16,14 @@ public class ChargerLigneMvtRequest {
     public ChargerLigneMvtRequest() {
     }
 
-    public ChargerLigneMvtRequest(String codeNatureOperation, String valeurCodeAnalytique, String valeurFormule, Long idOpcvm, Long idActionnaire, Long idTitre) {
+    public ChargerLigneMvtRequest(String codeNatureOperation, String valeurCodeAnalytique, String valeurFormule, Long idOpcvm, Long idActionnaire, Long idTitre, Operation operation) {
         this.codeNatureOperation = codeNatureOperation;
         this.valeurCodeAnalytique = valeurCodeAnalytique;
         this.valeurFormule = valeurFormule;
         this.idOpcvm = idOpcvm;
         this.idActionnaire = idActionnaire;
         this.idTitre = idTitre;
+        this.operation = operation;
     }
 
     public String getCodeNatureOperation() {

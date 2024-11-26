@@ -1,5 +1,6 @@
 package com.ged.entity.opcciel.comptabilite;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ged.entity.Base;
 import jakarta.persistence.*;
 
@@ -17,6 +18,7 @@ public class TypeFormule extends Base {
             cascade = {CascadeType.PERSIST, CascadeType.MERGE},
             orphanRemoval = true
     )
+    @JsonIgnore
     private Set<Formule> formules = new HashSet<>();
 
     public TypeFormule() {

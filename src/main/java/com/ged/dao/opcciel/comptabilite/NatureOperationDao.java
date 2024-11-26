@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 import java.util.Optional;
@@ -15,9 +16,11 @@ public interface NatureOperationDao extends JpaRepository<NatureOperation,String
     List<NatureOperation> findByTypeOperationAndSupprimer(TypeOperation typeOperation,boolean supprimer);
     Page<NatureOperation> findBySupprimer(boolean supprimer, Pageable pageable);
     List<NatureOperation> findBySupprimerOrderByLibelleNatureOperationAsc(boolean supprimer);
-
     @Query(value = "select n from NatureOperation n " +
             "where(n.codeNatureOperation like %:valeur% or n.libelleNatureOperation like %:valeur%) " +
             "and n.supprimer=false")
     Page<NatureOperation> rechercher(String valeur,Pageable pageable);
+    @Query(value = "select j.codeJournal from NatureOperation n inner join n.journal j " +
+            "where trim(n.codeNatureOperation) = trim(:code)")
+    String getCodeJournalByCodeNatureOp(@Param("code") String code);
 }
