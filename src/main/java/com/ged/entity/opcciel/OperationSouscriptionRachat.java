@@ -1,34 +1,23 @@
 package com.ged.entity.opcciel;
 
-
 import com.ged.entity.opcciel.comptabilite.Operation;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.math.BigDecimal;
 
 @Entity
+@DiscriminatorValue("SOUS")
+@PrimaryKeyJoinColumn(name = "idOperation")
 @Table(name = "T_OperationSouscriptionRachat", schema = "Operation")
 public class OperationSouscriptionRachat extends Operation {
-    private Long idOcc;
-//    @ManyToOne(cascade = CascadeType.ALL)
-//    @JoinColumn(name = "idTransaction")
-//    private Transaction transaction;
-//    @ManyToOne(cascade = CascadeType.ALL)
-//    @JoinColumn(name = "idActionnaire",referencedColumnName = "idPersonne")
-//    private Personne personneActionnaiare;
-//    @ManyToOne(cascade = CascadeType.ALL)
-//    @JoinColumn(name = "idOpcvm")
-//    private Opcvm opcvm;
-//    @ManyToOne(cascade = CascadeType.ALL)
-//    @JoinColumn(name = "idPersonne")
-//    private Personne personne;
-//    @ManyToOne(cascade = CascadeType.ALL)
-//    @JoinColumn(name = "codeNatureOperation")
-//    private NatureOperation natureOperation;
+//    private Long idOcc;
+//    private Long idTransaction;
+//    private Long idSeance;
+    private Long idOpcvm;
+//    private Long idActionnaire;
+    private String codeNatureOperation;
 //    private LocalDateTime dateOperation;
-//    private String libelleOperation  ;
+//    private String libelleOperation;
 //    private LocalDateTime dateSaisie;
 //    private LocalDateTime datePiece;
 //    private LocalDateTime dateValeur;
@@ -85,13 +74,119 @@ public class OperationSouscriptionRachat extends Operation {
     public OperationSouscriptionRachat() {
     }
 
+    /*@Override
+    public Long getIdTransaction() {
+        return idTransaction;
+    }
+
+    @Override
+    public void setIdTransaction(Long idTransaction) {
+        this.idTransaction = idTransaction;
+    }
+
+    @Override
+    public Long getIdSeance() {
+        return idSeance;
+    }
+
+    @Override
+    public void setIdSeance(Long idSeance) {
+        this.idSeance = idSeance;
+    }*/
+
+    public Long getIdOpcvm() {
+        return idOpcvm;
+    }
+
+    public void setIdOpcvm(Long idOpcvm) {
+        this.idOpcvm = idOpcvm;
+    }
+
+    /*@Override
+    public Long getIdActionnaire() {
+        return idActionnaire;
+    }
+
+    @Override
+    public void setIdActionnaire(Long idActionnaire) {
+        this.idActionnaire = idActionnaire;
+    }*/
+
+    public String getCodeNatureOperation() {
+        return codeNatureOperation;
+    }
+
+    public void setCodeNatureOperation(String codeNatureOperation) {
+        this.codeNatureOperation = codeNatureOperation;
+    }
+
+    /*@Override
+    public LocalDateTime getDateOperation() {
+        return dateOperation;
+    }
+
+    @Override
+    public void setDateOperation(LocalDateTime dateOperation) {
+        this.dateOperation = dateOperation;
+    }
+
+    @Override
+    public String getLibelleOperation() {
+        return libelleOperation;
+    }
+
+    @Override
+    public void setLibelleOperation(String libelleOperation) {
+        this.libelleOperation = libelleOperation;
+    }
+
+    @Override
+    public LocalDateTime getDateSaisie() {
+        return dateSaisie;
+    }
+
+    @Override
+    public void setDateSaisie(LocalDateTime dateSaisie) {
+        this.dateSaisie = dateSaisie;
+    }
+
+    @Override
+    public LocalDateTime getDatePiece() {
+        return datePiece;
+    }
+
+    @Override
+    public void setDatePiece(LocalDateTime datePiece) {
+        this.datePiece = datePiece;
+    }
+
+    @Override
+    public LocalDateTime getDateValeur() {
+        return dateValeur;
+    }
+
+    @Override
+    public void setDateValeur(LocalDateTime dateValeur) {
+        this.dateValeur = dateValeur;
+    }
+
+    @Override
+    public String getReferencePiece() {
+        return referencePiece;
+    }
+
+    @Override
+    public void setReferencePiece(String referencePiece) {
+        this.referencePiece = referencePiece;
+    }
+
     public Long getIdOcc() {
         return idOcc;
     }
 
     public void setIdOcc(Long idOcc) {
         this.idOcc = idOcc;
-    }
+    }*/
 
 //    public Transaction getTransaction() {
 //        return transaction;

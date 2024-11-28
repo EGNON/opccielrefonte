@@ -4,6 +4,8 @@ import com.ged.entity.Base;
 import com.ged.entity.opcciel.*;
 import jakarta.persistence.*;
 
+import java.math.BigDecimal;
+
 @Entity
 @Table(name = "TJ_LigneMvtClotureExo", schema = "Comptabilite")
 public class LigneMvtClotureExo extends Base {
@@ -26,13 +28,15 @@ public class LigneMvtClotureExo extends Base {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "idFormule")
     private Formule formule;
-    private Double valeur;
+    @Column(precision = 18, scale = 6)
+    private BigDecimal valeur;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "codeTypeFormule")
     private TypeFormule typeFormule;
-    @ManyToOne(cascade = CascadeType.ALL)
+    /*@ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "codeIB")
-    private Ib ib;
+    private Ib ib;*/
+    private String codeIB;
     private String codeRubrique;
     private String codePosition;
 
@@ -95,28 +99,12 @@ public class LigneMvtClotureExo extends Base {
         this.formule = formule;
     }
 
-    public Double getValeur() {
-        return valeur;
-    }
-
-    public void setValeur(Double valeur) {
-        this.valeur = valeur;
-    }
-
     public TypeFormule getTypeFormule() {
         return typeFormule;
     }
 
     public void setTypeFormule(TypeFormule typeFormule) {
         this.typeFormule = typeFormule;
-    }
-
-    public Ib getIb() {
-        return ib;
-    }
-
-    public void setIb(Ib ib) {
-        this.ib = ib;
     }
 
     public String getCodeRubrique() {
@@ -133,5 +121,21 @@ public class LigneMvtClotureExo extends Base {
 
     public void setCodePosition(String codePosition) {
         this.codePosition = codePosition;
+    }
+
+    public BigDecimal getValeur() {
+        return valeur;
+    }
+
+    public void setValeur(BigDecimal valeur) {
+        this.valeur = valeur;
+    }
+
+    public String getCodeIB() {
+        return codeIB;
+    }
+
+    public void setCodeIB(String codeIB) {
+        this.codeIB = codeIB;
     }
 }

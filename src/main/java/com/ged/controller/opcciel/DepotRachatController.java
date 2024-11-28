@@ -5,6 +5,7 @@ import com.ged.dao.opcciel.DepotRachatDao;
 import com.ged.datatable.DatatableParameters;
 import com.ged.dto.opcciel.DepotRachatDto;
 import com.ged.dto.opcciel.ImportationDepotDto;
+import com.ged.dto.opcciel.OperationSouscriptionRachatDto;
 import com.ged.dto.opcciel.comptabilite.VerifDepSouscriptionIntRachatDto;
 import com.ged.dto.request.DownloadRequest;
 import com.ged.dto.request.PrecalculSouscriptionRequest;
@@ -20,6 +21,7 @@ import com.ged.projection.PrecalculRachatProjection;
 import com.ged.service.opcciel.DepotRachatService;
 import com.ged.service.opcciel.OpcvmService;
 import com.ged.service.opcciel.SeanceOpcvmService;
+import jakarta.annotation.Priority;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -264,8 +266,15 @@ public class DepotRachatController {
         return depotRachatService.confirmerListeVerifNiv2Depot(depotRachatDtos);
     }
 
-    @PostMapping("/xyyeggeggge/nghythhthht/bvgftgtrvvfe/poereate/precalcul/souscription")
+    @Priority(1)
+    @PostMapping("/precalcul/souscription")
     public ResponseEntity<Object> precalculSouscription(@Valid @RequestBody PrecalculSouscriptionRequest precalcul) {
         return depotRachatService.precalculSouscription(precalcul);
+    }
+
+    @Priority(2)
+    @PostMapping("/generer/souscription/tous")
+    public ResponseEntity<Object> genererSouscription(@Valid @RequestBody List<OperationSouscriptionRachatDto> souscriptionRachatDtos) {
+        return depotRachatService.genererSouscription(souscriptionRachatDtos);
     }
 }

@@ -107,14 +107,12 @@ public class Personne extends Base {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "idCommune", referencedColumnName = "idCommune")
     private Commune commune;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "idCategorieClient")
     private CategorieClient categorieClient;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "idSousTypeClient")
     private SousTypeClient sousTypeClient;
-
     @OneToMany(
             mappedBy = "personne",
             /*cascade = {CascadeType.PERSIST, CascadeType.MERGE},*/

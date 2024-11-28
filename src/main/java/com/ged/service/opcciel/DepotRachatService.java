@@ -4,6 +4,7 @@ package com.ged.service.opcciel;
 import com.ged.datatable.DataTablesResponse;
 import com.ged.datatable.DatatableParameters;
 import com.ged.dto.opcciel.DepotRachatDto;
+import com.ged.dto.opcciel.OperationSouscriptionRachatDto;
 import com.ged.dto.opcciel.comptabilite.VerifDepSouscriptionIntRachatDto;
 import com.ged.dto.request.PrecalculSouscriptionRequest;
 import com.ged.dto.request.VerificationListeDepotRequest;
@@ -54,6 +55,8 @@ public interface DepotRachatService {
     ResponseEntity<Object> confirmerListeVerifNiv2Depot(List<DepotRachatDto> depotRachatDtos);
 
     ResponseEntity<Object> precalculSouscription(PrecalculSouscriptionRequest precalcul);
+
+    ResponseEntity<Object> genererSouscription(List<OperationSouscriptionRachatDto> souscriptionRachatDtos);
 
     ResponseEntity<Object> supprimer(Long IdOperation);
 }

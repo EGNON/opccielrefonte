@@ -6,14 +6,16 @@ import com.ged.entity.opcciel.Opcvm;
 import com.ged.entity.standard.Personne;
 import com.ged.entity.titresciel.Titre;
 import jakarta.persistence.*;
+import org.springframework.data.domain.Persistable;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
 @Inheritance(strategy=InheritanceType.JOINED)
+@DiscriminatorColumn(name = "typeOp", discriminatorType = DiscriminatorType.STRING)
 @Table(name = "T_Operation", schema = "Comptabilite")
-public class Operation extends Base {
+public class Operation extends Base implements Persistable<Long> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idOperation;
@@ -22,6 +24,8 @@ public class Operation extends Base {
     @JoinColumn(name = "idOpcvm")
     private Opcvm opcvm;
     private Long idActionnaire;
+    @Column(insertable = false,updatable = false)
+    private String typeOp;
     @ManyToOne
     @JoinColumn(name = "idActionnaireNew",referencedColumnName = "idPersonne")
     private Personne actionnaire;
@@ -67,114 +71,6 @@ public class Operation extends Base {
     public Operation() {
     }
 
-    public Long getIdActionnaire() {
-        return idActionnaire;
-    }
-
-    public void setIdActionnaire(Long idActionnaire) {
-        this.idActionnaire = idActionnaire;
-    }
-
-    public void setIdTitre(Long idTitre) {
-        this.idTitre = idTitre;
-    }
-
-    public Long getIdTransaction() {
-        return idTransaction;
-    }
-
-    public void setIdTransaction(Long idTransaction) {
-        this.idTransaction = idTransaction;
-    }
-
-    public Boolean getEstOD() {
-        return estOD;
-    }
-
-    public void setEstOD(Boolean estOD) {
-        this.estOD = estOD;
-    }
-
-    public Boolean getEstExtournee() {
-        return estExtournee;
-    }
-
-    public void setEstExtournee(Boolean estExtournee) {
-        this.estExtournee = estExtournee;
-    }
-
-    public Boolean getEstOpExtournee() {
-        return estOpExtournee;
-    }
-
-    public void setEstOpExtournee(Boolean estOpExtournee) {
-        this.estOpExtournee = estOpExtournee;
-    }
-
-    public Long getIdOpExtournee() {
-        return idOpExtournee;
-    }
-
-    public void setIdOpExtournee(Long idOpExtournee) {
-        this.idOpExtournee = idOpExtournee;
-    }
-
-    public Boolean getEstVerifie1() {
-        return estVerifie1;
-    }
-
-    public void setEstVerifie1(Boolean estVerifie1) {
-        this.estVerifie1 = estVerifie1;
-    }
-
-    public Boolean getEstVerifie2() {
-        return estVerifie2;
-    }
-
-    public void setEstVerifie2(Boolean estVerifie2) {
-        this.estVerifie2 = estVerifie2;
-    }
-
-    public Personne getActionnaire() {
-        return actionnaire;
-    }
-
-    public void setActionnaire(Personne actionnaire) {
-        this.actionnaire = actionnaire;
-    }
-
-    public long getIdTitre() {
-        return idTitre;
-    }
-
-    public void setIdTitre(long idTitre) {
-        this.idTitre = idTitre;
-    }
-
-    public Titre getTitre() {
-        return titre;
-    }
-
-    public void setTitre(Titre titre) {
-        this.titre = titre;
-    }
-
-    public Transaction getTransaction() {
-        return transaction;
-    }
-
-    public void setTransaction(Transaction transaction) {
-        this.transaction = transaction;
-    }
-
-    public Operation getOperation() {
-        return operation;
-    }
-
-    public void setOperation(Operation operation) {
-        this.operation = operation;
-    }
-
     public Long getIdOperation() {
         return idOperation;
     }
@@ -183,10 +79,20 @@ public class Operation extends Base {
         this.idOperation = idOperation;
     }
 
+    public String getTypeOp() {
+        return typeOp;
+    }
+
+    public void setTypeOp(String typeOp) {
+        this.typeOp = typeOp;
+    }
+
+    @Override
     public Long getIdOcc() {
         return idOcc;
     }
 
+    @Override
     public void setIdOcc(Long idOcc) {
         this.idOcc = idOcc;
     }
@@ -199,29 +105,53 @@ public class Operation extends Base {
         this.opcvm = opcvm;
     }
 
-    /*public Personne getPersonne() {
-        return personne;
+    public Long getIdActionnaire() {
+        return idActionnaire;
     }
 
-    public void setPersonne(Personne personne) {
-        this.personne = personne;
-    }*/
+    public void setIdActionnaire(Long idActionnaire) {
+        this.idActionnaire = idActionnaire;
+    }
 
-    /*public Titre getTitre() {
+    public Personne getActionnaire() {
+        return actionnaire;
+    }
+
+    public void setActionnaire(Personne actionnaire) {
+        this.actionnaire = actionnaire;
+    }
+
+    public Long getIdTitre() {
+        return idTitre;
+    }
+
+    public void setIdTitre(Long idTitre) {
+        this.idTitre = idTitre;
+    }
+
+    public Titre getTitre() {
         return titre;
     }
 
     public void setTitre(Titre titre) {
         this.titre = titre;
-    }*/
+    }
 
-    /*public Transaction getTransaction() {
+    public Long getIdTransaction() {
+        return idTransaction;
+    }
+
+    public void setIdTransaction(Long idTransaction) {
+        this.idTransaction = idTransaction;
+    }
+
+    public Transaction getTransaction() {
         return transaction;
     }
 
     public void setTransaction(Transaction transaction) {
         this.transaction = transaction;
-    }*/
+    }
 
     public Long getIdSeance() {
         return idSeance;
@@ -303,6 +233,14 @@ public class Operation extends Base {
         this.ecriture = ecriture;
     }
 
+    public Boolean getEstOD() {
+        return estOD;
+    }
+
+    public void setEstOD(Boolean estOD) {
+        this.estOD = estOD;
+    }
+
     public String getType() {
         return type;
     }
@@ -327,13 +265,45 @@ public class Operation extends Base {
         this.valeurCodeAnalytique = valeurCodeAnalytique;
     }
 
-/*    public Operation getOperation() {
+    public Boolean getEstExtournee() {
+        return estExtournee;
+    }
+
+    public void setEstExtournee(Boolean estExtournee) {
+        this.estExtournee = estExtournee;
+    }
+
+    public Boolean getEstOpExtournee() {
+        return estOpExtournee;
+    }
+
+    public void setEstOpExtournee(Boolean estOpExtournee) {
+        this.estOpExtournee = estOpExtournee;
+    }
+
+    public Long getIdOpExtournee() {
+        return idOpExtournee;
+    }
+
+    public void setIdOpExtournee(Long idOpExtournee) {
+        this.idOpExtournee = idOpExtournee;
+    }
+
+    public Operation getOperation() {
         return operation;
     }
 
     public void setOperation(Operation operation) {
         this.operation = operation;
-    }*/
+    }
+
+    public Boolean getEstVerifie1() {
+        return estVerifie1;
+    }
+
+    public void setEstVerifie1(Boolean estVerifie1) {
+        this.estVerifie1 = estVerifie1;
+    }
 
     public LocalDateTime getDateVerification1() {
         return dateVerification1;
@@ -351,6 +321,14 @@ public class Operation extends Base {
         this.userLoginVerificateur1 = userLoginVerificateur1;
     }
 
+    public Boolean getEstVerifie2() {
+        return estVerifie2;
+    }
+
+    public void setEstVerifie2(Boolean estVerifie2) {
+        this.estVerifie2 = estVerifie2;
+    }
+
     public LocalDateTime getDateVerification2() {
         return dateVerification2;
     }
@@ -365,5 +343,15 @@ public class Operation extends Base {
 
     public void setUserLoginVerificateur2(String userLoginVerificateur2) {
         this.userLoginVerificateur2 = userLoginVerificateur2;
+    }
+
+    @Override
+    public Long getId() {
+        return idOperation;
+    }
+
+    @Override
+    public boolean isNew() {
+        return true;
     }
 }
