@@ -1,11 +1,15 @@
 package com.ged.entity.opcciel.comptabilite;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ged.entity.Base;
 import jakarta.persistence.*;
+import org.springframework.data.domain.Persistable;
+
+import java.math.BigDecimal;
 
 @Entity
 @Table(name = "TJ_OperationFormule", schema = "Comptabilite")
-public class OperationFormule extends Base {
+public class OperationFormule extends Base implements Persistable<CleOperationFormule> {
     @EmbeddedId
     private CleOperationFormule idOperationFormule;
     @ManyToOne(cascade = CascadeType.ALL)
@@ -16,7 +20,10 @@ public class OperationFormule extends Base {
     @JoinColumn(name = "idFormule")
     @MapsId("idFormule")
     private Formule formule;
-    private Double valeur;
+    @Column(precision = 18, scale = 6)
+    private BigDecimal valeur;
+    @Transient
+    private boolean isNew = true;
 
     public OperationFormule() {
     }
@@ -45,11 +52,27 @@ public class OperationFormule extends Base {
         this.formule = formule;
     }
 
-    public Double getValeur() {
+    public BigDecimal getValeur() {
         return valeur;
     }
 
-    public void setValeur(Double valeur) {
+    public void setValeur(BigDecimal valeur) {
         this.valeur = valeur;
+    }
+
+    /*@PrePersist
+    @PostLoad
+    public void markNotNew(){
+        this.isNew = false;
+    }*/
+
+    @Override
+    public CleOperationFormule getId() {
+        return idOperationFormule;
+    }
+
+    @Override
+    public boolean isNew() {
+        return true;
     }
 }

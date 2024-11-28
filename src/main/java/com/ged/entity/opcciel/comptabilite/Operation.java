@@ -1,18 +1,21 @@
 package com.ged.entity.opcciel.comptabilite;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ged.entity.Base;
 import com.ged.entity.opcciel.Opcvm;
 import com.ged.entity.standard.Personne;
 import com.ged.entity.titresciel.Titre;
 import jakarta.persistence.*;
+import org.springframework.data.domain.Persistable;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
 @Inheritance(strategy=InheritanceType.JOINED)
+@DiscriminatorColumn(name = "typeOp", discriminatorType = DiscriminatorType.STRING)
 @Table(name = "T_Operation", schema = "Comptabilite")
-public class Operation extends Base {
+public class Operation extends Base implements Persistable<Long> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idOperation;
@@ -20,16 +23,18 @@ public class Operation extends Base {
     @ManyToOne
     @JoinColumn(name = "idOpcvm")
     private Opcvm opcvm;
-    private long idActionnaire;
+    private Long idActionnaire;
+    @Column(insertable = false,updatable = false)
+    private String typeOp;
     @ManyToOne
     @JoinColumn(name = "idActionnaireNew",referencedColumnName = "idPersonne")
     private Personne actionnaire;
 //    private Personne personneActionnaire;
-    private long idTitre;
+    private Long idTitre;
     @ManyToOne
     @JoinColumn(name = "idTitreNew",referencedColumnName = "idTitre")
     private Titre titre;
-    private long idTransaction;
+    private Long idTransaction;
     @ManyToOne
     @JoinColumn(name = "idTransactionNew",referencedColumnName = "idTransaction")
     private Transaction transaction;
@@ -45,89 +50,25 @@ public class Operation extends Base {
     private String referencePiece;
     private BigDecimal montant;
     private String ecriture;
-    private boolean estOD;
+    private Boolean estOD;
     private String  type;
     @Column(length = 4000)
     private String valeurFormule;
     private String valeurCodeAnalytique;
-    private boolean estExtournee;
-    private boolean estOpExtournee;
-    private long idOpExtournee;
+    private Boolean estExtournee;
+    private Boolean estOpExtournee;
+    private Long idOpExtournee;
     @ManyToOne
     @JoinColumn(name ="idOpExtourneeNew" ,referencedColumnName = "idOperation")
     private Operation operation;
-    private boolean estVerifie1;
+    private Boolean estVerifie1;
     private LocalDateTime dateVerification1;
     private String userLoginVerificateur1;
-    private boolean estVerifie2;
+    private Boolean estVerifie2;
     private LocalDateTime dateVerification2;
     private String userLoginVerificateur2;
 
     public Operation() {
-    }
-
-    public long getIdTransaction() {
-        return idTransaction;
-    }
-
-    public void setIdTransaction(long idTransaction) {
-        this.idTransaction = idTransaction;
-    }
-
-    public long getIdActionnaire() {
-        return idActionnaire;
-    }
-
-    public void setIdActionnaire(long idActionnaire) {
-        this.idActionnaire = idActionnaire;
-    }
-
-    public Personne getActionnaire() {
-        return actionnaire;
-    }
-
-    public void setActionnaire(Personne actionnaire) {
-        this.actionnaire = actionnaire;
-    }
-
-    public long getIdTitre() {
-        return idTitre;
-    }
-
-    public void setIdTitre(long idTitre) {
-        this.idTitre = idTitre;
-    }
-
-    public Titre getTitre() {
-        return titre;
-    }
-
-    public void setTitre(Titre titre) {
-        this.titre = titre;
-    }
-
-    public Transaction getTransaction() {
-        return transaction;
-    }
-
-    public void setTransaction(Transaction transaction) {
-        this.transaction = transaction;
-    }
-
-    public long getIdOpExtournee() {
-        return idOpExtournee;
-    }
-
-    public void setIdOpExtournee(long idOpExtournee) {
-        this.idOpExtournee = idOpExtournee;
-    }
-
-    public Operation getOperation() {
-        return operation;
-    }
-
-    public void setOperation(Operation operation) {
-        this.operation = operation;
     }
 
     public Long getIdOperation() {
@@ -138,10 +79,20 @@ public class Operation extends Base {
         this.idOperation = idOperation;
     }
 
+    public String getTypeOp() {
+        return typeOp;
+    }
+
+    public void setTypeOp(String typeOp) {
+        this.typeOp = typeOp;
+    }
+
+    @Override
     public Long getIdOcc() {
         return idOcc;
     }
 
+    @Override
     public void setIdOcc(Long idOcc) {
         this.idOcc = idOcc;
     }
@@ -154,29 +105,53 @@ public class Operation extends Base {
         this.opcvm = opcvm;
     }
 
-    /*public Personne getPersonne() {
-        return personne;
+    public Long getIdActionnaire() {
+        return idActionnaire;
     }
 
-    public void setPersonne(Personne personne) {
-        this.personne = personne;
-    }*/
+    public void setIdActionnaire(Long idActionnaire) {
+        this.idActionnaire = idActionnaire;
+    }
 
-    /*public Titre getTitre() {
+    public Personne getActionnaire() {
+        return actionnaire;
+    }
+
+    public void setActionnaire(Personne actionnaire) {
+        this.actionnaire = actionnaire;
+    }
+
+    public Long getIdTitre() {
+        return idTitre;
+    }
+
+    public void setIdTitre(Long idTitre) {
+        this.idTitre = idTitre;
+    }
+
+    public Titre getTitre() {
         return titre;
     }
 
     public void setTitre(Titre titre) {
         this.titre = titre;
-    }*/
+    }
 
-    /*public Transaction getTransaction() {
+    public Long getIdTransaction() {
+        return idTransaction;
+    }
+
+    public void setIdTransaction(Long idTransaction) {
+        this.idTransaction = idTransaction;
+    }
+
+    public Transaction getTransaction() {
         return transaction;
     }
 
     public void setTransaction(Transaction transaction) {
         this.transaction = transaction;
-    }*/
+    }
 
     public Long getIdSeance() {
         return idSeance;
@@ -258,11 +233,11 @@ public class Operation extends Base {
         this.ecriture = ecriture;
     }
 
-    public boolean isEstOD() {
+    public Boolean getEstOD() {
         return estOD;
     }
 
-    public void setEstOD(boolean estOD) {
+    public void setEstOD(Boolean estOD) {
         this.estOD = estOD;
     }
 
@@ -290,35 +265,43 @@ public class Operation extends Base {
         this.valeurCodeAnalytique = valeurCodeAnalytique;
     }
 
-    public boolean isEstExtournee() {
+    public Boolean getEstExtournee() {
         return estExtournee;
     }
 
-    public void setEstExtournee(boolean estExtournee) {
+    public void setEstExtournee(Boolean estExtournee) {
         this.estExtournee = estExtournee;
     }
 
-    public boolean isEstOpExtournee() {
+    public Boolean getEstOpExtournee() {
         return estOpExtournee;
     }
 
-    public void setEstOpExtournee(boolean estOpExtournee) {
+    public void setEstOpExtournee(Boolean estOpExtournee) {
         this.estOpExtournee = estOpExtournee;
     }
 
-/*    public Operation getOperation() {
+    public Long getIdOpExtournee() {
+        return idOpExtournee;
+    }
+
+    public void setIdOpExtournee(Long idOpExtournee) {
+        this.idOpExtournee = idOpExtournee;
+    }
+
+    public Operation getOperation() {
         return operation;
     }
 
     public void setOperation(Operation operation) {
         this.operation = operation;
-    }*/
+    }
 
-    public boolean isEstVerifie1() {
+    public Boolean getEstVerifie1() {
         return estVerifie1;
     }
 
-    public void setEstVerifie1(boolean estVerifie1) {
+    public void setEstVerifie1(Boolean estVerifie1) {
         this.estVerifie1 = estVerifie1;
     }
 
@@ -338,11 +321,11 @@ public class Operation extends Base {
         this.userLoginVerificateur1 = userLoginVerificateur1;
     }
 
-    public boolean isEstVerifie2() {
+    public Boolean getEstVerifie2() {
         return estVerifie2;
     }
 
-    public void setEstVerifie2(boolean estVerifie2) {
+    public void setEstVerifie2(Boolean estVerifie2) {
         this.estVerifie2 = estVerifie2;
     }
 
@@ -360,5 +343,15 @@ public class Operation extends Base {
 
     public void setUserLoginVerificateur2(String userLoginVerificateur2) {
         this.userLoginVerificateur2 = userLoginVerificateur2;
+    }
+
+    @Override
+    public Long getId() {
+        return idOperation;
+    }
+
+    @Override
+    public boolean isNew() {
+        return true;
     }
 }

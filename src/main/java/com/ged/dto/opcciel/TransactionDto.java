@@ -4,14 +4,15 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.ged.dto.opcciel.comptabilite.NatureOperationDto;
 
 import java.time.LocalDateTime;
+
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class TransactionDto {
-    private long idTransaction;
+    private Long idTransaction;
     private OpcvmDto opcvm;
-	private long idSeance;
+	private Long idSeance;
     private LocalDateTime dateTransaction;
     private NatureOperationDto natureOperation;
-    private boolean estVerifie;
+    private Boolean estVerifie;
 
     public TransactionDto() {
     }
@@ -20,8 +21,24 @@ public class TransactionDto {
         return idTransaction;
     }
 
-    public void setIdTransaction(long idTransaction) {
+    public void setIdTransaction(Long idTransaction) {
         this.idTransaction = idTransaction;
+    }
+
+    public Long getIdSeance() {
+        return idSeance;
+    }
+
+    public void setIdSeance(Long idSeance) {
+        this.idSeance = idSeance;
+    }
+
+    public Boolean getEstVerifie() {
+        return estVerifie;
+    }
+
+    public void setEstVerifie(Boolean estVerifie) {
+        this.estVerifie = estVerifie;
     }
 
     public OpcvmDto getOpcvm() {
@@ -30,14 +47,6 @@ public class TransactionDto {
 
     public void setOpcvm(OpcvmDto opcvm) {
         this.opcvm = opcvm;
-    }
-
-    public long getIdSeance() {
-        return idSeance;
-    }
-
-    public void setIdSeance(long idSeance) {
-        this.idSeance = idSeance;
     }
 
     public LocalDateTime getDateTransaction() {
@@ -54,13 +63,5 @@ public class TransactionDto {
 
     public void setNatureOperation(NatureOperationDto natureOperation) {
         this.natureOperation = natureOperation;
-    }
-
-    public boolean isEstVerifie() {
-        return estVerifie;
-    }
-
-    public void setEstVerifie(boolean estVerifie) {
-        this.estVerifie = estVerifie;
     }
 }

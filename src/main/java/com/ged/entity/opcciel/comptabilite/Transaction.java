@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @Table(name = "T_Transaction", schema = "Comptabilite")
 public class Transaction extends Base {
     @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idTransaction;
     @ManyToOne()
     @JoinColumn(name = "idOpcvm")
@@ -20,7 +20,7 @@ public class Transaction extends Base {
     @ManyToOne()
     @JoinColumn(name = "codeNatureOperation")
     private NatureOperation natureOperation;
-    private boolean estVerifie;
+    private Boolean estVerifie;
 
     public Transaction() {
     }
@@ -65,11 +65,11 @@ public class Transaction extends Base {
         this.natureOperation = natureOperation;
     }
 
-    public boolean isEstVerifie() {
+    public Boolean getEstVerifie() {
         return estVerifie;
     }
 
-    public void setEstVerifie(boolean estVerifie) {
+    public void setEstVerifie(Boolean estVerifie) {
         this.estVerifie = estVerifie;
     }
 }

@@ -1,5 +1,6 @@
 package com.ged.entity.opcciel.comptabilite;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ged.entity.Base;
 import jakarta.persistence.*;
 
@@ -17,8 +18,10 @@ public class Formule extends Base {
 	@JoinColumn(name = "codeTypeFormule")
 	private TypeFormule typeFormule;
 	@OneToMany(mappedBy = "formule")
+	@JsonIgnore
 	private Set<ModeleEcritureFormule> modeleEcritureFormules;
 	private boolean estSysteme;
+
 	public Formule() {
 	}
 

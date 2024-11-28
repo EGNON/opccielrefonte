@@ -117,7 +117,7 @@ public class PersonnePhysiqueController {
             @RequestParam(value = "data", required = false) String data) throws IOException {
         PersonnePhysiqueDto personnePhysiqueDto = objectMapper.readValue(data, PersonnePhysiqueDto.class);
         try {
-            personnePhysiqueDto = personnePhysiqueService.modifierPersonnePhysique(files, personnePhysiqueDto);
+            personnePhysiqueDto = personnePhysiqueService.creerPersonnePhysique(files, personnePhysiqueDto);
         }
         catch (Throwable e) {
             throw new RuntimeException(e);

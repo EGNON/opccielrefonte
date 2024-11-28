@@ -2,6 +2,7 @@ package com.ged.entity.opcciel.comptabilite;
 
 import com.ged.entity.Base;
 import com.ged.entity.opcciel.Opcvm;
+import com.ged.entity.standard.Personne;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
@@ -19,9 +20,10 @@ public class Mouvement extends Base {
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "idOpcvm")
 	private Opcvm opcvm;
-	/*@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "idActionnaire",referencedColumnName = "idPersonne", nullable = true)
-	private Personne personneActionnaire;*/
+	private Long idActionnaire;
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "idActionnaireNew",referencedColumnName = "idPersonne")
+	private Personne actionnaire;
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "codePlan")
 	private Plan plan;
@@ -78,13 +80,21 @@ public class Mouvement extends Base {
 		this.opcvm = opcvm;
 	}
 
-	/*public Personne getPersonneActionnaire() {
-		return personneActionnaire;
+	public Long getIdActionnaire() {
+		return idActionnaire;
 	}
 
-	public void setPersonneActionnaire(Personne personneActionnaire) {
-		this.personneActionnaire = personneActionnaire;
-	}*/
+	public void setIdActionnaire(Long idActionnaire) {
+		this.idActionnaire = idActionnaire;
+	}
+
+	public Personne getActionnaire() {
+		return actionnaire;
+	}
+
+	public void setActionnaire(Personne actionnaire) {
+		this.actionnaire = actionnaire;
+	}
 
 	public Plan getPlan() {
 		return plan;

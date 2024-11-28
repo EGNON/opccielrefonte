@@ -19,14 +19,15 @@ public class SeanceOpcvm extends Base {
 	private Opcvm opcvm;
 	private LocalDateTime dateOuverture;
 	private LocalDateTime dateFermeture;
-	private boolean genere;
+	private Boolean genere;
 	private String typeSeance;
-	private Double valeurLiquidative;
-	private boolean estEnCours;
+	@Column(precision = 18, scale = 6)
+	private BigDecimal valeurLiquidative;
+	private Boolean estEnCours;
 	private Long niveau;
-	private boolean estEnCloture;
-	private BigDecimal navBenchmark ;
-	private BigDecimal tauxEquiMarche  ;
+	private Boolean estEnCloture;
+	private BigDecimal navBenchmark;
+	private BigDecimal tauxEquiMarche;
 
 	public SeanceOpcvm() {
 	}
@@ -79,14 +80,6 @@ public class SeanceOpcvm extends Base {
 		this.dateFermeture = dateFermeture;
 	}
 
-	public boolean isGenere() {
-		return genere;
-	}
-
-	public void setGenere(boolean genere) {
-		this.genere = genere;
-	}
-
 	public String getTypeSeance() {
 		return typeSeance;
 	}
@@ -95,35 +88,43 @@ public class SeanceOpcvm extends Base {
 		this.typeSeance = typeSeance;
 	}
 
-	public Double getValeurLiquidative() {
+	public Boolean getGenere() {
+		return genere;
+	}
+
+	public void setGenere(Boolean genere) {
+		this.genere = genere;
+	}
+
+	public BigDecimal getValeurLiquidative() {
 		return valeurLiquidative;
 	}
 
-	public void setValeurLiquidative(Double valeurLiquidative) {
+	public void setValeurLiquidative(BigDecimal valeurLiquidative) {
 		this.valeurLiquidative = valeurLiquidative;
 	}
 
-	public boolean isEstEnCours() {
+	public Boolean getEstEnCours() {
 		return estEnCours;
 	}
 
-	public void setEstEnCours(boolean estEnCours) {
+	public void setEstEnCours(Boolean estEnCours) {
 		this.estEnCours = estEnCours;
 	}
 
-	public long getNiveau() {
+	public Long getNiveau() {
 		return niveau;
 	}
 
-	public void setNiveau(long niveau) {
+	public void setNiveau(Long niveau) {
 		this.niveau = niveau;
 	}
 
-	public boolean isEstEnCloture() {
+	public Boolean getEstEnCloture() {
 		return estEnCloture;
 	}
 
-	public void setEstEnCloture(boolean estEnCloture) {
+	public void setEstEnCloture(Boolean estEnCloture) {
 		this.estEnCloture = estEnCloture;
 	}
 }

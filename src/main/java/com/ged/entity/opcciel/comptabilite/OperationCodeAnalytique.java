@@ -2,10 +2,11 @@ package com.ged.entity.opcciel.comptabilite;
 
 import com.ged.entity.Base;
 import jakarta.persistence.*;
+import org.springframework.data.domain.Persistable;
 
 @Entity
 @Table(name = "TJ_OperationCodeAnalytique", schema = "Comptabilite")
-public class OperationCodeAnalytique extends Base {
+public class OperationCodeAnalytique extends Base implements Persistable<CleOperationCodeAnalytique> {
     @EmbeddedId
     private CleOperationCodeAnalytique idOperationCodeAnalytique;
     @ManyToOne(cascade = CascadeType.ALL)
@@ -30,5 +31,15 @@ public class OperationCodeAnalytique extends Base {
 
     public void setOperation(Operation operation) {
         this.operation = operation;
+    }
+
+    @Override
+    public CleOperationCodeAnalytique getId() {
+        return idOperationCodeAnalytique;
+    }
+
+    @Override
+    public boolean isNew() {
+        return true;
     }
 }

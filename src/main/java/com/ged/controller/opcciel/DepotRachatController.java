@@ -5,11 +5,11 @@ import com.ged.dao.opcciel.DepotRachatDao;
 import com.ged.datatable.DatatableParameters;
 import com.ged.dto.opcciel.DepotRachatDto;
 import com.ged.dto.opcciel.ImportationDepotDto;
+import com.ged.dto.opcciel.OperationSouscriptionRachatDto;
 import com.ged.dto.opcciel.comptabilite.VerifDepSouscriptionIntRachatDto;
 import com.ged.dto.request.DownloadRequest;
+import com.ged.dto.request.PrecalculSouscriptionRequest;
 import com.ged.dto.request.VerificationListeDepotRequest;
-import com.ged.dto.titresciel.CoursTitreDto;
-import com.ged.entity.opcciel.DepotRachat;
 import com.ged.entity.opcciel.Opcvm;
 import com.ged.entity.opcciel.SeanceOpcvm;
 import com.ged.mapper.opcciel.DepotRachatMapper;
@@ -21,10 +21,9 @@ import com.ged.projection.PrecalculRachatProjection;
 import com.ged.service.opcciel.DepotRachatService;
 import com.ged.service.opcciel.OpcvmService;
 import com.ged.service.opcciel.SeanceOpcvmService;
-import com.ged.validator.opcciel.DepotRachatValidator;
+import jakarta.annotation.Priority;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -32,11 +31,7 @@ import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
 import java.math.BigDecimal;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -82,11 +77,13 @@ public class DepotRachatController {
     {
         return depotRachatService.afficher(id);
     }
+
     @GetMapping("/{idOpcvm}/{idActionnaire}")
     public List<NbrePartProjection> afficherNbrePart(@PathVariable Long idOpcvm,
                                                      @PathVariable Long idActionnaire) {
         return depotRachatService.afficherNbrePart(idOpcvm,idActionnaire);
     }
+
     @GetMapping("/{idOpcvm}/{idSeance}/{codeNatureOperation}/{estVerifier}/{estVerifie1}/{estVerifie2}")
     public ResponseEntity<Object> afficherTous( @PathVariable long idOpcvm,
                                                 @PathVariable long idSeance,
@@ -96,6 +93,7 @@ public class DepotRachatController {
                                                 @PathVariable boolean estVerifie2) throws JsonProcessingException {
         return depotRachatService.afficherTous(idOpcvm,idSeance,codeNatureOperation,estVerifier,estVerifie1,estVerifie2);
     }
+
     @GetMapping("depotrachat/{idOpcvm}/{niveau1}/{niveau2}")
     public List<FT_DepotRachatProjection> afficherFT_DepotRachat(
                                                            @PathVariable Long idOpcvm,
@@ -103,6 +101,7 @@ public class DepotRachatController {
                                                            @PathVariable boolean niveau2) {
         return depotRachatService.afficherFT_DepotRachat(idOpcvm,niveau1,niveau2);
     }
+
     @GetMapping("precalculrachat/{idSeance}/{idOpcvm}/{idPersonne}")
     public List<PrecalculRachatProjection> afficherPrecalculRachat(
                                                            @PathVariable Long idSeance,
@@ -110,6 +109,7 @@ public class DepotRachatController {
                                                            @PathVariable Long idPersonne) {
         return depotRachatService.afficherPrecalculRachat(idSeance,idOpcvm,idPersonne);
     }
+
     @PostMapping("/datatable/list/{idOpcvm}/{idSeance}/{codeNatureOperation}")
     public ResponseEntity<Object> datatableList(@RequestBody DatatableParameters params,
                                                 @PathVariable long idOpcvm,
@@ -166,6 +166,7 @@ public class DepotRachatController {
         DepotRachatDto.setIdDepotRachat(id);
         return depotRachatService.modifier(DepotRachatDto);
     }
+
     @PutMapping("/{id}/{userLogin}")
     public ResponseEntity<Object> modifier(@PathVariable Long[] id,
                                            @PathVariable String userLogin)
@@ -239,7 +240,6 @@ public class DepotRachatController {
                 "seance", seanceOpcvm,
                 "totalDepot", totalDepot,
                 "totalSouscrit", totalSouscrit,
-                "user", downloadRequest.getUser(),
                 "dateVerification1", dateVerification1,
                 "userVerification1", userVerification1,
                 "dateVerification2", dateVerification2,
@@ -264,5 +264,17 @@ public class DepotRachatController {
     @PostMapping("/confirmer/liste/verification/niveau1/depots/tous")
     public ResponseEntity<Object> confirmationNiv2(@Valid @RequestBody List<DepotRachatDto> depotRachatDtos) {
         return depotRachatService.confirmerListeVerifNiv2Depot(depotRachatDtos);
+    }
+
+    @Priority(1)
+    @PostMapping("/precalcul/souscription")
+    public ResponseEntity<Object> precalculSouscription(@Valid @RequestBody PrecalculSouscriptionRequest precalcul) {
+        return depotRachatService.precalculSouscription(precalcul);
+    }
+
+    @Priority(2)
+    @PostMapping("/generer/souscription/tous")
+    public ResponseEntity<Object> genererSouscription(@Valid @RequestBody List<OperationSouscriptionRachatDto> souscriptionRachatDtos) {
+        return depotRachatService.genererSouscription(souscriptionRachatDtos);
     }
 }

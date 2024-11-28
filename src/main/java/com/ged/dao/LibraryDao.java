@@ -3,6 +3,8 @@ package com.ged.dao;
 import com.ged.entity.BaseEntity;
 import com.ged.projection.*;
 import com.ged.entity.opcciel.SeanceOpcvm;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -37,10 +39,7 @@ public interface LibraryDao extends JpaRepository<BaseEntity, Long> {
     @Query(value = "select s from SeanceOpcvm s join s.opcvm o where s.opcvm.idOpcvm = :idOpcvm and s.estEnCours = true")
     SeanceOpcvm currentSeance(@Param("idOpcvm") Long idOpcvm);
 
-    @Query(value = "SELECT idOpcvm, idActionnaire, codeNatureOperation, libelleNatureOperation, codeModeleEcriture, " +
-            "libelleModeleEcriture, numeroOrdreModele, numeroOrdreLigneMvt, codeIb, " +
-            "codeRubrique, codePosition, libellePosition, numCompteComptable, libelleCompteComptable, " +
-            "codePlan, sensMvt, idFormule, valeur, codeTypeFormule FROM [Comptabilite].[FT_ChargerLigneMvt] (:codeNatureOperation, " +
+    @Query(value = "SELECT * FROM [Comptabilite].[FT_ChargerLigneMvt] (:codeNatureOperation, " +
             ":valeurCodeAnalytique, :valeurFormule, :idOpcvm, :idActionnaire, :idTitre)", nativeQuery = true)
     List<LigneMvtClotureProjection> chargerLigneMvt(
             @Param("codeNatureOperation") String codeNatureOperation,
@@ -65,4 +64,10 @@ public interface LibraryDao extends JpaRepository<BaseEntity, Long> {
                                                                   @Param("codeplan") String codeplan,
                                                                   @Param("idTitre") Long idTitre,
                                                                   @Param("date") Date date);
+
+    @Query(value = "select * from [Parametre].[PrecalculSouscription](:idSeance, :idOpcvm, :idPersonne)", nativeQuery = true)
+    Page<PrecalculSouscriptionProjection> precalculSouscription(@Param("idSeance") Long idSeance,
+                                                                @Param("idOpcvm") Long idOpcvm,
+                                                                @Param("idPersonne") Long idPersonne, Pageable pageable);
+
 }

@@ -1,27 +1,23 @@
 package com.ged.dto.opcciel;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.ged.dto.opcciel.comptabilite.NatureOperationDto;
 import com.ged.dto.opcciel.comptabilite.OperationDto;
-import com.ged.dto.standard.PersonneDto;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class OperationSouscriptionRachatDto extends OperationDto {
-    private long idOperation;
-    /*private TransactionDto transaction;
-    private long idSeance;
-    private PersonneDto personneActionnaiare;
-    private OpcvmDto opcvm;
-    private PersonneDto personne;
-    private NatureOperationDto natureOperation;
-    private LocalDateTime dateOperation;
-    private String libelleOperation  ;
-    private LocalDateTime dateSaisie;
-    private LocalDateTime datePiece;
-    private LocalDateTime dateValeur;
-    private String referencePiece;*/
+//    private Long idTransaction;
+//    private Long idSeance;
+    private Long idOpcvm;
+//    private Long idActionnaire;
+    private String codeNatureOperation;
+//    private LocalDateTime dateOperation;
+//    private String libelleOperation;
+//    private LocalDateTime dateSaisie;
+//    private LocalDateTime datePiece;
+//    private LocalDateTime dateValeur;
+//    private String referencePiece;
     private BigDecimal montantSousALiquider;
     private BigDecimal sousRachatPart;
     private BigDecimal commisiionSousRachat;
@@ -45,119 +41,120 @@ public class OperationSouscriptionRachatDto extends OperationDto {
     private Long quantiteSouhaite;
     private BigDecimal montantDepose;
     private BigDecimal montantConvertiEnPart;
-    private boolean estRetrocede;
-    private boolean resteRembourse;
-    private boolean rachatPaye;
+    private Boolean estRetrocede;
+    private Boolean resteRembourse;
+    private Boolean rachatPaye;
     private String ecriture;
 
     public OperationSouscriptionRachatDto() {
     }
 
-    public Long getIdOperation() {
-        return idOperation;
+    /*@Override
+    public Long getIdTransaction() {
+        return idTransaction;
     }
 
-    public void setIdOperation(long idOperation) {
-        this.idOperation = idOperation;
-    }
+    @Override
+    public void setIdTransaction(Long idTransaction) {
+        this.idTransaction = idTransaction;
+    }*/
 
-   /* public TransactionDto getTransaction() {
-        return transaction;
-    }
-
-    public void setTransaction(TransactionDto transaction) {
-        this.transaction = transaction;
-    }
-
+    /*@Override
     public Long getIdSeance() {
         return idSeance;
     }
 
-    public void setIdSeance(long idSeance) {
+    @Override
+    public void setIdSeance(Long idSeance) {
         this.idSeance = idSeance;
+    }*/
+
+    public Long getIdOpcvm() {
+        return idOpcvm;
     }
 
-    public PersonneDto getPersonneActionnaiare() {
-        return personneActionnaiare;
+    public void setIdOpcvm(Long idOpcvm) {
+        this.idOpcvm = idOpcvm;
     }
 
-    public void setPersonneActionnaiare(PersonneDto personneActionnaiare) {
-        this.personneActionnaiare = personneActionnaiare;
+    /*@Override
+    public Long getIdActionnaire() {
+        return idActionnaire;
     }
 
-    public OpcvmDto getOpcvm() {
-        return opcvm;
+    @Override
+    public void setIdActionnaire(Long idActionnaire) {
+        this.idActionnaire = idActionnaire;
+    }*/
+
+    public String getCodeNatureOperation() {
+        return codeNatureOperation;
     }
 
-    public void setOpcvm(OpcvmDto opcvm) {
-        this.opcvm = opcvm;
+    public void setCodeNatureOperation(String codeNatureOperation) {
+        this.codeNatureOperation = codeNatureOperation;
     }
 
-    public PersonneDto getPersonne() {
-        return personne;
-    }
-
-    public void setPersonne(PersonneDto personne) {
-        this.personne = personne;
-    }
-
-    public NatureOperationDto getNatureOperation() {
-        return natureOperation;
-    }
-
-    public void setNatureOperation(NatureOperationDto natureOperation) {
-        this.natureOperation = natureOperation;
-    }
-
+    /*@Override
     public LocalDateTime getDateOperation() {
         return dateOperation;
     }
 
+    @Override
     public void setDateOperation(LocalDateTime dateOperation) {
         this.dateOperation = dateOperation;
     }
 
+    @Override
     public String getLibelleOperation() {
         return libelleOperation;
     }
 
+    @Override
     public void setLibelleOperation(String libelleOperation) {
         this.libelleOperation = libelleOperation;
     }
 
+    @Override
     public LocalDateTime getDateSaisie() {
         return dateSaisie;
     }
 
+    @Override
     public void setDateSaisie(LocalDateTime dateSaisie) {
         this.dateSaisie = dateSaisie;
     }
 
+    @Override
     public LocalDateTime getDatePiece() {
         return datePiece;
     }
 
+    @Override
     public void setDatePiece(LocalDateTime datePiece) {
         this.datePiece = datePiece;
     }
 
+    @Override
     public LocalDateTime getDateValeur() {
         return dateValeur;
     }
 
+    @Override
     public void setDateValeur(LocalDateTime dateValeur) {
         this.dateValeur = dateValeur;
     }
 
+    @Override
     public String getReferencePiece() {
         return referencePiece;
     }
 
+    @Override
     public void setReferencePiece(String referencePiece) {
         this.referencePiece = referencePiece;
     }
 */
-
     public BigDecimal getMontantSousALiquider() {
         return montantSousALiquider;
     }
@@ -171,7 +168,7 @@ public class OperationSouscriptionRachatDto extends OperationDto {
     }
 
     public void setSousRachatPart(BigDecimal sousRachatPart) {
-        sousRachatPart = sousRachatPart;
+        this.sousRachatPart = sousRachatPart;
     }
 
     public BigDecimal getCommisiionSousRachat() {
@@ -182,12 +179,12 @@ public class OperationSouscriptionRachatDto extends OperationDto {
         this.commisiionSousRachat = commisiionSousRachat;
     }
 
-    public BigDecimal getTAFCommissionSousRachat() {
+    public BigDecimal gettAFCommissionSousRachat() {
         return tAFCommissionSousRachat;
     }
 
-    public void setTAFCommissionSousRachat(BigDecimal TAFCommissionSousRachat) {
-        this.tAFCommissionSousRachat = TAFCommissionSousRachat;
+    public void settAFCommissionSousRachat(BigDecimal tAFCommissionSousRachat) {
+        this.tAFCommissionSousRachat = tAFCommissionSousRachat;
     }
 
     public BigDecimal getRetrocessionSousRachat() {
@@ -198,12 +195,12 @@ public class OperationSouscriptionRachatDto extends OperationDto {
         this.retrocessionSousRachat = retrocessionSousRachat;
     }
 
-    public BigDecimal getTAFRetrocessionSousRachat() {
+    public BigDecimal gettAFRetrocessionSousRachat() {
         return tAFRetrocessionSousRachat;
     }
 
-    public void setTAFRetrocessionSousRachat(BigDecimal TAFRetrocessionSousRachat) {
-        this.tAFRetrocessionSousRachat = TAFRetrocessionSousRachat;
+    public void settAFRetrocessionSousRachat(BigDecimal tAFRetrocessionSousRachat) {
+        this.tAFRetrocessionSousRachat = tAFRetrocessionSousRachat;
     }
 
     public BigDecimal getCommissionSousRachatRetrocedee() {
@@ -342,27 +339,27 @@ public class OperationSouscriptionRachatDto extends OperationDto {
         this.montantConvertiEnPart = montantConvertiEnPart;
     }
 
-    public boolean isEstRetrocede() {
+    public Boolean getEstRetrocede() {
         return estRetrocede;
     }
 
-    public void setEstRetrocede(boolean estRetrocede) {
+    public void setEstRetrocede(Boolean estRetrocede) {
         this.estRetrocede = estRetrocede;
     }
 
-    public boolean isResteRembourse() {
+    public Boolean getResteRembourse() {
         return resteRembourse;
     }
 
-    public void setResteRembourse(boolean resteRembourse) {
+    public void setResteRembourse(Boolean resteRembourse) {
         this.resteRembourse = resteRembourse;
     }
 
-    public boolean isRachatPaye() {
+    public Boolean getRachatPaye() {
         return rachatPaye;
     }
 
-    public void setRachatPaye(boolean rachatPaye) {
+    public void setRachatPaye(Boolean rachatPaye) {
         this.rachatPaye = rachatPaye;
     }
 
