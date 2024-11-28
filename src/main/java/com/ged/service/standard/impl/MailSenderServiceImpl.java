@@ -40,7 +40,7 @@ public class MailSenderServiceImpl {
     }
 
     //    @Override
-    @Async
+
     public boolean send(String subject, String to, String email) {
         try {
             MimeMessage mimeMessage = mailSender.createMimeMessage();

@@ -3,10 +3,13 @@ package com.ged.controller.opcciel;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.ged.datatable.DatatableParameters;
 import com.ged.dto.opcciel.comptabilite.FormuleDto;
+import com.ged.dto.opcciel.comptabilite.SoldeCompteFormuleDto;
 import com.ged.service.opcciel.FormuleService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Date;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -23,6 +26,12 @@ public class FormuleController {
     public ResponseEntity<Object> afficherTous()
     {
         return formuleService.afficherTous();
+    }
+
+    @PostMapping("/soldecompteformule")
+    public ResponseEntity<Object> soldeCompteFormule(@RequestBody SoldeCompteFormuleDto soldeCompteFormuleDto)
+    {
+        return formuleService.soldeCompteFormule(soldeCompteFormuleDto);
     }
 
     @GetMapping("/{id}")

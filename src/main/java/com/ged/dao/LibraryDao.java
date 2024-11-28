@@ -11,6 +11,7 @@ import org.springframework.data.repository.query.Param;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 public interface LibraryDao extends JpaRepository<BaseEntity, Long> {
@@ -54,6 +55,15 @@ public interface LibraryDao extends JpaRepository<BaseEntity, Long> {
     List<PrecalculRachatProjection> afficherPrecalculRachat(@Param("idSeance") Long idSeance,
                                                             @Param("idOpcvm") Long idOpcvm,
                                                             @Param("idPersonne") Long idPersonne);
+
+
+    @Query(value = "SELECT * FROM [Comptabilite].[SoldeCompteFormule](:idOpcvm," +
+            ":numCompte,:codeplan,:idTitre,:date)",nativeQuery = true)
+    List<SoldeCompteFormuleProjection> afficherSoldeCompteFormule(@Param("idOpcvm") Long idOpcvm,
+                                                                  @Param("numCompte") String numCompte,
+                                                                  @Param("codeplan") String codeplan,
+                                                                  @Param("idTitre") Long idTitre,
+                                                                  @Param("date") Date date);
 
     @Query(value = "select * from [Parametre].[PrecalculSouscription](:idSeance, :idOpcvm, :idPersonne)", nativeQuery = true)
     Page<PrecalculSouscriptionProjection> precalculSouscription(@Param("idSeance") Long idSeance,

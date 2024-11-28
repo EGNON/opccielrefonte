@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 public interface ExerciceProjection {
     String getCodeExercice();
 
-   /* Opcvm getOpcvm();
+    //Opcvm getOpcvm();
 
     LocalDateTime getDateDebut();
 
@@ -17,11 +17,11 @@ public interface ExerciceProjection {
 
     Plan getPlan();
 
-    boolean isEstCourant();
+  /*  Boolean getEstCourant();
 
-    boolean isEstFerme();
+    Boolean getEstFerme();
 
-    boolean isEstBloque();
+    Boolean getEstBloque();*/
 
     LocalDateTime getDateCloture();
 
@@ -29,5 +29,5 @@ public interface ExerciceProjection {
 
     Double getMontantMinimum() ;
 
-    String getDeclassement() ;*/
+    String getDeclassement() ;
 }

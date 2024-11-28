@@ -22,9 +22,12 @@ public class ExerciceController {
     public List<ExerciceDto> afficherTous() throws SQLException {
         return exerciceService.afficherTous();
     }
-
+    @GetMapping("/courant/{idOpcvm}")
+    public ResponseEntity<Object> exerciceEnCours(@PathVariable("idOpcvm") Long idOpcvm) {
+        return exerciceService.exerciceEnCours(idOpcvm);
+    }
     @PostMapping("/courant/{idOpcvm}")
-    public ResponseEntity<?> exerciceCourant(@PathVariable("idOpcvm") Long idOpcvm) {
+    public ResponseEntity<Object> exerciceCourant(@PathVariable("idOpcvm") Long idOpcvm) {
         return exerciceService.exerciceCourant(idOpcvm);
     }
 }

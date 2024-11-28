@@ -16,4 +16,14 @@ public interface ExerciceDao extends JpaRepository<Exercice, CleExercice> {
     List<ExerciceProjection> afficherExercice();
     @Query(value = "select e from Exercice e where e.estCourant = true and e.idExercie.idOpcvm = :id")
     Optional<Exercice> exerciceCourant(@Param("id") Long idOpcvm);
+
+    @Query(value = "select e.codeExercice as codeExercice," +
+            "e.opcvm as opcvm," +
+            "e.dateDebut as dateDebut," +
+            "e.dateFin as dateFin," +
+            "e.plan as plan " +
+            "from Exercice e " +
+            "where e.estCourant = true " +
+            "and e.idExercie.idOpcvm = :id")
+    ExerciceProjection exerciceEnCours(@Param("id") Long idOpcvm);
 }

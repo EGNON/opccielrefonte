@@ -22,6 +22,7 @@ import com.ged.entity.standard.*;
 import jakarta.persistence.EntityNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -43,7 +44,8 @@ import java.util.stream.Collectors;
 //@Transactional
 public class PersonneMoraleServiceImpl implements PersonneMoraleService {
     private static final Logger LOGGER = LoggerFactory.getLogger(PersonneMoraleServiceImpl.class);
-
+    @Autowired
+    MailSenderServiceImpl mailSenderServiceImpl;
     /*@Autowired
     @Qualifier("opccielEntityManagerFactory")
     private EntityManager emOpcciel;*/
@@ -228,10 +230,14 @@ public class PersonneMoraleServiceImpl implements PersonneMoraleService {
                                 StringUtils.hasLength(personneMoraleSave.getEmailPerso())
                 )
                 {
-                    emailService.sendMail(
+//                    emailService.sendMail(
+//                            personneMoraleSave.getEmailPerso(),
+//                            "Remerciement",
+//                            "SAPHIR, vous remercie pour votre disponibilité !");
+                    mailSenderServiceImpl.send("Remerciement",
                             personneMoraleSave.getEmailPerso(),
-                            "Remerciement",
                             "SAPHIR, vous remercie pour votre disponibilité !");
+
                     MailDto mailDto = new MailDto();
                     mailDto.setDateEnvoi(new Date());
                     mailDto.setHeureEnvoi(null);
