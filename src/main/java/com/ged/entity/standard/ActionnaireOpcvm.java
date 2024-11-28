@@ -9,7 +9,6 @@ import jakarta.persistence.*;
 public class ActionnaireOpcvm extends Base {
     @EmbeddedId
     private CleActionnaireOpcvm cleActionnaireOpcvm;
-
     @ManyToOne()
     @JoinColumn(name = "idPersonne")
     @MapsId("idPersonne")

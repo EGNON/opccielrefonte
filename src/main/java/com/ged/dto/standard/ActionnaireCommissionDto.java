@@ -5,10 +5,10 @@ import com.ged.dto.opcciel.OpcvmDto;
 import com.ged.entity.Base;
 
 import java.time.LocalDateTime;
+
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ActionnaireCommissionDto extends Base {
     private CleActionnaireCommissionDto cleActionnaireCommission;
-
     private String codeProfil;
     private String libelleProfil;
     private OpcvmDto opcvm;
