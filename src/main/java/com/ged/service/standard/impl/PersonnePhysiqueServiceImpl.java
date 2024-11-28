@@ -48,7 +48,8 @@ import java.util.stream.Collectors;
 //@Transactional(isolation = Isolation.REPEATABLE_READ)
 public class PersonnePhysiqueServiceImpl implements PersonnePhysiqueService {
     private static final Logger LOGGER = LoggerFactory.getLogger(PersonneMoraleServiceImpl.class);
-
+    @Autowired
+    MailSenderServiceImpl mailSenderServiceImpl;
     /*@Autowired
     @Qualifier("opccielEntityManagerFactory")
     private EntityManager emOpcciel;*/
@@ -360,9 +361,8 @@ public class PersonnePhysiqueServiceImpl implements PersonnePhysiqueService {
                         StringUtils.hasLength(personnePhysiqueSave.getEmailPro()) ||
                                 StringUtils.hasLength(personnePhysiqueSave.getEmailPerso())
                 ) {
-                    emailService.sendMail(
+                    mailSenderServiceImpl.send("Remerciement",
                             personnePhysiqueSave.getEmailPerso(),
-                            "Remerciement",
                             "SAPHIR, vous remercie pour votre disponibilité !");
                     MailDto mailDto = new MailDto();
                     mailDto.setDateEnvoi(new Date());
