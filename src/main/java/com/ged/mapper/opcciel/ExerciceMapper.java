@@ -1,20 +1,22 @@
 package com.ged.mapper.opcciel;
 
 
-import com.ged.dto.crm.AgentConcerneDto;
-import com.ged.dto.crm.RDVDto;
 import com.ged.dto.opcciel.comptabilite.ExerciceDto;
 import com.ged.entity.opcciel.comptabilite.Exercice;
 import com.ged.projection.ExerciceProjection;
-import com.ged.projection.RDVProjection;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
-import java.util.Set;
-
 @Service
 public class ExerciceMapper {
+    private final PlanMapper planMapper;
+    private final OpcvmMapper opcvmMapper;
+
+    public ExerciceMapper(PlanMapper planMapper, OpcvmMapper opcvmMapper) {
+        this.planMapper = planMapper;
+        this.opcvmMapper = opcvmMapper;
+    }
+
     public ExerciceDto deExercice(Exercice Exercice)
     {
         if(Exercice == null)
@@ -37,6 +39,12 @@ public class ExerciceMapper {
         }
         ExerciceDto ExerciceDto = new ExerciceDto();
         BeanUtils.copyProperties(exercice, ExerciceDto);
+        if(exercice.getPlan()!=null)
+            ExerciceDto.setPlan(planMapper.dePlan(exercice.getPlan()));
+
+//        if(exercice.getOpcvm()!=null)
+//            ExerciceDto.setOpcvm(opcvmMapper.deOpcvm(exercice.getOpcvm()));
+
         return ExerciceDto;
     }
 }

@@ -11,4 +11,6 @@ public interface ExerciceService {
     List<ExerciceDto> afficherTous() throws SQLException;
 
     ResponseEntity<Object> exerciceCourant(Long idOpcvm);
+
+    ResponseEntity<Object> exerciceEnCours(Long idOpcvm);
 }

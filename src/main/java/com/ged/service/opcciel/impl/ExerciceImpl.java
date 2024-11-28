@@ -4,6 +4,7 @@ import com.ged.dao.opcciel.comptabilite.ExerciceDao;
 import com.ged.dto.opcciel.comptabilite.ExerciceDto;
 import com.ged.entity.opcciel.comptabilite.Exercice;
 import com.ged.mapper.opcciel.ExerciceMapper;
+import com.ged.projection.ExerciceProjection;
 import com.ged.response.ResponseHandler;
 import com.ged.service.opcciel.ExerciceService;
 import org.springframework.http.HttpStatus;
@@ -32,6 +33,25 @@ public class ExerciceImpl implements ExerciceService {
     public ResponseEntity<Object> exerciceCourant(Long idOpcvm) {
         try {
             Exercice exercice = exerciceDao.exerciceCourant(idOpcvm).orElse(null);
+            return ResponseHandler.generateResponse(
+                    "Exercice courant",
+                    HttpStatus.OK,
+                    exercice);
+        }
+        catch (Exception e)
+        {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e);
+        }
+    }
+
+    @Override
+    public ResponseEntity<Object> exerciceEnCours(Long idOpcvm) {
+        try {
+            ExerciceProjection exercice = exerciceDao.exerciceEnCours(idOpcvm);
+
             return ResponseHandler.generateResponse(
                     "Exercice courant",
                     HttpStatus.OK,

@@ -1,6 +1,7 @@
 package com.ged.service.opcciel.impl;
 
 import com.ged.advice.EntityNotFoundException;
+import com.ged.dao.LibraryDao;
 import com.ged.dao.opcciel.comptabilite.FormuleDao;
 import com.ged.dao.opcciel.comptabilite.ModeleEcritureDao;
 import com.ged.dao.opcciel.comptabilite.ModeleEcritureFormuleDao;
@@ -8,13 +9,14 @@ import com.ged.dao.opcciel.comptabilite.TypeFormuleDao;
 import com.ged.datatable.DataTablesResponse;
 import com.ged.datatable.DatatableParameters;
 import com.ged.dto.opcciel.comptabilite.FormuleDto;
+import com.ged.dto.opcciel.comptabilite.SoldeCompteFormuleDto;
 import com.ged.entity.crm.Degre;
 import com.ged.entity.opcciel.comptabilite.Formule;
 import com.ged.entity.opcciel.comptabilite.TypeFormule;
 import com.ged.mapper.opcciel.FormuleMapper;
+import com.ged.projection.SoldeCompteFormuleProjection;
 import com.ged.response.ResponseHandler;
 import com.ged.service.opcciel.FormuleService;
-import jakarta.transaction.Transactional;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -24,18 +26,22 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 //@Transactional
 public class FormuleServiceImpl implements FormuleService {
+    private final LibraryDao libraryDao;
     private final FormuleDao formuleDao;
     private final FormuleMapper formuleMapper;
     private final ModeleEcritureFormuleDao modeleEcritureFormuleDao;
     private final TypeFormuleDao typeFormuleDao;
     private final ModeleEcritureDao modeleEcritureDao;
-    public FormuleServiceImpl(FormuleDao formuleDao, FormuleMapper formuleMapper, ModeleEcritureFormuleDao modeleEcritureFormuleDao, TypeFormuleDao typeFormuleDao, ModeleEcritureDao modeleEcritureDao) {
+    public FormuleServiceImpl(LibraryDao libraryDao, FormuleDao formuleDao, FormuleMapper formuleMapper, ModeleEcritureFormuleDao modeleEcritureFormuleDao, TypeFormuleDao typeFormuleDao, ModeleEcritureDao modeleEcritureDao) {
+        this.libraryDao = libraryDao;
         this.formuleDao = formuleDao;
         this.formuleMapper = formuleMapper;
         this.modeleEcritureFormuleDao = modeleEcritureFormuleDao;
@@ -116,6 +122,43 @@ public class FormuleServiceImpl implements FormuleService {
                     e);
         }
     }
+
+    @Override
+    public ResponseEntity<Object> soldeCompteFormule(SoldeCompteFormuleDto soldeCompteFormuleDto) {
+        try {
+           List<SoldeCompteFormuleProjection> list=libraryDao.afficherSoldeCompteFormule(soldeCompteFormuleDto.getIdOpcvm(),
+                   soldeCompteFormuleDto.getNumCompte(), soldeCompteFormuleDto.getCodeplan(), soldeCompteFormuleDto.getIdTitre(),
+                   soldeCompteFormuleDto.getDate());
+          /* System.out.println("size="+list.size());*/
+           BigDecimal solde=BigDecimal.valueOf(0);
+            if(list.size()!=0){
+                solde=list.get(0).getSoldeReel();
+            }
+            /*for(Object[] o:list){
+                solde=BigDecimal.valueOf(Double.valueOf(o[6].toString()));
+                System.out.println(o[0]);
+                System.out.println(o[1]);
+                System.out.println(o[2]);
+                System.out.println(o[3]);
+                System.out.println(o[4]);
+                System.out.println(o[5]);
+                System.out.println(o[6]);
+            }*/
+//            System.out.println(solde);
+            return ResponseHandler.generateResponse(
+                    "Solde compte formule",
+                    HttpStatus.OK,
+                    solde);
+        }
+        catch(Exception e)
+        {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e);
+        }
+    }
+
     @Override
     public Formule afficherSelonId(Long id) {
         return formuleDao.findById(id).orElseThrow(() -> new EntityNotFoundException(Degre.class, "id", id.toString()));
