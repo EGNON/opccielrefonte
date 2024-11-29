@@ -49,6 +49,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -739,27 +740,18 @@ public class DepotRachatImpl implements DepotRachatService {
     public ResponseEntity<Object> genererSouscription(List<OperationSouscriptionRachatDto> souscriptionRachatDtos) {
         try {
             List<OperationSouscriptionRachat> souscriptionRachats = souscriptionRachatDtos.stream().map(souscriptionRachatDto -> {
-                /*OperationSouscriptionRachat souscriptionRachat = souscriptionRachatMapper.deOperationSouscriptionRachatDto(souscriptionRachatDto);
-                souscriptionRachat = souscriptionRachatDao.save(souscriptionRachat);
-                OperationDto op = new OperationDto();
-                op.setIdOperation(souscriptionRachat.getIdOperation());
-                op.setIdActionnaire(souscriptionRachatDto.getActionnaire().getIdPersonne());
-                op.setIdTitre(0L);
-                op.setActionnaire(souscriptionRachatDto.getActionnaire());
-                op.setNatureOperation(souscriptionRachatDto.getNatureOperation());
-                op.setDateOperation(souscriptionRachatDto.getDateOperation());
-                op.setDatePiece(souscriptionRachatDto.getDatePiece());
-                op.setDateSaisie(souscriptionRachatDto.getDateSaisie());
-                op.setDateValeur(souscriptionRachatDto.getDateValeur());
-                op.setOpcvm(souscriptionRachatDto.getOpcvm());
-                op.setIdSeance(souscriptionRachatDto.getIdSeance());
-                op.setMontant(souscriptionRachatDto.getMontant());
-                op.setReferencePiece(souscriptionRachatDto.getReferencePiece());
-                op.setValeurCodeAnalytique(souscriptionRachatDto.getValeurCodeAnalytique());
-                op.setValeurFormule(souscriptionRachatDto.getValeurFormule());
-                op.setLibelleOperation(souscriptionRachatDto.getLibelleOperation());
-                op.setType(souscriptionRachatDto.getType());*/
                 souscriptionRachatDto = appService.genererEcritureComptable(souscriptionRachatDto);
+                String str = "DEP_SOUS;TRANS_TIT_ACT;TRANS_TIT_OBLC;TRANS_TIT_OBLNC;TRANS_TIT_TCN;TRANS_TIT_FCP";
+                List<DepotRachat> depotRachats = depotRachatDao.getAllDepotSouscToValidate(
+                    souscriptionRachatDto.getIdSeance(),
+                    souscriptionRachatDto.getIdOpcvm(),
+                    souscriptionRachatDto.getActionnaire().getIdPersonne(),
+                    Arrays.stream(str.split(";")).toList()
+                ).stream().map(depotRachat -> {
+                    depotRachat.setEstGenere(true);
+                    depotRachat = depotRachatDao.save(depotRachat);
+                    return depotRachat;
+                }).toList();
                 return souscriptionRachatMapper.deOperationSouscriptionRachatDto(souscriptionRachatDto);
             }).toList();
             return ResponseHandler.generateResponse(
