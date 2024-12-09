@@ -1,6 +1,7 @@
 package com.ged.service.opcciel.impl;
 
 import com.ged.advice.EntityNotFoundException;
+import com.ged.dao.LibraryDao;
 import com.ged.dao.opcciel.OpcvmDao;
 import com.ged.dao.opcciel.OperationSouscriptionRachatDao;
 import com.ged.dao.opcciel.comptabilite.NatureOperationDao;
@@ -11,7 +12,6 @@ import com.ged.datatable.DataTablesResponse;
 import com.ged.datatable.DatatableParameters;
 import com.ged.dto.opcciel.OperationSouscriptionRachatDto;
 import com.ged.dto.opcciel.OperationSouscriptionRachatDto2;
-import com.ged.entity.opcciel.DepotRachat;
 import com.ged.entity.opcciel.Opcvm;
 import com.ged.entity.opcciel.OperationSouscriptionRachat;
 import com.ged.entity.opcciel.comptabilite.NatureOperation;
@@ -20,6 +20,7 @@ import com.ged.entity.opcciel.comptabilite.Transaction;
 import com.ged.entity.standard.Personne;
 import com.ged.entity.titresciel.Titre;
 import com.ged.mapper.opcciel.OperationSouscriptionRachatMapper;
+import com.ged.projection.AvisOperationProjection;
 import com.ged.response.ResponseHandler;
 import com.ged.service.opcciel.OperationSouscriptionRachatService;
 import jakarta.persistence.EntityManager;
@@ -36,6 +37,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -50,15 +52,17 @@ public class OperationSouscriptionRachatServiceImpl implements OperationSouscrip
     private final OperationSouscriptionRachatDao operationSouscriptionRachatDao;
     private final PersonneDao personneDao;
     private final OpcvmDao opcvmDao;
+    private final LibraryDao libraryDao;
     private final TitreDao titreDao;
     private final TransactionDao transactionDao;
     private final NatureOperationDao natureOperationDao;
     private final OperationSouscriptionRachatMapper operationSouscriptionRachatMapper;
 
-    public OperationSouscriptionRachatServiceImpl(OperationSouscriptionRachatDao operationSouscriptionRachatDao, PersonneDao personneDao, OpcvmDao opcvmDao, TitreDao titreDao, TransactionDao transactionDao, NatureOperationDao natureOperationDao, OperationSouscriptionRachatMapper operationSouscriptionRachatMapper){
+    public OperationSouscriptionRachatServiceImpl(OperationSouscriptionRachatDao operationSouscriptionRachatDao, PersonneDao personneDao, OpcvmDao opcvmDao, LibraryDao libraryDao, TitreDao titreDao, TransactionDao transactionDao, NatureOperationDao natureOperationDao, OperationSouscriptionRachatMapper operationSouscriptionRachatMapper){
         this.operationSouscriptionRachatDao = operationSouscriptionRachatDao;
         this.personneDao = personneDao;
         this.opcvmDao = opcvmDao;
+        this.libraryDao = libraryDao;
         this.titreDao = titreDao;
         this.transactionDao = transactionDao;
         this.natureOperationDao = natureOperationDao;
@@ -144,6 +148,103 @@ public class OperationSouscriptionRachatServiceImpl implements OperationSouscrip
     }
 
     @Override
+    public ResponseEntity<Object> listeOperationSouscriptionRachat(Long idOpcvm, String codeNatureOperation, LocalDateTime dateDebut, LocalDateTime dateFin) {
+        try {
+            String sortie="";
+            List<Object[]> list;
+            OperationSouscriptionRachatDto2 operationSouscriptionRachatDto2=new OperationSouscriptionRachatDto2();
+            List<OperationSouscriptionRachatDto2> operationSouscriptionRachatTab=new ArrayList<>();
+
+                var q = em.createStoredProcedureQuery("[Operation].[PS_OperationSouscriptionRachat_SP_OPCCIEL2]");
+
+                q.registerStoredProcedureParameter("idOpcvm", Long.class, ParameterMode.IN);
+                q.registerStoredProcedureParameter("codeNatureOperation", String.class, ParameterMode.IN);
+                q.registerStoredProcedureParameter("dateDebut", LocalDateTime.class, ParameterMode.IN);
+                q.registerStoredProcedureParameter("dateFin", LocalDateTime.class, ParameterMode.IN);
+                q.registerStoredProcedureParameter("supprimer", Boolean.class, ParameterMode.IN);
+
+                q.setParameter("idOpcvm", idOpcvm);
+                q.setParameter("codeNatureOperation", codeNatureOperation);
+                q.setParameter("dateDebut",dateDebut);
+                q.setParameter("dateFin",dateFin);
+                q.setParameter("supprimer",false);
+
+                try {
+                    // Execute query
+                    list=q.getResultList();
+                    for(Object[] o:list){
+                        operationSouscriptionRachatDto2=new OperationSouscriptionRachatDto2();
+                        operationSouscriptionRachatDto2.setIdOperation(Long.valueOf(o[0].toString()));
+                        operationSouscriptionRachatDto2.setIdTransaction(Long.valueOf(o[1].toString()));
+                        operationSouscriptionRachatDto2.setIdSeance(Long.valueOf(o[2].toString()));
+                        operationSouscriptionRachatDto2.setIdActionnaire(Long.valueOf(o[3].toString()));
+                        operationSouscriptionRachatDto2.setNumCompteSgi(o[4].toString());
+                        operationSouscriptionRachatDto2.setNomSigle(o[5].toString());
+                        operationSouscriptionRachatDto2.setPrenomRaison(o[6].toString());
+                        operationSouscriptionRachatDto2.setMail(o[7].toString());
+                        operationSouscriptionRachatDto2.setPhone(o[8].toString());
+                        operationSouscriptionRachatDto2.setIdOpcvm(Long.valueOf(o[9].toString()));
+                        operationSouscriptionRachatDto2.setDenominationOpcvm(o[10].toString());
+                        operationSouscriptionRachatDto2.setIdPersonne(Long.valueOf(o[11].toString()));
+                        operationSouscriptionRachatDto2.setCodeNatureOperation(o[12].toString());
+                        operationSouscriptionRachatDto2.setDateOperation(LocalDateTime.parse(o[13].toString().replace(' ','T')));
+                        operationSouscriptionRachatDto2.setLibelleOperation(o[14].toString());
+                        operationSouscriptionRachatDto2.setDateSaisie(LocalDateTime.parse(o[15].toString().replace(' ','T')));
+                        operationSouscriptionRachatDto2.setDatePiece(LocalDateTime.parse(o[16].toString().replace(' ','T')));
+                        operationSouscriptionRachatDto2.setDateValeur(LocalDateTime.parse(o[17].toString().replace(' ','T')));
+                        operationSouscriptionRachatDto2.setReferencePiece(o[18].toString());
+                        operationSouscriptionRachatDto2.setMontantSousALiquider(BigDecimal.valueOf(Double.valueOf(o[19].toString())));
+                        operationSouscriptionRachatDto2.setSousRachatPart(BigDecimal.valueOf(Double.valueOf(o[20].toString())));
+                        operationSouscriptionRachatDto2.setCommisiionSousRachat(BigDecimal.valueOf(Double.valueOf(o[21].toString())));
+                        operationSouscriptionRachatDto2.settAFCommissionSousRachat(BigDecimal.valueOf(Double.valueOf(o[22].toString())));
+                        operationSouscriptionRachatDto2.setRetrocessionSousRachat(BigDecimal.valueOf(Double.valueOf(o[23].toString())));
+                        operationSouscriptionRachatDto2.settAFRetrocessionSousRachat(BigDecimal.valueOf(Double.valueOf(o[24].toString())));
+                        operationSouscriptionRachatDto2.setCommissionSousRachatRetrocedee(BigDecimal.valueOf(Double.valueOf(o[25].toString())));
+                        operationSouscriptionRachatDto2.setModeValeurLiquidative(o[26].toString());
+                        operationSouscriptionRachatDto2.setCoursVL(BigDecimal.valueOf(Double.valueOf(o[27].toString())));
+                        operationSouscriptionRachatDto2.setNombrePartSousRachat(BigDecimal.valueOf(Double.valueOf(o[28].toString())));
+                        operationSouscriptionRachatDto2.setRegulResultatExoEnCours(BigDecimal.valueOf(Double.valueOf(o[29].toString())));
+                        operationSouscriptionRachatDto2.setRegulSommeNonDistribuable(BigDecimal.valueOf(Double.valueOf(o[30].toString())));
+                        operationSouscriptionRachatDto2.setRegulReportANouveau(BigDecimal.valueOf(Double.valueOf(o[31].toString())));
+                        operationSouscriptionRachatDto2.setRegulautreResultatBeneficiaire(BigDecimal.valueOf(Double.valueOf(o[32].toString())));
+                        operationSouscriptionRachatDto2.setRegulautreResultatDeficitaire(BigDecimal.valueOf(Double.valueOf(o[33].toString())));
+                        operationSouscriptionRachatDto2.setRegulResultatEnInstanceBeneficiaire(BigDecimal.valueOf(Double.valueOf(o[34].toString())));
+                        operationSouscriptionRachatDto2.setRegulResultatEnInstanceDeficitaire(BigDecimal.valueOf(Double.valueOf(o[35].toString())));
+                        operationSouscriptionRachatDto2.setRegulExoDistribution(BigDecimal.valueOf(Double.valueOf(o[36].toString())));
+                        operationSouscriptionRachatDto2.setFraisSouscriptionRachat(BigDecimal.valueOf(Double.valueOf(o[37].toString())));
+                        operationSouscriptionRachatDto2.setReste(BigDecimal.valueOf(Double.valueOf(o[38].toString())));
+                        operationSouscriptionRachatDto2.setQuantiteSouhaite(Long.valueOf(o[39].toString()));
+                        operationSouscriptionRachatDto2.setMontantDepose(BigDecimal.valueOf(Double.valueOf(o[40].toString())));
+                        operationSouscriptionRachatDto2.setMontantConvertiEnPart(BigDecimal.valueOf(Double.valueOf(o[41].toString())));
+                        operationSouscriptionRachatDto2.setEstRetrocede(Boolean.valueOf(o[42].toString()));
+                        operationSouscriptionRachatDto2.setResteRembourse(Boolean.valueOf(o[43].toString()));
+                        operationSouscriptionRachatDto2.setRachatPaye(Boolean.valueOf(o[44].toString()));
+                        operationSouscriptionRachatDto2.setEcriture(o[45].toString());
+                        operationSouscriptionRachatTab.add(operationSouscriptionRachatDto2);
+                    }
+                } finally {
+                    try {
+
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage());
+                    }
+                }
+
+
+
+            return ResponseHandler.generateResponse(
+                    "Liste opération souscription rachat !",
+                    HttpStatus.OK,
+                    operationSouscriptionRachatTab);
+        } catch (Exception e) {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e);
+        }
+    }
+
+    @Override
     public ResponseEntity<Object> creer(OperationSouscriptionRachatDto operationSouscriptionRachatDto) {
         try {
 
@@ -179,6 +280,24 @@ public class OperationSouscriptionRachatServiceImpl implements OperationSouscrip
                     HttpStatus.OK,
                     operationSouscriptionRachatMapper.deOperationSouscriptionRachat(operationSouscriptionRachat));
         } catch (Exception e) {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e);
+        }
+    }
+
+    @Override
+    public ResponseEntity<Object> avisOperation(String idOperation) {
+        try {
+            List<AvisOperationProjection> list=libraryDao.avisOper(idOperation);
+            return ResponseHandler.generateResponse(
+                    "Avis opération",
+                    HttpStatus.OK,
+                    list);
+        }
+        catch(Exception e)
+        {
             return ResponseHandler.generateResponse(
                     e.getMessage(),
                     HttpStatus.MULTI_STATUS,

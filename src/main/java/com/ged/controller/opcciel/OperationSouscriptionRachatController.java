@@ -2,6 +2,7 @@ package com.ged.controller.opcciel;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.ged.datatable.DatatableParameters;
+import com.ged.dto.lab.reportings.BeginEndDateParameter;
 import com.ged.dto.opcciel.OperationSouscriptionRachatDto;
 import com.ged.dto.opcciel.OperationSouscriptionRachatDto2;
 import com.ged.dto.opcciel.PlanDto;
@@ -10,6 +11,8 @@ import com.ged.service.opcciel.PlanService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDateTime;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -25,6 +28,19 @@ public class OperationSouscriptionRachatController {
     public ResponseEntity<Object> afficherTous()
     {
         return operationSouscriptionRachatService.afficherTous();
+    }
+    @GetMapping("/avisoperation/{idOperation}")
+    public ResponseEntity<Object> avisOperation(@PathVariable String idOperation)
+    {
+        return operationSouscriptionRachatService.avisOperation(idOperation);
+    }
+    @PostMapping("/{idOpcvm}/{codeNatureOperation}")
+    public ResponseEntity<Object> listeOperationSouscriptionRachat(@PathVariable Long idOpcvm,
+                                                                   @PathVariable String codeNatureOperation,
+                                                                   @RequestBody BeginEndDateParameter beginEndDateParameter)
+    {
+        return operationSouscriptionRachatService.listeOperationSouscriptionRachat(idOpcvm,
+                codeNatureOperation, beginEndDateParameter.getStartDate(),beginEndDateParameter.getEndDate());
     }
 
     @GetMapping("/{id}")
