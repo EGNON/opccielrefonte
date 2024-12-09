@@ -25,6 +25,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -128,7 +129,6 @@ public class ActionnaireOpcvmServiceImpl implements ActionnaireOpcvmService {
     @Override
     public ResponseEntity<Object> creer(ActionnaireOpcvmDto[] ActionnaireOpcvmDto) {
         try {
-
             for(ActionnaireOpcvmDto o:ActionnaireOpcvmDto) {
                 o.setSupprimer(false);
                 ActionnaireOpcvm ActionnaireOpcvm = ActionnaireOpcvmMapper.deActionnaireOpcvmDto(o);
@@ -161,13 +161,12 @@ public class ActionnaireOpcvmServiceImpl implements ActionnaireOpcvmService {
                     actionnaireCommissionDto.setOpcvm(o.getOpcvm());
                     actionnaireCommissionDto.setPersonne(o.getPersonne());
                     actionnaireCommissionDto.setCodeProfil(p.getCodeProfil());
+                    actionnaireCommissionDto.setDate(LocalDateTime.now());
                     actionnaireCommissionDto.setTypeCommission(p.getTypeCommission());
                     actionnaireCommissionDto.setLibelleProfil(p.getLibelleProfil());
                     actionnaireCommissionService.creer(actionnaireCommissionDto);
                 }
-
             }
-
             /*for(ActionnaireOpcvmDto o:ActionnaireOpcvmDto) {
                 ActionnaireOpcvmDao.enregistrer(o.getPersonne().getIdPersonne(),
                         o.getOpcvm().getIdOpcvm(), false);

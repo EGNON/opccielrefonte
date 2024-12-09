@@ -203,7 +203,8 @@ public class AppService {
                     Operation op1 = new Operation();
                     op1.setIdOperation(operation.getIdOperation());
                     operationFormule.setOperation(operation);
-                    operationFormule.setValeur(BigDecimal.valueOf(Long.parseLong(tabFormules[i + 1])));
+//                    operationFormule.setValeur(BigDecimal.valueOf(Long.parseLong(tabFormules[i + 1])));
+                    operationFormule.setValeur(new BigDecimal(tabFormules[i + 1]));
                     operationFormule.setDateDernModifClient(LocalDateTime.now());
                     operationFormuleDao.save(operationFormule);
                 }

@@ -45,4 +45,13 @@ public interface DepotRachatDao extends JpaRepository<DepotRachat,Long> {
             @Param("estVerifier") Boolean estVerifier, @Param("estVerifie1") Boolean estVerifie1,
             @Param("estVerifie2") Boolean estVerifie2);
     Page<DepotRachat> findByOpcvmAndIdSeanceAndNatureOperation(Opcvm opcvm, long idSeance, NatureOperation natureOperation, Pageable pageable);
+    @Query(value = "select d from DepotRachat d inner join d.actionnaire a inner join d.natureOperation n " +
+            "inner join d.opcvm o where d.supprimer = false and d.idSeance = :idSeance " +
+            "and o.idOpcvm = :idOpcvm and a.idPersonne = :idPersonne and n.codeNatureOperation in (:codeNatureOpList)")
+    List<DepotRachat> getAllDepotSouscToValidate(
+            @Param("idSeance") Long idSeance,
+            @Param("idOpcvm") Long idOpcvm,
+            @Param("idPersonne") Long idPersonne,
+            List<String> codeNatureOpList
+    );
 }
