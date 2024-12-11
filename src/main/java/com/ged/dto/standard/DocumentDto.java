@@ -5,8 +5,13 @@ import com.ged.dto.crm.CompteRenduDto;
 import com.ged.dto.crm.RDVDto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.itextpdf.commons.utils.Base64;
 import org.springframework.data.annotation.Transient;
 
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.sql.Blob;
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -22,6 +27,8 @@ public class DocumentDto {
     private String numeroPiece;
     @Transient
     private byte[] fToByte;
+    @Transient
+    private String fToBlob;
     private String extensionDoc;
     private TypeDocumentDto typeDocument;
 //    @JsonIgnore
@@ -38,6 +45,14 @@ public class DocumentDto {
         this.nomDoc = nomDoc;
         this.extensionDoc = extensionDoc;
         this.typeDocument = typeDocumentDto;
+    }
+
+    public String getfToBlob() {
+        return fToBlob;
+    }
+
+    public void setfToBlob(String fToBlob) {
+        this.fToBlob = fToBlob;
     }
 
     public String getNumeroPiece() {

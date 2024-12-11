@@ -10,12 +10,12 @@ import java.util.Set;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class MailDto {
-
     private Long idMail;
     private String msg;
     private String objet;
     private Date dateEnvoi;
     private Time heureEnvoi;
+
     private DiffusionAlerteDto diffusionAlerteDto;
     private Set<DocumentMailDto> documentMailDtos = new HashSet<>();
     private Set<EnvoiMailDto> envoiMailDtos = new HashSet<>();

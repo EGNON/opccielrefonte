@@ -3,9 +3,14 @@ package com.ged.entity.standard;
 import com.ged.entity.Base;
 import com.ged.entity.crm.CompteRendu;
 import com.ged.entity.crm.RDV;
+import com.itextpdf.commons.utils.Base64;
 import jakarta.persistence.*;
 import org.hibernate.annotations.ColumnDefault;
 
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.sql.Blob;
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
@@ -51,7 +56,8 @@ public class Document extends Base {
     private Set<DocumentMail> documentMails = new HashSet<>();
     @Transient
     private byte[] fToByte;
-
+    @Transient
+    private String fToblob;
     public Document() {
     }
 
@@ -60,6 +66,14 @@ public class Document extends Base {
         this.nomDoc = nomDoc;
         this.extensionDoc = extensionDoc;
         this.typeDocument = typeDocument;
+    }
+
+    public String getfToblob() {
+        return fToblob;
+    }
+
+    public void setfToblob(String fToblob) {
+        this.fToblob = fToblob;
     }
 
     public String getNumeroPiece() {

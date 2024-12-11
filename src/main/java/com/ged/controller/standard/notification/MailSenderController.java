@@ -65,4 +65,19 @@ public class MailSenderController {
         else
             return "Erreur lors de l'envoi";
     }
+
+    @PostMapping("/manywithfiles2")
+    public String sendEmailManyWithAttachement2(@RequestBody MailSenderDto mailSenderDto) {
+
+        boolean envoi= mailSenderServiceImpl.sendManyWithAttachementBlob(mailSenderDto.getSubject(),
+                mailSenderDto.getRecipientEmailMany()[0],
+                mailSenderDto.getContent(),
+                mailSenderDto.getFileName()[0],
+                mailSenderDto.getfToByte()[0]);
+        if(envoi){
+            return "Mail envoyé avec succès";
+        }
+        else
+            return "Erreur lors de l'envoi";
+    }
 }

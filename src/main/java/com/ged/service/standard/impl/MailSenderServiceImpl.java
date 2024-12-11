@@ -17,8 +17,11 @@ import org.springframework.stereotype.Service;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.nio.charset.StandardCharsets;
+import java.sql.Blob;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
 @Service
 public class MailSenderServiceImpl {
@@ -134,5 +137,92 @@ public class MailSenderServiceImpl {
         } catch (MessagingException e) {
             return false;
         }
+    }
+
+    public boolean sendManyWithAttachementBlob(String subject, String to, String email,String fileName, byte[] fToByte) {
+        try {
+            MimeMessage mimeMessage = mailSender.createMimeMessage();
+            MimeMessageHelper helper =
+                    new MimeMessageHelper(mimeMessage, MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED, "utf-8");
+            helper.setText(email, true);
+            helper.setTo(to);
+                String newFilename =fileName;
+                String filePath = path  +"mail"+ File.separator + newFilename;
+                //Créer l'objet File
+                File f = new File(path + File.separator + "mail" + File.separator);
+                if(!f.exists())
+                {
+                    boolean isCreated = f.mkdir();
+                }
+                Random r=new Random();
+                Integer rand=0;
+                rand=r.nextInt();
+                try {
+                    File fileToCopy = new File(filePath);
+                    if(!fileToCopy.exists() && !fileToCopy.isDirectory())
+                    {
+                        customMultipartFile.transferTo(filePath,fToByte);
+                    }
+                    else
+                    {
+
+                        filePath=filePath.replace(".pdf","")+rand+".pdf";
+                        newFilename=newFilename.replace(".pdf","")+rand+".pdf";
+                        customMultipartFile.transferTo(filePath,fToByte);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    System.out.println("Impossible de copier ce fichier - {} " + ex.getMessage());
+                }
+                helper.addAttachment(newFilename, new File(filePath));
+
+
+            helper.setSubject(subject);
+            helper.setFrom("POSTMASTER@saphiram.COM");
+            mailSender.send(mimeMessage);
+            return true;
+        } catch (MessagingException e) {
+            return false;
+        }
+    }
+
+    public boolean sendManyWithAttachement2(String subject, String[] to, String email,String[] fileName, byte[] fToByte[]) {
+        Boolean valeur=false;
+        try {
+
+            for(int i=0;i<to.length;i++) {
+                MimeMessage mimeMessage = mailSender.createMimeMessage();
+                MimeMessageHelper helper =
+                        new MimeMessageHelper(mimeMessage, MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED, "utf-8");
+                helper.setText(email, true);
+                helper.setTo(to[i]);
+                String newFilename = fileName[i];
+                String filePath = path + "mail" + File.separator + newFilename;
+                //Créer l'objet File
+                File f = new File(path + File.separator + "mail" + File.separator);
+                if (!f.exists()) {
+                    boolean isCreated = f.mkdir();
+                }
+                try {
+                    File fileToCopy = new File(filePath);
+                    if (!fileToCopy.exists() && !fileToCopy.isDirectory()) {
+                        customMultipartFile.transferTo(filePath, fToByte[i]);
+                    }
+                } catch (Exception ex) {
+                    System.out.println("Impossible de copier ce fichier - {} " + ex.getMessage());
+                }
+                helper.addAttachment(newFilename, new File(filePath));
+
+                helper.setSubject(subject);
+                helper.setFrom("POSTMASTER@saphiram.COM");
+                mailSender.send(mimeMessage);
+                valeur=true;
+            }
+
+        } catch (MessagingException e) {
+            return false;
+        }
+        return  valeur;
     }
 }
