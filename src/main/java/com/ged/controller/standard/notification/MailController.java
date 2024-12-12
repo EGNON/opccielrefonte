@@ -49,6 +49,10 @@ public class MailController {
     public MailDto ajouter(@RequestBody MailDto mailDto) throws Throwable {
         return mailService.creerMail(mailDto);
     }
+    @PostMapping("/creer")
+    public MailDto creer(@RequestBody MailDto mailDto) throws Throwable {
+        return mailService.creer(mailDto);
+    }
     @PutMapping("/{id}")
     public MailDto modifier(@PathVariable long id, @RequestBody MailDto mailDto) throws Throwable {
         mailDto.setIdMail(id);

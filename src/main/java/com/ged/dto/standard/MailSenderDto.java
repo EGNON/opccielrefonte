@@ -6,6 +6,8 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import java.sql.Blob;
+
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class MailSenderDto {
     private String[] recipientEmailMany;
@@ -15,6 +17,7 @@ public class MailSenderDto {
     private String[] fileName;
     private String[] url;
     private byte[] fToByte[];
+    private String[] fToBlob;
     private Long idMail;
 
     public Long getIdMail() {
@@ -23,6 +26,14 @@ public class MailSenderDto {
 
     public void setIdMail(Long idMail) {
         this.idMail = idMail;
+    }
+
+    public String[] getfToBlob() {
+        return fToBlob;
+    }
+
+    public void setfToBlob(String[] fToBlob) {
+        this.fToBlob = fToBlob;
     }
 
     public byte[][] getfToByte() {

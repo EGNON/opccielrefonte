@@ -22,6 +22,12 @@ public class OperationSouscriptionRachatDto2  {
     private LocalDateTime datePiece;
     private LocalDateTime dateValeur;
     private String referencePiece;
+    private String numCompteSgi;
+    private String nomSigle;
+    private String denominationOpcvm;
+    private String prenomRaison;
+    private String mail;
+    private String phone;
     private BigDecimal montantSousALiquider;
     private BigDecimal sousRachatPart;
     private BigDecimal commisiionSousRachat;
@@ -53,6 +59,54 @@ public class OperationSouscriptionRachatDto2  {
     private String valeurCodeAnalytique;
     private String userLogin;
     public OperationSouscriptionRachatDto2() {
+    }
+
+    public String getDenominationOpcvm() {
+        return denominationOpcvm;
+    }
+
+    public void setDenominationOpcvm(String denominationOpcvm) {
+        this.denominationOpcvm = denominationOpcvm;
+    }
+
+    public String getNomSigle() {
+        return nomSigle;
+    }
+
+    public void setNomSigle(String nomSigle) {
+        this.nomSigle = nomSigle;
+    }
+
+    public String getPrenomRaison() {
+        return prenomRaison;
+    }
+
+    public void setPrenomRaison(String prenomRaison) {
+        this.prenomRaison = prenomRaison;
+    }
+
+    public String getMail() {
+        return mail;
+    }
+
+    public void setMail(String mail) {
+        this.mail = mail;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getNumCompteSgi() {
+        return numCompteSgi;
+    }
+
+    public void setNumCompteSgi(String numCompteSgi) {
+        this.numCompteSgi = numCompteSgi;
     }
 
     public String getUserLogin() {

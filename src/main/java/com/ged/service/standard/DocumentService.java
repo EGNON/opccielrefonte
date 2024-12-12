@@ -16,6 +16,7 @@ public interface DocumentService  {
     Document afficherDocumentSelonId(long idDocument);
     byte[] uploadDocument(long idDocument) throws IOException;
     DocumentDto creerDocument(DocumentDto documentDto) throws Throwable;
+    DocumentDto creerDocumentToBlob(DocumentDto documentDto) throws Throwable;
     void creerDocument(DocumentDto[] documentDto,Long idMail) throws Throwable;
     DocumentDto modifierDocument(DocumentDto documentDto);
     void supprimerDocument(long idDocument);

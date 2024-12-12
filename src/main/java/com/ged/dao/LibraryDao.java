@@ -64,6 +64,11 @@ public interface LibraryDao extends JpaRepository<BaseEntity, Long> {
                                                                   @Param("codeplan") String codeplan,
                                                                   @Param("idTitre") Long idTitre,
                                                                   @Param("date") Date date);
+    @Query(value = "SELECT * FROM [Comptabilite].[VerificationMiseAffectationEnAttente](:idOpcvm)",nativeQuery = true)
+    List<Object[]> verificationMiseAffectationEnAttente(@Param("idOpcvm") Long idOpcvm);
+
+    @Query(value = "SELECT * FROM [Operation].[FT_AvisOpere](:idOperation)",nativeQuery = true)
+    List<AvisOperationProjection> avisOper(@Param("idOperation") String idOperation);
 
     @Query(value = "select * from [Parametre].[PrecalculSouscription](:idSeance, :idOpcvm, :idPersonne)", nativeQuery = true)
     Page<PrecalculSouscriptionProjection> precalculSouscription(@Param("idSeance") Long idSeance,

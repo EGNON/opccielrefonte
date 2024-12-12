@@ -134,17 +134,6 @@ public class FormuleServiceImpl implements FormuleService {
             if(list.size()!=0){
                 solde=list.get(0).getSoldeReel();
             }
-            /*for(Object[] o:list){
-                solde=BigDecimal.valueOf(Double.valueOf(o[6].toString()));
-                System.out.println(o[0]);
-                System.out.println(o[1]);
-                System.out.println(o[2]);
-                System.out.println(o[3]);
-                System.out.println(o[4]);
-                System.out.println(o[5]);
-                System.out.println(o[6]);
-            }*/
-//            System.out.println(solde);
             return ResponseHandler.generateResponse(
                     "Solde compte formule",
                     HttpStatus.OK,

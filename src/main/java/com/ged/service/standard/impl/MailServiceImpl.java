@@ -18,6 +18,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
@@ -102,6 +103,55 @@ public class MailServiceImpl implements MailService {
                 envoiMailDao.save(envoiMail);
             }
         }
+        return mailMapper.deMail(mailSave);
+    }
+
+    @Override
+    public MailDto creer(MailDto mailDto) throws Throwable {
+        Mail mailSave=new Mail();
+         Mail mail=mailMapper.deMailDto(mailDto);
+            mailSave=mailDao.save(mail);
+
+            if(mailDto.getDocumentMailDtos()!=null){
+                for(DocumentMailDto documentMailDto:mailDto.getDocumentMailDtos()){
+                    DocumentDto documentDto=new DocumentDto();
+
+                    DocumentMail documentMail=new DocumentMail();
+
+                    documentMail.setMail(mailSave);
+                    if(documentMailDto.getDocumentDto()!=null){
+                        documentDto=documentService.creerDocumentToBlob(documentMailDto.getDocumentDto());
+                        Document document=documentDao.findById(documentDto.getIdDoc()).orElseThrow();
+                        documentMail.setDocument(document);
+                    }
+                    CleDocumentMail cleDocumentMail=new CleDocumentMail();
+                    cleDocumentMail.setIdMail(mailSave.getIdMail());
+                    cleDocumentMail.setIdDoc(documentDto.getIdDoc());
+                    documentMail.setId(cleDocumentMail);
+
+                    documentMailDao.save(documentMail);
+                }
+            }
+
+            if(mailDto.getEnvoiMailDtos()!=null){
+                for(EnvoiMailDto envoiMailDto:mailDto.getEnvoiMailDtos()){
+                    EnvoiMail envoiMail=new EnvoiMail();
+
+                    CleEnvoiMail cleEnvoiMail=new CleEnvoiMail();
+                    cleEnvoiMail.setIdMail(mailSave.getIdMail());
+                    cleEnvoiMail.setIdPersonne(envoiMailDto.getPersonneDto().getIdPersonne());
+                    envoiMail.setIdEnvoi(cleEnvoiMail);
+
+                    envoiMail.setMail(mailSave);
+                    if(envoiMailDto.getPersonneDto()!=null){
+                        Personne personne=personneDao.findById(envoiMailDto.getPersonneDto().getIdPersonne()).orElseThrow();
+                        envoiMail.setPersonne(personne);
+                    }
+                    envoiMailDao.save(envoiMail);
+                }
+            }
+
+
         return mailMapper.deMail(mailSave);
     }
 

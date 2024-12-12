@@ -145,6 +145,35 @@ public class DocumentServiceImpl implements DocumentService {
     }
 
     @Override
+    public DocumentDto creerDocumentToBlob(DocumentDto documentDto) throws Throwable {
+        Document document = documentMapper.deDocumentDto(documentDto);
+//        System.out.println(documentDto.getfToByte());
+        document.setChemin(chemin+document.getNomDoc()+"."+document.getExtensionDoc());
+        Document documentSaved = documentDao.save(document);
+        File f = new File(PATH);
+
+//            customMultipartFile.transferTo(document.getChemin(),documentDto.getfToByte());
+//            System.out.println("Le fichier n'existe pas");
+//        }
+//        else
+//        {
+////            System.out.println("le fichier existe");
+//        }
+        DocumentDto documentDto1=documentMapper.deDocument(documentSaved);
+        Set<DocumentDto> documentDtoList=new HashSet<>();
+        documentDto1.setfToByte(documentDto.getfToByte());
+        documentDtoList.add(documentDto1);
+//        if(!f.exists() && !f.isDirectory())
+//        {
+        //C'est un fichier
+        System.out.println("document="+documentDto.getfToByte());
+        if(documentDto.getfToByte()!=null)
+            fileService.uploadMediaBlob(PATH,documentDtoList);
+
+        return documentDto1;
+    }
+
+    @Override
     public void creerDocument(DocumentDto[] documentDto,Long idMail) throws Throwable {
         for(DocumentDto o:documentDto){
             DocumentDto documentDto1= creerDocument(o);
