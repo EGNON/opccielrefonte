@@ -5,46 +5,24 @@ import com.ged.entity.opcciel.CleSeanceOpcvm;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class SeanceOpcvmDto {
 	private CleSeanceOpcvm idSeanceOpcvm;
 	private OpcvmDto opcvm;
-	private long idSeance;
+	private Long idSeance;
 	private LocalDateTime dateOuverture;
 	private LocalDateTime dateFermeture;
-	private boolean genere;
+	private Boolean genere;
 	private String typeSeance;
-	private Double valeurLiquidative;
-	private boolean estEnCours;
-	private long niveau;
-	private boolean estEnCloture;
-	private BigDecimal navBenchmark ;
-	private BigDecimal tauxEquiMarche  ;
+	private BigDecimal valeurLiquidative;
+	private Boolean estEnCours;
+	private Long niveau;
+	private Boolean estEnCloture;
+	private BigDecimal navBenchmark;
+	private BigDecimal tauxEquiMarche;
+
 	public SeanceOpcvmDto() {
-	}
-
-	public long getIdSeance() {
-		return idSeance;
-	}
-
-	public void setIdSeance(long idSeance) {
-		this.idSeance = idSeance;
-	}
-
-	public BigDecimal getNavBenchmark() {
-		return navBenchmark;
-	}
-
-	public void setNavBenchmark(BigDecimal navBenchmark) {
-		this.navBenchmark = navBenchmark;
-	}
-
-	public BigDecimal getTauxEquiMarche() {
-		return tauxEquiMarche;
-	}
-
-	public void setTauxEquiMarche(BigDecimal tauxEquiMarche) {
-		this.tauxEquiMarche = tauxEquiMarche;
 	}
 
 	public CleSeanceOpcvm getIdSeanceOpcvm() {
@@ -63,6 +41,14 @@ public class SeanceOpcvmDto {
 		this.opcvm = opcvm;
 	}
 
+	public Long getIdSeance() {
+		return idSeance;
+	}
+
+	public void setIdSeance(Long idSeance) {
+		this.idSeance = idSeance;
+	}
+
 	public LocalDateTime getDateOuverture() {
 		return dateOuverture;
 	}
@@ -79,11 +65,11 @@ public class SeanceOpcvmDto {
 		this.dateFermeture = dateFermeture;
 	}
 
-	public boolean isGenere() {
+	public Boolean getGenere() {
 		return genere;
 	}
 
-	public void setGenere(boolean genere) {
+	public void setGenere(Boolean genere) {
 		this.genere = genere;
 	}
 
@@ -95,35 +81,51 @@ public class SeanceOpcvmDto {
 		this.typeSeance = typeSeance;
 	}
 
-	public Double getValeurLiquidative() {
+	public BigDecimal getValeurLiquidative() {
 		return valeurLiquidative;
 	}
 
-	public void setValeurLiquidative(Double valeurLiquidative) {
+	public void setValeurLiquidative(BigDecimal valeurLiquidative) {
 		this.valeurLiquidative = valeurLiquidative;
 	}
 
-	public boolean isEstEnCours() {
+	public Boolean getEstEnCours() {
 		return estEnCours;
 	}
 
-	public void setEstEnCours(boolean estEnCours) {
+	public void setEstEnCours(Boolean estEnCours) {
 		this.estEnCours = estEnCours;
 	}
 
-	public long getNiveau() {
+	public Long getNiveau() {
 		return niveau;
 	}
 
-	public void setNiveau(long niveau) {
+	public void setNiveau(Long niveau) {
 		this.niveau = niveau;
 	}
 
-	public boolean isEstEnCloture() {
+	public Boolean getEstEnCloture() {
 		return estEnCloture;
 	}
 
-	public void setEstEnCloture(boolean estEnCloture) {
+	public void setEstEnCloture(Boolean estEnCloture) {
 		this.estEnCloture = estEnCloture;
+	}
+
+	public BigDecimal getNavBenchmark() {
+		return navBenchmark;
+	}
+
+	public void setNavBenchmark(BigDecimal navBenchmark) {
+		this.navBenchmark = navBenchmark;
+	}
+
+	public BigDecimal getTauxEquiMarche() {
+		return tauxEquiMarche;
+	}
+
+	public void setTauxEquiMarche(BigDecimal tauxEquiMarche) {
+		this.tauxEquiMarche = tauxEquiMarche;
 	}
 }

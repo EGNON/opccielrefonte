@@ -9,6 +9,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -23,7 +24,7 @@ import java.util.*;
     }
 )
 //@SQLInsert(sql = "insert into utilisateur ()")
-public class Utilisateur extends Personnel implements UserDetails{
+public class Utilisateur extends Personnel implements UserDetails, Principal {
     @Transient
     private Long id;
     @Basic
@@ -191,6 +192,11 @@ public class Utilisateur extends Personnel implements UserDetails{
     @Override
     public int hashCode() {
         return Objects.hash(super.hashCode(), username, password1);
+    }
+
+    @Override
+    public String getName() {
+        return username;
     }
 
     public Long getId() {

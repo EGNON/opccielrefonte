@@ -17,5 +17,8 @@ public interface SeanceOpcvmService {
     ResponseEntity<Object> afficher(CleSeanceOpcvm id);
     ResponseEntity<Object> creer(SeanceOpcvmDto seanceOpcvmDto);
     ResponseEntity<Object> modifier(SeanceOpcvmDto seanceOpcvmDto);
+
+    ResponseEntity<Object> listeSeanceOpcvm(DatatableParameters parameters, Long idOpcvm);
+
     ResponseEntity<Object> supprimer(CleSeanceOpcvm id);
 }
