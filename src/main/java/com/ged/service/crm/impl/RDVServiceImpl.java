@@ -83,7 +83,11 @@ public class RDVServiceImpl implements RDVService {
     @Override
     public RDVDto afficherRDVSelonIdParProjection(long idRDV) {
         RDVProjection rdvProjection=rdvDao.afficherRDVSelonId(idRDV);
+        if(rdvProjection==null)
+            rdvProjection=rdvDao.afficherRDVSelonId2(idRDV);
+
         RDVDto rdvDto=rdvMapper.deRDVProjection(rdvProjection);
+
         return rdvDto;
     }
 

@@ -345,9 +345,17 @@ public class PersonnePhysiqueServiceImpl implements PersonnePhysiqueService {
             personnePhysiqueDtoSaved = personnePhysiqueSave;
             if (personnePhysiqueSave.getIdPersonne() != null) {
                 Set<PersonnePhysiquePaysDto> personnePhysiquePaysDtos = personnePhysiqueDto.getPersonnePhysiquePaysDtos();
+                PersonnePhysiquePaysDto personnePhysiquePaysDto = new PersonnePhysiquePaysDto();
                 for (PersonnePhysiquePaysDto o : personnePhysiqueDto.getPersonnePhysiquePaysDtos()) {
                     o.setPersonnePhysiqueDto(personnePhysiqueSave);
-                    personnePhysiquePaysService.creerPersonnePhysiquePays(o);
+                    ClePersonnePhysiquePays clePersonnePhysiquePays = new ClePersonnePhysiquePays();
+                    clePersonnePhysiquePays.setIdPays(o.getPaysDto().getIdPays());
+                    clePersonnePhysiquePays.setIdPersonne(personnePhysiqueSave.getIdPersonne());
+                    personnePhysiquePaysDto.setIdPersonnePhysiquePays(clePersonnePhysiquePays);
+                    personnePhysiquePaysDto.setPaysDto(o.getPaysDto());
+                    personnePhysiquePaysDto.setPersonnePhysiqueDto(personnePhysiqueSave);
+
+                    personnePhysiquePaysService.creerPersonnePhysiquePays(personnePhysiquePaysDto);
 //                    personnePhysique.ajouterPersonnePhysiquePays(personnePhysiquePaysMapper.dePersonnePhysiquePaysDto(o));
                 }
             }
