@@ -2,6 +2,7 @@ package com.ged.controller.opcciel;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.ged.dao.opcciel.DepotRachatDao;
+import com.ged.dao.security.UtilisateurDao;
 import com.ged.datatable.DatatableParameters;
 import com.ged.dto.opcciel.DepotRachatDto;
 import com.ged.dto.opcciel.ImportationDepotDto;
@@ -31,6 +32,7 @@ import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
 import java.math.BigDecimal;
+import java.security.Principal;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
@@ -48,14 +50,16 @@ public class DepotRachatController {
     private final SeanceOpcvmService seanceService;
     private final DepotRachatDao depotRachatDao;
     private final DepotRachatMapper depotRachatMapper;
+    private final UtilisateurDao utilisateurDao;
 
-    public DepotRachatController(OpcvmService opcvmService, DepotRachatService DepotRachatService, PdfGeneratorService pdfGeneratorService, SeanceOpcvmService seanceService, DepotRachatDao depotRachatDao, DepotRachatMapper depotRachatMapper) {
+    public DepotRachatController(OpcvmService opcvmService, DepotRachatService DepotRachatService, PdfGeneratorService pdfGeneratorService, SeanceOpcvmService seanceService, DepotRachatDao depotRachatDao, DepotRachatMapper depotRachatMapper, UtilisateurDao utilisateurDao) {
         this.opcvmService = opcvmService;
         this.depotRachatService = DepotRachatService;
         this.pdfGeneratorService = pdfGeneratorService;
         this.seanceService = seanceService;
         this.depotRachatDao = depotRachatDao;
         this.depotRachatMapper = depotRachatMapper;
+        this.utilisateurDao = utilisateurDao;
     }
 
     @GetMapping
@@ -274,7 +278,15 @@ public class DepotRachatController {
 
     @Priority(2)
     @PostMapping("/generer/souscription/tous")
-    public ResponseEntity<Object> genererSouscription(@Valid @RequestBody List<OperationSouscriptionRachatDto> souscriptionRachatDtos) {
+    public ResponseEntity<Object> genererSouscription(
+            @Valid @RequestBody List<OperationSouscriptionRachatDto> souscriptionRachatDtos, Principal principal) {
+        /*Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Utilisateur user = utilisateurDao.findByUsernameAndEstActif(authentication.getName(), true).orElse(null);*/
+//        User user = CurrentAppInfo.currentUser;
+        /*String username = principal.getName();
+        Utilisateur utilisateur = CurrentAppInfo.currentUser;*/
         return depotRachatService.genererSouscription(souscriptionRachatDtos);
+
+//        return null;
     }
 }

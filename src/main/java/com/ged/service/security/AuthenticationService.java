@@ -68,9 +68,10 @@ public class AuthenticationService {
     public ResponseEntity<Object> login(LoginRequest loginRequest) throws Exception {
         try {
             String message = loginRequest.getUsername() + " connecté avec succès.";
-            authenticationManager.authenticate(
+            var auth = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword())
             );
+            var user = (Utilisateur)auth.getPrincipal();
             var utilisateur = utilisateurDao.findByUsernameAndEstActif(loginRequest.getUsername(), true).orElse(null);
             var jwt = jwtService.generateToken(utilisateur);
             var refreshToken = jwtService.generateRefreshToken(utilisateur);

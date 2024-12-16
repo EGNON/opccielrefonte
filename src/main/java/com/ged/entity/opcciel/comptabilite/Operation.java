@@ -1,6 +1,5 @@
 package com.ged.entity.opcciel.comptabilite;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ged.entity.Base;
 import com.ged.entity.opcciel.Opcvm;
 import com.ged.entity.standard.Personne;
@@ -29,7 +28,6 @@ public class Operation extends Base implements Persistable<Long> {
     @ManyToOne
     @JoinColumn(name = "idActionnaireNew",referencedColumnName = "idPersonne")
     private Personne actionnaire;
-//    private Personne personneActionnaire;
     private Long idTitre;
     @ManyToOne
     @JoinColumn(name = "idTitreNew",referencedColumnName = "idTitre")

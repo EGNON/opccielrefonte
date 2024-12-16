@@ -5,6 +5,7 @@ import com.ged.datatable.DatatableParameters;
 import com.ged.dto.opcciel.SeanceOpcvmDto;
 import com.ged.entity.opcciel.CleSeanceOpcvm;
 import com.ged.service.opcciel.SeanceOpcvmService;
+import jakarta.annotation.Priority;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -78,5 +79,11 @@ public class SeanceOpcvmController {
         cleSeanceOpcvm.setIdOpcvm(idOpcvm);
         cleSeanceOpcvm.setIdSeance(idSeance);
         return SeanceOpcvmService.supprimer(cleSeanceOpcvm);
+    }
+
+    @Priority(1)
+    @PostMapping("liste/seance/opcvm-{idOpcvm}")
+    public ResponseEntity<Object> listeSeanceOpcvm(@RequestBody DatatableParameters params, @PathVariable("idOpcvm") Long idOpcvm) {
+        return SeanceOpcvmService.listeSeanceOpcvm(params, idOpcvm);
     }
 }

@@ -10,10 +10,7 @@ import com.ged.entity.opcciel.SeanceOpcvm;
 import com.ged.mapper.opcciel.SeanceOpcvmMapper;
 import com.ged.response.ResponseHandler;
 import com.ged.service.opcciel.SeanceOpcvmService;
-import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -166,6 +163,32 @@ public class SeanceOpcvmServiceImpl implements SeanceOpcvmService {
                     HttpStatus.OK,
                     SeanceOpcvmMapper.deSeanceOpcvm(SeanceOpcvm));
         } catch (Exception e) {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e);
+        }
+    }
+
+    @Override
+    public ResponseEntity<Object> listeSeanceOpcvm(DatatableParameters parameters, Long idOpcvm) {
+        try {
+            Pageable pageable = PageRequest.of(parameters.getStart()/ parameters.getLength(), parameters.getLength());
+            Page<SeanceOpcvm> seanceOpcvmPage;
+            seanceOpcvmPage = SeanceOpcvmDao.listeSeanceOpcvm(idOpcvm, pageable);
+            List<SeanceOpcvmDto> content = seanceOpcvmPage.getContent().stream().map(SeanceOpcvmMapper::deSeanceOpcvm).toList();
+            DataTablesResponse<SeanceOpcvmDto> dataTablesResponse = new DataTablesResponse<>();
+            dataTablesResponse.setDraw(parameters.getDraw());
+            dataTablesResponse.setRecordsFiltered((int)seanceOpcvmPage.getTotalElements());
+            dataTablesResponse.setRecordsTotal((int)seanceOpcvmPage.getTotalElements());
+            dataTablesResponse.setData(content);
+            return ResponseHandler.generateResponse(
+                    "Liste des SeanceOpcvms par page datatable",
+                    HttpStatus.OK,
+                    dataTablesResponse);
+        }
+        catch(Exception e)
+        {
             return ResponseHandler.generateResponse(
                     e.getMessage(),
                     HttpStatus.MULTI_STATUS,
