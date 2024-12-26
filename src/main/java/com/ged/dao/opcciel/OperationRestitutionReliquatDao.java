@@ -12,7 +12,7 @@ import java.util.List;
 public interface OperationRestitutionReliquatDao extends JpaRepository<OperationRestitutionReliquat, Long> {
     @Query(value = "select op from OperationRestitutionReliquat op join op.opcvm o " +
             "join op.natureOperation n join op.actionnaire a " +
-            "where op.supprimer = false and o.idOpcvm = :idOpcvm and op.idSeance = :idSeance")
+            "where op.supprimer = false and o.idOpcvm = :idOpcvm and op.idSeance = :idSeance order by op.idOperation desc")
     Page<OperationRestitutionReliquat> listeOpRestitutionReliquat(
             @Param("idOpcvm") Long idOpcvm,
             @Param("idSeance") Long idSeance, Pageable pageable);

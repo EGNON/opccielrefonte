@@ -1,0 +1,32 @@
+<div align="center">
+    <div style="width: 100%; height: 35px; border: 1px solid blue; margin-left: auto; margin-right: auto;
+        margin-bottom: 20px; background-color: #9fcdff;">
+        PAIEMENT DE RELIQUAT</div>
+    <div style="width: 100%; height: 50px; margin-left: auto; margin-right: auto;
+        margin-bottom: 20px; border: 1px solid blue;">
+        <span><strong>OPCVM :</strong> </span><span th:text="${opcvm.denominationOpcvm}"></span>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span><strong>SEANCE :</strong> </span><span th:text="${seance.idSeanceOpcvm.idSeance}"></span>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span><strong>OUV. :</strong> </span><span th:text="${df.format(seance.dateOuverture)}"></span>
+        <span><strong>FERM. :</strong> </span><span th:text="${df.format(seance.dateFermeture)}"></span>
+    </div>
+    <table style="width: 100%; border-collapse: collapse;">
+        <thead>
+        <tr>
+            <th style="border: 1px solid blue;">ID Op.</th>
+            <th style="border: 1px solid blue;">Dénomination</th>
+            <th style="border: 1px solid blue;">Montant</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="paiement: ${paiements}">
+            <td th:text="${paiement.idOperation}" style="border: 1px solid blue;"></td>
+            <td th:text="${paiement.actionnaire.denomination}" style="border: 1px solid blue;"></td>
+            <td th:text="${#numbers.formatDecimal(paiement.montant, 0, 'WHITESPACE', 0, 'POINT')}" style="border: 1px solid blue;">FCFA</td>
+        </tr>
+        <tr>
+            <td colspan="2" style="border: 1px solid blue;">Total</td>
+            <td th:text="${#numbers.formatDecimal(total, 0, 'WHITESPACE', 0, 'POINT')}" style="border: 1px solid blue;"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>

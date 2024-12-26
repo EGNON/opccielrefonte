@@ -31,48 +31,39 @@ public class FiltersSpecification<T> {
 
             for(SearchRequestDto requestDto : searchRequestDtos){
 
-                switch (requestDto.getOperation()){
-
-                    case EQUAL:
+                switch (requestDto.getOperation()) {
+                    case EQUAL -> {
                         Predicate equal = criteriaBuilder.equal(root.get(requestDto.getColumn()), requestDto.getValue());
                         predicates.add(equal);
-                        break;
-
-                    case LIKE:
-                        Predicate like = criteriaBuilder.like(root.get(requestDto.getColumn()), "%"+requestDto.getValue()+"%");
+                    }
+                    case LIKE -> {
+                        Predicate like = criteriaBuilder.like(root.get(requestDto.getColumn()), "%" + requestDto.getValue() + "%");
                         predicates.add(like);
-                        break;
-
-                    case IN:
+                    }
+                    case IN -> {
                         String[] split = requestDto.getValue().split(",");
                         Predicate in = root.get(requestDto.getColumn()).in(Arrays.asList(split));
                         predicates.add(in);
-                        break;
-
-                    case GREATER_THAN:
+                    }
+                    case GREATER_THAN -> {
                         Predicate greaterThan = criteriaBuilder.greaterThan(root.get(requestDto.getColumn()), requestDto.getValue());
                         predicates.add(greaterThan);
-                        break;
-
-                    case LESS_THAN:
+                    }
+                    case LESS_THAN -> {
                         Predicate lessThan = criteriaBuilder.lessThan(root.get(requestDto.getColumn()), requestDto.getValue());
                         predicates.add(lessThan);
-                        break;
-
-                    case BETWEEN:
+                    }
+                    case BETWEEN -> {
                         //"10, 20"
                         String[] split1 = requestDto.getValue().split(",");
-                        Predicate between = criteriaBuilder.between(root.get(requestDto.getColumn()), Long.parseLong(split1[0]),Long.parseLong( split1[1]));
+                        Predicate between = criteriaBuilder.between(root.get(requestDto.getColumn()), Long.parseLong(split1[0]), Long.parseLong(split1[1]));
                         predicates.add(between);
-                        break;
-
-                    case JOIN:
+                    }
+                    case JOIN -> {
                         Predicate join = criteriaBuilder.equal(root.join(requestDto.getJoinTable()).get(requestDto.getColumn()), requestDto.getValue());
                         predicates.add(join);
-                        break;
-
-                    default:
-                        throw new IllegalStateException("Unexpected value: " + "");
+                    }
+                    default -> throw new IllegalStateException("Unexpected value: " + "");
                 }
 
             }

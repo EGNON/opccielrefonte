@@ -10,8 +10,12 @@ import com.ged.dao.standard.PersonneDao;
 import com.ged.dao.titresciel.TitreDao;
 import com.ged.datatable.DataTablesResponse;
 import com.ged.datatable.DatatableParameters;
+import com.ged.dto.PageRequestDto;
+import com.ged.dto.RequestDto;
+import com.ged.dto.SearchRequestDto;
 import com.ged.dto.opcciel.OperationSouscriptionRachatDto;
 import com.ged.dto.opcciel.OperationSouscriptionRachatDto2;
+import com.ged.dto.request.SousRachRequest;
 import com.ged.entity.opcciel.Opcvm;
 import com.ged.entity.opcciel.OperationSouscriptionRachat;
 import com.ged.entity.opcciel.comptabilite.NatureOperation;
@@ -22,18 +26,18 @@ import com.ged.entity.titresciel.Titre;
 import com.ged.mapper.opcciel.OperationSouscriptionRachatMapper;
 import com.ged.projection.AvisOperationProjection;
 import com.ged.response.ResponseHandler;
+import com.ged.service.FiltersSpecification;
 import com.ged.service.opcciel.OperationSouscriptionRachatService;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.ParameterMode;
 import jakarta.persistence.PersistenceContext;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.*;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -49,6 +53,7 @@ public class OperationSouscriptionRachatServiceImpl implements OperationSouscrip
     private EntityManager emOpcciel;*/
     @PersistenceContext
     EntityManager em;
+    private final FiltersSpecification<OperationSouscriptionRachat> souscriptionRachatFiltersSpecification;
     private final OperationSouscriptionRachatDao operationSouscriptionRachatDao;
     private final PersonneDao personneDao;
     private final OpcvmDao opcvmDao;
@@ -58,7 +63,8 @@ public class OperationSouscriptionRachatServiceImpl implements OperationSouscrip
     private final NatureOperationDao natureOperationDao;
     private final OperationSouscriptionRachatMapper operationSouscriptionRachatMapper;
 
-    public OperationSouscriptionRachatServiceImpl(OperationSouscriptionRachatDao operationSouscriptionRachatDao, PersonneDao personneDao, OpcvmDao opcvmDao, LibraryDao libraryDao, TitreDao titreDao, TransactionDao transactionDao, NatureOperationDao natureOperationDao, OperationSouscriptionRachatMapper operationSouscriptionRachatMapper){
+    public OperationSouscriptionRachatServiceImpl(FiltersSpecification<OperationSouscriptionRachat> souscriptionRachatFiltersSpecification, OperationSouscriptionRachatDao operationSouscriptionRachatDao, PersonneDao personneDao, OpcvmDao opcvmDao, LibraryDao libraryDao, TitreDao titreDao, TransactionDao transactionDao, NatureOperationDao natureOperationDao, OperationSouscriptionRachatMapper operationSouscriptionRachatMapper){
+        this.souscriptionRachatFiltersSpecification = souscriptionRachatFiltersSpecification;
         this.operationSouscriptionRachatDao = operationSouscriptionRachatDao;
         this.personneDao = personneDao;
         this.opcvmDao = opcvmDao;
@@ -97,6 +103,102 @@ public class OperationSouscriptionRachatServiceImpl implements OperationSouscrip
                     dataTablesResponse);
         }
         catch(Exception e)
+        {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e);
+        }
+    }
+
+    @Override
+    public ResponseEntity<Object> listeOpSouscriptionRachat(SousRachRequest sousRachRequest) {
+        try {
+            DatatableParameters parameters = sousRachRequest.getDatatableParameters();
+            Pageable pageable = PageRequest.of(
+                    parameters.getStart()/ parameters.getLength(), parameters.getLength());
+            Page<OperationSouscriptionRachat> souscriptionRachatPage;
+            if (parameters.getSearch() != null && !StringUtils.isEmpty(parameters.getSearch().getValue())) {
+                RequestDto requestDto = new RequestDto();
+                requestDto.setGlobalOperator(RequestDto.GlobalOperator.OR);
+                //Création de l'objet PageDto
+                PageRequestDto pageDto = new PageRequestDto();
+                pageDto.setPageNo(parameters.getStart() / parameters.getLength());
+                pageDto.setPageSize(parameters.getLength());
+                pageDto.setSort(Sort.Direction.DESC);
+                pageDto.setSortByColumn("idOperation");
+                requestDto.setPageDto(pageDto);
+                //Création de l'objet searchRequestDto
+                List<SearchRequestDto> searchRequestDtos = new ArrayList<>();
+                SearchRequestDto searchRequestDto = new SearchRequestDto();
+                searchRequestDto.setColumn("libelleOperation");
+                searchRequestDto.setValue(parameters.getSearch().getValue());
+                searchRequestDto.setOperation(SearchRequestDto.Operation.LIKE);
+                searchRequestDtos.add(searchRequestDto);
+                SearchRequestDto searchRequestDto5 = new SearchRequestDto();
+                searchRequestDto5.setJoinTable("actionnaire");
+                searchRequestDto5.setColumn("denomination");
+                searchRequestDto5.setValue(parameters.getSearch().getValue());
+                searchRequestDto5.setOperation(SearchRequestDto.Operation.JOIN);
+                searchRequestDtos.add(searchRequestDto5);
+                SearchRequestDto searchRequestDto6 = new SearchRequestDto();
+                searchRequestDto6.setJoinTable("opcvm");
+                searchRequestDto6.setColumn("idOpcvm");
+                searchRequestDto6.setValue(sousRachRequest.getIdOpcvm().toString());
+                searchRequestDto6.setOperation(SearchRequestDto.Operation.JOIN);
+                searchRequestDtos.add(searchRequestDto6);
+                SearchRequestDto searchRequestDto7 = new SearchRequestDto();
+                searchRequestDto7.setJoinTable("natureOperation");
+                searchRequestDto7.setColumn("codeNatureOperation");
+                searchRequestDto7.setValue(sousRachRequest.getCodeNatureOperation());
+                searchRequestDto7.setOperation(SearchRequestDto.Operation.JOIN);
+                searchRequestDtos.add(searchRequestDto7);
+                /*SearchRequestDto searchRequestDto1 = new SearchRequestDto();
+                searchRequestDto1.setColumn("denomination");
+                searchRequestDto1.setValue(parameters.getSearch().getValue());
+                searchRequestDto1.setOperation(SearchRequestDto.Operation.LIKE);
+                searchRequestDtos.add(searchRequestDto1);
+                SearchRequestDto searchRequestDto2 = new SearchRequestDto();
+                searchRequestDto2.setColumn("dateOperation");
+                searchRequestDto2.setValue(sousRachRequest.getDateFin().toString());
+                searchRequestDto2.setOperation(SearchRequestDto.Operation.LESS_THAN);
+                searchRequestDtos.add(searchRequestDto2);
+                SearchRequestDto searchRequestDto3 = new SearchRequestDto();
+                searchRequestDto3.setColumn("dateOperation");
+                searchRequestDto3.setValue(sousRachRequest.getDateDebut().toString());
+                searchRequestDto3.setOperation(SearchRequestDto.Operation.GREATER_THAN);
+                searchRequestDtos.add(searchRequestDto3);*/
+                requestDto.setSearchRequestDto(searchRequestDtos);
+                Specification<OperationSouscriptionRachat> searchSpecification = souscriptionRachatFiltersSpecification
+                        .getSearchSpecification(requestDto.getSearchRequestDto(), requestDto.getGlobalOperator());
+                pageable = (new PageRequestDto()).getPageable(requestDto.getPageDto());
+                souscriptionRachatPage = new PageImpl<>(new ArrayList<>());
+                /*souscriptionRachatPage = operationSouscriptionRachatDao.findAll(
+                    searchSpecification,
+                    pageable
+                );*/
+            }
+            else {
+                souscriptionRachatPage = operationSouscriptionRachatDao.listeOpSouscriptionRachat(
+                    sousRachRequest.getIdOpcvm(),
+                    sousRachRequest.getCodeNatureOperation(),
+                    sousRachRequest.getDateDebut(),
+                    sousRachRequest.getDateFin(),
+                    pageable
+                );
+            }
+            List<OperationSouscriptionRachatDto> content = souscriptionRachatPage.getContent().stream().map(operationSouscriptionRachatMapper::deOperationSouscriptionRachat).toList();
+            DataTablesResponse<OperationSouscriptionRachatDto> dataTablesResponse = new DataTablesResponse<>();
+            dataTablesResponse.setDraw(parameters.getDraw());
+            dataTablesResponse.setRecordsFiltered((int)souscriptionRachatPage.getTotalElements());
+            dataTablesResponse.setRecordsTotal((int)souscriptionRachatPage.getTotalElements());
+            dataTablesResponse.setData(content);
+            return ResponseHandler.generateResponse(
+                    "Liste des opérations souscriptions rachats",
+                    HttpStatus.OK,
+                    dataTablesResponse);
+        }
+        catch (Exception e)
         {
             return ResponseHandler.generateResponse(
                     e.getMessage(),
@@ -437,8 +539,6 @@ public class OperationSouscriptionRachatServiceImpl implements OperationSouscrip
                 q.setParameter("codeNatureOperation","INT_RACH");
                 q.execute();
             }
-
-
 
             return ResponseHandler.generateResponse(
                     "Enregistrement effectué avec succès !",

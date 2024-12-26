@@ -6,6 +6,7 @@ import com.ged.dto.lab.reportings.BeginEndDateParameter;
 import com.ged.dto.opcciel.OperationSouscriptionRachatDto;
 import com.ged.dto.opcciel.OperationSouscriptionRachatDto2;
 import com.ged.dto.opcciel.PlanDto;
+import com.ged.dto.request.SousRachRequest;
 import com.ged.service.opcciel.OperationSouscriptionRachatService;
 import com.ged.service.opcciel.PlanService;
 import jakarta.validation.Valid;
@@ -54,6 +55,11 @@ public class OperationSouscriptionRachatController {
 //    @PreAuthorize("hasAuthority('ROLE_DEGRE')")
     public ResponseEntity<Object> datatableList(@RequestBody DatatableParameters params) throws JsonProcessingException {
         return operationSouscriptionRachatService.afficherTous(params);
+    }
+
+    @PostMapping("liste/opsousrach/datatable")
+    public ResponseEntity<Object> listeOpSousRach(@RequestBody SousRachRequest sousRachRequest) {
+        return operationSouscriptionRachatService.listeOpSouscriptionRachat(sousRachRequest);
     }
 
     @PostMapping
