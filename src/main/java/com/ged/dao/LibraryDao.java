@@ -74,5 +74,4 @@ public interface LibraryDao extends JpaRepository<BaseEntity, Long> {
     Page<PrecalculSouscriptionProjection> precalculSouscription(@Param("idSeance") Long idSeance,
                                                                 @Param("idOpcvm") Long idOpcvm,
                                                                 @Param("idPersonne") Long idPersonne, Pageable pageable);
-
 }

@@ -7,13 +7,19 @@ import com.ged.dto.opcciel.OperationSouscriptionRachatDto;
 import com.ged.dto.opcciel.OperationSouscriptionRachatDto2;
 import com.ged.dto.opcciel.PlanDto;
 import com.ged.dto.request.SousRachRequest;
+import com.ged.entity.opcciel.OperationSouscriptionRachat;
 import com.ged.service.opcciel.OperationSouscriptionRachatService;
 import com.ged.service.opcciel.PlanService;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.util.Date;
+import java.util.List;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -60,6 +66,24 @@ public class OperationSouscriptionRachatController {
     @PostMapping("liste/opsousrach/datatable")
     public ResponseEntity<Object> listeOpSousRach(@RequestBody SousRachRequest sousRachRequest) {
         return operationSouscriptionRachatService.listeOpSouscriptionRachat(sousRachRequest);
+    }
+
+    @PostMapping("jasperpdf/export/avis/souscription")
+    public ResponseEntity<Object> avisSouscriptionPDF(
+            HttpServletResponse response,
+            @RequestBody List<OperationSouscriptionRachatDto> operationSouscriptionRachatDtoList) {
+        System.out.println(operationSouscriptionRachatDtoList.size());
+        response.setContentType("application/pdf");
+        DateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy:hh:mm:ss");
+        String currentDateTime = dateFormatter.format(new Date());
+
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=avis_souscription_" + currentDateTime + ".pdf";
+        response.setHeader(headerKey, headerValue);
+
+        return operationSouscriptionRachatService.avisSouscriptionExportJasperReport(
+                response,
+                operationSouscriptionRachatDtoList);
     }
 
     @PostMapping

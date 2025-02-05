@@ -31,18 +31,24 @@ import com.ged.service.opcciel.OperationSouscriptionRachatService;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.ParameterMode;
 import jakarta.persistence.PersistenceContext;
+import jakarta.servlet.http.HttpServletResponse;
+import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import org.springframework.data.domain.*;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.ResourceUtils;
 import org.springframework.util.StringUtils;
 
+import java.io.File;
 import java.math.BigDecimal;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -395,6 +401,47 @@ public class OperationSouscriptionRachatServiceImpl implements OperationSouscrip
             List<AvisOperationProjection> list=libraryDao.avisOper(idOperation);
             return ResponseHandler.generateResponse(
                     "Avis opération",
+                    HttpStatus.OK,
+                    list);
+        }
+        catch(Exception e)
+        {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e);
+        }
+    }
+
+    @Override
+    public ResponseEntity<Object> avisSouscriptionExportJasperReport(
+            HttpServletResponse response, List<OperationSouscriptionRachatDto> operationSouscriptionRachatDtoList) {
+        try {
+            StringBuilder sb = new StringBuilder();
+            for(OperationSouscriptionRachatDto op:operationSouscriptionRachatDtoList){
+                sb.append(op.getIdOperation()).append(",");
+            }
+            String commaDelimeterString=sb.toString();
+            if( commaDelimeterString.length() > 0 )
+                commaDelimeterString = commaDelimeterString.substring(0, commaDelimeterString.length() - 1);
+            List<AvisOperationProjection> list = libraryDao.avisOper(commaDelimeterString);
+            System.out.println("Séparateur === " + commaDelimeterString);
+            BigDecimal mBrut = list.stream()
+                    .map(x -> (x.getCoursVL().multiply(x.getNombrePartSousRachat())).add(BigDecimal.valueOf(0)))
+                    .reduce(BigDecimal.ZERO, BigDecimal::add);
+            list.stream().collect(Collectors.groupingBy(AvisOperationProjection::getCodeNatureOperation));
+            System.out.println("Montant brut = " + mBrut);
+            Map<String, Object> parameters = new HashMap<>();
+            DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
+            String letterDate = dateFormatter.format(new Date());
+            parameters.put("letterDate", letterDate);
+            File file = ResourceUtils.getFile("classpath:avis_souscription.jrxml");
+            JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
+            JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(list);
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
+            JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());
+            return ResponseHandler.generateResponse(
+                    "Avis souscription",
                     HttpStatus.OK,
                     list);
         }

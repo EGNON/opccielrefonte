@@ -265,9 +265,6 @@ public class AppService {
         operationJournal.setDateCreationServeur(LocalDateTime.now());
         operationJournalDao.save(operationJournal);
 
-        System.out.println("Formules => " + formules);
-        System.out.println("Codes analytiques => " + codesAnalytiques);
-
         return operationRestitutionReliquatMapper.aEntite(operation);
     }
 
@@ -379,9 +376,6 @@ public class AppService {
         operationJournal.setDateDernModifClient(LocalDateTime.now());
         operationJournal.setDateCreationServeur(LocalDateTime.now());
         operationJournalDao.save(operationJournal);
-
-        System.out.println("Formules => " + formules);
-        System.out.println("Codes analytiques => " + codesAnalytiques);
 
         return souscriptionRachatMapper.deOperationSouscriptionRachat(operation);
     }
