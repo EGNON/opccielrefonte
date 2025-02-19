@@ -6,11 +6,12 @@ import com.ged.entity.lab.GelDegel;
 import com.ged.entity.standard.revuecompte.CategorieClient;
 import com.ged.entity.standard.revuecompte.SousTypeClient;
 import jakarta.persistence.*;
-import org.springframework.stereotype.Indexed;
+import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDateTime;
 import java.util.*;
 
+@SuperBuilder
 @Entity
 @Inheritance(strategy=InheritanceType.JOINED)
 @DiscriminatorColumn(name = "typePersonne")
@@ -135,32 +136,6 @@ public class Personne extends Base {
     private Boolean estSanctionNationale = false;
     @Column(columnDefinition="BIT")
     private Boolean estSanctionOnusienne = false;
-
-    public void ajouterStatut(Qualite qualite) {
-        qualite.getStatutPersonnes().clear();
-        StatutPersonne statutPersonne = new StatutPersonne(this, qualite);
-        CleStatutPersonne cleStatutPersonne = new CleStatutPersonne();
-        cleStatutPersonne.setIdQualite(qualite.getIdQualite());
-        cleStatutPersonne.setIdPersonne(this.idPersonne);
-        statutPersonne.setIdStatutPersonne(cleStatutPersonne);
-        statutPersonnes.add(statutPersonne);
-        qualite.getStatutPersonnes().add(statutPersonne);
-    }
-
-    public void supprimerStatut(Qualite qualite) {
-        for (Iterator<StatutPersonne> iterator = statutPersonnes.iterator();
-             iterator.hasNext(); ) {
-            StatutPersonne statutPersonne = iterator.next();
-
-            if (statutPersonne.getPersonne().equals(this) &&
-                    statutPersonne.getQualite().equals(qualite)) {
-                iterator.remove();
-                statutPersonne.getQualite().getStatutPersonnes().remove(statutPersonne);
-                statutPersonne.setPersonne(null);
-                statutPersonne.setQualite(null);
-            }
-        }
-    }
 
     public Personne() {
     }

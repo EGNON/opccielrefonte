@@ -6,6 +6,7 @@ import com.ged.entity.standard.Personne;
 import com.ged.entity.titresciel.Titre;
 import jakarta.persistence.*;
 import org.springframework.data.domain.Persistable;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;

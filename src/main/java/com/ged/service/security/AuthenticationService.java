@@ -35,7 +35,11 @@ import java.io.IOException;
 import java.security.Principal;
 import java.util.HashSet;
 
-@Service
+public class AuthenticationService {
+
+}
+
+/*@Service
 @Transactional("refonteTransactionManager")
 public class AuthenticationService {
     @Value("${application.currentinfo.user}")
@@ -263,4 +267,4 @@ public class AuthenticationService {
         }
         return  null;
     }
-}
+}*/

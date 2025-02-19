@@ -1,27 +1,37 @@
 package com.ged.entity;
 
-import com.ged.entity.security.Utilisateur;
-import jakarta.persistence.Column;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.ColumnDefault;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.JdbcTypeCode;
-import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.io.Serializable;
-import java.sql.Types;
 import java.time.LocalDateTime;
 
+@Getter
+@Setter
+@SuperBuilder
 @MappedSuperclass
+@AllArgsConstructor
+@NoArgsConstructor
+@EntityListeners(AuditingEntityListener.class)
 public abstract class Base implements Serializable {
     //Champs communs
-    @CreationTimestamp
-    @Column(name = "dateCreationServeur", updatable = false)
+//    @CreationTimestamp
+    @CreatedDate
+    @Column(name = "dateCreationServeur", nullable = false, updatable = false)
     private LocalDateTime dateCreationServeur;
-    @UpdateTimestamp
-    @Column(name = "dateDernModifServeur")
+//    @UpdateTimestamp
+    @LastModifiedDate
+    @Column(name = "dateDernModifServeur", insertable = false)
     private LocalDateTime dateDernModifServeur;
     private LocalDateTime dateDernModifClient;
     @ColumnDefault("0")
@@ -29,93 +39,15 @@ public abstract class Base implements Serializable {
     /*@Column(insertable = false, updatable = false)
     @JdbcTypeCode(Types.TIMESTAMP)
     private byte[] rowvers;*/
-    private String creerPar;
-    private String modifierPar;
+    @CreatedBy
+    @Column(nullable = false, updatable = false)
+    private Long creePar;
+    @LastModifiedBy
+    @Column(insertable = false)
+    private Long modifiePar;
    /* @ManyToOne
     @JoinColumn(name = "idCreateur")
     private Utilisateur createur;*/
     private Long idCreateur;
     private Long idOcc;
-
-//    public Utilisateur getCreateur() {
-//        return createur;
-//    }
-//
-//    public void setCreateur(Utilisateur createur) {
-//        this.createur = createur;
-//    }
-
-    //Champ Commun Getters and Setters
-
-    public LocalDateTime getDateCreationServeur() {
-        return dateCreationServeur;
-    }
-
-    public void setDateCreationServeur(LocalDateTime dateCreationServeur) {
-        this.dateCreationServeur = dateCreationServeur;
-    }
-
-    public LocalDateTime getDateDernModifServeur() {
-        return dateDernModifServeur;
-    }
-
-    public void setDateDernModifServeur(LocalDateTime dateDernModifServeur) {
-        this.dateDernModifServeur = dateDernModifServeur;
-    }
-
-    public Long getIdCreateur() {
-        return idCreateur;
-    }
-
-    public void setIdCreateur(Long idCreateur) {
-        this.idCreateur = idCreateur;
-    }
-
-    public LocalDateTime getDateDernModifClient() {
-        return dateDernModifClient;
-    }
-
-    public void setDateDernModifClient(LocalDateTime dateDernModifClient) {
-        this.dateDernModifClient = dateDernModifClient;
-    }
-
-    public String getCreerPar() {
-        return creerPar;
-    }
-
-    public void setCreerPar(String creerPar) {
-        this.creerPar = creerPar;
-    }
-
-    public String getModifierPar() {
-        return modifierPar;
-    }
-
-    public void setModifierPar(String modifierPar) {
-        this.modifierPar = modifierPar;
-    }
-
-    public Long getIdOcc() {
-        return idOcc;
-    }
-
-    public void setIdOcc(Long idOcc) {
-        this.idOcc = idOcc;
-    }
-
-    public Boolean getSupprimer() {
-        return supprimer;
-    }
-
-    public void setSupprimer(Boolean supprimer) {
-        this.supprimer = supprimer;
-    }
-
-    /*public byte[] getRowvers() {
-        return rowvers;
-    }
-
-    public void setRowvers(byte[] rowvers) {
-        this.rowvers = rowvers;
-    }*/
 }

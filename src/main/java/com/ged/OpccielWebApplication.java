@@ -12,11 +12,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.task.TaskExecutor;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
@@ -25,6 +24,7 @@ import java.sql.SQLException;
 
 @SpringBootApplication
 @EnableScheduling
+@EnableJpaAuditing(auditorAwareRef = "auditorAware")
 @Component
 @EnableAsync
 //@ConfigurationProperties(prefix = "spring.mail")

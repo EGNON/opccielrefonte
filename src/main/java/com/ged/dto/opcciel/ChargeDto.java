@@ -4,14 +4,17 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.ged.dto.opcciel.comptabilite.NatureOperationDto;
 import com.ged.dto.titresciel.TypeAmortissementDto;
 import com.ged.entity.Base;
+import com.ged.entity.opcciel.CleCharge;
+
+import java.math.BigDecimal;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ChargeDto extends Base {
-    private Long idCharge;
+    private CleCharge idCharge;
     private String codeCharge;
     private OpcvmDto opcvm;
 	private String designation;
-    private Double montant;
+    private BigDecimal montant;
     private int periodicite;
     private String unitePeriodicite;
     private boolean estActif;
@@ -53,11 +56,11 @@ public class ChargeDto extends Base {
         this.designation = designation;
     }
 
-    public Double getMontant() {
+    public BigDecimal getMontant() {
         return montant;
     }
 
-    public void setMontant(Double montant) {
+    public void setMontant(BigDecimal montant) {
         this.montant = montant;
     }
 
@@ -101,11 +104,11 @@ public class ChargeDto extends Base {
         this.typeCharge = typeCharge;
     }
 
-    public Long getIdCharge() {
+    public CleCharge getIdCharge() {
         return idCharge;
     }
 
-    public void setIdCharge(Long idCharge) {
+    public void setIdCharge(CleCharge idCharge) {
         this.idCharge = idCharge;
     }
 

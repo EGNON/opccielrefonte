@@ -1,6 +1,7 @@
 package com.ged.dao.opcciel;
 
 import com.ged.entity.opcciel.Charge;
+import com.ged.entity.opcciel.CleCharge;
 import com.ged.entity.opcciel.Opcvm;
 import com.ged.projection.ChargeProjection;
 import org.springframework.data.domain.Page;
@@ -9,7 +10,13 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
+import java.math.BigDecimal;
+import java.util.List;
+
 public interface ChargeDao extends JpaRepository<Charge, Long> {
+    @Query(value = "select c from Charge c where c.supprimer = false " +
+            "and c.idCharge.idOpcvm = :idOpcvm")
+    List<Charge> afficherChargeParIdOpcvm(Long idOpcvm);
     Page<Charge> findByOpcvm(Opcvm opcvm, Pageable pageable);
     @Query(value = "select c.idCharge as idCharge, " +
             "c.montant as montant," +
@@ -32,9 +39,9 @@ public interface ChargeDao extends JpaRepository<Charge, Long> {
             "c.appliquerSurActifNet=:appliquerSurActifNet," +
             "c.estActif=true " +
             "where c.idCharge=:id ")
-    int modifierCharge (Long id,double montant,String designation,String typeCharge,
-                                         String codeCharge,String codeNatureOperation,
-                  boolean appliquerSurActifNet);
+    int modifierCharge (CleCharge id, BigDecimal montant, String designation, String typeCharge,
+                        String codeCharge, String codeNatureOperation,
+                        boolean appliquerSurActifNet);
 
     @Modifying()
     @Query(value = "delete from  Charge c  " +

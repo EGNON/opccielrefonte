@@ -3,6 +3,9 @@ package com.ged.entity.opcciel.comptabilite;
 import com.ged.entity.Base;
 import jakarta.persistence.*;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
 @Table(name = "T_NatureOperation", schema = "Comptabilite")
 public class NatureOperation extends Base {

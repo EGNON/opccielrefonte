@@ -11,6 +11,7 @@ import org.springframework.data.repository.query.Param;
 import java.util.Optional;
 
 public interface RoleDao extends JpaRepository<Role, Long>, JpaSpecificationExecutor<Role> {
+    Optional<Role> findByNom(String nom);
     @Query(value = "select r from Role as r where r.idRole = :idRole")
     Role trouverRoleSelonId(@Param("idRole") Long idRole);
     Optional<Role> findByNomEquals(String keyword);

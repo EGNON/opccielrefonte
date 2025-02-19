@@ -3,10 +3,8 @@ package com.ged.service.opcciel.impl;
 import com.ged.dao.opcciel.comptabilite.OperationDao;
 import com.ged.datatable.DataTablesResponse;
 import com.ged.datatable.DatatableParameters;
-import com.ged.dto.opcciel.comptabilite.OperationDto;
 import com.ged.dto.request.ConsultationEcritureRequest;
-import com.ged.entity.opcciel.comptabilite.Operation;
-import com.ged.mapper.opcciel.OperationMapper;
+import com.ged.dto.response.ConsultattionEcritureRes;
 import com.ged.response.ResponseHandler;
 import com.ged.service.opcciel.OperationService;
 import org.springframework.data.domain.Page;
@@ -16,18 +14,18 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@Transactional
 public class OperationComptableServiceImpl implements OperationService {
     private final OperationDao operationDao;
-    private final OperationMapper operationMapper;
 
-    public OperationComptableServiceImpl(OperationDao operationDao, OperationMapper operationMapper) {
+    public OperationComptableServiceImpl(OperationDao operationDao) {
         this.operationDao = operationDao;
-        this.operationMapper = operationMapper;
     }
 
     @Override
@@ -36,20 +34,23 @@ public class OperationComptableServiceImpl implements OperationService {
             DatatableParameters parameters = request.getDatatableParameters();
             Pageable pageable = PageRequest.of(
                     parameters.getStart()/ parameters.getLength(), parameters.getLength());
-            Page<Operation> operationPage;
+            Page<ConsultattionEcritureRes> operationPage;
             if(parameters.getSearch() != null && !parameters.getSearch().getValue().isEmpty()) {
                 operationPage = new PageImpl<>(new ArrayList<>());
             }
             else {
                 operationPage = operationDao.listeOperationsFiltree(
-                        request.getIdOpcvm(),
-                        request.getNatureOperation().getCodeNatureOperation(),
-                        request.getDateDebut(),
-                        request.getDateFin(),
-                        pageable);
+                    request.getIdOpcvm() == 0L ? null : request.getIdOpcvm(),
+                    request.getIdOperation() == 0L ? null : request.getIdOperation(),
+                    request.getIdTransaction() == 0L ? null :  request.getIdTransaction(),
+                    request.getNatureOperation() != null ? request.getNatureOperation().getCodeNatureOperation().trim() : null,
+                    request.getDateDebut(),
+                    request.getDateFin(),
+                    pageable
+                );
             }
-            List<OperationDto> content = operationPage.getContent().stream().map(operationMapper::deOperation).toList();
-            DataTablesResponse<OperationDto> dataTablesResponse = new DataTablesResponse<>();
+            List<ConsultattionEcritureRes> content = operationPage.getContent().stream().toList();
+            DataTablesResponse<ConsultattionEcritureRes> dataTablesResponse = new DataTablesResponse<>();
             dataTablesResponse.setDraw(parameters.getDraw());
             dataTablesResponse.setRecordsFiltered((int)operationPage.getTotalElements());
             dataTablesResponse.setRecordsTotal((int)operationPage.getTotalElements());

@@ -4,6 +4,8 @@ import com.ged.entity.Base;
 import com.ged.entity.security.Utilisateur;
 import jakarta.persistence.*;
 
+import java.time.LocalDateTime;
+
 //@Data
 //@Builder
 //@NoArgsConstructor
@@ -24,6 +26,9 @@ public class Token extends Base {
     public boolean revoked;
 
     public boolean expired;
+
+    private LocalDateTime expiresAt;
+    private LocalDateTime validatedAt;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "idPersonne")
@@ -80,6 +85,22 @@ public class Token extends Base {
 
     public void setExpired(boolean expired) {
         this.expired = expired;
+    }
+
+    public LocalDateTime getExpiresAt() {
+        return expiresAt;
+    }
+
+    public void setExpiresAt(LocalDateTime expiresAt) {
+        this.expiresAt = expiresAt;
+    }
+
+    public LocalDateTime getValidatedAt() {
+        return validatedAt;
+    }
+
+    public void setValidatedAt(LocalDateTime validatedAt) {
+        this.validatedAt = validatedAt;
     }
 
     public Utilisateur getUser() {
