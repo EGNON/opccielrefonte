@@ -226,7 +226,7 @@ public class Utilisateur extends Personnel implements UserDetails, Principal {
 
     @Override
     public boolean isAccountNonLocked() {
-        return true;
+        return estActif;
     }
 
     @Override
@@ -236,7 +236,7 @@ public class Utilisateur extends Personnel implements UserDetails, Principal {
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return estActif;
     }
 
     public void setUsername(String username) {

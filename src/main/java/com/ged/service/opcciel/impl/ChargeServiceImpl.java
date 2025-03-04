@@ -7,6 +7,7 @@ import com.ged.dao.opcciel.comptabilite.NatureOperationDao;
 import com.ged.datatable.DataTablesResponse;
 import com.ged.datatable.DatatableParameters;
 import com.ged.dto.opcciel.ChargeDto;
+import com.ged.dto.request.ChargeListeRequest;
 import com.ged.entity.opcciel.Charge;
 import com.ged.entity.opcciel.Opcvm;
 import com.ged.entity.opcciel.comptabilite.NatureOperation;
@@ -40,6 +41,23 @@ public class ChargeServiceImpl implements ChargeService {
         this.chargeMapper = chargeMapper;
     }
 
+    @Override
+    public ResponseEntity<?> afficherListeCharges(Long idOpcvm) {
+        try {
+            List<ChargeDto> listeCharges = chargeDao.afficherChargeParIdOpcvm(idOpcvm).stream().map(chargeMapper::deCharge).toList();
+            return ResponseHandler.generateResponse(
+                    "Liste de toutes les charges",
+                    HttpStatus.OK,
+                    listeCharges);
+        }
+        catch(Exception e)
+        {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e);
+        }
+    }
 
     @Override
     public ResponseEntity<Object> afficherTous(DatatableParameters parameters,Long idOpcvm) {

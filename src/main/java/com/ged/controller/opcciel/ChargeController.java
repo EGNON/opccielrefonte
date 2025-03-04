@@ -3,6 +3,7 @@ package com.ged.controller.opcciel;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.ged.datatable.DatatableParameters;
 import com.ged.dto.opcciel.ChargeDto;
+import com.ged.entity.opcciel.CleCharge;
 import com.ged.service.opcciel.ChargeService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
@@ -15,8 +16,12 @@ public class ChargeController {
     private final ChargeService ChargeService;
 
     public ChargeController(ChargeService ChargeService) {
-
         this.ChargeService = ChargeService;
+    }
+
+    @GetMapping("/all/charges/opcvm/{idOpcvm}")
+    public ResponseEntity<?> afficherListeCharges(@PathVariable("idOpcvm") Long idOpcvm) {
+        return ChargeService.afficherListeCharges(idOpcvm);
     }
 
     @GetMapping
@@ -49,7 +54,7 @@ public class ChargeController {
     @PutMapping("/{id}")
 //    @PreAuthorize("hasAuthority('ROLE_DEGRE')")
     public ResponseEntity<Object> modifier(@Valid @RequestBody ChargeDto ChargeDto,
-                                           @PathVariable Long id)
+                                           @PathVariable CleCharge id)
     {
         ChargeDto.setIdCharge(id);
         return ChargeService.modifier(ChargeDto);

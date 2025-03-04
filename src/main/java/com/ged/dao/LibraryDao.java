@@ -74,4 +74,30 @@ public interface LibraryDao extends JpaRepository<BaseEntity, Long> {
     Page<PrecalculSouscriptionProjection> precalculSouscription(@Param("idSeance") Long idSeance,
                                                                 @Param("idOpcvm") Long idOpcvm,
                                                                 @Param("idPersonne") Long idPersonne, Pageable pageable);
+    @Query(value = "select * from [Comptabilite].[FT_AfficherEcriture](:idOperation)", nativeQuery = true)
+    List<AfficherDetailsEcritureProjection> afficherDetailsEcriture(
+      @Param("idOperation") Long idOperation
+    );
+
+    @Query(value = "select * from [Impressions].[FT_RegistreActionnaireReduit](:idOpcvm, :idActionnaire, :dateEstimation)", nativeQuery = true)
+    List<RegistreActionnaireProjection> registreActionnaire(
+            @Param("idOpcvm") Long idOpcvm,
+            @Param("idActionnaire") Long idActionnaire,
+            @Param("dateEstimation") LocalDateTime dateEstimation
+    );
+
+    @Query(value = "select [Comptabilite].[FS_CUMP_ACT](:idOpcvm, :idActionnaire, :dateEstimation)", nativeQuery = true)
+    BigDecimal cumpActionnaire(
+            @Param("idOpcvm") Long idOpcvm,
+            @Param("idActionnaire") Long idActionnaire,
+            @Param("dateEstimation") LocalDateTime dateEstimation
+    );
+
+    @Query(value = "select * from [Comptabilite].[FT_SoldeToutCompte](:codePlan, :idOpcvm, :numCompteComptable, :dateEstimation)", nativeQuery = true)
+    List<SoldeToutCompteProjection> soldeToutCompte(
+        @Param("codePlan") String codePlan,
+        @Param("idOpcvm") Long idOpcvm,
+        @Param("numCompteComptable") String numCompteComptable,
+        @Param("dateEstimation") LocalDateTime dateEstimation
+    );
 }

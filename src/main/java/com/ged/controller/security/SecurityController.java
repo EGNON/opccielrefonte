@@ -11,10 +11,13 @@ import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 
-@CrossOrigin(origins = "*")
+public class SecurityController {
+
+}
+
+/*@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/auth")
-//public class SecurityController {
 public class SecurityController {
     @Value("${application.currentinfo.user}")
     public String currentUser;
@@ -48,4 +51,4 @@ public class SecurityController {
     {
         return authenticationService.changePassword(passwordRequest, connectedUser);
     }
-}
+}*/

@@ -6,7 +6,8 @@ import com.ged.entity.opcciel.Charge;
 import org.springframework.http.ResponseEntity;
 
 public interface ChargeService {
-    ResponseEntity<Object> afficherTous(DatatableParameters parameters,Long idOpcvm);
+    ResponseEntity<?> afficherListeCharges(Long idOpcvm);
+    ResponseEntity<Object> afficherTous(DatatableParameters parameters, Long idOpcvm);
     ResponseEntity<Object> afficherTous();
     Charge afficherSelonId(Long idCharge);
     ResponseEntity<Object>  afficherChargeSelonId(Long idCharge);

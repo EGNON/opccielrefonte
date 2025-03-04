@@ -8,7 +8,11 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 
-@Service
+public class SecutityPrincipal {
+
+}
+
+/*@Service
 public class SecutityPrincipal {
     private final Authentication principal = SecurityContextHolder.getContext().getAuthentication();
     private static AppUserDetailsService userService;
@@ -35,4 +39,4 @@ public class SecutityPrincipal {
     public Collection<?> getLoggedInPrincipalAuthorities() {
         return ((UserDetails) principal.getPrincipal()).getAuthorities();
     }
-}
+}*/

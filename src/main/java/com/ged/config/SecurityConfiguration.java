@@ -26,6 +26,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+public class SecurityConfiguration {
+
+}
+
+/*
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity(prePostEnabled = true, securedEnabled = true)
@@ -65,10 +70,12 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain securityFilterChainGlobalAPI(HttpSecurity httpSecurity) throws Exception {
         sharedSecurityConfiguration(httpSecurity);
-        /*httpSecurity.authorizeHttpRequests((authorize) -> authorize
+        */
+/*httpSecurity.authorizeHttpRequests((authorize) -> authorize
                 .requestMatchers("/", "/auth/**").permitAll()
                 .anyRequest().authenticated()
-        ).addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);*/
+        ).addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);*//*
+
         return httpSecurity.build();
     }
 
@@ -116,3 +123,4 @@ public class SecurityConfiguration {
         return source;
     }
 }
+*/

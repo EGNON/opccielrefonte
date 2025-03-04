@@ -7,6 +7,10 @@ import com.ged.dto.opcciel.TransactionDto;
 import com.ged.dto.standard.PersonneDto;
 import com.ged.dto.titresciel.TitreDto;
 import com.ged.entity.Base;
+import com.ged.entity.opcciel.Opcvm;
+import com.ged.entity.opcciel.comptabilite.NatureOperation;
+import com.ged.entity.opcciel.comptabilite.Transaction;
+import com.ged.entity.standard.Personne;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -47,6 +51,25 @@ public class OperationDto extends Base {
     private String userLoginVerificateur2;
 
     public OperationDto() {
+    }
+
+    public OperationDto(
+            Long idOperation,
+            Opcvm opcvm,
+            Personne actionnaire,
+            Transaction transaction,
+            NatureOperation natureOperation,
+            LocalDateTime dateOperation,
+            String libelleOperation,
+            LocalDateTime dateValeur) {
+        this.idOperation = idOperation;
+        /*this.opcvm = opcvm;
+        this.actionnaire = actionnaire;
+        this.transaction = transaction;
+        this.natureOperation = natureOperation;*/
+        this.dateOperation = dateOperation;
+        this.libelleOperation = libelleOperation;
+        this.dateValeur = dateValeur;
     }
 
     public Long getIdActionnaire() {

@@ -51,13 +51,11 @@ public class PersonneMapper {
         if(personne.getModeEtablissement2()!=null)
             personneDto.setModeEtablissementDto(modeEtablissementMapper.deModeEtablissement(
                     personne.getModeEtablissement2()));
-        if(personne.getStatutPersonnes() != null)
+        /*if(personne.getStatutPersonnes() != null)
         {
             personneDto.setStatutPersonnes(personne.getStatutPersonnes().stream()
                     .map(statutPersonne -> {
                         StatutPersonneDto statutPersonneDto = new StatutPersonneDto();
-                        /*statutPersonneDto.setPersonneDto(personneDto);*/
-
                         if(statutPersonne.getQualite() != null) {
                             QualiteDto qualiteDto = new QualiteDto();
                             qualiteDto.setIdQualite(statutPersonne.getQualite().getIdQualite());
@@ -80,7 +78,7 @@ public class PersonneMapper {
 
                         return statutPersonneDto;
                     }).collect(Collectors.toSet()));
-        }
+        }*/
         return personneDto;
     }
 
