@@ -3,12 +3,13 @@ package com.ged.dto.opcciel;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.ged.dto.opcciel.comptabilite.OperationDto;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class OperationCommissionDto extends OperationDto {
     private LocalDateTime dateSolde;
-    private Double montantCommission;
+    private BigDecimal montantCommission;
     private String typeCommission;
 
     public OperationCommissionDto() {
@@ -22,11 +23,11 @@ public class OperationCommissionDto extends OperationDto {
         this.dateSolde = dateSolde;
     }
 
-    public Double getMontantCommission() {
+    public BigDecimal getMontantCommission() {
         return montantCommission;
     }
 
-    public void setMontantCommission(Double montantCommission) {
+    public void setMontantCommission(BigDecimal montantCommission) {
         this.montantCommission = montantCommission;
     }
 

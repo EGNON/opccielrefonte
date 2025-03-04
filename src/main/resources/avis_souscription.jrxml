@@ -50,7 +50,7 @@
 	<field name="montantDepose" class="java.math.BigDecimal">
 	</field>
 	<group name="codeNatureOparation" keepTogether="true">
-		<expression><![CDATA[$F{codeNatureOperation}]]></expression>
+		<expression><![CDATA[$F{codeNatureOperation} + $F{idOperation}]]></expression>
 		<groupHeader>
 			<band height="269">
 				<element kind="frame" uuid="14167dda-5cb1-44c7-acd0-d62828e6a6c9" x="0" y="41" width="555" height="139">

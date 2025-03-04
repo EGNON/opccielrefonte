@@ -5,12 +5,14 @@ import com.ged.entity.opcciel.Opcvm;
 import com.ged.entity.standard.Personne;
 import com.ged.entity.titresciel.Titre;
 import jakarta.persistence.*;
+import lombok.experimental.SuperBuilder;
 import org.springframework.data.domain.Persistable;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+@SuperBuilder
 @Entity
 @Inheritance(strategy=InheritanceType.JOINED)
 @DiscriminatorColumn(name = "typeOp", discriminatorType = DiscriminatorType.STRING)

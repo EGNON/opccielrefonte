@@ -17,7 +17,7 @@ public interface RegistreActionnaireProjection {
     BigDecimal getValeurLiquidativeActuelle();
     BigDecimal getValorisation();
     BigDecimal getSoldeEspece();
-    BigDecimal getCUMP();
-    BigDecimal getPlusMoinsValue();
+    Integer getCump();
+    Integer getPlusMoinsValue();
     String getTypePersonne();
 }

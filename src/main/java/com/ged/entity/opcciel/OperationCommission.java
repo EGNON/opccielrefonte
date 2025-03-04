@@ -4,10 +4,18 @@ import com.ged.entity.opcciel.comptabilite.Operation;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+@Data
+@SuperBuilder
+@NoArgsConstructor
+@EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "T_OperationCommission", schema = "Operation")
 public class OperationCommission extends Operation {
@@ -15,31 +23,4 @@ public class OperationCommission extends Operation {
     @Column(precision = 18, scale = 6)
     private BigDecimal montantCommission;
     private String typeCommission;
-
-    public OperationCommission() {
-    }
-
-    public LocalDateTime getDateSolde() {
-        return dateSolde;
-    }
-
-    public void setDateSolde(LocalDateTime dateSolde) {
-        this.dateSolde = dateSolde;
-    }
-
-    public BigDecimal getMontantCommission() {
-        return montantCommission;
-    }
-
-    public void setMontantCommission(BigDecimal montantCommission) {
-        this.montantCommission = montantCommission;
-    }
-
-    public String getTypeCommission() {
-        return typeCommission;
-    }
-
-    public void setTypeCommission(String typeCommission) {
-        this.typeCommission = typeCommission;
-    }
 }

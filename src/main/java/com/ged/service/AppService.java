@@ -5,15 +5,9 @@ import com.ged.dao.opcciel.comptabilite.*;
 import com.ged.dao.security.UtilisateurDao;
 import com.ged.dao.standard.PersonneDao;
 import com.ged.datatable.DataTablesResponse;
-import com.ged.dto.opcciel.OperationConstatationChargeDto;
-import com.ged.dto.opcciel.OperationRestitutionReliquatDto;
-import com.ged.dto.opcciel.OperationSouscriptionRachatDto;
-import com.ged.dto.opcciel.OperationTransfertPartDto;
+import com.ged.dto.opcciel.*;
 import com.ged.dto.opcciel.comptabilite.OperationDto;
-import com.ged.dto.request.ChargerLigneMvtRequest;
-import com.ged.dto.request.OperationTransfertPartRequest;
-import com.ged.dto.request.PrecalculSouscriptionRequest;
-import com.ged.dto.request.SoldeToutCompteRequest;
+import com.ged.dto.request.*;
 import com.ged.entity.opcciel.*;
 import com.ged.entity.opcciel.comptabilite.*;
 import com.ged.entity.security.Utilisateur;
@@ -21,27 +15,37 @@ import com.ged.entity.standard.Personne;
 import com.ged.mapper.opcciel.*;
 import com.ged.projection.LigneMvtClotureProjection;
 import com.ged.projection.PrecalculSouscriptionProjection;
+import com.ged.projection.RegistreActionnaireProjection;
 import com.ged.response.ResponseHandler;
 import com.ged.service.opcciel.IbService;
 import com.ged.service.opcciel.OpcvmService;
 import com.ged.service.opcciel.PlanService;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ResourceUtils;
 import org.springframework.util.StringUtils;
 
+import java.io.File;
+import java.io.InputStream;
 import java.math.BigDecimal;
 import java.security.Principal;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @RequiredArgsConstructor
 @Service
@@ -69,11 +73,14 @@ public class AppService {
     private final OperationRestitutionReliquatMapper operationRestitutionReliquatMapper;
     private final OperationTransfertPartMapper transfertPartMapper;
     private final OperationConstatationChargeMapper constatationChargeMapper;
+    private final OperationCommissionMapper commissionMapper;
 
     public Utilisateur currentUser(Principal principal) {
         String username = principal.getName();
         return utilisateurDao.findByUsernameAndEstActif(username, true).orElse(null);
     }
+
+
 
     //Récupération séance en cours
     public SeanceOpcvm currentSeance(Long idOpcvm) {
@@ -85,7 +92,7 @@ public class AppService {
         try {
             String codePlan = "PCIA";
             String numCompteComptable = "";
-            switch (request.getCodeCharge().trim()) {
+            switch (request.getCode().trim()) {
                 case "FRAISDEPOSIT" -> {
                     numCompteComptable = "3062100";
                 }
@@ -100,6 +107,15 @@ public class AppService {
                 }
                 case "FRAISGEST" -> {
                     numCompteComptable = "3061100";
+                }
+                case "RACHAT" -> {
+                    numCompteComptable = "3052200";
+                }
+                case "SOUSCRIPTION" -> {
+                    numCompteComptable = "3052100";
+                }
+                case "TAFA" -> {
+                    numCompteComptable = "3356101";
                 }
                 default -> {
                 }
@@ -769,6 +785,123 @@ public class AppService {
         return constatationChargeMapper.deEntite(operation);
     }
 
+    //Prise en charge comptable des paiements de commission et taxes
+    public OperationCommissionDto genererEcritureComptable(OperationCommissionDto op) {
+        //Création de la transaction
+        Transaction transaction = new Transaction();
+        Long idTransaction = transactionDao.getIdTransactionByCodeAndDate(
+                op.getOpcvm().getIdOpcvm(),
+                op.getNatureOperation().getCodeNatureOperation(),
+                op.getDateOperation()
+        );
+        if(idTransaction == null || idTransaction.equals(0L)) {
+            transaction.setDateTransaction(op.getDateOperation());
+            transaction.setOpcvm(opcvmMapper.deOpcvmDto(op.getOpcvm()));
+            transaction.setIdSeance(op.getIdSeance());
+            transaction.setNatureOperation(natureOperationMapper.deNatureOperationDto(op.getNatureOperation()));
+            transaction.setDateDernModifClient(LocalDateTime.now());
+            transaction = transactionDao.save(transaction);
+            idTransaction = transaction.getIdTransaction();
+        }
+        else
+        {
+            transaction.setIdTransaction(idTransaction);
+        }
+        transaction.setEstVerifie(false);
+        op.setIdTransaction(idTransaction);
+        //Mettre à jour la valeur de la transaction dans opération
+        OperationCommission operation = commissionMapper.deDto(op);
+        operation.setTransaction(transaction);
+        operation.setDateDernModifClient(LocalDateTime.now());
+        operation.setDateDernModifServeur(LocalDateTime.now());
+        operation = em.merge(operation);
+
+        //Récupérer les mouvements
+        ChargerLigneMvtRequest chargerLigneMvtRequest = new ChargerLigneMvtRequest(
+                operation.getNatureOperation() != null ? operation.getNatureOperation().getCodeNatureOperation() : null,
+                operation.getValeurCodeAnalytique(),
+                operation.getValeurFormule(),
+                operation.getOpcvm() != null ? operation.getOpcvm().getIdOpcvm() : null,
+                operation.getActionnaire() != null ? operation.getActionnaire().getIdPersonne() : null,
+                operation.getTitre() != null ? operation.getTitre().getIdTitre() : null,
+                operation
+        );
+        List<Mouvement> mouvements = chargerLigneMvt(chargerLigneMvtRequest);
+
+        //Insertion des formules et leurs valeurs
+        String[] tabsFormules = op.getValeurFormule().split(";");
+        Map<String, String> formules = new HashMap<>();
+        for (String code : tabsFormules) {
+            String[] tabFormules = code.split(":");
+            for (int i = 0; i < tabFormules.length; i++) {
+                if((i+1) < tabFormules.length) {
+                    formules.put(tabFormules[i], tabFormules[i + 1]);
+                    OperationFormule operationFormule = new OperationFormule();
+                    CleOperationFormule cle = new CleOperationFormule();
+                    cle.setIdFormule(Long.valueOf(tabFormules[i]));
+                    cle.setIdOperation(operation.getIdOperation());
+                    operationFormule.setIdOperationFormule(cle);
+                    Formule formule = formuleDao.findById(Long.valueOf(tabFormules[i])).orElse(null);
+                    Formule formule1 = new Formule();
+                    formule1.setIdFormule(Long.valueOf(tabFormules[i]));
+                    operationFormule.setFormule(formule);
+                    Operation op1 = new Operation();
+                    op1.setIdOperation(operation.getIdOperation());
+                    operationFormule.setOperation(operation);
+//                    operationFormule.setValeur(BigDecimal.valueOf(Long.parseLong(tabFormules[i + 1])));
+                    operationFormule.setValeur(new BigDecimal(tabFormules[i + 1]));
+                    operationFormule.setDateDernModifClient(LocalDateTime.now());
+                    operationFormuleDao.save(operationFormule);
+                }
+            }
+        }
+
+        //Insertion des codes analytiques et leurs valeurs
+        String[] tabCodeAnalytiques = op.getValeurCodeAnalytique().split(";");
+        Map<String, String> codesAnalytiques = new HashMap<>();
+        for (String code : tabCodeAnalytiques) {
+            String[] tabFormules = code.split(":");
+            for (int i = 0; i < tabFormules.length; i++) {
+                if((i+1) < tabFormules.length) {
+                    codesAnalytiques.put(tabFormules[i], tabFormules[i + 1]);
+                    CleOperationCodeAnalytique cle = new CleOperationCodeAnalytique();
+                    cle.setIdOperation(operation.getIdOperation());
+                    cle.setCodeAnalytique(tabFormules[i + 1]);
+                    cle.setTypeCodeAnalytique(tabFormules[i]);
+                    OperationCodeAnalytique operationCodeAnalytique = new OperationCodeAnalytique();
+                    operationCodeAnalytique.setIdOperationCodeAnalytique(cle);
+                    operationCodeAnalytique.setOperation(operation);
+                    operationCodeAnalytique.setDateDernModifClient(LocalDateTime.now());
+                    operationCodeAnalytiqueDao.save(operationCodeAnalytique);
+                }
+            }
+        }
+
+        //Insertion des lignes de mouvement
+        mouvementDao.saveAll(mouvements);
+
+        //Journalisation comptable de l'opération
+        String codeJournal = mouvementDao.getCodeJournalByIdOp(operation.getIdOperation());
+        if(!StringUtils.hasLength(codeJournal)) {
+            if (operation.getNatureOperation() != null) {
+                codeJournal = natureOperationDao.getCodeJournalByCodeNatureOp(operation.getNatureOperation().getCodeNatureOperation());
+            }
+        }
+        OperationJournal operationJournal = new OperationJournal();
+        CleOperationJournal cle = new CleOperationJournal();
+        cle.setIdOperation(operation.getIdOperation());
+        cle.setCodeJournal(codeJournal);
+        operationJournal.setIdOperationJournal(cle);
+        Journal journal = journalDao.findById(codeJournal).orElse(null);
+        operationJournal.setJournal(journal);
+        operationJournal.setOperation(operation);
+        operationJournal.setDateDernModifClient(LocalDateTime.now());
+        operationJournal.setDateCreationServeur(LocalDateTime.now());
+        operationJournalDao.save(operationJournal);
+
+        return commissionMapper.deEntite(operation);
+    }
+
     //Récupération des détails d'une opération comptable
     public ResponseEntity<Object> afficherDetailsEcriture(Long idOperation) {
         try {
@@ -786,12 +919,69 @@ public class AppService {
     }
 
     //Récupération du régistre de l'actionnaire
-    public ResponseEntity<?> registreActionnaire(OperationTransfertPartRequest request) {
+    public ResponseEntity<?> registreActionnaire(RegistreActionnaireRequest request) {
         try {
+            return ResponseHandler.generateResponse(
+                "Registre actionnaire",
+                HttpStatus.OK,
+                libraryDao.registreActionnaire(
+                    request.getIdOpcvm(),
+                    request.getIdActionnaire(),
+                    request.getDateEstimation()
+                )
+            );
+        }
+        catch(Exception e) {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e);
+        }
+    }
+
+    public ResponseEntity<?> registreActionnaires(RegistreActionnaireRequest request) {
+        var parameters = request.getDatatableParameters();
+        try {
+            Pageable pageable = PageRequest.of(parameters.getStart()/ parameters.getLength(), parameters.getLength());
+            Page<RegistreActionnaireProjection> registreActionnairesPage;
+            if(parameters.getSearch() != null && !parameters.getSearch().getValue().isEmpty()) {
+                registreActionnairesPage = new PageImpl<>(new ArrayList<>());
+            }
+            else {
+                registreActionnairesPage = libraryDao.registreActionnaires(
+                    request.getIdOpcvm(),
+                    request.getIdActionnaire(),
+                    request.getDateEstimation(),
+                    pageable
+                );
+            }
+            List<RegistreActionnaireProjection> content = registreActionnairesPage.getContent().stream().toList();
+            DataTablesResponse<RegistreActionnaireProjection> dataTablesResponse = new DataTablesResponse<>();
+            dataTablesResponse.setDraw(parameters.getDraw());
+            dataTablesResponse.setRecordsFiltered((int)registreActionnairesPage.getTotalElements());
+            dataTablesResponse.setRecordsTotal((int)registreActionnairesPage.getTotalElements());
+            dataTablesResponse.setData(content);
             return ResponseHandler.generateResponse(
                     "Registre actionnaire",
                     HttpStatus.OK,
-                    libraryDao.registreActionnaire(
+                    dataTablesResponse
+            );
+        }
+        catch(Exception e) {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e);
+        }
+    }
+
+    //Récupération du cump de l'actionnaire
+    public ResponseEntity<?> cumpActionnaire(CumpRequest request) {
+        try {
+            return ResponseHandler.generateResponse(
+                    "Cump actionnaire",
+                    HttpStatus.OK,
+                    libraryDao.cumpActionnaire(
                             request.getIdOpcvm(),
                             request.getIdActionnaire(),
                             request.getDateEstimation()
@@ -805,19 +995,30 @@ public class AppService {
         }
     }
 
-    //Récupération du cump de l'actionnaire
-    public ResponseEntity<?> cumpActionnaire(OperationTransfertPartRequest request) {
+    public ResponseEntity<Object> registreActionnaireExportJasperReport(
+            HttpServletResponse response, RegistreActionPDFRequest request) {
         try {
+            List<RegistreActionnaireProjection> list = libraryDao.registreActionnaire(
+                request.getIdOpcvm(),
+                request.getIdActionnaire(),
+                request.getDateEstimation()
+            );
+            Map<String, Object> parameters = new HashMap<>();
+            DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
+            String letterDate = dateFormatter.format(new Date());
+            parameters.put("letterDate", letterDate);
+            File file = ResourceUtils.getFile("classpath:registre_actionnaire.jrxml");
+            JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
+            JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(list);
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);//
+            JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());
             return ResponseHandler.generateResponse(
-                    "Cump actionnaire",
+                    "PDF Régistre Actionnaire",
                     HttpStatus.OK,
-                    libraryDao.cumpActionnaire(
-                            request.getIdOpcvm(),
-                            request.getIdActionnaire(),
-                            request.getDateEstimation()
-                    ));
+                    list);
         }
-        catch(Exception e) {
+        catch(Exception e)
+        {
             return ResponseHandler.generateResponse(
                     e.getMessage(),
                     HttpStatus.MULTI_STATUS,

@@ -429,7 +429,7 @@ public class OperationSouscriptionRachatServiceImpl implements OperationSouscrip
             BigDecimal mBrut = list.stream()
                     .map(x -> (x.getCoursVL().multiply(x.getNombrePartSousRachat())).add(BigDecimal.valueOf(0)))
                     .reduce(BigDecimal.ZERO, BigDecimal::add);
-            list.stream().collect(Collectors.groupingBy(AvisOperationProjection::getCodeNatureOperation));
+            //list.stream().collect(Collectors.groupingBy(AvisOperationProjection::getCodeNatureOperation));
             System.out.println("Montant brut = " + mBrut);
             Map<String, Object> parameters = new HashMap<>();
             DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");

@@ -1,6 +1,7 @@
 package com.ged.mapper.opcciel;
 
 import com.ged.dto.opcciel.comptabilite.OperationDto;
+import com.ged.dto.response.ConsultattionEcritureRes;
 import com.ged.entity.opcciel.comptabilite.Operation;
 import com.ged.mapper.standard.PersonneMapper;
 import org.springframework.beans.BeanUtils;
@@ -18,6 +19,19 @@ public class OperationMapper {
         this.natureOperationMapper = natureOperationMapper;
         this.personneMapper = personneMapper;
         this.transactionMapper = transactionMapper;
+    }
+
+    public ConsultattionEcritureRes deEntite(Operation operation) {
+        if(operation == null) {
+            return null;
+        }
+        ConsultattionEcritureRes ecritureRes = new ConsultattionEcritureRes();
+        BeanUtils.copyProperties(operation, ecritureRes);
+        ecritureRes.setOpcvm(operation.getOpcvm());
+        ecritureRes.setNatureOperation(operation.getNatureOperation());
+        ecritureRes.setActionnaire(operation.getActionnaire());
+        ecritureRes.setTransaction(operation.getTransaction());
+        return ecritureRes;
     }
 
     public OperationDto deOperation(Operation operation) {

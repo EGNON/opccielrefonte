@@ -2,18 +2,22 @@ package com.ged.entity.opcciel;
 
 import com.ged.entity.opcciel.comptabilite.Operation;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-@EqualsAndHashCode(callSuper = true)
 @Data
-@AllArgsConstructor
+@SuperBuilder
 @NoArgsConstructor
+@EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "T_OperationConstatationCharge", schema = "Operation")
 public class OperationConstatationCharge extends Operation {

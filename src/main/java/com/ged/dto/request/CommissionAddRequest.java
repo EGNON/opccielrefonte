@@ -1,12 +1,10 @@
 package com.ged.dto.request;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.ged.dto.opcciel.ChargeDto;
 import com.ged.dto.opcciel.OpcvmDto;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
+import com.ged.dto.opcciel.comptabilite.NatureOperationDto;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -14,19 +12,17 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Data
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ConstitutionChargeAddRequest {
-    private Long idOperation;
-    private Long idSeance;
+public class CommissionAddRequest {
     private OpcvmDto opcvm;
-    private ChargeDto charge;
+    private Long idSeance;
+    private NatureOperationDto natureOperation;
+    private BigDecimal montantCommission;
     private BigDecimal montant;
-    /*@NotBlank(message = "Le montant réel est obligatoire")
-    @NotEmpty(message = "Le montant réel doit être > 0")*/
-    private BigDecimal montantCharge;
+    private String typeCommission;
+    @NotNull(message = "La date est obligatoire")
     private LocalDateTime dateOperation;
     private LocalDateTime dateSolde;
     private LocalDateTime datePiece;

@@ -1,8 +1,8 @@
 package com.ged.controller.opcciel;
 
-import com.ged.dto.opcciel.OperationConstatationChargeDto;
+import com.ged.dto.request.ConstatationChargeEditRequest;
 import com.ged.dto.request.ConstatationChargeListeRequest;
-import com.ged.dto.request.ConstitutionChargeAddRequest;
+import com.ged.dto.request.ConstatationChargeAddRequest;
 import com.ged.service.opcciel.OperationConstatationChargeService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -23,7 +23,12 @@ public class OperationConstatationChargeController {
     }
 
     @PostMapping
-    public ResponseEntity<?> creerConstatationCharge(@RequestBody @Valid ConstitutionChargeAddRequest request) {
+    public ResponseEntity<?> creerConstatationCharge(@RequestBody ConstatationChargeAddRequest request) {
         return constatationChargeService.creer(request);
+    }
+
+    @PutMapping("/{idOperation}")
+    public ResponseEntity<?> modifierConstatationCharge(@RequestBody @Valid ConstatationChargeEditRequest request) {
+        return constatationChargeService.modifier(request);
     }
 }

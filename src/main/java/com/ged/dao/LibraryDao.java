@@ -79,11 +79,31 @@ public interface LibraryDao extends JpaRepository<BaseEntity, Long> {
       @Param("idOperation") Long idOperation
     );
 
-    @Query(value = "select * from [Impressions].[FT_RegistreActionnaireReduit](:idOpcvm, :idActionnaire, :dateEstimation)", nativeQuery = true)
+    @Query(value = """
+                select * 
+                from [Impressions].[FT_RegistreActionnaireReduit](:idOpcvm, :idActionnaire, :dateEstimation)
+                order by typePersonne asc
+            """,
+            nativeQuery = true
+    )
     List<RegistreActionnaireProjection> registreActionnaire(
             @Param("idOpcvm") Long idOpcvm,
             @Param("idActionnaire") Long idActionnaire,
             @Param("dateEstimation") LocalDateTime dateEstimation
+    );
+
+    @Query(value = """
+                select * 
+                from [Impressions].[FT_RegistreActionnaireReduit](:idOpcvm, :idActionnaire, :dateEstimation)
+                order by typePersonne asc
+            """,
+            nativeQuery = true
+    )
+    Page<RegistreActionnaireProjection> registreActionnaires(
+            @Param("idOpcvm") Long idOpcvm,
+            @Param("idActionnaire") Long idActionnaire,
+            @Param("dateEstimation") LocalDateTime dateEstimation,
+            Pageable pageable
     );
 
     @Query(value = "select [Comptabilite].[FS_CUMP_ACT](:idOpcvm, :idActionnaire, :dateEstimation)", nativeQuery = true)

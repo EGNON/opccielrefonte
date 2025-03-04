@@ -1,15 +1,16 @@
 package com.ged.service.opcciel;
 
 import com.ged.dto.opcciel.OperationConstatationChargeDto;
+import com.ged.dto.request.ConstatationChargeEditRequest;
 import com.ged.dto.request.ConstatationChargeListeRequest;
-import com.ged.dto.request.ConstitutionChargeAddRequest;
-import com.ged.entity.opcciel.OperationTransfertPart;
+import com.ged.dto.request.ConstatationChargeAddRequest;
+import com.ged.entity.opcciel.OperationConstatationCharge;
 import org.springframework.http.ResponseEntity;
 
 public interface OperationConstatationChargeService {
-    ResponseEntity<Object> afficherTous(ConstatationChargeListeRequest request);
-    OperationTransfertPart afficherSelonId(Long id);
-    ResponseEntity<Object> creer(ConstitutionChargeAddRequest request);
-    ResponseEntity<Object> modifier(OperationConstatationChargeDto opDto);
-    ResponseEntity<Object> supprimer(Long id);
+    ResponseEntity<?> afficherTous(ConstatationChargeListeRequest request);
+    OperationConstatationCharge afficherSelonId(Long id);
+    ResponseEntity<?> creer(ConstatationChargeAddRequest request);
+    ResponseEntity<?> modifier(ConstatationChargeEditRequest request);
+    ResponseEntity<?> supprimer(Long id);
 }
