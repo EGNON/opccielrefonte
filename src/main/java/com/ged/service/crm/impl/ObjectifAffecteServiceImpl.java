@@ -1,13 +1,17 @@
 package com.ged.service.crm.impl;
 
 import com.ged.dao.crm.ObjectifAffecteDao;
-import com.ged.dto.crm.ObjectifAffecteDto;
-import com.ged.dto.crm.ObjectifAffecteEtatDto;
+import com.ged.dto.crm.*;
+import com.ged.dto.lab.reportings.BeginEndDateParameter;
 import com.ged.entity.crm.CleObjectifAffecte;
 import com.ged.entity.crm.ObjectifAffecte;
 import com.ged.mapper.crm.ObjectifAffecteMapper;
+import com.ged.projection.ObjectifAffecteProjection;
 import com.ged.service.crm.ObjectifAffecteService;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.servlet.http.HttpServletResponse;
+import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.data.domain.Page;
@@ -15,8 +19,16 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.ResourceUtils;
 
-import java.util.List;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -38,10 +50,31 @@ public class ObjectifAffecteServiceImpl implements ObjectifAffecteService {
     }
 
     @Override
-    public List<ObjectifAffecteEtatDto> afficherSelonPersonnelEtPeriodicite(long idPersonne, long idPeriodicite) {
-        return objectifAffecteDao.afficherSelonPersonnelEtPeriodicite(idPersonne,idPeriodicite).stream().map(
+    public List<ObjectifAffecteEtatDto> afficherSelonPersonnelEtPeriodicite(long idPersonne, BeginEndDateParameter beginEndDateParameter) {
+        System.out.println("dateDebut="+beginEndDateParameter.getStartDate());
+        System.out.println("dateFin="+beginEndDateParameter.getEndDate());
+        return objectifAffecteDao.afficherSelonPersonnelEtPeriodicite(idPersonne,beginEndDateParameter.getStartDate()
+                ,beginEndDateParameter.getEndDate()).stream().map(
                 objectifAffecteMapper::deObjectifAffecteEtat
         ).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ObjectifAffecteProjection> afficherSelonPersonnelEtPeriodiciteEtat(String etat,long idPersonne, BeginEndDateParameter beginEndDateParameter, HttpServletResponse response) throws IOException, JRException {
+        List<ObjectifAffecteProjection> list=objectifAffecteDao.afficherSelonPersonnelEtPeriodiciteEtat(idPersonne,beginEndDateParameter.getStartDate()
+                ,beginEndDateParameter.getEndDate()).stream().collect(Collectors.toList());
+
+        Map<String, Object> parameters = new HashMap<>();
+        DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
+        String letterDate = dateFormatter.format(new Date());
+        parameters.put("letterDate", letterDate);
+        File file = ResourceUtils.getFile("classpath:objectif_"+etat+".jrxml");
+        JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
+        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(list);
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport,parameters , dataSource);
+        JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());
+
+        return list;
     }
 
     @Override

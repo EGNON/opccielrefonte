@@ -46,7 +46,6 @@ public interface PersonneMoraleDao extends JpaRepository<PersonneMorale, Long> {
             "order by pm.raisonSociale asc")
     List<PersonneMorale> afficherPersonneMoraleNayantPasInvesti(String qualite, LocalDateTime dateDebut, LocalDateTime dateFin);
 
-
     @Query(value = "select pm from PersonneMorale as pm " +
             "inner join StatutPersonne as sp on sp.idStatutPersonne.idPersonne = pm.idPersonne " +
             "inner join Qualite as q on q.idQualite = sp.idStatutPersonne.idQualite " +

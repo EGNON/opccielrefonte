@@ -6,6 +6,8 @@ import com.ged.dao.standard.revuecompte.CategorieClientDao;
 import com.ged.dao.standard.revuecompte.SousTypeClientDao;
 import com.ged.datatable.DataTablesResponse;
 import com.ged.datatable.DatatableParameters;
+import com.ged.dto.crm.RDVDto;
+import com.ged.dto.crm.RDVEtatDto;
 import com.ged.entity.standard.revuecompte.CategorieClient;
 import com.ged.entity.standard.revuecompte.SousTypeClient;
 import com.ged.mapper.standard.DocumentMapper;
@@ -14,13 +16,18 @@ import com.ged.dao.crm.DegreDao;
 import com.ged.dto.standard.*;
 import com.ged.entity.crm.Degre;
 import com.ged.entity.standard.*;
+import com.ged.projection.FicheKYCProjection;
 import com.ged.projection.NumOrdreProjection;
+import com.ged.projection.PersonnePhysiqueProjection;
 import com.ged.response.ResponseHandler;
 import com.ged.service.standard.*;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.persistence.ParameterMode;
 import jakarta.persistence.StoredProcedureQuery;
+import jakarta.servlet.http.HttpServletResponse;
+import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,11 +42,17 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.ResourceUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -245,13 +258,65 @@ public class PersonnePhysiqueServiceImpl implements PersonnePhysiqueService {
     }
 
     @Override
+    public List<PersonnePhysiqueProjection> afficherSelonQualiteEtat(String qualite, HttpServletResponse response) throws IOException, JRException {
+//        List<PersonnePhysiqueDto> list = afficherSelonQualite(qualite);
+        List<PersonnePhysiqueProjection> list = personnePhysiqueDao.afficherPersonnePhysiqueSelonQualiteEtat(qualite).stream().collect(Collectors.toList());
+
+        Map<String, Object> parameters = new HashMap<>();
+        DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
+        String letterDate = dateFormatter.format(new Date());
+        parameters.put("letterDate", letterDate);
+        File file = ResourceUtils.getFile("classpath:"+qualite.toLowerCase()+"_Physique.jrxml");
+        JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
+        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(list);
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport,parameters, dataSource);
+        JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());
+
+        return list;
+    }
+
+    @Override
     public List<PersonnePhysiqueDto> afficherPersonnePhysiqueNayantPasInvesti(String qualite, LocalDateTime dateDebut, LocalDateTime dateFin) {
         return personnePhysiqueDao.afficherPersonnePhysiqueNayantPasInsvesti(qualite, dateDebut, dateFin).stream().map(personnePhysiqueMapper::dePersonnePhysique).collect(Collectors.toList());
     }
 
     @Override
+    public List<PersonnePhysiqueProjection> afficherPersonnePhysiqueNayantPasInvestiEtat(String qualite, LocalDateTime dateDebut, LocalDateTime dateFin, HttpServletResponse response) throws JRException, IOException {
+        List<PersonnePhysiqueProjection> list = personnePhysiqueDao.afficherPersonnePhysiqueNayantPasInsvestiEtat(qualite,dateDebut,dateFin).stream().collect(Collectors.toList());
+
+        Map<String, Object> parameters = new HashMap<>();
+        DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
+        String letterDate = dateFormatter.format(new Date());
+        parameters.put("letterDate", letterDate);
+        File file = ResourceUtils.getFile("classpath:Client_Physique_Non_Investi.jrxml");
+        JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
+        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(list);
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport,parameters, dataSource);
+        JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());
+
+        return list;
+    }
+
+    @Override
     public PersonnePhysique afficherPersonnePhysiqueSelonId(long idPersonne) {
         return personnePhysiqueDao.findById(idPersonne).orElseThrow(() -> new EntityNotFoundException("Personne physique avec ID " + idPersonne + " est introuvable"));
+    }
+
+    @Override
+    public List<FicheKYCProjection> afficherFicheKYC(long idPersonne, HttpServletResponse response) throws IOException, JRException {
+        List<FicheKYCProjection> list = personnePhysiqueDao.afficherFicheKYC(idPersonne).stream().collect(Collectors.toList());
+
+        Map<String, Object> parameters = new HashMap<>();
+        DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
+        String letterDate = dateFormatter.format(new Date());
+        parameters.put("letterDate", letterDate);
+        File file = ResourceUtils.getFile("classpath:"+"fiche_KYC.jrxml");
+        JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
+        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(list);
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport,parameters, dataSource);
+        JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());
+
+        return list;
     }
 
     @Override
