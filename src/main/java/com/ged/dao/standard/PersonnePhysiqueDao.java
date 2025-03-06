@@ -1,7 +1,9 @@
 package com.ged.dao.standard;
 
 import com.ged.entity.standard.PersonnePhysique;
+import com.ged.projection.FicheKYCProjection;
 import com.ged.projection.NumOrdreProjection;
+import com.ged.projection.PersonnePhysiqueProjection;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -29,6 +31,53 @@ public interface PersonnePhysiqueDao extends JpaRepository<PersonnePhysique, Lon
             "on q.idQualite = sp.idStatutPersonne.idQualite where q.libelleQualite = :qualite " +
             "order by ph.nom asc,ph.prenom asc")
     List<PersonnePhysique> afficherPersonnePhysiqueSelonQualite(@Param("qualite") String qualite);
+
+    @Query(value = "select ph.nom as nom," +
+            "ph.prenom as prenom,ph.Sexe as sexe,ph.mobile1 as mobile1 " +
+            "from PersonnePhysique as ph inner join StatutPersonne as sp " +
+            "on sp.idStatutPersonne.idPersonne = ph.idPersonne inner join Qualite as q " +
+            "on q.idQualite = sp.idStatutPersonne.idQualite where q.libelleQualite = :qualite " +
+            "order by ph.nom asc,ph.prenom asc")
+    List<PersonnePhysiqueProjection> afficherPersonnePhysiqueSelonQualiteEtat(@Param("qualite") String qualite);
+
+    @Query(value = "select   ph.autresRevenus as autresRevenus," +
+            "ph.periodicite as periodicite," +
+            "ph.statutMatrimonial as statutMatrimonial," +
+            "ph.nbrEnfant as nbrEnfant," +
+            "ph.nbrPersonneACharge as nbrPersonneACharge," +
+            "ph.nomEmployeur as nomEmployeur," +
+            "ph.adressePostaleEmp as adressePostaleEmp," +
+            "ph.adresseGeoEmp as adresseGeoEmp," +
+            "s.libelleSecteur as libelleSecteur," +
+            "ph.telEmp as telEmp," +
+            "ph.emailEmp as emailEmp," +
+            "ph.nomPere as nomPere," +
+            "ph.prenomsPere as prenomsPere," +
+            "ph.dateNaissancePere as dateNaissancePere," +
+            "pa1.libelleFr as paysPere," +
+            "ph.nomMere as nomMere," +
+            "ph.prenomsMere as prenomsMere," +
+            "ph.dateNaissanceMere as dateNaissanceMere," +
+            "pa2.libelleFr as paysMere," +
+            "ph.nomConjoint as nomConjoint," +
+            "ph.prenomConjoint as prenomConjoint," +
+            "ph.dateNaissanceConjoint as dateNaissanceConjoint," +
+            "pa3.libelleFr as paysConjoint," +
+            "ph.origineFonds as origineFonds," +
+            "ph.transactionEnvisagee as transactionEnvisagee," +
+            "ph.immobilier as immobilier," +
+            "ph.autresBiens as autresBiens," +
+            "ph.surfaceTotale as surfaceTotale," +
+            "ph.salaire as salaire," +
+            "ph.nom as nom," +
+            "ph.prenom as prenom " +
+            "from PersonnePhysique ph " +
+            "left outer join Secteur s on s.idSecteur=ph.secteurEmp.idSecteur " +
+            "left outer join Pays pa1 on pa1.idPays=ph.paysPere.idPays " +
+            "left outer join Pays pa2 on pa2.idPays=ph.paysMere.idPays " +
+            "left outer join Pays pa3 on pa3.idPays=ph.paysConjoint.idPays " +
+            "where ph.idPersonne=:idPersonne")
+    List<FicheKYCProjection> afficherFicheKYC(Long idPersonne);
 
     @Query(value = "select ph from PersonnePhysique as ph inner join StatutPersonne as sp " +
             "on sp.idStatutPersonne.idPersonne = ph.idPersonne inner join Qualite as q " +
@@ -82,6 +131,20 @@ public interface PersonnePhysiqueDao extends JpaRepository<PersonnePhysique, Lon
             "order by ph.nom asc,ph.prenom asc")
     List<PersonnePhysique> afficherPersonnePhysiqueNayantPasInsvesti(String qualite, LocalDateTime dateDebut, LocalDateTime dateFin);
 
+    @Query(value = "select ph.nom as nom," +
+            "ph.prenom as prenom,ph.Sexe as sexe,ph.mobile1 as mobile1 " +
+            "from PersonnePhysique as ph " +
+            "inner join StatutPersonne as sp on sp.idStatutPersonne.idPersonne = ph.idPersonne " +
+            "inner join Qualite as q on q.idQualite = sp.idStatutPersonne.idQualite " +
+            "where q.libelleQualite = :qualite " +
+            "and ph.idPersonne in(select r.personne.idPersonne " +
+            "from RDV r " +
+            "inner join CompteRendu cr on cr.rdv.idRdv=r.idRdv " +
+            "where cr.dateCR between :dateDebut and :dateFin " +
+            "group by r.personne.idPersonne " +
+            "having  (sum(cr.montantRealisation) =0)) " +
+            "order by ph.nom asc,ph.prenom asc")
+    List<PersonnePhysiqueProjection> afficherPersonnePhysiqueNayantPasInsvestiEtat(@Param("qualite") String qualite, LocalDateTime dateDebut, LocalDateTime dateFin);
     @Query(value = "select ph from PersonnePhysique as ph " +
             "inner join StatutPersonne as sp on sp.idStatutPersonne.idPersonne = ph.idPersonne " +
             "inner join Qualite as q on q.idQualite = sp.idStatutPersonne.idQualite " +

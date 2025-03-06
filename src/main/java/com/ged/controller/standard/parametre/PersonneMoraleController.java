@@ -4,15 +4,22 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.ged.datatable.DataTablesResponse;
 import com.ged.datatable.DatatableParameters;
 import com.ged.dto.standard.PersonneMoraleDto;
+import com.ged.projection.PersonnePhysiqueProjection;
 import com.ged.service.standard.PersonneMoraleService;
 import jakarta.annotation.PostConstruct;
+import jakarta.servlet.http.HttpServletResponse;
+import net.sf.jasperreports.engine.JRException;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.data.domain.Page;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 @CrossOrigin(origins = "*")
@@ -37,13 +44,37 @@ public class PersonneMoraleController {
     {
         return personneMoraleService.afficherSelonQualite(qualite);
     }
+    @GetMapping("/qualite/etat/{qualite}")
+    public List<PersonneMoraleDto> afficherSelonQualiteEtat(@PathVariable String qualite, HttpServletResponse response) throws JRException, IOException {
+        response.setContentType("application/pdf");
+        DateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy:hh:mm:ss");
+        String currentDateTime = dateFormatter.format(new Date());
 
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename="+qualite.toLowerCase()+"_morale" + currentDateTime + ".pdf";
+        response.setHeader(headerKey, headerValue);
+        return personneMoraleService.afficherSelonQualiteEtat(qualite,response);
+    }
     @GetMapping("investi/{qualite}/{dateDebut}/{dateFin}")
     public List<PersonneMoraleDto> afficherPersonneMoraleNayantPasInvesti(@PathVariable("qualite") String qualite,
                                                                           @PathVariable("dateDebut") LocalDateTime dateDebut,
                                                                           @PathVariable("dateFin") LocalDateTime dateFin)
     {
         return personneMoraleService.afficherPersonneMoraleNayantPasInvesti(qualite,dateDebut,dateFin);
+    }
+    @GetMapping("investietat/{qualite}/{dateDebut}/{dateFin}")
+    public List<PersonneMoraleDto> afficherPersonneMoraleNayantPasInvestiEtat(@PathVariable("qualite") String qualite,
+                                                                          @PathVariable("dateDebut") LocalDateTime dateDebut,
+                                                                          @PathVariable("dateFin") LocalDateTime dateFin,
+                                                                          HttpServletResponse response) throws JRException, IOException {
+        response.setContentType("application/pdf");
+        DateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy:hh:mm:ss");
+        String currentDateTime = dateFormatter.format(new Date());
+
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=client_morale_Nayant_pas_investi" + currentDateTime + ".pdf";
+        response.setHeader(headerKey, headerValue);
+        return personneMoraleService.afficherPersonneMoraleNayantPasInvestiEtat(qualite,dateDebut,dateFin,response);
     }
 
     @GetMapping("{id}")

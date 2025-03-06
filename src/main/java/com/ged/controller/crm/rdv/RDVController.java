@@ -4,14 +4,21 @@ import com.ged.dao.crm.RDVDao;
 import com.ged.datatable.DataTablesResponse;
 import com.ged.datatable.DatatableParameters;
 import com.ged.dto.crm.RDVDto;
+import com.ged.dto.crm.RDVEtatDto;
 import com.ged.mapper.crm.RDVMapper;
 import com.ged.service.crm.AgentConcerneService;
 import com.ged.service.crm.RDVService;
+import jakarta.servlet.http.HttpServletResponse;
+import net.sf.jasperreports.engine.JRException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -37,6 +44,28 @@ public class RDVController {
     @GetMapping("/listerdvs")
     public List<RDVDto> afficherTous(){
         return rdvService.afficherRDVsSurCR();
+    }
+
+    @GetMapping("/listerdvsetat")
+    public List<RDVDto> afficherRDVListe(){
+        return rdvService.afficherRDVListe();
+    }
+
+    @GetMapping("/listerdvspersonnel/{idPersonnel}")
+    public List<RDVDto> afficherRDVListeSelonPersonnel(@PathVariable Long idPersonnel){
+        return rdvService.afficherRDVSelonPersonnel(idPersonnel);
+    }
+
+    @GetMapping("/listerdvs/{etat}")
+    public List<RDVEtatDto> afficherRDVEtat(@PathVariable String etat, HttpServletResponse response) throws JRException, IOException {
+        response.setContentType("application/pdf");
+        DateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy:hh:mm:ss");
+        String currentDateTime = dateFormatter.format(new Date());
+
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=rdv_liste_" + currentDateTime + ".pdf";
+        response.setHeader(headerKey, headerValue);
+        return rdvService.afficherRDVEtat(etat,response);
     }
 
     @GetMapping("/modelemsgalerte/{id}")

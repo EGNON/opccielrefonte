@@ -13,6 +13,7 @@ import com.ged.dto.standard.PersonneMoraleDto;
 import com.ged.entity.standard.revuecompte.CategorieClient;
 import com.ged.entity.standard.revuecompte.SousTypeClient;
 import com.ged.mapper.standard.PersonneMoraleMapper;
+import com.ged.projection.PersonnePhysiqueProjection;
 import com.ged.service.standard.EnvoiMailService;
 import com.ged.service.standard.MailService;
 import com.ged.service.standard.PersonneMoraleService;
@@ -20,6 +21,9 @@ import com.ged.dao.crm.DegreDao;
 import com.ged.entity.crm.Degre;
 import com.ged.entity.standard.*;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.servlet.http.HttpServletResponse;
+import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,14 +34,18 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.ResourceUtils;
 import org.springframework.util.StringUtils;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -152,6 +160,23 @@ public class PersonneMoraleServiceImpl implements PersonneMoraleService {
     @Override
     public Long afficherMaxNumordre(String valeur) {
         return personneMoraleDao.maxNumordre(valeur).getNumOrdre();
+    }
+
+    @Override
+    public List<PersonneMoraleDto> afficherSelonQualiteEtat(String qualite, HttpServletResponse response) throws IOException, JRException {
+        List<PersonneMoraleDto> list = personneMoraleDao.afficherPersonneMoraleSelonQualite(qualite).stream().map(personneMoraleMapper::dePersonneMorale).collect(Collectors.toList());
+
+        Map<String, Object> parameters = new HashMap<>();
+        DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
+        String letterDate = dateFormatter.format(new Date());
+        parameters.put("letterDate", letterDate);
+        File file = ResourceUtils.getFile("classpath:"+qualite.toLowerCase()+"_Morale.jrxml");
+        JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
+        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(list);
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport,parameters, dataSource);
+        JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());
+
+        return list;
     }
 
     @Override
@@ -769,5 +794,22 @@ public class PersonneMoraleServiceImpl implements PersonneMoraleService {
     @Override
     public List<PersonneMoraleDto> afficherPersonneMoraleNayantPasInvesti(String qualite, LocalDateTime dateDebut, LocalDateTime dateFin) {
         return personneMoraleDao.afficherPersonneMoraleNayantPasInvesti(qualite,dateDebut,dateFin).stream().map(personneMoraleMapper::dePersonneMorale).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<PersonneMoraleDto> afficherPersonneMoraleNayantPasInvestiEtat(String qualite, LocalDateTime dateDebut, LocalDateTime dateFin, HttpServletResponse response) throws IOException, JRException {
+        List<PersonneMoraleDto> list = personneMoraleDao.afficherPersonneMoraleNayantPasInvesti(qualite,dateDebut,dateFin).stream().map(personneMoraleMapper::dePersonneMorale).collect(Collectors.toList());
+
+        Map<String, Object> parameters = new HashMap<>();
+        DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
+        String letterDate = dateFormatter.format(new Date());
+        parameters.put("letterDate", letterDate);
+        File file = ResourceUtils.getFile("classpath:Client_Morale_Non_Investi.jrxml");
+        JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
+        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(list);
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport,parameters, dataSource);
+        JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());
+
+        return list;
     }
 }

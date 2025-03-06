@@ -5,9 +5,14 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.ged.datatable.DataTablesResponse;
 import com.ged.datatable.DatatableParameters;
+import com.ged.dto.crm.RDVEtatDto;
 import com.ged.dto.standard.PersonnePhysiqueDto;
 import com.ged.dto.standard.PersonnePhysiqueDtoEJ;
+import com.ged.projection.FicheKYCProjection;
+import com.ged.projection.PersonnePhysiqueProjection;
 import com.ged.service.standard.PersonnePhysiqueService;
+import jakarta.servlet.http.HttpServletResponse;
+import net.sf.jasperreports.engine.JRException;
 import org.springframework.data.domain.Page;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +21,10 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 @CrossOrigin(origins = "*")
@@ -51,7 +59,43 @@ public class PersonnePhysiqueController {
     {
         return personnePhysiqueService.afficherSelonQualite(qualite);
     }
+    @GetMapping("/qualite/etat/{qualite}")
+    public List<PersonnePhysiqueProjection> afficherSelonQualiteEtat(@PathVariable String qualite, HttpServletResponse response) throws JRException, IOException {
+        response.setContentType("application/pdf");
+        DateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy:hh:mm:ss");
+        String currentDateTime = dateFormatter.format(new Date());
 
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename="+qualite.toLowerCase()+"_physique"+  currentDateTime + ".pdf";
+        response.setHeader(headerKey, headerValue);
+        return personnePhysiqueService.afficherSelonQualiteEtat(qualite,response);
+    }
+    @GetMapping("/fichekyc/{idPersonne}")
+        public List<FicheKYCProjection> afficherFicheKYC(@PathVariable Long idPersonne, HttpServletResponse response) throws JRException, IOException {
+            response.setContentType("application/pdf");
+            DateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy:hh:mm:ss");
+            String currentDateTime = dateFormatter.format(new Date());
+
+            String headerKey = "Content-Disposition";
+            String headerValue = "attachment; filename=ficheKYC"+  currentDateTime + ".pdf";
+            response.setHeader(headerKey, headerValue);
+            return personnePhysiqueService.afficherFicheKYC(idPersonne,response);
+        }
+
+    @GetMapping("investietat/{qualite}/{dateDebut}/{dateFin}")
+    public List<PersonnePhysiqueProjection> afficherPersonnePhysiqueNayantPasInvestiEtat(@PathVariable("qualite") String qualite,
+                                                                          @PathVariable("dateDebut") LocalDateTime dateDebut,
+                                                                          @PathVariable("dateFin") LocalDateTime dateFin
+                                                                          , HttpServletResponse response) throws JRException, IOException {
+        response.setContentType("application/pdf");
+        DateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy:hh:mm:ss");
+        String currentDateTime = dateFormatter.format(new Date());
+
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=client_Physique_Nayant_pas_investi"+  currentDateTime + ".pdf";
+        response.setHeader(headerKey, headerValue);
+        return personnePhysiqueService.afficherPersonnePhysiqueNayantPasInvestiEtat(qualite,dateDebut,dateFin,response);
+    }
     @GetMapping("investi/{qualite}/{dateDebut}/{dateFin}")
     public List<PersonnePhysiqueDto> afficherPersonnePhysiqueNayantPasInvesti(@PathVariable("qualite") String qualite,
                                                                           @PathVariable("dateDebut") LocalDateTime dateDebut,

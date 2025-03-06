@@ -1,17 +1,24 @@
 package com.ged.service.crm;
 
 import com.ged.dto.crm.CompteRenduDto;
+import com.ged.dto.crm.CompteRenduEtatDto;
 import com.ged.dto.standard.CrStateRequest;
 import com.ged.entity.crm.CompteRendu;
+import jakarta.servlet.http.HttpServletResponse;
+import net.sf.jasperreports.engine.JRException;
 import org.springframework.data.domain.Page;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.text.ParseException;
 import java.time.LocalDateTime;
 import java.util.List;
 
 public interface CompteRenduService {
     Page<CompteRenduDto> afficherCompteRendus(int page, int size);
     List<CompteRenduDto> afficherTous();
+    List<CompteRenduEtatDto> afficherEtat(String idUtilisateur, HttpServletResponse response) throws IOException, JRException, ParseException;
     List<CompteRenduDto> afficherTousEtat();
     List<CompteRenduDto> afficherCompteRenduSelonUtilisateur(Long idUtilisateur);
     List<CompteRenduDto> afficherCompteRenduSelonRealisation(Long idUtilisateur, LocalDateTime dateDeb, LocalDateTime dateFin);

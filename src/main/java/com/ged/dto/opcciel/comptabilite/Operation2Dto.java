@@ -1,13 +1,14 @@
 package com.ged.dto.opcciel.comptabilite;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 public class Operation2Dto {
     private long idOperation;
     private String denomination;
     private String denominationOpcvm;
-    private double montantDepose;
-    private double total;
+    private BigDecimal montantDepose;
+    private BigDecimal total;
     private LocalDateTime datePremiereSouscription;
     private LocalDateTime dateOperation;
 
@@ -46,19 +47,19 @@ public class Operation2Dto {
         this.denominationOpcvm = denominationOpcvm;
     }
 
-    public double getMontantDepose() {
+    public BigDecimal getMontantDepose() {
         return montantDepose;
     }
 
-    public void setMontantDepose(double montantDepose) {
+    public void setMontantDepose(BigDecimal montantDepose) {
         this.montantDepose = montantDepose;
     }
 
-    public double getTotal() {
+    public BigDecimal getTotal() {
         return total;
     }
 
-    public void setTotal(double total) {
+    public void setTotal(BigDecimal total) {
         this.total = total;
     }
 

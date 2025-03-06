@@ -4,8 +4,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ged.datatable.DataTablesResponse;
 import com.ged.datatable.DatatableParameters;
 import com.ged.dto.crm.CompteRenduDto;
+import com.ged.dto.crm.CompteRenduEtatDto;
+import com.ged.dto.crm.RDVEtatDto;
 import com.ged.dto.standard.CrStateRequest;
 import com.ged.service.crm.CompteRenduService;
+import jakarta.servlet.http.HttpServletResponse;
+import net.sf.jasperreports.engine.JRException;
 import org.springframework.data.domain.Page;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -13,7 +17,11 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -34,6 +42,17 @@ public class CompteRenduController {
     public List<CompteRenduDto> afficherTous()
     {
         return compteRenduService.afficherTous();
+    }
+    @GetMapping("/cr/{etat}")
+    public List<CompteRenduEtatDto> afficherRDVEtat(@PathVariable String etat, HttpServletResponse response) throws JRException, IOException, ParseException {
+        response.setContentType("application/pdf");
+        DateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy:hh:mm:ss");
+        String currentDateTime = dateFormatter.format(new Date());
+
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=compteRendu_" + currentDateTime + ".pdf";
+        response.setHeader(headerKey, headerValue);
+        return compteRenduService.afficherEtat(etat,response);
     }
 
     @GetMapping("/etats/tous")

@@ -3,23 +3,38 @@ package com.ged.service.crm.impl;
 import com.ged.dao.crm.RDVDao;
 import com.ged.dao.standard.ModeleMsgAlerteDao;
 import com.ged.dto.crm.RDVDto;
+import com.ged.dto.crm.RDVEtatDto;
+import com.ged.dto.opcciel.OperationSouscriptionRachatDto;
 import com.ged.entity.crm.RDV;
 import com.ged.entity.standard.ModeleMsgAlerte;
 import com.ged.mapper.crm.RDVMapper;
+import com.ged.projection.AvisOperationProjection;
 import com.ged.projection.RDVProjection;
+import com.ged.response.ResponseHandler;
 import com.ged.service.crm.AgentConcerneService;
 import com.ged.service.crm.RDVService;
 import com.ged.service.standard.DocumentService;
 import com.ged.service.standard.EnvoiMailService;
 import com.ged.service.standard.MailService;
+import jakarta.servlet.http.HttpServletResponse;
+import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.ResourceUtils;
 
-import java.util.List;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.math.BigDecimal;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -78,6 +93,51 @@ public class RDVServiceImpl implements RDVService {
         ModeleMsgAlerte modeleMsgAlerte=new ModeleMsgAlerte();
         modeleMsgAlerte=modeleMsgAlerteDao.findById(idModele).orElseThrow();
         return rdvDao.findByModeleMsgAlerte(modeleMsgAlerte).stream().map(rdvMapper::deRDV).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<RDVDto> afficherRDVListe() {
+        return rdvDao.afficherRDVListe().stream().map(rdvMapper::deRDVProjection).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<RDVEtatDto> afficherRDVEtat(String etat, HttpServletResponse response) throws IOException, JRException {
+        List<RDVDto> list;
+        List<RDVEtatDto> listEtat=new ArrayList<>();
+        if(etat.equalsIgnoreCase("tous")) {
+            list = afficherRDVListe();
+        }
+        else
+        {
+            list=afficherRDVSelonPersonnel(Long.valueOf(etat));
+        }
+        for(RDVDto o:list){
+            RDVEtatDto rdvEtatDto=new RDVEtatDto();
+            rdvEtatDto.setDateDebRdv(o.getDateDebRdv());
+            rdvEtatDto.setDateFinRdv(o.getDateFinRdv());
+            rdvEtatDto.setHeureFinRdv(o.getHeureFinRdv().toString());
+            rdvEtatDto.setObjetRdv(o.getObjetRdv());
+            rdvEtatDto.setLibelleQuartier(o.getQuartierDto().getLibelleQuartier());
+            rdvEtatDto.setLibelleFr(o.getPaysDto().getLibelleFr());
+            rdvEtatDto.setDenomination(o.getDenomination());
+            listEtat.add(rdvEtatDto);
+        }
+        Map<String, Object> parameters = new HashMap<>();
+        DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
+        String letterDate = dateFormatter.format(new Date());
+        parameters.put("letterDate", letterDate);
+        File file = ResourceUtils.getFile("classpath:RDV.jrxml");
+        JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
+        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(listEtat);
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport,parameters , dataSource);
+        JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());
+
+        return listEtat;
+    }
+
+    @Override
+    public List<RDVDto> afficherRDVSelonPersonnel(Long idPersonnel) {
+        return rdvDao.afficherRDVListeSelonPersonnel(idPersonnel).stream().map(rdvMapper::deRDVProjection).collect(Collectors.toList());
     }
 
     @Override

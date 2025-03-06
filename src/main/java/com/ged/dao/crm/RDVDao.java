@@ -66,6 +66,57 @@ public interface RDVDao extends JpaRepository<RDV,Long> {
             "inner join Quartier q on q.idQuartier=r.quartier.idQuartier "+
             "inner join Arrondissement a on a.idArrondissement=q.arrondissement.idArrondissement "+
             "inner join Commune c on c.idCommune=a.commune.idCommune " +
+            "order by r.dateDebRdv asc,r.dateFinRdv asc,r.heureDebutRdv asc,r.heureFinRdv asc,r.objetRdv asc")
+    List<RDVProjection> afficherRDVListe();
+    @Query(value = "SELECT  " +
+            "pe.denomination AS denomination," +
+            "r.idRdv as idRdv," +
+            "r.dateDebRdv as dateDebRdv," +
+            "r.dateFinRdv as dateFinRdv," +
+            "r.heureFinRdv as heureFinRdv," +
+            "r.heureDebutRdv as heureDebutRdv," +
+            "r.dateDebReelle as dateDebReelle," +
+            "r.dateFinReelle as dateFinReelle," +
+            "r.heureFinReelle as heureFinReelle," +
+            "r.heureDebReelle as heureDebReelle," +
+            "r.objetRdv as objetRdv," +
+            "c as commune,"+
+            "r.pays as pays, "+
+            "r.personne as personne, "+
+            "r.quartier as quartier " +
+            "from RDV as r " +
+            "inner join Personne pe ON r.personne.idPersonne=pe.idPersonne " +
+            "inner join Pays p on p.idPays=r.pays.idPays "+
+            "inner join Quartier q on q.idQuartier=r.quartier.idQuartier "+
+            "inner join Arrondissement a on a.idArrondissement=q.arrondissement.idArrondissement "+
+            "inner join Commune c on c.idCommune=a.commune.idCommune " +
+            "inner join AgentConcerne ag on ag.rdv.idRdv=r.idRdv "+
+            "where ag.personnel.idPersonne=:idPersonnel "+
+            "order by r.dateDebRdv asc,r.dateFinRdv asc,r.heureDebutRdv asc,r.heureFinRdv asc,r.objetRdv asc")
+    List<RDVProjection> afficherRDVListeSelonPersonnel(Long idPersonnel);
+    @Query(value = "SELECT  " +
+            "COALESCE(pm.raisonSociale, CONCAT(pp.nom, ' ', pp.prenom)) AS denomination," +
+            "r.idRdv as idRdv," +
+            "r.dateDebRdv as dateDebRdv," +
+            "r.dateFinRdv as dateFinRdv," +
+            "r.heureFinRdv as heureFinRdv," +
+            "r.heureDebutRdv as heureDebutRdv," +
+            "r.dateDebReelle as dateDebReelle," +
+            "r.dateFinReelle as dateFinReelle," +
+            "r.heureFinReelle as heureFinReelle," +
+            "r.heureDebReelle as heureDebReelle," +
+            "r.objetRdv as objetRdv," +
+            "c as commune,"+
+            "r.pays as pays, "+
+            "r.personne as personne, "+
+            "r.quartier as quartier " +
+            "from RDV as r " +
+            "left outer join PersonnePhysique pp ON r.personne.idPersonne=pp.idPersonne " +
+            "left outer join PersonneMorale pm on r.personne.idPersonne=pm.idPersonne "+
+            "inner join Pays p on p.idPays=r.pays.idPays "+
+            "inner join Quartier q on q.idQuartier=r.quartier.idQuartier "+
+            "inner join Arrondissement a on a.idArrondissement=q.arrondissement.idArrondissement "+
+            "inner join Commune c on c.idCommune=a.commune.idCommune " +
             "where r.dateDebReelle is not null "+
             "order by r.dateDebRdv desc,r.dateFinRdv desc,r.heureDebutRdv desc,r.heureFinRdv desc,r.objetRdv asc")
     List<RDVProjection> afficherRDV();
