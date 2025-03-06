@@ -1,3 +1,4 @@
+<!-- Author: Romaric B. TOHOUNKPIN -->
 <!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 7.0.1-573496633c2b4074e32f433154b543003f7d2498  -->
 <jasperReport name="registre_actionnaire" language="java" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="50e8828a-3ac2-4dde-aa84-73d016892b24">
 	<parameter name="letterDate" class="java.lang.String"/>
