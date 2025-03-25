@@ -1,4 +1,4 @@
-package com.ged.validator.opcciel;
+package com.ged.validator;
 
 import com.ged.dto.opcciel.DepotRachatDto;
 import org.springframework.util.StringUtils;

@@ -22,6 +22,9 @@ public class ConsultattionEcritureRes {
     private String libelleOperation;
     private LocalDateTime dateValeur;
 
+    public ConsultattionEcritureRes() {
+    }
+
     public ConsultattionEcritureRes(
             Long idOperation, Long idActionnaire,
             Opcvm opcvm, Personne actionnaire,

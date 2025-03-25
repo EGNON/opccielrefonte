@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 
 @Entity
 @DiscriminatorValue("TRANS_PART")
-@PrimaryKeyJoinColumn(name = "idOperation")
+//@PrimaryKeyJoinColumn(name = "idOperation")
 @Table(name = "T_OperationTransfertPart", schema = "Operation")
 public class OperationTransfertPart extends Operation {
     @ManyToOne(cascade = CascadeType.ALL)
@@ -24,6 +24,10 @@ public class OperationTransfertPart extends Operation {
     @Column(precision = 18, scale = 6)
     private BigDecimal qteTransfert;
     private Long idOpDepart;
+
+    public OperationTransfertPart() {
+        super();
+    }
 
     public Personne getDemandeur() {
         return demandeur;
