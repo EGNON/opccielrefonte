@@ -7,6 +7,7 @@ import com.ged.datatable.DatatableParameters;
 import com.ged.dto.opcciel.DepotRachatDto;
 import com.ged.dto.opcciel.ImportationDepotDto;
 import com.ged.dto.opcciel.OperationSouscriptionRachatDto;
+import com.ged.dto.opcciel.comptabilite.Operation2Dto;
 import com.ged.dto.opcciel.comptabilite.VerifDepSouscriptionIntRachatDto;
 import com.ged.dto.request.DownloadRequest;
 import com.ged.dto.request.PrecalculSouscriptionRequest;
@@ -23,7 +24,9 @@ import com.ged.service.opcciel.DepotRachatService;
 import com.ged.service.opcciel.OpcvmService;
 import com.ged.service.opcciel.SeanceOpcvmService;
 import jakarta.annotation.Priority;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
+import net.sf.jasperreports.engine.JRException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,9 +34,13 @@ import org.springframework.web.bind.annotation.*;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.security.Principal;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -106,6 +113,35 @@ public class DepotRachatController {
         return depotRachatService.afficherFT_DepotRachat(idOpcvm,niveau1,niveau2);
     }
 
+    @GetMapping("/verifintrach/{idOpcvm}/{niveau1}/{niveau2}")
+    public List<FT_DepotRachatProjection> verifIntRach( @PathVariable Long idOpcvm,
+                                                                                   @PathVariable boolean niveau1,
+                                                                                   @PathVariable boolean niveau2,
+                                                                                  HttpServletResponse response) throws JRException, IOException {
+        response.setContentType("application/pdf");
+        DateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy:hh:mm:ss");
+        String currentDateTime = dateFormatter.format(new Date());
+
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=verification_intention_rachat" + currentDateTime + ".pdf";
+        response.setHeader(headerKey, headerValue);
+        return depotRachatService.verifIntentionRachat(idOpcvm,niveau1,niveau2,response);
+    }
+    @GetMapping("/verifintrachN1/{idOpcvm}/{niveau1}/{niveau2}")
+    public List<FT_DepotRachatProjection> verifIntRachN1N2( @PathVariable Long idOpcvm,
+                                                           @PathVariable boolean niveau1,
+                                                           @PathVariable boolean niveau2,
+                                                          HttpServletResponse response) throws JRException, IOException {
+        response.setContentType("application/pdf");
+        DateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy:hh:mm:ss");
+        String currentDateTime = dateFormatter.format(new Date());
+
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=verification_intention_rachat_N1_" + currentDateTime + ".pdf";
+        response.setHeader(headerKey, headerValue);
+        return depotRachatService.verifIntentionRachatN1N2(idOpcvm,niveau1,niveau2,response);
+    }
+
     @GetMapping("precalculrachat/{idSeance}/{idOpcvm}/{idPersonne}")
     public List<PrecalculRachatProjection> afficherPrecalculRachat(
                                                            @PathVariable Long idSeance,
@@ -144,10 +180,10 @@ public class DepotRachatController {
         return depotRachatService.modifier(depotRachatDto, type, id);
     }
 
-    @PostMapping("/creer")
-    public ResponseEntity<Object> creer(@RequestBody VerifDepSouscriptionIntRachatDto verifDepSouscriptionIntRachatDto)
+    @PostMapping("/modifier")
+    public ResponseEntity<Object> modifier(@RequestBody VerifDepSouscriptionIntRachatDto verifDepSouscriptionIntRachatDto)
     {
-        return depotRachatService.creer(verifDepSouscriptionIntRachatDto);
+        return depotRachatService.modifier(verifDepSouscriptionIntRachatDto);
     }
 
     @PostMapping("/creer/{id}/{userLogin}")

@@ -66,7 +66,7 @@ public class Operation2Controller {
         String currentDateTime = dateFormatter.format(new Date());
 
         String headerKey = "Content-Disposition";
-        String headerValue = "attachment; filename=dépôts_especes_recenses_sur_annee" + currentDateTime + ".pdf";
+        String headerValue = "attachment; filename=solde-detenu-par-un-meme-client" + currentDateTime + ".pdf";
         response.setHeader(headerKey, headerValue);
         return operationService.afficherDepotSurAnneeEtat(annee,response);
     }

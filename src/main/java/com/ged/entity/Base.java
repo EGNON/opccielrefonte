@@ -41,10 +41,10 @@ public abstract class Base implements Serializable {
     private byte[] rowvers;*/
     @CreatedBy
     @Column(nullable = false, updatable = false)
-    private Long creePar;
+    private Long creerPar;
     @LastModifiedBy
     @Column(insertable = false)
-    private Long modifiePar;
+    private Long modifierPar;
    /* @ManyToOne
     @JoinColumn(name = "idCreateur")
     private Utilisateur createur;*/

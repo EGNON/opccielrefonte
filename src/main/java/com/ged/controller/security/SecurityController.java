@@ -45,6 +45,7 @@ public class SecurityController {
         return authenticationService.login(loginRequest);
     }
 
+private final AuthenticationService authenticationService;
     @PatchMapping("change-password")
     public ResponseEntity<Object> changePassword(
             @RequestBody PasswordRequest passwordRequest, Principal connectedUser)

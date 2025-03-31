@@ -54,4 +54,5 @@ public interface DepotRachatDao extends JpaRepository<DepotRachat,Long> {
             @Param("idPersonne") Long idPersonne,
             List<String> codeNatureOpList
     );
+
 }

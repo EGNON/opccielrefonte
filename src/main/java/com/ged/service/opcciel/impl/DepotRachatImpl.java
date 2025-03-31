@@ -36,6 +36,10 @@ import com.ged.validator.DepotRachatValidator;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.ParameterMode;
 import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.StoredProcedureQuery;
+import jakarta.servlet.http.HttpServletResponse;
+import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -44,12 +48,16 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.ResourceUtils;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.math.BigDecimal;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -59,7 +67,7 @@ public class DepotRachatImpl implements DepotRachatService {
     @Qualifier("opccielEntityManagerFactory")
     private EntityManager emOpcciel;*/
     @PersistenceContext
-    EntityManager em;
+    private EntityManager em;
     private final DepotRachatDao depotRachatDao;
     private final OpcvmDao opcvmDao;
     private final NatureOperationDao natureOperationDao;
@@ -310,6 +318,44 @@ public class DepotRachatImpl implements DepotRachatService {
     }
 
     @Override
+    public List<FT_DepotRachatProjection> verifIntentionRachat(Long IdOpcvm, boolean niveau1, boolean niveau2, HttpServletResponse response) throws IOException, JRException {
+        SeanceOpcvm seanceOpcvm = seanceOpcvmService.afficherSeanceEnCours(IdOpcvm);
+        Long idSeance = seanceOpcvm.getIdSeanceOpcvm().getIdSeance();
+        List<FT_DepotRachatProjection> list = libraryDao.afficherFT_DepotRachat(idSeance,
+                null, IdOpcvm, "INT_RACH",
+                niveau1, niveau2);
+        Map<String, Object> parameters = new HashMap<>();
+        DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
+        String letterDate = dateFormatter.format(new Date());
+        parameters.put("letterDate", letterDate);
+        File file = ResourceUtils.getFile("classpath:verificationIntentionRachat.jrxml");
+        JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
+        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(list);
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport,parameters, dataSource);
+        JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());
+        return list;
+    }
+
+    @Override
+    public List<FT_DepotRachatProjection> verifIntentionRachatN1N2(Long IdOpcvm, boolean niveau1, boolean niveau2, HttpServletResponse response) throws IOException, JRException {
+        SeanceOpcvm seanceOpcvm = seanceOpcvmService.afficherSeanceEnCours(IdOpcvm);
+        Long idSeance = seanceOpcvm.getIdSeanceOpcvm().getIdSeance();
+        List<FT_DepotRachatProjection> list = libraryDao.afficherFT_DepotRachat(idSeance,
+                null, IdOpcvm, "INT_RACH",
+                niveau1, niveau2);
+        Map<String, Object> parameters = new HashMap<>();
+        DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
+        String letterDate = dateFormatter.format(new Date());
+        parameters.put("letterDate", letterDate);
+        File file = ResourceUtils.getFile("classpath:verificationIntentionRachatN1N2.jrxml");
+        JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
+        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(list);
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport,parameters, dataSource);
+        JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());
+        return list;
+    }
+
+    @Override
     public ResponseEntity<Object> afficher(Long idOperation) {
         try {
             return ResponseHandler.generateResponse(
@@ -403,9 +449,9 @@ public class DepotRachatImpl implements DepotRachatService {
     }
 
     @Override
-    public ResponseEntity<Object> creer(VerifDepSouscriptionIntRachatDto verifDepSouscriptionIntRachatDto) {
+    public ResponseEntity<Object> modifier(VerifDepSouscriptionIntRachatDto verifDepSouscriptionIntRachatDto) {
         try {
-            var q = em.createStoredProcedureQuery("[Parametre].[PS_VerifDepSouscriptionIntRachat]");
+            StoredProcedureQuery q = em.createStoredProcedureQuery("[Parametre].[PS_VerifDepSouscriptionIntRachat]");
             q.registerStoredProcedureParameter("IdSeance", Long.class, ParameterMode.IN);
             q.registerStoredProcedureParameter("IdPersonne", Long.class, ParameterMode.IN);
             q.registerStoredProcedureParameter("IdOpcvm", Long.class, ParameterMode.IN);
@@ -429,7 +475,7 @@ public class DepotRachatImpl implements DepotRachatService {
 //            System.out.println("userloginverif="+verifDepSouscriptionIntRachatDto.getUserLoginVerif());
             try {
                 // Execute query
-                q.getSingleResult();
+                q.executeUpdate();
             } finally {
                 try {
 

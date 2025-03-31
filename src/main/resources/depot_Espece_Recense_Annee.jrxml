@@ -24,7 +24,7 @@
 	<background splitType="Stretch"/>
 	<title height="94" splitType="Stretch">
 		<element kind="staticText" uuid="8529b361-614a-471d-adb1-ef510155748e" mode="Opaque" x="0" y="31" width="550" height="19" forecolor="#000000" backcolor="#BDD7EE" fontName="Segoe UI" bold="true" hTextAlign="Center" vTextAlign="Middle">
-			<text><![CDATA[POINT DES DEPOTS EN ESPECES RECENSES SUR L'ANNEE]]></text>
+			<text><![CDATA[Détermination du solde global de l'ensemble des comptes détenus par un même client]]></text>
 			<box padding="0">
 				<pen lineColor="#669BCC"/>
 				<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>

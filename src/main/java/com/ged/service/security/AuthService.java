@@ -7,6 +7,7 @@ import com.ged.dao.security.UtilisateurDao;
 import com.ged.dao.security.UtilisateurRoleDao;
 import com.ged.dao.security.token.TokenDao;
 import com.ged.dto.security.LoginRequest;
+import com.ged.dto.security.PasswordRequest;
 import com.ged.dto.security.TokenResponse;
 import com.ged.dto.security.UtilisateurDto;
 import com.ged.dto.standard.JwtAuthenticationResponse;
@@ -29,6 +30,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.security.Principal;
 import java.security.SecureRandom;
 import java.time.LocalDateTime;
 import java.util.HashMap;
@@ -191,4 +193,44 @@ public class AuthService {
         savedToken.setValidatedAt(LocalDateTime.now());
         tokenDao.save(savedToken);
     }
+    public Boolean IsOldPasswordValid(Utilisateur utilisateur, String oldPassword)
+    {
+        return passwordEncoder.matches(oldPassword, utilisateur.getPassword());
+    }
+    public ResponseEntity<Object> changePassword(PasswordRequest passwordRequest, Principal connectedUser)
+    {
+        Utilisateur utilisateur;
+        try {
+            if(connectedUser != null)
+                utilisateur = (Utilisateur)((UsernamePasswordAuthenticationToken)connectedUser).getPrincipal();
+            else
+                utilisateur = utilisateurDao.findByUsernameAndEstActif(passwordRequest.getUsername(), true).orElse(null);
+
+            if(utilisateur != null && IsOldPasswordValid(utilisateur, passwordRequest.getOldPassword()))
+            {
+                utilisateur.setPassword1(passwordEncoder.encode(passwordRequest.getNewPassword()));
+                utilisateur.setPassword(passwordEncoder.encode(passwordRequest.getNewPassword()));
+                return ResponseHandler.generateResponse(
+                        "Votre mot de passe a été changé avec succès",
+                        HttpStatus.OK,
+                        utilisateurMapper.deUtilisateur(utilisateurDao.save(utilisateur)));
+            }
+            else
+            {
+                return ResponseHandler.generateResponse(
+                        "Ancien mot de passe incorrect",
+                        HttpStatus.OK,
+                        null);
+            }
+        }
+        catch (Exception e)
+        {
+            return ResponseHandler.generateResponse(
+                    "Une erreur a été détectée lors du changement de mot de passe.\n" +
+                            "Veuillez réessayer plus tard.",
+                    HttpStatus.OK,
+                    e);
+        }
+    }
+
 }

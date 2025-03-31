@@ -31,21 +31,21 @@ public class DepotRachatDto2 {
     private BigDecimal quantite;
     private BigDecimal montantSouscrit;
     private String ecriture;
-    private boolean estOD;
+    private Boolean estOD;
     private String type;
     private PersonneDto actionnaire;
     private long idSeance;
     private PersonneDto personne;
     private OpcvmDto opcvm;
     private String modeVL;
-    private boolean estVerifie1;
+    private Boolean estVerifie1;
     private LocalDateTime dateVerification1;
     private String userLoginVerificateur1;
-    private boolean estVerifie2;
+    private Boolean estVerifie2;
     private LocalDateTime dateVerification2;
     private String userLoginVerificateur2;
-    private boolean estGenere;
-    private boolean estVerifier;
+    private Boolean estGenere;
+    private Boolean estVerifier;
     private String nomVerificateur;
     private LocalDateTime dateVerification;
     private TitreDto titre;
@@ -170,14 +170,6 @@ public class DepotRachatDto2 {
         this.ecriture = ecriture;
     }
 
-    public boolean isEstOD() {
-        return estOD;
-    }
-
-    public void setEstOD(boolean estOD) {
-        this.estOD = estOD;
-    }
-
     public String getType() {
         return type;
     }
@@ -224,14 +216,6 @@ public class DepotRachatDto2 {
         this.modeVL = modeVL;
     }
 
-    public boolean isEstVerifie1() {
-        return estVerifie1;
-    }
-
-    public void setEstVerifie1(boolean estVerifie1) {
-        this.estVerifie1 = estVerifie1;
-    }
-
     public LocalDateTime getDateVerification1() {
         return dateVerification1;
     }
@@ -247,15 +231,6 @@ public class DepotRachatDto2 {
     public void setUserLoginVerificateur1(String userLoginVerificateur1) {
         this.userLoginVerificateur1 = userLoginVerificateur1;
     }
-
-    public boolean isEstVerifie2() {
-        return estVerifie2;
-    }
-
-    public void setEstVerifie2(boolean estVerifie2) {
-        this.estVerifie2 = estVerifie2;
-    }
-
     public LocalDateTime getDateVerification2() {
         return dateVerification2;
     }
@@ -270,22 +245,6 @@ public class DepotRachatDto2 {
 
     public void setUserLoginVerificateur2(String userLoginVerificateur2) {
         this.userLoginVerificateur2 = userLoginVerificateur2;
-    }
-
-    public boolean isEstGenere() {
-        return estGenere;
-    }
-
-    public void setEstGenere(boolean estGenere) {
-        this.estGenere = estGenere;
-    }
-
-    public boolean isEstVerifier() {
-        return estVerifier;
-    }
-
-    public void setEstVerifier(boolean estVerifier) {
-        this.estVerifier = estVerifier;
     }
 
     public String getNomVerificateur() {
@@ -374,5 +333,45 @@ public class DepotRachatDto2 {
 
     public void setInteretPrecompte(BigDecimal interetPrecompte) {
         this.interetPrecompte = interetPrecompte;
+    }
+
+    public Boolean getEstOD() {
+        return estOD;
+    }
+
+    public void setEstOD(Boolean estOD) {
+        this.estOD = estOD;
+    }
+
+    public Boolean getEstVerifie1() {
+        return estVerifie1;
+    }
+
+    public void setEstVerifie1(Boolean estVerifie1) {
+        this.estVerifie1 = estVerifie1;
+    }
+
+    public Boolean getEstVerifie2() {
+        return estVerifie2;
+    }
+
+    public void setEstVerifie2(Boolean estVerifie2) {
+        this.estVerifie2 = estVerifie2;
+    }
+
+    public Boolean getEstGenere() {
+        return estGenere;
+    }
+
+    public void setEstGenere(Boolean estGenere) {
+        this.estGenere = estGenere;
+    }
+
+    public Boolean getEstVerifier() {
+        return estVerifier;
+    }
+
+    public void setEstVerifier(Boolean estVerifier) {
+        this.estVerifier = estVerifier;
     }
 }
