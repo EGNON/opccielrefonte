@@ -28,12 +28,15 @@ import com.ged.projection.AvisOperationProjection;
 import com.ged.response.ResponseHandler;
 import com.ged.service.FiltersSpecification;
 import com.ged.service.opcciel.OperationSouscriptionRachatService;
+import com.ged.service.standard.impl.MailSenderServiceImpl;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.ParameterMode;
 import jakarta.persistence.PersistenceContext;
 import jakarta.servlet.http.HttpServletResponse;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import org.springframework.data.domain.*;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
@@ -44,7 +47,11 @@ import org.springframework.util.ResourceUtils;
 import org.springframework.util.StringUtils;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.math.BigDecimal;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.sql.Array;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
@@ -66,10 +73,11 @@ public class OperationSouscriptionRachatServiceImpl implements OperationSouscrip
     private final LibraryDao libraryDao;
     private final TitreDao titreDao;
     private final TransactionDao transactionDao;
+    private final MailSenderServiceImpl mailSenderService;
     private final NatureOperationDao natureOperationDao;
     private final OperationSouscriptionRachatMapper operationSouscriptionRachatMapper;
 
-    public OperationSouscriptionRachatServiceImpl(FiltersSpecification<OperationSouscriptionRachat> souscriptionRachatFiltersSpecification, OperationSouscriptionRachatDao operationSouscriptionRachatDao, PersonneDao personneDao, OpcvmDao opcvmDao, LibraryDao libraryDao, TitreDao titreDao, TransactionDao transactionDao, NatureOperationDao natureOperationDao, OperationSouscriptionRachatMapper operationSouscriptionRachatMapper){
+    public OperationSouscriptionRachatServiceImpl(FiltersSpecification<OperationSouscriptionRachat> souscriptionRachatFiltersSpecification, OperationSouscriptionRachatDao operationSouscriptionRachatDao, PersonneDao personneDao, OpcvmDao opcvmDao, LibraryDao libraryDao, TitreDao titreDao, TransactionDao transactionDao, MailSenderServiceImpl mailSenderService, NatureOperationDao natureOperationDao, OperationSouscriptionRachatMapper operationSouscriptionRachatMapper){
         this.souscriptionRachatFiltersSpecification = souscriptionRachatFiltersSpecification;
         this.operationSouscriptionRachatDao = operationSouscriptionRachatDao;
         this.personneDao = personneDao;
@@ -77,6 +85,7 @@ public class OperationSouscriptionRachatServiceImpl implements OperationSouscrip
         this.libraryDao = libraryDao;
         this.titreDao = titreDao;
         this.transactionDao = transactionDao;
+        this.mailSenderService = mailSenderService;
         this.natureOperationDao = natureOperationDao;
 
         this.operationSouscriptionRachatMapper = operationSouscriptionRachatMapper;
@@ -411,6 +420,99 @@ public class OperationSouscriptionRachatServiceImpl implements OperationSouscrip
                     HttpStatus.MULTI_STATUS,
                     e);
         }
+    }
+
+    @Override
+    public ResponseEntity<Object> avisOperation(String idOperation, HttpServletResponse response) {
+        try {
+            List<AvisOperationProjection> list=libraryDao.avisOper(idOperation);
+            Map<String, Object> parameters = new HashMap<>();
+            DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
+            String letterDate = dateFormatter.format(new Date());
+
+            parameters.put("letterDate", letterDate);
+            File file = ResourceUtils.getFile("classpath:avisRachat.jrxml");
+            JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
+            JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(list);
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport,parameters, dataSource);
+            JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());
+            return ResponseHandler.generateResponse(
+                    "Avis opération",
+                    HttpStatus.OK,
+                    list);
+        }
+        catch(Exception e)
+        {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e);
+        }
+    }
+
+    @Override
+    public ResponseEntity<Object> avisOperation2(String idOperation) throws JRException, FileNotFoundException {
+
+        try{
+            List<AvisOperationProjection> list=new ArrayList<>();
+            String []idOpe=idOperation.split(",");
+            for(int i=0;i<idOpe.length;i++){
+                list=libraryDao.avisOper(idOpe[i]);
+
+                byte[] byteArrays=new byte[10000000];
+                // - Chargement et compilation du rapport
+                for(AvisOperationProjection o:list)
+                {
+                    File file = ResourceUtils.getFile("classpath:avisRachat.jrxml");
+//        JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
+                    JasperDesign jasperDesign = JRXmlLoader.load(file.getAbsolutePath());
+                    JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
+
+                    // - Paramètres à envoyer au rapport
+                    Map parameters = new HashMap();
+                    DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
+                    String letterDate = dateFormatter.format(new Date());
+                    parameters.put("letterDate", letterDate);
+
+                    // - Execution du rapport
+
+                    JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(list);
+                    JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
+
+                    // - Création du rapport au format PDF
+                    String fichier="C:\\OPCCIEL2\\OPERE_COMPTE" +o.getNumCompteSgi().trim() +
+                            "_OP" + o.getIdOperation()+"_"+LocalDateTime.now().toString().substring(0,16).replace(":","H")+".pdf";
+                    JasperExportManager.exportReportToPdfFile(jasperPrint, fichier);
+
+                    File f=new File(fichier);
+                    String[]email=new String[1];
+                    email[0]=o.getMail();
+//                     fichiers="";
+////                String fTobyte="";
+////                fTobyte=byteArrays;
+                    String fichiers="OPERE_COMPTE" +o.getNumCompteSgi().trim() +
+                            "_OP" + o.getIdOperation()+"_"+LocalDateTime.now().toString().substring(0,16).replace(":","H")+".pdf";
+//                    byteArrays = Files.readAllBytes(Paths.get(fichier));
+                mailSenderService.sendManyWithAttachementPath("AVIS d'OPERE",email,
+                        "Cher(e) client(e), \n recevez en piece jointe votre avis d'opéré.\n Cordialement "
+                ,fichiers,fichier);
+                }
+            }
+
+
+            return ResponseHandler.generateResponse(
+                    "Avis opération",
+                    HttpStatus.OK,
+                    list);
+        }
+        catch(Exception e)
+        {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e);
+        }
+
     }
 
     @Override

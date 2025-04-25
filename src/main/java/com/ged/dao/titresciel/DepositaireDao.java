@@ -7,6 +7,7 @@ import java.math.BigDecimal;
 import java.util.Optional;
 
 public interface DepositaireDao extends JpaRepository<Depositaire,Long> {
+    Depositaire findByIdPersonne(Long id);
     /*Optional<Depositaire> findByIdOcc(BigDecimal id);
     Optional<Depositaire> findByTypePersonneAndIdOcc(String type, Long id);*/
 }

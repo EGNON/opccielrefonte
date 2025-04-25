@@ -1,0 +1,178 @@
+<!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 7.0.1-573496633c2b4074e32f433154b543003f7d2498  -->
+<jasperReport name="paiementRachat" language="java" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f8d9a2a6-4a53-4448-9a39-4eda702e286e">
+	<parameter name="letterDate" class="java.lang.String"/>
+	<parameter name="denominationOpcvm" class="java.lang.String"/>
+	<parameter name="dateOuv" class="java.lang.String"/>
+	<parameter name="dateFerm" class="java.lang.String"/>
+	<field name="idOperation" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="idOperation"/>
+		<property name="com.jaspersoft.studio.field.label" value="idOperation"/>
+	</field>
+	<field name="idSeance" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="idSeance"/>
+		<property name="com.jaspersoft.studio.field.label" value="idSeance"/>
+	</field>
+	<field name="idActionnaire" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="idActionnaire"/>
+		<property name="com.jaspersoft.studio.field.label" value="idActionnaire"/>
+	</field>
+	<field name="nomSigle" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="nomSigle"/>
+		<property name="com.jaspersoft.studio.field.label" value="nomSigle"/>
+	</field>
+	<field name="prenomRaisonSociale" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="prenomRaisonSociale"/>
+		<property name="com.jaspersoft.studio.field.label" value="prenomRaisonSociale"/>
+	</field>
+	<field name="idOpcvm" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="idOpcvm"/>
+		<property name="com.jaspersoft.studio.field.label" value="idOpcvm"/>
+	</field>
+	<field name="dateOperation" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="dateOperation"/>
+		<property name="com.jaspersoft.studio.field.label" value="dateOperation"/>
+	</field>
+
+	<field name="montant" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="montant"/>
+		<property name="com.jaspersoft.studio.field.label" value="montant"/>
+	</field>
+
+	<variable name="montant1" calculation="Sum" class="java.math.BigDecimal">
+		<expression><![CDATA[$F{montant}]]></expression>
+	</variable>
+	<group name="Group1">
+		<groupHeader>
+			<band height="35">
+				<element kind="rectangle" uuid="0be95957-e899-4a17-bb2b-e2c0be9af04d" x="0" y="5" width="550" height="30">
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+					<pen lineColor="#342EF0"/>
+				</element>
+				<element kind="staticText" uuid="f7ec645d-ede6-41b1-b909-44f34d431d30" x="4" y="10" width="71" height="20" fontName="Segoe UI" bold="true">
+					<text><![CDATA[ID OP.]]></text>
+				</element>
+				<element kind="line" uuid="fa3a97ed-468a-454d-ab3d-fcd67fd1d5e6" x="78" y="6" width="1" height="29">
+					<pen lineColor="#342EF0"/>
+				</element>
+				<element kind="staticText" uuid="506ec969-6d2e-4c23-9948-9e7454c39966" x="85" y="11" width="168" height="20" fontName="Segoe UI" bold="true">
+					<text><![CDATA[Nom/Sigle]]></text>
+				</element>
+				<element kind="line" uuid="4df18c35-a664-47bf-8087-d1026cf72d08" x="256" y="6" width="1" height="28">
+					<pen lineColor="#342EF0"/>
+				</element>
+				<element kind="staticText" uuid="ff34f6bf-02dd-499f-8d87-7e1448221d90" x="263" y="10" width="193" height="20" fontName="Segoe UI" bold="true">
+					<text><![CDATA[Prénom/Raison sociale]]></text>
+				</element>
+				<element kind="line" uuid="6e27ae3e-5f95-4f60-961f-d5eec821c723" x="457" y="4" width="1" height="30">
+					<pen lineColor="#342EF0"/>
+				</element>
+				<element kind="staticText" uuid="2b817c61-ad99-42a2-b2bd-f6b8e5db3daf" x="461" y="9" width="83" height="20" fontName="Segoe UI" bold="true">
+					<text><![CDATA[Montant]]></text>
+				</element>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="50">
+				<element kind="rectangle" uuid="6bef8f22-00f8-421b-b67a-bb93c0e97f12" stretchType="ContainerHeight" x="420" y="1" width="130" height="30">
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+					<pen lineColor="#342EF0"/>
+				</element>
+				<element kind="line" uuid="37aa18c8-1627-4218-8a42-f8c19205b577" x="457" y="0" width="1" height="30">
+					<pen lineColor="#342EF0"/>
+				</element>
+				<element kind="staticText" uuid="6cc69fa2-9d52-4bd5-b61f-72119f000b96" x="420" y="5" width="36" height="20" fontName="Segoe UI" bold="true">
+					<text><![CDATA[Total]]></text>
+				</element>
+				<element kind="textField" uuid="07f964a3-d997-4426-b781-caaf5fc257d7" x="461" y="5" width="83" height="20" pattern="#,##0.###;#,##0.###-" blankWhenNull="true">
+					<expression><![CDATA[$V{montant1}]]></expression>
+				</element>
+			</band>
+		</groupFooter>
+	</group>
+	<background splitType="Stretch"/>
+	<title height="101" splitType="Stretch">
+		<element kind="textField" uuid="e9262d41-0183-4833-bb49-67a9a67843ea" x="0" y="3" width="230" height="20" fontName="Segoe UI">
+			<expression><![CDATA["Cotonou le, " + $P{letterDate}]]></expression>
+		</element>
+		<element kind="staticText" uuid="3586684d-0b3e-4405-879c-6765e145fe27" mode="Opaque" x="0" y="35" width="550" height="29" forecolor="#000000" backcolor="#BDD7EE" fontName="Segoe UI" bold="true" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[PAIEMENT DE RACHAT]]></text>
+			<box padding="0">
+				<pen lineColor="#669BCC"/>
+				<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+			</box>
+		</element>
+		<element kind="rectangle" uuid="583ccef7-b2db-4a84-ad05-d01c31372149" x="1" y="70" width="550" height="30">
+			<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+			<pen lineColor="#342EF0"/>
+		</element>
+		<element kind="staticText" uuid="61d602db-37c2-4abf-9138-7afd3721e72f" x="1" y="74" width="40" height="20" fontName="Segoe UI" bold="true" hTextAlign="Left" vTextAlign="Middle">
+			<text><![CDATA[OPCVM:]]></text>
+		</element>
+		<element kind="staticText" uuid="c8292be0-ee2a-4434-bca2-8c3edb746c6e" x="203" y="76" width="50" height="18" fontName="Segoe UI" bold="true" vTextAlign="Middle">
+			<text><![CDATA[SEANCE:]]></text>
+		</element>
+		<element kind="staticText" uuid="799e66f1-9e2e-48c9-8853-c9ff2de304ff" x="353" y="76" width="31" height="18" fontName="Segoe UI" bold="true" vTextAlign="Middle">
+			<text><![CDATA[OUV:]]></text>
+		</element>
+		<element kind="staticText" uuid="df4d27b3-a78f-4e7a-9634-08bd36b8d2cf" x="445" y="74" width="39" height="20" fontName="Segoe UI" bold="true" vTextAlign="Middle">
+			<text><![CDATA[FERM:]]></text>
+		</element>
+		<element kind="textField" uuid="446e2808-1045-4690-8003-22fff1a0b61f" x="42" y="76" width="160" height="18" vTextAlign="Middle">
+			<expression><![CDATA[$P{denominationOpcvm}]]></expression>
+		</element>
+		<element kind="textField" uuid="9cde107b-2632-4859-93b0-4eaef9e52cf5" x="253" y="76" width="100" height="18" vTextAlign="Middle">
+			<expression><![CDATA[$F{idSeance}]]></expression>
+		</element>
+		<element kind="textField" uuid="3a5bc4ea-3da2-43fd-bce9-dec0dd80f2b1" x="384" y="76" width="57" height="18" vTextAlign="Middle">
+			<expression><![CDATA[$P{dateOuv}]]></expression>
+		</element>
+		<element kind="textField" uuid="89d5b49f-a2a9-430d-8f94-9690d8c26059" x="484" y="76" width="67" height="18" vTextAlign="Middle">
+			<expression><![CDATA[$P{dateFerm}]]></expression>
+		</element>
+	</title>
+	<pageHeader splitType="Stretch"/>
+	<columnHeader splitType="Stretch"/>
+	<detail>
+		<band height="30" splitType="Stretch">
+			<element kind="rectangle" uuid="27d98dd2-85cc-4354-bb89-c0a5798c8b98" stretchType="ContainerHeight" x="0" y="0" width="550" height="30">
+				<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+				<pen lineColor="#342EF0"/>
+			</element>
+			<element kind="line" uuid="6e885835-6946-4f2b-8b98-330ec08cea8e" stretchType="ContainerHeight" x="78" y="1" width="1" height="29">
+				<pen lineColor="#342EF0"/>
+			</element>
+			<element kind="line" uuid="9faed8f6-7ce0-4fed-b86a-f9499a650119" stretchType="ContainerHeight" x="256" y="1" width="1" height="28">
+				<pen lineColor="#342EF0"/>
+			</element>
+			<element kind="line" uuid="ba199fd3-f28d-4d1b-8a1b-45edf385c2b5" stretchType="ContainerHeight" x="457" y="-1" width="1" height="30">
+				<pen lineColor="#342EF0"/>
+			</element>
+			<element kind="textField" uuid="30b2f9d4-ef15-446c-b996-058714f49e81" x="4" y="5" width="71" height="20" textAdjust="StretchHeight">
+				<expression><![CDATA[$F{idOperation}]]></expression>
+			</element>
+			<element kind="textField" uuid="9327cecd-e6ae-4687-b1a4-14eff680cd6a" x="84" y="5" width="169" height="20" textAdjust="StretchHeight">
+				<expression><![CDATA[$F{nomSigle}]]></expression>
+			</element>
+			<element kind="textField" uuid="c42a1558-3931-4f6b-a579-d8d82d46218a" x="266" y="5" width="190" height="20" textAdjust="StretchHeight">
+				<expression><![CDATA[$F{prenomRaisonSociale}]]></expression>
+			</element>
+			<element kind="textField" uuid="24a922f8-f983-4ef4-b79d-9cbc9dece2aa" x="461" y="5" width="84" height="20" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###-" blankWhenNull="true">
+				<expression><![CDATA[$F{montant}]]></expression>
+			</element>
+		</band>
+	</detail>
+	<columnFooter splitType="Stretch"/>
+	<pageFooter height="40" splitType="Stretch">
+		<element kind="staticText" uuid="2aa53c06-3aed-4932-8970-539391eb00a8" x="0" y="6" width="120" height="26" fontName="Segoe UI">
+			<text><![CDATA[Edité avec OPCCIEL 2.0]]></text>
+		</element>
+		<element kind="textField" uuid="5c0b0a10-ed69-47bc-bb2a-9ea07a5eb0ff" x="450" y="6" width="100" height="25" hTextAlign="Right">
+			<expression><![CDATA[$V{PAGE_NUMBER}]]></expression>
+		</element>
+		<property name="com.jaspersoft.studio.unit.height" value="px"/>
+	</pageFooter>
+	<summary height="44" splitType="Stretch"/>
+</jasperReport>

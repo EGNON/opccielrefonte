@@ -139,6 +139,47 @@ public class MailSenderServiceImpl {
         }
     }
 
+    public boolean sendManyWithAttachementPath(String subject, String[] to, String email,String fileName, String file) {
+        try {
+            MimeMessage mimeMessage = mailSender.createMimeMessage();
+            MimeMessageHelper helper =
+                    new MimeMessageHelper(mimeMessage, MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED, "utf-8");
+            helper.setText(email, true);
+            helper.setTo(to);
+//
+//            for(int i = 0; i< fToByte.length; i++)
+//            {
+                String newFilename =fileName;
+//                String filePath = path  +"mail"+ File.separator + newFilename;
+                //Créer l'objet File
+                File f = new File(file);
+//                if(!f.exists())
+//                {
+//                    boolean isCreated = f.mkdir();
+//                }
+//                try {
+//                    File fileToCopy = new File(filePath);
+//                    if(!fileToCopy.exists() && !fileToCopy.isDirectory())
+//                    {
+//                        customMultipartFile.transferTo(filePath,fToByte[i]);
+//                    }
+//                }
+//                catch (Exception ex)
+//                {
+//                    System.out.println("Impossible de copier ce fichier - {} " + ex.getMessage());
+//                }
+                helper.addAttachment(newFilename, new File(file));
+//            }
+
+            helper.setSubject(subject);
+            helper.setFrom("POSTMASTER@saphiram.COM");
+            mailSender.send(mimeMessage);
+            return true;
+        } catch (MessagingException e) {
+            return false;
+        }
+    }
+
     public boolean sendManyWithAttachementBlob(String subject, String to, String email,String fileName, byte[] fToByte) {
         try {
             MimeMessage mimeMessage = mailSender.createMimeMessage();

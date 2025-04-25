@@ -11,6 +11,7 @@ public interface SeanceOpcvmService {
     ResponseEntity<Object> afficherTous(DatatableParameters parameters);
     Page<SeanceOpcvmDto> afficherTousParPage(int page, int size);
     ResponseEntity<Object> afficherTous();
+    ResponseEntity<Object> afficherSeanceDesc(Long idOpcvm);
     SeanceOpcvm afficherSelonId(CleSeanceOpcvm id);
     SeanceOpcvm afficherSeanceEnCours(long idOpcvm);
     ResponseEntity<Object> afficher(long idOpcvm);

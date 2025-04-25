@@ -8,10 +8,12 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface TitreDao extends JpaRepository<Titre,Long>, JpaSpecificationExecutor<Titre> {
     Optional<Titre> findByIdOcc(Long id);
+    List<Titre> findBySupprimerOrderBySymbolTitreAsc(boolean supprimer);
     Optional<Titre> findByTypeVMAndIdOcc(String type, Long id);
     Optional<Titre> findBySymbolTitreIgnoreCase(String symbolTitre);
     @Query(value = "select ph from Titre as ph inner join StatutTitre as sp " +

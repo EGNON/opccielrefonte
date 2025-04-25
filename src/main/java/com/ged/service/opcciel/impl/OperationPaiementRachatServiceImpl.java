@@ -1,52 +1,38 @@
 package com.ged.service.opcciel.impl;
 
-import com.ged.advice.EntityNotFoundException;
-import com.ged.dao.opcciel.OpcvmDao;
-import com.ged.dao.opcciel.OperationSouscriptionRachatDao;
-import com.ged.dao.opcciel.comptabilite.NatureOperationDao;
-import com.ged.dao.opcciel.comptabilite.TransactionDao;
-import com.ged.dao.standard.PersonneDao;
-import com.ged.dao.titresciel.TitreDao;
-import com.ged.datatable.DataTablesResponse;
-import com.ged.datatable.DatatableParameters;
+import com.ged.dao.opcciel.SeanceOpcvmDao;
 import com.ged.dto.opcciel.OperationPaiementRachatDto2;
-import com.ged.dto.opcciel.OperationSouscriptionRachatDto;
-import com.ged.dto.opcciel.OperationSouscriptionRachatDto2;
 import com.ged.dto.opcciel.PrecalculPaiementRachatDto;
-import com.ged.entity.opcciel.Opcvm;
-import com.ged.entity.opcciel.OperationSouscriptionRachat;
-import com.ged.entity.opcciel.comptabilite.NatureOperation;
-import com.ged.entity.opcciel.comptabilite.Plan;
-import com.ged.entity.opcciel.comptabilite.Transaction;
-import com.ged.entity.standard.Personne;
-import com.ged.entity.titresciel.Titre;
-import com.ged.mapper.opcciel.OperationSouscriptionRachatMapper;
+import com.ged.entity.opcciel.SeanceOpcvm;
 import com.ged.response.ResponseHandler;
 import com.ged.service.opcciel.OperationPaiementRachatService;
-import com.ged.service.opcciel.OperationSouscriptionRachatService;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.ParameterMode;
 import jakarta.persistence.PersistenceContext;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
+import jakarta.servlet.http.HttpServletResponse;
+import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.ResourceUtils;
 
+import java.io.File;
 import java.math.BigDecimal;
-import java.sql.ResultSet;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.*;
 
 @Service
 public class OperationPaiementRachatServiceImpl implements OperationPaiementRachatService {
     @PersistenceContext
     EntityManager em;
+    private final SeanceOpcvmDao seanceOpcvmDao;
+
+    public OperationPaiementRachatServiceImpl(SeanceOpcvmDao seanceOpcvmDao) {
+        this.seanceOpcvmDao = seanceOpcvmDao;
+    }
 
     @Override
     public ResponseEntity<Object> precalculPAiementRachat(Long idOpcvm, Long idSeance) {
@@ -96,8 +82,90 @@ public class OperationPaiementRachatServiceImpl implements OperationPaiementRach
 
     @Override
     public ResponseEntity<Object> liste(Long idOpcvm, Long idSeance) {
-    try
-    {
+        try {
+            List<Object[]> resultat;
+            List<OperationPaiementRachatDto2> operationPaiementRachatTab = new ArrayList<>();
+            var q = em.createStoredProcedureQuery("[Operation].[PS_OperationPaiementRachat_SP]");
+            q.registerStoredProcedureParameter("idOperation", Long.class, ParameterMode.IN);
+            q.registerStoredProcedureParameter("idTransaction", Long.class, ParameterMode.IN);
+            q.registerStoredProcedureParameter("idSeance", Long.class, ParameterMode.IN);
+            q.registerStoredProcedureParameter("idActionnaire", Long.class, ParameterMode.IN);
+            q.registerStoredProcedureParameter("idOpcvm", Long.class, ParameterMode.IN);
+            q.registerStoredProcedureParameter("codeNatureOperation", String.class, ParameterMode.IN);
+            q.registerStoredProcedureParameter("dateOperation", LocalDateTime.class, ParameterMode.IN);
+            q.registerStoredProcedureParameter("libelleOperation", String.class, ParameterMode.IN);
+            q.registerStoredProcedureParameter("dateSaisie", LocalDateTime.class, ParameterMode.IN);
+            q.registerStoredProcedureParameter("datePiece", LocalDateTime.class, ParameterMode.IN);
+            q.registerStoredProcedureParameter("dateValeur", LocalDateTime.class, ParameterMode.IN);
+            q.registerStoredProcedureParameter("referencePiece", String.class, ParameterMode.IN);
+            q.registerStoredProcedureParameter("montant", BigDecimal.class, ParameterMode.IN);
+            q.registerStoredProcedureParameter("numLigne", Long.class, ParameterMode.IN);
+            q.registerStoredProcedureParameter("dateCreationServeur", LocalDateTime.class, ParameterMode.IN);
+            q.registerStoredProcedureParameter("dateDernModifServeur", LocalDateTime.class, ParameterMode.IN);
+            q.registerStoredProcedureParameter("dateDernModifClient", LocalDateTime.class, ParameterMode.IN);
+            q.registerStoredProcedureParameter("userLogin", String.class, ParameterMode.IN);
+            q.registerStoredProcedureParameter("supprimer", Boolean.class, ParameterMode.IN);
+            q.registerStoredProcedureParameter("rowvers", Byte.class, ParameterMode.IN);
+
+            q.setParameter("idOperation", null);
+            q.setParameter("idTransaction", null);
+            q.setParameter("idSeance", idSeance);
+            q.setParameter("idActionnaire", null);
+            q.setParameter("idOpcvm", idOpcvm);
+            q.setParameter("codeNatureOperation", null);
+            q.setParameter("dateOperation", null);
+            q.setParameter("libelleOperation", null);
+            q.setParameter("dateSaisie", null);
+            q.setParameter("datePiece", null);
+            q.setParameter("dateValeur", null);
+            q.setParameter("referencePiece", null);
+            q.setParameter("montant", null);
+            q.setParameter("numLigne", null);
+            q.setParameter("dateCreationServeur", null);
+            q.setParameter("dateDernModifServeur", null);
+            q.setParameter("dateDernModifClient", null);
+            q.setParameter("userLogin", null);
+            q.setParameter("supprimer", false);
+            q.setParameter("rowvers", null);
+
+            try {
+                // Execute query
+                resultat = q.getResultList();
+                for (Object[] o : resultat) {
+                    OperationPaiementRachatDto2 operationPaiementRachatDto2 = new OperationPaiementRachatDto2();
+                    operationPaiementRachatDto2.setIdActionnaire(Long.valueOf(o[3].toString()));
+                    operationPaiementRachatDto2.setIdOperation(Long.valueOf(o[0].toString()));
+                    operationPaiementRachatDto2.setIdOpcvm(Long.valueOf(o[6].toString()));
+                    operationPaiementRachatDto2.setIdSeance(Long.valueOf(o[2].toString()));
+                    operationPaiementRachatDto2.setNomSigle(o[4].toString());
+                    operationPaiementRachatDto2.setPrenomRaisonSociale(o[5].toString());
+                    operationPaiementRachatDto2.setMontant(BigDecimal.valueOf(Double.parseDouble(o[15].toString())));
+                    operationPaiementRachatTab.add(operationPaiementRachatDto2);
+                }
+                return ResponseHandler.generateResponse(
+                        "Operation paiement rachat",
+                        HttpStatus.OK,
+                        operationPaiementRachatTab);
+            } finally {
+                try {
+
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
+            }
+        } catch (Exception e) {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e);
+        }
+    }
+
+    @Override
+    public ResponseEntity<Object> verifierPaiementRachat(Long idOpcvm, Long idSeance,String denominationOpcvm,
+                                                         String dateOuv,
+                                                         String dateFerm, HttpServletResponse response) {
+        try {
         List<Object[]> resultat;
         List<OperationPaiementRachatDto2> operationPaiementRachatTab = new ArrayList<>();
         var q = em.createStoredProcedureQuery("[Operation].[PS_OperationPaiementRachat_SP]");
@@ -122,25 +190,25 @@ public class OperationPaiementRachatServiceImpl implements OperationPaiementRach
         q.registerStoredProcedureParameter("supprimer", Boolean.class, ParameterMode.IN);
         q.registerStoredProcedureParameter("rowvers", Byte.class, ParameterMode.IN);
 
-        q.setParameter("idOperation",null);
+        q.setParameter("idOperation", null);
         q.setParameter("idTransaction", null);
         q.setParameter("idSeance", idSeance);
         q.setParameter("idActionnaire", null);
         q.setParameter("idOpcvm", idOpcvm);
-        q.setParameter("codeNatureOperation",null);
-        q.setParameter("dateOperation",null);
-        q.setParameter("libelleOperation",null);
+        q.setParameter("codeNatureOperation", null);
+        q.setParameter("dateOperation", null);
+        q.setParameter("libelleOperation", null);
         q.setParameter("dateSaisie", null);
         q.setParameter("datePiece", null);
-        q.setParameter("dateValeur",null);
-        q.setParameter("referencePiece",null);
+        q.setParameter("dateValeur", null);
+        q.setParameter("referencePiece", null);
         q.setParameter("montant", null);
         q.setParameter("numLigne", null);
         q.setParameter("dateCreationServeur", null);
         q.setParameter("dateDernModifServeur", null);
-        q.setParameter("dateDernModifClient",null);
-        q.setParameter("userLogin",null);
-        q.setParameter("supprimer",false);
+        q.setParameter("dateDernModifClient", null);
+        q.setParameter("userLogin", null);
+        q.setParameter("supprimer", false);
         q.setParameter("rowvers", null);
 
         try {
@@ -157,6 +225,20 @@ public class OperationPaiementRachatServiceImpl implements OperationPaiementRach
                 operationPaiementRachatDto2.setMontant(BigDecimal.valueOf(Double.parseDouble(o[15].toString())));
                 operationPaiementRachatTab.add(operationPaiementRachatDto2);
             }
+            Map<String, Object> parameters = new HashMap<>();
+            DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
+//            SeanceOpcvm seanceOpcvm=seanceOpcvmDao.afficherSeanceEnCours(idOpcvm);
+            String letterDate = dateFormatter.format(new Date());
+
+            parameters.put("letterDate", letterDate);
+            parameters.put("denominationOpcvm", denominationOpcvm);
+            parameters.put("dateOuv", dateOuv);
+            parameters.put("dateFerm", dateFerm);
+            File file = ResourceUtils.getFile("classpath:paiementRachat.jrxml");
+            JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
+            JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(operationPaiementRachatTab);
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport,parameters, dataSource);
+            JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());
             return ResponseHandler.generateResponse(
                     "Operation paiement rachat",
                     HttpStatus.OK,
@@ -168,8 +250,7 @@ public class OperationPaiementRachatServiceImpl implements OperationPaiementRach
                 System.out.println(e.getMessage());
             }
         }
-    }
-    catch(Exception e)
+    } catch(Exception e)
 
     {
         return ResponseHandler.generateResponse(
@@ -177,7 +258,7 @@ public class OperationPaiementRachatServiceImpl implements OperationPaiementRach
                 HttpStatus.MULTI_STATUS,
                 e);
     }
-    }
+}
 
     @Override
     public ResponseEntity<Object> creer(OperationPaiementRachatDto2[] operationPaiementRachatTab) {

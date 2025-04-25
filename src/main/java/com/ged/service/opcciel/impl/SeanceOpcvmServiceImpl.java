@@ -8,6 +8,7 @@ import com.ged.dto.opcciel.SeanceOpcvmDto;
 import com.ged.entity.opcciel.CleSeanceOpcvm;
 import com.ged.entity.opcciel.SeanceOpcvm;
 import com.ged.mapper.opcciel.SeanceOpcvmMapper;
+import com.ged.projection.SeanceOpcvmProjection;
 import com.ged.response.ResponseHandler;
 import com.ged.service.opcciel.SeanceOpcvmService;
 import jakarta.transaction.Transactional;
@@ -87,6 +88,25 @@ public class SeanceOpcvmServiceImpl implements SeanceOpcvmService {
                     e);
         }
 
+    }
+
+    @Override
+    public ResponseEntity<Object> afficherSeanceDesc(Long idOpcvm) {
+        try {
+//            Sort sort = Sort.by(Sort.Direction.ASC,"denomination");
+            List<SeanceOpcvmProjection> seanceOpcvmProjections = SeanceOpcvmDao.listeSeanceOpcvmDesc(idOpcvm);
+            return ResponseHandler.generateResponse(
+                    "Liste des Seances",
+                    HttpStatus.OK,
+                    seanceOpcvmProjections);
+        }
+        catch (Exception e)
+        {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e);
+        }
     }
 
     @Override

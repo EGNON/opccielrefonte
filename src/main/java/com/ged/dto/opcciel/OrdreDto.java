@@ -1,6 +1,12 @@
-package com.ged.entity.opcciel;
+package com.ged.dto.opcciel;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.ged.dto.opcciel.comptabilite.NatureOperationDto;
+import com.ged.dto.standard.PersonneDto;
+import com.ged.dto.titresciel.TitreDto;
 import com.ged.entity.Base;
+import com.ged.entity.opcciel.Opcvm;
+import com.ged.entity.opcciel.TypeOrdre;
 import com.ged.entity.opcciel.comptabilite.NatureOperation;
 import com.ged.entity.standard.Personne;
 import com.ged.entity.titresciel.Titre;
@@ -8,30 +14,20 @@ import jakarta.persistence.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-
-@Entity
-@Table(name = "T_Ordre", schema = "OrdreDeBourse")
-public class Ordre extends Base {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class OrdreDto extends Base {
     private Long idOrdre;
-    @ManyToOne()
-    @JoinColumn(name = "idOpcvm")
-    private Opcvm opcvm;
+    private OpcvmDto opcvm;
     private Long idTitre;
-    @ManyToOne()
-    @JoinColumn(name = "idTitreNew",referencedColumnName = "idTitre")
-    private Titre titre;
+    private Long idIntervenant;
+    private TitreDto titre;
     private String role;
     private LocalDateTime dateOrdre;
     private String statut;
-    @ManyToOne()
-    @JoinColumn(name = "idTypeOrdre")
-    private TypeOrdre typeOrdre;
+    private TypeOrdreDto typeOrdre;
     private BigDecimal quantiteLimite;
-    @ManyToOne()
-    @JoinColumn(name = "idIntervenantNew",referencedColumnName = "idPersonne")
-    private Personne personne;
+    private BigDecimal quantiteDisponible;
+    private PersonneDto personne;
     private LocalDateTime dateEnvoi;
     private LocalDateTime dateLimite;
     private BigDecimal coursLimite;
@@ -47,17 +43,47 @@ public class Ordre extends Base {
     private BigDecimal quantiteExecute;
     private BigDecimal montantNet;
     private BigDecimal montantBrut;
-    @Column(length = 8000)
     private String commentaires;
     private Long idOperation;
     private Long idSeance;
-    @ManyToOne()
-    @JoinColumn(name = "codeNatureOperation")
-    private NatureOperation natureOperation;
+    private NatureOperationDto natureOperation;
     private String libelleOperation;
+    private String valeurFormule;
+    private String valeurCodeAnalytique;
     private String userLogin;
+    public OrdreDto() {
+    }
 
-    public Ordre() {
+    public String getUserLogin() {
+        return userLogin;
+    }
+
+    public void setUserLogin(String userLogin) {
+        this.userLogin = userLogin;
+    }
+
+    public Long getIdIntervenant() {
+        return idIntervenant;
+    }
+
+    public void setIdIntervenant(Long idIntervenant) {
+        this.idIntervenant = idIntervenant;
+    }
+
+    public String getValeurFormule() {
+        return valeurFormule;
+    }
+
+    public void setValeurFormule(String valeurFormule) {
+        this.valeurFormule = valeurFormule;
+    }
+
+    public String getValeurCodeAnalytique() {
+        return valeurCodeAnalytique;
+    }
+
+    public void setValeurCodeAnalytique(String valeurCodeAnalytique) {
+        this.valeurCodeAnalytique = valeurCodeAnalytique;
     }
 
     public Long getIdOrdre() {
@@ -68,11 +94,11 @@ public class Ordre extends Base {
         this.idOrdre = idOrdre;
     }
 
-    public Opcvm getOpcvm() {
+    public OpcvmDto getOpcvm() {
         return opcvm;
     }
 
-    public void setOpcvm(Opcvm opcvm) {
+    public void setOpcvm(OpcvmDto opcvm) {
         this.opcvm = opcvm;
     }
 
@@ -84,11 +110,11 @@ public class Ordre extends Base {
         this.idTitre = idTitre;
     }
 
-    public Titre getTitre() {
+    public TitreDto getTitre() {
         return titre;
     }
 
-    public void setTitre(Titre titre) {
+    public void setTitre(TitreDto titre) {
         this.titre = titre;
     }
 
@@ -116,11 +142,11 @@ public class Ordre extends Base {
         this.statut = statut;
     }
 
-    public TypeOrdre getTypeOrdre() {
+    public TypeOrdreDto getTypeOrdre() {
         return typeOrdre;
     }
 
-    public void setTypeOrdre(TypeOrdre typeOrdre) {
+    public void setTypeOrdre(TypeOrdreDto typeOrdre) {
         this.typeOrdre = typeOrdre;
     }
 
@@ -132,12 +158,20 @@ public class Ordre extends Base {
         this.quantiteLimite = quantiteLimite;
     }
 
-    public Personne getPersonne() {
+    public PersonneDto getPersonne() {
         return personne;
     }
 
-    public void setPersonne(Personne personne) {
+    public void setPersonne(PersonneDto personne) {
         this.personne = personne;
+    }
+
+    public BigDecimal getQuantiteDisponible() {
+        return quantiteDisponible;
+    }
+
+    public void setQuantiteDisponible(BigDecimal quantiteDisponible) {
+        this.quantiteDisponible = quantiteDisponible;
     }
 
     public LocalDateTime getDateEnvoi() {
@@ -220,14 +254,6 @@ public class Ordre extends Base {
         this.iRVM = iRVM;
     }
 
-    public String getUserLogin() {
-        return userLogin;
-    }
-
-    public void setUserLogin(String userLogin) {
-        this.userLogin = userLogin;
-    }
-
     public Double getInteret() {
         return interet;
     }
@@ -292,11 +318,11 @@ public class Ordre extends Base {
         this.idSeance = idSeance;
     }
 
-    public NatureOperation getNatureOperation() {
+    public NatureOperationDto getNatureOperation() {
         return natureOperation;
     }
 
-    public void setNatureOperation(NatureOperation natureOperation) {
+    public void setNatureOperation(NatureOperationDto natureOperation) {
         this.natureOperation = natureOperation;
     }
 

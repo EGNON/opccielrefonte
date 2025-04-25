@@ -278,6 +278,14 @@
 		</band>
 	</detail>
 	<columnFooter splitType="Stretch"/>
-	<pageFooter height="54" splitType="Stretch"/>
+	<pageFooter height="40" splitType="Stretch">
+		<element kind="staticText" uuid="2aa53c06-3aed-4932-8970-539391eb00a8" x="0" y="6" width="120" height="26" fontName="Segoe UI">
+			<text><![CDATA[Edité avec OPCCIEL 2.0]]></text>
+		</element>
+		<element kind="textField" uuid="5c0b0a10-ed69-47bc-bb2a-9ea07a5eb0ff" x="450" y="6" width="100" height="25" hTextAlign="Right">
+			<expression><![CDATA[$V{PAGE_NUMBER}]]></expression>
+		</element>
+		<property name="com.jaspersoft.studio.unit.height" value="px"/>
+	</pageFooter>
 	<summary height="42" splitType="Stretch"/>
 </jasperReport>

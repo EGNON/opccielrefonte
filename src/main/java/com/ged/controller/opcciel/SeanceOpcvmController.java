@@ -43,6 +43,12 @@ public class SeanceOpcvmController {
     {
         return SeanceOpcvmService.afficher(idOpcvm);
     }
+    @GetMapping("listedesc/{idOpcvm}")
+//    @PreAuthorize("hasAuthority('ROLE_DEGRE')")
+    public ResponseEntity<Object> afficherSeanceDesc(@PathVariable Long idOpcvm)
+    {
+        return SeanceOpcvmService.afficherSeanceDesc(idOpcvm);
+    }
 
     @PostMapping("/datatable/list")
 //    @PreAuthorize("hasAuthority('ROLE_DEGRE')")

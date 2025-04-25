@@ -34,7 +34,10 @@ public class TitreController {
         this.actionService = actionService;
         this.opcService = opcService;
     }
-
+    @GetMapping("/{id}")
+    public ResponseEntity<Object> afficherSelonId(@PathVariable Long id){
+        return titreService.afficher(id);
+    }
     @PostMapping("/datatable-{qualite}/liste/{classname}")
     public ResponseEntity<Object> datatableList(
             @RequestBody DatatableParameters params,
@@ -54,7 +57,10 @@ public class TitreController {
             default -> titreService.afficherTous(params);
         };
     }
-
+    @GetMapping("/liste")
+    public ResponseEntity<Object> afficherTous(){
+        return titreService.afficherTous();
+    }
     @GetMapping(value= "/columns-{qualite}/name")
     public List<String> tableColumnsName(@PathVariable String qualite) throws ClassNotFoundException, NoSuchMethodException {
         List<String> Columns = new ArrayList<>();

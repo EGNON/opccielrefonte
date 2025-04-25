@@ -119,7 +119,20 @@ public class TitreServiceImpl implements TitreService {
 
     @Override
     public ResponseEntity<Object> afficherTous() {
-        return null;
+        try {
+            List<TitreDto> titre = titreDao.findBySupprimerOrderBySymbolTitreAsc(false).stream().map(titreMapper::deTitre).collect(Collectors.toList());
+            return ResponseHandler.generateResponse(
+                    "Liste des titres",
+                    HttpStatus.OK,
+                    titre);
+        }
+        catch (Exception e)
+        {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e);
+        }
     }
 
     @Override
@@ -129,7 +142,20 @@ public class TitreServiceImpl implements TitreService {
 
     @Override
     public ResponseEntity<Object> afficher(Long id) {
-        return null;
+        try {
+            TitreDto titre =titreMapper.deTitre(afficherSelonId(id));
+            return ResponseHandler.generateResponse(
+                    "titre selon ID",
+                    HttpStatus.OK,
+                    titre);
+        }
+        catch (Exception e)
+        {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e);
+        }
     }
 
     @Override

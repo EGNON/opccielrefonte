@@ -12,9 +12,11 @@ import com.ged.service.opcciel.OperationSouscriptionRachatService;
 import com.ged.service.opcciel.PlanService;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
+import net.sf.jasperreports.engine.JRException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.FileNotFoundException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
@@ -40,6 +42,32 @@ public class OperationSouscriptionRachatController {
     public ResponseEntity<Object> avisOperation(@PathVariable String idOperation)
     {
         return operationSouscriptionRachatService.avisOperation(idOperation);
+    }
+    @GetMapping("/jasperpdf/avisoperation/{idOperation}")
+    public ResponseEntity<Object> avisOperation(@PathVariable String idOperation,
+                                                HttpServletResponse response)
+    {
+        response.setContentType("application/pdf");
+        DateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy:hh:mm:ss");
+        String currentDateTime = dateFormatter.format(new Date());
+
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=avis_Rachat" + currentDateTime + ".pdf";
+        response.setHeader(headerKey, headerValue);
+
+        return operationSouscriptionRachatService.avisOperation(idOperation,response);
+    }
+    @GetMapping("/jasperpdf/avisoperation2/{idOperation}")
+    public ResponseEntity<Object> avisOperation2(@PathVariable String idOperation) throws JRException, FileNotFoundException {
+//        response.setContentType("application/pdf");
+//        DateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy:hh:mm:ss");
+//        String currentDateTime = dateFormatter.format(new Date());
+//
+//        String headerKey = "Content-Disposition";
+//        String headerValue = "attachment; filename=avis_Rachat" + currentDateTime + ".pdf";
+//        response.setHeader(headerKey, headerValue);
+
+        return operationSouscriptionRachatService.avisOperation2(idOperation);
     }
     @PostMapping("/{idOpcvm}/{codeNatureOperation}")
     public ResponseEntity<Object> listeOperationSouscriptionRachat(@PathVariable Long idOpcvm,

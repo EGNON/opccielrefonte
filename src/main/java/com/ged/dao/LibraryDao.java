@@ -17,6 +17,17 @@ import java.util.List;
 public interface LibraryDao extends JpaRepository<BaseEntity, Long> {
     @Query(value = "select [Comptabilite].[FS_SoldeCompteClient](:idActionnaire, :idOpcvm)", nativeQuery = true)
     BigDecimal solde(@Param("idActionnaire") Long idActionnaire, @Param("idOpcvm") Long idOpcvm);
+
+    @Query(value = "select * from [OrdreDeBourse].[FT_OrdrePourImpression_New](:numeroOrdre)", nativeQuery = true)
+    List<OrdreProjection> listeOrdreApercu(@Param("numeroOrdre") String numeroOrdre);
+    @Query(value = "select [Comptabilite].[FS_QuantiteReelTitre](:idOpcvm,:idTitre,:date)", nativeQuery = true)
+    BigDecimal quantiteReelTitre(@Param("idOpcvm") Long idOpcvm,Long idTitre,LocalDateTime date);
+    @Query(value = "select [Titre].[FS_InteretsCourrus](:idTitre,:dateEvaluation,:CalculerParPeriodicite,:idOpcvm)", nativeQuery = true)
+    BigDecimal interetCouru(@Param("idTitre") Long idTitre,
+                            LocalDateTime dateEvaluation,
+                            Boolean CalculerParPeriodicite,
+                            Long idOpcvm);
+
     @Query(value = "SELECT * FROM [Operation].[FT_NbrePart](:idActionnaire, :idOpcvm, :estLevee," +
             ":estVerifie1, :estVerifie2, :dateEstimation)", nativeQuery = true)
     List<NbrePartProjection> afficherNbrePart(@Param("idActionnaire") Long idActionnaire,

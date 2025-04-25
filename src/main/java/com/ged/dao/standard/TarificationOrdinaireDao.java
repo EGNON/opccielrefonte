@@ -11,6 +11,47 @@ import org.springframework.data.jpa.repository.Query;
 
 //public interface TarificationOrdinaireDao {
 public interface TarificationOrdinaireDao extends JpaRepository<TarificationOrdinaire,Long> {
+
+    @Query(value = "select t.idTarificationOrdinaire as idTarificationOrdinaire, " +
+            "r as registraire," +
+            "t.borneInferieur as borneInferieur," +
+            "t.borneSuperieur as borneSuperieur," +
+            "t.classeTitre as classeTitre," +
+            "t.codeRole as codeRole," +
+            "t.forfait as forfait," +
+            "t.taux as taux," +
+            "t.opcvm as opcvm "+
+            "from TarificationOrdinaire t " +
+            "inner join Registraire r on r.idRegistraire=t.idRegistraire  " +
+            "where t.classeTitre.codeClasseTitre=:codeClasseTitre and t.idRegistraire=:idRegistraire " +
+            "and t.codeRole=:codeRole and t.opcvm.idOpcvm=:idOpcvm")
+    TarificationProjection afficherTarificationS(String codeClasseTitre,Long idRegistraire,String codeRole,Long idOpcvm);
+    @Query(value = "select t.idTarificationOrdinaire as idTarificationOrdinaire, " +
+            "r as depositaire," +
+            "t.borneInferieur as borneInferieur," +
+            "t.borneSuperieur as borneSuperieur," +
+            "t.classeTitre as classeTitre," +
+            "t.codeRole as codeRole," +
+            "t.forfait as forfait," +
+            "t.taux as taux," +
+            "t.opcvm as opcvm "+
+            "from TarificationOrdinaire t " +
+            "inner join Depositaire r on r.idDepositaire=t.idDepositaire  " +
+            "where t.classeTitre.codeClasseTitre=:codeClasseTitre and t.idDepositaire=:idDepositaire and t.codeRole=:codeRole")
+    TarificationProjection afficherTarificationD(String codeClasseTitre,Long idDepositaire,String codeRole);
+    @Query(value = "select t.idTarificationOrdinaire as idTarificationOrdinaire, " +
+            "r as place," +
+            "t.borneInferieur as borneInferieur," +
+            "t.borneSuperieur as borneSuperieur," +
+            "t.classeTitre as classeTitre," +
+            "t.codeRole as codeRole," +
+            "t.forfait as forfait," +
+            "t.taux as taux," +
+            "t.opcvm as opcvm "+
+            "from TarificationOrdinaire t " +
+            "inner join Place r on r.codePlace=t.place.codePlace  " +
+            "where t.classeTitre.codeClasseTitre=:codeClasseTitre and t.place.codePlace=:codePlace and t.codeRole=:codeRole")
+    TarificationProjection afficherTarificationP(String codeClasseTitre,String codePlace,String codeRole);
     @Query(value = "select t.idTarificationOrdinaire as idTarificationOrdinaire, " +
             "r as registraire," +
             "t.borneInferieur as borneInferieur," +
