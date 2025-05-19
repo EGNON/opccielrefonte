@@ -2,6 +2,7 @@ package com.ged.entity.opcciel;
 
 import com.ged.entity.opcciel.comptabilite.Operation;
 import jakarta.persistence.*;
+import org.hibernate.annotations.ColumnDefault;
 
 import java.math.BigDecimal;
 
@@ -70,11 +71,19 @@ public class OperationSouscriptionRachat extends Operation {
     private Boolean resteRembourse;
     private Boolean rachatPaye;
 //    private String ecriture;
-
+//@ColumnDefault("0")
+//private Boolean supprimer = false;
     public OperationSouscriptionRachat() {
     }
 
-    /*@Override
+//    public Boolean getSupprimer() {
+//        return supprimer;
+//    }
+//
+//    public void setSupprimer(Boolean supprimer) {
+//        this.supprimer = supprimer;
+//    }
+/*@Override
     public Long getIdTransaction() {
         return idTransaction;
     }

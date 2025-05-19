@@ -135,6 +135,42 @@ public class OrdreServiceImpl implements OrdreService {
     }
 
     @Override
+    public ResponseEntity<Object> ordreEnCours(Long idOpcvm,DatatableParameters parameters) {
+        try {
+//            Sort sort = Sort.by(Sort.Direction.ASC,"libellePlan");
+            Pageable pageable = PageRequest.of(
+                    parameters.getStart()/ parameters.getLength(), parameters.getLength());
+            Page<Ordre> OrdrePage;
+           /* if (parameters.getSearch() != null && !StringUtils.isEmpty(parameters.getSearch().getValue())) {
+                planPage = planDao.rechercher(
+                        parameters.getSearch().getValue(),
+                        pageable);
+            } else {*/
+//            Opcvm opcvm=opcvmDao.findById(idOpcvm).orElseThrow();
+            OrdrePage = ordreDao.ordreEnCours(idOpcvm,pageable);
+            //}
+
+            List<OrdreDto> content = OrdrePage.getContent().stream().map(ordreMapper::deOrdre).collect(Collectors.toList());
+            DataTablesResponse<OrdreDto> dataTablesResponse = new DataTablesResponse<>();
+            dataTablesResponse.setDraw(parameters.getDraw());
+            dataTablesResponse.setRecordsFiltered((int)OrdrePage.getTotalElements());
+            dataTablesResponse.setRecordsTotal((int)OrdrePage.getTotalElements());
+            dataTablesResponse.setData(content);
+            return ResponseHandler.generateResponse(
+                    "Liste des ordre de bourse par page datatable",
+                    HttpStatus.OK,
+                    dataTablesResponse);
+        }
+        catch(Exception e)
+        {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e);
+        }
+    }
+
+    @Override
     public Ordre afficherSelonId(Long id) {
         return ordreDao.findById(id).orElseThrow(() -> new EntityNotFoundException(Plan.class, "id",id.toString()));
     }
@@ -262,7 +298,7 @@ public class OrdreServiceImpl implements OrdreService {
 
     @Override
     public ResponseEntity<Object> calculer(OrdreDto ordreDto) {
-        try {
+//        try {
             String sortie="";
             BigDecimal montantBrut =BigDecimal.valueOf(0);
             BigDecimal interetCourru = BigDecimal.valueOf(0);
@@ -286,7 +322,7 @@ public class OrdreServiceImpl implements OrdreService {
                 quantiteLimite=Double.valueOf(ordreDto.getQuantiteLimite().toString());
             }
             montantBrut = new BigDecimal(BigDecimal.valueOf(coursLimite
-                    * quantiteLimite).toString()).setScale(0);
+                    * quantiteLimite).toString()).setScale(0,RoundingMode.HALF_UP);
 
             if(ordreDto.getTitre()!=null && ordreDto.getTitre().getIdTitre()!=null){
                 Titre titre=titreDao.findById(ordreDto.getTitre().getIdTitre()).orElseThrow();
@@ -308,7 +344,7 @@ public class OrdreServiceImpl implements OrdreService {
                             montantBrut.doubleValue() < objTOD.getBorneSuperieur())
                     {
                         commissionDepo = new BigDecimal(
-                                Double.valueOf((montantBrut.doubleValue() + interetCourru.doubleValue())) * objTOD.getTaux() / 100).setScale(0);
+                                Double.valueOf((montantBrut.doubleValue() + interetCourru.doubleValue())) * objTOD.getTaux() / 100).setScale(0,RoundingMode.HALF_UP);
                     }
                     else
                     {
@@ -324,7 +360,7 @@ public class OrdreServiceImpl implements OrdreService {
                             montantBrut.doubleValue() < objTOP.getBorneSuperieur())
                     {
                         commissionPlace= new BigDecimal(
-                                Double.valueOf((montantBrut.doubleValue() + interetCourru.doubleValue())) * objTOP.getTaux() / 100).setScale(0);
+                                Double.valueOf((montantBrut.doubleValue() + interetCourru.doubleValue())) * objTOP.getTaux() / 100).setScale(0,RoundingMode.HALF_UP);
                     }
                     else
                     {
@@ -341,7 +377,7 @@ public class OrdreServiceImpl implements OrdreService {
                             montantBrut.doubleValue() < objTOS.getBorneSuperieur())
                     {
                         commissionSGI= new BigDecimal(
-                                Double.valueOf((montantBrut.doubleValue() + interetCourru.doubleValue())) * objTOS.getTaux() / 100).setScale(0);
+                                Double.valueOf((montantBrut.doubleValue() + interetCourru.doubleValue())) * objTOS.getTaux() / 100).setScale(0,RoundingMode.HALF_UP);
                     }
                     else
                     {
@@ -385,12 +421,12 @@ public class OrdreServiceImpl implements OrdreService {
                     "Enregistrement effectué avec succès !",
                     HttpStatus.OK,
                     ordreDto);
-        } catch (Exception e) {
-            return ResponseHandler.generateResponse(
-                    e.getMessage(),
-                    HttpStatus.MULTI_STATUS,
-                    e);
-        }
+//        } catch (Exception e) {
+//            return ResponseHandler.generateResponse(
+//                    e.getMessage(),
+//                    HttpStatus.MULTI_STATUS,
+//                    e);
+//        }
     }
 
     @Override
@@ -528,7 +564,7 @@ public class OrdreServiceImpl implements OrdreService {
     @Override
     public ResponseEntity<Object> impressionOrdreBourse(Long idOpcvm, Long idSeance) {
         try {
-            List<OrdreProjection> ordreProjections=ordreDao.afficherListeOrdre(idOpcvm,idSeance);
+            List<OrdreProjection> ordreProjections=ordreDao.impressionOrdreDeBourse(idOpcvm,idSeance);
             return ResponseHandler.generateResponse(
                     "Impression effectuée avec succès !",
                     HttpStatus.OK,

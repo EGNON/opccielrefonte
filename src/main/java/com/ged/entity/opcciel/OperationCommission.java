@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
+import org.hibernate.annotations.ColumnDefault;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -23,4 +24,6 @@ public class OperationCommission extends Operation {
     @Column(precision = 18, scale = 6)
     private BigDecimal montantCommission;
     private String typeCommission;
+//    @ColumnDefault("0")
+//    private Boolean supprimer = false;
 }

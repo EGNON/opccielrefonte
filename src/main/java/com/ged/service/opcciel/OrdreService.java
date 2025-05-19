@@ -16,6 +16,7 @@ public interface OrdreService {
     Ordre afficherSelonId(Long id);
     ResponseEntity<Object> afficher(Long id);
     ResponseEntity<Object> afficherTous(Long idOpcvm);
+    ResponseEntity<Object> ordreEnCours(Long idOpcvm,DatatableParameters parameters);
     ResponseEntity<Object> creer(OrdreDto OrdreDto);
     ResponseEntity<Object> calculer(OrdreDto ordreDto);
 

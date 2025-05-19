@@ -8,6 +8,7 @@ import com.ged.dao.opcciel.comptabilite.ModeleEcritureFormuleDao;
 import com.ged.dao.opcciel.comptabilite.TypeFormuleDao;
 import com.ged.datatable.DataTablesResponse;
 import com.ged.datatable.DatatableParameters;
+import com.ged.dto.lab.reportings.FormuleParametre;
 import com.ged.dto.opcciel.comptabilite.FormuleDto;
 import com.ged.dto.opcciel.comptabilite.SoldeCompteFormuleDto;
 import com.ged.entity.crm.Degre;
@@ -27,6 +28,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -113,6 +118,66 @@ public class FormuleServiceImpl implements FormuleService {
                     "Formule dont code = " + id.toString(),
                     HttpStatus.OK,
                     formuleMapper.deFormule(afficherSelonId(id)));
+        }
+        catch (Exception e)
+        {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e);
+        }
+    }
+
+    @Override
+    public ResponseEntity<Object> afficherCump(Long idOpcvm, Long idTitre, LocalDateTime dateEstimation) {
+        try {
+            return ResponseHandler.generateResponse(
+                    "CUMP ",
+                    HttpStatus.OK,
+                    libraryDao.cump(idOpcvm, idTitre, dateEstimation));
+        }
+        catch (Exception e)
+        {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e);
+        }
+    }
+
+    @Override
+    public ResponseEntity<Object> afficherQuantiteReelTitre(FormuleParametre formuleParametre) {
+        try {
+            Long idOpcvm; Long idTitre; String dateEstimation;
+            return ResponseHandler.generateResponse(
+                    "Qte reelle titre ",
+                    HttpStatus.OK,
+                    libraryDao.quantiteReelTitre(formuleParametre.getIdOpcvm(), formuleParametre.getIdTitre(),
+                            formuleParametre.getDateTimeParametre()));
+        }
+        catch (Exception e)
+        {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e);
+        }
+    }
+
+    @Override
+    public ResponseEntity<Object> derniereEcheance(FormuleParametre formuleParametre) {
+        try {
+//            LocalDate date= LocalDate.parse(dateEvaluation);
+            LocalDateTime dateTime =formuleParametre.getDateTimeParametre();
+            Instant i = dateTime.atZone(ZoneId.systemDefault()).toInstant();
+//            System.out.println("Instant = "+i);
+            java.util.Date date = Date.from(i);
+            System.out.println("date="+formuleParametre.getDateTimeParametre());
+            return ResponseHandler.generateResponse(
+                    "Derniere echeance ",
+                    HttpStatus.OK,
+                    libraryDao.derniereEcheance(formuleParametre.getIdTitre(), date
+                            , formuleParametre.getIdOpcvm()));
         }
         catch (Exception e)
         {

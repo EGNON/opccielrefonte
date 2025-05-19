@@ -34,8 +34,11 @@ public class AvisOperationBourseDto extends Base {
 	private BigDecimal tAF;
 	private BigDecimal iRVM;
 	private BigDecimal interet;
+	private BigDecimal interetPrecompte;
 	private BigDecimal plusOuMoinsValue;
 	private BigDecimal montantBrut;
+	private BigDecimal montantNet;
+	private BigDecimal cump;
 	private Long idOperationRL;
 	private Long numLigne;
 	private LocalDateTime dateDernModifClient;
@@ -43,6 +46,30 @@ public class AvisOperationBourseDto extends Base {
 	private String valeurFormule;
 	private String valeurCodeAnalytique;
 	public AvisOperationBourseDto() {
+	}
+
+	public BigDecimal getMontantNet() {
+		return montantNet;
+	}
+
+	public void setMontantNet(BigDecimal montantNet) {
+		this.montantNet = montantNet;
+	}
+
+	public BigDecimal getCump() {
+		return cump;
+	}
+
+	public void setCump(BigDecimal cump) {
+		this.cump = cump;
+	}
+
+	public BigDecimal getInteretPrecompte() {
+		return interetPrecompte;
+	}
+
+	public void setInteretPrecompte(BigDecimal interetPrecompte) {
+		this.interetPrecompte = interetPrecompte;
 	}
 
 	public String getValeurFormule() {

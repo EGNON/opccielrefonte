@@ -7,6 +7,8 @@ import com.ged.entity.opcciel.SeanceOpcvm;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 
+import java.math.BigDecimal;
+
 public interface SeanceOpcvmService {
     ResponseEntity<Object> afficherTous(DatatableParameters parameters);
     Page<SeanceOpcvmDto> afficherTousParPage(int page, int size);
@@ -22,4 +24,5 @@ public interface SeanceOpcvmService {
     ResponseEntity<Object> listeSeanceOpcvm(DatatableParameters parameters, Long idOpcvm);
 
     ResponseEntity<Object> supprimer(CleSeanceOpcvm id);
+    ResponseEntity<Object> modifier(Long idOpcvm, Long idSeance, BigDecimal navBenchmark);
 }

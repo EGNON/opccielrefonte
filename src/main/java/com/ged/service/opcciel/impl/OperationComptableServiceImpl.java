@@ -5,6 +5,7 @@ import com.ged.datatable.DataTablesResponse;
 import com.ged.datatable.DatatableParameters;
 import com.ged.dto.request.ConsultationEcritureRequest;
 import com.ged.dto.response.ConsultattionEcritureRes;
+import com.ged.projection.ConsultattionEcritureResProjection;
 import com.ged.response.ResponseHandler;
 import com.ged.service.opcciel.OperationService;
 import org.springframework.data.domain.Page;
@@ -34,23 +35,32 @@ public class OperationComptableServiceImpl implements OperationService {
             DatatableParameters parameters = request.getDatatableParameters();
             Pageable pageable = PageRequest.of(
                     parameters.getStart()/ parameters.getLength(), parameters.getLength());
-            Page<ConsultattionEcritureRes> operationPage;
+            Page<ConsultattionEcritureResProjection> operationPage;
             if(parameters.getSearch() != null && !parameters.getSearch().getValue().isEmpty()) {
                 operationPage = new PageImpl<>(new ArrayList<>());
             }
             else {
+//                operationPage = operationDao.listeOperationsFiltree(
+//                    request.getIdOpcvm() == 0L ? null : request.getIdOpcvm(),
+//                    request.getIdOperation() == 0L ? null : request.getIdOperation(),
+//                    request.getIdTransaction() == 0L ? null :  request.getIdTransaction(),
+//                    request.getNatureOperation() != null ? request.getNatureOperation().getCodeNatureOperation().trim() : null,
+//                    request.getDateDebut(),
+//                    request.getDateFin(),
+//                    pageable
+//                );
                 operationPage = operationDao.listeOperationsFiltree(
-                    request.getIdOpcvm() == 0L ? null : request.getIdOpcvm(),
-                    request.getIdOperation() == 0L ? null : request.getIdOperation(),
-                    request.getIdTransaction() == 0L ? null :  request.getIdTransaction(),
-                    request.getNatureOperation() != null ? request.getNatureOperation().getCodeNatureOperation().trim() : null,
+                    request.getIdOpcvm(),
+                     request.getIdOperation(),
+                     null,
+                    null,
                     request.getDateDebut(),
                     request.getDateFin(),
                     pageable
                 );
             }
-            List<ConsultattionEcritureRes> content = operationPage.getContent().stream().toList();
-            DataTablesResponse<ConsultattionEcritureRes> dataTablesResponse = new DataTablesResponse<>();
+            List<ConsultattionEcritureResProjection> content = operationPage.getContent().stream().toList();
+            DataTablesResponse<ConsultattionEcritureResProjection> dataTablesResponse = new DataTablesResponse<>();
             dataTablesResponse.setDraw(parameters.getDraw());
             dataTablesResponse.setRecordsFiltered((int)operationPage.getTotalElements());
             dataTablesResponse.setRecordsTotal((int)operationPage.getTotalElements());

@@ -46,6 +46,7 @@ public class AvisOperationBourse extends Base {
 	private BigDecimal interet;
 	private BigDecimal plusOuMoinsValue;
 	private BigDecimal montantBrut;
+	private BigDecimal montantNet;
 	private Long idOperationRL;
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long numLigne;
@@ -76,6 +77,14 @@ public class AvisOperationBourse extends Base {
 
 	public void setIdTransaction(Long idTransaction) {
 		this.idTransaction = idTransaction;
+	}
+
+	public BigDecimal getMontantNet() {
+		return montantNet;
+	}
+
+	public void setMontantNet(BigDecimal montantNet) {
+		this.montantNet = montantNet;
 	}
 
 	public Long getIdSeance() {

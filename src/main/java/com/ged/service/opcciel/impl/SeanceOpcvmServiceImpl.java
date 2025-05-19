@@ -15,10 +15,13 @@ import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -40,11 +43,21 @@ public class SeanceOpcvmServiceImpl implements SeanceOpcvmService {
     @Override
     public ResponseEntity<Object> afficherTous(DatatableParameters parameters) {
         try {
-//            Sort sort = Sort.by(Sort.Direction.ASC,"denomination");
+            Sort sort = Sort.by(Sort.Direction.DESC,"idSeance");
+
             Pageable pageable = PageRequest.of(
                     parameters.getStart()/ parameters.getLength(), parameters.getLength());
             Page<SeanceOpcvm> seanceOpcvmPage;
-            seanceOpcvmPage = SeanceOpcvmDao.findAll(pageable);
+            if(parameters.getSearch() != null && !StringUtils.isEmpty(parameters.getSearch().getValue()))
+            {
+//                ObjectMapper mapper = new ObjectMapper();
+//                System.out.println("PARAMS -> " + mapper.writeValueAsString(parameters.getSearch()));
+                seanceOpcvmPage = SeanceOpcvmDao.rechercher(parameters.getSearch().getValue(), pageable);
+            }
+            else {
+                seanceOpcvmPage = SeanceOpcvmDao.listeSeanceOpcvm(pageable);
+            }
+
             List<SeanceOpcvmDto> content = seanceOpcvmPage.getContent().stream().map(SeanceOpcvmMapper::deSeanceOpcvm).collect(Collectors.toList());
             DataTablesResponse<SeanceOpcvmDto> dataTablesResponse = new DataTablesResponse<>();
             dataTablesResponse.setDraw(parameters.getDraw());
@@ -222,6 +235,22 @@ public class SeanceOpcvmServiceImpl implements SeanceOpcvmService {
             SeanceOpcvmDao.deleteById(id);
             return ResponseHandler.generateResponse(
                     "Suppression effectuée avec succès",
+                    HttpStatus.OK,
+                    null);
+        } catch (Exception e) {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e);
+        }
+    }
+
+    @Override
+    public ResponseEntity<Object> modifier(Long idOpcvm, Long idSeance, BigDecimal navBenchmark) {
+        try {
+            SeanceOpcvmDao.modifier(idOpcvm, idSeance, navBenchmark);
+            return ResponseHandler.generateResponse(
+                    "Modification effectuée avec succès",
                     HttpStatus.OK,
                     null);
         } catch (Exception e) {

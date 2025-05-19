@@ -54,5 +54,13 @@ public interface OrdreDao extends JpaRepository<Ordre, Long> {
             "and t_o.estEnvoye =true " +
             "and t_o.supprimer = false " +
             "order by t_o.opcvm.idOpcvm, t_o.idSeance,t_o.role, t_o.idOrdre")
-    List<OrdreProjection> afficherListeOrdre(Long idOpcvm,Long idSeance);
+    List<OrdreProjection> impressionOrdreDeBourse(Long idOpcvm,Long idSeance);
+
+    @Query(value = "select o from Ordre o " +
+            "WHERE (o.opcvm.idOpcvm =:idOpcvm) " +
+            "and o.quantiteLimite>o.quantiteExecute " +
+            "and o.estEnvoye =true " +
+            "and o.supprimer = false " +
+            "and o.statut!='RELACHE'")
+    Page<Ordre> ordreEnCours(Long idOpcvm,Pageable pageable);
 }

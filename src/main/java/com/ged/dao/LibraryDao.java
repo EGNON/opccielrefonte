@@ -10,6 +10,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
@@ -17,9 +18,17 @@ import java.util.List;
 public interface LibraryDao extends JpaRepository<BaseEntity, Long> {
     @Query(value = "select [Comptabilite].[FS_SoldeCompteClient](:idActionnaire, :idOpcvm)", nativeQuery = true)
     BigDecimal solde(@Param("idActionnaire") Long idActionnaire, @Param("idOpcvm") Long idOpcvm);
+    @Query(value = "select [Titre].[FS_DeniereEcheance_New](:idTitre,:dateEvaluation,:idOpcvm)", nativeQuery = true)
+    Date derniereEcheance(Long idTitre, Date dateEvaluation, Long idOpcvm);
+
+    @Query(value = "select [Titre].[FS_LastDayAmortissement_New](:idTitre)", nativeQuery = true)
+    LocalDateTime derniereEcheance(Long idTitre);
 
     @Query(value = "select * from [OrdreDeBourse].[FT_OrdrePourImpression_New](:numeroOrdre)", nativeQuery = true)
     List<OrdreProjection> listeOrdreApercu(@Param("numeroOrdre") String numeroOrdre);
+
+    @Query(value = "select * from [Impressions].[FT_PortefeuilleOPCVM_New](:idOpcvm ,:dateEstimation)", nativeQuery = true)
+    List<PortefeuilleOpcvmProjection> portefeuilleOPCVM(Long idOpcvm,LocalDateTime dateEstimation);
     @Query(value = "select [Comptabilite].[FS_QuantiteReelTitre](:idOpcvm,:idTitre,:date)", nativeQuery = true)
     BigDecimal quantiteReelTitre(@Param("idOpcvm") Long idOpcvm,Long idTitre,LocalDateTime date);
     @Query(value = "select [Titre].[FS_InteretsCourrus](:idTitre,:dateEvaluation,:CalculerParPeriodicite,:idOpcvm)", nativeQuery = true)
@@ -123,6 +132,17 @@ public interface LibraryDao extends JpaRepository<BaseEntity, Long> {
             @Param("idActionnaire") Long idActionnaire,
             @Param("dateEstimation") LocalDateTime dateEstimation
     );
+
+    @Query(value = "select [Comptabilite].[FS_CUMP](:idOpcvm, :idTitre, :dateEstimation)", nativeQuery = true)
+    BigDecimal cump(
+            @Param("idOpcvm") Long idOpcvm,
+            @Param("idTitre") Long idTitre,
+            @Param("dateEstimation") LocalDateTime dateEstimation
+    );
+    @Query(value = "select [Titre].[FS_qteAmortie_new](:idTitre,:date,:qteDetenue)", nativeQuery = true)
+    BigDecimal qteAmortie(Long idTitre,LocalDateTime date,Long qteDetenue);
+    @Query(value = "select [Titre].[FS_NominalRembourse_new](:idTitre,:date)", nativeQuery = true)
+    BigDecimal nominalRembourse(Long idTitre,Date date);
 
     @Query(value = "select * from [Comptabilite].[FT_SoldeToutCompte](:codePlan, :idOpcvm, :numCompteComptable, :dateEstimation)", nativeQuery = true)
     List<SoldeToutCompteProjection> soldeToutCompte(

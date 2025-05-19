@@ -3,6 +3,7 @@ package com.ged.entity.opcciel;
 import com.ged.entity.opcciel.comptabilite.Operation;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
+import org.hibernate.annotations.ColumnDefault;
 
 @Entity
 @Table(name = "T_OperationChargeAEtaler", schema = "Operation")
@@ -14,8 +15,19 @@ public class OperationChargeAEtaler extends Operation {
     private int usance;
     private String codeModele;
 
+//    @ColumnDefault("0")
+//    private Boolean supprimer = false;
+
     public OperationChargeAEtaler() {
     }
+
+//    public Boolean getSupprimer() {
+//        return supprimer;
+//    }
+//
+//    public void setSupprimer(Boolean supprimer) {
+//        this.supprimer = supprimer;
+//    }
 
     public boolean isEstGenere() {
         return estGenere;

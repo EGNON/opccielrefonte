@@ -3,6 +3,7 @@ package com.ged.entity.opcciel;
 import com.ged.entity.opcciel.comptabilite.Operation;
 import com.ged.entity.standard.Personne;
 import jakarta.persistence.*;
+import org.hibernate.annotations.ColumnDefault;
 
 import java.math.BigDecimal;
 
@@ -24,10 +25,19 @@ public class OperationTransfertPart extends Operation {
     @Column(precision = 18, scale = 6)
     private BigDecimal qteTransfert;
     private Long idOpDepart;
-
+//    @ColumnDefault("0")
+//    private Boolean supprimer = false;
     public OperationTransfertPart() {
         super();
     }
+
+//    public Boolean getSupprimer() {
+//        return supprimer;
+//    }
+//
+//    public void setSupprimer(Boolean supprimer) {
+//        this.supprimer = supprimer;
+//    }
 
     public Personne getDemandeur() {
         return demandeur;

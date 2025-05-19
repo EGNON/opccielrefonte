@@ -4,6 +4,7 @@ import com.ged.entity.opcciel.comptabilite.Operation;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
+import org.hibernate.annotations.ColumnDefault;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -19,9 +20,18 @@ public class OperationConstitutionCapital extends Operation {
     private Boolean estVerifie;
     private LocalDateTime dateVerification;
     private String userLoginVerificateur;
-
+//    @ColumnDefault("0")
+//    private Boolean supprimer = false;
     public OperationConstitutionCapital() {
     }
+
+//    public Boolean getSupprimer() {
+//        return supprimer;
+//    }
+//
+//    public void setSupprimer(Boolean supprimer) {
+//        this.supprimer = supprimer;
+//    }
 
     public BigDecimal getPart() {
         return part;

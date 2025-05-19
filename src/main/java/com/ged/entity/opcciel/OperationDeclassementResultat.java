@@ -4,6 +4,7 @@ import com.ged.entity.opcciel.comptabilite.Operation;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
+import org.hibernate.annotations.ColumnDefault;
 
 import java.math.BigDecimal;
 
@@ -22,9 +23,18 @@ public class OperationDeclassementResultat extends Operation {
     private BigDecimal beneficeInstanceAffec;
     @Column(precision = 18, scale = 6)
     private BigDecimal perteInstanceAffec;
-
+//    @ColumnDefault("0")
+//    private Boolean supprimer = false;
     public OperationDeclassementResultat() {
     }
+
+//    public Boolean getSupprimer() {
+//        return supprimer;
+//    }
+//
+//    public void setSupprimer(Boolean supprimer) {
+//        this.supprimer = supprimer;
+//    }
 
     public BigDecimal getRanBeneficiaire() {
         return ranBeneficiaire;

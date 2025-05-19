@@ -10,6 +10,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
+import org.hibernate.annotations.ColumnDefault;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -30,4 +31,6 @@ public class OperationConstatationCharge extends Operation {
     private String codeCharge;
     private Boolean estPayee;
     private Long idSeancePaiement;
+//    @ColumnDefault("0")
+//    private Boolean supprimer = false;
 }

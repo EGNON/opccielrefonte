@@ -73,6 +73,11 @@ public class OrdreController {
     public ResponseEntity<Object> datatableList(@RequestBody DatatableParameters params,@PathVariable Long idOpcvm) throws JsonProcessingException {
         return OrdreService.afficherTous(idOpcvm,params);
     }
+    @PostMapping("ordreencours/datatable/list/{idOpcvm}")
+    //    @PreAuthorize("hasAuthority('ROLE_DEGRE')")
+    public ResponseEntity<Object> ordreEncCours(@RequestBody DatatableParameters params,@PathVariable Long idOpcvm) throws JsonProcessingException {
+        return OrdreService.ordreEnCours(idOpcvm,params);
+    }
 
     @PostMapping
 //    @PreAuthorize("hasAuthority('ROLE_DEGRE')")

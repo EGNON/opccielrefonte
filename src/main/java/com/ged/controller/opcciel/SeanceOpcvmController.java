@@ -10,6 +10,8 @@ import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
+
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/seanceopcvms")
@@ -74,6 +76,16 @@ public class SeanceOpcvmController {
         cleSeanceOpcvm.setIdSeance(idSeance);
         SeanceOpcvmDto.setIdSeanceOpcvm(cleSeanceOpcvm);
         return SeanceOpcvmService.modifier(SeanceOpcvmDto);
+    }
+    @PutMapping("/{idOpcvm}/{idSeance}/{navbenchmark}")
+//    @PreAuthorize("hasAuthority('ROLE_DEGRE')")
+    public ResponseEntity<Object> modifier(
+            @PathVariable Long idOpcvm,
+            @PathVariable Long idSeance,
+            @PathVariable BigDecimal navbenchmark)
+    {
+
+        return SeanceOpcvmService.modifier(idOpcvm, idSeance, navbenchmark);
     }
 
     @DeleteMapping("/{idOpcvm}/{idSeance}")

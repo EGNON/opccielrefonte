@@ -93,6 +93,31 @@ public class AvisOperationBourseController {
 //    {
 //        return OrdreService.validation(id,userLogin);
 //    }
+    @PostMapping("/calculer")
+    //    @PreAuthorize("hasAuthority('ROLE_DEGRE')")
+    public ResponseEntity<Object> calculer(@RequestBody AvisOperationBourseDto avisOperationBourseDto)
+    {
+        return avisOperationBourseService.calculer(avisOperationBourseDto);
+    }
+    @PostMapping("/reglementlivraison/{idOperation}/{userLogin}")
+    //    @PreAuthorize("hasAuthority('ROLE_DEGRE')")
+    public ResponseEntity<Object> enregistrerReglementLivraison(@PathVariable String idOperation,
+                                                     @PathVariable String userLogin)
+    {
+        return avisOperationBourseService.enregistrerReglementLivraison(idOperation, userLogin);
+    }
+    @GetMapping("/reglementlivraison/{idOpcvm}")
+    //    @PreAuthorize("hasAuthority('ROLE_DEGRE')")
+    public ResponseEntity<Object> afficherReglementLivraison(@PathVariable Long idOpcvm)
+    {
+        return avisOperationBourseService.afficherReglementLivraison(idOpcvm);
+    }
+    @GetMapping("/generationreglementlivraison/{idOpcvm}")
+    //    @PreAuthorize("hasAuthority('ROLE_DEGRE')")
+    public ResponseEntity<Object> afficherGenerationReglementLivraison(@PathVariable Long idOpcvm)
+    {
+        return avisOperationBourseService.afficherGenerationReglementLivraison(idOpcvm);
+    }
 
     @DeleteMapping("/{idAvis}/{userLogin}")
 //    @PreAuthorize("hasAuthority('ROLE_DEGRE')")

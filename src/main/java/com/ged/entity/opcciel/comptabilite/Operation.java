@@ -1,6 +1,7 @@
 package com.ged.entity.opcciel.comptabilite;
 
 import com.ged.entity.Base;
+import com.ged.entity.BaseOperation;
 import com.ged.entity.opcciel.Opcvm;
 import com.ged.entity.standard.Personne;
 import com.ged.entity.titresciel.Titre;
