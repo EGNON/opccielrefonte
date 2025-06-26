@@ -2,6 +2,7 @@ package com.ged.mapper.opcciel;
 
 import com.ged.dto.opcciel.OperationConstatationChargeDto;
 import com.ged.entity.opcciel.OperationConstatationCharge;
+import com.ged.projection.OperationConstatationChargeProjection;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
@@ -29,4 +30,11 @@ public class OperationConstatationChargeMapper {
         dto.setNatureOperation(natureOperationMapper.deNatureOperation(entite.getNatureOperation()));
         return dto;
     }
+//    public OperationConstatationChargeDto deProjetion(OperationConstatationChargeProjection entite) {
+//        OperationConstatationChargeDto dto = new OperationConstatationChargeDto();
+//        BeanUtils.copyProperties(entite, dto);
+//        dto.setOpcvm(opcvmMapper.deOpcvm(entite.getOpcvm()));
+//        dto.setNatureOperation(natureOperationMapper.deNatureOperation(entite.getNatureOperation()));
+//        return dto;
+//    }
 }

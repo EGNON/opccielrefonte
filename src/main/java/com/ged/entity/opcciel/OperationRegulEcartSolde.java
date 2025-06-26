@@ -12,12 +12,19 @@ import java.math.BigDecimal;
 @Table(name = "T_OperationRegulEcartSolde", schema = "Operation")
 public class OperationRegulEcartSolde extends Operation {
     @Column(precision = 18, scale = 6)
-    private BigDecimal SoldeEspeceDepositaire;
+    private BigDecimal soldeEspeceDepositaire;
 //    @ColumnDefault("0")
 //    private Boolean supprimer = false;
     public OperationRegulEcartSolde() {
     }
 
+    public BigDecimal getSoldeEspeceDepositaire() {
+        return soldeEspeceDepositaire;
+    }
+
+    public void setSoldeEspeceDepositaire(BigDecimal soldeEspeceDepositaire) {
+        this.soldeEspeceDepositaire = soldeEspeceDepositaire;
+    }
 //    public Boolean getSupprimer() {
 //        return supprimer;
 //    }
@@ -26,11 +33,4 @@ public class OperationRegulEcartSolde extends Operation {
 //        this.supprimer = supprimer;
 //    }
 
-    public BigDecimal getSoldeEspeceDepositaire() {
-        return SoldeEspeceDepositaire;
-    }
-
-    public void setSoldeEspeceDepositaire(BigDecimal soldeEspeceDepositaire) {
-        SoldeEspeceDepositaire = soldeEspeceDepositaire;
-    }
 }

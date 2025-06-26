@@ -15,7 +15,25 @@ public class ConsultationEcritureRequest {
     private NatureOperationDto natureOperation;
     private LocalDateTime dateDebut;
     private LocalDateTime dateFin;
+    private String dateDeb;
+    private String dateFn;
     private DatatableParameters datatableParameters;
+
+    public String getDateDeb() {
+        return dateDeb;
+    }
+
+    public void setDateDeb(String dateDeb) {
+        this.dateDeb = dateDeb;
+    }
+
+    public String getDateFn() {
+        return dateFn;
+    }
+
+    public void setDateFn(String dateFn) {
+        this.dateFn = dateFn;
+    }
 
     public Long getIdSeance() {
         return idSeance;

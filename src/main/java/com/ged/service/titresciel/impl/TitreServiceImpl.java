@@ -159,6 +159,24 @@ public class TitreServiceImpl implements TitreService {
     }
 
     @Override
+    public ResponseEntity<Object> afficherSelonTypeTitre(String code) {
+        try {
+            List<TitreDto> titre = titreDao.afficherSelonTypeTitre(code).stream().map(titreMapper::deTitre).collect(Collectors.toList());
+            return ResponseHandler.generateResponse(
+                    "Liste des titres",
+                    HttpStatus.OK,
+                    titre);
+        }
+        catch (Exception e)
+        {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e);
+        }
+    }
+
+    @Override
     public ResponseEntity<Object> creer(TitreDto TitreDto) {
         return null;
     }

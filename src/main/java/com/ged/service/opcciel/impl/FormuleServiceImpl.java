@@ -10,12 +10,14 @@ import com.ged.datatable.DataTablesResponse;
 import com.ged.datatable.DatatableParameters;
 import com.ged.dto.lab.reportings.FormuleParametre;
 import com.ged.dto.opcciel.comptabilite.FormuleDto;
+import com.ged.dto.opcciel.comptabilite.SoldeCompteDto;
 import com.ged.dto.opcciel.comptabilite.SoldeCompteFormuleDto;
 import com.ged.entity.crm.Degre;
 import com.ged.entity.opcciel.comptabilite.Formule;
 import com.ged.entity.opcciel.comptabilite.TypeFormule;
 import com.ged.mapper.opcciel.FormuleMapper;
 import com.ged.projection.SoldeCompteFormuleProjection;
+import com.ged.projection.SoldeCompteProjection;
 import com.ged.response.ResponseHandler;
 import com.ged.service.opcciel.FormuleService;
 import org.apache.commons.lang3.StringUtils;
@@ -201,6 +203,31 @@ public class FormuleServiceImpl implements FormuleService {
             }
             return ResponseHandler.generateResponse(
                     "Solde compte formule",
+                    HttpStatus.OK,
+                    solde);
+        }
+        catch(Exception e)
+        {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e);
+        }
+    }
+
+    @Override
+    public ResponseEntity<Object> soldeCompte(SoldeCompteDto soldeCompteDto) {
+        try {
+            List<SoldeCompteProjection> list=libraryDao.soldeCompte(soldeCompteDto.getIb(),
+                    soldeCompteDto.getRubrique(), soldeCompteDto.getPosition(),
+                    soldeCompteDto.getDate());
+            /* System.out.println("size="+list.size());*/
+            BigDecimal solde=BigDecimal.valueOf(0);
+            if(list.size()!=0){
+                solde=list.get(0).getSolde();
+            }
+            return ResponseHandler.generateResponse(
+                    "Solde compte",
                     HttpStatus.OK,
                     solde);
         }

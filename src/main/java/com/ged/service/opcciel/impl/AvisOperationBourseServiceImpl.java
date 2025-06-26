@@ -34,7 +34,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -220,7 +223,7 @@ public class AvisOperationBourseServiceImpl implements AvisOperationBourseServic
     public ResponseEntity<Object> creer(AvisOperationBourseDto avisOperationBourseDto) {
         try {
             String sortie="";
-            var q = em.createStoredProcedureQuery("[OrdreDeBourse].[PS_AvisOperationBourse_IP]");
+            var q = em.createStoredProcedureQuery("[OrdreDeBourse].[PS_AvisOperationBourse_IP_New]");
 
             q.registerStoredProcedureParameter("IdAvis", Long.class, ParameterMode.IN);
             q.registerStoredProcedureParameter("idSeance", Long.class, ParameterMode.IN);
@@ -336,10 +339,17 @@ public class AvisOperationBourseServiceImpl implements AvisOperationBourseServic
                         Double.valueOf(avisOperationBourseDto.getQuantiteLimite().toString())).setScale(0, RoundingMode.HALF_UP);
 
                 codeClasseTitre = avisOperationBourseDto.getOrdre().getTitre().getTypeTitre().getClasseTitre().getCodeClasseTitre().trim().toUpperCase();
+                LocalDateTime dateTime =LocalDateTime.now();
+                Instant i = dateTime.atZone(ZoneId.systemDefault()).toInstant();
+                java.util.Date date = Date.from(i);
                 if (codeClasseTitre.equals("OBLIGATION") ||
                         codeClasseTitre.equals("TCN")) {
+//                    dateTime=avisOperationBourseDto.getDateOperation();
+                    dateTime=LocalDateTime.parse(avisOperationBourseDto.getDateOperation().toString().substring(0,10)+"T00:00:00");;
+                    i = dateTime.atZone(ZoneId.systemDefault()).toInstant();
+                    date = Date.from(i);
                     interetCourru = new BigDecimal(Double.valueOf(libraryDao.interetCouru(avisOperationBourseDto.getOrdre().getTitre().getIdTitre(),
-                            avisOperationBourseDto.getDateOperation(), false, null).toString()) *
+                            date, false, null).toString()) *
                             Double.valueOf(avisOperationBourseDto.getQuantiteLimite().toString())).setScale(0, RoundingMode.HALF_UP);
 
                     if (codeClasseTitre.equals("TCN")) {
@@ -352,9 +362,12 @@ public class AvisOperationBourseServiceImpl implements AvisOperationBourseServic
                         }
 
                         if (codeNatureTcn.equals("PREC")) {
+                            dateTime=LocalDateTime.parse(otcn.getDateDernierPaiement().toString().substring(0,10)+"T00:00:00");
+                            i = dateTime.atZone(ZoneId.systemDefault()).toInstant();
+                            date = Date.from(i);
                             BigDecimal toto = new BigDecimal(Double.valueOf(libraryDao.interetCouru(
                                     avisOperationBourseDto.getOrdre().getTitre().getIdTitre(),
-                                    otcn.getDateDernierPaiement(), false, null).toString()) *
+                                    date, false, null).toString()) *
                                     Double.valueOf(avisOperationBourseDto.getQuantiteLimite().toString())
                             );
 

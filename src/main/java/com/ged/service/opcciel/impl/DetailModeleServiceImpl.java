@@ -22,6 +22,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -100,11 +101,29 @@ public class DetailModeleServiceImpl implements DetailModeleService {
     @Override
     public ResponseEntity<Object> afficherSelonModeleEcriture(String codeModeleEcriture) {
         try {
-            ModeleEcriture modeleEcriture=modeleEcritureDao.findById(codeModeleEcriture).orElseThrow();
+//            ModeleEcriture modeleEcriture=modeleEcritureDao.findById(codeModeleEcriture).orElseThrow();
             return ResponseHandler.generateResponse(
                     "Details modèle selon code modele ecriture= " + codeModeleEcriture,
                     HttpStatus.OK,
-                    DetailModeleDao.findByModeleEcritureAndSupprimerOrderByModeleEcritureAscSensMvtDescNumeroOrdreAsc(modeleEcriture,false).stream().map(DetailModeleMapper::deDetailModele).collect(Collectors.toList()));
+                    DetailModeleDao.liste(codeModeleEcriture).stream().map(DetailModeleMapper::deDetailModele).collect(Collectors.toList()));
+        }
+        catch (Exception e)
+        {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e);
+        }
+    }
+
+    @Override
+    public ResponseEntity<Object> afficherSelonModeleEcritureParProjection(String codeModeleEcriture) {
+        try {
+//            ModeleEcriture modeleEcriture=modeleEcritureDao.findById(codeModeleEcriture).orElseThrow();
+            return ResponseHandler.generateResponse(
+                    "Details modèle selon code modele ecriture= " + codeModeleEcriture,
+                    HttpStatus.OK,
+                    DetailModeleDao.listeParProjection(codeModeleEcriture).stream().collect(Collectors.toList()));
         }
         catch (Exception e)
         {
@@ -141,6 +160,8 @@ public class DetailModeleServiceImpl implements DetailModeleService {
             cleDetailModele.setNumCompteComptable(DetailModeleDto.getNumCompteComptable());
             cleDetailModele.setCoodeModeleEcriture(DetailModeleDto.getModeleEcriture().getCodeModeleEcriture());
             DetailModele.setIdDetailModele(cleDetailModele);
+            DetailModele.setDateDernModifClient(LocalDateTime.now());
+            DetailModele.setUserLogin(DetailModeleDto.getUserLogin());
             ModeleEcriture modeleEcriture=new ModeleEcriture();
             Formule formule=new Formule();
             if(DetailModeleDto.getModeleEcriture()!=null){

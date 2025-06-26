@@ -23,6 +23,7 @@ public class OperationDetachementDto extends OperationDto {
     private BigDecimal qteDetenue;
     @Column(precision = 18, scale = 6)
     private BigDecimal couponDividendeUnitaire;
+    private BigDecimal couponDividendeTotal;
     @Column(precision = 18, scale = 6)
     private BigDecimal montantBrut;
     @Column(precision = 18, scale = 6)
@@ -41,7 +42,24 @@ public class OperationDetachementDto extends OperationDto {
     private Boolean bQtiteAMORT;
     private Boolean bMtantRemb;
     private Boolean bMtantRecevoir;
+    private String libelleModeAmortissement;
     public OperationDetachementDto() {
+    }
+
+    public String getLibelleModeAmortissement() {
+        return libelleModeAmortissement;
+    }
+
+    public void setLibelleModeAmortissement(String libelleModeAmortissement) {
+        this.libelleModeAmortissement = libelleModeAmortissement;
+    }
+
+    public BigDecimal getCouponDividendeTotal() {
+        return couponDividendeTotal;
+    }
+
+    public void setCouponDividendeTotal(BigDecimal couponDividendeTotal) {
+        this.couponDividendeTotal = couponDividendeTotal;
     }
 
     public Boolean getbNominalRemb() {

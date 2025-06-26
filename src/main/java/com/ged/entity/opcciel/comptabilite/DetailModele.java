@@ -13,6 +13,7 @@ public class DetailModele extends Base {
     @MapsId("coodeModeleEcriture")
     private ModeleEcriture modeleEcriture;
 	private String sensMvt;
+	private String userLogin;
     @ManyToOne()
     @JoinColumn(name="idFormule")
     private Formule formule;
@@ -20,8 +21,36 @@ public class DetailModele extends Base {
     private String numCompteComptable;
     @Column(insertable = false,updatable = false)
     private int numeroOrdre;
+    @Column(insertable = false,updatable = false)
+    private Boolean actionnaire;
+    @Column(insertable = false,updatable = false)
+    private Boolean banque;
 
     public DetailModele() {
+    }
+
+    public Boolean getActionnaire() {
+        return actionnaire;
+    }
+
+    public void setActionnaire(Boolean actionnaire) {
+        this.actionnaire = actionnaire;
+    }
+
+    public Boolean getBanque() {
+        return banque;
+    }
+
+    public void setBanque(Boolean banque) {
+        this.banque = banque;
+    }
+
+    public String getUserLogin() {
+        return userLogin;
+    }
+
+    public void setUserLogin(String userLogin) {
+        this.userLogin = userLogin;
     }
 
     public int getNumeroOrdre() {

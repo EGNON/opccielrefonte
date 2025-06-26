@@ -7,6 +7,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @Data
 @Builder
 @AllArgsConstructor
@@ -14,5 +16,7 @@ import lombok.NoArgsConstructor;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ConstatationChargeListeRequest {
     private Long idOpcvm;
+    private LocalDateTime dateOperation;
+    private Long idSeance;
     private DatatableParameters datatableParameters;
 }

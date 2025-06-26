@@ -4,6 +4,7 @@ import com.ged.datatable.DatatableParameters;
 import com.ged.dto.opcciel.OperationDetachementDto;
 import com.ged.dto.request.SousRachRequest;
 import com.ged.entity.opcciel.OperationDetachement;
+import com.ged.projection.OperationDetachementProjection;
 import jakarta.servlet.http.HttpServletResponse;
 import net.sf.jasperreports.engine.JRException;
 import org.springframework.http.ResponseEntity;
@@ -14,12 +15,13 @@ import java.util.List;
 
 public interface OperationDetachementService {
     ResponseEntity<Object> afficherTous(DatatableParameters parameters,Long idOpcvm);
-    OperationDetachement afficherSelonId(Long id);
+    OperationDetachementProjection afficherSelonId(Long id);
     ResponseEntity<Object> afficher(Long id);
     ResponseEntity<Object> afficherTitre(Long idOpcvm,LocalDateTime dateEstimation,String typeEvenement);
-    ResponseEntity<Object> afficherTous(Long idOpcvm);
+    ResponseEntity<Object> afficherTous(Long idOpcvm,boolean estPaye,String typeEvenement);
     ResponseEntity<Object> creer(OperationDetachementDto operationDetachementDto);
     ResponseEntity<Object> valeurOuQte(OperationDetachementDto operationDetachementDto);
     ResponseEntity<Object> modifier(OperationDetachementDto operationDetachementDto);
-    ResponseEntity<Object> supprimer(Long id);
+    ResponseEntity<Object> supprimer(String userLogin,
+                                    Long idDetachement);
 }

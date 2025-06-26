@@ -43,7 +43,9 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -332,7 +334,10 @@ public class OrdreServiceImpl implements OrdreService {
                 if (codeClasseTitre.trim().toUpperCase().equals("OBLIGATION")||
                         codeClasseTitre.trim().toUpperCase().equals("TCN"))
                 {
-                    interetCourru = new BigDecimal(Double.valueOf(libraryDao.interetCouru(titre.getIdTitre(),ordreDto.getDateOrdre(), false,null).toString()) *
+                    LocalDateTime dateTime=LocalDateTime.parse(ordreDto.getDateOrdre().toString().substring(0,10)+"T00:00:00");;
+                    Instant i = dateTime.atZone(ZoneId.systemDefault()).toInstant();
+                    Date date = Date.from(i);
+                    interetCourru = new BigDecimal(Double.valueOf(libraryDao.interetCouru(titre.getIdTitre(),date, false,null).toString()) *
                             Double.valueOf(ordreDto.getQuantiteLimite().toString())).setScale(0,RoundingMode.HALF_UP);
                 }
                 //DEPOSITAIRE

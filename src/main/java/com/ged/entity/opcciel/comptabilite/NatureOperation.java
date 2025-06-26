@@ -12,6 +12,7 @@ public class NatureOperation extends Base {
     @Id
     private String codeNatureOperation;
     private String libelleNatureOperation;
+    private String userLogin;
     @ManyToOne()
     @JoinColumn(name = "codeTypeOperation")
     private TypeOperation typeOperation;
@@ -20,6 +21,14 @@ public class NatureOperation extends Base {
     private Journal journal;
 
     public NatureOperation() {
+    }
+
+    public String getUserLogin() {
+        return userLogin;
+    }
+
+    public void setUserLogin(String userLogin) {
+        this.userLogin = userLogin;
     }
 
     public String getCodeNatureOperation() {

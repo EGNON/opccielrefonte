@@ -1,5 +1,6 @@
 package com.ged.entity.opcciel;
 
+import com.ged.entity.Base;
 import com.ged.entity.titresciel.Titre;
 import jakarta.persistence.*;
 
@@ -8,7 +9,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "T_OperationDifferenceEstimation", schema = "Operation")
-public class OperationDifferenceEstimation {
+public class OperationDifferenceEstimation extends Base {
 	@EmbeddedId
 	private CleOperationDifferenceEstimation idOperationDifferenceEstimation;
 	@ManyToOne(cascade = CascadeType.ALL)

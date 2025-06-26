@@ -17,8 +17,16 @@ public class ModeleEcritureFormule extends Base {
     @JoinColumn(name = "idFormule")
     @MapsId("idFormule")
     private Formule formule;
-
+    private String userLogin;
     public ModeleEcritureFormule() {
+    }
+
+    public String getUserLogin() {
+        return userLogin;
+    }
+
+    public void setUserLogin(String userLogin) {
+        this.userLogin = userLogin;
     }
 
     public CleModeleEcritureFormule getIdModeleEcritureFormule() {

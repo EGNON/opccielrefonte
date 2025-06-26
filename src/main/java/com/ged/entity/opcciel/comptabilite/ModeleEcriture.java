@@ -1,5 +1,6 @@
 package com.ged.entity.opcciel.comptabilite;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ged.entity.Base;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -14,12 +15,21 @@ public class ModeleEcriture extends Base {
     @Id
     private String codeModeleEcriture;
 	private String libelleModeleEcriture;
+	private String userLogin;
     @OneToMany(mappedBy = "modeleEcriture")
     private Set<ModeleEcritureFormule> modeleEcritureFormules;
-    @OneToMany(mappedBy = "modeleEcriture")
-    private Set<ModeleEcritureNatureOperation> modeleEcritureNatureOperations;
+//    @OneToMany(mappedBy = "modeleEcriture")
+//    private Set<ModeleEcritureNatureOperation> modeleEcritureNatureOperations;
 
     public ModeleEcriture() {
+    }
+
+    public String getUserLogin() {
+        return userLogin;
+    }
+
+    public void setUserLogin(String userLogin) {
+        this.userLogin = userLogin;
     }
 
     public String getCodeModeleEcriture() {
@@ -45,4 +55,5 @@ public class ModeleEcriture extends Base {
     public void setModeleEcritureFormules(Set<ModeleEcritureFormule> modeleEcritureFormules) {
         this.modeleEcritureFormules = modeleEcritureFormules;
     }
+
 }

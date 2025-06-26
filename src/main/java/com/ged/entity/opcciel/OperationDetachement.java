@@ -2,6 +2,7 @@ package com.ged.entity.opcciel;
 
 import com.ged.entity.opcciel.comptabilite.Operation;
 import com.ged.entity.standard.Personne;
+import com.ged.entity.titresciel.Titre;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
@@ -18,6 +19,10 @@ public class OperationDetachement extends Operation {
     @ManyToOne
     @JoinColumn(name = "idIntervenant_New",referencedColumnName = "idPersonne")
     private Personne intervenant;
+//    @ManyToOne
+//    @JoinColumn(name = "idTitre")
+//    @Column(insertable = false,updatable = false)
+//    private Titre titre;
     @Column(precision = 18, scale = 6)
     private BigDecimal qteDetenue;
     @Column(precision = 18, scale = 6)
@@ -46,6 +51,16 @@ public class OperationDetachement extends Operation {
 //
 //    public void setSupprimer(Boolean supprimer) {
 //        this.supprimer = supprimer;
+//    }
+
+//    @Override
+//    public Titre getTitre() {
+//        return titre;
+//    }
+//
+//    @Override
+//    public void setTitre(Titre titre) {
+//        this.titre = titre;
 //    }
 
     public Personne getIntervenant() {

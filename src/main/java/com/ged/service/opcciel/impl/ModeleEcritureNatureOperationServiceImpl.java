@@ -24,6 +24,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -128,6 +129,8 @@ public class ModeleEcritureNatureOperationServiceImpl implements ModeleEcritureN
             cleModeleEcritureNatureOperation.setCodeTypeTitre(ModeleEcritureNatureOperationDto.getTypeTitre().getCodeTypeTitre());
             ModeleEcritureNatureOperation.setIdModeleEcritureNatureOperation(cleModeleEcritureNatureOperation);
 
+            ModeleEcritureNatureOperation.setDateDernModifClient(LocalDateTime.now());
+            ModeleEcritureNatureOperation.setUserLogin(ModeleEcritureNatureOperationDto.getUserLogin());
             TypeTitre typeTitre=new TypeTitre();
             if(ModeleEcritureNatureOperationDto.getModeleEcriture()!=null){
                 modeleEcriture=modeleEcritureDao.findById(ModeleEcritureNatureOperationDto.getModeleEcriture().getCodeModeleEcriture()).orElseThrow();
@@ -166,6 +169,8 @@ public class ModeleEcritureNatureOperationServiceImpl implements ModeleEcritureN
             cleModeleEcritureNatureOperation.setCodeNatureOperation(ModeleEcritureNatureOperationDto.getNatureOperation().getCodeNatureOperation());
             cleModeleEcritureNatureOperation.setCodeTypeTitre(ModeleEcritureNatureOperationDto.getTypeTitre().getCodeTypeTitre());
             ModeleEcritureNatureOperation.setIdModeleEcritureNatureOperation(cleModeleEcritureNatureOperation);
+            ModeleEcritureNatureOperation.setDateDernModifClient(LocalDateTime.now());
+            ModeleEcritureNatureOperation.setUserLogin(ModeleEcritureNatureOperationDto.getUserLogin());
             TypeTitre typeTitre=new TypeTitre();
             if(ModeleEcritureNatureOperationDto.getModeleEcriture()!=null){
                 modeleEcriture=modeleEcritureDao.findById(ModeleEcritureNatureOperationDto.getModeleEcriture().getCodeModeleEcriture()).orElseThrow();

@@ -28,6 +28,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -139,6 +140,8 @@ public class ModeleEcritureServiceImpl implements ModeleEcritureService {
             ModeleEcritureDto.setSupprimer(false);
 
             ModeleEcriture ModeleEcriture = ModeleEcritureMapper.deModeleEcritureDto(ModeleEcritureDto);
+            ModeleEcriture.setDateDernModifClient(LocalDateTime.now());
+            ModeleEcriture.setUserLogin(ModeleEcritureDto.getUserLogin());
             ModeleEcriture = ModeleEcritureDao.save(ModeleEcriture);
 
             if(ModeleEcritureDto.getModeleEcritureFormules()!=null){
@@ -177,6 +180,8 @@ public class ModeleEcritureServiceImpl implements ModeleEcritureService {
             ModeleEcritureDto.setSupprimer(false);
 
             ModeleEcriture ModeleEcriture = ModeleEcritureMapper.deModeleEcritureDto(ModeleEcritureDto);
+            ModeleEcriture.setDateDernModifClient(LocalDateTime.now());
+            ModeleEcriture.setUserLogin(ModeleEcritureDto.getUserLogin());
             ModeleEcriture = ModeleEcritureDao.save(ModeleEcriture);
             //System.out.println("size modfier="+ModeleEcritureDto.getModeleEcritureFormules().size());
             if(ModeleEcritureDto.getModeleEcritureFormules()!=null){

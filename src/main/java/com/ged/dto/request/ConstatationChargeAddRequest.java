@@ -37,4 +37,5 @@ public class ConstatationChargeAddRequest {
     private LocalDateTime datePiece;
     private LocalDateTime dateValeur;
     private LocalDateTime dateSaisie;
+    private String userLogin;
 }

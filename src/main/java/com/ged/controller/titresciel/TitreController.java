@@ -38,6 +38,11 @@ public class TitreController {
     public ResponseEntity<Object> afficherSelonId(@PathVariable Long id){
         return titreService.afficher(id);
     }
+
+    @GetMapping("typetitre/{code}")
+    public ResponseEntity<Object> afficherSelonTypeTitre(@PathVariable String code){
+        return titreService.afficherSelonTypeTitre(code);
+    }
     @PostMapping("/datatable-{qualite}/liste/{classname}")
     public ResponseEntity<Object> datatableList(
             @RequestBody DatatableParameters params,

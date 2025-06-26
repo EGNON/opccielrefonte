@@ -1,6 +1,7 @@
 package com.ged.dto.opcciel.comptabilite;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import jakarta.persistence.Column;
 
 import java.time.LocalDateTime;
 
@@ -18,7 +19,25 @@ public class DetailModeleDto {
     private Long numLigne;
     private Boolean supprimer;
     private byte[] rowvers;
+    private Boolean actionnaire;
+    private Boolean banque;
     public DetailModeleDto() {
+    }
+
+    public Boolean getActionnaire() {
+        return actionnaire;
+    }
+
+    public void setActionnaire(Boolean actionnaire) {
+        this.actionnaire = actionnaire;
+    }
+
+    public Boolean getBanque() {
+        return banque;
+    }
+
+    public void setBanque(Boolean banque) {
+        this.banque = banque;
     }
 
     public String getNumCompteComptable() {

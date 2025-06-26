@@ -24,6 +24,12 @@ public class BanqueController {
     {
         return BanqueService.afficher(id);
     }
+     @GetMapping("/liste")
+    //    @PreAuthorize("hasAuthority('ROLE_Banque')")
+        public ResponseEntity<Object> afficherTous()
+        {
+            return BanqueService.afficherTous();
+        }
 
     @PostMapping("/datatable/list")
 //    @PreAuthorize("hasAuthority('ROLE_Banque')")

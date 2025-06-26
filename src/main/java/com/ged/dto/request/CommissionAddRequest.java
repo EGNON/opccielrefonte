@@ -22,6 +22,7 @@ public class CommissionAddRequest {
     private BigDecimal montantCommission;
     private BigDecimal montant;
     private String typeCommission;
+    private String userLogin;
     @NotNull(message = "La date est obligatoire")
     private LocalDateTime dateOperation;
     private LocalDateTime dateSolde;

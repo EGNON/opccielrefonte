@@ -29,10 +29,12 @@ public class OperationDetachementController {
         this.operationDetachementService = operationDetachementService;
     }
 
-    @GetMapping("tous/{idOpcvm}")
-    public ResponseEntity<Object> afficherTous(@PathVariable Long idOpcvm)
+    @GetMapping("tous/{idOpcvm}/{estPaye}/{typeEvenement}")
+    public ResponseEntity<Object> afficherTous(@PathVariable Long idOpcvm,
+                                               @PathVariable boolean estPaye,
+                                               @PathVariable String typeEvenement)
     {
-        return operationDetachementService.afficherTous(idOpcvm);
+        return operationDetachementService.afficherTous(idOpcvm,estPaye,typeEvenement);
     }
 
     @GetMapping("/{id}")
@@ -77,10 +79,11 @@ public class OperationDetachementController {
         return operationDetachementService.modifier(operationDetachementDto);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{userLogin}/{id}")
 //    @PreAuthorize("hasAuthority('ROLE_DEGRE')")
-    public ResponseEntity<Object> supprimer(@PathVariable Long id)
+    public ResponseEntity<Object> supprimer(@PathVariable String userLogin,
+                                            @PathVariable Long id)
     {
-        return operationDetachementService.supprimer(id);
+        return operationDetachementService.supprimer(userLogin,id);
     }
 }

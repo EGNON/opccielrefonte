@@ -17,7 +17,7 @@ public class ModeleEcritureDto {
     private Boolean supprimer;
     private byte[] rowvers;
     private Set<ModeleEcritureFormuleDto> modeleEcritureFormules;
-    private Set<ModeleEcritureNatureOperationDto> modeleEcritureNatureOperations;
+//    private Set<ModeleEcritureNatureOperationDto> modeleEcritureNatureOperations;
 
     public ModeleEcritureDto() {
     }
@@ -30,13 +30,13 @@ public class ModeleEcritureDto {
         this.modeleEcritureFormules = modeleEcritureFormules;
     }
 
-    public Set<ModeleEcritureNatureOperationDto> getModeleEcritureNatureOperations() {
-        return modeleEcritureNatureOperations;
-    }
-
-    public void setModeleEcritureNatureOperations(Set<ModeleEcritureNatureOperationDto> modeleEcritureNatureOperations) {
-        this.modeleEcritureNatureOperations = modeleEcritureNatureOperations;
-    }
+//    public Set<ModeleEcritureNatureOperationDto> getModeleEcritureNatureOperations() {
+//        return modeleEcritureNatureOperations;
+//    }
+//
+//    public void setModeleEcritureNatureOperations(Set<ModeleEcritureNatureOperationDto> modeleEcritureNatureOperations) {
+//        this.modeleEcritureNatureOperations = modeleEcritureNatureOperations;
+//    }
 
     public String getCodeModeleEcriture() {
         return codeModeleEcriture;

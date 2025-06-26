@@ -11,6 +11,7 @@ public interface DetailModeleService {
     ResponseEntity<Object> afficherTous();
     DetailModele afficherSelonId(CleDetailModele idDetailModele);
     ResponseEntity<Object> afficherSelonModeleEcriture(String codeModeleEcriture);
+    ResponseEntity<Object> afficherSelonModeleEcritureParProjection(String codeModeleEcriture);
     ResponseEntity<Object> afficher(CleDetailModele idDetailModele);
     ResponseEntity<Object> creer(DetailModeleDto DetailModeleDto);
     ResponseEntity<Object> creer(DetailModeleDto[] DetailModeleDto);

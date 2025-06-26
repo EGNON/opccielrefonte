@@ -2,37 +2,96 @@ package com.ged.dto.opcciel;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.ged.dto.titresciel.TitreDto;
+import com.ged.entity.opcciel.Opcvm;
+import com.ged.entity.titresciel.Titre;
+import jakarta.persistence.*;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class OperationExtourneVDEDto {
     private long idSeance;
+
     private TitreDto titre;
     private OpcvmDto opcvm;
-	private Double qteDetenue;
-    private Double cours;
-    private Double cumpT;
-    private Double cumpReel;
-    private Double plusOuMoinsValue;
-    private Double nbreJourCourus;
-    private Double interetCourus;
-    private Double valeurVDECours;
-    private Double valeurVDEInteret;
-    private Double idOpCours;
-    private Double idOpInteret;
-    private Double irvm;
-    private boolean estVerifie;
+    @Column(precision = 18, scale = 6)
+    private BigDecimal qteDetenue;
+    @Column(precision = 18, scale = 6)
+    private BigDecimal cours;
+    @Column(precision = 18, scale = 6)
+    private BigDecimal cumpT;
+    @Column(precision = 18, scale = 6)
+    private BigDecimal cumpReel;
+    @Column(precision = 18, scale = 6)
+    private BigDecimal plusOuMoinsValue;
+    @Column(precision = 18, scale = 6)
+    private BigDecimal nbreJourCourus;
+    @Column(precision = 18, scale = 6)
+    private BigDecimal interetCourus;
+    @Column(precision = 18, scale = 6)
+    private BigDecimal valeurVDECours;
+    @Column(precision = 18, scale = 6)
+    private BigDecimal valeurVDEInteret;
+    @Column(precision = 18, scale = 6)
+    private BigDecimal idOpCours;
+    @Column(precision = 18, scale = 6)
+    private BigDecimal idOpInteret;
+    @Column(precision = 18, scale = 6)
+    private BigDecimal irvm;
+    private Boolean estVerifie;
     private LocalDateTime dateVerification;
     private String userLoginVerificateur;
-    private boolean estVerifie1;
+    private Boolean estVerifie1;
     private LocalDateTime dateVerification1;
     private String userLoginVerificateur1;
-    private boolean estVerifie2;
+    private Boolean estVerifie2;
     private LocalDateTime dateVerification2;
+    private LocalDateTime dateValeur;
     private String userLoginVerificateur2;
+    private String userLogin;
 
     public OperationExtourneVDEDto() {
+    }
+
+    public Boolean getEstVerifie() {
+        return estVerifie;
+    }
+
+    public void setEstVerifie(Boolean estVerifie) {
+        this.estVerifie = estVerifie;
+    }
+
+    public Boolean getEstVerifie1() {
+        return estVerifie1;
+    }
+
+    public void setEstVerifie1(Boolean estVerifie1) {
+        this.estVerifie1 = estVerifie1;
+    }
+
+    public Boolean getEstVerifie2() {
+        return estVerifie2;
+    }
+
+    public void setEstVerifie2(Boolean estVerifie2) {
+        this.estVerifie2 = estVerifie2;
+    }
+
+    public LocalDateTime getDateValeur() {
+        return dateValeur;
+    }
+
+    public void setDateValeur(LocalDateTime dateValeur) {
+        this.dateValeur = dateValeur;
+    }
+
+    public String getUserLogin() {
+        return userLogin;
+    }
+
+    public void setUserLogin(String userLogin) {
+        this.userLogin = userLogin;
     }
 
     public long getIdSeance() {
@@ -59,99 +118,99 @@ public class OperationExtourneVDEDto {
         this.opcvm = opcvm;
     }
 
-    public Double getQteDetenue() {
+    public BigDecimal getQteDetenue() {
         return qteDetenue;
     }
 
-    public void setQteDetenue(Double qteDetenue) {
+    public void setQteDetenue(BigDecimal qteDetenue) {
         this.qteDetenue = qteDetenue;
     }
 
-    public Double getCours() {
+    public BigDecimal getCours() {
         return cours;
     }
 
-    public void setCours(Double cours) {
+    public void setCours(BigDecimal cours) {
         this.cours = cours;
     }
 
-    public Double getCumpT() {
+    public BigDecimal getCumpT() {
         return cumpT;
     }
 
-    public void setCumpT(Double cumpT) {
+    public void setCumpT(BigDecimal cumpT) {
         this.cumpT = cumpT;
     }
 
-    public Double getCumpReel() {
+    public BigDecimal getCumpReel() {
         return cumpReel;
     }
 
-    public void setCumpReel(Double cumpReel) {
+    public void setCumpReel(BigDecimal cumpReel) {
         this.cumpReel = cumpReel;
     }
 
-    public Double getPlusOuMoinsValue() {
+    public BigDecimal getPlusOuMoinsValue() {
         return plusOuMoinsValue;
     }
 
-    public void setPlusOuMoinsValue(Double plusOuMoinsValue) {
+    public void setPlusOuMoinsValue(BigDecimal plusOuMoinsValue) {
         this.plusOuMoinsValue = plusOuMoinsValue;
     }
 
-    public Double getNbreJourCourus() {
+    public BigDecimal getNbreJourCourus() {
         return nbreJourCourus;
     }
 
-    public void setNbreJourCourus(Double nbreJourCourus) {
+    public void setNbreJourCourus(BigDecimal nbreJourCourus) {
         this.nbreJourCourus = nbreJourCourus;
     }
 
-    public Double getInteretCourus() {
+    public BigDecimal getInteretCourus() {
         return interetCourus;
     }
 
-    public void setInteretCourus(Double interetCourus) {
+    public void setInteretCourus(BigDecimal interetCourus) {
         this.interetCourus = interetCourus;
     }
 
-    public Double getValeurVDECours() {
+    public BigDecimal getValeurVDECours() {
         return valeurVDECours;
     }
 
-    public void setValeurVDECours(Double valeurVDECours) {
+    public void setValeurVDECours(BigDecimal valeurVDECours) {
         this.valeurVDECours = valeurVDECours;
     }
 
-    public Double getValeurVDEInteret() {
+    public BigDecimal getValeurVDEInteret() {
         return valeurVDEInteret;
     }
 
-    public void setValeurVDEInteret(Double valeurVDEInteret) {
+    public void setValeurVDEInteret(BigDecimal valeurVDEInteret) {
         this.valeurVDEInteret = valeurVDEInteret;
     }
 
-    public Double getIdOpCours() {
+    public BigDecimal getIdOpCours() {
         return idOpCours;
     }
 
-    public void setIdOpCours(Double idOpCours) {
+    public void setIdOpCours(BigDecimal idOpCours) {
         this.idOpCours = idOpCours;
     }
 
-    public Double getIdOpInteret() {
+    public BigDecimal getIdOpInteret() {
         return idOpInteret;
     }
 
-    public void setIdOpInteret(Double idOpInteret) {
+    public void setIdOpInteret(BigDecimal idOpInteret) {
         this.idOpInteret = idOpInteret;
     }
 
-    public Double getIrvm() {
+    public BigDecimal getIrvm() {
         return irvm;
     }
 
-    public void setIrvm(Double irvm) {
+    public void setIrvm(BigDecimal irvm) {
         this.irvm = irvm;
     }
 

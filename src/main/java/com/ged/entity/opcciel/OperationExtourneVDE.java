@@ -1,5 +1,6 @@
 package com.ged.entity.opcciel;
 
+import com.ged.entity.Base;
 import com.ged.entity.titresciel.Titre;
 import jakarta.persistence.*;
 
@@ -8,7 +9,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "T_OperationExtourneVDE", schema = "Operation")
-public class OperationExtourneVDE {
+public class OperationExtourneVDE extends Base {
     @EmbeddedId
     private CleOperationExtourneVDE idOperationExtourneVDE;
     @ManyToOne(cascade = CascadeType.ALL)

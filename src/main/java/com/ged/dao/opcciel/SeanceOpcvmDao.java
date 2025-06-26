@@ -18,6 +18,10 @@ public interface SeanceOpcvmDao extends JpaRepository<SeanceOpcvm, CleSeanceOpcv
            "where s.idSeanceOpcvm.idOpcvm=:idOpcvm " +
             "and s.estEnCours=true ")
     SeanceOpcvm afficherSeanceEnCours(long idOpcvm);
+    @Query("select s from SeanceOpcvm s " +
+           "where s.idSeanceOpcvm.idOpcvm=:idOpcvm " +
+            "and s.idSeanceOpcvm.idSeance=:idSeance ")
+    SeanceOpcvm afficherSeance(long idOpcvm,long idSeance);
     @Query(value = "select s from SeanceOpcvm s where s.idSeanceOpcvm.idOpcvm = :id and " +
             "s.supprimer = false order by s.idSeanceOpcvm.idSeance desc")
     Page<SeanceOpcvm> listeSeanceOpcvm(@Param("id") Long id, Pageable pageable);
@@ -48,4 +52,9 @@ public interface SeanceOpcvmDao extends JpaRepository<SeanceOpcvm, CleSeanceOpcv
             "s.idSeanceOpcvm.idSeance=:idSeance")
     @Modifying
     int modifier(Long idOpcvm, Long idSeance, BigDecimal navBenchmark);
+    @Query("update SeanceOpcvm s set s.niveau=:niveau" +
+            " where s.idSeanceOpcvm.idOpcvm=:idOpcvm and " +
+            "s.idSeanceOpcvm.idSeance=:idSeance and s.estEnCours=true and s.supprimer=false")
+    @Modifying
+    int modifier(Long idOpcvm, Long idSeance, Long niveau);
 }

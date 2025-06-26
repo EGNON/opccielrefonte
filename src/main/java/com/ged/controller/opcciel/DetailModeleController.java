@@ -40,6 +40,12 @@ public class DetailModeleController {
     {
         return DetailModeleService.afficherSelonModeleEcriture(codeModeleEcriture);
     }
+    @GetMapping("projection/{codeModeleEcriture}")
+    //@PreAuthorize("hasAuthority('ROLE_DetailModele')")
+    public ResponseEntity<Object> afficherParProjection(@PathVariable String codeModeleEcriture)
+    {
+        return DetailModeleService.afficherSelonModeleEcritureParProjection(codeModeleEcriture);
+    }
     @PostMapping("/datatable/list")
     //@PreAuthorize("hasAuthority('ROLE_DetailModele')")
     public ResponseEntity<Object> datatableList(@RequestBody DatatableParameters params) {

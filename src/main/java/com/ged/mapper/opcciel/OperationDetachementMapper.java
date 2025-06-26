@@ -30,10 +30,23 @@ public class OperationDetachementMapper {
             return null;
         OperationDetachementDto operationDetachementDto = new OperationDetachementDto();
         BeanUtils.copyProperties(operationDetachement, operationDetachementDto);
-        operationDetachementDto.setOpcvm(opcvmMapper.deOpcvm(operationDetachement.getOpcvm()));
-        operationDetachementDto.setActionnaire(personneMapper.dePersonne(operationDetachement.getActionnaire()));
-        operationDetachementDto.setNatureOperation(natureOperationMapper.deNatureOperation(operationDetachement.getNatureOperation()));
-        operationDetachementDto.setTransaction(transactionMapper.deTransaction(operationDetachement.getTransaction()));
+//        operationDetachementDto.setOpcvm(opcvmMapper.deOpcvm(operationDetachement.getOpcvm()));
+//        operationDetachementDto.setActionnaire(personneMapper.dePersonne(operationDetachement.getActionnaire()));
+//        operationDetachementDto.setNatureOperation(natureOperationMapper.deNatureOperation(operationDetachement.getNatureOperation()));
+//        operationDetachementDto.setTransaction(transactionMapper.deTransaction(operationDetachement.getTransaction()));
+        if(operationDetachement.getOpcvm()!=null)
+            operationDetachementDto.setOpcvm(opcvmMapper.deOpcvm(operationDetachement.getOpcvm()));
+
+        if(operationDetachement.getIntervenant()!=null)
+            operationDetachementDto.setIntervenant(personneMapper.dePersonne(operationDetachement.getIntervenant()));
+
+        if(operationDetachement.getNatureOperation()!=null)
+            operationDetachementDto.setNatureOperation(natureOperationMapper.deNatureOperation(operationDetachement.getNatureOperation()));
+        System.out.println(operationDetachement.getTitre());
+
+        if(operationDetachement.getTitre()!=null)
+            operationDetachementDto.setTitre(titreMapper.deTitre(operationDetachement.getTitre()));
+
         return operationDetachementDto;
     }
 
@@ -43,10 +56,17 @@ public class OperationDetachementMapper {
             return null;
         OperationDetachementDto operationDetachementDto = new OperationDetachementDto();
         BeanUtils.copyProperties(operationDetachement, operationDetachementDto);
-        operationDetachementDto.setOpcvm(opcvmMapper.deOpcvm(operationDetachement.getOpcvm()));
-        operationDetachementDto.setIntervenant(personneMapper.dePersonne(operationDetachement.getIntervenant()));
-        operationDetachementDto.setNatureOperation(natureOperationMapper.deNatureOperation(operationDetachement.getNatureOperation()));
-        operationDetachementDto.setTitre(titreMapper.deTitre(operationDetachement.getTitre()));
+        if(operationDetachement.getOpcvm()!=null)
+            operationDetachementDto.setOpcvm(opcvmMapper.deOpcvm(operationDetachement.getOpcvm()));
+
+        if(operationDetachement.getPersonne()!=null)
+            operationDetachementDto.setIntervenant(personneMapper.dePersonne(operationDetachement.getPersonne()));
+
+        if(operationDetachement.getNatureOperation()!=null)
+            operationDetachementDto.setNatureOperation(natureOperationMapper.deNatureOperation(operationDetachement.getNatureOperation()));
+
+        if(operationDetachement.getTitre()!=null)
+            operationDetachementDto.setTitre(titreMapper.deTitre(operationDetachement.getTitre()));
 
         return operationDetachementDto;
     }

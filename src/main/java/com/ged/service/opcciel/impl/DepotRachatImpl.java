@@ -501,7 +501,7 @@ public class DepotRachatImpl implements DepotRachatService {
             String sortie="";
             for(Long o:ids)
             {
-                var q = em.createStoredProcedureQuery("[Comptabilite].[PS_Operation_IP]");
+                var q = em.createStoredProcedureQuery("[Comptabilite].[PS_Operation_IP_New]");
                 q.registerStoredProcedureParameter("IdOperation", Long.class, ParameterMode.IN);
                 q.registerStoredProcedureParameter("idOpcvm", Long.class, ParameterMode.IN);
                 q.registerStoredProcedureParameter("idActionnaire", Long.class, ParameterMode.IN);

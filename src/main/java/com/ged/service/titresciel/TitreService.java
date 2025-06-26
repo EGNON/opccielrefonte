@@ -24,6 +24,7 @@ public interface TitreService {
     Titre afficherSelonId(Long id);
 
     ResponseEntity<Object> afficher(Long id);
+    ResponseEntity<Object> afficherSelonTypeTitre(String code);
 
     ResponseEntity<Object> creer(TitreDto TitreDto);
 

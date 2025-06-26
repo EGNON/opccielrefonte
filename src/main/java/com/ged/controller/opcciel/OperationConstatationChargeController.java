@@ -21,6 +21,11 @@ public class OperationConstatationChargeController {
     public ResponseEntity<?> afficherListe(@RequestBody ConstatationChargeListeRequest request) {
         return constatationChargeService.afficherTous(request);
     }
+    @GetMapping("/liste/{idOpcvm}/{idSeance}")
+    public ResponseEntity<?> afficherListeOperation(@PathVariable Long idOpcvm,
+                                                    @PathVariable Long idSeance) {
+        return constatationChargeService.afficherConstationCharge(idOpcvm, idSeance);
+    }
 
     @PostMapping
     public ResponseEntity<?> creerConstatationCharge(@RequestBody ConstatationChargeAddRequest request) {

@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 
 public interface OperationConstatationChargeService {
     ResponseEntity<?> afficherTous(ConstatationChargeListeRequest request);
+    ResponseEntity<?> afficherConstationCharge(Long idOpcvm,Long idSeance);
     OperationConstatationCharge afficherSelonId(Long id);
     ResponseEntity<?> creer(ConstatationChargeAddRequest request);
     ResponseEntity<?> modifier(ConstatationChargeEditRequest request);

@@ -31,4 +31,8 @@ public interface TitreDao extends JpaRepository<Titre,Long>, JpaSpecificationExe
             "on q.idQualite = sp.idStatutTitre.idQualite where q.libelleQualite = :qualite " +
             "order by ph.symbolTitre asc, ph.designationTitre asc")
     Page<Titre> afficherTousSelonQualite(@Param("qualite") String qualite, Pageable pageable);
+    @Query(value = "select t from Titre as t " +
+            " where t.typeTitre.codeTypeTitre = :code " +
+            "order by t.symbolTitre asc, t.designationTitre asc")
+    List<Titre> afficherSelonTypeTitre(String code);
 }

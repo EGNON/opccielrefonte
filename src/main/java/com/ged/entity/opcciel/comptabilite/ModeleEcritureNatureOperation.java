@@ -22,8 +22,17 @@ public class ModeleEcritureNatureOperation extends Base {
     @MapsId("codeTypeTitre")
     private TypeTitre typeTitre;
 	private int numeroOrdre;
+	private String userLogin;
 
     public ModeleEcritureNatureOperation() {
+    }
+
+    public String getUserLogin() {
+        return userLogin;
+    }
+
+    public void setUserLogin(String userLogin) {
+        this.userLogin = userLogin;
     }
 
     public CleModeleEcritureNatureOperation getIdModeleEcritureNatureOperation() {

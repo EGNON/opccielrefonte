@@ -117,6 +117,25 @@ public class CorrespondanceServiceImpl implements CorrespondanceService {
     }
 
     @Override
+    public ResponseEntity<Object> afficher(String codePlan, String numeroCompteComptable) {
+        try {
+            List<CorrespondanceDto> correspondanceProjections=correspondanceDao.listeSelonCompteComptableEtPlan(
+                    codePlan, numeroCompteComptable).stream().map(correspondanceMapper::deCorrespondanceProjection).collect(Collectors.toList());
+            return ResponseHandler.generateResponse(
+                    "Correspondance",
+                    HttpStatus.OK,
+                    correspondanceProjections);
+        }
+        catch (Exception e)
+        {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e);
+        }
+    }
+
+    @Override
     public ResponseEntity<Object> creer(CorrespondanceDto correspondanceDto) {
         try {
             Correspondance correspondance = correspondanceMapper.deCorrespondanceDto(correspondanceDto);

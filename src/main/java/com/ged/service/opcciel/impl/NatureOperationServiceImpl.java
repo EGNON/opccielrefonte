@@ -25,6 +25,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -160,6 +161,8 @@ public class NatureOperationServiceImpl implements NatureOperationService {
                 typeOperation=typeOperationDao.findById(natureOperationDto.getTypeOperation().getCodeTypeOperation()).orElseThrow();
             }
             natureOperation.setTypeOperation(typeOperation);
+            natureOperation.setDateDernModifClient(LocalDateTime.now());
+            natureOperation.setUserLogin(natureOperationDto.getUserLogin());
             natureOperation.setJournal(journal);
             natureOperation = natureOperationDao.save(natureOperation);
             return ResponseHandler.generateResponse(
@@ -190,6 +193,9 @@ public class NatureOperationServiceImpl implements NatureOperationService {
                 typeOperation=typeOperationDao.findById(natureOperationDto.getTypeOperation().getCodeTypeOperation()).orElseThrow();
             }
             natureOperation.setTypeOperation(typeOperation);
+
+            natureOperation.setDateDernModifClient(LocalDateTime.now());
+            natureOperation.setUserLogin(natureOperationDto.getUserLogin());
             natureOperation.setJournal(journal);
             natureOperation = natureOperationDao.save(natureOperation);
             return ResponseHandler.generateResponse(

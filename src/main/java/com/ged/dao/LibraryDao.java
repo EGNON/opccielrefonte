@@ -1,5 +1,6 @@
 package com.ged.dao;
 
+import com.ged.dto.response.ConsultattionEcritureRes;
 import com.ged.entity.BaseEntity;
 import com.ged.projection.*;
 import com.ged.entity.opcciel.SeanceOpcvm;
@@ -20,6 +21,10 @@ public interface LibraryDao extends JpaRepository<BaseEntity, Long> {
     BigDecimal solde(@Param("idActionnaire") Long idActionnaire, @Param("idOpcvm") Long idOpcvm);
     @Query(value = "select [Titre].[FS_DeniereEcheance_New](:idTitre,:dateEvaluation,:idOpcvm)", nativeQuery = true)
     Date derniereEcheance(Long idTitre, Date dateEvaluation, Long idOpcvm);
+    @Query(value = "select [Titre].[FS_NbrePeriode_New](:idTitre,:idOpcvm)", nativeQuery = true)
+    BigDecimal nbrePeriode(Long idTitre,Long idOpcvm);
+    @Query(value = "select [Comptabilite].[FS_VerifOperationDesequilibre](:idOpcvm,:dateDebut,:dateFin)", nativeQuery = true)
+    String verifOperationDesequilibre(Long idOpcvm,LocalDateTime dateDebut,LocalDateTime dateFin);
 
     @Query(value = "select [Titre].[FS_LastDayAmortissement_New](:idTitre)", nativeQuery = true)
     LocalDateTime derniereEcheance(Long idTitre);
@@ -29,11 +34,19 @@ public interface LibraryDao extends JpaRepository<BaseEntity, Long> {
 
     @Query(value = "select * from [Impressions].[FT_PortefeuilleOPCVM_New](:idOpcvm ,:dateEstimation)", nativeQuery = true)
     List<PortefeuilleOpcvmProjection> portefeuilleOPCVM(Long idOpcvm,LocalDateTime dateEstimation);
+    @Query(value = "select * from [Impressions].[FT_PortefeuilleOPCVM_New](:idOpcvm ,:dateEstimation) " +
+            "where codeTypeTitre='ACTION'", nativeQuery = true)
+    List<PortefeuilleOpcvmProjection> portefeuilleOPCVMAction(Long idOpcvm,LocalDateTime dateEstimation);
+
+    @Query(value = "select * from [Impressions].[FT_PortefeuilleOPCVM_New](:idOpcvm ,:dateEstimation) " +
+            "where codeTypeTitre='OBLIGATI' or codeTypeTitre='BOT' or codeTypeTitre='BIT' or codeTypeTitre='CED' " +
+            "or codeTypeTitre='BEFI' or codeTypeTitre='OBLIGATN' ", nativeQuery = true)
+    List<PortefeuilleOpcvmProjection> portefeuilleOPCVMAutres(Long idOpcvm,LocalDateTime dateEstimation);
     @Query(value = "select [Comptabilite].[FS_QuantiteReelTitre](:idOpcvm,:idTitre,:date)", nativeQuery = true)
     BigDecimal quantiteReelTitre(@Param("idOpcvm") Long idOpcvm,Long idTitre,LocalDateTime date);
-    @Query(value = "select [Titre].[FS_InteretsCourrus](:idTitre,:dateEvaluation,:CalculerParPeriodicite,:idOpcvm)", nativeQuery = true)
+    @Query(value = "select [Titre].[FS_InteretsCourrus_New](:idTitre,:dateEvaluation,:CalculerParPeriodicite,:idOpcvm)", nativeQuery = true)
     BigDecimal interetCouru(@Param("idTitre") Long idTitre,
-                            LocalDateTime dateEvaluation,
+                            Date dateEvaluation,
                             Boolean CalculerParPeriodicite,
                             Long idOpcvm);
 
@@ -98,6 +111,25 @@ public interface LibraryDao extends JpaRepository<BaseEntity, Long> {
     List<AfficherDetailsEcritureProjection> afficherDetailsEcriture(
       @Param("idOperation") Long idOperation
     );
+    @Query(value = "select * from [Comptabilite].[FT_ListeVerificationEcriture_New](:idOpcvm," +
+            ":idSeance,:codeTypeOperation,:dateDebut,:dateFin,:estVerifie1,:estVerifie2)", nativeQuery = true)
+    Page<ListeVerificationEcritureProjection> listeVerificationEcriture(
+      Long idOpcvm,Long idSeance,String codeTypeOperation,
+      LocalDateTime dateDebut,LocalDateTime dateFin,Boolean estVerifie1,Boolean estVerifie2,Pageable pageable
+    );
+    @Query(value = "select * from [Comptabilite].[FT_ListeVerificationEcriture_New](:idOpcvm," +
+            ":idSeance,:codeTypeOperation,:dateDebut,:dateFin,:estVerifie1,:estVerifie2)", nativeQuery = true)
+    List<ListeVerificationEcritureProjection> listeVerificationEcriture(
+      Long idOpcvm,Long idSeance,String codeTypeOperation,
+      LocalDateTime dateDebut,LocalDateTime dateFin,Boolean estVerifie1,Boolean estVerifie2
+    );
+    @Query(value = "select * from [Comptabilite].[FT_ListeVerificationEcriture_Jasper](:idOpcvm," +
+            ":codeTypeOperation,:dateDebut,:dateFin,:estVerifie1,:estVerifie2,:idOperation)", nativeQuery = true)
+    List<ListeVerificationEcritureProjection> listeVerificationEcriture(
+      Long idOpcvm,String codeTypeOperation,
+      LocalDateTime dateDebut,LocalDateTime dateFin,Boolean estVerifie1,
+      Boolean estVerifie2,String idOperation
+    );
 
     @Query(value = """
                 select * 
@@ -125,6 +157,103 @@ public interface LibraryDao extends JpaRepository<BaseEntity, Long> {
             @Param("dateEstimation") LocalDateTime dateEstimation,
             Pageable pageable
     );
+    @Query(value = "select * from [EvenementSurValeur].[FT_OperationDetachement](:idOpcvm" +
+            ",:estPaye) order by dateOperation desc",
+            nativeQuery = true
+    )
+    Page<OperationDetachementProjection> operationDetachementListe(
+            Long idOpcvm,
+            Boolean estPaye,
+            Pageable pageable
+    );
+    @Query(value = "select * from OperationCapital.[FT_OperationDetachementDroit](:idOpcvm" +
+            ",:idTitre) order by dateOperation desc",
+            nativeQuery = true
+    )
+   OperationDetachementDroitProjection operationDetachementListe(
+            Long idOpcvm,
+            Long idTitre
+    );
+    @Query(value = "select * from [Operation].[FT_OperationExtourneVDE](:idSeance,:idOpcvm,:estVerifie," +
+            ":estVerifie1,:estVerifie2)",
+            nativeQuery = true
+    )
+   List<OperationExtourneVDEProjection> operationExtourneVDE(
+            Long idSeance,Long idOpcvm,Boolean estVerifie,Boolean estVerifie1,Boolean estVerifie2
+    );
+    @Query(value = "select * from [EvenementSurValeur].[FT_OperationDetachement](:idOpcvm" +
+            ",:estPaye) where typeevenement=:typeEvenement order by dateOperation desc",
+            nativeQuery = true
+    )
+    List<OperationDetachementProjection> operationDetachementListe(
+            Long idOpcvm,
+            Boolean estPaye,
+            String typeEvenement
+    );
+    @Query(value = "select * from [EvenementSurValeur].[FT_OperationDetachement](:idOpcvm" +
+            ",:estPaye) where concat(dateOperation,symboleTitre,libelleOperation) like %:valeur%" +
+            " order by dateOperation desc",
+            nativeQuery = true
+    )
+    Page<OperationDetachementProjection> operationDetachementListeRecherche(
+            Long idOpcvm,
+            Boolean estPaye,
+            String valeur,
+            Pageable pageable
+    );
+    @Query(value = "select * from [EvenementSurValeur].[FT_OperationEvenementSurValeur](:idOpcvm) order by dateOperation desc",
+                nativeQuery = true
+        )
+    Page<OperationEvenementSurValeurProjection> operationEvenementSurValeurListe(
+                Long idOpcvm,
+                Pageable pageable
+        );
+    @Query(value = "select * from [EvenementSurValeur].[FT_OperationEvenementSurValeur](:idOpcvm)" +
+            " where concat(dateOperation,symboleTitre,libelleOperation) like %:valeur%" +
+                " order by dateOperation desc",
+                nativeQuery = true
+        )
+    Page<OperationEvenementSurValeurProjection> operationEvenementSurValeurListeRecherche(
+                Long idOpcvm,
+                String valeur,
+                Pageable pageable
+        );
+    @Query(value = "select * from [Operation].[FT_OperationRegulEcartSolde](:idOpcvm,:supprimer)" +
+            "",
+                nativeQuery = true
+        )
+    Page<OperationRegulEcartSoldeProjection> operationRegulEcartSolde(
+                Long idOpcvm,
+                Boolean supprimer,
+                Pageable pageable
+        );
+    @Query(value = "select * from [Comptabilite].[FT_Operation_Ecriture](:idOpcvm,:idOperation,:idTransaction," +
+            "            :code,:dateDebut,:dateFin) o order by o.idOperation desc ",nativeQuery = true)
+    Page<ConsultationEcritureProjection> listeOperationsFiltree(
+            @Param("idOpcvm") Long idOpcvm,
+            @Param("idOperation") Long idOperation,
+            @Param("idTransaction") Long idTransaction,
+            @Param("code") String code,
+            @Param("dateDebut") String dateDebut,
+            @Param("dateFin") String dateFin,
+            Pageable pageable
+    );
+    @Query(value = "select * from [Operation].[FT_OperationTransfertDePart](:idOpcvm,:supprimer)" +
+            "",
+                nativeQuery = true
+        )
+    Page<OperationTransfertDePartProjection> operationTransfertDePart(
+                Long idOpcvm,
+                Boolean supprimer,
+                Pageable pageable
+        );
+
+    @Query(value = "select * from [EvenementSurValeur].[FT_OperationDetachement](:idOpcvm" +
+            ",:estPaye) where idOperation=:id" +
+            " order by dateOperation desc",
+            nativeQuery = true
+    )
+   OperationDetachementProjection operationDetachementSelonId(Long idOpcvm,Boolean estPaye,Long id);
 
     @Query(value = "select [Comptabilite].[FS_CUMP_ACT](:idOpcvm, :idActionnaire, :dateEstimation)", nativeQuery = true)
     BigDecimal cumpActionnaire(
@@ -150,5 +279,9 @@ public interface LibraryDao extends JpaRepository<BaseEntity, Long> {
         @Param("idOpcvm") Long idOpcvm,
         @Param("numCompteComptable") String numCompteComptable,
         @Param("dateEstimation") LocalDateTime dateEstimation
+    );
+    @Query(value = "select * from [Comptabilite].[FT_SoldeCompte](:ib, :rubrique, :position, :date)", nativeQuery = true)
+    List<SoldeCompteProjection> soldeCompte(
+            String ib, String rubrique, String position, LocalDateTime date
     );
 }

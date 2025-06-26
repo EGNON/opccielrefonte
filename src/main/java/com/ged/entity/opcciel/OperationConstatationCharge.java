@@ -29,6 +29,7 @@ public class OperationConstatationCharge extends Operation {
     @JoinColumn(name = "codeCharge", referencedColumnName = "")
     private Charge charge;*/
     private String codeCharge;
+    private String userLogin;
     private Boolean estPayee;
     private Long idSeancePaiement;
 //    @ColumnDefault("0")

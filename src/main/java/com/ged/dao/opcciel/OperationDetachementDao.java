@@ -9,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -54,4 +55,47 @@ public interface OperationDetachementDao extends JpaRepository<OperationDetachem
             "from OperationDetachement o inner join Personne p on p.idPersonne=o.intervenant.idPersonne " +
             "where o.opcvm.idOpcvm=:idOpcvm and o.supprimer=false")
     Page<OperationDetachementProjection> afficherTous(Long idOpcvm,Pageable pageable);
+
+    @Query(value = "select " +
+            "o.codeNatureOperation as codeNatureOperation," +
+            "o.typeEvenement as typeEvenement," +
+            "o.typePayement as typePayement," +
+            "o.idIntervenant as idIntervenant," +
+            "o.qteDetenue as qteDetenue," +
+            "o.couponDividendeUnitaire as couponDividendeUnitaire," +
+            "o.montantBrut as montantBrut," +
+            "o.quantiteAmortie as quantiteAmortie," +
+            "o.nominalRemb as nominalRemb," +
+            "o.capitalRembourse as capitalRembourse," +
+            "o.montantTotalARecevoir as montantTotalARecevoir," +
+            "o.idOpcvm as idOpcvm," +
+            "o.estPaye as estPaye," +
+            "o.dateReelle as dateReelle," +
+            "o.idTransaction as idTransaction," +
+            "o.idOperation as idOperation," +
+            "o.opcvm as opcvm," +
+            "o.intervenant as personne," +
+            "o.montant as montant," +
+            "o.estOD as estOD," +
+            "o.titre as titre," +
+            "o.idSeance as idSeance," +
+            "o.natureOperation as natureOperation," +
+            "o.dateOperation as dateOperation," +
+            "o.libelleOperation as libelleOperation," +
+            "o.dateSaisie as dateSaisie," +
+            "o.datePiece as datePiece," +
+            "o.dateValeur as dateValeur," +
+            "o.referencePiece as referencePiece," +
+            "o.ecriture as ecriture," +
+            "o.type " +
+            "from OperationDetachement o  " +
+            "where o.idOperation=:id")
+    OperationDetachementProjection afficherSelonId(Long id);
+
+
+    @Query(value = "update OperationDetachement o " +
+            "set o.estPaye=true " +
+            "where o.idOperation=:id")
+    @Modifying()
+    int modifier(Long id);
 }

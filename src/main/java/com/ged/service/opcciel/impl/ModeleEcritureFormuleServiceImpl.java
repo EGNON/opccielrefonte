@@ -22,6 +22,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -117,11 +118,11 @@ public class ModeleEcritureFormuleServiceImpl implements ModeleEcritureFormuleSe
     @Override
     public ResponseEntity<Object> afficherSelonModeleEcriture(String codeModeleEcriture) {
         try {
-            ModeleEcriture modeleEcriture=modeleEcritureDao.findById(codeModeleEcriture).orElseThrow();
+//            ModeleEcriture modeleEcriture=modeleEcritureDao.findById(codeModeleEcriture).orElseThrow();
             return ResponseHandler.generateResponse(
                     "Liste des modèles  formules selon "+codeModeleEcriture,
                     HttpStatus.OK,
-                    ModeleEcritureFormuleDao.findByModeleEcritureAndSupprimer(modeleEcriture,false).stream().map(ModeleEcritureFormuleMapper::deModeleEcritureFormule).collect(Collectors.toList()));
+                    ModeleEcritureFormuleDao.liste(codeModeleEcriture).stream().map(ModeleEcritureFormuleMapper::deModeleEcritureFormule).collect(Collectors.toList()));
         }
         catch (Exception e)
         {
@@ -141,6 +142,8 @@ public class ModeleEcritureFormuleServiceImpl implements ModeleEcritureFormuleSe
             cleModeleEcritureFormule.setIdFormule(ModeleEcritureFormuleDto.getFormule().getIdFormule());
             cleModeleEcritureFormule.setCodeModeleEcriture(ModeleEcritureFormuleDto.getModeleEcriture().getCodeModeleEcriture());
             ModeleEcritureFormule.setIdModeleEcritureFormule(cleModeleEcritureFormule);
+            ModeleEcritureFormule.setDateDernModifClient(LocalDateTime.now());
+            ModeleEcritureFormule.setUserLogin(ModeleEcritureFormuleDto.getUserLogin());
             ModeleEcriture modeleEcriture=new ModeleEcriture();
             Formule formule=new Formule();
             if(ModeleEcritureFormuleDto.getModeleEcriture()!=null){
@@ -175,6 +178,8 @@ public class ModeleEcritureFormuleServiceImpl implements ModeleEcritureFormuleSe
             cleModeleEcritureFormule.setCodeModeleEcriture(ModeleEcritureFormuleDto.getModeleEcriture().getCodeModeleEcriture());
             ModeleEcritureFormule.setIdModeleEcritureFormule(cleModeleEcritureFormule);
 
+            ModeleEcritureFormule.setDateDernModifClient(LocalDateTime.now());
+            ModeleEcritureFormule.setUserLogin(ModeleEcritureFormuleDto.getUserLogin());
 
             ModeleEcriture modeleEcriture=new ModeleEcriture();
             Formule formule=new Formule();

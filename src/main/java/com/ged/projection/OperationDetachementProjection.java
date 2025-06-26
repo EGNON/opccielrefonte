@@ -32,7 +32,8 @@ public interface OperationDetachementProjection {
     Long getIdTransaction();
     Long getIdOperation();
     Opcvm getOpcvm();
-    Personne getIntervenant();
+    Personne getPersonne();
+    String getIntervenant();
     BigDecimal getMontant();
     Boolean getEstOD();
     Boolean getEstExtournee();
@@ -40,9 +41,12 @@ public interface OperationDetachementProjection {
     Boolean getEstVerifie1();
     Boolean getEstVerifie2();
     Titre getTitre();
+    String getSymboleTitre();
+    String getDesignationTitre();
     TransactionDto getTransaction();
     Long getIdSeance();
     NatureOperation getNatureOperation();
+    String getLibelleNatureOperation();
     LocalDateTime getDateOperation();
     String getLibelleOperation();
     LocalDateTime getDateSaisie();

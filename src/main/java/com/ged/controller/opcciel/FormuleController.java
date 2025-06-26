@@ -5,6 +5,7 @@ import com.ged.datatable.DatatableParameters;
 import com.ged.dto.lab.reportings.BeginEndDateParameter;
 import com.ged.dto.lab.reportings.FormuleParametre;
 import com.ged.dto.opcciel.comptabilite.FormuleDto;
+import com.ged.dto.opcciel.comptabilite.SoldeCompteDto;
 import com.ged.dto.opcciel.comptabilite.SoldeCompteFormuleDto;
 import com.ged.service.opcciel.FormuleService;
 import jakarta.validation.Valid;
@@ -36,6 +37,11 @@ public class FormuleController {
     public ResponseEntity<Object> soldeCompteFormule(@RequestBody SoldeCompteFormuleDto soldeCompteFormuleDto)
     {
         return formuleService.soldeCompteFormule(soldeCompteFormuleDto);
+    }
+    @PostMapping("/soldecompte")
+    public ResponseEntity<Object> soldeCompteFormule(@RequestBody SoldeCompteDto soldeCompteDto)
+    {
+        return formuleService.soldeCompte(soldeCompteDto);
     }
 
     @GetMapping("/{id}")

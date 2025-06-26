@@ -25,4 +25,5 @@ public class TransfertPartAddRequest {
     private BigDecimal qteTrans;
     private LocalDateTime dateOperation;
     private Long idSeance;
+    private String userLogin;
 }

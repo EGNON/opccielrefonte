@@ -11,6 +11,7 @@ public interface CorrespondanceService {
     ResponseEntity<Object> afficherTous();
     Correspondance afficherSelonId(CleCorrespondance idCorrespondance);
     ResponseEntity<Object> afficher(CleCorrespondance idCorrespondance);
+    ResponseEntity<Object> afficher(String codePlan, String numeroCompteComptable);
     ResponseEntity<Object> creer(CorrespondanceDto correspondanceDto);
     ResponseEntity<Object> modifier(CorrespondanceDto correspondanceDto);
     ResponseEntity<Object> supprimer(CleCorrespondance idCorrespondance);

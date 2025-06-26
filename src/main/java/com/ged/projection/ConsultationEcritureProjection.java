@@ -9,10 +9,12 @@ import java.time.LocalDateTime;
 
 public interface ConsultationEcritureProjection {
     Long getIdOperation();
+    Long getIdTransaction();
     Opcvm getOpcvm();
     Personne getActionnaire();
     Transaction getTransaction();
     NatureOperation getNatureOperation();
     LocalDateTime getDateOperation();
+    LocalDateTime getDateValeur();
     String getLibelleOperation();
 }
