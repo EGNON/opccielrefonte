@@ -3,6 +3,7 @@ package com.ged.controller.opcciel;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.ged.dto.opcciel.OperationDifferenceEstimationDto;
 import com.ged.dto.request.ConstatationChargeListeRequest;
+import com.ged.dto.request.DifferenceEstimationRequest;
 import com.ged.entity.opcciel.CleOperationDifferenceEstimation;
 import com.ged.service.opcciel.OperationDifferenceEstimationService;
 import jakarta.validation.Valid;
@@ -10,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -41,13 +43,12 @@ public class OperationDifferenceEstimationController {
         return operationDifferenceEstimationService.afficher(cleOperationDifferenceEstimation);
     }
 
-    @GetMapping("/{idOpcvm}/{dateEstimation}/{typeEvenement}")
+    @GetMapping("/{idOpcvm}/{estEnCloture}")
 //    @PreAuthorize("hasAuthority('ROLE_DEGRE')")
-    public ResponseEntity<Object> afficherTitre(@PathVariable Long idOpcvm,
-                                                @PathVariable LocalDateTime dateEstimation,
-                                                @PathVariable String typeEvenement)
+    public ResponseEntity<Object> differenceEstimation(@PathVariable Long idOpcvm,
+                                                @PathVariable Boolean estEnCloture)
     {
-        return operationDifferenceEstimationService.afficherTitre(idOpcvm, dateEstimation, typeEvenement);
+        return operationDifferenceEstimationService.genrerDifferenceEstimation(idOpcvm, estEnCloture);
     }
 
     @PostMapping("/datatable/list")
@@ -55,11 +56,27 @@ public class OperationDifferenceEstimationController {
     public ResponseEntity<Object> datatableList(@RequestBody ConstatationChargeListeRequest params) throws JsonProcessingException {
         return operationDifferenceEstimationService.afficherTous(params);
     }
+    @PostMapping("/differenceestimation")
+//    @PreAuthorize("hasAuthority('ROLE_DEGRE')")
+    public ResponseEntity<Object> precalculDifferenceEstimation(@RequestBody DifferenceEstimationRequest params) throws JsonProcessingException {
+        return operationDifferenceEstimationService.precalculDifferenceEstimation(params);
+    }
+    @PostMapping("/validerniveau")
+//    @PreAuthorize("hasAuthority('ROLE_DEGRE')")
+    public ResponseEntity<Object> validerNiveau(@RequestBody DifferenceEstimationRequest params) throws JsonProcessingException {
+        return operationDifferenceEstimationService.validationNiveau(params);
+    }
     @PostMapping
 //    @PreAuthorize("hasAuthority('ROLE_DEGRE')")
     public ResponseEntity<Object> ajouter(@Valid @RequestBody OperationDifferenceEstimationDto operationDifferenceEstimationDto)
     {
         return operationDifferenceEstimationService.creer(operationDifferenceEstimationDto);
+    }
+    @PostMapping("/enregistrerdifferenceestimation")
+//    @PreAuthorize("hasAuthority('ROLE_DEGRE')")
+    public ResponseEntity<Object> enregistrer(@Valid @RequestBody DifferenceEstimationRequest  request)
+    {
+        return operationDifferenceEstimationService.enregistrerDifferenceEstimation(request);
     }
     @PutMapping()
 //    @PreAuthorize("hasAuthority('ROLE_DEGRE')")

@@ -57,4 +57,9 @@ public interface SeanceOpcvmDao extends JpaRepository<SeanceOpcvm, CleSeanceOpcv
             "s.idSeanceOpcvm.idSeance=:idSeance and s.estEnCours=true and s.supprimer=false")
     @Modifying
     int modifier(Long idOpcvm, Long idSeance, Long niveau);
+    @Query("update SeanceOpcvm s set s.estEnCloture=:estEnCloture" +
+            " where s.idSeanceOpcvm.idOpcvm=:idOpcvm and " +
+            "s.idSeanceOpcvm.idSeance=:idSeance and s.estEnCours=true and s.supprimer=false")
+    @Modifying
+    int modifier(Long idOpcvm, Long idSeance,Boolean estEnCloture);
 }

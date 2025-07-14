@@ -1,6 +1,5 @@
 package com.ged.dao;
 
-import com.ged.dto.response.ConsultattionEcritureRes;
 import com.ged.entity.BaseEntity;
 import com.ged.projection.*;
 import com.ged.entity.opcciel.SeanceOpcvm;
@@ -11,7 +10,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
@@ -32,13 +30,13 @@ public interface LibraryDao extends JpaRepository<BaseEntity, Long> {
     @Query(value = "select * from [OrdreDeBourse].[FT_OrdrePourImpression_New](:numeroOrdre)", nativeQuery = true)
     List<OrdreProjection> listeOrdreApercu(@Param("numeroOrdre") String numeroOrdre);
 
-    @Query(value = "select * from [Impressions].[FT_PortefeuilleOPCVM_New](:idOpcvm ,:dateEstimation)", nativeQuery = true)
+    @Query(value = "select * from [Impressions].[FT_PortefeuilleOPCVM_New2](:idOpcvm ,:dateEstimation)", nativeQuery = true)
     List<PortefeuilleOpcvmProjection> portefeuilleOPCVM(Long idOpcvm,LocalDateTime dateEstimation);
-    @Query(value = "select * from [Impressions].[FT_PortefeuilleOPCVM_New](:idOpcvm ,:dateEstimation) " +
+    @Query(value = "select * from [Impressions].[FT_PortefeuilleOPCVM_New2](:idOpcvm ,:dateEstimation) " +
             "where codeTypeTitre='ACTION'", nativeQuery = true)
     List<PortefeuilleOpcvmProjection> portefeuilleOPCVMAction(Long idOpcvm,LocalDateTime dateEstimation);
 
-    @Query(value = "select * from [Impressions].[FT_PortefeuilleOPCVM_New](:idOpcvm ,:dateEstimation) " +
+    @Query(value = "select * from [Impressions].[FT_PortefeuilleOPCVM_New2](:idOpcvm ,:dateEstimation) " +
             "where codeTypeTitre='OBLIGATI' or codeTypeTitre='BOT' or codeTypeTitre='BIT' or codeTypeTitre='CED' " +
             "or codeTypeTitre='BEFI' or codeTypeTitre='OBLIGATN' ", nativeQuery = true)
     List<PortefeuilleOpcvmProjection> portefeuilleOPCVMAutres(Long idOpcvm,LocalDateTime dateEstimation);
@@ -49,6 +47,17 @@ public interface LibraryDao extends JpaRepository<BaseEntity, Long> {
                             Date dateEvaluation,
                             Boolean CalculerParPeriodicite,
                             Long idOpcvm);
+    @Query(value = "select [Parametre].[FS_ControleGenerationSousRach]" +
+            "(:idOpcvm,:idSeance,:typeOp)", nativeQuery = true)
+    Boolean controlGenerationSousRach( Long idOpcvm,
+                            Long idSeance,
+                            String typeOp);
+    @Query(value = "select [Operation].[FS_VerifOpExtourneN1N2](:typeOp,:idSeance,:idOpcvm,:niveau1,:niveau2)", nativeQuery = true)
+    Boolean verifOpExtourneN1N2(String typeOp ,
+                                Long idSeance,
+                                Long idOpcvm ,
+                                Boolean niveau1 ,
+                                Boolean niveau2);
 
     @Query(value = "SELECT * FROM [Operation].[FT_NbrePart](:idActionnaire, :idOpcvm, :estLevee," +
             ":estVerifie1, :estVerifie2, :dateEstimation)", nativeQuery = true)
@@ -58,6 +67,58 @@ public interface LibraryDao extends JpaRepository<BaseEntity, Long> {
                                               @Param("estVerifie1") boolean estVerifie1,
                                               @Param("estVerifie2") boolean estVerifie2,
                                               @Param("dateEstimation") LocalDateTime dateEstimation
+                                          );
+    @Query(value = "SELECT * FROM [Operation].[FT_GenerationDifferenceEstimation_New]" +
+            "(:idSeance,:idOpcvm,:dateSeance)", nativeQuery = true)
+    Page<DifferenceEstimationProjection> precalculDifferenceEstimation(Long idSeance,
+                                                                       Long idOpcvm,
+                                                                       LocalDateTime dateSeance,
+                                                                       Pageable pageable
+                                                                  );
+    @Query(value = "SELECT * FROM [Operation].[FT_genererCharge_New](:idOpcvm,:idSeance,:actifBrut,:nbreJour,:usance)", nativeQuery = true)
+    Page<FT_GenererChargeProjection> genererCharge(Long idOpcvm,
+                                                       Long idSeance,
+                                                       BigDecimal actifBrut,
+                                                        Long nbreJour,
+                                                        Long usance,
+                                                       Pageable pageable
+                                                  );
+    @Query(value = "SELECT * FROM [Operation].[FT_genererCharge_New](:idOpcvm,:idSeance,:actifBrut,:nbreJour,:usance)", nativeQuery = true)
+    List<FT_GenererChargeProjection> genererCharge(Long idOpcvm,
+                                                       Long idSeance,
+                                                       BigDecimal actifBrut,
+                                                        Long nbreJour,
+                                                        Long usance
+                                                  );
+    @Query(value = "SELECT * FROM [Operation].[FT_GenerationDifferenceEstimation_New]" +
+            "(:idSeance,:idOpcvm,:dateSeance)", nativeQuery = true)
+    List<DifferenceEstimationProjection> precalculDifferenceEstimation(Long idSeance,
+                                                                       Long idOpcvm,
+                                                                       LocalDateTime dateSeance
+                                                                  );
+
+    @Query(value = "SELECT * FROM [Operation].[FT_OperationDifferenceEstimation]" +
+            "(:idSeance,:idOpcvm,:estVerifie1,:estVerifie2,:supprimer)", nativeQuery = true)
+    List<OperationDifferenceEstimationProjection> operationDifferenceEstimation(Long idSeance,
+                                                                       Long idOpcvm,
+                                                                       Boolean estVerifie1,
+                                                                       Boolean estVerifie2,
+                                                                       Boolean supprimer
+                                                                  );
+    @Query(value = "SELECT * FROM [Impressions].[FT_PrevisionnelRembourement_New](:idOpcvm,:echue,:detache" +
+            ",:traiter,:datedebut,:datefin)", nativeQuery = true)
+    List<Object[]> previsionnelRemboursement(Long idOpcvm,
+                                              Boolean echue,
+                                              Boolean detache,
+                                              Boolean traiter,
+                                              LocalDateTime datedebut,
+                                              LocalDateTime datefin
+                                          );
+    @Query(value = "SELECT * FROM [Titre].[FT_CoursTitre1](:codePlace,:date,:estVerifie1,:estVerifie2)", nativeQuery = true)
+    List<CoursTitreProjection> coursTitre(String codePlace,
+                                              LocalDateTime date,
+                                              Boolean estVerifie1,
+                                              Boolean  estVerifie2
                                           );
     @Query(value = "SELECT * FROM [Parametre].[FT_DepotRachat2](:IdSeance," +
             ":IdPersonne,:IdOpcvm,:codeNatureOperation,:niveau1" +
@@ -107,6 +168,10 @@ public interface LibraryDao extends JpaRepository<BaseEntity, Long> {
     Page<PrecalculSouscriptionProjection> precalculSouscription(@Param("idSeance") Long idSeance,
                                                                 @Param("idOpcvm") Long idOpcvm,
                                                                 @Param("idPersonne") Long idPersonne, Pageable pageable);
+    @Query(value = "select * from [Parametre].[PrecalculSouscription](:idSeance, :idOpcvm, :idPersonne)", nativeQuery = true)
+    List<PrecalculSouscriptionProjection> precalculSouscription(@Param("idSeance") Long idSeance,
+                                                                @Param("idOpcvm") Long idOpcvm,
+                                                                @Param("idPersonne") Long idPersonne);
     @Query(value = "select * from [Comptabilite].[FT_AfficherEcriture](:idOperation)", nativeQuery = true)
     List<AfficherDetailsEcritureProjection> afficherDetailsEcriture(
       @Param("idOperation") Long idOperation
@@ -180,6 +245,17 @@ public interface LibraryDao extends JpaRepository<BaseEntity, Long> {
     )
    List<OperationExtourneVDEProjection> operationExtourneVDE(
             Long idSeance,Long idOpcvm,Boolean estVerifie,Boolean estVerifie1,Boolean estVerifie2
+    );
+    @Query(value = "select * from [Comptabilite].[VerificationMiseAffectationEnAttente](:idOpcvm)",
+            nativeQuery = true
+    )
+   List<VerificationMiseEnAffectationEnAttenteProjection> verificationMiseEnAffectationEnAttente(Long idOpcvm);
+    @Query(value = "select * from [Comptabilite].[FT_SoldeCompteExtourne](:idOpcvm,:numCompteComptable," +
+            ":dateEstimation)",
+            nativeQuery = true
+    )
+   List<SoldeCompteExtourneProjection> soldeCompteExtourne(
+            Long idOpcvm,String numCompteComptable ,LocalDateTime dateEstimation
     );
     @Query(value = "select * from [EvenementSurValeur].[FT_OperationDetachement](:idOpcvm" +
             ",:estPaye) where typeevenement=:typeEvenement order by dateOperation desc",
@@ -272,6 +348,8 @@ public interface LibraryDao extends JpaRepository<BaseEntity, Long> {
     BigDecimal qteAmortie(Long idTitre,LocalDateTime date,Long qteDetenue);
     @Query(value = "select [Titre].[FS_NominalRembourse_new](:idTitre,:date)", nativeQuery = true)
     BigDecimal nominalRembourse(Long idTitre,Date date);
+    @Query(value = "select [Comptabilite].[FS_FormuleDunCodePoste](:codePoste)", nativeQuery = true)
+    String formuleDunCodePoste(String codePoste);
 
     @Query(value = "select * from [Comptabilite].[FT_SoldeToutCompte](:codePlan, :idOpcvm, :numCompteComptable, :dateEstimation)", nativeQuery = true)
     List<SoldeToutCompteProjection> soldeToutCompte(
@@ -279,6 +357,20 @@ public interface LibraryDao extends JpaRepository<BaseEntity, Long> {
         @Param("idOpcvm") Long idOpcvm,
         @Param("numCompteComptable") String numCompteComptable,
         @Param("dateEstimation") LocalDateTime dateEstimation
+    );
+    @Query(value = "select * from [Operation].[FT_OperationChargeAEtaler](:idSeance,:idOpcvm,:supprimer," +
+            ":estVerifie1,:estVerifie2)", nativeQuery = true)
+    Page<FT_GenererChargeProjection> afficherChargeAEtaler(
+        Long idSeance,Long idOpcvm, Boolean supprimer,Boolean estVerifie1,Boolean estVerifie2,Pageable pageable
+    );
+    @Query(value = "select * from [Operation].[FT_OperationChargeAEtaler](:idSeance,:idOpcvm,:supprimer," +
+            ":estVerifie1,:estVerifie2)", nativeQuery = true)
+    List<FT_GenererChargeProjection> afficherChargeAEtaler(
+        Long idSeance,Long idOpcvm, Boolean supprimer,Boolean estVerifie1,Boolean estVerifie2
+    );
+    @Query(value = "select * from [Parametre].[FT_Charge] (:idSeance,:idOpcvm)", nativeQuery = true)
+    List<FT_GenererChargeProjection> verifierChargeAEtaler(
+        Long idSeance,Long idOpcvm
     );
     @Query(value = "select * from [Comptabilite].[FT_SoldeCompte](:ib, :rubrique, :position, :date)", nativeQuery = true)
     List<SoldeCompteProjection> soldeCompte(

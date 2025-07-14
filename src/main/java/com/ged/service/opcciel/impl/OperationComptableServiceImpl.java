@@ -1,11 +1,16 @@
 package com.ged.service.opcciel.impl;
 
 import com.ged.dao.LibraryDao;
+import com.ged.dao.opcciel.OpcvmDao;
+import com.ged.dao.opcciel.OperationDifferenceEstimationDao;
 import com.ged.dao.opcciel.SeanceOpcvmDao;
 import com.ged.dao.opcciel.comptabilite.*;
 import com.ged.datatable.DataTablesResponse;
 import com.ged.datatable.DatatableParameters;
 import com.ged.dto.opcciel.EcritureManuelDto;
+import com.ged.dto.opcciel.OpcvmDto;
+import com.ged.dto.opcciel.OperationDifferenceEstimationDto;
+import com.ged.dto.opcciel.SeanceOpcvmDto;
 import com.ged.dto.opcciel.comptabilite.OperationDto;
 import com.ged.dto.request.ConsultationEcritureRequest;
 import com.ged.dto.request.OperationRequest;
@@ -13,7 +18,10 @@ import com.ged.dto.request.VerificationEcritureRequest;
 import com.ged.entity.opcciel.SeanceOpcvm;
 import com.ged.entity.opcciel.comptabilite.Ib;
 import com.ged.entity.opcciel.comptabilite.Operation;
+import com.ged.mapper.opcciel.OpcvmMapper;
+import com.ged.mapper.opcciel.OperationDifferenceEstimationMapper;
 import com.ged.mapper.opcciel.OperationMapper;
+import com.ged.mapper.opcciel.SeanceOpcvmMapper;
 import com.ged.projection.*;
 import com.ged.response.ResponseHandler;
 import com.ged.service.opcciel.OperationService;
@@ -39,12 +47,16 @@ import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
 public class OperationComptableServiceImpl implements OperationService {
     private final OperationDao operationDao;
+    private final OperationDifferenceEstimationDao operationDifferenceEstimationDao;
+    private final OperationDifferenceEstimationMapper operationDifferenceEstimationMapper;
     private final OperationMapper operationMapper;
     private final LibraryDao libraryDao;
     private final ExerciceDao exerciceDao;
@@ -52,11 +64,16 @@ public class OperationComptableServiceImpl implements OperationService {
     private final DetailModeleDao detailModeleDao;
     private final CorrespondanceDao correspondanceDao;
     private final SeanceOpcvmDao seanceOpcvmDao;
+    private final SeanceOpcvmMapper seanceOpcvmMapper;
+    private final OpcvmDao opcvmDao;
+    private final OpcvmMapper opcvmMapper;
     @PersistenceContext
     EntityManager em;
 
-    public OperationComptableServiceImpl(OperationDao operationDao, OperationMapper operationMapper, LibraryDao libraryDao, ExerciceDao exerciceDao, IbDao ibDao, DetailModeleDao detailModeleDao, CorrespondanceDao correspondanceDao, SeanceOpcvmDao seanceOpcvmDao) {
+    public OperationComptableServiceImpl(OperationDao operationDao, OperationDifferenceEstimationDao operationDifferenceEstimationDao, OperationDifferenceEstimationMapper operationDifferenceEstimationMapper, OperationMapper operationMapper, LibraryDao libraryDao, ExerciceDao exerciceDao, IbDao ibDao, DetailModeleDao detailModeleDao, CorrespondanceDao correspondanceDao, SeanceOpcvmDao seanceOpcvmDao, SeanceOpcvmMapper seanceOpcvmMapper, OpcvmDao opcvmDao, OpcvmMapper opcvmMapper) {
         this.operationDao = operationDao;
+        this.operationDifferenceEstimationDao = operationDifferenceEstimationDao;
+        this.operationDifferenceEstimationMapper = operationDifferenceEstimationMapper;
         this.operationMapper = operationMapper;
         this.libraryDao = libraryDao;
         this.exerciceDao = exerciceDao;
@@ -64,6 +81,9 @@ public class OperationComptableServiceImpl implements OperationService {
         this.detailModeleDao = detailModeleDao;
         this.correspondanceDao = correspondanceDao;
         this.seanceOpcvmDao = seanceOpcvmDao;
+        this.seanceOpcvmMapper = seanceOpcvmMapper;
+        this.opcvmDao = opcvmDao;
+        this.opcvmMapper = opcvmMapper;
     }
 
     @Override
@@ -229,6 +249,99 @@ public class OperationComptableServiceImpl implements OperationService {
                     e);
         }
     }
+
+    @Override
+    public String verifierEtape(Long niveau,Long idOpcvm){
+
+            String etape = "";
+            SeanceOpcvm lstSO = seanceOpcvmDao.afficherSeanceEnCours(idOpcvm);
+            if (lstSO != null)
+            {
+                if(lstSO.getIdSeanceOpcvm().getIdSeance()==0)
+                {
+                    String[] tab = new String[7];
+                    tab[0] = "CONSTITUTION DU CAPITAL";
+                    tab[1] = "VERIFICATION DE LA CONSTITUTION DU CAPITAL";
+                    tab[2] = "VERIFICATION NIVEAU 1 (CC)";
+                    tab[3] = "VERIFICATION NIVEAU 2 (CC)";
+                    tab[4] = "VALORISATION DES POSTES COMPTABLES";
+                    tab[5] = "VERIFICATION NIVEAU 1 (PC)";
+                    tab[6] = "VERIFICATION NIVEAU 2 (PC)";
+
+                    if(lstSO.getNiveau()<niveau)
+                    {
+                        for (int i = lstSO.getNiveau().intValue(); i < niveau-1; i++)
+                        {
+                            etape += tab[i] + "\r\n";
+                        }
+                    }
+
+                }
+
+                else
+                {
+                    String[] tab = new String[13];
+                    tab[0] = "GENERATION DIFFERENCES D'ESTIMATION";
+                    tab[1] = "VERIFICATION NIVEAU 1 (DE)";
+                    tab[2] = "VERIFICATION NIVEAU 2 (DE)";
+                    tab[3] = "VERIFICATION NIVEAU 1 JEUX D'ECRITURE(DE)";
+                    tab[4] = "VERIFICATION NIVEAU 2 JEUX D'ECRITURE(DE)";
+                    tab[5] = "AMORTISSEMENT DES CHARGES";
+                    tab[6] = "VERIFICATION NIVEAU 1 (CHARGES)";
+                    tab[7] = "VERIFICATION NIVEAU 2 (CHARGES)";
+                    tab[8] = "VERIFICATION NIVEAU 1 JEUX D'ECRITURE(CHARGES)";
+                    tab[9] = "VERIFICATION NIVEAU 2 JEUX D'ECRITURE(CHARGES)";
+                    tab[10] = "VALORISATION DES POSTES COMPTABLES";
+                    tab[11] = "VERIFICATION NIVEAU 1 (PC)";
+                    tab[12] = "VERIFICATION NIVEAU 2 (PC)";
+
+
+                    if (lstSO.getNiveau() < niveau)
+                    {
+                        for (int i = lstSO.getNiveau().intValue(); i < niveau-1 ; i++)
+                        {
+                            etape += tab[i] + "\n";
+                        }
+                    }
+                }
+
+            }
+
+            return etape;
+
+
+    }
+    @Override
+        public ResponseEntity<Object> apercuVerificationDE1(Long idOpcvm,Long idSeance,Boolean estVerifie1,Boolean estVerifie2,Long niv, HttpServletResponse response) throws IOException, JRException {
+            List<OperationDifferenceEstimationProjection> list=libraryDao.operationDifferenceEstimation(
+                    idSeance,idOpcvm,estVerifie1,estVerifie2,false);
+        Map<String, Object> parameters = new HashMap<>();
+        DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
+//        DateFormat dateFormatter2 = new SimpleDateFormat("dd/MM/yyyy");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+//        String dateFormatee = date.format(formatter);
+        String letterDate = dateFormatter.format(new Date());
+        SeanceOpcvmDto seanceOpcvmDto=seanceOpcvmMapper.deSeanceOpcvm(seanceOpcvmDao.afficherSeance(idOpcvm,idSeance));
+        parameters.put("letterDate", letterDate);
+        parameters.put("niveau", niv.toString());
+        parameters.put("dateOuverture", seanceOpcvmDto.getDateOuverture().format(formatter).toString());
+        parameters.put("dateFermeture", seanceOpcvmDto.getDateFermeture().format(formatter).toString());
+
+        OpcvmDto opcvmDto=opcvmMapper.deOpcvm(opcvmDao.findById(idOpcvm).orElseThrow());
+        parameters.put("VL", opcvmDto.getValeurLiquidativeActuelle().toString());
+        parameters.put("designationOpcvm", opcvmDto.getDenominationOpcvm());
+
+        File file = ResourceUtils.getFile("classpath:verificationVDEN1.jrxml");
+            JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
+            JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(list);
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport,parameters, dataSource);
+            JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());
+            return ResponseHandler.generateResponse(
+                    "Ordre de bourse",
+                    HttpStatus.OK,
+                    list);
+
+        }
 
     @Override
     public ResponseEntity<Object> creerTout(OperationRequest request) {
@@ -488,10 +601,10 @@ public class OperationComptableServiceImpl implements OperationService {
         try {
 
             for(int i=0;i<list.length;i++){
-                Operation operation=operationDao.findById(list[i]).orElseThrow();
-                if(operation!=null)
-                    operationDao.modifier(operation.getUserLoginVerificateur1(),
-                            userLogin,operation.getEstVerifie1(),true,operation.getDateVerification1(),
+//                Operation operation=operationDao.findById(list[i]).orElseThrow();
+                //if(operation!=null)
+                    operationDao.modifier(
+                            userLogin,true,
                             LocalDateTime.now(),list[i]);
             }
             if (codeTypeOperation != "null")

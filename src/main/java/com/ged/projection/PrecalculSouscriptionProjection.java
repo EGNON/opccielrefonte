@@ -12,7 +12,7 @@ public interface PrecalculSouscriptionProjection {
     BigDecimal getCommission();
     BigDecimal getTafCommission();
     BigDecimal getCommissionRetrocession();
-    BigDecimal getTafCommissionRetrocession();
+    BigDecimal getTAFCommissionRetrocession();
     BigDecimal getCommissionRetrocedee();
     BigDecimal getSousRachatPart();
     BigDecimal getRegulResultatExoEnCours();

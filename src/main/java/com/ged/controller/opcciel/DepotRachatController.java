@@ -311,6 +311,10 @@ public class DepotRachatController {
     public ResponseEntity<Object> precalculSouscription(@Valid @RequestBody PrecalculSouscriptionRequest precalcul) {
         return depotRachatService.precalculSouscription(precalcul);
     }
+    @GetMapping("/precalculliste/souscription")
+    public ResponseEntity<Object> precalculSouscriptionListe(@Valid @RequestBody PrecalculSouscriptionRequest precalcul) {
+        return depotRachatService.precalculSouscriptionListe(precalcul);
+    }
 
     @Priority(2)
     @PostMapping("/generer/souscription/tous")

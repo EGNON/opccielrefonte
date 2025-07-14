@@ -4,26 +4,45 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.ged.dto.opcciel.OpcvmDto;
 import com.ged.dto.opcciel.PlanDto;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Date;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class PosteComptableSeanceOpcvmDto {
     private String codePosteComptable;
+    private String libellePosteComptable;
     private Long idSeance;
     private PlanDto plan;
     private OpcvmDto opcvm;
 	private String formuleSysteme;
     private Date dateValeur;
-    private Double valeur;
+    private BigDecimal valeur;
     private boolean estVerifie1;
     private LocalDateTime dateVerification1;
+    private String userLogin;
     private String userLoginVerificateur1;
     private boolean estVerifie2;
     private LocalDateTime dateVerification2;
     private String userLoginVerificateur2;
 
     public PosteComptableSeanceOpcvmDto() {
+    }
+
+    public String getUserLogin() {
+        return userLogin;
+    }
+
+    public void setUserLogin(String userLogin) {
+        this.userLogin = userLogin;
+    }
+
+    public String getLibellePosteComptable() {
+        return libellePosteComptable;
+    }
+
+    public void setLibellePosteComptable(String libellePosteComptable) {
+        this.libellePosteComptable = libellePosteComptable;
     }
 
     public String getCodePosteComptable() {
@@ -74,11 +93,11 @@ public class PosteComptableSeanceOpcvmDto {
         this.dateValeur = dateValeur;
     }
 
-    public Double getValeur() {
+    public BigDecimal getValeur() {
         return valeur;
     }
 
-    public void setValeur(Double valeur) {
+    public void setValeur(BigDecimal valeur) {
         this.valeur = valeur;
     }
 

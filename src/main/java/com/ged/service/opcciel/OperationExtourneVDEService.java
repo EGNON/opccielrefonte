@@ -20,7 +20,9 @@ public interface OperationExtourneVDEService {
     OperationExtourneVDE afficherSelonId(CleOperationExtourneVDE id);
     ResponseEntity<Object> afficher(CleOperationExtourneVDE id);
     ResponseEntity<Object> jaspertReportVDE(Long idSeance,Long idOpcvm,Boolean estVerifie,Boolean estVerifie1,Boolean estVerifie2,Long niveau, HttpServletResponse response) throws IOException, JRException;
-    ResponseEntity<Object> creer(ExtourneVDERequest extourneVDERequest) ;
+    ResponseEntity<Object> soldeCompteExtourne(Long idOpcvm,String numCompteComptable,LocalDateTime date, HttpServletResponse response) throws IOException, JRException;
+    ResponseEntity<Object> creerNiveau1(ExtourneVDERequest extourneVDERequest) ;
+    ResponseEntity<Object> creerNiveau2(ExtourneVDERequest extourneVDERequest) ;
     ResponseEntity<Object> afficherTitre(Long idOpcvm,LocalDateTime dateEstimation,String typeEvenement);
     ResponseEntity<Object> afficherTous(Long idOpcvm);
     ResponseEntity<Object> creer(OperationExtourneVDEDto operationExtourneVDEDto);

@@ -13,6 +13,7 @@ public interface PosteComptableDao extends JpaRepository<PosteComptable, ClePost
    PosteComptable findByCodePosteComptable(String code);
    Page<PosteComptable> findBySupprimer(boolean supprimer, Pageable pageable);
    List<PosteComptable> findBySupprimerOrderByLibellePosteComptableAsc(boolean supprimer);
+   List<PosteComptable> findBySupprimerAndPlan(boolean supprimer,Plan plan);
 
    @Query(value = "select p from PosteComptable p " +
            "where (p.libellePosteComptable like %:valeur% or p.codePosteComptable like %:valeur% " +

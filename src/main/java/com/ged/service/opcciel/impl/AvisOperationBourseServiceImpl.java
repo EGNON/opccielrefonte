@@ -219,6 +219,12 @@ public class AvisOperationBourseServiceImpl implements AvisOperationBourseServic
         }
 
     }
+
+    @Override
+    public ResponseEntity<Object> verifierRegelementAttente(Long idOpcvm, LocalDateTime date, Long idOperationRL) {
+        return null;
+    }
+
     @Override
     public ResponseEntity<Object> creer(AvisOperationBourseDto avisOperationBourseDto) {
         try {

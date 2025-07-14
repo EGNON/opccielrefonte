@@ -1,0 +1,125 @@
+<!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 7.0.1-573496633c2b4074e32f433154b543003f7d2498  -->
+<jasperReport name="verificationVDEN1" language="java" columnCount="1" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a566266e-7b6e-4eb0-88a3-d845e8edbae2">
+	<parameter name="letterDate" class="java.lang.String"/>
+	<parameter name="idOpcvm" class="java.lang.String"/>
+	<parameter name="dateFermeture" class="java.lang.String"/>
+	<parameter name="VL" class="java.lang.String"/>
+	<parameter name="designationOpcvm" class="java.lang.String"/>
+	<field name="dateOp" class="java.time.LocalDateTime">
+		<property name="com.jaspersoft.studio.field.name" value="dateOp"/>
+		<property name="com.jaspersoft.studio.field.label" value="dateOp"/>
+	</field>
+	<field name="journal" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="journal"/>
+		<property name="com.jaspersoft.studio.field.label" value="journal"/>
+	</field>
+	<field name="reference" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="reference"/>
+		<property name="com.jaspersoft.studio.field.label" value="reference"/>
+	</field>
+	<field name="numCompteComptable" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="numCompteComptable"/>
+		<property name="com.jaspersoft.studio.field.label" value="numCompteComptable"/>
+	</field>
+	<field name="libelleCompteComptable" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="libelleCompteComptable"/>
+		<property name="com.jaspersoft.studio.field.label" value="libelleCompteComptable"/>
+	</field>
+	<field name="codeAnalytique" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="codeAnalytique"/>
+		<property name="com.jaspersoft.studio.field.label" value="codeAnalytique"/>
+	</field>
+	<field name="debit" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="debit"/>
+		<property name="com.jaspersoft.studio.field.label" value="debit"/>
+	</field>
+	<field name="credit" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="credit"/>
+		<property name="com.jaspersoft.studio.field.label" value="credit"/>
+	</field>
+	<field name="solde" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="solde"/>
+		<property name="com.jaspersoft.studio.field.label" value="solde"/>
+	</field>
+	<field name="sens" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="sens"/>
+		<property name="com.jaspersoft.studio.field.label" value="sens"/>
+	</field>
+	<field name="soldeEtSens" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="soldeEtSens"/>
+		<property name="com.jaspersoft.studio.field.label" value="soldeEtSens"/>
+	</field>
+	<field name="libelle" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="libelle"/>
+		<property name="com.jaspersoft.studio.field.label" value="libelle"/>
+	</field>
+	<field name="numClassement" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="numClassement"/>
+		<property name="com.jaspersoft.studio.field.label" value="numClassement"/>
+	</field>
+	<group name="Group1">
+		<expression><![CDATA[$F{numCompteComptable}]]></expression>
+		<groupHeader>
+			<band height="27">
+				<element kind="textField" uuid="18a0ff4e-80ff-430c-84cf-48afec513c73" x="4" y="4" width="276" height="20">
+					<expression><![CDATA[$F{numCompteComptable}+ $F{libelleCompteComptable}]]></expression>
+				</element>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band/>
+		</groupFooter>
+	</group>
+	<background splitType="Stretch"/>
+	<title height="148" splitType="Stretch">
+		<element kind="textField" uuid="9a03cb45-67b9-43cb-9a05-729c28cc7048" x="0" y="10" width="230" height="20" fontName="Segoe UI">
+			<expression><![CDATA["Cotonou le, " + $P{letterDate}]]></expression>
+		</element>
+		<element kind="textField" uuid="f7e7bb58-c6b0-40a0-8318-de95551b9a6a" mode="Opaque" x="3" y="44" width="788" height="31" backcolor="#BDD7EE" fontName="Segoe UI" bold="true" hTextAlign="Center" vTextAlign="Middle">
+			<expression><![CDATA["SOLDE DES COMPTES VDE ET REVENUS AU " + $P{dateFermeture} ]]></expression>
+		</element>
+		<element kind="textField" uuid="020705fc-3cb9-408f-85ce-c1e8cba132d5" x="1" y="85" width="399" height="21">
+			<expression><![CDATA[$P{idOpcvm}+" "+ $P{designationOpcvm}]]></expression>
+		</element>
+		<element kind="rectangle" uuid="1806d69a-030d-4267-8362-109fa56e3b3a" x="4" y="118" width="787" height="30" backcolor="#BDD7EE"/>
+		<element kind="line" uuid="894dfabe-4d99-4678-a7d2-229404835e9d" x="478" y="117" width="1" height="30"/>
+		<element kind="staticText" uuid="4801cd5e-2163-4fff-bb43-2939ee93a546" x="483" y="122" width="147" height="20" fontName="Segoe UI" bold="true" hTextAlign="Center">
+			<text><![CDATA[DEBIT]]></text>
+		</element>
+		<element kind="line" uuid="5e64d4ef-3702-4323-8fc0-5de0781db06b" x="636" y="117" width="1" height="30"/>
+		<element kind="staticText" uuid="c41b8632-1e26-47d9-8b07-671810620be0" x="640" y="122" width="150" height="20" fontName="Segoe UI" bold="true" hTextAlign="Center">
+			<text><![CDATA[CREDIT]]></text>
+		</element>
+	</title>
+	<pageHeader splitType="Stretch"/>
+	<columnHeader splitType="Stretch"/>
+	<detail>
+		<band height="31" splitType="Stretch">
+			<element kind="rectangle" uuid="d549e30d-7fa4-4913-b642-cd2c03a93d2b" stretchType="ContainerHeight" x="4" y="1" width="786" height="30"/>
+			<element kind="line" uuid="fad4fbb4-d9d4-4653-b57f-c7a9058138d6" stretchType="ContainerHeight" x="479" y="0" width="1" height="30"/>
+			<element kind="line" uuid="7f007f76-1ff6-4635-829e-66e315afdeb0" stretchType="ContainerHeight" x="636" y="0" width="1" height="30"/>
+			<element kind="textField" uuid="7d458b1c-3105-428c-bebf-9751fce2c62c" x="4" y="6" width="466" height="20" fontName="Segoe UI" textAdjust="StretchHeight" linkType="None" linkTarget="Self">
+				<expression><![CDATA[$F{codeAnalytique}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="9deef596-de36-4f56-887e-1b17bb721f06"/>
+			</element>
+			<element pattern="#,##0.###;#,##0.###" kind="textField" uuid="8cdf2758-d5c6-4beb-a5a2-d6b214f0f9db" x="483" y="9" width="147" height="17" fontName="Segoe UI" textAdjust="StretchHeight" blankWhenNull="true">
+				<expression><![CDATA[EXACT( $F{sens},"D")?$F{solde}:0]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4dca9af7-83ce-429d-a0e9-83933755b9be"/>
+			</element>
+			<element pattern="#,##0.###;#,##0.###" kind="textField" uuid="de5beb04-0e82-4651-83f6-664a6773853d" x="640" y="8" width="150" height="19" fontName="Segoe UI" textAdjust="StretchHeight">
+				<expression><![CDATA[EXACT( $F{sens},"C")?$F{solde}:0]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="9e4a68d5-a952-40ee-9be0-a48f774f76d5"/>
+			</element>
+		</band>
+	</detail>
+	<columnFooter splitType="Stretch"/>
+	<pageFooter height="54" splitType="Stretch">
+		<element kind="staticText" uuid="27f4afba-a008-4c38-8fed-c9616b98ca81" x="4" y="12" width="120" height="26" fontName="Segoe UI">
+			<text><![CDATA[Edité avec OPCCIEL 2.0]]></text>
+		</element>
+		<element kind="textField" uuid="7fa86c05-facc-4061-be6a-86da79709180" x="692" y="9" width="100" height="29" hTextAlign="Right">
+			<expression><![CDATA[$V{PAGE_NUMBER}]]></expression>
+		</element>
+	</pageFooter>
+	<summary height="32" splitType="Stretch"/>
+</jasperReport>

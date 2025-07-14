@@ -4,10 +4,12 @@ import com.ged.dto.opcciel.comptabilite.OperationDto;
 import com.ged.dto.request.ConsultationEcritureRequest;
 import com.ged.dto.request.OperationRequest;
 import com.ged.dto.request.VerificationEcritureRequest;
+import com.ged.response.ResponseHandler;
 import com.ged.service.AppService;
 import com.ged.service.opcciel.OperationService;
 import jakarta.servlet.http.HttpServletResponse;
 import net.sf.jasperreports.engine.JRException;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -52,6 +54,56 @@ public class OperationController {
     public ResponseEntity<Object> actionnaieBanque(@PathVariable Long idOpcvm,
                                                    @PathVariable String code) {
         return operationService.actionnaireBanque(idOpcvm, code);
+    }
+    @GetMapping("/verifieretape/{niveau}/{idOpcvm}/{idSeance}/{estVerifie1}/{estVerifie2}/{niv}")
+    public ResponseEntity<Object> verifierEtape(@PathVariable Long niveau,
+                                                   @PathVariable Long idOpcvm,
+                                                   @PathVariable Long idSeance,
+                                                @PathVariable Boolean estVerifie1,
+                                                @PathVariable Boolean estVerifie2,
+                                                @PathVariable Long niv,
+                                                HttpServletResponse response) throws JRException, IOException {
+        String etapes=operationService.verifierEtape(niveau, idOpcvm);
+        if(!etapes.equals(""))
+        {
+            return ResponseHandler.generateResponse(
+                    "Ordre de bourse",
+                    HttpStatus.OK,
+                    "Les étapes suivantes n'ont pas encore été faites:" + etapes);
+        }
+        else
+        {
+            response.setContentType("application/pdf");
+            DateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy:hh:mm:ss");
+            String currentDateTime = dateFormatter.format(new Date());
+
+            String headerKey = "Content-Disposition";
+            String headerValue = "attachment; filename=verificationDe_Niveau"+niv+ "_"+ currentDateTime + ".pdf";
+            response.setHeader(headerKey, headerValue);
+
+            return operationService.apercuVerificationDE1(idOpcvm,idSeance,estVerifie1,estVerifie2,niv,response);
+        }
+
+    }
+    @GetMapping("/verifieretape/{niveau}/{idOpcvm}")
+    public ResponseEntity<Object> verifierEtape(@PathVariable Long niveau,
+                                                   @PathVariable Long idOpcvm)  {
+        String etapes=operationService.verifierEtape(niveau, idOpcvm);
+        if(!etapes.equals(""))
+        {
+            return ResponseHandler.generateResponse(
+                    "Ordre de bourse",
+                    HttpStatus.OK,
+                    "Les étapes suivantes n'ont pas encore été faites:" + etapes);
+        }
+        else
+        {
+            return ResponseHandler.generateResponse(
+                    "Ordre de bourse",
+                    HttpStatus.OK,
+                    "Vous pouvez passer à l'affichage des écritures");
+        }
+
     }
     @PostMapping("/verificationecriture")
     public ResponseEntity<Object> afficherListeOperations(@RequestBody VerificationEcritureRequest obj) {

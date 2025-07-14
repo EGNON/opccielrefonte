@@ -22,6 +22,11 @@ public interface AvisOperationBourseDao extends JpaRepository<AvisOperationBours
             "where a.ordre.opcvm.idOpcvm=:idOpcvm and a.idOperationRL=0 " +
             "and a.supprimer=false")
     List<AvisOperationBourse> afficherReglementLivraison(Long idOpcvm);
+
+    @Query(value = "select a from AvisOperationBourse a " +
+            "where a.ordre.opcvm.idOpcvm=:idOpcvm and a.idOperationRL=0 " +
+            "and a.supprimer=false and cast(a.dateReceptionLivraisonPrevu as date )= cast(:date as date)")
+    List<AvisOperationBourse> verifierReglementAttente(Long idOpcvm,LocalDateTime date);
     @Query(value = "select a from AvisOperationBourse a " +
                 "where a.ordre.opcvm.idOpcvm=:idOpcvm and a.idOperationRL=0 " +
                 "and a.supprimer=false and cast(a.dateReceptionLivraisonPrevu as string ) like %:dateFermeture%")

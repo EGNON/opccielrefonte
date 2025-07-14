@@ -32,7 +32,7 @@ public class ExerciceImpl implements ExerciceService {
     @Override
     public ResponseEntity<Object> exerciceCourant(Long idOpcvm) {
         try {
-            Exercice exercice = exerciceDao.exerciceCourant(idOpcvm).orElse(null);
+            Exercice exercice = exerciceDao.exerciceCourant(idOpcvm);
             return ResponseHandler.generateResponse(
                     "Exercice courant",
                     HttpStatus.OK,

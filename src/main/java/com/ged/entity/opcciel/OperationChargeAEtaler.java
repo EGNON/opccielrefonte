@@ -5,11 +5,13 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import org.hibernate.annotations.ColumnDefault;
 
+import java.math.BigDecimal;
+
 @Entity
 @Table(name = "T_OperationChargeAEtaler", schema = "Operation")
 public class OperationChargeAEtaler extends Operation {
     private boolean estGenere;
-    private Double actifBrut;
+    private BigDecimal actifBrut;
     private String codeCharge;
     private int nbreJour;
     private int usance;
@@ -37,11 +39,11 @@ public class OperationChargeAEtaler extends Operation {
         this.estGenere = estGenere;
     }
 
-    public Double getActifBrut() {
+    public BigDecimal getActifBrut() {
         return actifBrut;
     }
 
-    public void setActifBrut(Double actifBrut) {
+    public void setActifBrut(BigDecimal actifBrut) {
         this.actifBrut = actifBrut;
     }
 

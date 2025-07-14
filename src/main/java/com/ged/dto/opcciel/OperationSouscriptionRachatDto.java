@@ -19,11 +19,11 @@ public class OperationSouscriptionRachatDto extends OperationDto {
 //    private LocalDateTime dateValeur;
 //    private String referencePiece;
     private BigDecimal montantSousALiquider;
-    private BigDecimal SousRachatPart;
+    private BigDecimal sousRachatPart;
     private BigDecimal commisiionSousRachat;
-    private BigDecimal TAFCommissionSousRachat;
+    private BigDecimal tAFCommissionSousRachat;
     private BigDecimal retrocessionSousRachat;
-    private BigDecimal TAFRetrocessionSousRachat;
+    private BigDecimal tAFRetrocessionSousRachat;
     private BigDecimal commissionSousRachatRetrocedee;
     private String modeValeurLiquidative;
     private BigDecimal coursVL;
@@ -45,6 +45,7 @@ public class OperationSouscriptionRachatDto extends OperationDto {
     private Boolean resteRembourse;
     private Boolean rachatPaye;
     private String ecriture;
+    private String userLogin;
 
     public OperationSouscriptionRachatDto() {
     }
@@ -68,6 +69,14 @@ public class OperationSouscriptionRachatDto extends OperationDto {
     public void setIdSeance(Long idSeance) {
         this.idSeance = idSeance;
     }*/
+
+    public String getUserLogin() {
+        return userLogin;
+    }
+
+    public void setUserLogin(String userLogin) {
+        this.userLogin = userLogin;
+    }
 
     public Long getIdOpcvm() {
         return idOpcvm;
@@ -350,26 +359,26 @@ public class OperationSouscriptionRachatDto extends OperationDto {
     }
 
     public BigDecimal getSousRachatPart() {
-        return SousRachatPart;
+        return sousRachatPart;
     }
 
     public void setSousRachatPart(BigDecimal sousRachatPart) {
-        SousRachatPart = sousRachatPart;
+        this.sousRachatPart = sousRachatPart;
     }
 
-    public BigDecimal getTAFCommissionSousRachat() {
-        return TAFCommissionSousRachat;
+    public BigDecimal gettAFCommissionSousRachat() {
+        return tAFCommissionSousRachat;
     }
 
-    public void setTAFCommissionSousRachat(BigDecimal TAFCommissionSousRachat) {
-        this.TAFCommissionSousRachat = TAFCommissionSousRachat;
+    public void settAFCommissionSousRachat(BigDecimal tAFCommissionSousRachat) {
+        this.tAFCommissionSousRachat = tAFCommissionSousRachat;
     }
 
-    public BigDecimal getTAFRetrocessionSousRachat() {
-        return TAFRetrocessionSousRachat;
+    public BigDecimal gettAFRetrocessionSousRachat() {
+        return tAFRetrocessionSousRachat;
     }
 
-    public void setTAFRetrocessionSousRachat(BigDecimal TAFRetrocessionSousRachat) {
-        this.TAFRetrocessionSousRachat = TAFRetrocessionSousRachat;
+    public void settAFRetrocessionSousRachat(BigDecimal tAFRetrocessionSousRachat) {
+        this.tAFRetrocessionSousRachat = tAFRetrocessionSousRachat;
     }
 }

@@ -44,6 +44,15 @@ public interface DepotRachatDao extends JpaRepository<DepotRachat,Long> {
             @Param("idOpcvm") Long idOpcvm, @Param("idSeance") Long idSeance,
             @Param("estVerifier") Boolean estVerifier, @Param("estVerifie1") Boolean estVerifie1,
             @Param("estVerifie2") Boolean estVerifie2);
+    @Query(value = "select d from DepotRachat d join d.natureOperation n join d.actionnaire join d.personne " +
+            "where trim(n.codeNatureOperation) = 'INT_RACH' " +
+            "and d.opcvm.idOpcvm = :idOpcvm and d.idSeance = :idSeance and (d.estVerifier = :estVerifier or :estVerifier is null) " +
+            "and (d.estVerifie1 = :estVerifie1 or :estVerifie1 is null) and " +
+            "(:estVerifie2 is null or d.estVerifie2 = :estVerifie2) order by d.idDepotRachat desc")
+    List<DepotRachat> tousLesRachats(
+            @Param("idOpcvm") Long idOpcvm, @Param("idSeance") Long idSeance,
+            @Param("estVerifier") Boolean estVerifier, @Param("estVerifie1") Boolean estVerifie1,
+            @Param("estVerifie2") Boolean estVerifie2);
     Page<DepotRachat> findByOpcvmAndIdSeanceAndNatureOperation(Opcvm opcvm, long idSeance, NatureOperation natureOperation, Pageable pageable);
     @Query(value = "select d from DepotRachat d inner join d.actionnaire a inner join d.natureOperation n " +
             "inner join d.opcvm o where d.supprimer = false and d.idSeance = :idSeance " +

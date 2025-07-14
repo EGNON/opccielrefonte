@@ -23,6 +23,8 @@ public class ExerciceMapper {
             return null;
         ExerciceDto ExerciceDto = new ExerciceDto();
         BeanUtils.copyProperties(Exercice, ExerciceDto);
+        if(Exercice.getPlan()!=null)
+            ExerciceDto.setPlan(planMapper.dePlan(Exercice.getPlan()));
         return ExerciceDto;
     }
 

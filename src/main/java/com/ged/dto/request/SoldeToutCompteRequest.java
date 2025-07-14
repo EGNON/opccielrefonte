@@ -19,5 +19,6 @@ public class SoldeToutCompteRequest {
     private Long idSeance;
     private Long idOpcvm;
     private String code;
+    private String numCompteComptable;
     private LocalDateTime dateEstimation;
 }

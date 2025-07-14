@@ -113,6 +113,24 @@ public class PosteComptableServiceImpl implements PosteComptableService {
     }
 
     @Override
+    public ResponseEntity<Object> afficherSelonPlan(Boolean supprimer, String codePlan) {
+        try {
+            Plan plan=planDao.findById(codePlan).orElseThrow();
+            return ResponseHandler.generateResponse(
+                    "Poste Comptable selon plan",
+                    HttpStatus.OK,
+                    posteComptableDao.findBySupprimerAndPlan(false,plan).stream().map(posteComptableMapper::dePosteComptable).collect(Collectors.toList()));
+        }
+        catch (Exception e)
+        {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e);
+        }
+    }
+
+    @Override
     public ResponseEntity<Object> afficher(ClePosteComptable clePosteComptable) {
         try {
             return ResponseHandler.generateResponse(

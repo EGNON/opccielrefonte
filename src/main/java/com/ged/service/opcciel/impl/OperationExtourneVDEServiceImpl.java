@@ -25,6 +25,7 @@ import com.ged.mapper.opcciel.OperationExtourneVDEMapper;
 import com.ged.mapper.opcciel.SeanceOpcvmMapper;
 import com.ged.projection.OperationExtourneVDEProjection;
 import com.ged.projection.PortefeuilleOpcvmProjection;
+import com.ged.projection.SoldeCompteExtourneProjection;
 import com.ged.response.ResponseHandler;
 import com.ged.service.FiltersSpecification;
 import com.ged.service.opcciel.OperationExtourneVDEService;
@@ -129,14 +130,60 @@ public class OperationExtourneVDEServiceImpl implements OperationExtourneVDEServ
                 HttpStatus.OK,
                 list);
     }
- @Override
-    public ResponseEntity<Object> creer(ExtourneVDERequest extourneVDERequest)  {
+
+    @Override
+    public ResponseEntity<Object> soldeCompteExtourne(Long idOpcvm, String numCompteComptable, LocalDateTime date, HttpServletResponse response) throws IOException, JRException {
+        List<SoldeCompteExtourneProjection> list=libraryDao.soldeCompteExtourne( idOpcvm, numCompteComptable, date);
+
+        Map<String, Object> parameters = new HashMap<>();
+        DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
+//        DateFormat dateFormatter2 = new SimpleDateFormat("dd/MM/yyyy");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+//        String dateFormatee = date.format(formatter);
+        String letterDate = dateFormatter.format(new Date());
+        SeanceOpcvmDto seanceOpcvmDto=seanceOpcvmMapper.deSeanceOpcvm(seanceOpcvmDao.afficherSeanceEnCours(idOpcvm));
+        parameters.put("letterDate", letterDate);
+        parameters.put("idOpcvm", seanceOpcvmDto.getIdSeanceOpcvm().getIdOpcvm().toString());
+        parameters.put("dateFermeture", seanceOpcvmDto.getDateFermeture().format(formatter).toString());
+
+        OpcvmDto opcvmDto=opcvmMapper.deOpcvm(opcvmDao.findById(idOpcvm).orElseThrow());
+        parameters.put("designationOpcvm", opcvmDto.getDenominationOpcvm());
+
+        File file = ResourceUtils.getFile("classpath:soldeCompteExtourne.jrxml");
+        JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
+        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(list);
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport,parameters, dataSource);
+        JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());
+        return ResponseHandler.generateResponse(
+                "Extourne VDE",
+                HttpStatus.OK,
+                list);
+    }
+
+    @Override
+    public ResponseEntity<Object> creerNiveau1(ExtourneVDERequest extourneVDERequest)  {
 
         List<OperationExtourneVDEProjection> list=libraryDao.operationExtourneVDE(extourneVDERequest.getIdSeance()
                 , extourneVDERequest.getIdOpcvm(), extourneVDERequest.getEstVerifie(), extourneVDERequest.getEstVerifie1()
                 , extourneVDERequest.getEstVerifie2());
        for(OperationExtourneVDEProjection o:list){
-            operationExtourneVDEDao.modifier(LocalDateTime.now(), extourneVDERequest.getUserLogin1(),
+            operationExtourneVDEDao.modifierNiveau1(LocalDateTime.now(), extourneVDERequest.getUserLogin1(),
+                    true, extourneVDERequest.getIdSeance(),extourneVDERequest.getIdOpcvm(),o.getIdTitre());
+       }
+        return ResponseHandler.generateResponse(
+                "Extourne VDE",
+                HttpStatus.OK,
+                null);
+    }
+
+ @Override
+    public ResponseEntity<Object> creerNiveau2(ExtourneVDERequest extourneVDERequest)  {
+
+        List<OperationExtourneVDEProjection> list=libraryDao.operationExtourneVDE(extourneVDERequest.getIdSeance()
+                , extourneVDERequest.getIdOpcvm(), extourneVDERequest.getEstVerifie(), extourneVDERequest.getEstVerifie1()
+                , extourneVDERequest.getEstVerifie2());
+       for(OperationExtourneVDEProjection o:list){
+            operationExtourneVDEDao.modifierNiveau2(LocalDateTime.now(), extourneVDERequest.getUserLogin1(),
                     true, extourneVDERequest.getIdSeance(),extourneVDERequest.getIdOpcvm(),o.getIdTitre());
        }
         return ResponseHandler.generateResponse(

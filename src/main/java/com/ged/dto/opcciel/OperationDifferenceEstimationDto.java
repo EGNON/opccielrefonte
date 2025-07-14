@@ -25,6 +25,7 @@ public class OperationDifferenceEstimationDto {
 	private BigDecimal irvm;
 	private boolean estVerifie;
 	private LocalDateTime dateVerification;
+	private LocalDateTime dateOperation;
 	private LocalDateTime dateValeur;
 	private String userLoginVerificateur;
 	private String userLogin;
@@ -44,6 +45,14 @@ public class OperationDifferenceEstimationDto {
 
 	public void setDateValeur(LocalDateTime dateValeur) {
 		this.dateValeur = dateValeur;
+	}
+
+	public LocalDateTime getDateOperation() {
+		return dateOperation;
+	}
+
+	public void setDateOperation(LocalDateTime dateOperation) {
+		this.dateOperation = dateOperation;
 	}
 
 	public String getUserLogin() {

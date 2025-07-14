@@ -10,4 +10,5 @@ import java.util.Optional;
 
 public interface DatDao extends JpaRepository<Dat, Long>, JpaSpecificationExecutor<Dat> {
     Optional<Dat> findByTypeVMAndIdOcc(String type, Long id);
+    Dat findByIdTitre(Long id);
 }

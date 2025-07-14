@@ -5,6 +5,7 @@ import com.ged.datatable.DatatableParameters;
 import com.ged.dto.opcciel.OperationExtourneVDEDto;
 import com.ged.dto.request.ConstatationChargeListeRequest;
 import com.ged.dto.request.ExtourneVDERequest;
+import com.ged.dto.request.SoldeToutCompteRequest;
 import com.ged.entity.opcciel.CleOperationExtourneVDE;
 import com.ged.service.opcciel.OperationExtourneVDEService;
 import jakarta.servlet.http.HttpServletResponse;
@@ -46,6 +47,20 @@ public class OperationExtourneVDEController {
 
         return operationExtourneVDEService.jaspertReportVDE(idSeance,idOpcvm,estVerifie,estVerifie1,estVerifie2,niveau,response);
     }
+    @PostMapping("/jasperpdf/vde/soldecompteextourne")
+    public ResponseEntity<Object> soldeCompteExtourne(@RequestBody SoldeToutCompteRequest soldeToutCompteRequest,
+                                                      HttpServletResponse response) throws JRException, IOException {
+        response.setContentType("application/pdf");
+        DateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy:hh:mm:ss");
+        String currentDateTime = dateFormatter.format(new Date());
+
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=soldeCompteExtourne_Niveau_" + currentDateTime + ".pdf";
+        response.setHeader(headerKey, headerValue);
+
+        return operationExtourneVDEService.soldeCompteExtourne(soldeToutCompteRequest.getIdOpcvm(),
+                soldeToutCompteRequest.getNumCompteComptable(),soldeToutCompteRequest.getDateEstimation(),response);
+    }
     @GetMapping("tous/{idOpcvm}")
     public ResponseEntity<Object> afficherTous(@PathVariable Long idOpcvm)
     {
@@ -85,11 +100,15 @@ public class OperationExtourneVDEController {
     {
         return operationExtourneVDEService.creer(operationExtourneVDEDto);
     }
-    @PutMapping("creerverif")
+    @PutMapping("creerverif/{niveau}")
 //    @PreAuthorize("hasAuthority('ROLE_DEGRE')")
-    public ResponseEntity<Object> creer(@Valid @RequestBody ExtourneVDERequest extourneVDERequest)
+    public ResponseEntity<Object> creer(@Valid @RequestBody ExtourneVDERequest extourneVDERequest,
+                                        @PathVariable Long niveau)
     {
-        return operationExtourneVDEService.creer(extourneVDERequest);
+        if(niveau==1)
+            return operationExtourneVDEService.creerNiveau1(extourneVDERequest);
+        else
+            return operationExtourneVDEService.creerNiveau2(extourneVDERequest);
     }
     @PutMapping()
 //    @PreAuthorize("hasAuthority('ROLE_DEGRE')")

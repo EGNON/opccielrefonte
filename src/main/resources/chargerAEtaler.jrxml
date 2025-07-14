@@ -1,0 +1,202 @@
+<!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 7.0.1-573496633c2b4074e32f433154b543003f7d2498  -->
+<jasperReport name="chargeAEtaler" language="java" columnCount="1" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a566266e-7b6e-4eb0-88a3-d845e8edbae2">
+	<parameter name="letterDate" class="java.lang.String"/>
+	<field name="idOpcvm" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="idOpcvm"/>
+		<property name="com.jaspersoft.studio.field.label" value="idOpcvm"/>
+	</field>
+	<field name="denominationOpcvm" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="denominationOpcvm"/>
+		<property name="com.jaspersoft.studio.field.label" value="denominationOpcvm"/>
+	</field>
+	<field name="idSeance" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="idSeance"/>
+		<property name="com.jaspersoft.studio.field.label" value="idSeance"/>
+	</field>
+	<field name="dateOuv" class="java.time.LocalDateTime">
+		<property name="com.jaspersoft.studio.field.name" value="dateOuv"/>
+		<property name="com.jaspersoft.studio.field.label" value="dateOuv"/>
+	</field>
+	<field name="dateFerm" class="java.time.LocalDateTime">
+		<property name="com.jaspersoft.studio.field.name" value="dateFerm"/>
+		<property name="com.jaspersoft.studio.field.label" value="dateFerm"/>
+	</field>
+	<field name="idOperation" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="idOperation"/>
+		<property name="com.jaspersoft.studio.field.label" value="idOperation"/>
+	</field>
+	<field name="dateOperation" class="java.time.LocalDateTime">
+		<property name="com.jaspersoft.studio.field.name" value="dateOperation"/>
+		<property name="com.jaspersoft.studio.field.label" value="dateOperation"/>
+	</field>
+	<field name="designation" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="designation"/>
+		<property name="com.jaspersoft.studio.field.label" value="designation"/>
+	</field>
+	<field name="typeCharge" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="typeCharge"/>
+		<property name="com.jaspersoft.studio.field.label" value="typeCharge"/>
+	</field>
+	<field name="montantTaux" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="montantTaux"/>
+		<property name="com.jaspersoft.studio.field.label" value="montantTaux"/>
+	</field>
+	<field name="actifBrut" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="actifBrut"/>
+		<property name="com.jaspersoft.studio.field.label" value="actifBrut"/>
+	</field>
+	<field name="nbreJour" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="nbreJour"/>
+		<property name="com.jaspersoft.studio.field.label" value="nbreJour"/>
+	</field>
+	<field name="usance" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="usance"/>
+		<property name="com.jaspersoft.studio.field.label" value="usance"/>
+	</field>
+	<field name="montant" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="montant"/>
+		<property name="com.jaspersoft.studio.field.label" value="montant"/>
+	</field>
+	<variable name="montant1" resetType="Group" calculation="Sum" resetGroup="Group1" class="java.math.BigDecimal">
+		<expression><![CDATA[$F{montant}]]></expression>
+	</variable>
+	<group name="Group1">
+		<expression><![CDATA[$F{idOpcvm}]]></expression>
+		<groupHeader>
+			<band height="140">
+				<element kind="textField" uuid="f7e7bb58-c6b0-40a0-8318-de95551b9a6a" mode="Opaque" x="3" y="2" width="544" height="31" backcolor="#BDD7EE" fontName="Segoe UI" bold="true" hTextAlign="Center" vTextAlign="Middle">
+					<expression><![CDATA["LISTE DE VERIFICATION DE LA GENERATION DES CHARGES "]]></expression>
+					<box>
+						<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+				</element>
+				<element kind="rectangle" uuid="1806d69a-030d-4267-8362-109fa56e3b3a" x="3" y="110" width="545" height="30" backcolor="#BDD7EE"/>
+				<element kind="line" uuid="894dfabe-4d99-4678-a7d2-229404835e9d" x="66" y="110" width="1" height="30"/>
+				<element kind="staticText" uuid="4801cd5e-2163-4fff-bb43-2939ee93a546" x="66" y="114" width="173" height="20" fontName="Segoe UI" bold="true" hTextAlign="Center">
+					<text><![CDATA[Désignation]]></text>
+				</element>
+				<element kind="line" uuid="5e64d4ef-3702-4323-8fc0-5de0781db06b" x="241" y="110" width="1" height="30"/>
+				<element kind="staticText" uuid="c41b8632-1e26-47d9-8b07-671810620be0" x="244" y="114" width="95" height="20" fontName="Segoe UI" bold="true" hTextAlign="Center">
+					<text><![CDATA[Type charge]]></text>
+				</element>
+				<element kind="rectangle" uuid="05f16cbc-7922-4aa1-b01e-118839060bc2" mode="Opaque" x="3" y="34" width="544" height="64" backcolor="#FCFEFF"/>
+				<element kind="staticText" uuid="3044ecba-4ab1-408f-b796-9185e204d1ee" x="8" y="38" width="70" height="20" fontName="Segoe UI" bold="true" hTextAlign="Center">
+					<text><![CDATA[OPCVM:]]></text>
+				</element>
+				<element kind="textField" uuid="18a0ff4e-80ff-430c-84cf-48afec513c73" x="78" y="38" width="203" height="20">
+					<expression><![CDATA[$F{denominationOpcvm}]]></expression>
+				</element>
+				<element kind="staticText" uuid="03e4444e-b089-42a6-b1b9-0e3e3eedfcd0" x="8" y="66" width="70" height="20" fontName="Segoe UI" bold="true" hTextAlign="Center">
+					<text><![CDATA[SEANCE:]]></text>
+				</element>
+				<element kind="textField" uuid="42867a86-bac1-4214-afc5-a11bac4b4910" x="78" y="66" width="58" height="20">
+					<expression><![CDATA[$F{idSeance}]]></expression>
+				</element>
+				<element kind="staticText" uuid="cad85e6f-9c49-4f76-b9c8-c88e294bfbfd" x="141" y="66" width="55" height="20" fontName="Segoe UI" bold="true" hTextAlign="Center">
+					<text><![CDATA[Date ouv:]]></text>
+				</element>
+				<element kind="textField" uuid="a5feae36-a5b6-41c8-a00f-167ea3acdeda" x="196" y="66" width="85" height="20">
+					<expression><![CDATA[$F{dateOuv}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"))]]></expression>
+				</element>
+				<element kind="textField" uuid="ca341020-cfad-48ca-ad8c-7fd73d6d690f" x="350" y="38" width="77" height="20">
+					<expression><![CDATA[$F{actifBrut}]]></expression>
+				</element>
+				<element kind="staticText" uuid="7b5a2e60-48b9-466a-8d29-866d8bc27654" x="289" y="38" width="59" height="20" fontName="Segoe UI" bold="true" hTextAlign="Left">
+					<text><![CDATA[Actif:]]></text>
+				</element>
+				<element kind="textField" uuid="8097f6ce-4c25-4320-a6e6-8a38912c63ac" x="351" y="66" width="76" height="20">
+					<expression><![CDATA[$F{dateFerm}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"))]]></expression>
+				</element>
+				<element kind="staticText" uuid="e91a162b-c06c-4294-8aa5-7e48c43be1ce" x="290" y="66" width="59" height="20" fontName="Segoe UI" bold="true" hTextAlign="Left">
+					<text><![CDATA[Date ferm:]]></text>
+				</element>
+				<element kind="textField" uuid="7fc409f7-d6c3-4d07-a446-4f3e5e88a235" x="490" y="38" width="57" height="20">
+					<expression><![CDATA[$F{usance}]]></expression>
+				</element>
+				<element kind="staticText" uuid="047e7144-18c1-414f-8a51-4acdb373c08c" x="432" y="38" width="58" height="20" fontName="Segoe UI" bold="true" hTextAlign="Left">
+					<text><![CDATA[Usance:]]></text>
+				</element>
+				<element kind="staticText" uuid="2b74bd7b-095d-4d74-aee2-33d0d8f90dba" x="432" y="66" width="58" height="20" fontName="Segoe UI" bold="true" hTextAlign="Left">
+					<text><![CDATA[Nbre jour:]]></text>
+				</element>
+				<element kind="textField" uuid="41cbfe32-b09e-4178-a7a1-348a954dec8e" x="490" y="66" width="57" height="20">
+					<expression><![CDATA[$F{nbreJour}]]></expression>
+				</element>
+				<element kind="staticText" uuid="229d001f-53b5-4bd7-8d88-1a5a315cffb2" x="9" y="117" width="51" height="20" fontName="Segoe UI" bold="true" hTextAlign="Center">
+					<text><![CDATA[Id op.]]></text>
+				</element>
+				<element kind="line" uuid="ed307f47-2b2d-4039-bc37-ae18e4ecec77" x="340" y="110" width="1" height="30"/>
+				<element kind="staticText" uuid="322f316d-9486-4829-b9a5-663c22ad1048" x="342" y="114" width="95" height="20" fontName="Segoe UI" bold="true" hTextAlign="Center">
+					<text><![CDATA[Montant/taux]]></text>
+				</element>
+				<element kind="line" uuid="1a6be6e5-11d4-43b5-88da-ff0c60969bda" x="441" y="110" width="1" height="30"/>
+				<element kind="staticText" uuid="50f08e48-8b8b-4f07-ae4e-1fe71c74d8d3" x="449" y="115" width="95" height="20" fontName="Segoe UI" bold="true" hTextAlign="Center">
+					<text><![CDATA[Montant]]></text>
+				</element>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="47">
+				<element kind="rectangle" uuid="f89a137d-fea2-4f7b-847f-de5810e98c60" x="339" y="0" width="209" height="30" backcolor="#BDD7EE"/>
+				<element kind="staticText" uuid="e2590644-b25a-45cc-8782-03eae6deb400" x="342" y="5" width="96" height="20" fontName="Segoe UI" fontSize="14.0" bold="true" hTextAlign="Left">
+					<text><![CDATA[Total:]]></text>
+				</element>
+				<element kind="line" uuid="d72c4c61-58cc-4fbd-95c6-e8ee5edaa295" x="441" y="0" width="1" height="30"/>
+				<element pattern="#,##0.###;#,##0.###" kind="textField" uuid="289bdf9e-654b-422b-a991-9cd87a3bda8b" x="449" y="5" width="95" height="20">
+					<expression><![CDATA[$V{montant1}]]></expression>
+				</element>
+				<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			</band>
+		</groupFooter>
+	</group>
+	<background splitType="Stretch"/>
+	<title height="37" splitType="Stretch">
+		<element kind="textField" uuid="9a03cb45-67b9-43cb-9a05-729c28cc7048" x="0" y="10" width="230" height="20" fontName="Segoe UI">
+			<expression><![CDATA["Cotonou le, " + $P{letterDate}]]></expression>
+		</element>
+	</title>
+	<pageHeader splitType="Stretch"/>
+	<columnHeader splitType="Stretch"/>
+	<detail>
+		<band height="31" splitType="Stretch">
+			<element kind="rectangle" uuid="d549e30d-7fa4-4913-b642-cd2c03a93d2b" stretchType="ContainerHeight" x="3" y="1" width="545" height="30"/>
+			<element kind="line" uuid="fad4fbb4-d9d4-4653-b57f-c7a9058138d6" stretchType="ContainerHeight" x="66" y="0" width="1" height="30"/>
+			<element kind="line" uuid="7f007f76-1ff6-4635-829e-66e315afdeb0" stretchType="ContainerHeight" x="241" y="0" width="1" height="30"/>
+			<element kind="textField" uuid="7d458b1c-3105-428c-bebf-9751fce2c62c" x="4" y="6" width="57" height="20" fontName="Segoe UI" textAdjust="StretchHeight" linkType="None" linkTarget="Self">
+				<expression><![CDATA[$F{idOperation}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="9deef596-de36-4f56-887e-1b17bb721f06"/>
+			</element>
+			<element kind="textField" uuid="8cdf2758-d5c6-4beb-a5a2-d6b214f0f9db" stretchType="ContainerHeight" x="67" y="9" width="173" height="17" fontName="Segoe UI" fontSize="10.0" textAdjust="StretchHeight" blankWhenNull="true">
+				<expression><![CDATA[$F{designation}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4dca9af7-83ce-429d-a0e9-83933755b9be"/>
+			</element>
+			<element kind="textField" uuid="de5beb04-0e82-4651-83f6-664a6773853d" x="245" y="8" width="95" height="19" fontName="Segoe UI" textAdjust="StretchHeight">
+				<expression><![CDATA[$F{typeCharge}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="9e4a68d5-a952-40ee-9be0-a48f774f76d5"/>
+			</element>
+			<element kind="line" uuid="412a57fe-d207-4f8b-b341-064d69480913" stretchType="ContainerHeight" x="340" y="1" width="1" height="30"/>
+			<element pattern="#,##0.###;#,##0.###"  kind="textField" uuid="6a4c40e1-ad76-4a4a-9447-79ec71510083" x="343" y="8" width="95" height="19" fontName="Segoe UI" textAdjust="StretchHeight">
+				<expression><![CDATA[$F{montantTaux}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="9e4a68d5-a952-40ee-9be0-a48f774f76d5"/>
+			</element>
+			<element kind="line" uuid="959846d2-1fdf-46ad-b67c-b152a79a2b01" stretchType="ContainerHeight" x="441" y="1" width="1" height="30"/>
+			<element pattern="#,##0.###;#,##0.###"  kind="textField" uuid="a43a5276-4ec0-42cb-9a27-1515b24aba67" x="449" y="8" width="95" height="19" fontName="Segoe UI" textAdjust="StretchHeight">
+				<expression><![CDATA[$F{montant}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="9e4a68d5-a952-40ee-9be0-a48f774f76d5"/>
+			</element>
+		</band>
+	</detail>
+	<columnFooter splitType="Stretch"/>
+	<pageFooter height="54" splitType="Stretch">
+		<element kind="staticText" uuid="27f4afba-a008-4c38-8fed-c9616b98ca81" x="4" y="12" width="120" height="26" fontName="Segoe UI">
+			<text><![CDATA[Edité avec OPCCIEL 2.0]]></text>
+		</element>
+		<element kind="textField" uuid="7fa86c05-facc-4061-be6a-86da79709180" x="449" y="10" width="100" height="29" hTextAlign="Right">
+			<expression><![CDATA[$V{PAGE_NUMBER}]]></expression>
+		</element>
+	</pageFooter>
+	<summary height="32" splitType="Stretch"/>
+</jasperReport>

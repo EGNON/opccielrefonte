@@ -23,6 +23,7 @@ public class OperationDto extends Base {
     private Long idOcc;
     private OpcvmDto opcvm;
     private PersonneDto actionnaire;
+    private PersonneDto personne;
     private TitreDto titre;
     private Long idTransaction;
     private TransactionDto transaction;
@@ -70,6 +71,14 @@ public class OperationDto extends Base {
         this.dateOperation = dateOperation;
         this.libelleOperation = libelleOperation;
         this.dateValeur = dateValeur;
+    }
+
+    public PersonneDto getPersonne() {
+        return personne;
+    }
+
+    public void setPersonne(PersonneDto personne) {
+        this.personne = personne;
     }
 
     public Long getIdActionnaire() {

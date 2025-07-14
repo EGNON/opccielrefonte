@@ -188,10 +188,10 @@
 				<element kind="textField" uuid="bf6072a0-3a1e-4ca9-a729-b8cb95247785" x="6" y="5" width="464" height="21">
 					<expression><![CDATA["TOTAL: "+ $F{codeClasseTitre}]]></expression>
 				</element>
-				<element pattern="#,##0.###;#,##0.###-" kind="textField" uuid="ec1c8723-49c2-4919-88fd-4beb4cbf2fa6" x="483" y="5" width="147" height="21">
+				<element pattern="#,##0.###;#,##0.###" kind="textField" uuid="ec1c8723-49c2-4919-88fd-4beb4cbf2fa6" x="483" y="5" width="147" height="21">
 					<expression><![CDATA[$V{valeurVDECours6}]]></expression>
 				</element>
-				<element pattern="#,##0.###;#,##0.###-" kind="textField" uuid="878674a0-70a9-4251-bd03-891469860ad5" x="640" y="5" width="150" height="21">
+				<element pattern="#,##0.###;#,##0.###" kind="textField" uuid="878674a0-70a9-4251-bd03-891469860ad5" x="640" y="5" width="150" height="21">
 					<expression><![CDATA[$V{valeurVDEInteret6}]]></expression>
 				</element>
 			</band>
@@ -244,11 +244,11 @@
 				<expression><![CDATA[$F{symbolTitre}]]></expression>
 				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="9deef596-de36-4f56-887e-1b17bb721f06"/>
 			</element>
-			<element pattern="#,##0.###;#,##0.###-" kind="textField" uuid="8cdf2758-d5c6-4beb-a5a2-d6b214f0f9db" x="483" y="9" width="147" height="17" fontName="Segoe UI" textAdjust="StretchHeight" blankWhenNull="true">
+			<element pattern="#,##0.###;#,##0.###" kind="textField" uuid="8cdf2758-d5c6-4beb-a5a2-d6b214f0f9db" x="483" y="9" width="147" height="17" fontName="Segoe UI" textAdjust="StretchHeight" blankWhenNull="true">
 				<expression><![CDATA[$F{valeurVDECours}]]></expression>
 				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4dca9af7-83ce-429d-a0e9-83933755b9be"/>
 			</element>
-			<element pattern="#,##0.###;#,##0.###-" kind="textField" uuid="de5beb04-0e82-4651-83f6-664a6773853d" x="640" y="8" width="150" height="19" fontName="Segoe UI" textAdjust="StretchHeight">
+			<element pattern="#,##0.###;#,##0.###" kind="textField" uuid="de5beb04-0e82-4651-83f6-664a6773853d" x="640" y="8" width="150" height="19" fontName="Segoe UI" textAdjust="StretchHeight">
 				<expression><![CDATA[$F{valeurVDEInteret}]]></expression>
 				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="9e4a68d5-a952-40ee-9be0-a48f774f76d5"/>
 			</element>
@@ -367,10 +367,10 @@
 		<element kind="textField" uuid="f8e4d9d4-cac7-4a68-b86a-17c128238763" x="6" y="35" width="464" height="21">
 			<expression><![CDATA["TOTAL GENERALE"]]></expression>
 		</element>
-		<element pattern="#,##0.###;#,##0.###-" kind="textField" uuid="768221a6-e325-4c1a-80d5-bd95ef5d9900" x="483" y="35" width="147" height="21">
+		<element pattern="#,##0.###;#,##0.###" kind="textField" uuid="768221a6-e325-4c1a-80d5-bd95ef5d9900" x="483" y="35" width="147" height="21">
 			<expression><![CDATA[$F{sommeCours}]]></expression>
 		</element>
-		<element pattern="#,##0.###;#,##0.###-" kind="textField" uuid="173ebb2f-13c8-47fc-82ed-45d8eac6207e" x="640" y="35" width="150" height="21">
+		<element pattern="#,##0.###;#,##0.###" kind="textField" uuid="173ebb2f-13c8-47fc-82ed-45d8eac6207e" x="640" y="35" width="150" height="21">
 			<expression><![CDATA[$F{sommeInteret}]]></expression>
 		</element>
 	</summary>

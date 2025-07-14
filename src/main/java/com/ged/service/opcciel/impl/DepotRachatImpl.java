@@ -80,6 +80,8 @@ public class DepotRachatImpl implements DepotRachatService {
     private final OperationSouscriptionRachatDao souscriptionRachatDao;
     private final OperationDao operationDao;
     private final OperationMapper operationMapper;
+//    @PersistenceContext
+//    EntityManager em;
 
     public DepotRachatImpl(
             DepotRachatDao DepotRachatDao,
@@ -205,9 +207,9 @@ public class DepotRachatImpl implements DepotRachatService {
     public ResponseEntity<Object> afficherTous(long idOpcvm,
                                                long idSeance,
                                                String codeNatureOperation,
-                                               boolean estVerifier,
-                                               boolean estVerifie1,
-                                               boolean estVerifie2) {
+                                               Boolean estVerifier,
+                                               Boolean estVerifie1,
+                                               Boolean estVerifie2) {
         try {
             Opcvm opcvm = new Opcvm();
             opcvm = opcvmDao.findById(idOpcvm).orElseThrow();
@@ -782,27 +784,181 @@ public class DepotRachatImpl implements DepotRachatService {
     }
 
     @Override
+    public ResponseEntity<Object> precalculSouscriptionListe(PrecalculSouscriptionRequest precalcul) {
+        try {
+            return ResponseHandler.generateResponse(
+                    "Précalcul effectué avec succès.",
+                    HttpStatus.OK,
+                    libraryDao.precalculSouscription(precalcul.getIdSeance(),precalcul.getIdOpcvm(),precalcul.getIdPersonne()));
+        } catch (Exception e) {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e);
+        }
+    }
+
+    @Override
     public ResponseEntity<Object> genererSouscription(List<OperationSouscriptionRachatDto> souscriptionRachatDtos) {
         try {
-            List<OperationSouscriptionRachat> souscriptionRachats = souscriptionRachatDtos.stream().map(souscriptionRachatDto -> {
-                souscriptionRachatDto = appService.genererEcritureComptable(souscriptionRachatDto);
-                String str = "DEP_SOUS;TRANS_TIT_ACT;TRANS_TIT_OBLC;TRANS_TIT_OBLNC;TRANS_TIT_TCN;TRANS_TIT_FCP";
-                List<DepotRachat> depotRachats = depotRachatDao.getAllDepotSouscToValidate(
-                    souscriptionRachatDto.getIdSeance(),
-                    souscriptionRachatDto.getIdOpcvm(),
-                    souscriptionRachatDto.getActionnaire().getIdPersonne(),
-                    Arrays.stream(str.split(";")).toList()
-                ).stream().map(depotRachat -> {
-                    depotRachat.setEstGenere(true);
-                    depotRachat = depotRachatDao.save(depotRachat);
-                    return depotRachat;
-                }).toList();
-                return souscriptionRachatMapper.deOperationSouscriptionRachatDto(souscriptionRachatDto);
-            }).toList();
+//            List<OperationSouscriptionRachat> souscriptionRachats = souscriptionRachatDtos.stream().map(souscriptionRachatDto -> {
+//                souscriptionRachatDto = appService.genererEcritureComptable(souscriptionRachatDto);
+//                String str = "DEP_SOUS;TRANS_TIT_ACT;TRANS_TIT_OBLC;TRANS_TIT_OBLNC;TRANS_TIT_TCN;TRANS_TIT_FCP";
+//                List<DepotRachat> depotRachats = depotRachatDao.getAllDepotSouscToValidate(
+//                    souscriptionRachatDto.getIdSeance(),
+//                    souscriptionRachatDto.getIdOpcvm(),
+//                    souscriptionRachatDto.getActionnaire().getIdPersonne(),
+//                    Arrays.stream(str.split(";")).toList()
+//                ).stream().map(depotRachat -> {
+//                    depotRachat.setEstGenere(true);
+//                    depotRachat = depotRachatDao.save(depotRachat);
+//                    return depotRachat;
+//                }).toList();
+//                return souscriptionRachatMapper.deOperationSouscriptionRachatDto(souscriptionRachatDto);
+//            }).toList();
+            String sortie="";
+            Long idPersonne=0L;
+            Long idSeance=0L;
+            Long idOpcvm=0L;
+            for(OperationSouscriptionRachatDto o:souscriptionRachatDtos) {
+
+                var q = em.createStoredProcedureQuery("[Operation].[PS_OperationSouscriptionRachat_IP]");
+                q.registerStoredProcedureParameter("idOperation", Long.class, ParameterMode.IN);
+                q.registerStoredProcedureParameter("idTransaction", Long.class, ParameterMode.IN);
+                q.registerStoredProcedureParameter("idSeance", Long.class, ParameterMode.IN);
+                q.registerStoredProcedureParameter("idActionnaire", Long.class, ParameterMode.IN);
+                q.registerStoredProcedureParameter("idOpcvm", Long.class, ParameterMode.IN);
+                q.registerStoredProcedureParameter("idPersonne", Long.class, ParameterMode.IN);
+                q.registerStoredProcedureParameter("codeNatureOperation", String.class, ParameterMode.IN);
+                q.registerStoredProcedureParameter("dateOperation", LocalDateTime.class, ParameterMode.IN);
+                q.registerStoredProcedureParameter("libelleOperation", String.class, ParameterMode.IN);
+                q.registerStoredProcedureParameter("dateSaisie", LocalDateTime.class, ParameterMode.IN);
+                q.registerStoredProcedureParameter("datePiece", LocalDateTime.class, ParameterMode.IN);
+                q.registerStoredProcedureParameter("dateValeur", LocalDateTime.class, ParameterMode.IN);
+                q.registerStoredProcedureParameter("referencePiece", String.class, ParameterMode.IN);
+                q.registerStoredProcedureParameter("montantSousALiquider", BigDecimal.class, ParameterMode.IN);
+                q.registerStoredProcedureParameter("SousRachatPart", BigDecimal.class, ParameterMode.IN);
+                q.registerStoredProcedureParameter("commisiionSousRachat", BigDecimal.class, ParameterMode.IN);
+                q.registerStoredProcedureParameter("TAFCommissionSousRachat", BigDecimal.class, ParameterMode.IN);
+                q.registerStoredProcedureParameter("retrocessionSousRachat", BigDecimal.class, ParameterMode.IN);
+                q.registerStoredProcedureParameter("TAFRetrocessionSousRachat", BigDecimal.class, ParameterMode.IN);
+                q.registerStoredProcedureParameter("commissionSousRachatRetrocedee", BigDecimal.class, ParameterMode.IN);
+                q.registerStoredProcedureParameter("modeValeurLiquidative", String.class, ParameterMode.IN);
+                q.registerStoredProcedureParameter("coursVL", BigDecimal.class, ParameterMode.IN);
+                q.registerStoredProcedureParameter("nombrePartSousRachat", BigDecimal.class, ParameterMode.IN);
+                q.registerStoredProcedureParameter("regulResultatExoEnCours", BigDecimal.class, ParameterMode.IN);
+                q.registerStoredProcedureParameter("regulSommeNonDistribuable", BigDecimal.class, ParameterMode.IN);
+                q.registerStoredProcedureParameter("regulReportANouveau", BigDecimal.class, ParameterMode.IN);
+                q.registerStoredProcedureParameter("regulautreResultatBeneficiaire", BigDecimal.class, ParameterMode.IN);
+                q.registerStoredProcedureParameter("regulautreResultatDeficitaire", BigDecimal.class, ParameterMode.IN);
+                q.registerStoredProcedureParameter("regulResultatEnInstanceBeneficiaire", BigDecimal.class, ParameterMode.IN);
+                q.registerStoredProcedureParameter("regulResultatEnInstanceDeficitaire", BigDecimal.class, ParameterMode.IN);
+                q.registerStoredProcedureParameter("regulExoDistribution", BigDecimal.class, ParameterMode.IN);
+                q.registerStoredProcedureParameter("fraisSouscriptionRachat", BigDecimal.class, ParameterMode.IN);
+                q.registerStoredProcedureParameter("reste", BigDecimal.class, ParameterMode.IN);
+                q.registerStoredProcedureParameter("quantiteSouhaite", Integer.class, ParameterMode.IN);
+                q.registerStoredProcedureParameter("montantDepose", BigDecimal.class, ParameterMode.IN);
+                q.registerStoredProcedureParameter("montantConvertiEnPart", BigDecimal.class, ParameterMode.IN);
+                q.registerStoredProcedureParameter("estRetrocede", Boolean.class, ParameterMode.IN);
+                q.registerStoredProcedureParameter("resteRembourse", Boolean.class, ParameterMode.IN);
+                q.registerStoredProcedureParameter("rachatPaye", Boolean.class, ParameterMode.IN);
+                q.registerStoredProcedureParameter("ecriture", String.class, ParameterMode.IN);
+                q.registerStoredProcedureParameter("valeurFormule", String.class, ParameterMode.IN);
+                q.registerStoredProcedureParameter("valeurCodeAnalytique", String.class, ParameterMode.IN);
+                q.registerStoredProcedureParameter("userLogin", String.class, ParameterMode.IN);
+                q.registerStoredProcedureParameter("dateDernModifClient", LocalDateTime.class, ParameterMode.IN);
+                q.registerStoredProcedureParameter("CodeLangue", String.class, ParameterMode.IN);
+                q.registerStoredProcedureParameter("Sortie", String.class, ParameterMode.OUT);
+
+                q.setParameter("idOperation", 0);
+                q.setParameter("idTransaction", 0);
+                q.setParameter("idSeance", o.getIdSeance());
+                q.setParameter("idActionnaire", o.getActionnaire().getIdPersonne());
+                q.setParameter("idOpcvm", o.getOpcvm().getIdOpcvm());
+                q.setParameter("idPersonne", o.getPersonne().getIdPersonne());
+                q.setParameter("codeNatureOperation", o.getCodeNatureOperation());
+                q.setParameter("dateOperation", o.getDateOperation());
+                q.setParameter("libelleOperation","Souscription de " + o.getNombrePartSousRachat().toString() + " Part(s)");
+                q.setParameter("dateSaisie", LocalDateTime.now());
+                q.setParameter("datePiece", o.getDateOperation());
+                q.setParameter("dateValeur", o.getDateValeur());
+                q.setParameter("referencePiece", "");
+                q.setParameter("montantSousALiquider", o.getMontantSousALiquider());
+                q.setParameter("SousRachatPart", o.getSousRachatPart());
+                q.setParameter("commisiionSousRachat",o.getCommisiionSousRachat());
+                q.setParameter("TAFCommissionSousRachat", o.gettAFCommissionSousRachat());
+                q.setParameter("retrocessionSousRachat", o.getRetrocessionSousRachat());
+                q.setParameter("TAFRetrocessionSousRachat", o.gettAFRetrocessionSousRachat());
+                q.setParameter("commissionSousRachatRetrocedee", o.getCommissionSousRachatRetrocedee());
+                q.setParameter("modeValeurLiquidative",o.getModeValeurLiquidative());
+                q.setParameter("coursVL", o.getCoursVL());
+                q.setParameter("nombrePartSousRachat", o.getNombrePartSousRachat());
+                q.setParameter("regulResultatExoEnCours", o.getRegulResultatExoEnCours());
+                q.setParameter("regulSommeNonDistribuable",o.getRegulSommeNonDistribuable());
+                q.setParameter("regulReportANouveau", o.getRegulReportANouveau());
+                q.setParameter("regulautreResultatBeneficiaire", o.getRegulautreResultatBeneficiaire());
+                q.setParameter("regulautreResultatDeficitaire",o.getRegulautreResultatDeficitaire());
+                q.setParameter("regulResultatEnInstanceBeneficiaire", o.getRegulResultatEnInstanceBeneficiaire());
+                q.setParameter("regulResultatEnInstanceDeficitaire",o.getRegulResultatEnInstanceDeficitaire());
+                q.setParameter("regulExoDistribution", o.getRegulExoDistribution());
+                q.setParameter("fraisSouscriptionRachat", o.getFraisSouscriptionRachat());
+                q.setParameter("reste", o.getReste());
+                q.setParameter("quantiteSouhaite",o.getQuantiteSouhaite());
+                q.setParameter("montantDepose",o.getMontantDepose());
+                q.setParameter("montantConvertiEnPart", o.getMontantConvertiEnPart());
+                q.setParameter("estRetrocede", false);
+                q.setParameter("resteRembourse",false);
+                q.setParameter("rachatPaye", false);
+                q.setParameter("ecriture", "A");
+                q.setParameter("valeurFormule", ("10:" + o.getCommisiionSousRachat() +
+                        ";17:" + o.getCommissionSousRachatRetrocedee() +
+                        ";26:" + o.getFraisSouscriptionRachat() +
+                        ";35:" + o.getMontantConvertiEnPart() +
+                        ";36:" + o.getMontantDepose() +
+                        ";41:" + o.getMontantSousALiquider() +
+                        ";43:" + o.getNombrePartSousRachat() +
+                        ";59:" + o.getQuantiteSouhaite() +
+                        ";60:" + o.getRegulautreResultatBeneficiaire() +
+                        ";61:" + o.getRegulautreResultatDeficitaire() +
+                        ";62:" + o.getRegulExoDistribution() +
+                        ";63:" + o.getRegulReportANouveau() +
+                        ";64:" + o.getRegulResultatEnInstanceBeneficiaire() +
+                        ";65:" + o.getRegulResultatEnInstanceDeficitaire() +
+                        ";66:" + o.getRegulResultatExoEnCours() +
+                        ";67:" + o.getRegulSommeNonDistribuable() +
+                        ";72:" + o.getReste() +
+                        ";74:" + o.getRetrocessionSousRachat() +
+                        ";80:" + o.getSousRachatPart() +
+                        ";123:" + o.gettAFCommissionSousRachat() +
+                        ";84:" + o.gettAFRetrocessionSousRachat()).replace(',','.'));
+                q.setParameter("valeurCodeAnalytique", "OPC:" + o.getOpcvm().getIdOpcvm().toString() +
+                        ";ACT:" + o.getActionnaire().getIdPersonne().toString());
+                q.setParameter("userLogin", o.getUserLogin());
+                q.setParameter("dateDernModifClient", LocalDateTime.now());
+                q.setParameter("CodeLangue", "fr-FR");
+                q.setParameter("Sortie",sortie);
+                idPersonne=o.getPersonne().getIdPersonne();
+                idSeance=o.getIdSeance();
+                idOpcvm=o.getOpcvm().getIdOpcvm();
+
+                q.execute();
+            }
+            var    q=em.createStoredProcedureQuery("[Parametre].[PS_ValiderSousRachat]");
+            q.registerStoredProcedureParameter("idSeance",Long.class,ParameterMode.IN);
+            q.registerStoredProcedureParameter("idOpcvm",Long.class,ParameterMode.IN);
+            q.registerStoredProcedureParameter("idPersonne",Long.class,ParameterMode.IN);
+            q.registerStoredProcedureParameter("codeNatureOperation",String.class,ParameterMode.IN);
+
+            q.setParameter("idSeance",idSeance);
+            q.setParameter("idOpcvm",idOpcvm);
+            q.setParameter("idPersonne",idPersonne);
+            q.setParameter("codeNatureOperation","DEP_SOUS;TRANS_TIT_ACT;TRANS_TIT_OBLC;TRANS_TIT_OBLNC;TRANS_TIT_TCN;TRANS_TIT_FCP");
+            q.executeUpdate();
+
             return ResponseHandler.generateResponse(
                     "Génération effectuée avec succès.",
                     HttpStatus.OK,
-                    souscriptionRachats);
+                    null);
         } catch (Exception e) {
             return ResponseHandler.generateResponse(
                     e.getMessage(),

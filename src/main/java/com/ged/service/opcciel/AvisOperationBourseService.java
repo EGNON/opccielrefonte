@@ -17,6 +17,7 @@ public interface AvisOperationBourseService {
     ResponseEntity<Object> afficherTous(Long idOpcvm,Long idOrdre,DatatableParameters parameters);
     AvisOperationBourse afficherSelonId(Long id);
     ResponseEntity<Object> afficher(Long id);
+    ResponseEntity<Object> verifierRegelementAttente(Long idOpcvm,LocalDateTime date,Long idOperationRL);
     ResponseEntity<Object> afficherTous(Long idOpcvm,Long idOrdre);
     ResponseEntity<Object> afficherReglementLivraison(Long idOpcvm);
     ResponseEntity<Object> afficherGenerationReglementLivraison(Long idOpcvm);

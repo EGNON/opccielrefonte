@@ -17,6 +17,8 @@ public interface OperationService {
     ResponseEntity<Object> afficherTous(ConsultationEcritureRequest request);
     ResponseEntity<Object> afficherPaiementCommissionInvestissement(ConsultationEcritureRequest request);
     ResponseEntity<Object> creer(OperationRequest request);
+    String verifierEtape(Long niveau,Long idOpcvm) ;
+    ResponseEntity<Object> apercuVerificationDE1(Long idOpcvm,Long idSeance,Boolean estVerifie1,Boolean estVerifie2,Long niv, HttpServletResponse response) throws IOException, JRException;
     ResponseEntity<Object> creerTout(OperationRequest request);
     ResponseEntity<Object> actionnaireBanque(Long idOpcvm,String code);
     ResponseEntity<Object> listeVerificationEcriturePage(VerificationEcritureRequest verificationEcritureRequest);

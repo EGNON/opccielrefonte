@@ -56,6 +56,15 @@ public interface OperationDao extends JpaRepository<Operation,Long> {
     int modifier(String userLoginVerificateur1,String userLoginVerificateur2, Boolean estVerifie1,
                  Boolean estVerifie2,LocalDateTime dateVerification1,LocalDateTime dateVerification2,
                  Long idOperation);
+    @Query("update Operation o set " +
+            "o.userLoginVerificateur2=:userLoginVerificateur2," +
+            "o.estVerifie2=:estVerifie2," +
+            "o.dateVerification2=:dateVerification2 " +
+            "where o.idOperation=:idOperation")
+    @Modifying()
+    int modifier(String userLoginVerificateur2,
+                 Boolean estVerifie2,LocalDateTime dateVerification2,
+                 Long idOperation);
 //    @Query(value = "select op.idOperation, op.idActionnaire, o, op.actionnaire, op.idTransaction, op.transaction, op.idSeance, n, op.dateOperation, op.libelleOperation, op.dateValeur " +
 //            "from Operation op left outer join  NatureOperation n on op.natureOperation.codeNatureOperation=n.codeNatureOperation " +
 //            "inner join Opcvm o on op.opcvm.idOpcvm =o.idOpcvm " +

@@ -32,9 +32,9 @@ public interface DepotRachatService {
     ResponseEntity<Object> afficherTous(long idOpcvm,
                                         long idSeance,
                                         String codeNatureOperation,
-                                        boolean estVerifier,
-                                        boolean estVerifie1,
-                                        boolean estVerifie2);
+                                        Boolean estVerifier,
+                                        Boolean estVerifie1,
+                                        Boolean estVerifie2);
     Page<DepotRachatDto> afficherTousParPage(int page, int size);
     ResponseEntity<Object> afficherTous();
     List<NbrePartProjection> afficherNbrePart(Long idOpcvm, Long idActionnaire);
@@ -61,6 +61,7 @@ public interface DepotRachatService {
     ResponseEntity<Object> confirmerListeVerifNiv2Depot(List<DepotRachatDto> depotRachatDtos);
 
     ResponseEntity<Object> precalculSouscription(PrecalculSouscriptionRequest precalcul);
+    ResponseEntity<Object> precalculSouscriptionListe(PrecalculSouscriptionRequest precalcul);
 
     ResponseEntity<Object> genererSouscription(List<OperationSouscriptionRachatDto> souscriptionRachatDtos);
 
