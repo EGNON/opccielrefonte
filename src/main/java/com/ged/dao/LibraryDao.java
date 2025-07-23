@@ -368,6 +368,11 @@ public interface LibraryDao extends JpaRepository<BaseEntity, Long> {
     List<FT_GenererChargeProjection> afficherChargeAEtaler(
         Long idSeance,Long idOpcvm, Boolean supprimer,Boolean estVerifie1,Boolean estVerifie2
     );
+    @Query(value = "select * from [Comptabilite].[FT_PosteComptableSeanceOpcvm](:idOpcvm,:idSeance," +
+            ":estVerifie1,:estVerifie2)", nativeQuery = true)
+    List<CodePosteComptableProjection> afficherCodePosteComptable(
+        Long idOpcvm,Long idSeance,Boolean estVerifie1,Boolean estVerifie2
+    );
     @Query(value = "select * from [Parametre].[FT_Charge] (:idSeance,:idOpcvm)", nativeQuery = true)
     List<FT_GenererChargeProjection> verifierChargeAEtaler(
         Long idSeance,Long idOpcvm

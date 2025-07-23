@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 /*@DiscriminatorValue("RG")*/
 @Table(name = "T_Garant", schema = "Titre")
 public class Garant extends Base {
+//public class Garant extends Base {
     //OPCCIEL 1
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -18,6 +18,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.ResourceUtils;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -234,10 +236,21 @@ public class OperationPaiementRachatServiceImpl implements OperationPaiementRach
             parameters.put("denominationOpcvm", denominationOpcvm);
             parameters.put("dateOuv", dateOuv);
             parameters.put("dateFerm", dateFerm);
-            File file = ResourceUtils.getFile("classpath:paiementRachat.jrxml");
-            JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
+//            File file = ResourceUtils.getFile("classpath:paiementRachat.jrxml");
+//            JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
+//            JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(operationPaiementRachatTab);
+//            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport,parameters, dataSource);
+//            JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());
+            InputStream inputStream = getClass().getResourceAsStream("/paiementRachat.jrxml");
+            if (inputStream == null) {
+                throw new FileNotFoundException("Fichier JRXML introuvable dans le classpath");
+            }
+
+            JasperReport jasperReport = JasperCompileManager.compileReport(inputStream);
             JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(operationPaiementRachatTab);
-            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport,parameters, dataSource);
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
+
+            // Export vers le flux de sortie HTTP
             JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());
             return ResponseHandler.generateResponse(
                     "Operation paiement rachat",

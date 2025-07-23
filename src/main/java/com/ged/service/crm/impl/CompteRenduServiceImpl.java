@@ -36,6 +36,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -134,14 +135,32 @@ public class CompteRenduServiceImpl implements CompteRenduService {
             compteRenduDtos.add(ope);
         }
 
+//        Map<String, Object> parameters = new HashMap<>();
+//        DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
+//        String letterDate = dateFormatter.format(new Date());
+//        parameters.put("letterDate", letterDate);
+//        File file = ResourceUtils.getFile("classpath:"+"compteRendu.jrxml");
+//        JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
+//        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(compteRenduDtos);
+//        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport,parameters, dataSource);
+//        JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());
+
         Map<String, Object> parameters = new HashMap<>();
         DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
         String letterDate = dateFormatter.format(new Date());
         parameters.put("letterDate", letterDate);
-        File file = ResourceUtils.getFile("classpath:"+"compteRendu.jrxml");
-        JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
+
+        // Utilisation d'un InputStream pour accéder à la ressource dans le .jar
+        InputStream inputStream = getClass().getResourceAsStream("/compteRendu.jrxml");
+        if (inputStream == null) {
+            throw new FileNotFoundException("Fichier JRXML introuvable dans le classpath");
+        }
+
+        JasperReport jasperReport = JasperCompileManager.compileReport(inputStream);
         JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(compteRenduDtos);
-        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport,parameters, dataSource);
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
+
+        // Export vers le flux de sortie HTTP
         JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());
 
 //        System.out.println("total="+compteRenduDtos.size());

@@ -49,7 +49,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-@Transactional
+//@Transactional
 public class OperationDifferenceEstimationServiceImpl implements OperationDifferenceEstimationService {
     /*@Autowired
     @Qualifier("opccielEntityManagerFactory")
@@ -588,6 +588,7 @@ public class OperationDifferenceEstimationServiceImpl implements OperationDiffer
     }
 
     @Override
+    @Transactional
     public ResponseEntity<Object> validationNiveau(DifferenceEstimationRequest differenceEstimationRequest) {
         try {
             if(differenceEstimationRequest.getNiveau()==1){

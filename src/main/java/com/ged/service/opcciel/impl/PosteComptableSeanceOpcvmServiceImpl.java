@@ -1,13 +1,15 @@
 package com.ged.service.opcciel.impl;
 
 import com.ged.dao.LibraryDao;
+import com.ged.dao.opcciel.OpcvmDao;
 import com.ged.dao.opcciel.SeanceOpcvmDao;
 import com.ged.dao.opcciel.comptabilite.ExerciceDao;
 import com.ged.dao.opcciel.comptabilite.PlanDao;
 import com.ged.dao.opcciel.comptabilite.PosteComptableDao;
 import com.ged.dao.opcciel.comptabilite.PosteComptableSeanceOpcvmDao;
-import com.ged.datatable.DataTablesResponse;
 import com.ged.datatable.DatatableParameters;
+import com.ged.dto.opcciel.OpcvmDto;
+import com.ged.dto.opcciel.SeanceOpcvmDto;
 import com.ged.dto.opcciel.comptabilite.ExerciceDto;
 import com.ged.dto.opcciel.comptabilite.PosteComptableDto;
 import com.ged.dto.opcciel.comptabilite.PosteComptableSeanceOpcvmDto;
@@ -16,7 +18,7 @@ import com.ged.entity.opcciel.SeanceOpcvm;
 import com.ged.entity.opcciel.comptabilite.ClePosteComptableSeanceOpcvm;
 import com.ged.entity.opcciel.comptabilite.PosteComptableSeanceOpcvm;
 import com.ged.mapper.opcciel.*;
-import com.ged.projection.FT_GenererChargeProjection;
+import com.ged.projection.CodePosteComptableProjection;
 import com.ged.projection.SoldeCompteFormuleProjection;
 import com.ged.response.ResponseHandler;
 import com.ged.service.opcciel.OperationService;
@@ -24,21 +26,27 @@ import com.ged.service.opcciel.PosteComptableSeanceOpcvmService;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.ParameterMode;
 import jakarta.persistence.PersistenceContext;
+import jakarta.servlet.http.HttpServletResponse;
+import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.ResourceUtils;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.text.DateFormat;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.time.*;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -61,10 +69,11 @@ public class PosteComptableSeanceOpcvmServiceImpl implements PosteComptableSeanc
     private final SeanceOpcvmDao seanceOpcvmDao;
     private final SeanceOpcvmMapper seanceOpcvmMapper;
     private final OpcvmMapper opcvmMapper;
+    private final OpcvmDao opcvmDao;
     @PersistenceContext
     EntityManager em;
 
-    public PosteComptableSeanceOpcvmServiceImpl(PosteComptableSeanceOpcvmDao PosteComptableSeanceOpcvmDao, PlanDao planDao, OperationService operationService, OperationMapper operationMapper, LibraryDao libraryDao, PosteComptableSeanceOpcvmMapper PosteComptableSeanceOpcvmMapper, PosteComptableMapper posteComptableMapper, PosteComptableDao posteComptableDao, PlanMapper planMapper, ExerciceDao exerciceDao, ExerciceMapper exerciceMapper, SeanceOpcvmDao seanceOpcvmDao, SeanceOpcvmMapper seanceOpcvmMapper, OpcvmMapper opcvmMapper){
+    public PosteComptableSeanceOpcvmServiceImpl(PosteComptableSeanceOpcvmDao PosteComptableSeanceOpcvmDao, PlanDao planDao, OperationService operationService, OperationMapper operationMapper, LibraryDao libraryDao, PosteComptableSeanceOpcvmMapper PosteComptableSeanceOpcvmMapper, PosteComptableMapper posteComptableMapper, PosteComptableDao posteComptableDao, PlanMapper planMapper, ExerciceDao exerciceDao, ExerciceMapper exerciceMapper, SeanceOpcvmDao seanceOpcvmDao, SeanceOpcvmMapper seanceOpcvmMapper, OpcvmMapper opcvmMapper, OpcvmDao opcvmDao){
         this.PosteComptableSeanceOpcvmDao = PosteComptableSeanceOpcvmDao;
         this.planDao = planDao;
         this.operationService = operationService;
@@ -79,10 +88,11 @@ public class PosteComptableSeanceOpcvmServiceImpl implements PosteComptableSeanc
         this.seanceOpcvmDao = seanceOpcvmDao;
         this.seanceOpcvmMapper = seanceOpcvmMapper;
         this.opcvmMapper = opcvmMapper;
+        this.opcvmDao = opcvmDao;
     }
 
     @Override
-    public ResponseEntity<Object> afficherTous(DatatableParameters parameters) {
+    public ResponseEntity<Object> afficherTous(Long idOpcvm,Long idSeance) {
         try {
 //            Sort sort = Sort.by(Sort.Direction.ASC,"libellePosteComptableSeanceOpcvm");
 //            Pageable pageable = PageRequest.of(
@@ -102,10 +112,11 @@ public class PosteComptableSeanceOpcvmServiceImpl implements PosteComptableSeanc
 //            dataTablesResponse.setRecordsFiltered((int)PosteComptableSeanceOpcvmPage.getTotalElements());
 //            dataTablesResponse.setRecordsTotal((int)PosteComptableSeanceOpcvmPage.getTotalElements());
 //            dataTablesResponse.setData(content);
+            List<CodePosteComptableProjection> list=libraryDao.afficherCodePosteComptable(idOpcvm, idSeance, null, null);
             return ResponseHandler.generateResponse(
                     "Liste des postes comptables par page datatable",
                     HttpStatus.OK,
-                    null);
+                    list);
         }
         catch(Exception e)
         {
@@ -533,15 +544,22 @@ public class PosteComptableSeanceOpcvmServiceImpl implements PosteComptableSeanc
                             String code = obj.getCodePosteComptable().trim();
 
                             // Détermine le format en fonction du code
-                            String pattern = (code.equals("_VL") || code.equals("_VLD")) ? "0.00" : "0.00000";
+                            String pattern = (code.equals("_VL") || code.equals("_VLD")) ? "0.00" : "0.0000";
 
-                            // Convertit en BigDecimal
+                            // Convertir en BigDecimal
                             BigDecimal valeur = new BigDecimal(valeurCodePoste);
 
-                            // Formatte la valeur
+                            // Déterminer le nombre de décimales sans arrondi
+                            int scale = pattern.equals("0.00") ? 2 : 4;
+                            valeur = valeur.setScale(scale, RoundingMode.DOWN);
+
+                            // Formater avec DecimalFormat
                             DecimalFormat df = new DecimalFormat(pattern);
+                            df.setRoundingMode(RoundingMode.DOWN); // par sécurité
                             String verbe = df.format(valeur);
-                            valeurCP = new BigDecimal(verbe.replace(',','.'));
+
+                            // Convertir en BigDecimal sans erreur à cause de virgule
+                            valeurCP = new BigDecimal(verbe.replace(',', '.'));
                         }
                         //ajout du code poste à la liste à afficher
                         PosteComptableSeanceOpcvmDto objP = new PosteComptableSeanceOpcvmDto();
@@ -561,7 +579,7 @@ public class PosteComptableSeanceOpcvmServiceImpl implements PosteComptableSeanc
 
 
                     return ResponseHandler.generateResponse(
-                            "Liste des VDE par page datatable",
+                            "Valorisation",
                             HttpStatus.OK,
                             lstPCSO);
                 }
@@ -594,20 +612,37 @@ public class PosteComptableSeanceOpcvmServiceImpl implements PosteComptableSeanc
     public ResponseEntity<Object> creer(List<PosteComptableSeanceOpcvmDto> PosteComptableSeanceOpcvmDto) {
         try {
             String sortie="";
+            Long i=0L;
+            Long idOpcvm=0L;
+            Long idSeance=0L;
             for(PosteComptableSeanceOpcvmDto o:PosteComptableSeanceOpcvmDto){
+                if(i==0){
+                    var k=em.createStoredProcedureQuery("[Comptabilite].[PS_PosteComptableSeanceOpcvm_DP_ALL]" );
+                    k.registerStoredProcedureParameter("idOpcvm", Long.class,ParameterMode.IN);
+                    k.registerStoredProcedureParameter("idSeance", Long.class,ParameterMode.IN);
+
+                    k.setParameter("idOpcvm",o.getOpcvm().getIdOpcvm());
+                    k.setParameter("idSeance",o.getIdSeance()+1);
+
+                    k.execute();
+
+                }
+                i++;
                 var q=em.createStoredProcedureQuery("[Comptabilite].[PS_PosteComptableSeanceOpcvm_IP]");
                 q.registerStoredProcedureParameter("codePosteComptable",String.class, ParameterMode.IN);
                 q.registerStoredProcedureParameter("codePlan",String.class, ParameterMode.IN);
                 q.registerStoredProcedureParameter("idOpcvm",Long.class, ParameterMode.IN);
                 q.registerStoredProcedureParameter("idSeance",Long.class, ParameterMode.IN);
                 q.registerStoredProcedureParameter("formuleSysteme",String.class, ParameterMode.IN);
-                q.registerStoredProcedureParameter("dateValeur",LocalDateTime.class, ParameterMode.IN);
+                q.registerStoredProcedureParameter("dateValeur",Date.class, ParameterMode.IN);
                 q.registerStoredProcedureParameter("valeur",BigDecimal.class, ParameterMode.IN);
                 q.registerStoredProcedureParameter("userLogin",String.class, ParameterMode.IN);
                 q.registerStoredProcedureParameter("dateDernModifClient",LocalDateTime.class, ParameterMode.IN);
                 q.registerStoredProcedureParameter("CodeLangue",String.class, ParameterMode.IN);
                 q.registerStoredProcedureParameter("Sortie",String.class, ParameterMode.OUT);
 
+//                LocalDateTime dateTime = o.getDateValeur();
+//                Date date = Date.from(dateTime.atZone(ZoneId.systemDefault()).toInstant());
                 q.setParameter("codePosteComptable",o.getCodePosteComptable());
                 q.setParameter("codePlan",o.getPlan().getCodePlan());
                 q.setParameter("idOpcvm",o.getOpcvm().getIdOpcvm());
@@ -619,13 +654,110 @@ public class PosteComptableSeanceOpcvmServiceImpl implements PosteComptableSeanc
                 q.setParameter("dateDernModifClient",LocalDateTime.now());
                 q.setParameter("CodeLangue","fr-FR");
                 q.setParameter("Sortie",sortie);
+
+                idOpcvm=o.getOpcvm().getIdOpcvm();
+                idSeance=o.getIdSeance();
                 q.execute();
             }
+            var q=em.createStoredProcedureQuery("[Parametre].[PS_Niveau_UP]");
+            q.registerStoredProcedureParameter("idOpcvm", Long.class,ParameterMode.IN);
+            q.registerStoredProcedureParameter("idSeance", Long.class,ParameterMode.IN);
+            q.registerStoredProcedureParameter("niveau", Long.class,ParameterMode.IN);
+
+            q.setParameter("idOpcvm",idOpcvm);
+            q.setParameter("idSeance",idSeance-1);
+            q.setParameter("niveau",idSeance==0?5:11);
+            q.execute();
+
             return ResponseHandler.generateResponse(
                     "Enregistrement effectué avec succès !",
                     HttpStatus.OK,
                     null);//PosteComptableSeanceOpcvmMapper.dePosteComptableSeanceOpcvm(PosteComptableSeanceOpcvm));
         } catch (Exception e) {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e);
+        }
+    }
+
+    @Override
+    public ResponseEntity<Object> jaspertReportCodePoste(Long idOpcvm, Long idSeance, Boolean estVerifie1, Boolean estVerifie2,Long niveau, HttpServletResponse response) throws IOException, JRException {
+        List<CodePosteComptableProjection> list=libraryDao.afficherCodePosteComptable(idOpcvm, idSeance, estVerifie1, estVerifie2);
+        Map<String, Object> parameters = new HashMap<>();
+        DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
+        String letterDate = dateFormatter.format(new Date());
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+
+        SeanceOpcvmDto seanceOpcvmDto=seanceOpcvmMapper.deSeanceOpcvm(seanceOpcvmDao.afficherSeance(idOpcvm,idSeance-1));
+        parameters.put("letterDate", letterDate);
+        parameters.put("niveau", niveau.toString());
+        parameters.put("dateOuv", seanceOpcvmDto.getDateOuverture().format(formatter).toString());
+        parameters.put("dateFerm", seanceOpcvmDto.getDateFermeture().format(formatter).toString());
+
+        OpcvmDto opcvmDto=opcvmMapper.deOpcvm(opcvmDao.findById(idOpcvm).orElseThrow());
+        parameters.put("denominationOpcvm", opcvmDto.getDenominationOpcvm());
+        InputStream inputStream = getClass().getResourceAsStream("/verificationValorisationCodePosteN1N2.jrxml");
+        if (inputStream == null) {
+            throw new FileNotFoundException("Fichier JRXML introuvable dans le classpath");
+        }
+
+        JasperReport jasperReport = JasperCompileManager.compileReport(inputStream);
+        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(list);
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
+
+        // Export vers le flux de sortie HTTP
+        JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());
+//        File file = ResourceUtils.getFile("classpath:verificationValorisationCodePosteN1N2.jrxml");
+//        JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
+//        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(list);
+//        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport,parameters, dataSource);
+//        JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());
+        return ResponseHandler.generateResponse(
+                "Ordre de bourse",
+                HttpStatus.OK,
+                list);
+    }
+
+    @Override
+    public ResponseEntity<Object> validerNiveau(Long idOpcvm, Long idSeance, Long niveau,String userLogin) {
+        try
+        {
+            var q=em.createStoredProcedureQuery("[Comptabilite].[PS_PosteComptableSeanceOpcvm_Verification]");
+            q.registerStoredProcedureParameter("idOpcvm", Long.class,ParameterMode.IN);
+            q.registerStoredProcedureParameter("idSeance", Long.class,ParameterMode.IN);
+            q.registerStoredProcedureParameter("estVerifie", Boolean.class,ParameterMode.IN);
+            q.registerStoredProcedureParameter("dateVerification", LocalDateTime.class,ParameterMode.IN);
+            q.registerStoredProcedureParameter("userLoginVerificateur", String.class,ParameterMode.IN);
+            q.registerStoredProcedureParameter("niveauVerfication", Long.class,ParameterMode.IN);
+
+            q.setParameter("idOpcvm",idOpcvm);
+            q.setParameter("idSeance",idSeance);
+            q.setParameter("estVerifie",true);
+            q.setParameter("dateVerification",LocalDateTime.now());
+            q.setParameter("userLoginVerificateur",userLogin);
+            q.setParameter("niveauVerfication",niveau);
+            q.execute();
+
+
+             q=em.createStoredProcedureQuery("[Parametre].[PS_Niveau_UP]");
+            q.registerStoredProcedureParameter("idOpcvm", Long.class,ParameterMode.IN);
+            q.registerStoredProcedureParameter("idSeance", Long.class,ParameterMode.IN);
+            q.registerStoredProcedureParameter("niveau", Long.class,ParameterMode.IN);
+
+            q.setParameter("idOpcvm",idOpcvm);
+            q.setParameter("idSeance",idSeance-1);
+            q.setParameter("niveau",idSeance==0?niveau==1?6:7:niveau==1?12:13);
+            q.execute();
+
+            return ResponseHandler.generateResponse(
+                    "Enregistrement effectué avec succès !",
+                    HttpStatus.OK,
+                    "Validation effectuée avec succès");
+
+        }
+        catch(Exception e)
+        {
             return ResponseHandler.generateResponse(
                     e.getMessage(),
                     HttpStatus.MULTI_STATUS,

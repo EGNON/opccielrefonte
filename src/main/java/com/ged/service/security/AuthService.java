@@ -144,9 +144,11 @@ public class AuthService {
         var claims = new HashMap<String, Object>();
         var user = ((Utilisateur)auth.getPrincipal());
         claims.put("nomComplet", user.getDenomination());
-        var jwtToken = jwtService.generateToken(claims, user);
+        var jwtToken = jwtService.generateToken(user);
         revokeAllUserTokens(user);
+        System.out.println("lenght="+jwtToken.length());
         saveUserToken(user, jwtToken);
+
         return ResponseHandler.generateResponse(
                 "L'utilisateur " + user.getUsername() + " a été authentifié avec succès",
                 HttpStatus.OK,

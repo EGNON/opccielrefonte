@@ -40,6 +40,7 @@ import org.springframework.util.StringUtils;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.text.DateFormat;
@@ -166,16 +167,32 @@ public class PersonneMoraleServiceImpl implements PersonneMoraleService {
     public List<PersonneMoraleDto> afficherSelonQualiteEtat(String qualite, HttpServletResponse response) throws IOException, JRException {
         List<PersonneMoraleDto> list = personneMoraleDao.afficherPersonneMoraleSelonQualite(qualite).stream().map(personneMoraleMapper::dePersonneMorale).collect(Collectors.toList());
 
+//        Map<String, Object> parameters = new HashMap<>();
+//        DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
+//        String letterDate = dateFormatter.format(new Date());
+//        parameters.put("letterDate", letterDate);
+//        File file = ResourceUtils.getFile("classpath:"+qualite.toLowerCase()+"_Morale.jrxml");
+//        JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
+//        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(list);
+//        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport,parameters, dataSource);
+//        JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());
         Map<String, Object> parameters = new HashMap<>();
         DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
         String letterDate = dateFormatter.format(new Date());
         parameters.put("letterDate", letterDate);
-        File file = ResourceUtils.getFile("classpath:"+qualite.toLowerCase()+"_Morale.jrxml");
-        JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
-        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(list);
-        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport,parameters, dataSource);
-        JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());
 
+        // Utilisation d'un InputStream pour accéder à la ressource dans le .jar
+        InputStream inputStream = getClass().getResourceAsStream("/"+qualite.toLowerCase()+"_Morale.jrxml");
+        if (inputStream == null) {
+            throw new FileNotFoundException("Fichier JRXML introuvable dans le classpath");
+        }
+
+        JasperReport jasperReport = JasperCompileManager.compileReport(inputStream);
+        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(list);
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
+
+        // Export vers le flux de sortie HTTP
+        JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());
         return list;
     }
 
@@ -800,16 +817,32 @@ public class PersonneMoraleServiceImpl implements PersonneMoraleService {
     public List<PersonneMoraleDto> afficherPersonneMoraleNayantPasInvestiEtat(String qualite, LocalDateTime dateDebut, LocalDateTime dateFin, HttpServletResponse response) throws IOException, JRException {
         List<PersonneMoraleDto> list = personneMoraleDao.afficherPersonneMoraleNayantPasInvesti(qualite,dateDebut,dateFin).stream().map(personneMoraleMapper::dePersonneMorale).collect(Collectors.toList());
 
+//        Map<String, Object> parameters = new HashMap<>();
+//        DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
+//        String letterDate = dateFormatter.format(new Date());
+//        parameters.put("letterDate", letterDate);
+//        File file = ResourceUtils.getFile("classpath:Client_Morale_Non_Investi.jrxml");
+//        JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
+//        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(list);
+//        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport,parameters, dataSource);
+//        JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());
         Map<String, Object> parameters = new HashMap<>();
         DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
         String letterDate = dateFormatter.format(new Date());
         parameters.put("letterDate", letterDate);
-        File file = ResourceUtils.getFile("classpath:Client_Morale_Non_Investi.jrxml");
-        JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
-        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(list);
-        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport,parameters, dataSource);
-        JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());
 
+        // Utilisation d'un InputStream pour accéder à la ressource dans le .jar
+        InputStream inputStream = getClass().getResourceAsStream("/Client_Morale_Non_Investi.jrxml");
+        if (inputStream == null) {
+            throw new FileNotFoundException("Fichier JRXML introuvable dans le classpath");
+        }
+
+        JasperReport jasperReport = JasperCompileManager.compileReport(inputStream);
+        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(list);
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
+
+        // Export vers le flux de sortie HTTP
+        JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());
         return list;
     }
 }

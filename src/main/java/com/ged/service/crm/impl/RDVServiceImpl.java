@@ -31,6 +31,7 @@ import org.springframework.util.ResourceUtils;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -122,16 +123,32 @@ public class RDVServiceImpl implements RDVService {
             rdvEtatDto.setDenomination(o.getDenomination());
             listEtat.add(rdvEtatDto);
         }
+//        Map<String, Object> parameters = new HashMap<>();
+//        DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
+//        String letterDate = dateFormatter.format(new Date());
+//        parameters.put("letterDate", letterDate);
+//        File file = ResourceUtils.getFile("classpath:RDV.jrxml");
+//        JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
+//        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(listEtat);
+//        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport,parameters , dataSource);
+//        JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());
         Map<String, Object> parameters = new HashMap<>();
         DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
         String letterDate = dateFormatter.format(new Date());
         parameters.put("letterDate", letterDate);
-        File file = ResourceUtils.getFile("classpath:RDV.jrxml");
-        JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
-        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(listEtat);
-        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport,parameters , dataSource);
-        JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());
 
+        // Utilisation d'un InputStream pour accéder à la ressource dans le .jar
+        InputStream inputStream = getClass().getResourceAsStream("/RDV.jrxml");
+        if (inputStream == null) {
+            throw new FileNotFoundException("Fichier JRXML introuvable dans le classpath");
+        }
+
+        JasperReport jasperReport = JasperCompileManager.compileReport(inputStream);
+        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(listEtat);
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
+
+        // Export vers le flux de sortie HTTP
+        JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());
         return listEtat;
     }
 

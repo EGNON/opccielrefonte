@@ -70,13 +70,15 @@ public class JwtService {
                 .stream()
                 .map(GrantedAuthority::getAuthority)
                 .toList();
+        System.out.println("Authorities: " + authorities);
         return Jwts
                 .builder()
                 .setClaims(extraClaims)
                 .setSubject(userDetails.getUsername())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + expiration))
-                .claim("authorities", authorities)
+//                .claim("authorities", authorities)
+//                .claim("roles", String.join(",", authorities))
                 .signWith(getSignInKey(), SignatureAlgorithm.HS256)
                 .compact();
         /*return Jwts

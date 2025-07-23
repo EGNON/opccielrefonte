@@ -30,6 +30,7 @@ import org.springframework.util.ResourceUtils;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -121,14 +122,31 @@ public class OperationServiceImpl implements OperationService {
             ope.setDatePremiereSouscription(LocalDateTime.parse(o[11].toString().replace(' ', 'T')));
             operation2Dto.add(ope);
         }
+//        Map<String, Object> parameters = new HashMap<>();
+//        DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
+//        String letterDate = dateFormatter.format(new Date());
+//        parameters.put("letterDate", letterDate);
+//        File file = ResourceUtils.getFile("classpath:Operation_Sup_10_Millions.jrxml");
+//        JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
+//        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(operation2Dto);
+//        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport,parameters, dataSource);
+//        JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());
         Map<String, Object> parameters = new HashMap<>();
         DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
         String letterDate = dateFormatter.format(new Date());
         parameters.put("letterDate", letterDate);
-        File file = ResourceUtils.getFile("classpath:Operation_Sup_10_Millions.jrxml");
-        JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
+
+        // Utilisation d'un InputStream pour accéder à la ressource dans le .jar
+        InputStream inputStream = getClass().getResourceAsStream("/Operation_Sup_10_Millions.jrxml");
+        if (inputStream == null) {
+            throw new FileNotFoundException("Fichier JRXML introuvable dans le classpath");
+        }
+
+        JasperReport jasperReport = JasperCompileManager.compileReport(inputStream);
         JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(operation2Dto);
-        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport,parameters, dataSource);
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
+
+            // Export vers le flux de sortie HTTP
         JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());
         return resultatOperationDto;
     }
@@ -200,11 +218,28 @@ public class OperationServiceImpl implements OperationService {
         DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
         String letterDate = dateFormatter.format(new Date());
         parameters.put("letterDate", letterDate);
-        File file = ResourceUtils.getFile("classpath:Operation_Sup_10_Millions_Nouvelle_Relation.jrxml");
-        JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
+
+        // Utilisation d'un InputStream pour accéder à la ressource dans le .jar
+        InputStream inputStream = getClass().getResourceAsStream("/Operation_Sup_10_Millions_Nouvelle_Relation.jrxml");
+        if (inputStream == null) {
+            throw new FileNotFoundException("Fichier JRXML introuvable dans le classpath");
+        }
+
+        JasperReport jasperReport = JasperCompileManager.compileReport(inputStream);
         JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(operation2Dto);
-        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport,parameters, dataSource);
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
+
+        // Export vers le flux de sortie HTTP
         JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());
+//        Map<String, Object> parameters = new HashMap<>();
+//        DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
+//        String letterDate = dateFormatter.format(new Date());
+//        parameters.put("letterDate", letterDate);
+//        File file = ResourceUtils.getFile("classpath:Operation_Sup_10_Millions_Nouvelle_Relation.jrxml");
+//        JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
+//        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(operation2Dto);
+//        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport,parameters, dataSource);
+//        JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());
         return operation2Dto;
     }
 
@@ -271,14 +306,31 @@ public class OperationServiceImpl implements OperationService {
             ope.setTotal(BigDecimal.valueOf(Double.valueOf(o[10].toString())));
             operation2Dto.add(ope);
         }
+//        Map<String, Object> parameters = new HashMap<>();
+//        DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
+//        String letterDate = dateFormatter.format(new Date());
+//        parameters.put("letterDate", letterDate);
+//        File file = ResourceUtils.getFile("classpath:Operation_Sup_10_Millions_Conditions_Inhabituelles.jrxml");
+//        JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
+//        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(operation2Dto);
+//        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport,parameters, dataSource);
+//        JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());
         Map<String, Object> parameters = new HashMap<>();
         DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
         String letterDate = dateFormatter.format(new Date());
         parameters.put("letterDate", letterDate);
-        File file = ResourceUtils.getFile("classpath:Operation_Sup_10_Millions_Conditions_Inhabituelles.jrxml");
-        JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
+
+        // Utilisation d'un InputStream pour accéder à la ressource dans le .jar
+        InputStream inputStream = getClass().getResourceAsStream("/Operation_Sup_10_Millions_Conditions_Inhabituelles.jrxml");
+        if (inputStream == null) {
+            throw new FileNotFoundException("Fichier JRXML introuvable dans le classpath");
+        }
+
+        JasperReport jasperReport = JasperCompileManager.compileReport(inputStream);
         JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(operation2Dto);
-        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport,parameters, dataSource);
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
+
+        // Export vers le flux de sortie HTTP
         JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());
         return operation2Dto;
     }
@@ -346,14 +398,31 @@ public class OperationServiceImpl implements OperationService {
             ope.setTotal(BigDecimal.valueOf(Double.valueOf(o[10].toString())));
             operation2Dto.add(ope);
         }
+//        Map<String, Object> parameters = new HashMap<>();
+//        DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
+//        String letterDate = dateFormatter.format(new Date());
+//        parameters.put("letterDate", letterDate);
+//        File file = ResourceUtils.getFile("classpath:Operation_Sup_50_Millions.jrxml");
+//        JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
+//        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(operation2Dto);
+//        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport,parameters, dataSource);
+//        JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());
         Map<String, Object> parameters = new HashMap<>();
         DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
         String letterDate = dateFormatter.format(new Date());
         parameters.put("letterDate", letterDate);
-        File file = ResourceUtils.getFile("classpath:Operation_Sup_50_Millions.jrxml");
-        JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
+
+        // Utilisation d'un InputStream pour accéder à la ressource dans le .jar
+        InputStream inputStream = getClass().getResourceAsStream("/Operation_Sup_50_Millions.jrxml");
+        if (inputStream == null) {
+            throw new FileNotFoundException("Fichier JRXML introuvable dans le classpath");
+        }
+
+        JasperReport jasperReport = JasperCompileManager.compileReport(inputStream);
         JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(operation2Dto);
-        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport,parameters, dataSource);
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
+
+        // Export vers le flux de sortie HTTP
         JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());
         return operation2Dto;
     }
@@ -422,16 +491,32 @@ public class OperationServiceImpl implements OperationService {
             ope.setTotal(BigDecimal.valueOf(Double.valueOf(o[10].toString())));
             operation2Dto.add(ope);
         }
+//        Map<String, Object> parameters = new HashMap<>();
+//        DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
+//        String letterDate = dateFormatter.format(new Date());
+//        parameters.put("letterDate", letterDate);
+//        File file = ResourceUtils.getFile("classpath:Operation_Sup_5_Millions.jrxml");
+//        JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
+//        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(operation2Dto);
+//        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport,parameters, dataSource);
+//        JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());
         Map<String, Object> parameters = new HashMap<>();
         DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
         String letterDate = dateFormatter.format(new Date());
         parameters.put("letterDate", letterDate);
-        File file = ResourceUtils.getFile("classpath:Operation_Sup_5_Millions.jrxml");
-        JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
-        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(operation2Dto);
-        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport,parameters, dataSource);
-        JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());
 
+        // Utilisation d'un InputStream pour accéder à la ressource dans le .jar
+        InputStream inputStream = getClass().getResourceAsStream("/Operation_Sup_5_Millions.jrxml");
+        if (inputStream == null) {
+            throw new FileNotFoundException("Fichier JRXML introuvable dans le classpath");
+        }
+
+        JasperReport jasperReport = JasperCompileManager.compileReport(inputStream);
+        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(operation2Dto);
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
+
+        // Export vers le flux de sortie HTTP
+        JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());
         return resultatOperationDto;
     }
 
@@ -499,14 +584,31 @@ public class OperationServiceImpl implements OperationService {
             ope.setTotal(BigDecimal.valueOf(Double.valueOf(o[10].toString())));
             operation2Dto.add(ope);
         }
+//        Map<String, Object> parameters = new HashMap<>();
+//        DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
+//        String letterDate = dateFormatter.format(new Date());
+//        parameters.put("letterDate", letterDate);
+//        File file = ResourceUtils.getFile("classpath:depot_Espece_Recense_Annee.jrxml");
+//        JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
+//        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(operation2Dto);
+//        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport,parameters, dataSource);
+//        JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());
         Map<String, Object> parameters = new HashMap<>();
         DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
         String letterDate = dateFormatter.format(new Date());
         parameters.put("letterDate", letterDate);
-        File file = ResourceUtils.getFile("classpath:depot_Espece_Recense_Annee.jrxml");
-        JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
+
+        // Utilisation d'un InputStream pour accéder à la ressource dans le .jar
+        InputStream inputStream = getClass().getResourceAsStream("/depot_Espece_Recense_Annee.jrxml");
+        if (inputStream == null) {
+            throw new FileNotFoundException("Fichier JRXML introuvable dans le classpath");
+        }
+
+        JasperReport jasperReport = JasperCompileManager.compileReport(inputStream);
         JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(operation2Dto);
-        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport,parameters, dataSource);
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
+
+        // Export vers le flux de sortie HTTP
         JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());
 
         return resultatOperationDto;

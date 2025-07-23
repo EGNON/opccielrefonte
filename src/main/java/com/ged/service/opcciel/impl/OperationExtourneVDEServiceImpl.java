@@ -49,6 +49,7 @@ import org.springframework.util.ResourceUtils;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -149,10 +150,21 @@ public class OperationExtourneVDEServiceImpl implements OperationExtourneVDEServ
         OpcvmDto opcvmDto=opcvmMapper.deOpcvm(opcvmDao.findById(idOpcvm).orElseThrow());
         parameters.put("designationOpcvm", opcvmDto.getDenominationOpcvm());
 
-        File file = ResourceUtils.getFile("classpath:soldeCompteExtourne.jrxml");
-        JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
+//        File file = ResourceUtils.getFile("classpath:soldeCompteExtourne.jrxml");
+//        JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
+//        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(list);
+//        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport,parameters, dataSource);
+//        JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());
+        InputStream inputStream = getClass().getResourceAsStream("/soldeCompteExtourne.jrxml");
+        if (inputStream == null) {
+            throw new FileNotFoundException("Fichier JRXML introuvable dans le classpath");
+        }
+
+        JasperReport jasperReport = JasperCompileManager.compileReport(inputStream);
         JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(list);
-        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport,parameters, dataSource);
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
+
+        // Export vers le flux de sortie HTTP
         JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());
         return ResponseHandler.generateResponse(
                 "Extourne VDE",

@@ -4,6 +4,7 @@ import com.ged.entity.Base;
 import com.ged.entity.opcciel.Opcvm;
 import jakarta.persistence.*;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Date;
 
@@ -22,7 +23,7 @@ public class PosteComptableSeanceOpcvm extends Base {
     private Opcvm opcvm;
 	private String formuleSysteme;
     private Date dateValeur;
-    private Double valeur;
+    private BigDecimal valeur;
     private boolean estVerifie1;
     private LocalDateTime dateVerification1;
     private String userLoginVerificateur1;
@@ -73,11 +74,11 @@ public class PosteComptableSeanceOpcvm extends Base {
         this.dateValeur = dateValeur;
     }
 
-    public Double getValeur() {
+    public BigDecimal getValeur() {
         return valeur;
     }
 
-    public void setValeur(Double valeur) {
+    public void setValeur(BigDecimal valeur) {
         this.valeur = valeur;
     }
 

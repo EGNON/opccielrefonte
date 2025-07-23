@@ -39,6 +39,7 @@ import org.springframework.util.ResourceUtils;
 import org.springframework.util.StringUtils;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.math.BigDecimal;
 import java.security.Principal;
@@ -1003,14 +1004,32 @@ public class AppService {
                 request.getIdActionnaire(),
                 request.getDateEstimation()
             );
+//            Map<String, Object> parameters = new HashMap<>();
+//            DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
+//            String letterDate = dateFormatter.format(new Date());
+//            parameters.put("letterDate", letterDate);
+//            File file = ResourceUtils.getFile("classpath:registre_actionnaire.jrxml");
+//            JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
+//            JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(list);
+//            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);//
+//            JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());
+
             Map<String, Object> parameters = new HashMap<>();
             DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
             String letterDate = dateFormatter.format(new Date());
             parameters.put("letterDate", letterDate);
-            File file = ResourceUtils.getFile("classpath:registre_actionnaire.jrxml");
-            JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
+
+            // Utilisation d'un InputStream pour accéder à la ressource dans le .jar
+            InputStream inputStream = getClass().getResourceAsStream("/registre_actionnaire.jrxml");
+            if (inputStream == null) {
+                throw new FileNotFoundException("Fichier JRXML introuvable dans le classpath");
+            }
+
+            JasperReport jasperReport = JasperCompileManager.compileReport(inputStream);
             JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(list);
-            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);//
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
+
+            // Export vers le flux de sortie HTTP
             JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());
             return ResponseHandler.generateResponse(
                     "PDF Régistre Actionnaire",
