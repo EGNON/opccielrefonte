@@ -1,6 +1,7 @@
 package com.ged.service;
 
 import com.ged.dao.LibraryDao;
+import com.ged.dao.opcciel.OpcvmDao;
 import com.ged.dao.opcciel.comptabilite.*;
 import com.ged.dao.security.UtilisateurDao;
 import com.ged.dao.standard.PersonneDao;
@@ -13,9 +14,7 @@ import com.ged.entity.opcciel.comptabilite.*;
 import com.ged.entity.security.Utilisateur;
 import com.ged.entity.standard.Personne;
 import com.ged.mapper.opcciel.*;
-import com.ged.projection.LigneMvtClotureProjection;
-import com.ged.projection.PrecalculSouscriptionProjection;
-import com.ged.projection.RegistreActionnaireProjection;
+import com.ged.projection.*;
 import com.ged.response.ResponseHandler;
 import com.ged.service.opcciel.IbService;
 import com.ged.service.opcciel.OpcvmService;
@@ -27,25 +26,28 @@ import lombok.RequiredArgsConstructor;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.util.JRLoader;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ResourceUtils;
 import org.springframework.util.StringUtils;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
+import java.io.*;
 import java.math.BigDecimal;
 import java.security.Principal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.*;
 
 @RequiredArgsConstructor
@@ -60,6 +62,7 @@ public class AppService {
     private final IbService ibService;
     private final MouvementDao mouvementDao;
     private final OpcvmMapper opcvmMapper;
+    private final OpcvmDao opcvmDao;
     private final NatureOperationMapper natureOperationMapper;
     private final TransactionDao transactionDao;
     private final OperationMapper operationMapper;
@@ -80,8 +83,265 @@ public class AppService {
         String username = principal.getName();
         return utilisateurDao.findByUsernameAndEstActif(username, true).orElse(null);
     }
+    //releveTitreFCP
+    public ResponseEntity<?> afficherReleveTitreFcp(ReleveTitreFCPRequest request) {
+        var parameters = request.getDatatableParameters();
+        try {
+            Pageable pageable = PageRequest.of(parameters.getStart()/ parameters.getLength(), parameters.getLength());
+            Page<ReleveTitreFCPProjection> releveTitreFCPPage;
+            if(parameters.getSearch() != null && !parameters.getSearch().getValue().isEmpty()) {
+                releveTitreFCPPage = new PageImpl<>(new ArrayList<>());
+            }
+            else {
+                releveTitreFCPPage = libraryDao.releveTitreFCP(
+                        request.getIdOpcvm(),request.getDateDebut(),request.getDateFin(),
+                        pageable
+                );
+            }
+            List<ReleveTitreFCPProjection> content = releveTitreFCPPage.getContent().stream().toList();
+            DataTablesResponse<ReleveTitreFCPProjection> dataTablesResponse = new DataTablesResponse<>();
+            dataTablesResponse.setDraw(parameters.getDraw());
+            dataTablesResponse.setRecordsFiltered((int)releveTitreFCPPage.getTotalElements());
+            dataTablesResponse.setRecordsTotal((int)releveTitreFCPPage.getTotalElements());
+            dataTablesResponse.setData(content);
+            return ResponseHandler.generateResponse(
+                    "Portefeuille opcvm",
+                    HttpStatus.OK,
+                    dataTablesResponse);
+        }
+        catch(Exception e) {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e);
+        }
+    }
+    public ResponseEntity<Object> afficherReleveTitreFCP(ReleveTitreFCPRequest request, HttpServletResponse response) throws JRException, IOException {
+
+        InputStream rapportStream = null;
+        InputStream subreportStream = null;
+//        try {
+        // Récupération des données
+        List<ReleveTitreFCPProjection> releveTitreFCPProjections = libraryDao.releveTitreFCP(
+                request.getIdOpcvm(), request.getDateDebut(),request.getDateFin());
+
+        // Chargement des fichiers .jrxml depuis le classpath
+        rapportStream = getClass().getResourceAsStream("/ReleveTitreFCP.jrxml");
+//        subreportStream = getClass().getResourceAsStream("/operationDetachement.jrxml");
+
+        if (rapportStream == null) {
+            throw new RuntimeException("Fichiers .jrxml introuvables dans le classpath !");
+        }
+
+        // Compiler les rapports à la volée
+        JasperReport rapportPrincipal = JasperCompileManager.compileReport(rapportStream);
+//        JasperReport subreport = JasperCompileManager.compileReport(subreportStream);
 
 
+        LocalDateTime dateTime = request.getDateDebut();
+        Instant i = dateTime.atZone(ZoneId.systemDefault()).toInstant();
+        Date dateDebut = Date.from(i);
+
+         dateTime = request.getDateFin();
+         i = dateTime.atZone(ZoneId.systemDefault()).toInstant();
+         Date dateFin = Date.from(i);
+
+        // Préparation des paramètres
+        Map<String, Object> parameters = new HashMap<>();
+        DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
+        String letterDate = dateFormatter.format(new Date());
+        String dateFin2 = dateFormatter.format(dateFin);
+        String dateDebut2 = dateFormatter.format(dateDebut);
+        parameters.put("letterDate", letterDate);
+        parameters.put("dateFin", dateFin2);
+        parameters.put("dateDebut", dateDebut2);
+        OpcvmDto opcvm = opcvmMapper.deOpcvm(opcvmDao.findById(request.getIdOpcvm()).orElseThrow());
+        parameters.put("description", opcvm.getDenominationOpcvm());
+        parameters.put("idOpcvm", opcvm.getIdOpcvm().toString());
+
+        // Remplissage du rapport
+        JasperPrint print = JasperFillManager.fillReport(
+                rapportPrincipal,
+                parameters,
+                new JRBeanCollectionDataSource(releveTitreFCPProjections)
+        );
+        JasperExportManager.exportReportToPdfStream(print, response.getOutputStream());
+        return ResponseHandler.generateResponse(
+                "Ordre de bourse",
+                HttpStatus.OK,
+                releveTitreFCPProjections);
+
+
+    }
+    public ResponseEntity<?> afficherReleveTitreFCPListe(ReleveTitreFCPRequest request) {
+        try
+        {
+            List<ReleveTitreFCPProjection> releveTitreFCPProjections=libraryDao.releveTitreFCP(
+                    request.getIdOpcvm(),request.getDateDebut(),request.getDateFin()
+            );
+            return ResponseHandler.generateResponse(
+                    "Portefeuille opcvm",
+                    HttpStatus.OK,
+                    releveTitreFCPProjections);
+        }
+        catch(Exception e) {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e);
+        }
+    }
+    //portefeuille
+    public ResponseEntity<?> afficherPortefeuille(ConstatationChargeListeRequest request) {
+        var parameters = request.getDatatableParameters();
+        try {
+            Pageable pageable = PageRequest.of(parameters.getStart()/ parameters.getLength(), parameters.getLength());
+            Page<PortefeuilleOpcvmProjection> operationPortefeuilleOpcvmPage;
+            if(parameters.getSearch() != null && !parameters.getSearch().getValue().isEmpty()) {
+                operationPortefeuilleOpcvmPage = new PageImpl<>(new ArrayList<>());
+            }
+            else {
+                operationPortefeuilleOpcvmPage = libraryDao.portefeuilleOPCVM(
+                        request.getIdOpcvm(),request.getDateOperation(),
+                        pageable
+                );
+            }
+            List<PortefeuilleOpcvmProjection> content = operationPortefeuilleOpcvmPage.getContent().stream().toList();
+            DataTablesResponse<PortefeuilleOpcvmProjection> dataTablesResponse = new DataTablesResponse<>();
+            dataTablesResponse.setDraw(parameters.getDraw());
+            dataTablesResponse.setRecordsFiltered((int)operationPortefeuilleOpcvmPage.getTotalElements());
+            dataTablesResponse.setRecordsTotal((int)operationPortefeuilleOpcvmPage.getTotalElements());
+            dataTablesResponse.setData(content);
+            return ResponseHandler.generateResponse(
+                    "Portefeuille opcvm",
+                    HttpStatus.OK,
+                    dataTablesResponse);
+        }
+        catch(Exception e) {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e);
+        }
+    }
+    public ResponseEntity<?> afficherPortefeuilleListe(ConstatationChargeListeRequest request) {
+       try
+       {
+            List<PortefeuilleOpcvmProjection> operationPortefeuilleOpcvm=libraryDao.portefeuilleOPCVM(
+                    request.getIdOpcvm(),request.getDateOperation()
+            );
+            return ResponseHandler.generateResponse(
+                    "Portefeuille opcvm",
+                    HttpStatus.OK,
+                    operationPortefeuilleOpcvm);
+        }
+        catch(Exception e) {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e);
+        }
+    }
+    public ResponseEntity<Object> afficherPortefeuille(DifferenceEstimationRequest request, HttpServletResponse response) throws JRException, IOException {
+
+        InputStream rapportStream = null;
+        InputStream subreportStream = null;
+//        try {
+            // Récupération des données
+            List<PortefeuilleOpcvmProjection> portefeuille = libraryDao.portefeuilleOPCVM(
+                    request.getIdOpcvm(), request.getDateOperation());
+            if (portefeuille.size() == 1)
+            {
+
+                //if(Convert.ToDecimal(dt1.Rows[0].ItemArray[3])==0)
+                //{
+                //    dt1.Rows.RemoveAt(dt1.Rows.Count - 1);
+                //}
+
+            }
+            else
+            {
+                portefeuille.remove(portefeuille.size()-1);
+            }
+            // Chargement des fichiers .jrxml depuis le classpath
+            rapportStream = getClass().getResourceAsStream("/portefeuille_paysage.jrxml");
+            subreportStream = getClass().getResourceAsStream("/operationDetachement.jrxml");
+
+            if (rapportStream == null || subreportStream == null) {
+                throw new RuntimeException("Fichiers .jrxml introuvables dans le classpath !");
+            }
+
+            // Compiler les rapports à la volée
+            JasperReport rapportPrincipal = JasperCompileManager.compileReport(rapportStream);
+            JasperReport subreport = JasperCompileManager.compileReport(subreportStream);
+
+
+            LocalDateTime dateTime = request.getDateOperation();
+            Instant i = dateTime.atZone(ZoneId.systemDefault()).toInstant();
+            Date date = Date.from(i);
+            List<OperationDetachementProjection> operationDetachementListe = libraryDao.operationDetachementListe(
+                    request.getIdOpcvm(),  date);
+
+            // Vérification des données
+//            if (portefeuille == null || portefeuille.isEmpty()) {
+//                throw new RuntimeException("Aucune donnée de portefeuille trouvée");
+//            }
+//            if (operationDetachementListe == null || operationDetachementListe.isEmpty()) {
+//                throw new RuntimeException("Aucune donnée d'opération de détachement trouvée");
+//            }
+
+            // Préparation des paramètres
+            Map<String, Object> parameters = new HashMap<>();
+            BigDecimal soldeEspece = portefeuille.get(0).getSoldeEspece();
+            DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
+            String letterDate = dateFormatter.format(new Date());
+            String dateFin = dateFormatter.format(date);
+            parameters.put("letterDate", letterDate);
+            parameters.put("dateFin", dateFin);
+            OpcvmDto opcvm = opcvmMapper.deOpcvm(opcvmDao.findById(request.getIdOpcvm()).orElseThrow());
+            parameters.put("designation", opcvm.getDenominationOpcvm());
+            parameters.put("type", opcvm.getClassification().getLibelleClassification());
+            parameters.put("agrement", opcvm.getAgrement());
+            parameters.put("espece", soldeEspece);
+            parameters.put("ALL_LIGNES", new JRBeanCollectionDataSource(operationDetachementListe));
+            parameters.put("SUBREPORT_REF", subreport); // Passer le sous-rapport compilé
+            parameters.put("SUBREPORT_NAME", "operationDetachement.jrxml"); // Chemin relatif pour le sous-rapport
+
+            // Remplissage du rapport
+            JasperPrint print = JasperFillManager.fillReport(
+                    rapportPrincipal,
+                    parameters,
+                    new JRBeanCollectionDataSource(portefeuille)
+            );
+            JasperExportManager.exportReportToPdfStream(print, response.getOutputStream());
+            return ResponseHandler.generateResponse(
+                    "Ordre de bourse",
+                    HttpStatus.OK,
+                    portefeuille);
+            // Exportation en PDF
+//            ByteArrayOutputStream pdfOutputStream = new ByteArrayOutputStream();
+//            JasperExportManager.exportReportToPdfStream(print, pdfOutputStream);
+//            byte[] pdfBytes = pdfOutputStream.toByteArray();
+//
+//            return ResponseEntity.ok()
+//                    .contentType(MediaType.APPLICATION_PDF)
+//                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=portefeuille.pdf")
+//                    .contentLength(pdfBytes.length)
+//                    .body(pdfBytes);
+//        } catch (Exception e) {
+//            throw new RuntimeException("Erreur lors de la génération du rapport : " + e.getMessage(), e);
+//        } finally {
+//            // Fermer les InputStreams pour éviter les fuites de ressources
+//            try {
+//                if (rapportStream != null) rapportStream.close();
+//                if (subreportStream != null) subreportStream.close();
+//            } catch (Exception e) {
+//                // Gérer les erreurs de fermeture si nécessaire
+//            }
+//        }
+
+
+    }
 
     //Récupération séance en cours
     public SeanceOpcvm currentSeance(Long idOpcvm) {

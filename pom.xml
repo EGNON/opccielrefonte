@@ -43,7 +43,7 @@
 		<dependency>
 			<groupId>net.sf.jasperreports</groupId>
 			<artifactId>jasperreports-jdt</artifactId>
-			<version>7.0.0</version>
+			<version>7.0.1</version>
 		</dependency>
 		<dependency>
 			<groupId>org.eclipse.jdt</groupId>
@@ -60,6 +60,7 @@
 			<artifactId>jasperreports-functions</artifactId>
 			<version>6.21.4</version>
 		</dependency>
+
 		<dependency>
 			<groupId>com.itextpdf</groupId>
 			<artifactId>html2pdf</artifactId>

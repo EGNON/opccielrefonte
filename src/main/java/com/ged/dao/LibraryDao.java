@@ -32,6 +32,16 @@ public interface LibraryDao extends JpaRepository<BaseEntity, Long> {
 
     @Query(value = "select * from [Impressions].[FT_PortefeuilleOPCVM_New2](:idOpcvm ,:dateEstimation)", nativeQuery = true)
     List<PortefeuilleOpcvmProjection> portefeuilleOPCVM(Long idOpcvm,LocalDateTime dateEstimation);
+    @Query(value = "select * from [Impressions].[FT_PortefeuilleOPCVM_New2](:idOpcvm ,:dateEstimation)", nativeQuery = true)
+    Page<PortefeuilleOpcvmProjection> portefeuilleOPCVM(Long idOpcvm,LocalDateTime dateEstimation,Pageable pageable);
+
+    @Query(value = "select * from [Impressions].[FT_ReleveTitreFCP_New] (:idOpcvm,:dateDebut,:dateFin)" +
+            " order by idTitre asc", nativeQuery = true)
+    Page<ReleveTitreFCPProjection> releveTitreFCP(Long idOpcvm,LocalDateTime dateDebut,LocalDateTime dateFin,Pageable pageable);
+
+    @Query(value = "select * from [Impressions].[FT_ReleveTitreFCP_New] (:idOpcvm,:dateDebut,:dateFin)" +
+            " order by idTitre asc", nativeQuery = true)
+    List<ReleveTitreFCPProjection> releveTitreFCP(Long idOpcvm,LocalDateTime dateDebut,LocalDateTime dateFin);
     @Query(value = "select * from [Impressions].[FT_PortefeuilleOPCVM_New2](:idOpcvm ,:dateEstimation) " +
             "where codeTypeTitre='ACTION'", nativeQuery = true)
     List<PortefeuilleOpcvmProjection> portefeuilleOPCVMAction(Long idOpcvm,LocalDateTime dateEstimation);
@@ -265,6 +275,14 @@ public interface LibraryDao extends JpaRepository<BaseEntity, Long> {
             Long idOpcvm,
             Boolean estPaye,
             String typeEvenement
+    );
+    @Query(value = "select * from [EvenementSurValeur].[FT_OperationDetachement_Attente_Reglement](:idOpcvm" +
+            ",:dateOperation) order by dateOperation asc",
+            nativeQuery = true
+    )
+    List<OperationDetachementProjection> operationDetachementListe(
+            Long idOpcvm,
+            Date dateOperation
     );
     @Query(value = "select * from [EvenementSurValeur].[FT_OperationDetachement](:idOpcvm" +
             ",:estPaye) where concat(dateOperation,symboleTitre,libelleOperation) like %:valeur%" +

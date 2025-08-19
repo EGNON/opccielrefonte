@@ -2,18 +2,17 @@ package com.ged.controller;
 
 import com.ged.dao.LibraryDao;
 import com.ged.dto.opcciel.OperationSouscriptionRachatDto;
-import com.ged.dto.request.CumpRequest;
-import com.ged.dto.request.RegistreActionPDFRequest;
-import com.ged.dto.request.RegistreActionnaireRequest;
-import com.ged.dto.request.SoldeToutCompteRequest;
+import com.ged.dto.request.*;
 import com.ged.entity.opcciel.SeanceOpcvm;
 import com.ged.service.AppService;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
+import net.sf.jasperreports.engine.JRException;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -48,7 +47,47 @@ public class LibraryController {
     public ResponseEntity<?> soldeToutCompte(@RequestBody @Valid SoldeToutCompteRequest request) {
         return service.soldeToutCompte(request);
     }
+//    @PostMapping("/opcvm/etats/portefeuille")
+    @PostMapping("/opcvm/etats/portefeuille")
+    public ResponseEntity<Object> porteFeuille(@RequestBody @Valid DifferenceEstimationRequest request, HttpServletResponse response) throws JRException, IOException {
+        response.setContentType("application/pdf");
+        DateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy:hh:mm:ss");
+        String currentDateTime = dateFormatter.format(new Date());
 
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=portefeuille" + currentDateTime + ".pdf";
+        response.setHeader(headerKey, headerValue);
+
+        return service.afficherPortefeuille(request,response);
+    }
+    @PostMapping("/opcvm/portefeuille")
+    public ResponseEntity<?> porteFeuille(@RequestBody @Valid ConstatationChargeListeRequest request) {
+        return service.afficherPortefeuille(request);
+    }
+    @PostMapping("/opcvm/portefeuille/liste")
+    public ResponseEntity<?> porteFeuilleListe(@RequestBody @Valid ConstatationChargeListeRequest request) {
+        return service.afficherPortefeuilleListe(request);
+    }
+    @PostMapping("/opcvm/etats/relevetitrefcp")
+    public ResponseEntity<Object> releveTitreFCP(@RequestBody @Valid ReleveTitreFCPRequest request, HttpServletResponse response) throws JRException, IOException {
+        response.setContentType("application/pdf");
+        DateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy:hh:mm:ss");
+        String currentDateTime = dateFormatter.format(new Date());
+
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=releveTitreFCP" + currentDateTime + ".pdf";
+        response.setHeader(headerKey, headerValue);
+
+        return service.afficherReleveTitreFCP(request,response);
+    }
+    @PostMapping("/opcvm/relevetitrefcp")
+    public ResponseEntity<?> releveTitreFCP(@RequestBody @Valid ReleveTitreFCPRequest request) {
+        return service.afficherReleveTitreFcp(request);
+    }
+    @PostMapping("/opcvm/relevetitrefcp/liste")
+    public ResponseEntity<?> releveTitreFCPListe(@RequestBody @Valid ReleveTitreFCPRequest request) {
+        return service.afficherReleveTitreFCPListe(request);
+    }
     @Order(1)
     @PostMapping("/registre/actionnaire/opcvm")
     public ResponseEntity<?> registreActionnaire(@RequestBody RegistreActionnaireRequest request) {

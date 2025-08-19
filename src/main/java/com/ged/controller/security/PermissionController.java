@@ -55,49 +55,49 @@ public class PermissionController {
         return permissionService.afficherTous(params);
     }
 
-    @PostConstruct
-    @EventListener(ApplicationReadyEvent.class)
-    public void generatePermissions() {
-        String[] permissions = {
-                "ADD;Ajout d'un élément;Permet d'accéder au contrôle d'ajout;0;0",
-                "EDIT;Modification d'un élément;Permet d'accéder au contrôle de modification;0;0",
-                "DELETE;Suppression d'un élément;Permet d'accéder au contrôle de suppression;0;0",
-                "VIEW;Consultation d'un élément;Permet de visualiser un élément;1;0",
-                "LIST;Consultation de liste;Permet d'accéder aux listes;0;1",
-        };
-        List<Role> roles = roleDao.findAll();
-        Set<RolePermission> rolePermissions = new HashSet<>();
-        for (Role role:roles) {
-            for (String permissionStr: permissions) {
-                String code = permissionStr.split(";")[0];
-                String libelle = permissionStr.split(";")[1];
-                String description = permissionStr.split(";")[2];
-                String estParDefaut = permissionStr.split(";")[3];
-                String estPrincipale = permissionStr.split(";")[4];
-
-                Permission permission = permissionDao.findByLibellePermisContainsIgnoreCase(libelle).orElse(new Permission());
-                permission.setCodePermis(code);
-                permission.setLibellePermis(libelle);
-                permission.setDescription(description);
-                permission.setEstParDefaut(Objects.equals(estParDefaut, "1"));
-                permission.setEstPrincipale(Objects.equals(estPrincipale, "1"));
-                permission = permissionDao.save(permission);
-
-                if(permission.getEstParDefaut()) {
-                    RolePermission rolePermission = new RolePermission();
-                    rolePermission.setRole(role);
-                    rolePermission.setPermission(permission);
-                    CleRolePermission cleRolePermission = new CleRolePermission();
-                    cleRolePermission.setIdRole(role.getIdRole());
-                    cleRolePermission.setIdPermis(permission.getIdPermis());
-                    rolePermission.setId(cleRolePermission);
-                    rolePermissions.add(rolePermission);
-                }
-            }
-            role.setPermissions(rolePermissions);
-            roleDao.save(role);
-        }
-    }
+//    @PostConstruct
+//    @EventListener(ApplicationReadyEvent.class)
+//    public void generatePermissions() {
+//        String[] permissions = {
+//                "ADD;Ajout d'un élément;Permet d'accéder au contrôle d'ajout;0;0",
+//                "EDIT;Modification d'un élément;Permet d'accéder au contrôle de modification;0;0",
+//                "DELETE;Suppression d'un élément;Permet d'accéder au contrôle de suppression;0;0",
+//                "VIEW;Consultation d'un élément;Permet de visualiser un élément;1;0",
+//                "LIST;Consultation de liste;Permet d'accéder aux listes;0;1",
+//        };
+//        List<Role> roles = roleDao.findAll();
+//        Set<RolePermission> rolePermissions = new HashSet<>();
+//        for (Role role:roles) {
+//            for (String permissionStr: permissions) {
+//                String code = permissionStr.split(";")[0];
+//                String libelle = permissionStr.split(";")[1];
+//                String description = permissionStr.split(";")[2];
+//                String estParDefaut = permissionStr.split(";")[3];
+//                String estPrincipale = permissionStr.split(";")[4];
+//
+//                Permission permission = permissionDao.findByLibellePermisContainsIgnoreCase(libelle).orElse(new Permission());
+//                permission.setCodePermis(code);
+//                permission.setLibellePermis(libelle);
+//                permission.setDescription(description);
+//                permission.setEstParDefaut(Objects.equals(estParDefaut, "1"));
+//                permission.setEstPrincipale(Objects.equals(estPrincipale, "1"));
+//                permission = permissionDao.save(permission);
+//
+//                if(permission.getEstParDefaut()) {
+//                    RolePermission rolePermission = new RolePermission();
+//                    rolePermission.setRole(role);
+//                    rolePermission.setPermission(permission);
+//                    CleRolePermission cleRolePermission = new CleRolePermission();
+//                    cleRolePermission.setIdRole(role.getIdRole());
+//                    cleRolePermission.setIdPermis(permission.getIdPermis());
+//                    rolePermission.setId(cleRolePermission);
+//                    rolePermissions.add(rolePermission);
+//                }
+//            }
+//            role.setPermissions(rolePermissions);
+//            roleDao.save(role);
+//        }
+//    }
 
     @PostMapping
 //    @PreAuthorize("hasAuthority('ROLE_PERMISSION')")

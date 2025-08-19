@@ -42,9 +42,9 @@ public class OpcvmMapper {
         }
         OpcvmDto opcvmDto = new OpcvmDto();
         BeanUtils.copyProperties(opcvm, opcvmDto);
-        /*if(opcvm.getClassification()!=null)
+        if(opcvm.getClassification()!=null)
             opcvmDto.setClassification(classificationOPCMapper.deClassification(opcvm.getClassification()));
-        if(opcvm.getPersonneEmetteur()!=null)
+       /* if(opcvm.getPersonneEmetteur()!=null)
             opcvmDto.setPersonneEmetteur(personneMoraleMapper.dePersonneMorale(opcvm.getPersonneEmetteur()));
         if(opcvm.getPersonneIntervenant()!=null)
             opcvmDto.setPersonneIntervenant(personneMoraleMapper.dePersonneMorale(opcvm.getPersonneIntervenant()));*/
@@ -70,9 +70,9 @@ public class OpcvmMapper {
             return null;
         Opcvm opcvm= new Opcvm();
         BeanUtils.copyProperties(opcvmDto, opcvm);
-        /*if(opcvmDto.getClassification()!=null)
+        if(opcvmDto.getClassification()!=null)
             opcvm.setClassification(classificationOPCMapper.deClassificationDto(opcvmDto.getClassification()));
-        if(opcvmDto.getPersonneEmetteur()!=null)
+        /*if(opcvmDto.getPersonneEmetteur()!=null)
             opcvm.setPersonneEmetteur(personneMoraleMapper.dePersonneMoraleDto(opcvmDto.getPersonneEmetteur()));
         if(opcvmDto.getPersonneIntervenant()!=null)
             opcvm.setPersonneIntervenant(personneMoraleMapper.dePersonneMoraleDto(opcvmDto.getPersonneIntervenant()));*/

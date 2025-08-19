@@ -25,13 +25,14 @@ public interface PortefeuilleOpcvmProjection {
     BigDecimal getQteALivrer();
     BigDecimal getQteARecevoir();
     BigDecimal getQteNantie();
-    BigDecimal getCAMreel();
-    BigDecimal getCAMopcvm();
+    BigDecimal getCaMreel();
+    BigDecimal getCaMopcvm();
     BigDecimal getCours();
+    BigDecimal getPlusOuMoinsValue();
     BigDecimal getValorisationReelle();
     BigDecimal getValorisationOpcvm();
-    BigDecimal PrixDeRevientReel();
-    BigDecimal PrixDeRevientOpcvm();
+    BigDecimal getPrixDeRevientReel();
+    BigDecimal getPrixDeRevientOpcvm();
     BigDecimal getValoPortefeuilleReel();
     BigDecimal getValoPortefeuilleOpcvm();
     BigDecimal getPourcentageReel();
