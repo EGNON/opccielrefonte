@@ -21,4 +21,5 @@ public interface PerformancePortefeuilleActionnaireProjection {
     BigDecimal getApportNet();
     BigDecimal getPerformance();
     BigDecimal getRendementAnnuel();
+
 }
