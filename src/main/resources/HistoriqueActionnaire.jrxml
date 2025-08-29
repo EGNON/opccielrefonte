@@ -1,0 +1,93 @@
+<!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 7.0.1-573496633c2b4074e32f433154b543003f7d2498  -->
+<jasperReport name="HistoriqueActionnaire" language="java" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8bf6446d-ad8c-4d60-9cd3-9da4f8753ed7">
+	<parameter name="letterDate" class="java.lang.String"/>
+	<field name="idActionnaire" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="idActionnaire"/>
+		<property name="com.jaspersoft.studio.field.label" value="idActionnaire"/>
+	</field>
+	<field name="nomSigle" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="nomSigle"/>
+		<property name="com.jaspersoft.studio.field.label" value="nomSigle"/>
+	</field>
+	<field name="prenomRaison" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="prenomRaison"/>
+		<property name="com.jaspersoft.studio.field.label" value="prenomRaison"/>
+	</field>
+	<field name="numCompteSgi" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="numCompteSgi"/>
+		<property name="com.jaspersoft.studio.field.label" value="numCompteSgi"/>
+	</field>
+	<field name="type" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="type"/>
+		<property name="com.jaspersoft.studio.field.label" value="type"/>
+	</field>
+	<group name="Group1">
+		<expression><![CDATA[$F{type}]]></expression>
+		<groupHeader>
+			<band height="80">
+				<element kind="rectangle" uuid="cbb4fa20-4507-4d83-b240-b1b2377ef9e8" mode="Opaque" x="3" y="39" width="545" height="40" backcolor="#BDD7EE"/>
+				<element kind="staticText" uuid="10482c82-ca08-4425-bdeb-ea4e6b821d94" x="5" y="42" width="96" height="31" bold="true" hTextAlign="Center">
+					<text><![CDATA[Compte]]></text>
+				</element>
+				<element kind="line" uuid="f5dfdf09-6a50-4729-8bc0-3a892f0c015f" x="106" y="39" width="1" height="39"/>
+				<element kind="staticText" uuid="c11c2b2b-0c06-432f-8b77-69a4240d9332" x="111" y="42" width="227" height="31" bold="true" hTextAlign="Center">
+					<text><![CDATA[Nom/Sigle]]></text>
+				</element>
+				<element kind="line" uuid="1ae02818-00b0-4771-9abe-7fabea782488" x="344" y="39" width="1" height="39"/>
+				<element kind="staticText" uuid="16b06b22-c9a3-4ac7-9833-fd3ccc8f828c" x="350" y="50" width="194" height="23" bold="true" hTextAlign="Center">
+					<text><![CDATA[Prénom/raison sociale]]></text>
+				</element>
+				<element kind="rectangle" uuid="a5447f5c-ded9-48e3-9c50-633d9f1225ee" x="3" y="0" width="545" height="40"/>
+				<element kind="textField" uuid="19dc415b-5340-4e94-b3c2-18e4c483b789" x="8" y="6" width="314" height="30">
+					<expression><![CDATA[$F{type}]]></expression>
+				</element>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="14"/>
+		</groupFooter>
+	</group>
+	<background splitType="Stretch"/>
+	<title height="68" splitType="Stretch">
+		<element kind="textField" uuid="5282c9ab-ab35-4886-b462-2051a2c70356" mode="Opaque" x="3" y="35" width="545" height="25" backcolor="#BDD7EE" fontName="Segoe UI" bold="true" hTextAlign="Center" vTextAlign="Middle">
+			<expression><![CDATA["HISTORIQUE ACTIONNAIRES"]]></expression>
+			<box>
+				<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+			</box>
+		</element>
+		<element kind="textField" uuid="1960fce9-a6d6-4577-a938-e52a81aaf79d" x="2" y="4" width="230" height="20" fontName="Segoe UI">
+			<expression><![CDATA["Cotonou le, " + $P{letterDate}]]></expression>
+		</element>
+	</title>
+	<pageHeader splitType="Stretch"/>
+	<columnHeader splitType="Stretch"/>
+	<detail>
+		<band height="32" splitType="Stretch">
+			<element kind="rectangle" uuid="e492fc65-08e8-4bdb-8e42-8e2dfd9a209a" stretchType="ContainerHeight" x="3" y="0" width="545" height="31"/>
+			<element kind="line" uuid="767a9604-1db3-4489-abe4-640c1ff8c0e6" stretchType="ContainerHeight" x="106" y="0" width="1" height="30"/>
+			<element kind="line" uuid="88eac2b9-fda3-4423-9f59-87f7f755211a" stretchType="ContainerHeight" x="345" y="1" width="1" height="30"/>
+			<element kind="textField" uuid="e1a52feb-cfc0-49c6-8a4f-f03d00868917" stretchType="ContainerHeight" x="111" y="1" width="227" height="27" textAdjust="StretchHeight">
+				<expression><![CDATA[$F{nomSigle}]]></expression>
+			</element>
+			<element kind="textField" uuid="2832e66e-fd74-404b-be20-a4e3f378f700" stretchType="ContainerHeight" x="350" y="2" width="194" height="23" textAdjust="StretchHeight" blankWhenNull="true">
+				<expression><![CDATA[$F{prenomRaison}]]></expression>
+			</element>
+			<element kind="textField" uuid="a9fefaff-5761-4cf7-9451-8f76daa45142" x="5" y="1" width="95" height="24" textAdjust="StretchHeight">
+				<expression><![CDATA[$F{numCompteSgi}]]></expression>
+			</element>
+		</band>
+	</detail>
+	<columnFooter splitType="Stretch"/>
+	<pageFooter height="41" splitType="Stretch">
+		<element kind="staticText" uuid="cd313411-0269-4bcc-8541-d177b91e953e" x="3" y="8" width="120" height="26" fontName="Segoe UI">
+			<text><![CDATA[Edité avec OPCCIEL 2.0]]></text>
+		</element>
+		<element kind="textField" uuid="a80fd44d-558b-450a-8919-34f2f4bd69fd" x="448" y="8" width="100" height="25" hTextAlign="Right">
+			<expression><![CDATA[$V{PAGE_NUMBER}]]></expression>
+		</element>
+	</pageFooter>
+	<summary height="42" splitType="Stretch"/>
+</jasperReport>

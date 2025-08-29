@@ -1,0 +1,422 @@
+<!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 7.0.1-573496633c2b4074e32f433154b543003f7d2498  -->
+<jasperReport name="fiche_Client" language="java" columnCount="1" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="5c7179f7-37c9-44d4-a38f-cbf2633fcf3a">
+	<parameter name="letterDate" class="java.lang.String">
+		<defaultValueExpression><![CDATA[TODAY( )]]></defaultValueExpression>
+	</parameter>
+	<field name="idPersonne" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="idPersonne"/>
+		<property name="com.jaspersoft.studio.field.label" value="idPersonne"/>
+	</field>
+	<field name="civilte" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="civilte"/>
+		<property name="com.jaspersoft.studio.field.label" value="civilte"/>
+	</field>
+	<field name="sexe" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="sexe"/>
+		<property name="com.jaspersoft.studio.field.label" value="sexe"/>
+	</field>
+	<field name="nom" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="nom"/>
+		<property name="com.jaspersoft.studio.field.label" value="nom"/>
+	</field>
+	<field name="prenom" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="prenom"/>
+		<property name="com.jaspersoft.studio.field.label" value="prenom"/>
+	</field>
+	<field name="dateNaissance" class="java.time.LocalDateTime">
+		<property name="com.jaspersoft.studio.field.name" value="dateNaissance"/>
+		<property name="com.jaspersoft.studio.field.label" value="dateNaissance"/>
+	</field>
+	<field name="codePaysNaissance" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="codePaysNaissance"/>
+		<property name="com.jaspersoft.studio.field.label" value="codePaysNaissance"/>
+	</field>
+	<field name="paysNaissance" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="paysNaissance"/>
+		<property name="com.jaspersoft.studio.field.label" value="paysNaissance"/>
+	</field>
+	<field name="lieuNaissance" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="lieuNaissance"/>
+		<property name="com.jaspersoft.studio.field.label" value="lieuNaissance"/>
+	</field>
+	<field name="estMineur" class="java.lang.Boolean">
+		<property name="com.jaspersoft.studio.field.name" value="estMineur"/>
+		<property name="com.jaspersoft.studio.field.label" value="estMineur"/>
+	</field>
+	<field name="nomDeJeuneFille" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="nomDeJeuneFille"/>
+		<property name="com.jaspersoft.studio.field.label" value="nomDeJeuneFille"/>
+	</field>
+	<field name="photoPersonnePhysique" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="photoPersonnePhysique"/>
+		<property name="com.jaspersoft.studio.field.label" value="photoPersonnePhysique"/>
+	</field>
+	<field name="signaturePersonnePhysique" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="signaturePersonnePhysique"/>
+		<property name="com.jaspersoft.studio.field.label" value="signaturePersonnePhysique"/>
+	</field>
+	<field name="libelleSecteurActivite" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="libelleSecteurActivite"/>
+		<property name="com.jaspersoft.studio.field.label" value="libelleSecteurActivite"/>
+	</field>
+	<field name="libelleProfession" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="libelleProfession"/>
+		<property name="com.jaspersoft.studio.field.label" value="libelleProfession"/>
+	</field>
+	<field name="estActifPersonne" class="java.lang.Boolean">
+		<property name="com.jaspersoft.studio.field.name" value="estActifPersonne"/>
+		<property name="com.jaspersoft.studio.field.label" value="estActifPersonne"/>
+	</field>
+	<field name="codePays" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="codePays"/>
+		<property name="com.jaspersoft.studio.field.label" value="codePays"/>
+	</field>
+	<field name="libellePays" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="libellePays"/>
+		<property name="com.jaspersoft.studio.field.label" value="libellePays"/>
+	</field>
+	<field name="telephoneFixe" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="telephoneFixe"/>
+		<property name="com.jaspersoft.studio.field.label" value="telephoneFixe"/>
+	</field>
+	<field name="telephoneMobile1" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="telephoneMobile1"/>
+		<property name="com.jaspersoft.studio.field.label" value="telephoneMobile1"/>
+	</field>
+	<field name="telephoneMobile2" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="telephoneMobile2"/>
+		<property name="com.jaspersoft.studio.field.label" value="telephoneMobile2"/>
+	</field>
+	<field name="email" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="email"/>
+		<property name="com.jaspersoft.studio.field.label" value="email"/>
+	</field>
+	<field name="boitePostale" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="boitePostale"/>
+		<property name="com.jaspersoft.studio.field.label" value="boitePostale"/>
+	</field>
+	<field name="adresseComplete" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="adresseComplete"/>
+		<property name="com.jaspersoft.studio.field.label" value="adresseComplete"/>
+	</field>
+	<field name="typePieceIdentite" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="typePieceIdentite"/>
+		<property name="com.jaspersoft.studio.field.label" value="typePieceIdentite"/>
+	</field>
+	<field name="numeroPiece" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="numeroPiece"/>
+		<property name="com.jaspersoft.studio.field.label" value="numeroPiece"/>
+	</field>
+	<field name="dateExpirationPiece" class="java.time.LocalDateTime">
+		<property name="com.jaspersoft.studio.field.name" value="dateExpirationPiece"/>
+		<property name="com.jaspersoft.studio.field.label" value="dateExpirationPiece"/>
+	</field>
+	<field name="nomPrenomMere" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="nomPrenomMere"/>
+		<property name="com.jaspersoft.studio.field.label" value="nomPrenomMere"/>
+	</field>
+	<field name="numCompteSgi" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="numCompteSgi"/>
+		<property name="com.jaspersoft.studio.field.label" value="numCompteSgi"/>
+	</field>
+	<field name="codeSecteur" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="codeSecteur"/>
+		<property name="com.jaspersoft.studio.field.label" value="codeSecteur"/>
+	</field>
+	<field name="tauxRetroCourSous" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="tauxRetroCourSous"/>
+		<property name="com.jaspersoft.studio.field.label" value="tauxRetroCourSous"/>
+	</field>
+	<field name="tauxRetroCourRach" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="tauxRetroCourRach"/>
+		<property name="com.jaspersoft.studio.field.label" value="tauxRetroCourRach"/>
+	</field>
+	<group name="Group1" startNewPage="true">
+		<expression><![CDATA[$F{idPersonne}]]></expression>
+		<groupHeader>
+			<band height="60">
+				<element kind="textField" uuid="6e4a26db-2fab-4881-82a8-1ef14d9dac2e" x="0" y="6" width="230" height="20" fontName="Segoe UI">
+					<expression><![CDATA["Cotonou le, " + $P{letterDate}]]></expression>
+				</element>
+				<element kind="textField" uuid="90970e82-bbec-409e-aee9-00e41f8ac8fb" mode="Opaque" x="0" y="29" width="550" height="24" forecolor="#000000" backcolor="#BDD7EE" fontName="Segoe UI" fontSize="14.0" bold="true" hTextAlign="Center">
+					<expression><![CDATA["FICHE CLIENT "]]></expression>
+				</element>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="50"/>
+		</groupFooter>
+	</group>
+	<background splitType="Stretch"/>
+	<title height="18" splitType="Stretch"/>
+	<pageHeader splitType="Stretch"/>
+	<columnHeader splitType="Stretch"/>
+	<detail>
+		<band height="526" splitType="Stretch">
+			<element kind="textField" uuid="54b2befa-b8ff-448b-8128-92195cd96770" x="135" y="5" width="305" height="20" fontName="Segoe UI" textAdjust="StretchHeight">
+				<expression><![CDATA[$F{numCompteSgi}]]></expression>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="ce258518-7f17-4736-bf7d-4b2861eed1ec" x="14" y="5" width="120" height="20" fontName="Segoe UI" bold="true">
+				<text><![CDATA[N°Compte SGI:]]></text>
+			</element>
+			<element kind="textField" uuid="58171f59-06a4-4655-acec-694e9b6e4035" x="135" y="26" width="305" height="20" fontName="Segoe UI" textAdjust="StretchHeight">
+				<expression><![CDATA[$F{civilte}]]></expression>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="9aee8eb1-a2dc-4b13-8da9-94dd0fa67c16" x="14" y="26" width="120" height="20" fontName="Segoe UI" bold="true">
+				<text><![CDATA[Civilité:]]></text>
+			</element>
+			<element kind="textField" uuid="949f64fe-7510-413b-9aa4-e750fe0620d8" x="135" y="47" width="305" height="22" fontName="Segoe UI" textAdjust="StretchHeight">
+				<expression><![CDATA[$F{nom}]]></expression>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="723e67d1-c953-40ec-a5d6-f1885a6c5cfb" x="14" y="47" width="120" height="22" bold="true">
+				<text><![CDATA[Nom:]]></text>
+			</element>
+			<element kind="textField" uuid="810e8048-4380-4e62-b29b-6ac719a20bf6" x="135" y="70" width="305" height="20" fontName="Segoe UI" textAdjust="StretchHeight">
+				<expression><![CDATA[$F{prenom}]]></expression>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="7135db7a-0407-46d7-a115-c669fefd2482" x="14" y="70" width="121" height="20" fontName="Segoe UI" bold="true">
+				<text><![CDATA[Prénom(s):]]></text>
+			</element>
+			<element kind="textField" uuid="11e736ad-88fa-44f8-9ceb-4be7be9aff5a" x="135" y="91" width="305" height="17" fontName="Segoe UI" textAdjust="StretchHeight">
+				<expression><![CDATA[$F{nomDeJeuneFille}]]></expression>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="b4b2a22d-4a29-4b1f-8ac2-8084e3de1bbb" x="15" y="91" width="120" height="17" fontName="Segoe UI" bold="true">
+				<text><![CDATA[Nom de jeune fille:]]></text>
+			</element>
+			<element kind="textField" uuid="f960688a-c7b7-49b6-a436-83ba8873fec7" x="135" y="109" width="305" height="18" fontName="Segoe UI" textAdjust="StretchHeight">
+				<expression><![CDATA[$F{nomPrenomMere}]]></expression>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="89d9dea8-a4ac-42d0-83dc-8edc0e170064" x="14" y="109" width="119" height="18" fontName="Segoe UI" bold="true">
+				<text><![CDATA[Nom de la mère:]]></text>
+			</element>
+			<element kind="textField" uuid="4c33dcca-cd2f-428b-8184-4ac386696f97" x="135" y="128" width="305" height="20">
+				<expression><![CDATA[$F{dateNaissance}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"))]]></expression>
+				<patternExpression><![CDATA["EE dd/MM/yyyy"]]></patternExpression>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="e787f6e7-24ae-4a80-a4cc-18051f4984ad" x="15" y="128" width="120" height="20" fontName="Segoe UI" bold="true">
+				<text><![CDATA[Date naissance:]]></text>
+			</element>
+			<element kind="textField" uuid="73b9e03c-0306-4dcd-8f17-a8e49be3445c" x="135" y="149" width="305" height="22" fontName="Segoe UI">
+				<expression><![CDATA[$F{lieuNaissance}]]></expression>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="4053a7b5-524d-41b1-85cf-ac2ffb05db13" x="15" y="149" width="119" height="22" fontName="Segoe UI" bold="true">
+				<text><![CDATA[Lieu de naissance:]]></text>
+			</element>
+			<element kind="textField" uuid="ff282f61-7a94-4797-8265-d9b250bc8139" x="135" y="172" width="305" height="20" fontName="Segoe UI">
+				<expression><![CDATA[$F{sexe}]]></expression>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="b2566421-091f-43e4-911e-268337cc0a05" x="15" y="172" width="118" height="20" fontName="Segoe UI" bold="true">
+				<text><![CDATA[Sexe:]]></text>
+			</element>
+			<element kind="textField" uuid="433192ca-c29e-430d-a320-dff9fcab4280" x="135" y="193" width="305" height="20" fontName="Segoe UI">
+				<expression><![CDATA[($F{estMineur}==true?"Oui":"Non")]]></expression>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="81475ec2-363c-46be-b4e7-a579f0810e64" x="15" y="193" width="118" height="20" fontName="Segoe UI" bold="true">
+				<text><![CDATA[Mineur?]]></text>
+			</element>
+			<element kind="textField" uuid="91863e0a-81c0-45bf-980e-e6fe38396ca0" x="135" y="214" width="305" height="20" fontName="Segoe UI">
+				<expression><![CDATA[$F{libelleSecteurActivite}]]></expression>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="ae21b629-3670-4933-8faf-2eb3f2f6aaac" x="15" y="214" width="120" height="20" fontName="Segoe UI" bold="true">
+				<text><![CDATA[Secteur d'activité:]]></text>
+			</element>
+			<element kind="textField" uuid="e8b324b1-81a8-41d4-9b0a-3b69693e7d6e" x="135" y="235" width="305" height="15" fontName="Segoe UI" textAdjust="StretchHeight">
+				<expression><![CDATA[$F{libelleProfession}]]></expression>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="ac71b37e-e899-4bf3-96c3-197aa81aa9f5" x="14" y="235" width="119" height="15" fontName="Segoe UI" bold="true">
+				<text><![CDATA[Profession:]]></text>
+			</element>
+			<element kind="textField" uuid="091c1fff-9a71-4f27-af2a-188bd0e3e10a" x="135" y="251" width="305" height="18" fontName="Segoe UI" textAdjust="StretchHeight">
+				<expression><![CDATA[$F{libellePays}]]></expression>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="7a565a07-f9a5-400e-9d6f-bac695c80c49" x="15" y="251" width="120" height="18" fontName="Segoe UI" bold="true">
+				<text><![CDATA[Pays de résidence:]]></text>
+			</element>
+			<element kind="textField" uuid="362a3347-9569-4a9a-a5a6-cf50c5b883a5" x="135" y="270" width="305" height="22" fontName="Segoe UI" textAdjust="StretchHeight">
+				<expression><![CDATA[$F{telephoneFixe}]]></expression>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="46b69151-9c53-43e2-8f4d-5d2468b8def3" x="14" y="270" width="121" height="22" fontName="Segoe UI" bold="true">
+				<text><![CDATA[Téléphone fixe:]]></text>
+			</element>
+			<element kind="textField" uuid="79e68e3e-d5ae-4bd5-a7bf-8d2affe771dd" x="135" y="293" width="305" height="22">
+				<expression><![CDATA[$F{telephoneMobile1}]]></expression>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="d9f111fc-93ec-45b5-830c-79ca26ef0c51" x="15" y="293" width="120" height="22" fontName="Segoe UI" bold="true">
+				<text><![CDATA[Téléphone mobile 1:]]></text>
+			</element>
+			<element kind="textField" uuid="75dda1fe-4c5f-452f-824e-cd65955ace82" x="135" y="316" width="305" height="22">
+				<expression><![CDATA[$F{telephoneMobile2}]]></expression>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="f26d4327-8fd4-4817-beae-4aef99ec7f4e" x="15" y="316" width="120" height="22" fontName="Segoe UI" bold="true">
+				<text><![CDATA[Téléphone mobile 2:]]></text>
+			</element>
+			<element kind="textField" uuid="9321fb4a-1d7d-4724-b1f1-c37bbb3f133d" x="135" y="338" width="305" height="22">
+				<expression><![CDATA[$F{email}]]></expression>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="e2a2207f-ed9d-499b-bbf0-8f9683fe397c" x="15" y="338" width="120" height="22" fontName="Segoe UI" bold="true">
+				<text><![CDATA[Email:]]></text>
+			</element>
+			<element kind="textField" uuid="fd29acb1-841b-41e0-9183-eb3f8272adc5" x="135" y="360" width="305" height="22">
+				<expression><![CDATA[$F{adresseComplete}]]></expression>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="d2cfd348-c2ff-4568-a6e4-f6b7c9318ae4" x="15" y="360" width="120" height="22" fontName="Segoe UI" bold="true">
+				<text><![CDATA[Adresse:]]></text>
+			</element>
+			<element kind="textField" uuid="f5b0d752-2742-45ee-a257-5afa1799abe7" x="135" y="383" width="305" height="22">
+				<expression><![CDATA[$F{typePieceIdentite}]]></expression>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="f96b883e-6604-479d-9b25-c1faa7ed3000" x="15" y="383" width="120" height="22" fontName="Segoe UI" bold="true">
+				<text><![CDATA[Type pièce:]]></text>
+			</element>
+			<element kind="textField" uuid="0fc793a5-7666-4309-98b9-be70505481b5" x="135" y="406" width="305" height="22">
+				<expression><![CDATA[$F{numeroPiece}]]></expression>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="4a081bd5-645f-45d1-a91e-fbf738426f7b" x="15" y="406" width="120" height="22" fontName="Segoe UI" bold="true">
+				<text><![CDATA[Numéro pièce:]]></text>
+			</element>
+			<element kind="textField" uuid="2d9f40e4-0bf4-4470-8b6f-c7b5e718b043" x="135" y="429" width="305" height="22">
+				<expression><![CDATA[$F{dateExpirationPiece}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"))]]></expression>
+				<patternExpression><![CDATA["EE dd/MM/yyyy"]]></patternExpression>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="6b94d8e2-5912-4875-a8c1-2871e6c4d4e5" x="15" y="429" width="120" height="22" fontName="Segoe UI" bold="true">
+				<text><![CDATA[Expire le:]]></text>
+			</element>
+		</band>
+	</detail>
+	<columnFooter splitType="Stretch"/>
+	<pageFooter height="33" splitType="Stretch">
+		<element kind="staticText" uuid="437ee144-9fab-4e4e-97bb-ea08801d33a6" x="0" y="6" width="120" height="26" fontName="Segoe UI">
+			<text><![CDATA[Edité avec OPCCIEL 2.0]]></text>
+		</element>
+		<element kind="textField" uuid="03971cb5-88c9-4cd4-a41c-de74636655f0" x="450" y="7" width="100" height="25" hTextAlign="Right">
+			<expression><![CDATA[$V{PAGE_NUMBER}]]></expression>
+		</element>
+	</pageFooter>
+	<summary height="35" splitType="Stretch"/>
+</jasperReport>

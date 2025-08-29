@@ -42,6 +42,41 @@ public interface LibraryDao extends JpaRepository<BaseEntity, Long> {
     @Query(value = "select * from [Impressions].[FT_ReleveTitreFCP_New] (:idOpcvm,:dateDebut,:dateFin)" +
             " order by idTitre asc", nativeQuery = true)
     List<ReleveTitreFCPProjection> releveTitreFCP(Long idOpcvm,LocalDateTime dateDebut,LocalDateTime dateFin);
+    @Query(value = "select * from [Impressions].[FT_PointTresorerie] (:dateEstimation)", nativeQuery = true)
+    List<PointTresorerieProjection> pointTresorerie(LocalDateTime dateEstimation);
+    @Query(value = "select * from [Comptabilite].[FT_ModeleEcriture_New]()", nativeQuery = true)
+    List<ProcedureComptableProjection> procedureComptable();
+    @Query(value = "select * from [Parametre].[FT_PersonnePhysiqueMorale_SP2_New](:idOpcvm,:libelleQualite,:statutCompte)", nativeQuery = true)
+    List<PersonnePhysiqueMoraleProjection> afficherPersonnePhysiqueMorale(Long idOpcvm,String libelleQualite,String statutCompte);
+    @Query(value = "select * from [Parametre].[FT_PersonnePhysiqueMorale_SP2_New](:idOpcvm,:libelleQualite,:statutCompte) " +
+            "where typepersonne=:typePersonne", nativeQuery = true)
+    List<PersonnePhysiqueMoraleProjection> afficherPersonnePhysiqueMoraleSelonType(Long idOpcvm,String libelleQualite,String statutCompte,String typePersonne);
+    @Query(value = "select * from [Parametre].[FT_PersonnePhysiqueMorale_SP2_New](:idOpcvm,:libelleQualite,:statutCompte) " +
+            "where typepersonne=:typePersonne and concat(nomSigle,' ',prenomRaison,' ',numCompteDepositaire) like %:valeur%", nativeQuery = true)
+    List<PersonnePhysiqueMoraleProjection> rechercherPersonnePhysiqueMoraleSelonType(Long idOpcvm,String libelleQualite,String statutCompte,String typePersonne,String valeur);
+    @Query(value = "select * from [Parametre].[FT_PersonnePhysiqueMorale_SP2_New](:idOpcvm,:libelleQualite,:statutCompte) " +
+            "where concat(nomSigle,' ',prenomRaison,' ',numCompteDepositaire) like %:valeur%", nativeQuery = true)
+    List<PersonnePhysiqueMoraleProjection> afficherPersonnePhysiqueMorale(Long idOpcvm,String libelleQualite,String statutCompte,String valeur);
+    @Query(value = "select * from [Impressions].[FT_EtatRecapInfosClients_New] (:idPersonne) ", nativeQuery = true)
+    List<FicheClientProjection> afficherFicheClient(String idPersonne);
+    @Query(value = "select * from [Impressions].[FT_EtatSuiviActionnaires] (:idOpcvm,:dateDeb,:dateFin) " +
+            "", nativeQuery = true)
+    List<EtatsSuiviActionnaireProjection> etatSuiviActionnaire(Long idOpcvm,LocalDateTime dateDeb,LocalDateTime dateFin);
+    @Query(value = "select * from [Impressions].[FT_EtatSuiviClients](:idActionnaire,:idOpcvm,:dateEddition) " +
+            "order by idactionnaire asc,idopcvm asc,titre asc", nativeQuery = true)
+    List<EtatsSuiviClientProjection> etatSuiviClient(String idActionnaire,Long idOpcvm,LocalDateTime dateEddition);
+    @Query(value = "select * from [Impressions].[FT_EtatSuiviActionnaires] (:idOpcvm,:dateDeb,:dateFin) " +
+            "", nativeQuery = true)
+    Page<EtatsSuiviActionnaireProjection> etatSuiviActionnaire(Long idOpcvm,LocalDateTime dateDeb,LocalDateTime dateFin,Pageable pageable);
+    @Query(value = "select * from [Impressions].[FT_ReleveActionnaireImpression_New] (:idActionnaire,:dateDebut,:dateFin) " +
+            "order by idactionnaire asc,dateoperation asc", nativeQuery = true)
+    List<ReleveActionnaireProjection> releveActionnaire(String idActionnaire,LocalDateTime dateDebut,LocalDateTime dateFin);
+    @Query(value = "select * from [Impressions].[FT_RegistreActionnaire_New](:dateDebut,:dateFin)", nativeQuery = true)
+    List<HistoriqueActionnaireProjection> historiqueActionnaire(LocalDateTime dateDebut,LocalDateTime dateFin);
+    @Query(value = "select * from [Impressions].[FT_RegistreActionnaire_New](:dateDebut,:dateFin)", nativeQuery = true)
+    List<HistoriqueActionnaireProjection> historiqueActionnaireListe(LocalDateTime dateDebut,LocalDateTime dateFin);
+    @Query(value = "select * from [Impressions].[FT_RegistreActionnaire_New](:dateDebut,:dateFin)", nativeQuery = true)
+    Page<HistoriqueActionnaireProjection> historiqueActionnaire(LocalDateTime dateDebut,LocalDateTime dateFin,Pageable pageable);
     @Query(value = "select * from [Impressions].[FT_PortefeuilleOPCVM_New2](:idOpcvm ,:dateEstimation) " +
             "where codeTypeTitre='ACTION'", nativeQuery = true)
     List<PortefeuilleOpcvmProjection> portefeuilleOPCVMAction(Long idOpcvm,LocalDateTime dateEstimation);
@@ -250,7 +285,7 @@ public interface LibraryDao extends JpaRepository<BaseEntity, Long> {
             Long idTitre
     );
     @Query(value = "select * from [Operation].[FT_OperationExtourneVDE](:idSeance,:idOpcvm,:estVerifie," +
-            ":estVerifie1,:estVerifie2)",
+            ":estVerifie1,:estVerifie2) order by codeClasseTitre asc,symbolTitre asc",
             nativeQuery = true
     )
    List<OperationExtourneVDEProjection> operationExtourneVDE(

@@ -1,0 +1,109 @@
+<!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 7.0.1-573496633c2b4074e32f433154b543003f7d2498  -->
+<jasperReport name="Point_Tresorerie" language="java" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="5c7179f7-37c9-44d4-a38f-cbf2633fcf3a">
+	<parameter name="letterDate" class="java.lang.String">
+		<defaultValueExpression><![CDATA[TODAY( )]]></defaultValueExpression>
+	</parameter>
+	<parameter name="dateEstimation" class="java.time.LocalDateTime"/>
+	<field name="idOpcvm" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="idOpcvm"/>
+		<property name="com.jaspersoft.studio.field.label" value="idOpcvm"/>
+	</field>
+	<field name="sigleOpcvm" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="sigleOpcvm"/>
+		<property name="com.jaspersoft.studio.field.label" value="sigleOpcvm"/>
+	</field>
+	<field name="denominationOpcvm" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="denominationOpcvm"/>
+		<property name="com.jaspersoft.studio.field.label" value="denominationOpcvm"/>
+	</field>
+	<field name="soldeEspece" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="soldeEspece"/>
+		<property name="com.jaspersoft.studio.field.label" value="soldeEspece"/>
+	</field>
+	<field name="dateEstimation" class="java.time.LocalDateTime">
+		<property name="com.jaspersoft.studio.field.name" value="dateEstimation"/>
+		<property name="com.jaspersoft.studio.field.label" value="dateEstimation"/>
+	</field>
+	<variable name="soldeEspece1" resetType="Group" calculation="Sum" resetGroup="Group1" class="java.math.BigDecimal">
+		<expression><![CDATA[$F{soldeEspece}]]></expression>
+	</variable>
+	<group name="Group1">
+		<expression><![CDATA[$F{dateEstimation}]]></expression>
+		<groupHeader>
+			<band height="37">
+				<element kind="rectangle" uuid="25f6bcb5-3f51-478a-8e68-4a296a8adf06" mode="Opaque" x="1" y="6" width="550" height="30" backcolor="#BDD7EE"/>
+				<element kind="staticText" uuid="8f3f51a3-0274-4254-a036-4a60976046a5" x="4" y="10" width="184" height="20" fontName="Segoe UI" bold="true" hTextAlign="Center">
+					<text><![CDATA[Sigle]]></text>
+				</element>
+				<element kind="line" uuid="e8fa74aa-783b-4a9e-8f6e-2674016b7957" x="189" y="6" width="1" height="30"/>
+				<element kind="line" uuid="ab952a49-9b5a-4a6a-b68e-eaee1e6b3311" x="433" y="6" width="1" height="30"/>
+				<element kind="staticText" uuid="1e1cee4e-1ae2-40ed-a005-2bac9ff252ce" x="190" y="10" width="240" height="20" fontName="Segoe UI" bold="true" hTextAlign="Center">
+					<text><![CDATA[Dénomination]]></text>
+				</element>
+				<element kind="staticText" uuid="a1dba415-098d-42e1-a9d7-e65b69b22f46" x="435" y="11" width="110" height="20" fontName="Segoe UI" bold="true" hTextAlign="Center">
+					<text><![CDATA[Solde espèce]]></text>
+				</element>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="50">
+				<element kind="rectangle" uuid="38cf9c62-32bd-4d21-ae2c-85dbbee325a5" x="189" y="0" width="362" height="30"/>
+				<element kind="line" uuid="50a7fa96-92b9-4d36-9b1b-4f837f31c27e" x="433" y="0" width="1" height="30"/>
+				<element kind="staticText" uuid="37f8aef6-b92d-40f5-a353-64a7a125e445" x="196" y="5" width="230" height="20" fontName="Segoe UI" fontSize="14.0" bold="true" hTextAlign="Center">
+					<text><![CDATA[Total]]></text>
+				</element>
+				<element kind="textField" uuid="7495a412-4f68-4365-a939-672636cb82f1" x="433" y="5" width="112" height="20" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###" blankWhenNull="true" hTextAlign="Right">
+					<expression><![CDATA[$V{soldeEspece1}]]></expression>
+				</element>
+			</band>
+		</groupFooter>
+	</group>
+	<background splitType="Stretch"/>
+	<title height="62" splitType="Stretch">
+		<element kind="textField" uuid="6e4a26db-2fab-4881-82a8-1ef14d9dac2e" x="0" y="4" width="230" height="20" fontName="Segoe UI">
+			<expression><![CDATA["Cotonou le, " + $P{letterDate}]]></expression>
+		</element>
+		<element kind="textField" uuid="c252770e-1044-4788-b8d6-4f33558a2b8c" mode="Transparent" x="0" y="30" width="551" height="29" forecolor="#0E1E61" backcolor="#BDD7EE" fontName="Segoe UI" bold="true" hTextAlign="Center" vTextAlign="Middle">
+			<expression><![CDATA["POINT DE LA TRESORERIE DES FONDS AU "+$P{dateEstimation}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"))]]></expression>
+			<box>
+				<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+			</box>
+		</element>
+	</title>
+	<pageHeader splitType="Stretch"/>
+	<columnHeader splitType="Stretch"/>
+	<detail>
+		<band height="31" splitType="Stretch">
+			<element kind="rectangle" uuid="af571b25-c92a-4aa0-868f-0d3da2714c1c" x="1" y="0" width="550" height="30"/>
+			<element kind="line" uuid="702c83cd-882d-4e4b-9fe4-3c6ccf2dc501" x="189" y="0" width="1" height="30"/>
+			<element kind="line" uuid="cea3c446-549f-4294-a438-450516897284" x="433" y="0" width="1" height="30"/>
+			<element kind="textField" uuid="3ffcd5fa-f4fb-428c-a2d1-748c695cb090" x="4" y="3" width="183" height="20">
+				<expression><![CDATA[$F{sigleOpcvm}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d83b3406-4dce-4099-85bf-03e8815fda14"/>
+			</element>
+			<element kind="textField" uuid="f5bc493c-f59b-4b70-b85f-cd1271e40545" x="190" y="3" width="240" height="20">
+				<expression><![CDATA[$F{denominationOpcvm}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="9f65282b-2e11-4df8-a751-dbb2c331eedd"/>
+			</element>
+			<element kind="textField" uuid="924286b8-1782-4db2-984f-be9593316bb0" x="435" y="3" width="110" height="20" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###" blankWhenNull="true" hTextAlign="Right">
+				<expression><![CDATA[$F{soldeEspece}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="80fe44ac-5c90-435f-ae6f-4d9bd5d385dc"/>
+			</element>
+		</band>
+	</detail>
+	<columnFooter splitType="Stretch">
+		<property name="com.jaspersoft.studio.unit.height" value="px"/>
+	</columnFooter>
+	<pageFooter height="33" splitType="Stretch">
+		<element kind="staticText" uuid="437ee144-9fab-4e4e-97bb-ea08801d33a6" x="0" y="6" width="120" height="26" fontName="Segoe UI">
+			<text><![CDATA[Edité avec OPCCIEL 2.0]]></text>
+		</element>
+		<element kind="textField" uuid="03971cb5-88c9-4cd4-a41c-de74636655f0" x="450" y="6" width="100" height="25" hTextAlign="Right">
+			<expression><![CDATA[$V{PAGE_NUMBER}]]></expression>
+		</element>
+	</pageFooter>
+	<summary height="53" splitType="Stretch"/>
+</jasperReport>

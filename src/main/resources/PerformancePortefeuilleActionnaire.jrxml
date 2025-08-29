@@ -1,0 +1,263 @@
+<!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 7.0.1-573496633c2b4074e32f433154b543003f7d2498  -->
+<jasperReport name="PerformancePortefeuilleActionnaire" language="java" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="3bab2920-d7c7-4b17-8733-0303751e2c0e">
+	<parameter name="letterDate" class="java.lang.String"/>
+	<field name="dateDebut" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="dateDebut"/>
+		<property name="com.jaspersoft.studio.field.label" value="dateDebut"/>
+	</field>
+	<field name="dateFin" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="dateFin"/>
+		<property name="com.jaspersoft.studio.field.label" value="dateFin"/>
+	</field>
+	<field name="idActionnaire" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="idActionnaire"/>
+		<property name="com.jaspersoft.studio.field.label" value="idActionnaire"/>
+	</field>
+	<field name="intitule" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="intitule"/>
+		<property name="com.jaspersoft.studio.field.label" value="intitule"/>
+	</field>
+	<field name="idOpcvm" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="idOpcvm"/>
+		<property name="com.jaspersoft.studio.field.label" value="idOpcvm"/>
+	</field>
+	<field name="denominationOpcvm" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="denominationOpcvm"/>
+		<property name="com.jaspersoft.studio.field.label" value="denominationOpcvm"/>
+	</field>
+	<field name="libelle" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="libelle"/>
+		<property name="com.jaspersoft.studio.field.label" value="libelle"/>
+	</field>
+	<field name="dateOp" class="java.time.LocalDateTime">
+		<property name="com.jaspersoft.studio.field.name" value="dateOp"/>
+		<property name="com.jaspersoft.studio.field.label" value="dateOp"/>
+	</field>
+	<field name="souscription" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="souscription"/>
+		<property name="com.jaspersoft.studio.field.label" value="souscription"/>
+	</field>
+	<field name="rachat" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="rachat"/>
+		<property name="com.jaspersoft.studio.field.label" value="rachat"/>
+	</field>
+	<field name="periode" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="periode"/>
+		<property name="com.jaspersoft.studio.field.label" value="periode"/>
+	</field>
+	<field name="nbreJours" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="nbreJours"/>
+		<property name="com.jaspersoft.studio.field.label" value="nbreJours"/>
+	</field>
+	<field name="montantPondere" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="montantPondere"/>
+		<property name="com.jaspersoft.studio.field.label" value="montantPondere"/>
+	</field>
+	<field name="revenuNet" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="revenuNet"/>
+		<property name="com.jaspersoft.studio.field.label" value="revenuNet"/>
+	</field>
+	<field name="apportNet" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="apportNet"/>
+		<property name="com.jaspersoft.studio.field.label" value="apportNet"/>
+	</field>
+	<field name="performance" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="performance"/>
+		<property name="com.jaspersoft.studio.field.label" value="performance"/>
+	</field>
+	<field name="rendementAnnuel" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="rendementAnnuel"/>
+		<property name="com.jaspersoft.studio.field.label" value="rendementAnnuel"/>
+	</field>
+	<group name="Group1">
+		<expression><![CDATA[$F{idActionnaire}]]></expression>
+		<groupHeader>
+			<band height="96">
+				<element kind="textField" uuid="a06ea76a-af0f-4578-a2fd-eb7571df08eb" mode="Opaque" x="2" y="32" width="550" height="24" forecolor="#000000" backcolor="#BDD7EE" fontName="Segoe UI" fontSize="14.0" bold="true" hTextAlign="Center">
+					<expression><![CDATA["PERFORMANCE SUR LA PERIODE DU "+$F{dateDebut}+ " AU "+$F{dateFin}]]></expression>
+				</element>
+				<element kind="textField" uuid="96cdbacf-229e-46d6-8d1f-0ec54fe5d001" x="0" y="4" width="230" height="20" fontName="Segoe UI">
+					<expression><![CDATA["Cotonou le, " + $P{letterDate}]]></expression>
+				</element>
+				<element kind="rectangle" uuid="82acd4df-8ac2-4574-ac20-b35a702a8eba" x="1" y="60" width="552" height="29">
+					<pen lineColor="#3970E6"/>
+				</element>
+				<element kind="staticText" uuid="2b11fa63-8778-4d8c-bba8-a4a18a39471c" x="10" y="64" width="80" height="20" bold="true">
+					<text><![CDATA[ACTIONNAIRE:]]></text>
+				</element>
+				<element kind="textField" uuid="a4b648f4-b7b1-4f43-adc1-c200700b1df3" x="90" y="64" width="430" height="20">
+					<expression><![CDATA[$F{intitule}]]></expression>
+				</element>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="316">
+				<element kind="textField" uuid="545e4d33-c0d1-421c-9363-29ea4a742ff1" mode="Opaque" x="2" y="10" width="550" height="24" forecolor="#000000" backcolor="#BDD7EE" fontName="Segoe UI" fontSize="14.0" bold="true" hTextAlign="Center">
+					<expression><![CDATA["METHODE DE CALCUL"]]></expression>
+				</element>
+				<element kind="image" uuid="8fd76b59-4bf6-43db-bf92-0e84ab0b6582" x="2" y="48" width="550" height="262">
+					<expression><![CDATA["C:/opcciel2/Resources/rendement.PNG"]]></expression>
+				</element>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="Group2">
+		<expression><![CDATA[$F{idOpcvm}]]></expression>
+		<groupHeader>
+			<band height="64">
+				<element kind="rectangle" uuid="f28f96fa-7b25-4ddd-ab58-7b27532f8bac" x="1" y="0" width="552" height="29">
+					<pen lineColor="#3970E6"/>
+				</element>
+				<element kind="staticText" uuid="7ab44895-9f51-4390-890d-53b1cc63df5a" x="10" y="4" width="80" height="20" bold="true">
+					<text><![CDATA[OPCVM:]]></text>
+				</element>
+				<element kind="textField" uuid="eb06a9e2-8cc0-43d8-a712-9e5c751cdbb9" x="90" y="4" width="302" height="20">
+					<expression><![CDATA[$F{denominationOpcvm}]]></expression>
+				</element>
+				<element kind="rectangle" uuid="96fe418e-9b2d-4ace-8fdb-10ea1e98dbc8" x="1" y="35" width="552" height="29">
+					<pen lineColor="#3970E6"/>
+				</element>
+				<element kind="staticText" uuid="60004485-b7b5-4c9c-bb3b-214a5ebdccd7" x="6" y="40" width="131" height="21">
+					<text><![CDATA[Libellés]]></text>
+				</element>
+				<element kind="line" uuid="37520def-2664-447c-bcbc-ae7b891ff03a" stretchType="ContainerHeight" x="140" y="35" width="1" height="29">
+					<pen lineColor="#3970E6"/>
+				</element>
+				<element kind="staticText" uuid="3ce636a2-cb48-4fd6-a891-3b060c915126" x="146" y="39" width="70" height="21">
+					<text><![CDATA[Date]]></text>
+				</element>
+				<element kind="line" uuid="f5ed88be-28c3-4d0e-b3bd-2b2c86ccebb4" stretchType="ContainerHeight" x="217" y="35" width="1" height="29">
+					<pen lineColor="#3970E6"/>
+				</element>
+				<element kind="staticText" uuid="b818fc4d-b1da-465c-9b6b-d9e75bc16de7" x="220" y="40" width="90" height="21">
+					<text><![CDATA[Souscription]]></text>
+				</element>
+				<element kind="line" uuid="3054bac2-a113-46b8-819d-cb14d918b3c8" stretchType="ContainerHeight" x="312" y="35" width="1" height="29">
+					<pen lineColor="#3970E6"/>
+				</element>
+				<element kind="staticText" uuid="35fc3023-875b-4d4f-8633-c766b919c908" x="316" y="40" width="76" height="21">
+					<text><![CDATA[Rachat]]></text>
+				</element>
+				<element kind="line" uuid="e13e92ad-2841-4b2d-9cec-13a21241b66d" stretchType="ContainerHeight" x="394" y="34" width="1" height="29">
+					<pen lineColor="#3970E6"/>
+				</element>
+				<element kind="staticText" uuid="8dee8317-7ac7-4418-8ff5-6190de6395ef" x="398" y="38" width="76" height="21">
+					<text><![CDATA[Nb jours écoulés]]></text>
+				</element>
+				<element kind="line" uuid="d43999ba-4acf-45d3-a1cd-70b72bfa446e" stretchType="ContainerHeight" x="474" y="35" width="1" height="29">
+					<pen lineColor="#3970E6"/>
+				</element>
+				<element kind="staticText" uuid="97e9b61d-a7c8-44b1-8a19-17dc02494509" x="474" y="40" width="77" height="21">
+					<text><![CDATA[Montant pondéré]]></text>
+				</element>
+				<element kind="staticText" uuid="2fefcf47-8168-47ca-a0cb-c18dcb8dfd7d" x="396" y="4" width="44" height="20" bold="true">
+					<text><![CDATA[DUREE:]]></text>
+				</element>
+				<element kind="textField" uuid="476ef601-a040-46a8-aee6-78ec64472587" x="440" y="4" width="111" height="20">
+					<expression><![CDATA[$F{periode}+" JOUR(S)"]]></expression>
+				</element>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="131">
+				<element kind="rectangle" uuid="85ee50b6-51ea-496e-96ad-4215ffd87e19" x="1" y="0" width="552" height="10">
+					<pen lineColor="#3970E6"/>
+				</element>
+				<element kind="rectangle" uuid="4445f4c7-e018-4f6f-b648-3618c3d73a1b" x="1" y="10" width="552" height="120">
+					<pen lineColor="#3970E6"/>
+				</element>
+				<element kind="line" uuid="f4536e86-735a-429e-9ad6-9a022ef8b90e" x="1" y="39" width="552" height="1">
+					<pen lineColor="#3970E6"/>
+				</element>
+				<element kind="staticText" uuid="8839c1a3-e2ce-4f15-b1f5-7f2020c6112a" x="3" y="14" width="207" height="21" bold="true">
+					<text><![CDATA[Revenus net réalisés sur la période]]></text>
+				</element>
+				<element kind="line" uuid="28235df5-605b-42e0-878d-7d09472a64cf" stretchType="ContainerHeight" x="217" y="10" width="1" height="120">
+					<pen lineColor="#3970E6"/>
+				</element>
+				<element kind="textField" uuid="fd60f213-c22e-4912-8f88-bbdb323da0eb" x="240" y="14" width="235" height="21" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###" hTextAlign="Center">
+					<expression><![CDATA[$F{revenuNet}]]></expression>
+				</element>
+				<element kind="staticText" uuid="6e4ad588-b386-4aed-b672-bb32055df1a8" x="3" y="43" width="206" height="21" bold="true">
+					<text><![CDATA[Apports nets pondérés]]></text>
+				</element>
+				<element kind="line" uuid="dfc180bc-1c63-4431-bb25-d94836f32ffe" x="1" y="70" width="552" height="1">
+					<pen lineColor="#3970E6"/>
+				</element>
+				<element kind="textField" uuid="19c8d2a2-302f-4145-a3a1-0f739e043419" x="240" y="43" width="235" height="21" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###" hTextAlign="Center">
+					<expression><![CDATA[$F{apportNet}]]></expression>
+				</element>
+				<element kind="staticText" uuid="a7e08660-e8a4-41fa-b028-89ddf2c858a9" x="3" y="105" width="207" height="21" bold="true">
+					<text><![CDATA[Taux de rendement annualisé]]></text>
+				</element>
+				<element kind="line" uuid="8122447b-ba45-43a6-a7f1-3fb892ad4aca" x="1" y="100" width="552" height="1">
+					<pen lineColor="#3970E6"/>
+				</element>
+				<element kind="textField" uuid="03b865f2-2ba8-49b7-9f4b-8464d0f90604" x="240" y="74" width="235" height="21" hTextAlign="Center">
+					<expression><![CDATA[$F{performance}+" %"]]></expression>
+				</element>
+				<element kind="staticText" uuid="ce633d91-18f7-4dae-8453-c00cdf0ae421" x="2" y="75" width="207" height="21" bold="true">
+					<text><![CDATA[Performance réalisée sur la période]]></text>
+				</element>
+				<element kind="textField" uuid="4e9b87fa-4f59-43e8-8819-82b84b012ade" x="240" y="105" width="234" height="21" hTextAlign="Center">
+					<expression><![CDATA[$F{rendementAnnuel}+" %"]]></expression>
+				</element>
+			</band>
+		</groupFooter>
+	</group>
+	<background splitType="Stretch"/>
+	<title height="21" splitType="Stretch"/>
+	<pageHeader splitType="Stretch"/>
+	<columnHeader splitType="Stretch"/>
+	<detail>
+		<band height="30" splitType="Stretch">
+			<element kind="rectangle" uuid="4bb35062-ea6f-448d-be67-e51e4932837c" stretchType="ContainerHeight" x="1" y="0" width="552" height="29">
+				<pen lineColor="#3970E6"/>
+			</element>
+			<element kind="line" uuid="23005fc0-d1b2-42ee-a4c8-345d843752d3" stretchType="ContainerHeight" x="140" y="0" width="1" height="29">
+				<pen lineColor="#3970E6"/>
+			</element>
+			<element kind="line" uuid="78b4fba5-f0d4-44a2-a7bd-8dc098131423" stretchType="ContainerHeight" x="217" y="0" width="1" height="29">
+				<pen lineColor="#3970E6"/>
+			</element>
+			<element kind="line" uuid="0c5bc8c1-c18b-4585-9e64-804d03933f03" stretchType="ContainerHeight" x="312" y="0" width="1" height="29">
+				<pen lineColor="#3970E6"/>
+			</element>
+			<element kind="line" uuid="008a2323-df05-48b5-9da5-907ea102a248" stretchType="ContainerHeight" x="394" y="0" width="1" height="29">
+				<pen lineColor="#3970E6"/>
+			</element>
+			<element kind="line" uuid="0160db2a-bd08-4d95-b9aa-7852c860af08" stretchType="ContainerHeight" x="474" y="0" width="1" height="29">
+				<pen lineColor="#3970E6"/>
+			</element>
+			<element kind="textField" uuid="c440f42c-e95b-4847-b7cd-12879dbce6f3" stretchType="ContainerHeight" x="3" y="5" width="134" height="17" textAdjust="StretchHeight">
+				<expression><![CDATA[$F{libelle}]]></expression>
+			</element>
+			<element kind="textField" uuid="b39f1431-66f8-42d0-a511-b9434bcb3e1a" x="141" y="5" width="75" height="17" textAdjust="StretchHeight" pattern="EE dd/MM/yyyy">
+				<expression><![CDATA[$F{dateOp}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"))]]></expression>
+				<patternExpression><![CDATA["EE dd/MM/yyyy"]]></patternExpression>
+			</element>
+			<element kind="textField" uuid="a56a646a-751c-4af4-afdc-2658230568e0" x="220" y="5" width="90" height="17" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###">
+				<expression><![CDATA[$F{souscription}]]></expression>
+			</element>
+			<element kind="textField" uuid="b464119d-a87a-4187-98c6-eb522beac412" x="316" y="5" width="76" height="17" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###">
+				<expression><![CDATA[$F{rachat}]]></expression>
+			</element>
+			<element kind="textField" uuid="edc0923f-47fd-4aa2-9953-7fbb77510afa" x="398" y="5" width="76" height="17" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###">
+				<expression><![CDATA[$F{nbreJours}]]></expression>
+			</element>
+			<element kind="textField" uuid="f116fc1e-222c-431e-9c96-22abc25b94ea" x="474" y="5" width="79" height="17" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###">
+				<expression><![CDATA[$F{montantPondere}]]></expression>
+			</element>
+		</band>
+	</detail>
+	<columnFooter splitType="Stretch"/>
+	<pageFooter height="46" splitType="Stretch">
+		<element kind="textField" uuid="ee30964a-9173-4d5a-ae10-b236f1c08b97" x="450" y="4" width="100" height="25" hTextAlign="Right">
+			<expression><![CDATA[$V{PAGE_NUMBER}]]></expression>
+		</element>
+		<element kind="staticText" uuid="374ecb35-3ce7-4c38-ab96-19319b15e33b" x="0" y="6" width="120" height="26" fontName="Segoe UI">
+			<text><![CDATA[Edité avec OPCCIEL 2.0]]></text>
+		</element>
+	</pageFooter>
+	<summary height="42" splitType="Stretch"/>
+</jasperReport>

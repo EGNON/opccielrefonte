@@ -600,11 +600,6 @@ public class OrdreServiceImpl implements OrdreService {
         String letterDate = dateFormatter.format(new Date());
 
         parameters.put("letterDate", letterDate);
-//        File file = ResourceUtils.getFile("classpath:ordreDeBourse.jrxml");
-//        JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
-//        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(list);
-//        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport,parameters, dataSource);
-//        JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());
         InputStream inputStream = getClass().getResourceAsStream("/ordreDeBourse.jrxml");
         if (inputStream == null) {
             throw new FileNotFoundException("Fichier JRXML introuvable dans le classpath");

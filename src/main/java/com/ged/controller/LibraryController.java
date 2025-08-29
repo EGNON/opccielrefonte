@@ -1,6 +1,7 @@
 package com.ged.controller;
 
 import com.ged.dao.LibraryDao;
+import com.ged.dto.lab.reportings.BeginEndDateParameter;
 import com.ged.dto.opcciel.OperationSouscriptionRachatDto;
 import com.ged.dto.request.*;
 import com.ged.entity.opcciel.SeanceOpcvm;
@@ -68,6 +69,103 @@ public class LibraryController {
     public ResponseEntity<?> porteFeuilleListe(@RequestBody @Valid ConstatationChargeListeRequest request) {
         return service.afficherPortefeuilleListe(request);
     }
+    @PostMapping("/etats/pointtresorerie")
+    public ResponseEntity<Object> pointTresorerie(@RequestBody @Valid BeginEndDateParameter request, HttpServletResponse response) throws JRException, IOException {
+        response.setContentType("application/pdf");
+        DateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy:hh:mm:ss");
+        String currentDateTime = dateFormatter.format(new Date());
+
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=pointTresorerie" + currentDateTime + ".pdf";
+        response.setHeader(headerKey, headerValue);
+
+        return service.pointTresorerie(request,response);
+    }
+    @PostMapping("/etats/ficheclient")
+    public ResponseEntity<Object> ficheClient(@RequestBody FicheClientRequest request,
+                                              HttpServletResponse response) throws JRException, IOException {
+        response.setContentType("application/pdf");
+        DateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy:hh:mm:ss");
+        String currentDateTime = dateFormatter.format(new Date());
+
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=fiche_client" + currentDateTime + ".pdf";
+        response.setHeader(headerKey, headerValue);
+
+        return service.ficheClientEtat(request,response);
+    }
+    @PostMapping("/etats/historiqueactionnaire")
+    public ResponseEntity<Object> historiqueActionnaire(@RequestBody @Valid BeginEndDateParameter request, HttpServletResponse response) throws JRException, IOException {
+        response.setContentType("application/pdf");
+        DateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy:hh:mm:ss");
+        String currentDateTime = dateFormatter.format(new Date());
+
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=historiqueActionnaire" + currentDateTime + ".pdf";
+        response.setHeader(headerKey, headerValue);
+
+        return service.historiqueActionnaire(request,response);
+    }
+    @PostMapping("/historiqueactionnaire")
+    public ResponseEntity<?> historiqueActionnaire(@RequestBody @Valid HistoriqueActionnaireRequest request){
+
+        return service.historiqueActionnaire(request);
+    }
+    @PostMapping("/historiqueactionnaire/liste")
+    public ResponseEntity<?> historiqueActionnaireListe(@RequestBody @Valid HistoriqueActionnaireRequest request){
+
+        return service.historiqueActionnaireListe(request);
+    }
+    @PostMapping("/etats/releveactionnaire")
+    public ResponseEntity<Object> releveActionnaire(@RequestBody @Valid HistoriqueActionnaireRequest request, HttpServletResponse response) throws JRException, IOException {
+        response.setContentType("application/pdf");
+        DateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy:hh:mm:ss");
+        String currentDateTime = dateFormatter.format(new Date());
+
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=releveActionnaire" + currentDateTime + ".pdf";
+        response.setHeader(headerKey, headerValue);
+
+        return service.releveActionnaire(request,response);
+    }
+    @PostMapping("/releveactionnaire/liste")
+    public ResponseEntity<?> releveActionnaire(@RequestBody @Valid HistoriqueActionnaireRequest request){
+
+        return service.releveActionnaire(request);
+    }
+    @GetMapping("/personnephysiquemorale")
+    public ResponseEntity<?> afficherPersonnePhysiqueMorale(){
+
+        return service.afficherPersonnePhysiqueMorale(null,null,null);
+    }
+    @GetMapping("/personnephysiquemoraleselontype/{type}")
+    public ResponseEntity<?> afficherPersonnePhysiqueMoraleSelonType(@PathVariable String type){
+
+        return service.afficherPersonnePhysiqueMoraleSelonType(null,null,null,type);
+    }
+    @GetMapping("/personnephysiquemoraleselontype/{type}/{valeur}")
+    public ResponseEntity<?> rechercherPersonnePhysiqueMoraleSelonType(@PathVariable String type,
+                                                                       @PathVariable String valeur){
+
+        return service.rechercherPersonnePhysiqueMoraleSelonType(null,null,null,type,valeur);
+    }
+    @GetMapping("/personnephysiquemorale/{valeur}")
+    public ResponseEntity<?> afficherPersonnePhysiqueMorale(@PathVariable String valeur){
+
+        return service.afficherPersonnePhysiqueMorale(null,null,null,valeur);
+    }
+    @GetMapping("/etats/procedurecomptable")
+    public ResponseEntity<Object> procedureComptable(HttpServletResponse response) throws JRException, IOException {
+        response.setContentType("application/pdf");
+        DateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy:hh:mm:ss");
+        String currentDateTime = dateFormatter.format(new Date());
+
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=procedureComptable" + currentDateTime + ".pdf";
+        response.setHeader(headerKey, headerValue);
+
+        return service.procedureComptable(response);
+    }
     @PostMapping("/opcvm/etats/relevetitrefcp")
     public ResponseEntity<Object> releveTitreFCP(@RequestBody @Valid ReleveTitreFCPRequest request, HttpServletResponse response) throws JRException, IOException {
         response.setContentType("application/pdf");
@@ -83,6 +181,43 @@ public class LibraryController {
     @PostMapping("/opcvm/relevetitrefcp")
     public ResponseEntity<?> releveTitreFCP(@RequestBody @Valid ReleveTitreFCPRequest request) {
         return service.afficherReleveTitreFcp(request);
+    }
+    @PostMapping("/etatsuiviactionnaire/liste")
+    public ResponseEntity<?> etatSuiviActionnaireListe(@RequestBody @Valid ReleveTitreFCPRequest request) {
+        return service.etatSuiviActionnaireListe(request);
+    }
+    @PostMapping("/etats/etatsuiviactionnaire")
+    public ResponseEntity<Object> etatSuiviActionnaire(@RequestBody @Valid ReleveTitreFCPRequest request, HttpServletResponse response) throws JRException, IOException {
+        response.setContentType("application/pdf");
+        DateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy:hh:mm:ss");
+        String currentDateTime = dateFormatter.format(new Date());
+
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=etatSuiviActionnaire" + currentDateTime + ".pdf";
+        response.setHeader(headerKey, headerValue);
+
+        return service.etatSuiviActionnaire(request,response);
+    }
+    @PostMapping("/etatsuiviactionnaire")
+    public ResponseEntity<?> etatSuiviActionnaire(@RequestBody @Valid ReleveTitreFCPRequest request) {
+        return service.etatSuiviActionnaire(request);
+    }
+
+    @PostMapping("/etatsuiviclient/liste")
+    public ResponseEntity<?> etatSuiviClientListe(@RequestBody @Valid HistoriqueActionnaireRequest request) {
+        return service.suiviClient(request);
+    }
+    @PostMapping("/etats/etatsuiviclient")
+    public ResponseEntity<Object> etatSuiviClient(@RequestBody @Valid HistoriqueActionnaireRequest request, HttpServletResponse response) throws JRException, IOException {
+        response.setContentType("application/pdf");
+        DateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy:hh:mm:ss");
+        String currentDateTime = dateFormatter.format(new Date());
+
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=SuiviClient" + currentDateTime + ".pdf";
+        response.setHeader(headerKey, headerValue);
+
+        return service.suiviClient(request,response);
     }
     @PostMapping("/opcvm/relevetitrefcp/liste")
     public ResponseEntity<?> releveTitreFCPListe(@RequestBody @Valid ReleveTitreFCPRequest request) {

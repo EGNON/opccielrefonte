@@ -36,6 +36,10 @@ import jakarta.persistence.PersistenceContext;
 import jakarta.servlet.http.HttpServletResponse;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.export.ooxml.JRXlsxExporter;
+import net.sf.jasperreports.export.SimpleExporterInput;
+import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
+import net.sf.jasperreports.export.SimpleXlsxReportConfiguration;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -46,10 +50,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ResourceUtils;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -121,10 +122,16 @@ public class OperationExtourneVDEServiceImpl implements OperationExtourneVDEServ
         parameters.put("VL", opcvmDto.getValeurLiquidativeActuelle().toString());
         parameters.put("designationOpcvm", opcvmDto.getDenominationOpcvm());
 
-        File file = ResourceUtils.getFile("classpath:verificationVDEN1.jrxml");
-        JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
+        InputStream inputStream = getClass().getResourceAsStream("/verificationVDEN1.jrxml");
+        if (inputStream == null) {
+            throw new FileNotFoundException("Fichier JRXML introuvable dans le classpath");
+        }
+
+        JasperReport jasperReport = JasperCompileManager.compileReport(inputStream);
         JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(list);
-        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport,parameters, dataSource);
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
+
+        // Export vers le flux de sortie HTTP
         JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());
         return ResponseHandler.generateResponse(
                 "Extourne VDE",
@@ -133,7 +140,53 @@ public class OperationExtourneVDEServiceImpl implements OperationExtourneVDEServ
     }
 
     @Override
+    public byte[] exportExcelVDE(Long idSeance, Long idOpcvm, Boolean estVerifie, Boolean estVerifie1, Boolean estVerifie2, Long niveau, HttpServletResponse response) throws IOException, JRException {
+        List<OperationExtourneVDEProjection> list=libraryDao.operationExtourneVDE(idSeance, idOpcvm, estVerifie, estVerifie1, estVerifie2);
+        InputStream reportStream = getClass().getResourceAsStream("/verificationVDEN1.jrxml");
+        JasperReport jasperReport = JasperCompileManager.compileReport(reportStream);
+
+        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(list);
+        Map<String, Object> parameters = new HashMap<>();
+        DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
+//        DateFormat dateFormatter2 = new SimpleDateFormat("dd/MM/yyyy");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+//        String dateFormatee = date.format(formatter);
+        String letterDate = dateFormatter.format(new Date());
+        SeanceOpcvmDto seanceOpcvmDto=seanceOpcvmMapper.deSeanceOpcvm(seanceOpcvmDao.afficherSeance(idOpcvm,idSeance));
+        parameters.put("letterDate", letterDate);
+        parameters.put("niveau", niveau.toString());
+        parameters.put("dateOuverture", seanceOpcvmDto.getDateOuverture().format(formatter).toString());
+        parameters.put("dateFermeture", seanceOpcvmDto.getDateFermeture().format(formatter).toString());
+
+        OpcvmDto opcvmDto=opcvmMapper.deOpcvm(opcvmDao.findById(idOpcvm).orElseThrow());
+        parameters.put("VL", opcvmDto.getValeurLiquidativeActuelle().toString());
+        parameters.put("designationOpcvm", opcvmDto.getDenominationOpcvm());
+
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
+
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+
+        JRXlsxExporter exporter = new JRXlsxExporter();
+        exporter.setExporterInput(new SimpleExporterInput(jasperPrint));
+        exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(out));
+
+        SimpleXlsxReportConfiguration configuration = new SimpleXlsxReportConfiguration();
+        configuration.setOnePagePerSheet(false);  // toutes les données sur une seule feuille
+        configuration.setDetectCellType(true);   // détecte automatiquement les types de données
+        configuration.setCollapseRowSpan(false);
+
+        exporter.setConfiguration(configuration);
+        exporter.exportReport();
+
+        // Récupération en bytes
+        byte[] excelBytes = out.toByteArray();
+
+        return excelBytes;
+    }
+
+    @Override
     public ResponseEntity<Object> soldeCompteExtourne(Long idOpcvm, String numCompteComptable, LocalDateTime date, HttpServletResponse response) throws IOException, JRException {
+        System.out.println("date="+date);
         List<SoldeCompteExtourneProjection> list=libraryDao.soldeCompteExtourne( idOpcvm, numCompteComptable, date);
 
         Map<String, Object> parameters = new HashMap<>();

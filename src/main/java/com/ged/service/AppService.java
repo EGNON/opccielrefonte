@@ -6,6 +6,7 @@ import com.ged.dao.opcciel.comptabilite.*;
 import com.ged.dao.security.UtilisateurDao;
 import com.ged.dao.standard.PersonneDao;
 import com.ged.datatable.DataTablesResponse;
+import com.ged.dto.lab.reportings.BeginEndDateParameter;
 import com.ged.dto.opcciel.*;
 import com.ged.dto.opcciel.comptabilite.OperationDto;
 import com.ged.dto.request.*;
@@ -190,6 +191,445 @@ public class AppService {
                     HttpStatus.MULTI_STATUS,
                     e);
         }
+    }
+    //etatSuiviActionnaire
+    public ResponseEntity<?> etatSuiviActionnaire(ReleveTitreFCPRequest request) {
+        var parameters = request.getDatatableParameters();
+        try {
+            Pageable pageable = PageRequest.of(parameters.getStart()/ parameters.getLength(), parameters.getLength());
+            Page<EtatsSuiviActionnaireProjection> etatsSuiviActionnaireProjectionPagePage;
+            if(parameters.getSearch() != null && !parameters.getSearch().getValue().isEmpty()) {
+                etatsSuiviActionnaireProjectionPagePage = new PageImpl<>(new ArrayList<>());
+            }
+            else {
+                etatsSuiviActionnaireProjectionPagePage = libraryDao.etatSuiviActionnaire(
+                        null,request.getDateDebut(),request.getDateFin(),
+                        pageable
+                );
+            }
+            List<EtatsSuiviActionnaireProjection> content = etatsSuiviActionnaireProjectionPagePage.getContent().stream().toList();
+            DataTablesResponse<EtatsSuiviActionnaireProjection> dataTablesResponse = new DataTablesResponse<>();
+            dataTablesResponse.setDraw(parameters.getDraw());
+            dataTablesResponse.setRecordsFiltered((int)etatsSuiviActionnaireProjectionPagePage.getTotalElements());
+            dataTablesResponse.setRecordsTotal((int)etatsSuiviActionnaireProjectionPagePage.getTotalElements());
+            dataTablesResponse.setData(content);
+            return ResponseHandler.generateResponse(
+                    "Portefeuille opcvm",
+                    HttpStatus.OK,
+                    dataTablesResponse);
+        }
+        catch(Exception e) {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e);
+        }
+    }
+    public ResponseEntity<Object> etatSuiviActionnaire(ReleveTitreFCPRequest request, HttpServletResponse response) throws JRException, IOException {
+
+        InputStream rapportStream = null;
+        InputStream subreportStream = null;
+//        try {
+        // Récupération des données
+        List<EtatsSuiviActionnaireProjection> etatsSuiviActionnaireProjections = libraryDao.etatSuiviActionnaire(
+                null, request.getDateDebut(),request.getDateFin());
+
+        // Chargement des fichiers .jrxml depuis le classpath
+        rapportStream = getClass().getResourceAsStream("/EtatsSuivis.jrxml");
+//        subreportStream = getClass().getResourceAsStream("/operationDetachement.jrxml");
+
+        if (rapportStream == null) {
+            throw new RuntimeException("Fichiers .jrxml introuvables dans le classpath !");
+        }
+
+        // Compiler les rapports à la volée
+        JasperReport rapportPrincipal = JasperCompileManager.compileReport(rapportStream);
+//        JasperReport subreport = JasperCompileManager.compileReport(subreportStream);
+
+
+        LocalDateTime dateTime = request.getDateDebut();
+        Instant i = dateTime.atZone(ZoneId.systemDefault()).toInstant();
+        Date dateDebut = Date.from(i);
+
+         dateTime = request.getDateFin();
+         i = dateTime.atZone(ZoneId.systemDefault()).toInstant();
+         Date dateFin = Date.from(i);
+
+        // Préparation des paramètres
+        Map<String, Object> parameters = new HashMap<>();
+        DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
+        String letterDate = dateFormatter.format(new Date());
+//        String dateFin2 = dateFormatter.format(dateFin);
+//        String dateDebut2 = dateFormatter.format(dateDebut);
+        parameters.put("letterDate", letterDate);
+//        parameters.put("dateFin", dateFin2);
+//        parameters.put("dateDebut", dateDebut2);
+//        OpcvmDto opcvm = opcvmMapper.deOpcvm(opcvmDao.findById(request.getIdOpcvm()).orElseThrow());
+//        parameters.put("description", opcvm.getDenominationOpcvm());
+//        parameters.put("idOpcvm", opcvm.getIdOpcvm().toString());
+
+        // Remplissage du rapport
+        JasperPrint print = JasperFillManager.fillReport(
+                rapportPrincipal,
+                parameters,
+                new JRBeanCollectionDataSource(etatsSuiviActionnaireProjections)
+        );
+        JasperExportManager.exportReportToPdfStream(print, response.getOutputStream());
+        return ResponseHandler.generateResponse(
+                "Ordre de bourse",
+                HttpStatus.OK,
+                etatsSuiviActionnaireProjections);
+
+
+    }
+    public ResponseEntity<?> etatSuiviActionnaireListe(ReleveTitreFCPRequest request) {
+        try
+        {
+            List<EtatsSuiviActionnaireProjection> etatsSuiviActionnaireProjectionList=libraryDao.etatSuiviActionnaire(
+                    null,request.getDateDebut(),request.getDateFin()
+            );
+            return ResponseHandler.generateResponse(
+                    "Portefeuille opcvm",
+                    HttpStatus.OK,
+                    etatsSuiviActionnaireProjectionList);
+        }
+        catch(Exception e) {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e);
+        }
+    }
+    //fiche client
+    public ResponseEntity<?> rechercherPersonnePhysiqueMoraleSelonType(Long idOpcvm,String libelleQualite,String statutCompte,String type,String valeur) {
+
+        try {
+
+            List<PersonnePhysiqueMoraleProjection> list = libraryDao.rechercherPersonnePhysiqueMoraleSelonType(
+                    idOpcvm,libelleQualite,statutCompte,type,valeur);
+
+            return ResponseHandler.generateResponse(
+                    "Historique actionnaire",
+                    HttpStatus.OK,
+                    list);
+        }
+        catch(Exception e) {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e);
+        }
+    }
+    public ResponseEntity<Object> ficheClientEtat(FicheClientRequest request, HttpServletResponse response) throws IOException, JRException {
+
+        List<FicheClientProjection> list=libraryDao.afficherFicheClient(request.getIdActionnaire());
+        Map<String, Object> parameters = new HashMap<>();
+        DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
+        String letterDate = dateFormatter.format(new Date());
+
+        parameters.put("letterDate", letterDate);
+
+        InputStream inputStream ;
+        if(request.getEstPH()){
+            inputStream = getClass().getResourceAsStream("/fiche_Client_PH.jrxml");
+            if (inputStream == null) {
+                throw new FileNotFoundException("Fichier JRXML introuvable dans le classpath");
+            }
+        }
+        else
+        {
+            inputStream = getClass().getResourceAsStream("/fiche_Client_PM.jrxml");
+            if (inputStream == null) {
+                throw new FileNotFoundException("Fichier JRXML introuvable dans le classpath");
+            }
+        }
+
+
+        JasperReport jasperReport = JasperCompileManager.compileReport(inputStream);
+        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(list);
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
+
+        // Export vers le flux de sortie HTTP
+        JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());
+        return ResponseHandler.generateResponse(
+                "Fiche client",
+                HttpStatus.OK,
+                list);
+    }
+    //point trésorerie
+    public ResponseEntity<Object> pointTresorerie(BeginEndDateParameter parameter, HttpServletResponse response) throws IOException, JRException {
+
+        List<PointTresorerieProjection> list=libraryDao.pointTresorerie(parameter.getStartDate());
+        Map<String, Object> parameters = new HashMap<>();
+        DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
+        String letterDate = dateFormatter.format(new Date());
+
+        parameters.put("letterDate", letterDate);
+        parameters.put("dateEstimation", LocalDateTime.now());
+        InputStream inputStream = getClass().getResourceAsStream("/PointTresorerie.jrxml");
+        if (inputStream == null) {
+            throw new FileNotFoundException("Fichier JRXML introuvable dans le classpath");
+        }
+
+        JasperReport jasperReport = JasperCompileManager.compileReport(inputStream);
+        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(list);
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
+
+        // Export vers le flux de sortie HTTP
+        JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());
+        return ResponseHandler.generateResponse(
+                "Point de trésorerie",
+                HttpStatus.OK,
+                list);
+    }
+    //releve actionnaire
+    public ResponseEntity<?> afficherPersonnePhysiqueMorale(Long idOpcvm,String libelleQualite,String statutCompte) {
+
+        try {
+
+            List<PersonnePhysiqueMoraleProjection> list = libraryDao.afficherPersonnePhysiqueMorale(
+                    idOpcvm,libelleQualite,statutCompte);
+
+            return ResponseHandler.generateResponse(
+                    "Historique actionnaire",
+                    HttpStatus.OK,
+                    list);
+        }
+        catch(Exception e) {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e);
+        }
+    }
+    public ResponseEntity<?> afficherPersonnePhysiqueMorale(Long idOpcvm,String libelleQualite,String statutCompte,String valeur) {
+
+        try {
+
+            List<PersonnePhysiqueMoraleProjection> list = libraryDao.afficherPersonnePhysiqueMorale(
+                    idOpcvm,libelleQualite,statutCompte,valeur);
+
+            return ResponseHandler.generateResponse(
+                    "Historique actionnaire",
+                    HttpStatus.OK,
+                    list);
+        }
+        catch(Exception e) {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e);
+        }
+    }
+    public ResponseEntity<?> afficherPersonnePhysiqueMoraleSelonType(Long idOpcvm,String libelleQualite,String statutCompte,String type) {
+
+        try {
+
+            List<PersonnePhysiqueMoraleProjection> list = libraryDao.afficherPersonnePhysiqueMoraleSelonType(
+                    idOpcvm,libelleQualite,statutCompte,type);
+
+            return ResponseHandler.generateResponse(
+                    "Historique actionnaire",
+                    HttpStatus.OK,
+                    list);
+        }
+        catch(Exception e) {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e);
+        }
+    }
+    public ResponseEntity<?> releveActionnaire(HistoriqueActionnaireRequest request) {
+
+        try {
+
+            List<ReleveActionnaireProjection> list = libraryDao.releveActionnaire(
+                    request.getIdActionnaire(),request.getDateDebut(),request.getDateFin());
+
+            return ResponseHandler.generateResponse(
+                    "Historique actionnaire",
+                    HttpStatus.OK,
+                    list);
+        }
+        catch(Exception e) {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e);
+        }
+    }
+    public ResponseEntity<Object> releveActionnaire(HistoriqueActionnaireRequest parameter, HttpServletResponse response) throws IOException, JRException {
+
+        List<ReleveActionnaireProjection> list=libraryDao.releveActionnaire(parameter.getIdActionnaire(),parameter.getDateDebut(),parameter.getDateFin());
+        Map<String, Object> parameters = new HashMap<>();
+        DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
+        String letterDate = dateFormatter.format(new Date());
+
+        parameters.put("letterDate", letterDate);
+        parameters.put("dateDebut", parameter.getDateDebut());
+        parameters.put("dateFin", parameter.getDateFin());
+        InputStream inputStream = getClass().getResourceAsStream("/ReleveActionnaire.jrxml");
+        if (inputStream == null) {
+            throw new FileNotFoundException("Fichier JRXML introuvable dans le classpath");
+        }
+
+        JasperReport jasperReport = JasperCompileManager.compileReport(inputStream);
+        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(list);
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
+
+        // Export vers le flux de sortie HTTP
+        JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());
+        return ResponseHandler.generateResponse(
+                "Releve actionnaire",
+                HttpStatus.OK,
+                list);
+    }
+    //suivi clients
+    public ResponseEntity<?> suiviClient(HistoriqueActionnaireRequest request) {
+
+        try {
+
+            List<EtatsSuiviClientProjection> list = libraryDao.etatSuiviClient(
+                    request.getIdActionnaire(),null,request.getDateFin());
+
+            return ResponseHandler.generateResponse(
+                    "Historique actionnaire",
+                    HttpStatus.OK,
+                    list);
+        }
+        catch(Exception e) {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e);
+        }
+    }
+    public ResponseEntity<Object> suiviClient(HistoriqueActionnaireRequest parameter, HttpServletResponse response) throws IOException, JRException {
+
+        List<EtatsSuiviClientProjection> list=libraryDao.etatSuiviClient(parameter.getIdActionnaire(),
+                null,parameter.getDateFin());
+        Map<String, Object> parameters = new HashMap<>();
+        DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
+        String letterDate = dateFormatter.format(new Date());
+
+        parameters.put("letterDate", letterDate);
+        InputStream inputStream = getClass().getResourceAsStream("/EtatsSuivis.jrxml");
+        if (inputStream == null) {
+            throw new FileNotFoundException("Fichier JRXML introuvable dans le classpath");
+        }
+
+        JasperReport jasperReport = JasperCompileManager.compileReport(inputStream);
+        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(list);
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
+
+        // Export vers le flux de sortie HTTP
+        JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());
+        return ResponseHandler.generateResponse(
+                "Releve actionnaire",
+                HttpStatus.OK,
+                list);
+    }
+    //Historique actionnaire
+    public ResponseEntity<?> historiqueActionnaire(HistoriqueActionnaireRequest request) {
+        var parameters = request.getDatatableParameters();
+        try {
+            Pageable pageable = PageRequest.of(parameters.getStart()/ parameters.getLength(), parameters.getLength());
+            Page<HistoriqueActionnaireProjection> historiqueActionnairePage;
+            if(parameters.getSearch() != null && !parameters.getSearch().getValue().isEmpty()) {
+                historiqueActionnairePage = new PageImpl<>(new ArrayList<>());
+            }
+            else {
+                historiqueActionnairePage = libraryDao.historiqueActionnaire(
+                        request.getDateDebut(),request.getDateFin(),
+                        pageable
+                );
+            }
+            List<HistoriqueActionnaireProjection> content = historiqueActionnairePage.getContent().stream().toList();
+            DataTablesResponse<HistoriqueActionnaireProjection> dataTablesResponse = new DataTablesResponse<>();
+            dataTablesResponse.setDraw(parameters.getDraw());
+            dataTablesResponse.setRecordsFiltered((int)historiqueActionnairePage.getTotalElements());
+            dataTablesResponse.setRecordsTotal((int)historiqueActionnairePage.getTotalElements());
+            dataTablesResponse.setData(content);
+            return ResponseHandler.generateResponse(
+                    "Historique actionnaire",
+                    HttpStatus.OK,
+                    dataTablesResponse);
+        }
+        catch(Exception e) {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e);
+        }
+    }
+    public ResponseEntity<?> historiqueActionnaireListe(HistoriqueActionnaireRequest request) {
+
+        try {
+
+            List<HistoriqueActionnaireProjection> historiqueActionnaireProjetions = libraryDao.historiqueActionnaireListe(
+                        request.getDateDebut(),request.getDateFin());
+
+            return ResponseHandler.generateResponse(
+                    "Historique actionnaire",
+                    HttpStatus.OK,
+                    historiqueActionnaireProjetions);
+        }
+        catch(Exception e) {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e);
+        }
+    }
+    public ResponseEntity<Object> historiqueActionnaire(BeginEndDateParameter parameter, HttpServletResponse response) throws IOException, JRException {
+
+        List<HistoriqueActionnaireProjection> list=libraryDao.historiqueActionnaire(parameter.getStartDate(),parameter.getEndDate());
+        Map<String, Object> parameters = new HashMap<>();
+        DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
+        String letterDate = dateFormatter.format(new Date());
+
+        parameters.put("letterDate", letterDate);
+        InputStream inputStream = getClass().getResourceAsStream("/HistoriqueActionnaire.jrxml");
+        if (inputStream == null) {
+            throw new FileNotFoundException("Fichier JRXML introuvable dans le classpath");
+        }
+
+        JasperReport jasperReport = JasperCompileManager.compileReport(inputStream);
+        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(list);
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
+
+        // Export vers le flux de sortie HTTP
+        JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());
+        return ResponseHandler.generateResponse(
+                "Historique actionnaire",
+                HttpStatus.OK,
+                list);
+    }
+    //procédure comptable
+    public ResponseEntity<Object> procedureComptable(HttpServletResponse response) throws IOException, JRException {
+
+        List<ProcedureComptableProjection> list=libraryDao.procedureComptable();
+        Map<String, Object> parameters = new HashMap<>();
+        DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
+        String letterDate = dateFormatter.format(new Date());
+
+        parameters.put("letterDate", letterDate);
+        InputStream inputStream = getClass().getResourceAsStream("/ProcedureComptable.jrxml");
+        if (inputStream == null) {
+            throw new FileNotFoundException("Fichier JRXML introuvable dans le classpath");
+        }
+
+        JasperReport jasperReport = JasperCompileManager.compileReport(inputStream);
+        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(list);
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
+
+        // Export vers le flux de sortie HTTP
+        JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());
+        return ResponseHandler.generateResponse(
+                "Procedures comptable",
+                HttpStatus.OK,
+                list);
     }
     //portefeuille
     public ResponseEntity<?> afficherPortefeuille(ConstatationChargeListeRequest request) {

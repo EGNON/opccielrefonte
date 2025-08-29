@@ -159,10 +159,10 @@
 				</element>
 				<element kind="line" uuid="71e33fe0-5dd3-430d-91bd-adf8c34e6795" x="373" y="-1" width="1" height="30"/>
 				<element kind="line" uuid="2f60cb1e-8ab3-4f28-b2a2-7d7750e3fc8c" x="458" y="-1" width="1" height="30"/>
-				<element pattern="#,##0.###;#,##0.###-" kind="textField" uuid="a0c93c07-0c93-4b33-a537-fa5acacef060" x="380" y="4" width="75" height="20">
+				<element pattern="#,##0.###;#,##0.###" kind="textField" uuid="a0c93c07-0c93-4b33-a537-fa5acacef060" x="380" y="4" width="75" height="20">
 					<expression><![CDATA[$V{debit1}]]></expression>
 				</element>
-				<element pattern="#,##0.###;#,##0.###-" kind="textField" uuid="62da366d-3a32-47be-9081-b8efd5e42592" x="461" y="4" width="89" height="20">
+				<element pattern="#,##0.###;#,##0.###" kind="textField" uuid="62da366d-3a32-47be-9081-b8efd5e42592" x="461" y="4" width="89" height="20">
 					<expression><![CDATA[$V{credit1}]]></expression>
 				</element>
 			</band>
@@ -194,11 +194,11 @@
 				<expression><![CDATA[$F{libelleCompteComptable}]]></expression>
 				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7fc7ecd8-ef21-46ba-bce6-cf9a86091002"/>
 			</element>
-			<element pattern="#,##0.###;#,##0.###-" kind="textField" uuid="9f36b8fe-d49b-4990-95b3-03e1dbd3dce0" x="380" y="7" width="75" height="17" fontName="Segoe UI" textAdjust="StretchHeight" blankWhenNull="true">
+			<element pattern="#,##0.###;#,##0.###" kind="textField" uuid="9f36b8fe-d49b-4990-95b3-03e1dbd3dce0" x="380" y="7" width="75" height="17" fontName="Segoe UI" textAdjust="StretchHeight" blankWhenNull="true">
 				<expression><![CDATA[(EQUALS( $F{sensMvt},"D" )?$F{valeur}:0)]]></expression>
 				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4dca9af7-83ce-429d-a0e9-83933755b9be"/>
 			</element>
-			<element pattern="#,##0.###;#,##0.###-" kind="textField" uuid="33401310-0f42-4c0b-a8af-af7b0b38a8d8" x="461" y="5" width="90" height="19" fontName="Segoe UI" textAdjust="StretchHeight">
+			<element pattern="#,##0.###;#,##0.###" kind="textField" uuid="33401310-0f42-4c0b-a8af-af7b0b38a8d8" x="461" y="5" width="90" height="19" fontName="Segoe UI" textAdjust="StretchHeight">
 				<expression><![CDATA[(EQUALS( $F{sensMvt},"C" )?$F{valeur}:0)]]></expression>
 				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="9e4a68d5-a952-40ee-9be0-a48f774f76d5"/>
 			</element>

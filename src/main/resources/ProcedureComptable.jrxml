@@ -1,0 +1,169 @@
+<!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 7.0.1-573496633c2b4074e32f433154b543003f7d2498  -->
+<jasperReport name="ProcedureComptable" language="java" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="5c7179f7-37c9-44d4-a38f-cbf2633fcf3a">
+	<parameter name="letterDate" class="java.lang.String">
+		<defaultValueExpression><![CDATA[TODAY( )]]></defaultValueExpression>
+	</parameter>
+	<field name="codeTypeOperation" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="codeTypeOperation"/>
+		<property name="com.jaspersoft.studio.field.label" value="codeTypeOperation"/>
+	</field>
+	<field name="libelleTypeOperation" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="libelleTypeOperation"/>
+		<property name="com.jaspersoft.studio.field.label" value="libelleTypeOperation"/>
+	</field>
+	<field name="codeNatureOperation" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="codeNatureOperation"/>
+		<property name="com.jaspersoft.studio.field.label" value="codeNatureOperation"/>
+	</field>
+	<field name="libelleNatureOperation" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="libelleNatureOperation"/>
+		<property name="com.jaspersoft.studio.field.label" value="libelleNatureOperation"/>
+	</field>
+	<field name="codeTypeTitre" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="codeTypeTitre"/>
+		<property name="com.jaspersoft.studio.field.label" value="codeTypeTitre"/>
+	</field>
+	<field name="libelleTypeTitre" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="libelleTypeTitre"/>
+		<property name="com.jaspersoft.studio.field.label" value="libelleTypeTitre"/>
+	</field>
+	<field name="codeModeleEcriture" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="codeModeleEcriture"/>
+		<property name="com.jaspersoft.studio.field.label" value="codeModeleEcriture"/>
+	</field>
+	<field name="libelleModeleEcriture" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="libelleModeleEcriture"/>
+		<property name="com.jaspersoft.studio.field.label" value="libelleModeleEcriture"/>
+	</field>
+	<field name="debit" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="debit"/>
+		<property name="com.jaspersoft.studio.field.label" value="debit"/>
+	</field>
+	<field name="credit" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="credit"/>
+		<property name="com.jaspersoft.studio.field.label" value="credit"/>
+	</field>
+	<field name="libelleCompteComptable" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="libelleCompteComptable"/>
+		<property name="com.jaspersoft.studio.field.label" value="libelleCompteComptable"/>
+	</field>
+	<field name="libelleFormule" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="libelleFormule"/>
+		<property name="com.jaspersoft.studio.field.label" value="libelleFormule"/>
+	</field>
+	<group name="Group1">
+		<expression><![CDATA[$F{libelleTypeOperation} +'_'+$F{libelleNatureOperation}+'_'+$F{libelleTypeTitre}]]></expression>
+		<groupHeader>
+			<band height="132">
+				<element kind="rectangle" uuid="25f6bcb5-3f51-478a-8e68-4a296a8adf06" mode="Transparent" x="1" y="4" width="550" height="96" backcolor="#BDD7EE">
+					<pen lineColor="#2A3EF5"/>
+				</element>
+				<element kind="textField" uuid="5bcabb1d-3789-4c39-8e74-2a836f5fa249" x="110" y="10" width="410" height="21">
+					<expression><![CDATA[$F{libelleTypeOperation}]]></expression>
+				</element>
+				<element kind="staticText" uuid="8f3f51a3-0274-4254-a036-4a60976046a5" mode="Opaque" x="6" y="11" width="94" height="20" backcolor="#BDD7EE" fontName="Segoe UI" bold="true" hTextAlign="Left">
+					<text><![CDATA[Type opération:]]></text>
+				</element>
+				<element kind="staticText" uuid="c297f7f2-f944-48d1-9ea9-e12824bf1e4e" mode="Opaque" x="6" y="40" width="94" height="20" backcolor="#BDD7EE" fontName="Segoe UI" bold="true" hTextAlign="Left">
+					<text><![CDATA[Nature opération:]]></text>
+				</element>
+				<element kind="textField" uuid="fa3b60e9-fa31-4cd6-9037-1737404467aa" x="110" y="40" width="410" height="20">
+					<expression><![CDATA[$F{libelleNatureOperation}]]></expression>
+				</element>
+				<element kind="staticText" uuid="c3eb13fe-3924-491a-a151-8aead2672985" mode="Opaque" x="6" y="70" width="94" height="20" backcolor="#BDD7EE" fontName="Segoe UI" bold="true" hTextAlign="Left">
+					<text><![CDATA[Type titre:]]></text>
+				</element>
+				<element kind="textField" uuid="adea2122-2fa8-42de-95d8-662fe49bf579" x="110" y="70" width="410" height="20">
+					<expression><![CDATA[$F{libelleTypeTitre}]]></expression>
+				</element>
+				<element kind="rectangle" uuid="e547798a-9295-4fac-9e9c-abd4f925b1fd" mode="Opaque" x="1" y="101" width="550" height="30" backcolor="#BDD7EE"/>
+				<element kind="staticText" uuid="a608a0f8-9b6d-44e1-b38b-458a46f56073" x="4" y="105" width="76" height="20" fontName="Segoe UI" bold="true" hTextAlign="Center">
+					<text><![CDATA[Débit]]></text>
+				</element>
+				<element kind="line" uuid="9d3d9e2b-cddf-444d-97d8-5c7de7e0dcc3" x="83" y="101" width="1" height="30"/>
+				<element kind="line" uuid="5ead31fc-a3e6-453b-a2e8-e257bf90248d" x="171" y="101" width="1" height="30"/>
+				<element kind="staticText" uuid="56fda926-f145-4e0d-9197-f1fd1f1aaa5e" x="89" y="105" width="81" height="20" fontName="Segoe UI" bold="true" hTextAlign="Center">
+					<text><![CDATA[Crédit]]></text>
+				</element>
+				<element kind="staticText" uuid="f1e094ad-1a8d-4acb-857b-956a5cf3eba9" x="430" y="106" width="115" height="20" fontName="Segoe UI" bold="true" hTextAlign="Center">
+					<text><![CDATA[Formule]]></text>
+				</element>
+				<element kind="line" uuid="c78cd7ac-67f4-4061-bdf9-af3ae9e8f6a6" x="425" y="100" width="1" height="30"/>
+				<element kind="staticText" uuid="a2dcfbe2-9da1-43f9-9f71-286dcfba1ecb" x="176" y="105" width="249" height="20" fontName="Segoe UI" bold="true" hTextAlign="Center">
+					<text><![CDATA[Libellé]]></text>
+				</element>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="14"/>
+		</groupFooter>
+	</group>
+	<group name="Group2">
+		<expression><![CDATA[$F{codeModeleEcriture}]]></expression>
+		<groupHeader>
+			<band height="31">
+				<element kind="rectangle" uuid="b9f5b1be-5355-4fca-95c6-d3ee84114b19" mode="Transparent" x="1" y="0" width="550" height="30" backcolor="#BDD7EE">
+					<pen lineColor="#2A3EF5"/>
+				</element>
+				<element kind="textField" uuid="e3702c83-457b-4f73-a44a-18dc475f700c" x="10" y="4" width="534" height="26">
+					<expression><![CDATA[$F{codeModeleEcriture}+'-'+$F{libelleModeleEcriture}]]></expression>
+				</element>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="5"/>
+		</groupFooter>
+	</group>
+	<background splitType="Stretch"/>
+	<title height="64" splitType="Stretch">
+		<element kind="textField" uuid="6e4a26db-2fab-4881-82a8-1ef14d9dac2e" x="0" y="4" width="230" height="20" fontName="Segoe UI">
+			<expression><![CDATA["Cotonou le, " + $P{letterDate}]]></expression>
+		</element>
+		<element kind="textField" uuid="c252770e-1044-4788-b8d6-4f33558a2b8c" mode="Transparent" x="0" y="30" width="551" height="29" forecolor="#0E1E61" backcolor="#BDD7EE" fontName="Segoe UI" bold="true" hTextAlign="Center" vTextAlign="Middle">
+			<expression><![CDATA["LISTE DES PROCEDURES COMPTABLES"]]></expression>
+			<box>
+				<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+			</box>
+		</element>
+	</title>
+	<pageHeader splitType="Stretch"/>
+	<columnHeader splitType="Stretch"/>
+	<detail>
+		<band height="30" splitType="Stretch">
+			<element kind="rectangle" uuid="af571b25-c92a-4aa0-868f-0d3da2714c1c" stretchType="ContainerHeight" x="1" y="0" width="550" height="30"/>
+			<element kind="line" uuid="702c83cd-882d-4e4b-9fe4-3c6ccf2dc501" x="83" y="0" width="1" height="30"/>
+			<element kind="line" uuid="cea3c446-549f-4294-a438-450516897284" x="171" y="0" width="1" height="30"/>
+			<element kind="textField" uuid="3ffcd5fa-f4fb-428c-a2d1-748c695cb090" x="4" y="3" width="76" height="20" textAdjust="StretchHeight">
+				<expression><![CDATA[$F{debit}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d83b3406-4dce-4099-85bf-03e8815fda14"/>
+			</element>
+			<element kind="textField" uuid="f5bc493c-f59b-4b70-b85f-cd1271e40545" x="89" y="3" width="81" height="20">
+				<expression><![CDATA[$F{credit}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="9f65282b-2e11-4df8-a751-dbb2c331eedd"/>
+			</element>
+			<element kind="textField" uuid="924286b8-1782-4db2-984f-be9593316bb0" x="430" y="3" width="115" height="20" textAdjust="StretchHeight" blankWhenNull="true" hTextAlign="Right">
+				<expression><![CDATA[$F{libelleFormule}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="80fe44ac-5c90-435f-ae6f-4d9bd5d385dc"/>
+			</element>
+			<element kind="line" uuid="dd89474c-5289-4a6f-bf02-afcc0b05eb91" x="425" y="0" width="1" height="30"/>
+			<element kind="textField" uuid="ac181265-948e-41a6-a9bd-6b3bfdc0c8f1" x="176" y="3" width="249" height="20">
+				<expression><![CDATA[$F{libelleCompteComptable}]]></expression>
+			</element>
+		</band>
+	</detail>
+	<columnFooter splitType="Stretch">
+		<property name="com.jaspersoft.studio.unit.height" value="px"/>
+	</columnFooter>
+	<pageFooter height="33" splitType="Stretch">
+		<element kind="staticText" uuid="437ee144-9fab-4e4e-97bb-ea08801d33a6" x="0" y="6" width="120" height="26" fontName="Segoe UI">
+			<text><![CDATA[Edité avec OPCCIEL 2.0]]></text>
+		</element>
+		<element kind="textField" uuid="03971cb5-88c9-4cd4-a41c-de74636655f0" x="450" y="6" width="100" height="25" hTextAlign="Right">
+			<expression><![CDATA[$V{PAGE_NUMBER}]]></expression>
+		</element>
+	</pageFooter>
+	<summary height="53" splitType="Stretch"/>
+</jasperReport>
