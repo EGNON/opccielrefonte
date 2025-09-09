@@ -1,0 +1,276 @@
+<!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 7.0.1-573496633c2b4074e32f433154b543003f7d2498  -->
+<jasperReport name="Poins_souscription_personne" language="java" columnCount="1" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topmargin="20" bottomMargin="20" uuid="6de26f01-fb53-4f34-8d44-284d600effa3">
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topmargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<parameter name="letterDate" class="java.lang.String"/>
+	<field name="idOpcvm" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="idOpcvm"/>
+		<property name="com.jaspersoft.studio.field.label" value="idOpcvm"/>
+	</field>
+	<field name="designationOpcvm" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="designationOpcvm"/>
+		<property name="com.jaspersoft.studio.field.label" value="designationOpcvm"/>
+	</field>
+	<field name="pp" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="pp"/>
+		<property name="com.jaspersoft.studio.field.label" value="pp"/>
+	</field>
+	<field name="pm" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="pm"/>
+		<property name="com.jaspersoft.studio.field.label" value="pm"/>
+	</field>
+	<field name="partpp" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="partpp"/>
+		<property name="com.jaspersoft.studio.field.label" value="partpp"/>
+	</field>
+	<field name="partpm" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="partpm"/>
+		<property name="com.jaspersoft.studio.field.label" value="partpm"/>
+	</field>
+	<field name="com" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="com"/>
+		<property name="com.jaspersoft.studio.field.label" value="com"/>
+	</field>
+	<field name="type" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="type"/>
+		<property name="com.jaspersoft.studio.field.label" value="type"/>
+	</field>
+	<field name="dateDeb" class="java.time.LocalDateTime">
+		<property name="com.jaspersoft.studio.field.name" value="dateDeb"/>
+		<property name="com.jaspersoft.studio.field.label" value="dateDeb"/>
+	</field>
+	<field name="dateFin" class="java.time.LocalDateTime">
+		<property name="com.jaspersoft.studio.field.name" value="dateFin"/>
+		<property name="com.jaspersoft.studio.field.label" value="dateFin"/>
+	</field>
+	<variable name="pp1" resetType="Group" calculation="Sum" resetGroup="Group1" class="java.math.BigDecimal">
+		<expression><![CDATA[$F{pp}]]></expression>
+	</variable>
+	<variable name="partpp1" resetType="Group" calculation="Sum" resetGroup="Group1" class="java.math.BigDecimal">
+		<expression><![CDATA[$F{partpp}]]></expression>
+	</variable>
+	<variable name="pm1" resetType="Group" calculation="Sum" resetGroup="Group1" class="java.math.BigDecimal">
+		<expression><![CDATA[$F{pm}]]></expression>
+	</variable>
+	<variable name="partpm1" resetType="Group" calculation="Sum" resetGroup="Group1" class="java.math.BigDecimal">
+		<expression><![CDATA[$F{partpm}]]></expression>
+	</variable>
+	<variable name="pp2" resetType="Group" calculation="Sum" resetGroup="Group1" class="java.math.BigDecimal">
+		<expression><![CDATA[$F{pp}]]></expression>
+	</variable>
+	<variable name="com1" resetType="Group" calculation="Sum" resetGroup="Group1" class="java.math.BigDecimal">
+		<expression><![CDATA[$F{com}]]></expression>
+	</variable>
+	<variable name="pp3" resetType="Group" calculation="Sum" resetGroup="Group1" class="java.math.BigDecimal">
+		<expression><![CDATA[$F{pp}]]></expression>
+	</variable>
+	<group name="Group1">
+		<expression><![CDATA[$F{dateDeb}]]></expression>
+		<groupHeader>
+			<band height="54">
+				<element kind="rectangle" uuid="8c39516f-3f2c-4735-b2ba-a4c29aecd819" x="0" y="7" width="800" height="45" backcolor="#BDD7EE">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="staticText" uuid="462d1936-de1e-435f-a1f7-d59631ebbad9" x="5" y="27" width="154" height="18" bold="true" hTextAlign="Center">
+					<text><![CDATA[DENOMINATION]]></text>
+				</element>
+				<element kind="staticText" uuid="eea8a684-303b-4d1c-b169-9ee5aad85c4b" x="220" y="14" width="90" height="18" bold="true" hTextAlign="Center">
+					<text><![CDATA[Per.Physique]]></text>
+				</element>
+				<element kind="staticText" uuid="1684827e-e266-4f99-b6f3-402f39dbfcaf" x="398" y="14" width="90" height="18" bold="true" hTextAlign="Center">
+					<text><![CDATA[Per.Morale]]></text>
+				</element>
+				<element kind="staticText" uuid="5f1a229e-d820-4283-96f6-c281024f0903" x="575" y="14" width="90" height="18" bold="true" hTextAlign="Center">
+					<text><![CDATA[TOTAL]]></text>
+				</element>
+				<element kind="line" uuid="963faf80-6912-4213-944c-5a7475cdca25" x="175" y="8" width="1" height="43">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="line" uuid="09adc60a-bb4f-445c-a5f0-28c49630a32b" x="356" y="8" width="1" height="43">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="line" uuid="d9af7572-8111-4ed8-86b6-a13578321abe" x="530" y="8" width="1" height="43">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="line" uuid="dbc60c30-c5e6-4372-bcbd-c1160d4a73bc" x="705" y="8" width="1" height="43">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="rectangle" uuid="5bb1bcb8-bd24-4fec-b7fe-8c34506ed52a" x="179" y="35" width="83" height="15" backcolor="#F0F0F0">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="rectangle" uuid="63076d28-80b5-409f-aa8a-9c95eddf13c7" x="264" y="35" width="89" height="15" backcolor="#F0F0F0">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="rectangle" uuid="e11d2be7-c16c-4c16-864a-9a107afaf6d6" x="361" y="35" width="80" height="15" backcolor="#F0F0F0">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="rectangle" uuid="90fd201b-0efd-475e-9a44-139dbcf20314" x="443" y="35" width="84" height="15" backcolor="#F0F0F0">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="rectangle" uuid="fa2b6a96-b221-4311-97aa-b0db3d105629" x="536" y="35" width="80" height="15" backcolor="#F0F0F0">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="rectangle" uuid="aab65d67-6ae5-4d63-a420-45e9ba99e214" x="618" y="35" width="82" height="15" backcolor="#F0F0F0">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="staticText" uuid="7e8a6c7f-7504-4faf-8d63-fb4baad0ffe5" x="715" y="27" width="75" height="18" bold="true" hTextAlign="Center">
+					<text><![CDATA[COMMISSION]]></text>
+				</element>
+				<element kind="staticText" uuid="f4bd930a-8d14-47e1-8f64-41dd51a6e3c1" x="189" y="36" width="68" height="14" hTextAlign="Center">
+					<text><![CDATA[Montants]]></text>
+				</element>
+				<element kind="staticText" uuid="def9cfc1-0c8f-483e-8168-e7cb571763e5" x="270" y="35" width="68" height="14" hTextAlign="Center">
+					<text><![CDATA[Parts]]></text>
+				</element>
+				<element kind="staticText" uuid="800cf14c-916f-48a2-b345-95d69433d076" x="371" y="36" width="68" height="14" hTextAlign="Center">
+					<text><![CDATA[Montants]]></text>
+				</element>
+				<element kind="staticText" uuid="5c4f3d98-41ed-41f8-b9ee-9f6826891782" x="447" y="35" width="68" height="14" hTextAlign="Center">
+					<text><![CDATA[Parts]]></text>
+				</element>
+				<element kind="staticText" uuid="0654acd0-89bc-4545-9738-22dbaa6e2418" x="545" y="36" width="68" height="14" hTextAlign="Center">
+					<text><![CDATA[Montants]]></text>
+				</element>
+				<element kind="staticText" uuid="642959fe-2994-4778-8c48-809fe09447ae" x="621" y="35" width="68" height="14" hTextAlign="Center">
+					<text><![CDATA[Parts]]></text>
+				</element>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="40">
+				<element kind="rectangle" uuid="d444dc3d-2239-4739-9bf9-bd9e690984d3" x="0" y="0" width="800" height="29" backcolor="#BDD7EE">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="line" uuid="ca0ca96a-1bf8-48af-b691-d7ff753785a4" x="264" y="0" width="1" height="29">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="line" uuid="5265a6d1-a3c4-4b9e-a2db-11e90862f595" x="705" y="0" width="1" height="29">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="line" uuid="b00d0b33-5199-46ef-be61-e1c275bb09ab" x="617" y="0" width="1" height="29">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="line" uuid="8ecd9481-00ed-4036-a8df-e2268cf2120d" x="442" y="0" width="1" height="29">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="line" uuid="f6178e92-9724-4d46-b201-4683cfb60d3a" x="356" y="0" width="1" height="29">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="line" uuid="c80ac6b6-8943-4ac9-9a9f-1c64fedc4b0f" x="175" y="0" width="1" height="29">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="line" uuid="05cf729d-c116-43df-ac74-288432f6cad9" x="530" y="0" width="1" height="29">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="staticText" uuid="929cdbb3-6fcd-483b-989e-3d7beb9eacb8" x="5" y="6" width="154" height="18" bold="true" hTextAlign="Center">
+					<text><![CDATA[TOTAL]]></text>
+				</element>
+				<element kind="textField" uuid="5e161661-6722-4cb2-9c71-d223e35f21bf" x="180" y="6" width="78" height="18" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+					<expression><![CDATA[$V{pp1}]]></expression>
+				</element>
+				<element kind="textField" uuid="cd24ff80-ff5d-45d8-bede-3fef13e833f2" x="268" y="6" width="86" height="18" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+					<expression><![CDATA[$V{partpp1}]]></expression>
+				</element>
+				<element kind="textField" uuid="fb81a12a-b42d-4b47-9a8d-defe58a49461" x="362" y="6" width="78" height="18" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+					<expression><![CDATA[$V{pm1}]]></expression>
+				</element>
+				<element kind="textField" uuid="ebf1241d-f3da-4c43-8934-6bd2fd49cde4" x="447" y="6" width="81" height="18" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+					<expression><![CDATA[$V{partpm1}]]></expression>
+				</element>
+				<element kind="textField" uuid="9055aaf7-9e4e-420e-9e45-00ed9351f726" x="723" y="6" width="60" height="18" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+					<expression><![CDATA[$V{com1}]]></expression>
+				</element>
+				<element kind="textField" uuid="d5cf15c2-6bb1-4210-b320-6995ae07f4d4" x="536" y="6" width="77" height="18" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+					<expression><![CDATA[SUM($V{pp1},$V{pm1} )]]></expression>
+				</element>
+				<element kind="textField" uuid="34a6b6b0-98c2-44f4-9ef6-e0ed6bd9161a" x="622" y="6" width="81" height="18" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+					<expression><![CDATA[SUM($V{pp1},$V{pm1} )]]></expression>
+				</element>
+			</band>
+		</groupFooter>
+	</group>
+	<background splitType="Stretch"/>
+	<title height="71" splitType="Stretch">
+		<element kind="rectangle" uuid="d13c5393-7333-486b-8688-fc2775ea6f94" x="0" y="25" width="800" height="45" backcolor="#BDD7EE">
+			<pen lineColor="#3B88D1"/>
+		</element>
+		<element kind="textField" uuid="fccf72ce-47e9-48ec-be19-cd07042395af" x="3" y="3" width="217" height="16">
+			<expression><![CDATA["Cotonou, le "+$P{letterDate}]]></expression>
+		</element>
+		<element kind="textField" uuid="cc1bdd9f-57ad-4828-8693-1b5bfefb20c5" x="166" y="43" width="460" height="16" hTextAlign="Center">
+			<expression><![CDATA["POINT DES "+$F{type} +" PAR TYPE DE PERSONNE DU "+$F{dateDeb}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy")) + "AU " + $F{dateFin}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"))]]></expression>
+		</element>
+	</title>
+	<pageHeader splitType="Stretch"/>
+	<columnHeader splitType="Stretch"/>
+	<detail>
+		<band height="26" splitType="Stretch">
+			<element kind="rectangle" uuid="b61cd174-8e26-4f1a-99a7-fad20075aae4" x="0" y="0" width="800" height="25" backcolor="#FFFFFF">
+				<pen lineColor="#3B88D1"/>
+			</element>
+			<element kind="line" uuid="3d0b45d6-9643-4568-8a34-d5d8982287b1" x="175" y="0" width="1" height="25">
+				<pen lineColor="#3B88D1"/>
+			</element>
+			<element kind="line" uuid="411cd63e-f0f1-418c-948f-4d2e54ef26bf" x="442" y="0" width="1" height="25">
+				<pen lineColor="#3B88D1"/>
+			</element>
+			<element kind="line" uuid="17abc350-7c7e-4d3b-821a-123531acdd03" x="617" y="0" width="1" height="25">
+				<pen lineColor="#3B88D1"/>
+			</element>
+			<element kind="line" uuid="cd777b36-4ca0-45e4-9e79-97370999b20d" x="705" y="0" width="1" height="25">
+				<pen lineColor="#3B88D1"/>
+			</element>
+			<element kind="line" uuid="46898bd4-d66a-4d22-affd-11c9b6646d32" x="264" y="0" width="1" height="25">
+				<pen lineColor="#3B88D1"/>
+			</element>
+			<element kind="line" uuid="ed7ba053-2964-4278-a24a-ac46d8e360a5" x="356" y="0" width="1" height="25">
+				<pen lineColor="#3B88D1"/>
+			</element>
+			<element kind="line" uuid="ab669771-674c-4f84-bae5-14507d6120d2" x="530" y="0" width="1" height="25">
+				<pen lineColor="#3B88D1"/>
+			</element>
+			<element kind="textField" uuid="eaa5e9e5-8d7c-4854-b3d5-d82deb20c28c" x="5" y="6" width="161" height="13">
+				<expression><![CDATA[$F{designationOpcvm}]]></expression>
+			</element>
+			<element kind="textField" uuid="dc6d7c44-583b-4e30-abbf-6c6a76861c94" x="180" y="6" width="78" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{pp}]]></expression>
+			</element>
+			<element kind="textField" uuid="03b7768e-9281-4794-b58d-a22e0afe0b00" x="268" y="6" width="86" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{partpp}]]></expression>
+			</element>
+			<element kind="textField" uuid="4d47c9fe-5ef9-4cb4-a93a-01395e430f87" x="362" y="6" width="78" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{pm}]]></expression>
+			</element>
+			<element kind="textField" uuid="a3a79fb2-7347-4a27-85b4-44a78aaf82b6" x="447" y="6" width="81" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{partpm}]]></expression>
+			</element>
+			<element kind="textField" uuid="8960543e-e55d-4099-8f12-6db2ef4c358a" x="536" y="6" width="77" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[SUM($F{pp}, $F{pm} )]]></expression>
+			</element>
+			<element kind="textField" uuid="c82bd226-64ff-419f-85be-a1d738970bbe" x="622" y="6" width="78" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[SUM($F{partpp},$F{partpm} )]]></expression>
+			</element>
+			<element kind="textField" uuid="ffd978b2-64f0-40bb-88f0-e8e146d5fd61" x="723" y="6" width="60" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{com}]]></expression>
+			</element>
+		</band>
+	</detail>
+	<columnFooter splitType="Stretch"/>
+	<pageFooter height="41" splitType="Stretch">
+		<element kind="staticText" uuid="e9901503-7c5c-4f42-a38b-72e02543d2a8" x="5" y="10" width="126" height="13">
+			<text><![CDATA[Edité avec OPCCIEL 2.0]]></text>
+		</element>
+		<element kind="textField" uuid="93e5d8db-861b-4ea8-ab8d-bce00d2c8b6b" x="690" y="10" width="100" height="20" hTextAlign="Right">
+			<expression><![CDATA[$V{PAGE_NUMBER}]]></expression>
+		</element>
+	</pageFooter>
+	<summary height="42" splitType="Stretch"/>
+</jasperReport>

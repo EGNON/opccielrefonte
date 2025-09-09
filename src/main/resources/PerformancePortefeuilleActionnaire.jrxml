@@ -9,7 +9,7 @@
 		<property name="com.jaspersoft.studio.field.name" value="dateFin"/>
 		<property name="com.jaspersoft.studio.field.label" value="dateFin"/>
 	</field>
-	<field name="idActionnaire" class="java.math.BigDecimal">
+	<field name="idActionnaire" class="java.lang.Long">
 		<property name="com.jaspersoft.studio.field.name" value="idActionnaire"/>
 		<property name="com.jaspersoft.studio.field.label" value="idActionnaire"/>
 	</field>
@@ -17,7 +17,7 @@
 		<property name="com.jaspersoft.studio.field.name" value="intitule"/>
 		<property name="com.jaspersoft.studio.field.label" value="intitule"/>
 	</field>
-	<field name="idOpcvm" class="java.math.BigDecimal">
+	<field name="idOpcvm" class="java.lang.Long">
 		<property name="com.jaspersoft.studio.field.name" value="idOpcvm"/>
 		<property name="com.jaspersoft.studio.field.label" value="idOpcvm"/>
 	</field>
@@ -69,7 +69,7 @@
 		<property name="com.jaspersoft.studio.field.name" value="rendementAnnuel"/>
 		<property name="com.jaspersoft.studio.field.label" value="rendementAnnuel"/>
 	</field>
-	<group name="Group1">
+	<group name="Group1" startNewPage="true">
 		<expression><![CDATA[$F{idActionnaire}]]></expression>
 		<groupHeader>
 			<band height="96">

@@ -1,0 +1,389 @@
+<!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 7.0.1-573496633c2b4074e32f433154b543003f7d2498  -->
+<jasperReport name="Frais_fonctionnement" language="java" columnCount="1" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="aabaf668-286c-4586-940a-84c7ec055731">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="db_opcciel_data_adapter"/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<parameter name="letterDate" class="java.lang.String"/>
+	<query language="SQL"><![CDATA[select * from Impressions.FT_PointDesFraisDeFonctionnement (null,'29/08/2015','29/08/2020')]]></query>
+	<field name="idOpcvm" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="idOpcvm"/>
+		<property name="com.jaspersoft.studio.field.label" value="idOpcvm"/>
+	</field>
+	<field name="denominationOpcvm" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="denominationOpcvm"/>
+		<property name="com.jaspersoft.studio.field.label" value="denominationOpcvm"/>
+	</field>
+	<field name="provisionDCBR" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="provisionDCBR"/>
+		<property name="com.jaspersoft.studio.field.label" value="provisionDCBR"/>
+	</field>
+	<field name="reelDCBR" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="reelDCBR"/>
+		<property name="com.jaspersoft.studio.field.label" value="reelDCBR"/>
+	</field>
+	<field name="ecartDCBR" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="ecartDCBR"/>
+		<property name="com.jaspersoft.studio.field.label" value="ecartDCBR"/>
+	</field>
+	<field name="provisionGestionnaire" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="provisionGestionnaire"/>
+		<property name="com.jaspersoft.studio.field.label" value="provisionGestionnaire"/>
+	</field>
+	<field name="reelGestionnaire" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="reelGestionnaire"/>
+		<property name="com.jaspersoft.studio.field.label" value="reelGestionnaire"/>
+	</field>
+	<field name="ecartGestionnaire" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="ecartGestionnaire"/>
+		<property name="com.jaspersoft.studio.field.label" value="ecartGestionnaire"/>
+	</field>
+	<field name="provisionCREPMF" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="provisionCREPMF"/>
+		<property name="com.jaspersoft.studio.field.label" value="provisionCREPMF"/>
+	</field>
+	<field name="reelCREPMF" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="reelCREPMF"/>
+		<property name="com.jaspersoft.studio.field.label" value="reelCREPMF"/>
+	</field>
+	<field name="ecartCREPMF" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="ecartCREPMF"/>
+		<property name="com.jaspersoft.studio.field.label" value="ecartCREPMF"/>
+	</field>
+	<field name="provisionComSurActif" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="provisionComSurActif"/>
+		<property name="com.jaspersoft.studio.field.label" value="provisionComSurActif"/>
+	</field>
+	<field name="reelComSurActif" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="reelComSurActif"/>
+		<property name="com.jaspersoft.studio.field.label" value="reelComSurActif"/>
+	</field>
+	<field name="ecartComSurActif" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="ecartComSurActif"/>
+		<property name="com.jaspersoft.studio.field.label" value="ecartComSurActif"/>
+	</field>
+	<field name="provisionCAC" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="provisionCAC"/>
+		<property name="com.jaspersoft.studio.field.label" value="provisionCAC"/>
+	</field>
+	<field name="reelCAC" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="reelCAC"/>
+		<property name="com.jaspersoft.studio.field.label" value="reelCAC"/>
+	</field>
+	<field name="ecartCAC" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="ecartCAC"/>
+		<property name="com.jaspersoft.studio.field.label" value="ecartCAC"/>
+	</field>
+	<field name="dateDeb" class="java.time.LocalDateTime">
+		<property name="com.jaspersoft.studio.field.name" value="dateDeb"/>
+		<property name="com.jaspersoft.studio.field.label" value="dateDeb"/>
+	</field>
+	<field name="dateFin" class="java.time.LocalDateTime">
+		<property name="com.jaspersoft.studio.field.name" value="dateFin"/>
+		<property name="com.jaspersoft.studio.field.label" value="dateFin"/>
+	</field>
+	<variable name="provisionDCBR1" resetType="Group" calculation="Sum" resetGroup="Group1" class="java.math.BigDecimal">
+		<expression><![CDATA[$F{provisionDCBR}]]></expression>
+	</variable>
+	<variable name="reelDCBR1" resetType="Group" calculation="Sum" resetGroup="Group1" class="java.math.BigDecimal">
+		<expression><![CDATA[$F{reelDCBR}]]></expression>
+	</variable>
+	<variable name="provisionGestionnaire1" resetType="Group" calculation="Sum" resetGroup="Group1" class="java.math.BigDecimal">
+		<expression><![CDATA[$F{provisionGestionnaire}]]></expression>
+	</variable>
+	<variable name="reelGestionnaire1" resetType="Group" calculation="Sum" resetGroup="Group1" class="java.math.BigDecimal">
+		<expression><![CDATA[$F{reelGestionnaire}]]></expression>
+	</variable>
+	<variable name="provisionCREPMF1" resetType="Group" calculation="Sum" resetGroup="Group1" class="java.math.BigDecimal">
+		<expression><![CDATA[$F{provisionCREPMF}]]></expression>
+	</variable>
+	<variable name="reelCREPMF1" resetType="Group" calculation="Sum" resetGroup="Group1" class="java.math.BigDecimal">
+		<expression><![CDATA[$F{reelCREPMF}]]></expression>
+	</variable>
+	<variable name="provisionComSurActif1" resetType="Group" calculation="Sum" resetGroup="Group1" class="java.math.BigDecimal">
+		<expression><![CDATA[$F{provisionComSurActif}]]></expression>
+	</variable>
+	<variable name="reelComSurActif1" resetType="Group" calculation="Sum" resetGroup="Group1" class="java.math.BigDecimal">
+		<expression><![CDATA[$F{reelComSurActif}]]></expression>
+	</variable>
+	<variable name="provisionCAC1" resetType="Group" calculation="Sum" resetGroup="Group1" class="java.math.BigDecimal">
+		<expression><![CDATA[$F{provisionCAC}]]></expression>
+	</variable>
+	<variable name="reelCAC1" resetType="Group" calculation="Sum" resetGroup="Group1" class="java.math.BigDecimal">
+		<expression><![CDATA[$F{reelCAC}]]></expression>
+	</variable>
+	<group name="Group1">
+		<expression><![CDATA[$F{dateDeb}]]></expression>
+		<groupHeader>
+			<band height="54">
+				<element kind="rectangle" uuid="93a61d5e-9a33-427f-a2df-8b98c3f37ad2" x="0" y="9" width="800" height="45" backcolor="#BDD7EE">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="staticText" uuid="33b0c2da-8e21-4fa4-ae75-f267e4958b7b" x="5" y="29" width="154" height="18" bold="true" hTextAlign="Center">
+					<text><![CDATA[DENOMINATION]]></text>
+				</element>
+				<element kind="staticText" uuid="e7510d63-b8c0-4f19-bfd4-2d7c789a348c" x="193" y="16" width="90" height="18" bold="true" hTextAlign="Center">
+					<text><![CDATA[DEPOSITAIRE]]></text>
+				</element>
+				<element kind="staticText" uuid="81fa9216-43c1-4059-9492-b4b67844a3c9" x="317" y="16" width="90" height="18" bold="true" hTextAlign="Center">
+					<text><![CDATA[GESTIONNAIRE]]></text>
+				</element>
+				<element kind="staticText" uuid="92b74bd9-b253-4f41-a364-0d313145a1eb" x="443" y="16" width="90" height="18" bold="true" hTextAlign="Center">
+					<text><![CDATA[CREPMF]]></text>
+				</element>
+				<element kind="staticText" uuid="a7e03903-e692-4bb1-9d66-6d0c02bf1a59" x="565" y="16" width="90" height="18" bold="true" hTextAlign="Center">
+					<text><![CDATA[COM/ACTIF]]></text>
+				</element>
+				<element kind="staticText" uuid="956b3d08-77e9-429a-887c-6539da4b43e0" x="694" y="16" width="90" height="18" bold="true" hTextAlign="Center">
+					<text><![CDATA[CAC]]></text>
+				</element>
+				<element kind="line" uuid="6830f622-9a04-4936-961a-685bcae3af72" x="175" y="10" width="1" height="43">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="line" uuid="a0b49665-79ce-4de3-b29f-16bd9d851cd0" x="300" y="10" width="1" height="43">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="line" uuid="b81b49f8-b618-45ab-a5c2-4776ab2feb89" x="425" y="10" width="1" height="43">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="line" uuid="d39c5d5b-9f5e-4670-ad2a-4bb012bf80cb" x="550" y="10" width="1" height="43">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="line" uuid="5d59bf17-b214-4086-bd8b-47df7dffabe6" x="675" y="10" width="1" height="43">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="rectangle" uuid="1ef1cbfc-340f-43e4-9ac5-bf32cca890c2" x="178" y="37" width="59" height="15" backcolor="#F0F0F0">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="rectangle" uuid="0898ed30-da74-4807-ae42-a5220e5ed129" x="239" y="37" width="59" height="15" backcolor="#F0F0F0">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="rectangle" uuid="65877cae-1e1a-4b41-ab73-6e49546d29dc" x="303" y="37" width="59" height="15" backcolor="#F0F0F0">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="rectangle" uuid="f04f0e6c-33fa-48fc-a8d0-13f11f87f1ba" x="364" y="37" width="59" height="15" backcolor="#F0F0F0">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="rectangle" uuid="5e822449-9b9d-4cf7-a14b-0ebe9bd4be76" x="428" y="37" width="59" height="15" backcolor="#F0F0F0">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="rectangle" uuid="ff1441a4-dd58-46bd-a5bc-4d9c6907235e" x="489" y="37" width="59" height="15" backcolor="#F0F0F0">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="rectangle" uuid="9cb69eb1-5146-47bf-ad59-d9c341c853d2" x="553" y="37" width="59" height="15" backcolor="#F0F0F0">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="rectangle" uuid="97d790e2-acb1-48bd-9990-389cc33d4624" x="614" y="37" width="59" height="15" backcolor="#F0F0F0">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="rectangle" uuid="b99d62a3-0e37-4dc9-b639-67ef9d503da5" x="678" y="37" width="59" height="15" backcolor="#F0F0F0">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="rectangle" uuid="31f54d3d-ad62-42ae-9c3e-f0a31e7bd0c6" x="739" y="37" width="59" height="15" backcolor="#F0F0F0">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="staticText" uuid="893ea436-3a8d-49d9-a419-032c4d2e32be" x="183" y="38" width="55" height="14" hTextAlign="Center">
+					<text><![CDATA[Prov.]]></text>
+				</element>
+				<element kind="staticText" uuid="e0276cb8-8f11-442e-b4f2-4ebea5e99e9a" x="244" y="38" width="55" height="14" hTextAlign="Center">
+					<text><![CDATA[Réel]]></text>
+				</element>
+				<element kind="staticText" uuid="418a1907-be68-412f-ac31-7fdd243639b4" x="369" y="38" width="55" height="14" hTextAlign="Center">
+					<text><![CDATA[Réel]]></text>
+				</element>
+				<element kind="staticText" uuid="9bbfc73c-2095-4f41-bc19-a40e7bac99d0" x="308" y="38" width="55" height="14" hTextAlign="Center">
+					<text><![CDATA[Prov.]]></text>
+				</element>
+				<element kind="staticText" uuid="0e8ecaa1-b757-42b1-8aed-7ec7450918a8" x="494" y="38" width="55" height="14" hTextAlign="Center">
+					<text><![CDATA[Réel]]></text>
+				</element>
+				<element kind="staticText" uuid="75eaaed6-9f19-411e-b6ef-00f8740997ce" x="433" y="38" width="55" height="14" hTextAlign="Center">
+					<text><![CDATA[Prov.]]></text>
+				</element>
+				<element kind="staticText" uuid="91acf2da-94dc-435f-88b9-7b987d96807b" x="619" y="38" width="55" height="14" hTextAlign="Center">
+					<text><![CDATA[Réel]]></text>
+				</element>
+				<element kind="staticText" uuid="e6948867-806b-4ab8-bf94-18af265a0aa2" x="558" y="38" width="55" height="14" hTextAlign="Center">
+					<text><![CDATA[Prov.]]></text>
+				</element>
+				<element kind="staticText" uuid="79a45003-dac1-4778-8c32-98063f7e405b" x="744" y="38" width="55" height="14" hTextAlign="Center">
+					<text><![CDATA[Réel]]></text>
+				</element>
+				<element kind="staticText" uuid="f51a0c92-b76a-4240-b07e-1db88a0b5da7" x="683" y="38" width="55" height="14" hTextAlign="Center">
+					<text><![CDATA[Prov.]]></text>
+				</element>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="50">
+				<element kind="rectangle" uuid="52b13cb0-f53e-45da-91a5-09f153294490" x="0" y="0" width="800" height="45" backcolor="#BDD7EE">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="staticText" uuid="1ef92742-473b-4296-90ff-c0e5a5264639" x="5" y="13" width="154" height="18" bold="true" hTextAlign="Center">
+					<text><![CDATA[TOTAL]]></text>
+				</element>
+				<element kind="line" uuid="f507c6fa-66c2-4af5-a0f1-50155cdfa887" x="175" y="0" width="1" height="45">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="line" uuid="2e320a6c-d0ee-4745-9885-d578b86e6c39" x="238" y="0" width="1" height="45">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="line" uuid="1800f6ca-7eab-4e1d-8a09-d571b0b5c533" x="300" y="0" width="1" height="45">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="line" uuid="b19d08ef-464a-42be-866b-a264a48ca6d0" x="362" y="0" width="1" height="45">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="line" uuid="01d3840f-a9d8-4d6b-b556-01615d0ea078" x="425" y="0" width="1" height="45">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="line" uuid="31a2bb1d-1729-4863-bc09-ba4bf8c848de" x="487" y="0" width="1" height="45">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="line" uuid="704ed01d-d855-4a02-8588-d71c8a3688a0" x="550" y="0" width="1" height="45">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="line" uuid="5987d996-470c-4a73-8789-2fbf2dfa39ea" x="612" y="0" width="1" height="45">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="line" uuid="8ebe44e6-7327-4dfb-b618-658daa504013" x="675" y="0" width="1" height="45">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="line" uuid="1402adcc-f1aa-4b67-94e1-aff7570c3f82" x="737" y="0" width="1" height="45">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="textField" uuid="ca4a8bf2-becf-4e2b-bffd-c5bd91890d1e" x="180" y="13" width="55" height="18" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+					<expression><![CDATA[$V{provisionDCBR1}]]></expression>
+				</element>
+				<element kind="textField" uuid="cae28ac4-c016-4f30-81e4-68b5390b3eb9" x="241" y="13" width="55" height="18" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+					<expression><![CDATA[$V{reelDCBR1}]]></expression>
+				</element>
+				<element kind="textField" uuid="f1471d2f-fb85-45e7-8c27-60389b0ef59f" x="303" y="13" width="57" height="18" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+					<expression><![CDATA[$V{provisionGestionnaire1}]]></expression>
+				</element>
+				<element kind="textField" uuid="3858e68a-8271-4173-936b-e370dffe49b2" x="366" y="13" width="55" height="18" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+					<expression><![CDATA[$V{reelGestionnaire1}]]></expression>
+				</element>
+				<element kind="textField" uuid="7f44a1f6-d42b-4c43-b929-2beff5c7553a" x="430" y="13" width="55" height="18" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+					<expression><![CDATA[$V{provisionCREPMF1}]]></expression>
+				</element>
+				<element kind="textField" uuid="c98b8bb4-97ca-4ea8-a214-461720688e6e" x="492" y="13" width="54" height="18" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+					<expression><![CDATA[$V{reelCREPMF1}]]></expression>
+				</element>
+				<element kind="textField" uuid="8b926055-0208-4c37-a1a8-757e87ecb204" x="555" y="13" width="55" height="18" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+					<expression><![CDATA[$V{provisionComSurActif1}]]></expression>
+				</element>
+				<element kind="textField" uuid="b7e5ab40-984c-4850-a2eb-c9d2776d3448" x="616" y="13" width="55" height="18" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+					<expression><![CDATA[$V{reelComSurActif1}]]></expression>
+				</element>
+				<element kind="textField" uuid="ab201466-2bf0-46be-9416-2b390a5e55e0" x="680" y="13" width="55" height="18" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+					<expression><![CDATA[$V{provisionCAC1}]]></expression>
+				</element>
+				<element kind="textField" uuid="18b19803-1407-442e-8539-1b52301f003b" x="741" y="13" width="55" height="18" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+					<expression><![CDATA[$V{reelCAC1}]]></expression>
+				</element>
+			</band>
+		</groupFooter>
+	</group>
+	<background splitType="Stretch"/>
+	<title height="73" splitType="Stretch">
+		<element kind="rectangle" uuid="50c884dc-4509-4dc2-8719-12ad36ade179" x="0" y="25" width="800" height="45" backcolor="#BDD7EE">
+			<pen lineColor="#3B88D1"/>
+		</element>
+		<element kind="textField" uuid="cdd24805-3b26-47a9-aecd-a535fa7204d6" x="3" y="3" width="217" height="16">
+			<expression><![CDATA["Cotonou, le "+$P{letterDate}]]></expression>
+		</element>
+		<element kind="textField" uuid="6d2c9e19-5e54-4d4c-a699-ac10588c64e1" x="166" y="43" width="460" height="16" hTextAlign="Center">
+			<expression><![CDATA["ETAT DE FRAIS DE FONCTIONNEMENT DU "+$F{dateDeb}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy")) +" AU "+$F{dateFin}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"))]]></expression>
+		</element>
+	</title>
+	<pageHeader splitType="Stretch"/>
+	<columnHeader splitType="Stretch"/>
+	<detail>
+		<band height="39" splitType="Stretch">
+			<element kind="rectangle" uuid="d7275da6-1e01-4159-b1c7-1e9036ae3f42" x="0" y="0" width="800" height="38" backcolor="#FFFFFF">
+				<pen lineColor="#3B88D1"/>
+			</element>
+			<element kind="line" uuid="35d60667-a4bf-42f8-b165-5aa7af309485" x="175" y="0" width="1" height="37">
+				<pen lineColor="#3B88D1"/>
+			</element>
+			<element kind="line" uuid="c770da6a-9ae4-4bf6-8e64-a0ccd2e67cd7" x="300" y="0" width="1" height="37">
+				<pen lineColor="#3B88D1"/>
+			</element>
+			<element kind="line" uuid="af9b9866-c9fb-4b05-b01c-92510dd404f6" x="425" y="0" width="1" height="37">
+				<pen lineColor="#3B88D1"/>
+			</element>
+			<element kind="line" uuid="48e7b267-3fb4-484e-a1ca-dea3a7697ab2" x="550" y="0" width="1" height="37">
+				<pen lineColor="#3B88D1"/>
+			</element>
+			<element kind="line" uuid="894d6754-352b-4d8b-9097-f4a7cde68831" x="675" y="0" width="1" height="37">
+				<pen lineColor="#3B88D1"/>
+			</element>
+			<element kind="textField" uuid="31e9a59e-bace-406d-bc09-4cb5a9ceece7" x="5" y="10" width="165" height="18">
+				<expression><![CDATA[$F{denominationOpcvm}]]></expression>
+			</element>
+			<element kind="line" uuid="668d4ab9-433b-41cd-b042-6bc69f5ef529" x="238" y="0" width="1" height="37">
+				<pen lineColor="#3B88D1"/>
+			</element>
+			<element kind="line" uuid="a696609f-4744-4dfb-a32c-1eb893982486" x="362" y="0" width="1" height="37">
+				<pen lineColor="#3B88D1"/>
+			</element>
+			<element kind="line" uuid="bbb26c58-1773-4959-a51a-02ee2cddae98" x="487" y="0" width="1" height="37">
+				<pen lineColor="#3B88D1"/>
+			</element>
+			<element kind="line" uuid="3e629962-58fd-4174-9ebd-3377f01b264d" x="612" y="0" width="1" height="37">
+				<pen lineColor="#3B88D1"/>
+			</element>
+			<element kind="line" uuid="eaaa7d37-b553-47fb-91cd-fd7c9196a375" x="737" y="0" width="1" height="37">
+				<pen lineColor="#3B88D1"/>
+			</element>
+			<element kind="textField" uuid="b2ed1b43-8f04-465d-83e3-cb39d7460a55" x="180" y="9" width="55" height="19" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{provisionDCBR}]]></expression>
+			</element>
+			<element kind="textField" uuid="3154fe7d-753d-4340-8588-12750bfe1e26" x="241" y="9" width="55" height="19" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{reelDCBR}]]></expression>
+			</element>
+			<element kind="textField" uuid="def44454-676a-4e01-85a1-e6976091d9b0" x="305" y="9" width="55" height="19" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{provisionGestionnaire}]]></expression>
+			</element>
+			<element kind="textField" uuid="764d0973-72f5-4f01-b63b-5f74c19757f4" x="366" y="10" width="55" height="18" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{reelGestionnaire}]]></expression>
+			</element>
+			<element kind="textField" uuid="9726114d-4764-484d-be13-979ebb01e015" x="430" y="10" width="55" height="18" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{provisionCREPMF}]]></expression>
+			</element>
+			<element kind="textField" uuid="bb39667b-62ee-49af-8e4c-5324e9a3bd75" x="491" y="10" width="55" height="18" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{reelCREPMF}]]></expression>
+			</element>
+			<element kind="textField" uuid="374182cb-2399-4395-8fff-600672c9bfdd" x="555" y="10" width="55" height="18" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{provisionComSurActif}]]></expression>
+			</element>
+			<element kind="textField" uuid="17a6b8c6-4fee-48a6-b8af-d4ab2bc33af2" x="616" y="10" width="55" height="18" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{reelComSurActif}]]></expression>
+			</element>
+			<element kind="textField" uuid="88d0a529-714d-455c-bfc3-e02c473a6aff" x="680" y="10" width="55" height="18" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{provisionCAC}]]></expression>
+			</element>
+			<element kind="textField" uuid="fd11e181-5d8d-422b-bcbc-f2352e47de36" x="741" y="10" width="55" height="18" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{reelCAC}]]></expression>
+			</element>
+		</band>
+	</detail>
+	<columnFooter splitType="Stretch"/>
+	<pageFooter height="57" splitType="Stretch">
+		<element kind="staticText" uuid="3164d7ce-8446-494f-98d0-fb8c4b452093" x="5" y="9" width="126" height="13">
+			<text><![CDATA[Edité avec OPCCIEL 2.0]]></text>
+		</element>
+		<element kind="textField" uuid="f00084b0-2acc-434a-b590-a069535c97c2" x="700" y="9" width="100" height="13" hTextAlign="Right">
+			<expression><![CDATA[$V{PAGE_NUMBER}]]></expression>
+		</element>
+	</pageFooter>
+	<summary height="42" splitType="Stretch"/>
+</jasperReport>

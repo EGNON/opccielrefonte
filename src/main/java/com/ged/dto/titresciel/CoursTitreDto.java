@@ -28,7 +28,7 @@ public class CoursTitreDto {
     private LocalDateTime dateDernModifServeur;
     private LocalDateTime dateDernModifClient;
     private String userLogin;
-    private Long numLigne;
+//    private Long numLigne;
     private Boolean supprimer;
     private byte[] rowvers;
     private Boolean estVerifie1;
@@ -198,13 +198,13 @@ public class CoursTitreDto {
         this.userLogin = userLogin;
     }
 
-    public Long getNumLigne() {
-        return numLigne;
-    }
-
-    public void setNumLigne(Long numLigne) {
-        this.numLigne = numLigne;
-    }
+//    public Long getNumLigne() {
+//        return numLigne;
+//    }
+//
+//    public void setNumLigne(Long numLigne) {
+//        this.numLigne = numLigne;
+//    }
 
     public Boolean getSupprimer() {
         return supprimer;

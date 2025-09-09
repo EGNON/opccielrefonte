@@ -5,6 +5,8 @@ import java.time.LocalDateTime;
 
 public interface EtatsSuiviActionnaireProjection {
     Long getIdOpcvm();
+    LocalDateTime getDateDeb();
+    LocalDateTime getDateFin();
     String getDenominationOpcvm();
     BigDecimal getNbreInitial();
     BigDecimal getPartInitial();

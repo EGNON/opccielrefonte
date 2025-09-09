@@ -30,12 +30,12 @@ public class CoursTitre extends Base {
     private Integer resteDemande;
     private BigDecimal coursReference;
     private Boolean estValider;
-    /*private LocalDateTime dateCreationServeur;
+    private LocalDateTime dateCreationServeur;
     private LocalDateTime dateDernModifServeur;
     private LocalDateTime dateDernModifClient;
     private String userLogin;
-    private Long numLigne;
-    private Boolean supprimer;*/
+//    private Long numLigne;
+    private Boolean supprimer;
     //private byte[] rowvers;
     private Boolean estVerifie1;
     private LocalDateTime dateVerification1;
@@ -156,7 +156,7 @@ public class CoursTitre extends Base {
         this.estValider = estValider;
     }
 
-    /*public LocalDateTime getDateCreationServeur() {
+    public LocalDateTime getDateCreationServeur() {
         return dateCreationServeur;
     }
 
@@ -188,13 +188,7 @@ public class CoursTitre extends Base {
         this.userLogin = userLogin;
     }
 
-    public Long getNumLigne() {
-        return numLigne;
-    }
 
-    public void setNumLigne(Long numLigne) {
-        this.numLigne = numLigne;
-    }
 
     public Boolean getSupprimer() {
         return supprimer;
@@ -203,7 +197,7 @@ public class CoursTitre extends Base {
     public void setSupprimer(Boolean supprimer) {
         this.supprimer = supprimer;
     }
-*/
+
 //    public byte[] getRowvers() {
 //        return rowvers;
 //    }

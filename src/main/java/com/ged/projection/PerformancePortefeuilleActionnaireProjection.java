@@ -14,8 +14,8 @@ public interface PerformancePortefeuilleActionnaireProjection {
     LocalDateTime getDateOp();
     BigDecimal getSouscription();
     BigDecimal getRachat();
-    Long getPeriode();
-    Long getNbreJours();
+    BigDecimal getPeriode();
+    BigDecimal getNbreJours();
     BigDecimal getMontantPondere();
     BigDecimal getRevenuNet();
     BigDecimal getApportNet();

@@ -278,7 +278,7 @@ public class CoursTitreServiceImpl implements CoursTitreService {
     public ResponseEntity<Object> addAll(List<CoursTitreDto> coursTitreDtos, String codePlace) {
         try {
             String s = Optional.ofNullable(codePlace).orElse("");
-            List<CoursTitre> coursTitres = coursTitreDtos.stream().map(coursTitreMapper::deCoursTitreDto).toList();
+            List<CoursTitre> coursTitres = coursTitreDtos.stream().map(coursTitreMapper::deCoursTitreDto2).toList();
             if(coursTitres.size() > 0) {
                 if(!s.trim().isEmpty()) {
                     CoursTitre firstCours = coursTitres.get(0);

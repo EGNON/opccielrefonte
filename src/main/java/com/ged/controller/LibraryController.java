@@ -202,6 +202,77 @@ public class LibraryController {
     public ResponseEntity<?> etatSuiviActionnaire(@RequestBody @Valid ReleveTitreFCPRequest request) {
         return service.etatSuiviActionnaire(request);
     }
+    @PostMapping("/etatfraisfonctionnement/liste")
+    public ResponseEntity<?> etatFraisFonctionnementListe(@RequestBody @Valid ReleveTitreFCPRequest request) {
+        return service.etatFraisFonctionnementListe(request);
+    }
+    @PostMapping("/etats/etatfraisfonctionnement")
+    public ResponseEntity<Object> etatFraisFonctionnement(@RequestBody @Valid ReleveTitreFCPRequest request, HttpServletResponse response) throws JRException, IOException {
+        response.setContentType("application/pdf");
+        DateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy:hh:mm:ss");
+        String currentDateTime = dateFormatter.format(new Date());
+
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=etatFraisFonctionnement" + currentDateTime + ".pdf";
+        response.setHeader(headerKey, headerValue);
+
+        return service.etatFraisFonctionnement(request,response);
+    }
+    @PostMapping("/etatfraisfonctionnement")
+    public ResponseEntity<?> etatFraisFonctionnement(@RequestBody @Valid ReleveTitreFCPRequest request) {
+        return service.etatFraisFonctionnement(request);
+    }
+    @PostMapping("/evolutionvl/liste")
+    public ResponseEntity<?> evolutionvlListe(@RequestBody @Valid EvolutionVLRequest request) {
+        return service.evolutionVLListe(request);
+    }
+    @PostMapping("/etats/evolutionvl")
+    public ResponseEntity<Object> evolutionvl(@RequestBody @Valid EvolutionVLRequest request, HttpServletResponse response) throws JRException, IOException {
+        response.setContentType("application/pdf");
+        DateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy:hh:mm:ss");
+        String currentDateTime = dateFormatter.format(new Date());
+
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=evolutionVL" + currentDateTime + ".pdf";
+        response.setHeader(headerKey, headerValue);
+
+        return service.evolutionVL(request,response);
+    }
+    @PostMapping("/evolutionvl")
+    public ResponseEntity<?> evolutionvl(@RequestBody @Valid EvolutionVLRequest request) {
+        return service.evolutionVL(request);
+    }@PostMapping("/pointsouscriptionrachat/liste")
+    public ResponseEntity<?> pointSousriptionRachatListe(@RequestBody @Valid ReleveTitreFCPRequest request) {
+        return service.pointSouscriptionRachatListe(request);
+    }
+    @PostMapping("/etats/pointsouscription")
+    public ResponseEntity<Object> pointsouscription(@RequestBody @Valid ReleveTitreFCPRequest request, HttpServletResponse response) throws JRException, IOException {
+        response.setContentType("application/pdf");
+        DateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy:hh:mm:ss");
+        String currentDateTime = dateFormatter.format(new Date());
+
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=pointSousriptionParTypePersonne" + currentDateTime + ".pdf";
+        response.setHeader(headerKey, headerValue);
+
+        return service.pointSousriptionRachat(request,response);
+    }
+    @PostMapping("/etats/pointrachat")
+    public ResponseEntity<Object> pointrachat(@RequestBody @Valid ReleveTitreFCPRequest request, HttpServletResponse response) throws JRException, IOException {
+        response.setContentType("application/pdf");
+        DateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy:hh:mm:ss");
+        String currentDateTime = dateFormatter.format(new Date());
+
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=pointRachatParTypePersonne" + currentDateTime + ".pdf";
+        response.setHeader(headerKey, headerValue);
+
+        return service.pointSousriptionRachat(request,response);
+    }
+    @PostMapping("/pointsouscriptionrachat")
+    public ResponseEntity<?> pointsouscriptionrachat(@RequestBody @Valid ReleveTitreFCPRequest request) {
+        return service.pointSouscriptionRachat(request);
+    }
 
     @PostMapping("/etatsuiviclient/liste")
     public ResponseEntity<?> etatSuiviClientListe(@RequestBody @Valid HistoriqueActionnaireRequest request) {
@@ -218,6 +289,18 @@ public class LibraryController {
         response.setHeader(headerKey, headerValue);
 
         return service.suiviClient(request,response);
+    }
+    @PostMapping("/etats/performanceportefeuilleactionnaire")
+    public ResponseEntity<Object> performancePortefeuilleActionnaire(@RequestBody @Valid HistoriqueActionnaireRequest request, HttpServletResponse response) throws JRException, IOException {
+        response.setContentType("application/pdf");
+        DateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy:hh:mm:ss");
+        String currentDateTime = dateFormatter.format(new Date());
+
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=PerformancePortefeuilleActionnaire" + currentDateTime + ".pdf";
+        response.setHeader(headerKey, headerValue);
+
+        return service.perfomancePortefeuilleAcctionnaire(request,response);
     }
     @PostMapping("/opcvm/relevetitrefcp/liste")
     public ResponseEntity<?> releveTitreFCPListe(@RequestBody @Valid ReleveTitreFCPRequest request) {

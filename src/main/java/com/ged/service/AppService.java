@@ -21,8 +21,10 @@ import com.ged.service.opcciel.IbService;
 import com.ged.service.opcciel.OpcvmService;
 import com.ged.service.opcciel.PlanService;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.ParameterMode;
 import jakarta.persistence.PersistenceContext;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
@@ -51,7 +53,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.*;
 
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 @Service
 public class AppService {
     @PersistenceContext
@@ -79,6 +81,32 @@ public class AppService {
     private final OperationTransfertPartMapper transfertPartMapper;
     private final OperationConstatationChargeMapper constatationChargeMapper;
     private final OperationCommissionMapper commissionMapper;
+
+    public AppService(UtilisateurDao utilisateurDao, LibraryDao libraryDao, PlanService planService, OpcvmService opcvmService, IbService ibService, MouvementDao mouvementDao, OpcvmMapper opcvmMapper, OpcvmDao opcvmDao, NatureOperationMapper natureOperationMapper, TransactionDao transactionDao, OperationMapper operationMapper, FormuleDao formuleDao, OperationFormuleDao operationFormuleDao, OperationCodeAnalytiqueDao operationCodeAnalytiqueDao, NatureOperationDao natureOperationDao, JournalDao journalDao, OperationJournalDao operationJournalDao, PersonneDao personneDao, OperationSouscriptionRachatMapper souscriptionRachatMapper, OperationRestitutionReliquatMapper operationRestitutionReliquatMapper, OperationTransfertPartMapper transfertPartMapper, OperationConstatationChargeMapper constatationChargeMapper, OperationCommissionMapper commissionMapper) {
+        this.utilisateurDao = utilisateurDao;
+        this.libraryDao = libraryDao;
+        this.planService = planService;
+        this.opcvmService = opcvmService;
+        this.ibService = ibService;
+        this.mouvementDao = mouvementDao;
+        this.opcvmMapper = opcvmMapper;
+        this.opcvmDao = opcvmDao;
+        this.natureOperationMapper = natureOperationMapper;
+        this.transactionDao = transactionDao;
+        this.operationMapper = operationMapper;
+        this.formuleDao = formuleDao;
+        this.operationFormuleDao = operationFormuleDao;
+        this.operationCodeAnalytiqueDao = operationCodeAnalytiqueDao;
+        this.natureOperationDao = natureOperationDao;
+        this.journalDao = journalDao;
+        this.operationJournalDao = operationJournalDao;
+        this.personneDao = personneDao;
+        this.souscriptionRachatMapper = souscriptionRachatMapper;
+        this.operationRestitutionReliquatMapper = operationRestitutionReliquatMapper;
+        this.transfertPartMapper = transfertPartMapper;
+        this.constatationChargeMapper = constatationChargeMapper;
+        this.commissionMapper = commissionMapper;
+    }
 
     public Utilisateur currentUser(Principal principal) {
         String username = principal.getName();
@@ -235,7 +263,7 @@ public class AppService {
                 null, request.getDateDebut(),request.getDateFin());
 
         // Chargement des fichiers .jrxml depuis le classpath
-        rapportStream = getClass().getResourceAsStream("/EtatsSuivis.jrxml");
+        rapportStream = getClass().getResourceAsStream("/Points_Actionnaires.jrxml");
 //        subreportStream = getClass().getResourceAsStream("/operationDetachement.jrxml");
 
         if (rapportStream == null) {
@@ -292,6 +320,576 @@ public class AppService {
                     "Portefeuille opcvm",
                     HttpStatus.OK,
                     etatsSuiviActionnaireProjectionList);
+        }
+        catch(Exception e) {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e);
+        }
+    }
+    //cours titre
+    @Transactional
+    public ResponseEntity<?> verifCours(CoursTitreRequest request) {
+//        var parameters = request.getDatatableParameters();
+        try {
+            List<CoursTitreProjection> coursTitreProjections= libraryDao.coursTitreNew(
+                    request.getCodePlace(),request.getDateDebut(),request.getEstVerifie1(),request.getEstVerifie2()
+            );
+
+            for(CoursTitreProjection o:coursTitreProjections){
+                var q=em.createStoredProcedureQuery("[Titre].[PS_CoursTitre_UP]");
+                String sortie="";
+                q.registerStoredProcedureParameter("estVerifie1",Boolean.class, ParameterMode.IN);
+                q.registerStoredProcedureParameter("dateVerification1",LocalDateTime.class, ParameterMode.IN);
+                q.registerStoredProcedureParameter("userLoginVerificateur1",String.class, ParameterMode.IN);
+                q.registerStoredProcedureParameter("estVerifie2",Boolean.class, ParameterMode.IN);
+                q.registerStoredProcedureParameter("dateVerification2",LocalDateTime.class, ParameterMode.IN);
+                q.registerStoredProcedureParameter("userLoginVerificateur2",String.class, ParameterMode.IN);
+                q.registerStoredProcedureParameter("NumLigne",Long.class,ParameterMode.IN);
+                q.registerStoredProcedureParameter("userLogin",String.class,ParameterMode.IN);
+                q.registerStoredProcedureParameter("dateDernModifClient",LocalDateTime.class,ParameterMode.IN);
+                q.registerStoredProcedureParameter("CodeLangue",String.class,ParameterMode.IN);
+                q.registerStoredProcedureParameter("Sortie",String.class,ParameterMode.OUT);
+                if(request.getNiveau()==1){
+                    q.setParameter("estVerifie1",true);
+                    q.setParameter("dateVerification1",LocalDateTime.now());
+                    q.setParameter("userLoginVerificateur1",request.getUserLogin());
+                    q.setParameter("estVerifie2",o.getEstVerifie2());
+                    q.setParameter("dateVerification2",o.getDateVerification2());
+                    q.setParameter("userLoginVerificateur2",o.getUserLoginVerificateur2());
+                    q.setParameter("NumLigne",o.getNumLigne());
+                    q.setParameter("userLogin",request.getUserLogin());
+                    q.setParameter("dateDernModifClient",LocalDateTime.now());
+                    q.setParameter("CodeLangue","fr-FR");
+                    q.setParameter("Sortie",sortie);
+                    q.executeUpdate();
+                }
+                else
+                {
+                    q.setParameter("estVerifie1",o.getEstVerifie1());
+                    q.setParameter("dateVerification1",o.getDateVerification1());
+                    q.setParameter("userLoginVerificateur1",o.getUserLoginVerificateur1());
+                    q.setParameter("estVerifie2",true);
+                    q.setParameter("dateVerification2",LocalDateTime.now());
+                    q.setParameter("userLoginVerificateur2",request.getUserLogin());
+                    q.setParameter("NumLigne",o.getNumLigne());
+                    q.setParameter("userLogin",request.getUserLogin());
+                    q.setParameter("dateDernModifClient",LocalDateTime.now());
+                    q.setParameter("CodeLangue","fr-FR");
+                    q.setParameter("Sortie",sortie);
+                    q.executeUpdate();
+                }
+            }
+
+
+            return ResponseHandler.generateResponse(
+                    "Portefeuille opcvm",
+                    HttpStatus.OK,
+                    null);
+        }
+        catch(Exception e) {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e);
+        }
+    }
+    public ResponseEntity<?> coursTitre(CoursTitreRequest request) {
+        var parameters = request.getDatatableParameters();
+        try {
+            Pageable pageable = PageRequest.of(parameters.getStart()/ parameters.getLength(), parameters.getLength());
+            List<CoursTitreProjection> coursTitreProjections;
+
+                coursTitreProjections = libraryDao.coursTitreNew(
+                        request.getCodePlace(),request.getDateDebut(),request.getEstVerifie1(),request.getEstVerifie2()
+                );
+
+//            List<CoursTitreProjection> content = coursTitreProjections.getContent().stream().toList();
+            DataTablesResponse<CoursTitreProjection> dataTablesResponse = new DataTablesResponse<>();
+            dataTablesResponse.setDraw(parameters.getDraw());
+            dataTablesResponse.setRecordsFiltered(coursTitreProjections.size());
+            dataTablesResponse.setRecordsTotal(coursTitreProjections.size());
+            dataTablesResponse.setData(coursTitreProjections);
+            return ResponseHandler.generateResponse(
+                    "Portefeuille opcvm",
+                    HttpStatus.OK,
+                    dataTablesResponse);
+        }
+        catch(Exception e) {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e);
+        }
+    }
+    public ResponseEntity<Object> coursTitre(CoursTitreRequest request, HttpServletResponse response) throws JRException, IOException {
+
+        InputStream rapportStream = null;
+        InputStream subreportStream = null;
+//        try {
+        // Récupération des données
+        List<CoursTitreProjection> coursTitreProjections = libraryDao.coursTitreNew(
+                request.getCodePlace(), request.getDateDebut(),request.getEstVerifie1(),request.getEstVerifie2());
+
+        // Chargement des fichiers .jrxml depuis le classpath
+        rapportStream = getClass().getResourceAsStream("/verif_Cours.jrxml");
+//        subreportStream = getClass().getResourceAsStream("/operationDetachement.jrxml");
+
+        if (rapportStream == null) {
+            throw new RuntimeException("Fichiers .jrxml introuvables dans le classpath !");
+        }
+
+        // Compiler les rapports à la volée
+        JasperReport rapportPrincipal = JasperCompileManager.compileReport(rapportStream);
+//        JasperReport subreport = JasperCompileManager.compileReport(subreportStream);
+
+
+        // Préparation des paramètres
+        Map<String, Object> parameters = new HashMap<>();
+        DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
+        String letterDate = dateFormatter.format(new Date());
+//        String dateFin2 = dateFormatter.format(dateFin);
+//        String dateDebut2 = dateFormatter.format(dateDebut);
+        parameters.put("letterDate", letterDate);
+        parameters.put("niveau", request.getNiveau());
+//        parameters.put("dateFin", dateFin2);
+//        parameters.put("dateDebut", dateDebut2);
+//        OpcvmDto opcvm = opcvmMapper.deOpcvm(opcvmDao.findById(request.getIdOpcvm()).orElseThrow());
+//        parameters.put("description", opcvm.getDenominationOpcvm());
+//        parameters.put("idOpcvm", opcvm.getIdOpcvm().toString());
+
+        // Remplissage du rapport
+        JasperPrint print = JasperFillManager.fillReport(
+                rapportPrincipal,
+                parameters,
+                new JRBeanCollectionDataSource(coursTitreProjections)
+        );
+        JasperExportManager.exportReportToPdfStream(print, response.getOutputStream());
+        return ResponseHandler.generateResponse(
+                "Ordre de bourse",
+                HttpStatus.OK,
+                coursTitreProjections);
+
+
+    }
+    public ResponseEntity<?> placeCoursTitre(CoursTitreRequest request) {
+            var parameters = request.getDatatableParameters();
+            try {
+                Pageable pageable = PageRequest.of(parameters.getStart()/ parameters.getLength(), parameters.getLength());
+                Page<PlaceCoursTitreProjection> placeCoursTitreProjections;
+                if(parameters.getSearch() != null && !parameters.getSearch().getValue().isEmpty()) {
+                    placeCoursTitreProjections = new PageImpl<>(new ArrayList<>());
+                }
+                else {
+                    placeCoursTitreProjections = libraryDao.placeCoursTitre(
+                            request.getCodePlace(),request.getDateDebut(),request.getDateFin(),
+                            pageable
+                    );
+                }
+                List<PlaceCoursTitreProjection> content = placeCoursTitreProjections.getContent().stream().toList();
+                DataTablesResponse<PlaceCoursTitreProjection> dataTablesResponse = new DataTablesResponse<>();
+                dataTablesResponse.setDraw(parameters.getDraw());
+                dataTablesResponse.setRecordsFiltered((int)placeCoursTitreProjections.getTotalElements());
+                dataTablesResponse.setRecordsTotal((int)placeCoursTitreProjections.getTotalElements());
+                dataTablesResponse.setData(content);
+                return ResponseHandler.generateResponse(
+                        "Portefeuille opcvm",
+                        HttpStatus.OK,
+                        dataTablesResponse);
+            }
+            catch(Exception e) {
+                return ResponseHandler.generateResponse(
+                        e.getMessage(),
+                        HttpStatus.MULTI_STATUS,
+                        e);
+            }
+        }
+
+
+    //etatFraisFonctionnement
+    public ResponseEntity<?> etatFraisFonctionnement(ReleveTitreFCPRequest request) {
+        var parameters = request.getDatatableParameters();
+        try {
+            Pageable pageable = PageRequest.of(parameters.getStart()/ parameters.getLength(), parameters.getLength());
+            Page<EtatFraisFonctionnementProjection> etatFraisFonctionnementProjections;
+            if(parameters.getSearch() != null && !parameters.getSearch().getValue().isEmpty()) {
+                etatFraisFonctionnementProjections = new PageImpl<>(new ArrayList<>());
+            }
+            else {
+                etatFraisFonctionnementProjections = libraryDao.etatPointFraisFonctionnement(
+                        null,request.getDateDebut(),request.getDateFin(),
+                        pageable
+                );
+            }
+            List<EtatFraisFonctionnementProjection> content = etatFraisFonctionnementProjections.getContent().stream().toList();
+            DataTablesResponse<EtatFraisFonctionnementProjection> dataTablesResponse = new DataTablesResponse<>();
+            dataTablesResponse.setDraw(parameters.getDraw());
+            dataTablesResponse.setRecordsFiltered((int)etatFraisFonctionnementProjections.getTotalElements());
+            dataTablesResponse.setRecordsTotal((int)etatFraisFonctionnementProjections.getTotalElements());
+            dataTablesResponse.setData(content);
+            return ResponseHandler.generateResponse(
+                    "Portefeuille opcvm",
+                    HttpStatus.OK,
+                    dataTablesResponse);
+        }
+        catch(Exception e) {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e);
+        }
+    }
+    public ResponseEntity<Object> etatFraisFonctionnement(ReleveTitreFCPRequest request, HttpServletResponse response) throws JRException, IOException {
+
+        InputStream rapportStream = null;
+        InputStream subreportStream = null;
+//        try {
+        // Récupération des données
+        List<EtatFraisFonctionnementProjection> etatFraisFonctionnementProjections = libraryDao.etatPointFraisFonctionnement(
+                null, request.getDateDebut(),request.getDateFin());
+
+        // Chargement des fichiers .jrxml depuis le classpath
+        rapportStream = getClass().getResourceAsStream("/Frais_fonctionnement.jrxml");
+//        subreportStream = getClass().getResourceAsStream("/operationDetachement.jrxml");
+
+        if (rapportStream == null) {
+            throw new RuntimeException("Fichiers .jrxml introuvables dans le classpath !");
+        }
+
+        // Compiler les rapports à la volée
+        JasperReport rapportPrincipal = JasperCompileManager.compileReport(rapportStream);
+//        JasperReport subreport = JasperCompileManager.compileReport(subreportStream);
+
+
+//
+
+        // Préparation des paramètres
+        Map<String, Object> parameters = new HashMap<>();
+        DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
+        String letterDate = dateFormatter.format(new Date());
+//        String dateFin2 = dateFormatter.format(dateFin);
+//        String dateDebut2 = dateFormatter.format(dateDebut);
+        parameters.put("letterDate", letterDate);
+//        parameters.put("dateFin", dateFin2);
+//        parameters.put("dateDebut", dateDebut2);
+//        OpcvmDto opcvm = opcvmMapper.deOpcvm(opcvmDao.findById(request.getIdOpcvm()).orElseThrow());
+//        parameters.put("description", opcvm.getDenominationOpcvm());
+//        parameters.put("idOpcvm", opcvm.getIdOpcvm().toString());
+
+        // Remplissage du rapport
+        JasperPrint print = JasperFillManager.fillReport(
+                rapportPrincipal,
+                parameters,
+                new JRBeanCollectionDataSource(etatFraisFonctionnementProjections)
+        );
+        JasperExportManager.exportReportToPdfStream(print, response.getOutputStream());
+        return ResponseHandler.generateResponse(
+                "Ordre de bourse",
+                HttpStatus.OK,
+                etatFraisFonctionnementProjections);
+
+
+    }
+    public ResponseEntity<?> etatFraisFonctionnementListe(ReleveTitreFCPRequest request) {
+        try
+        {
+            List<EtatFraisFonctionnementProjection> etatFraisFonctionnementProjections=libraryDao.etatPointFraisFonctionnement(
+                    null,request.getDateDebut(),request.getDateFin()
+            );
+            return ResponseHandler.generateResponse(
+                    "Portefeuille opcvm",
+                    HttpStatus.OK,
+                    etatFraisFonctionnementProjections);
+        }
+        catch(Exception e) {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e);
+        }
+    }
+    //point souscription rachat
+    public ResponseEntity<?> pointSouscriptionRachat(ReleveTitreFCPRequest request) {
+        var parameters = request.getDatatableParameters();
+        try {
+            Pageable pageable = PageRequest.of(parameters.getStart()/ parameters.getLength(), parameters.getLength());
+            Page<PointSouscriptionRachatProjection> pointSouscriptionRachatProjections;
+            if(parameters.getSearch() != null && !parameters.getSearch().getValue().isEmpty()) {
+                pointSouscriptionRachatProjections = new PageImpl<>(new ArrayList<>());
+            }
+            else {
+                pointSouscriptionRachatProjections = libraryDao.pointSouscriptionRachat(
+                        null,request.getDateDebut(),request.getDateFin(),request.getType(),
+                        pageable
+                );
+            }
+            List<PointSouscriptionRachatProjection> content = pointSouscriptionRachatProjections.getContent().stream().toList();
+            DataTablesResponse<PointSouscriptionRachatProjection> dataTablesResponse = new DataTablesResponse<>();
+            dataTablesResponse.setDraw(parameters.getDraw());
+            dataTablesResponse.setRecordsFiltered((int)pointSouscriptionRachatProjections.getTotalElements());
+            dataTablesResponse.setRecordsTotal((int)pointSouscriptionRachatProjections.getTotalElements());
+            dataTablesResponse.setData(content);
+            return ResponseHandler.generateResponse(
+                    "Portefeuille opcvm",
+                    HttpStatus.OK,
+                    dataTablesResponse);
+        }
+        catch(Exception e) {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e);
+        }
+    }
+    public ResponseEntity<Object> pointSousriptionRachat(ReleveTitreFCPRequest request, HttpServletResponse response) throws JRException, IOException {
+
+        InputStream rapportStream = null;
+        InputStream subreportStream = null;
+//        try {
+        // Récupération des données
+        List<PointSouscriptionRachatProjection> pointSouscriptionRachatProjections = libraryDao.pointSouscriptionRachat(
+                null, request.getDateDebut(),request.getDateFin(),request.getType());
+
+        // Chargement des fichiers .jrxml depuis le classpath
+        rapportStream = getClass().getResourceAsStream("/Poins_souscription_personne.jrxml");
+//        subreportStream = getClass().getResourceAsStream("/operationDetachement.jrxml");
+
+        if (rapportStream == null) {
+            throw new RuntimeException("Fichiers .jrxml introuvables dans le classpath !");
+        }
+
+        // Compiler les rapports à la volée
+        JasperReport rapportPrincipal = JasperCompileManager.compileReport(rapportStream);
+//        JasperReport subreport = JasperCompileManager.compileReport(subreportStream);
+
+
+//
+
+        // Préparation des paramètres
+        Map<String, Object> parameters = new HashMap<>();
+        DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
+        String letterDate = dateFormatter.format(new Date());
+//        String dateFin2 = dateFormatter.format(dateFin);
+//        String dateDebut2 = dateFormatter.format(dateDebut);
+        parameters.put("letterDate", letterDate);
+//        parameters.put("dateFin", dateFin2);
+//        parameters.put("dateDebut", dateDebut2);
+//        OpcvmDto opcvm = opcvmMapper.deOpcvm(opcvmDao.findById(request.getIdOpcvm()).orElseThrow());
+//        parameters.put("description", opcvm.getDenominationOpcvm());
+//        parameters.put("idOpcvm", opcvm.getIdOpcvm().toString());
+
+        // Remplissage du rapport
+        JasperPrint print = JasperFillManager.fillReport(
+                rapportPrincipal,
+                parameters,
+                new JRBeanCollectionDataSource(pointSouscriptionRachatProjections)
+        );
+        JasperExportManager.exportReportToPdfStream(print, response.getOutputStream());
+        return ResponseHandler.generateResponse(
+                "Ordre de bourse",
+                HttpStatus.OK,
+                pointSouscriptionRachatProjections);
+
+
+    }
+    public ResponseEntity<?> pointSouscriptionRachatListe(ReleveTitreFCPRequest request) {
+        try
+        {
+            List<PointSouscriptionRachatProjection> pointSouscriptionRachatProjections=libraryDao.pointSouscriptionRachat(
+                    null,request.getDateDebut(),request.getDateFin(),request.getType()
+            );
+            return ResponseHandler.generateResponse(
+                    "Portefeuille opcvm",
+                    HttpStatus.OK,
+                    pointSouscriptionRachatProjections);
+        }
+        catch(Exception e) {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e);
+        }
+    }
+   //evoulutionVL
+    public Long mois1(String mois){
+        Long A=1L;
+        if(mois.equals("Janvier")){
+            A=1L;
+        }
+        else
+            if(mois.equals("Février")){
+                A=2L;
+            }
+            else
+                if(mois.equals("Mars")){
+                    A=3L;
+                }else
+                if(mois.equals("Avril")){
+                    A=4L;
+                }else
+                if(mois.equals("Mai")){
+                    A=5L;
+                }else
+                if(mois.equals("Juin")){
+                    A=6L;
+                }else
+                if(mois.equals("Juillet")){
+                    A=7L;
+                }else
+                if(mois.equals("Aout")){
+                    A=8L;
+                }else
+                if(mois.equals("Septembre")){
+                    A=9L;
+                }else
+                if(mois.equals("Octobre")){
+                    A=10L;
+                }else
+                if(mois.equals("Novembre")){
+                    A=11L;
+                }else
+                if(mois.equals("Décembre")){
+                    A=12L;
+                }
+          return A;
+    }
+    public Long mois2(String mois){
+        Long A=1L;
+        if(mois.equals("Janvier")){
+            A=1L;
+        }
+        else
+            if(mois.equals("Février")){
+                A=2L;
+            }
+            else
+                if(mois.equals("Mars")){
+                    A=3L;
+                }else
+                if(mois.equals("Avril")){
+                    A=4L;
+                }else
+                if(mois.equals("Mai")){
+                    A=5L;
+                }else
+                if(mois.equals("Juin")){
+                    A=6L;
+                }else
+                if(mois.equals("Juillet")){
+                    A=7L;
+                }else
+                if(mois.equals("Aout")){
+                    A=8L;
+                }else
+                if(mois.equals("Septembre")){
+                    A=9L;
+                }else
+                if(mois.equals("Octobre")){
+                    A=10L;
+                }else
+                if(mois.equals("Novembre")){
+                    A=11L;
+                }else
+                if(mois.equals("Décembre")){
+                    A=12L;
+                }
+          return A;
+    }
+    public ResponseEntity<?> evolutionVL(EvolutionVLRequest request) {
+        var parameters = request.getDatatableParameters();
+        try {
+            Pageable pageable = PageRequest.of(parameters.getStart()/ parameters.getLength(), parameters.getLength());
+            Page<EvolutionVLProjection> evolutionVLProjections;
+            if(parameters.getSearch() != null && !parameters.getSearch().getValue().isEmpty()) {
+                evolutionVLProjections = new PageImpl<>(new ArrayList<>());
+            }
+            else {
+                evolutionVLProjections = libraryDao.evolutionVL(
+                        null,mois1(request.getMois1()),mois2(request.getMois2()),
+                        pageable
+                );
+            }
+            List<EvolutionVLProjection> content = evolutionVLProjections.getContent().stream().toList();
+            DataTablesResponse<EvolutionVLProjection> dataTablesResponse = new DataTablesResponse<>();
+            dataTablesResponse.setDraw(parameters.getDraw());
+            dataTablesResponse.setRecordsFiltered((int)evolutionVLProjections.getTotalElements());
+            dataTablesResponse.setRecordsTotal((int)evolutionVLProjections.getTotalElements());
+            dataTablesResponse.setData(content);
+            return ResponseHandler.generateResponse(
+                    "Portefeuille opcvm",
+                    HttpStatus.OK,
+                    dataTablesResponse);
+        }
+        catch(Exception e) {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e);
+        }
+    }
+    public ResponseEntity<Object> evolutionVL(EvolutionVLRequest request, HttpServletResponse response) throws JRException, IOException {
+
+        InputStream rapportStream = null;
+        InputStream subreportStream = null;
+//        try {
+        // Récupération des données
+        List<EvolutionVLProjection> evolutionVLProjections = libraryDao.evolutionVL(
+                null,mois1(request.getMois1()),mois2(request.getMois2()));
+
+        // Chargement des fichiers .jrxml depuis le classpath
+        rapportStream = getClass().getResourceAsStream("/Evolution_VL.jrxml");
+//        subreportStream = getClass().getResourceAsStream("/operationDetachement.jrxml");
+
+        if (rapportStream == null) {
+            throw new RuntimeException("Fichiers .jrxml introuvables dans le classpath !");
+        }
+
+        // Compiler les rapports à la volée
+        JasperReport rapportPrincipal = JasperCompileManager.compileReport(rapportStream);
+//        JasperReport subreport = JasperCompileManager.compileReport(subreportStream);
+
+
+//
+
+        // Préparation des paramètres
+        Map<String, Object> parameters = new HashMap<>();
+        DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
+        String letterDate = dateFormatter.format(new Date());
+//        String dateFin2 = dateFormatter.format(dateFin);
+//        String dateDebut2 = dateFormatter.format(dateDebut);
+        parameters.put("letterDate", letterDate);
+        parameters.put("mois1", request.getMois1());
+        parameters.put("mois2", request.getMois2());
+//        parameters.put("dateFin", dateFin2);
+//        parameters.put("dateDebut", dateDebut2);
+//        OpcvmDto opcvm = opcvmMapper.deOpcvm(opcvmDao.findById(request.getIdOpcvm()).orElseThrow());
+//        parameters.put("description", opcvm.getDenominationOpcvm());
+//        parameters.put("idOpcvm", opcvm.getIdOpcvm().toString());
+
+        // Remplissage du rapport
+        JasperPrint print = JasperFillManager.fillReport(
+                rapportPrincipal,
+                parameters,
+                new JRBeanCollectionDataSource(evolutionVLProjections)
+        );
+        JasperExportManager.exportReportToPdfStream(print, response.getOutputStream());
+        return ResponseHandler.generateResponse(
+                "Ordre de bourse",
+                HttpStatus.OK,
+                evolutionVLProjections);
+
+
+    }
+    public ResponseEntity<?> evolutionVLListe(EvolutionVLRequest request) {
+        try
+        {
+            List<EvolutionVLProjection> evolutionVLProjections = libraryDao.evolutionVL(
+                    null,mois1(request.getMois1()),mois2(request.getMois2()));
+            return ResponseHandler.generateResponse(
+                    "Portefeuille opcvm",
+                    HttpStatus.OK,
+                    evolutionVLProjections);
         }
         catch(Exception e) {
             return ResponseHandler.generateResponse(
@@ -527,6 +1125,32 @@ public class AppService {
         JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());
         return ResponseHandler.generateResponse(
                 "Releve actionnaire",
+                HttpStatus.OK,
+                list);
+    }
+    //performance portefeuille actionnaire
+    public ResponseEntity<Object> perfomancePortefeuilleAcctionnaire(HistoriqueActionnaireRequest parameter, HttpServletResponse response) throws IOException, JRException {
+
+        List<PerformancePortefeuilleActionnaireProjection> list=libraryDao.performancePortefeuilleActionnaire(null,parameter.getIdActionnaire(),
+                parameter.getDateDebut(),parameter.getDateFin());
+        Map<String, Object> parameters = new HashMap<>();
+        DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
+        String letterDate = dateFormatter.format(new Date());
+
+        parameters.put("letterDate", letterDate);
+        InputStream inputStream = getClass().getResourceAsStream("/PerformancePortefeuilleActionnaire.jrxml");
+        if (inputStream == null) {
+            throw new FileNotFoundException("Fichier JRXML introuvable dans le classpath");
+        }
+
+        JasperReport jasperReport = JasperCompileManager.compileReport(inputStream);
+        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(list);
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
+
+        // Export vers le flux de sortie HTTP
+        JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());
+        return ResponseHandler.generateResponse(
+                "Performance portefeuille actionnaire",
                 HttpStatus.OK,
                 list);
     }

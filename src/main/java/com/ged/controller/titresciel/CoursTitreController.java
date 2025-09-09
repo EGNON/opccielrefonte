@@ -2,16 +2,25 @@ package com.ged.controller.titresciel;
 
 import com.ged.datatable.DatatableParameters;
 import com.ged.dto.TableRequest;
+import com.ged.dto.request.CoursTitreRequest;
+import com.ged.dto.request.ReleveTitreFCPRequest;
 import com.ged.dto.titresciel.CleCoursTitreDto;
 import com.ged.dto.titresciel.CoursTitreDto;
 import com.ged.entity.titresciel.CleCoursTitre;
+import com.ged.service.AppService;
 import com.ged.service.titresciel.CoursTitreService;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Positive;
+import net.sf.jasperreports.engine.JRException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 @CrossOrigin(origins = "*")
@@ -19,9 +28,11 @@ import java.util.List;
 @RequestMapping("/courstitres")
 public class CoursTitreController {
     private final CoursTitreService CoursTitreService;
+    private final AppService librairieService;
 
-    public CoursTitreController(CoursTitreService CoursTitreService) {
+    public CoursTitreController(CoursTitreService CoursTitreService, AppService librairieService) {
         this.CoursTitreService = CoursTitreService;
+        this.librairieService = librairieService;
     }
 
     @PostMapping("/dernier/cours/{idTitre}")
@@ -35,6 +46,11 @@ public class CoursTitreController {
             @RequestBody TableRequest tableRequest) {
         return CoursTitreService.getAllDateCours(codePlace, tableRequest);
     }
+    @PostMapping("/place")
+    public ResponseEntity<?> getAllDateCours(
+            @RequestBody CoursTitreRequest tableRequest) {
+        return librairieService.placeCoursTitre(tableRequest);
+    }
 
     @PostMapping("/maj/cours/{codePlace}")
     public ResponseEntity<Object> majCoursTitrePlace(
@@ -43,7 +59,29 @@ public class CoursTitreController {
     ) {
         return CoursTitreService.getAllCoursTitreMaj(codePlace, tableRequest);
     }
+    @PostMapping("/maj/cours")
+    public ResponseEntity<?> majCoursTitrePlace(
+            @RequestBody CoursTitreRequest tableRequest
+    ) {
+        return librairieService.coursTitre(tableRequest);
+    }
+    @PostMapping("/verificationcours")
+    public ResponseEntity<Object> verificationCours(@RequestBody @Valid CoursTitreRequest request, HttpServletResponse response) throws JRException, IOException {
+        response.setContentType("application/pdf");
+        DateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy:hh:mm:ss");
+        String currentDateTime = dateFormatter.format(new Date());
 
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=verificationCoursNiveau_"+request.getNiveau()+"_" + currentDateTime + ".pdf";
+        response.setHeader(headerKey, headerValue);
+
+        return librairieService.coursTitre(request,response);
+    }
+    @PostMapping("/validationverificationcours")
+    public ResponseEntity<?> validerCours(@RequestBody @Valid CoursTitreRequest request) throws JRException, IOException {
+
+        return librairieService.verifCours(request);
+    }
     @GetMapping("/{idTitre}/{dateCours}")
     public ResponseEntity<Object> afficher(@PathVariable Long idTitre,
                                            @PathVariable LocalDateTime dateCours)

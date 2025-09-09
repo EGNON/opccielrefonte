@@ -8,6 +8,9 @@ import com.ged.entity.titresciel.CoursTitre;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+
 @Service
 public class CoursTitreMapper {
     private final TitreMapper titreMapper;
@@ -54,6 +57,38 @@ public class CoursTitreMapper {
         cleCoursTitre.setIdTitre(CoursTitreDTO.getIdCoursTitre().getIdTitre());
         CoursTitre.setIdCoursTitre(cleCoursTitre);
         CoursTitre.setTitre(titreMapper.deTitreDto(CoursTitreDTO.getTitre()));
+        return CoursTitre;
+    }
+    public CoursTitre deCoursTitreDto2(CoursTitreDto CoursTitreDTO)
+    {
+        CoursTitre CoursTitre = new CoursTitre();
+        BeanUtils.copyProperties(CoursTitreDTO, CoursTitre);
+        System.out.println("Test => " + CoursTitreDTO.getIdCoursTitre());
+        CleCoursTitre cleCoursTitre = new CleCoursTitre();
+        cleCoursTitre.setDateCours(CoursTitreDTO.getIdCoursTitre().getDateCours());
+        cleCoursTitre.setIdTitre(CoursTitreDTO.getIdCoursTitre().getIdTitre());
+        CoursTitre.setIdCoursTitre(cleCoursTitre);
+        CoursTitre.setTitre(titreMapper.deTitreDto(CoursTitreDTO.getTitre()));
+        CoursTitre.setDateVerification1(LocalDateTime.parse("2050-12-31T00:00:00"));
+        CoursTitre.setDateVerification2(LocalDateTime.parse("2050-12-31T00:00:00"));
+        CoursTitre.setEstVerifie1(false);
+        CoursTitre.setEstVerifie2(false);
+        CoursTitre.setUserLoginVerificateur1("");
+        CoursTitre.setUserLoginVerificateur2("");
+        if (CoursTitre.getOuverture() == null) {
+            CoursTitre.setOuverture(BigDecimal.ZERO);
+        }
+        if (CoursTitre.getHaut() == null) {
+            CoursTitre.setHaut(BigDecimal.ZERO);
+        }
+        if (CoursTitre.getBas() == null) {
+            CoursTitre.setBas(BigDecimal.ZERO);
+        }
+        CoursTitre.setSupprimer(false);
+        CoursTitre.setDateDernModifServeur(LocalDateTime.now());
+        CoursTitre.setDateCreationServeur(LocalDateTime.now());
+        CoursTitre.setDateDernModifClient(LocalDateTime.now());
+
         return CoursTitre;
     }
 }

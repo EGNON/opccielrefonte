@@ -1,0 +1,182 @@
+<!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 7.0.1-573496633c2b4074e32f433154b543003f7d2498  -->
+<jasperReport name="Evolution_VL" language="java" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="1a126641-ff5a-406b-85a0-26e5403bccac">
+	<parameter name="mois1" class="java.lang.String"/>
+	<parameter name="mois2" class="java.lang.String"/>
+	<parameter name="letterDate" class="java.lang.String"/>
+	<field name="idOpcvm" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="idOpcvm"/>
+		<property name="com.jaspersoft.studio.field.label" value="idOpcvm"/>
+	</field>
+	<field name="denominationOpcvm" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="denominationOpcvm"/>
+		<property name="com.jaspersoft.studio.field.label" value="denominationOpcvm"/>
+	</field>
+	<field name="vlOrigine" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="vlOrigine"/>
+		<property name="com.jaspersoft.studio.field.label" value="vlOrigine"/>
+	</field>
+	<field name="vlmois1" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="vlmois1"/>
+		<property name="com.jaspersoft.studio.field.label" value="vlmois1"/>
+	</field>
+	<field name="vlmois2" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="vlmois2"/>
+		<property name="com.jaspersoft.studio.field.label" value="vlmois2"/>
+	</field>
+	<field name="rendementMois" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="rendementMois"/>
+		<property name="com.jaspersoft.studio.field.label" value="rendementMois"/>
+	</field>
+	<field name="rendementOrigine" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="rendementOrigine"/>
+		<property name="com.jaspersoft.studio.field.label" value="rendementOrigine"/>
+	</field>
+	<background splitType="Stretch"/>
+	<title height="122" splitType="Stretch">
+		<element kind="rectangle" uuid="eb5187d3-0100-4c18-88f3-af013aa02dc1" x="2" y="53" width="550" height="35" forecolor="#BDD7EE">
+			<pen lineWidth="1.0" lineColor="#3B88D1"/>
+		</element>
+		<element kind="rectangle" uuid="d9d107bd-4dfb-4878-8f57-77dbc6c389ba" x="2" y="19" width="550" height="34" backcolor="#BDD7EE">
+			<pen lineColor="#3B88D1"/>
+		</element>
+		<element kind="staticText" uuid="eede2b25-0180-42e8-9df5-05a88eb4ce4c" x="32" y="27" width="500" height="17" fontSize="10.0" bold="true" hTextAlign="Center">
+			<text><![CDATA[EVOLUTION DE LA VALEUR LIQUIDATIVE]]></text>
+		</element>
+		<element kind="staticText" uuid="d4772884-3f70-4caa-b220-9e174fd6f182" x="40" y="64" width="40" height="20" fontSize="10.0">
+			<text><![CDATA[MOIS 1:]]></text>
+		</element>
+		<element kind="textField" uuid="1f09d906-85d1-44ca-9892-023cc57d4e39" x="80" y="64" width="100" height="20">
+			<expression><![CDATA[$P{mois1}]]></expression>
+		</element>
+		<element kind="staticText" uuid="d6a6dfd1-bb63-400f-b793-7ff3247d9201" x="240" y="64" width="40" height="20" fontSize="10.0">
+			<text><![CDATA[MOIS 2:]]></text>
+		</element>
+		<element kind="textField" uuid="ce520eaf-66d0-4a18-8415-d32265fa784f" x="280" y="64" width="110" height="20">
+			<expression><![CDATA[$P{mois2}]]></expression>
+		</element>
+		<element kind="rectangle" uuid="54fbdc94-fa1d-4eae-a428-ce6518f77b76" x="2" y="88" width="550" height="34" forecolor="#3B88D1" backcolor="#BDD7EE">
+			<pen lineWidth="1.0"/>
+		</element>
+		<element kind="staticText" uuid="0c3b1c4e-5ca4-4b66-b0ea-bb1b1568b8c2" x="3" y="99" width="228" height="17" fontSize="10.0" bold="true" hTextAlign="Center">
+			<text><![CDATA[DENOMINATION]]></text>
+		</element>
+		<element kind="staticText" uuid="67accb85-0dcc-41a6-8182-2f62a9cc2037" x="233" y="93" width="170" height="13" bold="true" hTextAlign="Center">
+			<text><![CDATA[VL]]></text>
+			<box>
+				<pen lineWidth="0.5" lineColor="#4175A6"/>
+				<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+			</box>
+		</element>
+		<element kind="staticText" uuid="1f3c5e20-9f26-491c-9bdd-a84d62386108" x="403" y="93" width="149" height="13" bold="true" hTextAlign="Center">
+			<text><![CDATA[RENDEMENT (%)]]></text>
+			<box>
+				<pen lineWidth="0.5" lineColor="#4175A6"/>
+				<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+			</box>
+		</element>
+		<element kind="line" uuid="f87a247c-5a8b-464f-937d-b7516c302295" x="231" y="88" width="1" height="33" forecolor="#3B88D1">
+			<pen lineWidth="1.0"/>
+		</element>
+		<element kind="line" uuid="bd1baf19-d39f-409d-8fd1-696e9f2e5c34" x="231" y="106" width="321" height="1">
+			<pen lineWidth="1.0" lineColor="#3B88D1"/>
+		</element>
+		<element kind="rectangle" uuid="5d8099a3-a9e5-4085-8fe5-144ed15627ca" x="234" y="107" width="53" height="15" backcolor="#F0F0F0">
+			<pen lineColor="#3B88D1"/>
+		</element>
+		<element kind="rectangle" uuid="bb76012e-a56d-46ec-8c92-39836360f1c6" x="291" y="107" width="53" height="15" backcolor="#F0F0F0">
+			<pen lineColor="#3B88D1"/>
+		</element>
+		<element kind="rectangle" uuid="a72fdbf7-aba5-4f88-818a-c101c9d3e7f1" x="348" y="107" width="53" height="15" backcolor="#F0F0F0">
+			<pen lineColor="#3B88D1"/>
+		</element>
+		<element kind="rectangle" uuid="d3837696-c990-4fe5-aaa4-f2a5b0301a7e" x="406" y="107" width="64" height="15" backcolor="#F0F0F0">
+			<pen lineColor="#3B88D1"/>
+		</element>
+		<element kind="line" uuid="6c04c851-6e38-4b56-87e0-11e09d03eab1" x="403" y="88" width="1" height="34">
+			<pen lineColor="#3B88D1"/>
+		</element>
+		<element kind="rectangle" uuid="7afc8965-da05-405c-bb43-d801c186804d" x="474" y="107" width="75" height="15" backcolor="#F0F0F0">
+			<property name="com.jaspersoft.studio.unit.width" value="px"/>
+			<pen lineColor="#3B88D1"/>
+		</element>
+		<element kind="staticText" uuid="ceae20f9-e4ef-46b6-886a-fa4517c84c9a" x="235" y="108" width="50" height="14" bold="true" hTextAlign="Center">
+			<text><![CDATA[Origine]]></text>
+		</element>
+		<element kind="staticText" uuid="b1b6025a-a71f-4425-acab-218c849ffb15" x="292" y="108" width="50" height="14" bold="true" hTextAlign="Center">
+			<text><![CDATA[Mois 1]]></text>
+		</element>
+		<element kind="staticText" uuid="508f7f2f-eadf-479e-a29e-4670f804b417" x="349" y="108" width="50" height="14" bold="true" hTextAlign="Center">
+			<text><![CDATA[Mois 2]]></text>
+		</element>
+		<element kind="staticText" uuid="610fa26e-70fe-447b-abfb-67fb7d1320e4" x="478" y="107" width="67" height="14" bold="true" hTextAlign="Center">
+			<text><![CDATA[Origine]]></text>
+		</element>
+		<element kind="staticText" uuid="5e60f214-edb9-47fd-8277-70f8da36b0af" x="413" y="108" width="50" height="14" bold="true" hTextAlign="Center">
+			<text><![CDATA[Mois]]></text>
+		</element>
+		<element kind="line" uuid="8f7dd021-e9ff-4c51-92e6-7e5187c7e03f" x="231" y="53" width="1" height="34" forecolor="#3B88D1">
+			<pen lineWidth="1.0"/>
+		</element>
+		<element kind="textField" uuid="dd7b5fc8-90c8-4209-961c-99b985b0d72a" x="3" y="3" width="217" height="16">
+			<expression><![CDATA["Cotonou, le "+$P{letterDate}]]></expression>
+		</element>
+	</title>
+	<pageHeader splitType="Stretch"/>
+	<columnHeader splitType="Stretch"/>
+	<detail>
+		<band height="35" splitType="Stretch">
+			<element kind="rectangle" uuid="d0707e0d-5956-4ad5-881c-d4f4ee0667d4" x="2" y="0" width="550" height="35" forecolor="#BDD7EE">
+				<pen lineWidth="1.0" lineColor="#3B88D1"/>
+			</element>
+			<element kind="textField" uuid="dd71ac5f-d3bf-4713-8bf4-e57a8e4bd5c8" x="5" y="9" width="226" height="21">
+				<expression><![CDATA[$F{denominationOpcvm}]]></expression>
+			</element>
+			<element kind="line" uuid="800fc1c0-c339-4a2f-afda-757774db23cd" x="231" y="1" width="1" height="34" forecolor="#3B88D1">
+				<pen lineWidth="1.0"/>
+			</element>
+			<element kind="textField" uuid="077517b7-1a2a-4df4-8529-3554136f1ed0" x="235" y="9" width="50" height="21" pattern="#,##0.###;#,##0.###" blankWhenNull="true" hTextAlign="Center">
+				<expression><![CDATA[$F{vlOrigine}]]></expression>
+			</element>
+			<element kind="textField" uuid="23484a30-53cb-4d64-83f5-69b7933daf64" x="291" y="9" width="51" height="21" pattern="#,##0.###;#,##0.###" blankWhenNull="true" hTextAlign="Center">
+				<expression><![CDATA[$F{vlmois1}]]></expression>
+			</element>
+			<element kind="textField" uuid="9f3c11b3-6578-4f4e-ae91-5eb824c9e4ad" x="348" y="9" width="51" height="21" pattern="#,##0.###;#,##0.###" blankWhenNull="true" hTextAlign="Center">
+				<expression><![CDATA[$F{vlmois2}]]></expression>
+			</element>
+			<element kind="textField" uuid="b9c2e603-4c9d-4093-a3fd-da9b3045faab" x="406" y="9" width="64" height="21" pattern="#,##0.###;#,##0.###" blankWhenNull="true" hTextAlign="Center">
+				<expression><![CDATA[$F{rendementMois}]]></expression>
+			</element>
+			<element kind="textField" uuid="e3653c74-24d8-4ba6-8af4-f822aa43f6a5" x="474" y="9" width="75" height="21" pattern="#,##0.###;#,##0.###" blankWhenNull="true" hTextAlign="Center">
+				<expression><![CDATA[$F{rendementOrigine}]]></expression>
+			</element>
+			<element kind="line" uuid="8d04d0f0-018d-4703-8fa4-bea46c202453" x="287" y="0" width="1" height="35">
+				<pen lineColor="#3B88D1"/>
+			</element>
+			<element kind="line" uuid="b063d0eb-8ef7-4a69-b282-1a5ddc2ca49d" x="344" y="0" width="1" height="35">
+				<pen lineColor="#3B88D1"/>
+			</element>
+			<element kind="line" uuid="85701557-a1aa-4b9a-b287-d65d4b957eed" x="403" y="0" width="1" height="35">
+				<pen lineColor="#3B88D1"/>
+			</element>
+			<element kind="line" uuid="388673c2-260a-4e00-9d99-4357caf7cff1" x="472" y="0" width="1" height="35">
+				<pen lineColor="#3B88D1"/>
+			</element>
+		</band>
+	</detail>
+	<columnFooter splitType="Stretch"/>
+	<pageFooter height="48" splitType="Stretch">
+		<element kind="textField" uuid="da22561e-337b-4d51-bf66-b2dda2fb3e8c" x="452" y="9" width="100" height="21" hTextAlign="Right">
+			<expression><![CDATA[$V{PAGE_NUMBER}]]></expression>
+		</element>
+		<element kind="staticText" uuid="d2116fa4-d117-46f4-b58f-e3abdc1a9376" x="3" y="9" width="117" height="16">
+			<text><![CDATA[Edité avec OPCCIEL 2.0]]></text>
+		</element>
+	</pageFooter>
+	<summary height="42" splitType="Stretch"/>
+</jasperReport>

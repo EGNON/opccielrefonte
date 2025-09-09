@@ -12,10 +12,9 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ReleveTitreFCPRequest {
+public class EvolutionVLRequest {
     private Long idOpcvm;
-    private String type;
-    private LocalDateTime dateDebut;
-    private LocalDateTime dateFin;
+    private String mois1;
+    private String mois2;
     private DatatableParameters datatableParameters;
 }

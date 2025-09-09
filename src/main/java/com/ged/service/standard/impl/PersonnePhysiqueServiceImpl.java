@@ -374,130 +374,193 @@ public class PersonnePhysiqueServiceImpl implements PersonnePhysiqueService {
     public PersonnePhysiqueDto creerPersonnePhysique(List<MultipartFile> files, PersonnePhysiqueDto personnePhysiqueDto) {
         PersonnePhysiqueDto personnePhysiqueDtoSaved = null;
         try {
-            PersonnePhysique personnePhysique = personnePhysiqueMapper.dePersonnePhysiqueDto(personnePhysiqueDto);
-            personnePhysique.setDenomination(personnePhysiqueDto.getNom() + " " + personnePhysiqueDto.getPrenom());
-            if (personnePhysiqueDto.getProfession() != null && personnePhysiqueDto.getProfession().getIdProf() != null) {
-                Profession profession = professionDao.findById(personnePhysiqueDto.getProfession().getIdProf())
-                        .orElseThrow(() -> new com.ged.advice.EntityNotFoundException(Profession.class, personnePhysiqueDto.getProfession().getIdProf().toString()));
-                personnePhysique.setProfession(profession);
-            }
-            if (personnePhysiqueDto.getModeEtablissementDto() != null && personnePhysiqueDto.getModeEtablissementDto().getIdModeEtablissement() != null) {
-                ModeEtablissement modeEtablissement = modeEtablissementDao.findById(personnePhysiqueDto.getModeEtablissementDto().getIdModeEtablissement())
-                        .orElseThrow(() -> new com.ged.advice.EntityNotFoundException(ModeEtablissement.class, personnePhysiqueDto.getModeEtablissementDto().getIdModeEtablissement().toString()));
-                personnePhysique.setModeEtablissement2(modeEtablissement);
-            }
-            if (personnePhysiqueDto.getSecteurEmp() != null && personnePhysiqueDto.getSecteurEmp().getIdSecteur() != null) {
-                Secteur secteurEmp = secteurDao.findById(personnePhysiqueDto.getSecteurEmp().getIdSecteur())
-                        .orElseThrow(() -> new com.ged.advice.EntityNotFoundException(Secteur.class, personnePhysiqueDto.getSecteurEmp().getIdSecteur().toString()));
-                personnePhysique.setSecteurEmp(secteurEmp);
-            }
+            PersonnePhysiqueDto physiqueDto;
+            if(personnePhysiqueDto.getIdPersonne()!=null)
+                physiqueDto=personnePhysiqueMapper.dePersonnePhysique(personnePhysiqueDao.findById(personnePhysiqueDto.getIdPersonne()).orElseThrow());
+            else
+                physiqueDto=null;
 
-            if (personnePhysiqueDto.getCategorieClient() != null && personnePhysiqueDto.getCategorieClient().getIdCategorieClient() != null) {
-                CategorieClient categorieClient = categorieClientDao.findById(personnePhysiqueDto.getCategorieClient().getIdCategorieClient())
-                        .orElseThrow(() -> new com.ged.advice.EntityNotFoundException(CategorieClient.class, personnePhysiqueDto.getCategorieClient().getIdCategorieClient().toString()));
-                personnePhysique.setCategorieClient(categorieClient);
-            }
+            if(physiqueDto!=null)
+            {
 
-            if (personnePhysiqueDto.getSousTypeClient() != null && personnePhysiqueDto.getSousTypeClient().getIdSousTypeClient() != null) {
-                SousTypeClient sousTypeClient = sousTypeClientDao.findById(personnePhysiqueDto.getSousTypeClient().getIdSousTypeClient())
-                        .orElseThrow(() -> new com.ged.advice.EntityNotFoundException(SousTypeClient.class, personnePhysiqueDto.getSousTypeClient().getIdSousTypeClient().toString()));
-                personnePhysique.setSousTypeClient(sousTypeClient);
-            }
+                PersonnePhysique personnePhysique=personnePhysiqueMapper.dePersonnePhysiqueDto(physiqueDto);
+                personnePhysique.setIdPersonne(personnePhysiqueDto.getIdPersonne());
+                Set<DocumentDto> documents = personnePhysiqueDto.getDocuments();
+                for (DocumentDto doc : documents) {
+                    personnePhysique.ajouterDocument(documentMapper.deDocumentDto(doc));
+                }
+                PersonnePhysiqueDto personnePhysiqueSave = personnePhysiqueMapper.dePersonnePhysique(personnePhysiqueDao.save(personnePhysique));
+                personnePhysiquePaysService.supprimerSelonPersonne(personnePhysiqueSave.getIdPersonne());
+                if (physiqueDto.getIdPersonne() != null) {
+                    Set<PersonnePhysiquePaysDto> personnePhysiquePaysDtos = personnePhysiqueDto.getPersonnePhysiquePaysDtos();
+                    PersonnePhysiquePaysDto personnePhysiquePaysDto = new PersonnePhysiquePaysDto();
+                    for (PersonnePhysiquePaysDto o : personnePhysiqueDto.getPersonnePhysiquePaysDtos()) {
+                        o.setPersonnePhysiqueDto(physiqueDto);
+                        ClePersonnePhysiquePays clePersonnePhysiquePays = new ClePersonnePhysiquePays();
+                        clePersonnePhysiquePays.setIdPays(o.getPaysDto().getIdPays());
+                        clePersonnePhysiquePays.setIdPersonne(physiqueDto.getIdPersonne());
+                        personnePhysiquePaysDto.setIdPersonnePhysiquePays(clePersonnePhysiquePays);
+                        personnePhysiquePaysDto.setPaysDto(o.getPaysDto());
+                        personnePhysiquePaysDto.setPersonnePhysiqueDto(physiqueDto);
 
-            if (personnePhysiqueDto.getPaysPere() != null && personnePhysiqueDto.getPaysPere().getIdPays() != null) {
-                Pays paysPere = paysDao.findById(personnePhysiqueDto.getPaysPere().getIdPays())
-                        .orElseThrow(() -> new com.ged.advice.EntityNotFoundException(Pays.class, personnePhysiqueDto.getPaysPere().getIdPays().toString()));
-                personnePhysique.setPaysPere(paysPere);
-            }
-            if (personnePhysiqueDto.getPaysMere() != null && personnePhysiqueDto.getPaysMere().getIdPays() != null) {
-                Pays paysMere = paysDao.findById(personnePhysiqueDto.getPaysMere().getIdPays())
-                        .orElseThrow(() -> new com.ged.advice.EntityNotFoundException(Pays.class, personnePhysiqueDto.getPaysMere().getIdPays().toString()));
-                personnePhysique.setPaysMere(paysMere);
-            }
-            if (personnePhysiqueDto.getPaysConjoint() != null && personnePhysiqueDto.getPaysConjoint().getIdPays() != null) {
-                Pays paysConjoint = paysDao.findById(personnePhysiqueDto.getPaysConjoint().getIdPays())
-                        .orElseThrow(() -> new com.ged.advice.EntityNotFoundException(Pays.class, personnePhysiqueDto.getPaysConjoint().getIdPays().toString()));
-                personnePhysique.setPaysConjoint(paysConjoint);
-            }
-            if (personnePhysiqueDto.getPaysNationalite() != null && personnePhysiqueDto.getPaysNationalite().getIdPays() != null) {
-                Pays paysNationalite = paysDao.findById(personnePhysiqueDto.getPaysNationalite().getIdPays())
-                        .orElseThrow(() -> new com.ged.advice.EntityNotFoundException(Pays.class, personnePhysiqueDto.getPaysNationalite().getIdPays().toString()));
-                personnePhysique.setPaysNationalite(paysNationalite);
-            }
-            if (personnePhysiqueDto.getPaysResidence() != null && personnePhysiqueDto.getPaysResidence().getIdPays() != null) {
-                Pays paysResidence = paysDao.findById(personnePhysiqueDto.getPaysResidence().getIdPays())
-                        .orElseThrow(() -> new com.ged.advice.EntityNotFoundException(Pays.class, personnePhysiqueDto.getPaysResidence().getIdPays().toString()));
-                personnePhysique.setPaysResidence(paysResidence);
-            }
-            if (personnePhysiqueDto.getDegre() != null && personnePhysiqueDto.getDegre().getIdDegre() != null) {
-                Degre degre = degreDao.findById(personnePhysiqueDto.getDegre().getIdDegre())
-                        .orElseThrow(() -> new com.ged.advice.EntityNotFoundException(Degre.class, personnePhysiqueDto.getDegre().getIdDegre().toString()));
-                personnePhysique.setDegre(degre);
-            }
-
-            if (personnePhysiqueDto.getSecteur() != null && personnePhysiqueDto.getSecteur().getIdSecteur() != null) {
-                Secteur secteur = secteurDao.findById(personnePhysiqueDto.getSecteur().getIdSecteur())
-                        .orElseThrow(() -> new com.ged.advice.EntityNotFoundException(Secteur.class, personnePhysiqueDto.getSecteur().getIdSecteur().toString()));
-                personnePhysique.setSecteur(secteur);
-            }
-            if (personnePhysiqueDto.getDistributeur() != null && personnePhysiqueDto.getDistributeur().getIdPersonne() != null) {
-                Personne distributeur = personneDao.findById(personnePhysiqueDto.getDistributeur().getIdPersonne())
-                        .orElseThrow(() -> new com.ged.advice.EntityNotFoundException(Personne.class, personnePhysiqueDto.getDistributeur().getIdPersonne().toString()));
-                personnePhysique.setDistributeur(distributeur);
-            }
-            if (personnePhysiqueDto.getLangue() != null && personnePhysiqueDto.getLangue().getIdLangue() != null) {
-                Langue langue = langueDao.findById(personnePhysiqueDto.getLangue().getIdLangue())
-                        .orElseThrow(() -> new com.ged.advice.EntityNotFoundException(Langue.class, personnePhysiqueDto.getLangue().getIdLangue().toString()));
-                personnePhysique.setLangue(langue);
-            }
-
-            Set<DocumentDto> documents = personnePhysiqueDto.getDocuments();
-            for (DocumentDto doc : documents) {
-                personnePhysique.ajouterDocument(documentMapper.deDocumentDto(doc));
-            }
-
-            PersonnePhysiqueDto personnePhysiqueSave = personnePhysiqueMapper.dePersonnePhysique(personnePhysiqueDao.save(personnePhysique));
-            personnePhysiqueDtoSaved = personnePhysiqueSave;
-            if (personnePhysiqueSave.getIdPersonne() != null) {
-                Set<PersonnePhysiquePaysDto> personnePhysiquePaysDtos = personnePhysiqueDto.getPersonnePhysiquePaysDtos();
-                PersonnePhysiquePaysDto personnePhysiquePaysDto = new PersonnePhysiquePaysDto();
-                for (PersonnePhysiquePaysDto o : personnePhysiqueDto.getPersonnePhysiquePaysDtos()) {
-                    o.setPersonnePhysiqueDto(personnePhysiqueSave);
-                    ClePersonnePhysiquePays clePersonnePhysiquePays = new ClePersonnePhysiquePays();
-                    clePersonnePhysiquePays.setIdPays(o.getPaysDto().getIdPays());
-                    clePersonnePhysiquePays.setIdPersonne(personnePhysiqueSave.getIdPersonne());
-                    personnePhysiquePaysDto.setIdPersonnePhysiquePays(clePersonnePhysiquePays);
-                    personnePhysiquePaysDto.setPaysDto(o.getPaysDto());
-                    personnePhysiquePaysDto.setPersonnePhysiqueDto(personnePhysiqueSave);
-
-                    personnePhysiquePaysService.creerPersonnePhysiquePays(personnePhysiquePaysDto);
+                        personnePhysiquePaysService.creerPersonnePhysiquePays(personnePhysiquePaysDto);
 //                    personnePhysique.ajouterPersonnePhysiquePays(personnePhysiquePaysMapper.dePersonnePhysiquePaysDto(o));
+                    }
+                }
+                if (files != null) {
+                    Set<DocumentDto> docs = new HashSet<>(personnePhysiqueSave.getDocuments());
+                    Set<DocumentDto> newDocs = fileService.uploadMedia(PATH, files, docs);
+                    personnePhysiqueSave.setDocuments(newDocs);
+                }
+                if (personnePhysiqueSave.getIdPersonne() != null) {
+                    if (
+                            StringUtils.hasLength(personnePhysiqueSave.getEmailPro()) ||
+                                    StringUtils.hasLength(personnePhysiqueSave.getEmailPerso())
+                    ) {
+                        mailSenderServiceImpl.send("Remerciement",
+                                personnePhysiqueSave.getEmailPerso(),
+                                "SAPHIR, vous remercie pour votre disponibilité !");
+                        MailDto mailDto = new MailDto();
+                        mailDto.setDateEnvoi(new Date());
+                        mailDto.setHeureEnvoi(null);
+                        mailDto.setObjet("Remerciement");
+                        mailDto.setMsg("SAPHIR, vous remercie pour votre disponibilité !");
+                        mailDto = mailService.creerMail(mailDto);
+                        if (mailDto.getIdMail() != null) {
+                            EnvoiMailDto envoiMailDto = new EnvoiMailDto();
+                            envoiMailDto.setMailDto(mailDto);
+                            envoiMailDto.setPersonneDto(personnePhysiqueDtoSaved);
+                            envoiMailDto = envoiMailService.creerEnvoiMail(envoiMailDto);
+                        }
+                    }
                 }
             }
-            if (files != null) {
-                Set<DocumentDto> docs = new HashSet<>(personnePhysiqueSave.getDocuments());
-                Set<DocumentDto> newDocs = fileService.uploadMedia(PATH, files, docs);
-                personnePhysiqueSave.setDocuments(newDocs);
-            }
-            if (personnePhysiqueSave.getIdPersonne() != null) {
-                if (
-                        StringUtils.hasLength(personnePhysiqueSave.getEmailPro()) ||
-                                StringUtils.hasLength(personnePhysiqueSave.getEmailPerso())
-                ) {
-                    mailSenderServiceImpl.send("Remerciement",
-                            personnePhysiqueSave.getEmailPerso(),
-                            "SAPHIR, vous remercie pour votre disponibilité !");
-                    MailDto mailDto = new MailDto();
-                    mailDto.setDateEnvoi(new Date());
-                    mailDto.setHeureEnvoi(null);
-                    mailDto.setObjet("Remerciement");
-                    mailDto.setMsg("SAPHIR, vous remercie pour votre disponibilité !");
-                    mailDto = mailService.creerMail(mailDto);
-                    if (mailDto.getIdMail() != null) {
-                        EnvoiMailDto envoiMailDto = new EnvoiMailDto();
-                        envoiMailDto.setMailDto(mailDto);
-                        envoiMailDto.setPersonneDto(personnePhysiqueDtoSaved);
-                        envoiMailDto = envoiMailService.creerEnvoiMail(envoiMailDto);
+            else {
+                PersonnePhysique personnePhysique = personnePhysiqueMapper.dePersonnePhysiqueDto(personnePhysiqueDto);
+                personnePhysique.setDenomination(personnePhysiqueDto.getNom() + " " + personnePhysiqueDto.getPrenom());
+                if (personnePhysiqueDto.getProfession() != null && personnePhysiqueDto.getProfession().getIdProf() != null) {
+                    Profession profession = professionDao.findById(personnePhysiqueDto.getProfession().getIdProf())
+                            .orElseThrow(() -> new com.ged.advice.EntityNotFoundException(Profession.class, personnePhysiqueDto.getProfession().getIdProf().toString()));
+                    personnePhysique.setProfession(profession);
+                }
+                if (personnePhysiqueDto.getModeEtablissementDto() != null && personnePhysiqueDto.getModeEtablissementDto().getIdModeEtablissement() != null) {
+                    ModeEtablissement modeEtablissement = modeEtablissementDao.findById(personnePhysiqueDto.getModeEtablissementDto().getIdModeEtablissement())
+                            .orElseThrow(() -> new com.ged.advice.EntityNotFoundException(ModeEtablissement.class, personnePhysiqueDto.getModeEtablissementDto().getIdModeEtablissement().toString()));
+                    personnePhysique.setModeEtablissement2(modeEtablissement);
+                }
+                if (personnePhysiqueDto.getSecteurEmp() != null && personnePhysiqueDto.getSecteurEmp().getIdSecteur() != null) {
+                    Secteur secteurEmp = secteurDao.findById(personnePhysiqueDto.getSecteurEmp().getIdSecteur())
+                            .orElseThrow(() -> new com.ged.advice.EntityNotFoundException(Secteur.class, personnePhysiqueDto.getSecteurEmp().getIdSecteur().toString()));
+                    personnePhysique.setSecteurEmp(secteurEmp);
+                }
+
+                if (personnePhysiqueDto.getCategorieClient() != null && personnePhysiqueDto.getCategorieClient().getIdCategorieClient() != null) {
+                    CategorieClient categorieClient = categorieClientDao.findById(personnePhysiqueDto.getCategorieClient().getIdCategorieClient())
+                            .orElseThrow(() -> new com.ged.advice.EntityNotFoundException(CategorieClient.class, personnePhysiqueDto.getCategorieClient().getIdCategorieClient().toString()));
+                    personnePhysique.setCategorieClient(categorieClient);
+                }
+
+                if (personnePhysiqueDto.getSousTypeClient() != null && personnePhysiqueDto.getSousTypeClient().getIdSousTypeClient() != null) {
+                    SousTypeClient sousTypeClient = sousTypeClientDao.findById(personnePhysiqueDto.getSousTypeClient().getIdSousTypeClient())
+                            .orElseThrow(() -> new com.ged.advice.EntityNotFoundException(SousTypeClient.class, personnePhysiqueDto.getSousTypeClient().getIdSousTypeClient().toString()));
+                    personnePhysique.setSousTypeClient(sousTypeClient);
+                }
+
+                if (personnePhysiqueDto.getPaysPere() != null && personnePhysiqueDto.getPaysPere().getIdPays() != null) {
+                    Pays paysPere = paysDao.findById(personnePhysiqueDto.getPaysPere().getIdPays())
+                            .orElseThrow(() -> new com.ged.advice.EntityNotFoundException(Pays.class, personnePhysiqueDto.getPaysPere().getIdPays().toString()));
+                    personnePhysique.setPaysPere(paysPere);
+                }
+                if (personnePhysiqueDto.getPaysMere() != null && personnePhysiqueDto.getPaysMere().getIdPays() != null) {
+                    Pays paysMere = paysDao.findById(personnePhysiqueDto.getPaysMere().getIdPays())
+                            .orElseThrow(() -> new com.ged.advice.EntityNotFoundException(Pays.class, personnePhysiqueDto.getPaysMere().getIdPays().toString()));
+                    personnePhysique.setPaysMere(paysMere);
+                }
+                if (personnePhysiqueDto.getPaysConjoint() != null && personnePhysiqueDto.getPaysConjoint().getIdPays() != null) {
+                    Pays paysConjoint = paysDao.findById(personnePhysiqueDto.getPaysConjoint().getIdPays())
+                            .orElseThrow(() -> new com.ged.advice.EntityNotFoundException(Pays.class, personnePhysiqueDto.getPaysConjoint().getIdPays().toString()));
+                    personnePhysique.setPaysConjoint(paysConjoint);
+                }
+                if (personnePhysiqueDto.getPaysNationalite() != null && personnePhysiqueDto.getPaysNationalite().getIdPays() != null) {
+                    Pays paysNationalite = paysDao.findById(personnePhysiqueDto.getPaysNationalite().getIdPays())
+                            .orElseThrow(() -> new com.ged.advice.EntityNotFoundException(Pays.class, personnePhysiqueDto.getPaysNationalite().getIdPays().toString()));
+                    personnePhysique.setPaysNationalite(paysNationalite);
+                }
+                if (personnePhysiqueDto.getPaysResidence() != null && personnePhysiqueDto.getPaysResidence().getIdPays() != null) {
+                    Pays paysResidence = paysDao.findById(personnePhysiqueDto.getPaysResidence().getIdPays())
+                            .orElseThrow(() -> new com.ged.advice.EntityNotFoundException(Pays.class, personnePhysiqueDto.getPaysResidence().getIdPays().toString()));
+                    personnePhysique.setPaysResidence(paysResidence);
+                }
+                if (personnePhysiqueDto.getDegre() != null && personnePhysiqueDto.getDegre().getIdDegre() != null) {
+                    Degre degre = degreDao.findById(personnePhysiqueDto.getDegre().getIdDegre())
+                            .orElseThrow(() -> new com.ged.advice.EntityNotFoundException(Degre.class, personnePhysiqueDto.getDegre().getIdDegre().toString()));
+                    personnePhysique.setDegre(degre);
+                }
+
+                if (personnePhysiqueDto.getSecteur() != null && personnePhysiqueDto.getSecteur().getIdSecteur() != null) {
+                    Secteur secteur = secteurDao.findById(personnePhysiqueDto.getSecteur().getIdSecteur())
+                            .orElseThrow(() -> new com.ged.advice.EntityNotFoundException(Secteur.class, personnePhysiqueDto.getSecteur().getIdSecteur().toString()));
+                    personnePhysique.setSecteur(secteur);
+                }
+                if (personnePhysiqueDto.getDistributeur() != null && personnePhysiqueDto.getDistributeur().getIdPersonne() != null) {
+                    Personne distributeur = personneDao.findById(personnePhysiqueDto.getDistributeur().getIdPersonne())
+                            .orElseThrow(() -> new com.ged.advice.EntityNotFoundException(Personne.class, personnePhysiqueDto.getDistributeur().getIdPersonne().toString()));
+                    personnePhysique.setDistributeur(distributeur);
+                }
+                if (personnePhysiqueDto.getLangue() != null && personnePhysiqueDto.getLangue().getIdLangue() != null) {
+                    Langue langue = langueDao.findById(personnePhysiqueDto.getLangue().getIdLangue())
+                            .orElseThrow(() -> new com.ged.advice.EntityNotFoundException(Langue.class, personnePhysiqueDto.getLangue().getIdLangue().toString()));
+                    personnePhysique.setLangue(langue);
+                }
+
+                Set<DocumentDto> documents = personnePhysiqueDto.getDocuments();
+                for (DocumentDto doc : documents) {
+                    personnePhysique.ajouterDocument(documentMapper.deDocumentDto(doc));
+                }
+
+                PersonnePhysiqueDto personnePhysiqueSave = personnePhysiqueMapper.dePersonnePhysique(personnePhysiqueDao.save(personnePhysique));
+                personnePhysiqueDtoSaved = personnePhysiqueSave;
+                if (personnePhysiqueSave.getIdPersonne() != null) {
+                    Set<PersonnePhysiquePaysDto> personnePhysiquePaysDtos = personnePhysiqueDto.getPersonnePhysiquePaysDtos();
+                    PersonnePhysiquePaysDto personnePhysiquePaysDto = new PersonnePhysiquePaysDto();
+                    for (PersonnePhysiquePaysDto o : personnePhysiqueDto.getPersonnePhysiquePaysDtos()) {
+                        o.setPersonnePhysiqueDto(personnePhysiqueSave);
+                        ClePersonnePhysiquePays clePersonnePhysiquePays = new ClePersonnePhysiquePays();
+                        clePersonnePhysiquePays.setIdPays(o.getPaysDto().getIdPays());
+                        clePersonnePhysiquePays.setIdPersonne(personnePhysiqueSave.getIdPersonne());
+                        personnePhysiquePaysDto.setIdPersonnePhysiquePays(clePersonnePhysiquePays);
+                        personnePhysiquePaysDto.setPaysDto(o.getPaysDto());
+                        personnePhysiquePaysDto.setPersonnePhysiqueDto(personnePhysiqueSave);
+
+                        personnePhysiquePaysService.creerPersonnePhysiquePays(personnePhysiquePaysDto);
+//                    personnePhysique.ajouterPersonnePhysiquePays(personnePhysiquePaysMapper.dePersonnePhysiquePaysDto(o));
+                    }
+                }
+                if (files != null) {
+                    Set<DocumentDto> docs = new HashSet<>(personnePhysiqueSave.getDocuments());
+                    Set<DocumentDto> newDocs = fileService.uploadMedia(PATH, files, docs);
+                    personnePhysiqueSave.setDocuments(newDocs);
+                }
+                if (personnePhysiqueSave.getIdPersonne() != null) {
+                    if (
+                            StringUtils.hasLength(personnePhysiqueSave.getEmailPro()) ||
+                                    StringUtils.hasLength(personnePhysiqueSave.getEmailPerso())
+                    ) {
+                        mailSenderServiceImpl.send("Remerciement",
+                                personnePhysiqueSave.getEmailPerso(),
+                                "SAPHIR, vous remercie pour votre disponibilité !");
+                        MailDto mailDto = new MailDto();
+                        mailDto.setDateEnvoi(new Date());
+                        mailDto.setHeureEnvoi(null);
+                        mailDto.setObjet("Remerciement");
+                        mailDto.setMsg("SAPHIR, vous remercie pour votre disponibilité !");
+                        mailDto = mailService.creerMail(mailDto);
+                        if (mailDto.getIdMail() != null) {
+                            EnvoiMailDto envoiMailDto = new EnvoiMailDto();
+                            envoiMailDto.setMailDto(mailDto);
+                            envoiMailDto.setPersonneDto(personnePhysiqueDtoSaved);
+                            envoiMailDto = envoiMailService.creerEnvoiMail(envoiMailDto);
+                        }
                     }
                 }
             }

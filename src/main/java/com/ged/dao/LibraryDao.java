@@ -59,18 +59,47 @@ public interface LibraryDao extends JpaRepository<BaseEntity, Long> {
     List<PersonnePhysiqueMoraleProjection> afficherPersonnePhysiqueMorale(Long idOpcvm,String libelleQualite,String statutCompte,String valeur);
     @Query(value = "select * from [Impressions].[FT_EtatRecapInfosClients_New] (:idPersonne) ", nativeQuery = true)
     List<FicheClientProjection> afficherFicheClient(String idPersonne);
-    @Query(value = "select * from [Impressions].[FT_EtatSuiviActionnaires] (:idOpcvm,:dateDeb,:dateFin) " +
+    @Query(value = "select * from [Impressions].[FT_EtatSuiviActionnaires_New] (:idOpcvm,:dateDeb,:dateFin) " +
             "", nativeQuery = true)
     List<EtatsSuiviActionnaireProjection> etatSuiviActionnaire(Long idOpcvm,LocalDateTime dateDeb,LocalDateTime dateFin);
     @Query(value = "select * from [Impressions].[FT_EtatSuiviClients](:idActionnaire,:idOpcvm,:dateEddition) " +
             "order by idactionnaire asc,idopcvm asc,titre asc", nativeQuery = true)
     List<EtatsSuiviClientProjection> etatSuiviClient(String idActionnaire,Long idOpcvm,LocalDateTime dateEddition);
-    @Query(value = "select * from [Impressions].[FT_EtatSuiviActionnaires] (:idOpcvm,:dateDeb,:dateFin) " +
+    @Query(value = "select * from [Impressions].[FT_EtatSuiviActionnaires_New] (:idOpcvm,:dateDeb,:dateFin) " +
             "", nativeQuery = true)
     Page<EtatsSuiviActionnaireProjection> etatSuiviActionnaire(Long idOpcvm,LocalDateTime dateDeb,LocalDateTime dateFin,Pageable pageable);
+    @Query(value = "select * from [Titre].[FT_CoursTitre_New](:codePlace,:date,:estVerifie1,:estVerifie2) " +
+            " order by libellesecteurboursier asc,idtitre asc", nativeQuery = true)
+    List<CoursTitreProjection> coursTitreNew(String codePlace,LocalDateTime date,Boolean estVerifie1,Boolean estVerifie2);
+    @Query(value = "select * from [Titre].[FT_PlaceCoursTitre_New](:codePlace,:dateDebut,:dateFin)" +
+            "", nativeQuery = true)
+    Page<PlaceCoursTitreProjection> placeCoursTitre(String codePlace,LocalDateTime dateDebut,LocalDateTime dateFin,Pageable pageable);
+    @Query(value = "select * from [Impressions].[FT_PointDesFraisDeFonctionnement_New](:idOpcvm,:dateDeb,:dateFin) " +
+            "", nativeQuery = true)
+    List<EtatFraisFonctionnementProjection> etatPointFraisFonctionnement(Long idOpcvm,LocalDateTime dateDeb,LocalDateTime dateFin);
+    @Query(value = "select * from [Impressions].[FT_PointDesFraisDeFonctionnement_New] (:idOpcvm,:dateDeb,:dateFin) " +
+            "", nativeQuery = true)
+    Page<EtatFraisFonctionnementProjection> etatPointFraisFonctionnement(Long idOpcvm,LocalDateTime dateDeb,LocalDateTime dateFin,Pageable pageable);
+    @Query(value = "select * from [Impressions].[FT_EcvolutionVL_New] (:idOpcvm, :mois1,:mois2) " +
+            "", nativeQuery = true)
+    List<EvolutionVLProjection> evolutionVL(Long idOpcvm,Long mois1,Long mois2);
+    @Query(value = "select * from [Impressions].[FT_EcvolutionVL_New] (:idOpcvm, :mois1,:mois2)" +
+            "", nativeQuery = true)
+    Page<EvolutionVLProjection> evolutionVL(Long idOpcvm,Long mois1,Long mois2,Pageable pageable);
+    @Query(value = "select * from [Impressions].[FT_PointSousRach_New](:idOpcvm,:dateDeb,:dateFin,:type) " +
+            "", nativeQuery = true)
+    List<PointSouscriptionRachatProjection> pointSouscriptionRachat(Long idOpcvm,LocalDateTime dateDeb,LocalDateTime dateFin,String type);
+    @Query(value = "select * from [Impressions].[FT_PointSousRach_New](:idOpcvm,:dateDeb,:dateFin,:type)" +
+            "", nativeQuery = true)
+    Page<PointSouscriptionRachatProjection> pointSouscriptionRachat(Long idOpcvm,LocalDateTime dateDeb,LocalDateTime dateFin,String type,Pageable pageable);
+
     @Query(value = "select * from [Impressions].[FT_ReleveActionnaireImpression_New] (:idActionnaire,:dateDebut,:dateFin) " +
             "order by idactionnaire asc,dateoperation asc", nativeQuery = true)
     List<ReleveActionnaireProjection> releveActionnaire(String idActionnaire,LocalDateTime dateDebut,LocalDateTime dateFin);
+    @Query(value = "select * from [Impressions].[FT_PerformancePortefeuilleActionnaire](:idOpcvm,:idActionnaire," +
+            ":dateDebut,:dateFin) " +
+            "order by idactionnaire asc,idopcvm asc", nativeQuery = true)
+    List<PerformancePortefeuilleActionnaireProjection> performancePortefeuilleActionnaire(Long idOpcvm,String idActionnaire,LocalDateTime dateDebut,LocalDateTime dateFin);
     @Query(value = "select * from [Impressions].[FT_RegistreActionnaire_New](:dateDebut,:dateFin)", nativeQuery = true)
     List<HistoriqueActionnaireProjection> historiqueActionnaire(LocalDateTime dateDebut,LocalDateTime dateFin);
     @Query(value = "select * from [Impressions].[FT_RegistreActionnaire_New](:dateDebut,:dateFin)", nativeQuery = true)
