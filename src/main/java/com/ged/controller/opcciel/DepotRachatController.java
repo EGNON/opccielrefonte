@@ -12,6 +12,8 @@ import com.ged.dto.opcciel.comptabilite.VerifDepSouscriptionIntRachatDto;
 import com.ged.dto.request.DownloadRequest;
 import com.ged.dto.request.PrecalculSouscriptionRequest;
 import com.ged.dto.request.VerificationListeDepotRequest;
+import com.ged.dto.standard.PhForm;
+import com.ged.dto.standard.PmForm;
 import com.ged.entity.opcciel.Opcvm;
 import com.ged.entity.opcciel.SeanceOpcvm;
 import com.ged.mapper.opcciel.DepotRachatMapper;
@@ -162,6 +164,16 @@ public class DepotRachatController {
     public ResponseEntity<Object> ajouter(@Valid @RequestBody DepotRachatDto DepotRachatDto)
     {
         return depotRachatService.creer(DepotRachatDto);
+    }
+    @PostMapping("/importdepotph")
+    public ResponseEntity<Object> importDepotPH(@Valid @RequestBody List<PhForm> phForm)
+    {
+        return depotRachatService.importDepotPH(phForm);
+    }
+    @PostMapping("/importdepotpm")
+    public ResponseEntity<Object> importDepotPM(@Valid @RequestBody List<PmForm> pmForm)
+    {
+        return depotRachatService.importDepotPM(pmForm);
     }
 
     @PostMapping("/{type}")

@@ -37,6 +37,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -127,10 +128,10 @@ public class CompteRenduServiceImpl implements CompteRenduService {
             ope.setHeureDebCR((o[6].toString()));
             ope.setHeureFinCR((o[7].toString()));
             ope.setDateEffectivePromesse(LocalDateTime.parse(o[8].toString().replace(' ','T')));
-            ope.setRealisation(o[9].toString());
-            ope.setMontantRealisation(Double.valueOf(o[10].toString()));
-            ope.setPromesse(o[11].toString());
-            ope.setMontantPromesse(Double.valueOf(o[12].toString()));
+            ope.setRealisation(o[9]==null?"":o[9].toString());
+            ope.setMontantRealisation(Double.valueOf(o[10]==null?"0" :o[10].toString()));
+            ope.setPromesse(o[11]==null?"":o[11].toString());
+            ope.setMontantPromesse(Double.valueOf(o[12]==null?"":o[12].toString()));
 
             compteRenduDtos.add(ope);
         }

@@ -80,6 +80,18 @@ public interface LibraryDao extends JpaRepository<BaseEntity, Long> {
     @Query(value = "select * from [Impressions].[FT_PointDesFraisDeFonctionnement_New] (:idOpcvm,:dateDeb,:dateFin) " +
             "", nativeQuery = true)
     Page<EtatFraisFonctionnementProjection> etatPointFraisFonctionnement(Long idOpcvm,LocalDateTime dateDeb,LocalDateTime dateFin,Pageable pageable);
+    @Query(value = "select * from [Impressions].[FT_RepartitionPortefeuilleFonds_New] (:idOpcvm ,:dateEstimation) " +
+            "", nativeQuery = true)
+    List<PointRepartitionPortefeuilleProjection> pointRepartitionPortefeuille(Long idOpcvm,LocalDateTime dateEstimation);
+    @Query(value = "select * from [Impressions].[FT_RepartitionPortefeuilleFonds_New] (:idOpcvm ,:dateEstimation)" +
+            "", nativeQuery = true)
+    Page<PointRepartitionPortefeuilleProjection> pointRepartitionPortefeuille(Long idOpcvm,LocalDateTime dateEstimation,Pageable pageable);
+   @Query(value = "select * from [Impressions].[FT_EvolutionActifPart_New] (:dateEstimation) " +
+            "", nativeQuery = true)
+    List<EvolutionActifNetProjection> evolutionAtifNet(LocalDateTime dateEstimation);
+    @Query(value = "select * from [Impressions].[FT_EvolutionActifPart_New] (:dateEstimation) " +
+            "", nativeQuery = true)
+    Page<EvolutionActifNetProjection> evolutionAtifNet(LocalDateTime dateEstimation,Pageable pageable);
     @Query(value = "select * from [Impressions].[FT_EcvolutionVL_New] (:idOpcvm, :mois1,:mois2) " +
             "", nativeQuery = true)
     List<EvolutionVLProjection> evolutionVL(Long idOpcvm,Long mois1,Long mois2);

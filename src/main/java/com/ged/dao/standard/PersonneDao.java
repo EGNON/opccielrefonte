@@ -82,6 +82,7 @@ public interface PersonneDao extends JpaRepository<Personne, Long> {
 
     @Query(value = "SELECT distinct p.idPersonne as idPersonne, " +
             "COALESCE(pm.raisonSociale, CONCAT(pp.nom, ' ', pp.prenom)) AS denomination," +
+            "concat(p.numeroCpteDeposit,'-',COALESCE(pm.raisonSociale, CONCAT(pp.nom, ' ', pp.prenom))) AS numeroCpteDeposit," +
             "p.ifu as ifu,p.mobile1 as mobile1,p.mobile2 as mobile2,p.fixe1 as fixe1," +
             "p.fixe2 as fixe2,p.bp as bp,p.emailPerso as emailPerso" +
             ",p.emailPro as emailPro,p.domicile as domicile,p.numeroPiece as numeroPiece," +

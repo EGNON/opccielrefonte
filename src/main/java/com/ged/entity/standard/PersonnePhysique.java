@@ -18,11 +18,11 @@ import java.util.Set;
 @Table(name = "T_PersonnePhysique", schema = "Parametre")
 public class PersonnePhysique extends Personne{
     //OPCCIEL 1
-    /*@Basic
+    @Basic
     private String NomPersonnePhysique;
     @Basic
     private String PrenomPersonnePhysique;
-    private String CodePaysNaissance;*/
+    /*private String CodePaysNaissance;*/
     @Basic
     private String Sexe;
     @Basic
@@ -40,6 +40,8 @@ public class PersonnePhysique extends Personne{
     private String LibelleSecteurActivite;
     private String LibelleProfession;*/
     private String numCompteDepositaire;
+    @Column(length = 16)
+    private String numCompteSgi;
    /* @Column(length = 20)
     private String telephoneFixe;
     @Column(length = 20)
@@ -54,8 +56,7 @@ public class PersonnePhysique extends Personne{
     private String adresseComplete;
     private String typePieceIdentite;
     private String nomPrenomMere;
-     @Column(length = 16)
-    private String numCompteSgi;
+
    @Column(nullable =true)
     private BigDecimal tauxRetroCourSous;
     @Column(nullable =true)
@@ -188,6 +189,14 @@ public class PersonnePhysique extends Personne{
         this.Sexe = sexe;
         this.Civilite = civilite;
         this.profession = profession;
+    }
+
+    public String getNumCompteSgi() {
+        return numCompteSgi;
+    }
+
+    public void setNumCompteSgi(String numCompteSgi) {
+        this.numCompteSgi = numCompteSgi;
     }
 
     @Override
@@ -547,7 +556,7 @@ public class PersonnePhysique extends Personne{
 
     //OPCCIEL1
 
-   /* public String getNomPersonnePhysique() {
+   public String getNomPersonnePhysique() {
         return NomPersonnePhysique;
     }
 
@@ -563,7 +572,7 @@ public class PersonnePhysique extends Personne{
         PrenomPersonnePhysique = prenomPersonnePhysique;
     }
 
-    public String getCodePaysNaissance() {
+    /* public String getCodePaysNaissance() {
         return CodePaysNaissance;
     }
 

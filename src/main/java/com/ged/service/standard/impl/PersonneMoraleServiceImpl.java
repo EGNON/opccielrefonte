@@ -10,6 +10,7 @@ import com.ged.datatable.DatatableParameters;
 import com.ged.dto.standard.EnvoiMailDto;
 import com.ged.dto.standard.MailDto;
 import com.ged.dto.standard.PersonneMoraleDto;
+import com.ged.dto.standard.PersonnePhysiqueDto;
 import com.ged.entity.standard.revuecompte.CategorieClient;
 import com.ged.entity.standard.revuecompte.SousTypeClient;
 import com.ged.mapper.standard.PersonneMoraleMapper;
@@ -143,11 +144,30 @@ public class PersonneMoraleServiceImpl implements PersonneMoraleService {
         return dataTablesResponse;
     }
 
+    /**
+     * @param parameters
+     * @return
+     */
     @Override
-    public DataTablesResponse<PersonneMoraleDto> afficherPersonneSanctionnee(DatatableParameters parameters) {
+    public DataTablesResponse<PersonneMoraleDto> afficherPersonneJuge(DatatableParameters parameters) {
         Pageable pageable = PageRequest.of(
                 parameters.getStart()/ parameters.getLength(), parameters.getLength());
-        Page<PersonneMorale> personneMoralePage = personneMoraleDao.afficherPersonneSanctionnee(pageable);
+        Page<PersonneMorale> personneMoralePage = personneMoraleDao.afficherPersonneJuge(pageable);
+
+        List<PersonneMoraleDto> content = personneMoralePage.getContent().stream().map(personneMoraleMapper::dePersonneMorale).collect(Collectors.toList());
+        DataTablesResponse<PersonneMoraleDto> dataTablesResponse = new DataTablesResponse<>();
+        dataTablesResponse.setDraw(parameters.getDraw());
+        dataTablesResponse.setRecordsFiltered((int)personneMoralePage.getTotalElements());
+        dataTablesResponse.setRecordsTotal((int)personneMoralePage.getTotalElements());
+        dataTablesResponse.setData(content);
+        return dataTablesResponse;
+    }
+
+    @Override
+    public DataTablesResponse<PersonneMoraleDto> afficherPersonneExpose(DatatableParameters parameters) {
+        Pageable pageable = PageRequest.of(
+                parameters.getStart()/ parameters.getLength(), parameters.getLength());
+        Page<PersonneMorale> personneMoralePage = personneMoraleDao.afficherPersonneExpose(pageable);
 
         List<PersonneMoraleDto> content = personneMoralePage.getContent().stream().map(personneMoraleMapper::dePersonneMorale).collect(Collectors.toList());
         DataTablesResponse<PersonneMoraleDto> dataTablesResponse = new DataTablesResponse<>();
@@ -218,58 +238,195 @@ public class PersonneMoraleServiceImpl implements PersonneMoraleService {
     public PersonneMoraleDto creerPersonneMorale(PersonneMoraleDto personneMoraleDto) {
         PersonneMoraleDto personneMoraleDtoSaved = null;
         try {
-            PersonneMorale personneMorale=personneMoraleMapper.dePersonneMoraleDto(personneMoraleDto);
-            personneMorale.setDenomination(personneMoraleDto.getRaisonSociale() + " [" + personneMoraleDto.getSigle() + "]");
-            if(personneMoraleDto.getPaysResidence() != null && personneMoraleDto.getPaysResidence().getIdPays() != null)
-            {
-                Pays paysResidence = paysDao.findById(personneMoraleDto.getPaysResidence().getIdPays())
-                        .orElseThrow(() -> new com.ged.advice.EntityNotFoundException(Pays.class, personneMoraleDto.getPaysResidence().getIdPays().toString()));
-                personneMorale.setPaysResidence(paysResidence);
+            PersonneMoraleDto moraleDto;
+            PersonneMorale personneMorale = personneMoraleMapper.dePersonneMoraleDto(personneMoraleDto);
+            personneMorale.setStatutCompte("OUVERT");
+            PersonneMorale personneMoraleSelonId = new PersonneMorale();
+            if(personneMoraleDto.getIdPersonne()!=null && personneMoraleDto.getIdPersonne()!=0)
+                personneMoraleSelonId=personneMoraleDao.findById(personneMoraleDto.getIdPersonne()).orElseThrow();
+            else
+                personneMoraleSelonId=null;
+
+            if(personneMoraleSelonId!=null) {
+
+
+                if (personneMoraleDto.getIdPersonne() != null && personneMoraleDto.getIdPersonne() != 0) {
+//                    personneMoraleSelonId = personneMoraleMapper.dePersonneMoraleDto(moraleDto);// afficherPersonneMoraleSelonId(personneMoraleDto.getIdPersonne());
+                    //personneMorale.setStatutPersonnes(personneMoraleSelonId.getStatutPersonnes());
+                    personneMorale.setNumCompteDepositaire(personneMoraleSelonId.getNumCompteDepositaire());
+                    personneMorale.setNumCompteSgi(personneMoraleSelonId.getNumCompteSgi());
+                    personneMorale.setNumeroCpteDeposit(personneMoraleSelonId.getNumeroCpteDeposit());
+                }
+                if (personneMoraleDto.getEstExpose() == null) {
+                    if (personneMoraleSelonId != null)
+                        personneMorale.setEstExpose(personneMoraleSelonId.getEstExpose());
+                    else
+                        personneMorale.setEstExpose(false);
+
+                    personneMoraleDto.setEstExpose(personneMorale.getEstExpose());
+                }
+                if (personneMoraleDto.getEstJuge() == null) {
+                    if (personneMoraleSelonId != null)
+                        personneMorale.setEstJuge(personneMoraleSelonId.getEstJuge());
+                    else
+                        personneMorale.setEstJuge(false);
+
+                    personneMoraleDto.setEstJuge(personneMorale.getEstJuge());
+                }
+
+                personneMorale.setDenomination(personneMoraleSelonId.getRaisonSociale() + " [" + personneMoraleSelonId.getSigle() + "]");
+                if (personneMoraleDto.getEstExpose() || personneMoraleDto.getEstJuge()) {
+                    if (personneMoraleSelonId != null) {
+                        if (personneMoraleSelonId.getSiteWeb() != null && personneMoraleDto.getSiteWeb() == null) {
+                            personneMorale.setSiteWeb(personneMoraleSelonId.getSiteWeb());
+                        }
+                        if (personneMoraleSelonId.getBp() != null && personneMoraleDto.getBp() == null) {
+                            personneMorale.setBp(personneMoraleSelonId.getBp());
+                        }
+                        if (personneMoraleSelonId.getNomContact() != null && personneMoraleDto.getNomContact() == null) {
+                            personneMorale.setNomContact(personneMoraleSelonId.getNomContact());
+                        }
+                        if (personneMoraleSelonId.getEmailContact() != null && personneMoraleDto.getEmailContact() == null) {
+                            personneMorale.setEmailContact(personneMoraleSelonId.getEmailContact());
+                        }
+                        if (personneMoraleSelonId.getPrenomContact() != null && personneMoraleDto.getPrenomContact() == null) {
+                            personneMorale.setPrenomContact(personneMoraleSelonId.getPrenomContact());
+                        }
+                        if (personneMoraleSelonId.getTelContact() != null && personneMoraleDto.getTelContact() == null) {
+                            personneMorale.setTelContact(personneMoraleSelonId.getTelContact());
+                        }
+                        if (personneMoraleSelonId.getTitreContact() != null && personneMoraleDto.getTitreContact() == null) {
+                            personneMorale.setTitreContact(personneMoraleSelonId.getTitreContact());
+                        }
+                        if (personneMoraleSelonId.getEmailPerso() != null && personneMoraleDto.getEmailPerso() == null) {
+                            personneMorale.setEmailPerso(personneMoraleSelonId.getEmailPerso());
+                        }
+                        if (personneMoraleSelonId.getEmailPro() != null && personneMoraleDto.getEmailPro() == null) {
+                            personneMorale.setEmailPro(personneMoraleSelonId.getEmailPro());
+                        }
+                        if (personneMoraleSelonId.getDomicile() != null && personneMoraleDto.getDomicile() == null) {
+                            personneMorale.setDomicile(personneMoraleSelonId.getDomicile());
+                        }
+                        if (personneMoraleSelonId.getMobile1() != null && personneMoraleDto.getMobile1() == null) {
+                            personneMorale.setMobile1(personneMoraleSelonId.getMobile1());
+                        }
+                        if (personneMoraleSelonId.getMobile2() != null && personneMoraleDto.getMobile2() == null) {
+                            personneMorale.setMobile2(personneMoraleSelonId.getMobile2());
+                        }
+                        if (personneMoraleSelonId.getFixe1() != null && personneMoraleDto.getFixe1() == null) {
+                            personneMorale.setFixe1(personneMoraleSelonId.getFixe1());
+                        }
+                        if (personneMoraleSelonId.getFixe2() != null && personneMoraleDto.getFixe2() == null) {
+                            personneMorale.setFixe2(personneMoraleSelonId.getFixe2());
+                        }
+                        if (personneMoraleSelonId.getIfu() != null && personneMoraleDto.getIfu() == null) {
+                            personneMorale.setIfu(personneMoraleSelonId.getIfu());
+                        }
+
+                        if (personneMoraleDto.getPaysResidence() != null) {
+                            Pays paysResidence = paysDao.findById(personneMoraleDto.getPaysResidence().getIdPays())
+                                    .orElseThrow(() -> new com.ged.advice.EntityNotFoundException(Pays.class, personneMoraleDto.getPaysResidence().getIdPays().toString()));
+                            personneMorale.setPaysResidence(paysResidence);
+                        }
+
+                        if (personneMoraleSelonId.getCategorieClient() != null && personneMoraleDto.getCategorieClient() == null) {
+                            CategorieClient categorieClient = categorieClientDao.findById(personneMoraleSelonId.getCategorieClient().getIdCategorieClient())
+                                    .orElseThrow(() -> new com.ged.advice.EntityNotFoundException(CategorieClient.class, personneMoraleDto.getCategorieClient().getIdCategorieClient().toString()));
+                            personneMorale.setCategorieClient(categorieClient);
+                        } else if (personneMoraleDto.getCategorieClient() != null) {
+                            CategorieClient categorieClient = categorieClientDao.findById(personneMoraleDto.getCategorieClient().getIdCategorieClient())
+                                    .orElseThrow(() -> new com.ged.advice.EntityNotFoundException(CategorieClient.class, personneMoraleDto.getCategorieClient().getIdCategorieClient().toString()));
+                            personneMorale.setCategorieClient(categorieClient);
+                        }
+
+                        if (personneMoraleSelonId.getSousTypeClient() != null && personneMoraleDto.getSousTypeClient() == null) {
+                            SousTypeClient sousTypeClient = sousTypeClientDao.findById(personneMoraleSelonId.getSousTypeClient().getIdSousTypeClient())
+                                    .orElseThrow(() -> new com.ged.advice.EntityNotFoundException(SousTypeClient.class, personneMoraleDto.getSousTypeClient().getIdSousTypeClient().toString()));
+                            personneMorale.setSousTypeClient(sousTypeClient);
+                        } else if (personneMoraleDto.getSousTypeClient() != null) {
+                            SousTypeClient sousTypeClient = sousTypeClientDao.findById(personneMoraleDto.getSousTypeClient().getIdSousTypeClient())
+                                    .orElseThrow(() -> new com.ged.advice.EntityNotFoundException(SousTypeClient.class, personneMoraleDto.getSousTypeClient().getIdSousTypeClient().toString()));
+                            personneMorale.setSousTypeClient(sousTypeClient);
+                        }
+
+                        if (personneMoraleSelonId.getDegre() != null && personneMoraleDto.getDegre() == null) {
+                            Degre degre = degreDao.findById(personneMoraleSelonId.getDegre().getIdDegre())
+                                    .orElseThrow(() -> new com.ged.advice.EntityNotFoundException(Degre.class, personneMoraleDto.getDegre().getIdDegre().toString()));
+                            personneMorale.setDegre(degre);
+                        } else if (personneMoraleDto.getDegre() != null) {
+                            Degre degre = degreDao.findById(personneMoraleDto.getDegre().getIdDegre())
+                                    .orElseThrow(() -> new com.ged.advice.EntityNotFoundException(Degre.class, personneMoraleDto.getDegre().getIdDegre().toString()));
+                            personneMorale.setDegre(degre);
+                        }
+                        if (personneMoraleSelonId.getSecteur() != null && personneMoraleDto.getSecteur() == null) {
+                            Secteur secteur = secteurDao.findById(personneMoraleSelonId.getSecteur().getIdSecteur())
+                                    .orElseThrow(() -> new com.ged.advice.EntityNotFoundException(Secteur.class, personneMoraleDto.getSecteur().getIdSecteur().toString()));
+                            personneMorale.setSecteur(secteur);
+                        } else if (personneMoraleDto.getSecteur() != null) {
+                            Secteur secteur = secteurDao.findById(personneMoraleDto.getSecteur().getIdSecteur())
+                                    .orElseThrow(() -> new com.ged.advice.EntityNotFoundException(Secteur.class, personneMoraleDto.getSecteur().getIdSecteur().toString()));
+                            personneMorale.setSecteur(secteur);
+                        }
+                        if (personneMoraleSelonId.getDistributeur() != null && personneMoraleDto.getDistributeur() == null) {
+                            Personne personne = personneDao.findById(personneMoraleSelonId.getDistributeur().getIdPersonne())
+                                    .orElseThrow(() -> new com.ged.advice.EntityNotFoundException(Personne.class, personneMoraleDto.getDistributeur().getIdPersonne().toString()));
+                            personneMorale.setDistributeur(personne);
+                        } else if (personneMoraleDto.getDistributeur() != null) {
+                            Personne personne = personneDao.findById(personneMoraleDto.getDistributeur().getIdPersonne())
+                                    .orElseThrow(() -> new com.ged.advice.EntityNotFoundException(Personne.class, personneMoraleDto.getDistributeur().getIdPersonne().toString()));
+                            personneMorale.setDistributeur(personne);
+                        }
+                    }
+                }
             }
+            else {
+                if (personneMoraleDto.getPaysResidence() != null && personneMoraleDto.getPaysResidence().getIdPays() != null) {
+                    Pays paysResidence = paysDao.findById(personneMoraleDto.getPaysResidence().getIdPays())
+                            .orElseThrow(() -> new com.ged.advice.EntityNotFoundException(Pays.class, personneMoraleDto.getPaysResidence().getIdPays().toString()));
+                    personneMorale.setPaysResidence(paysResidence);
+                }
             /*if(personneMoraleDto.getFormeJuridique() != null && personneMoraleDto.getFormeJuridique().getCodeFormeJuridique() != null)
             {
                 FormeJuridique formeJuridique = formeJuridiqueDao.findById(personneMoraleDto.getFormeJuridique().getCodeFormeJuridique())
                         .orElseThrow(() -> new com.ged.advice.EntityNotFoundException(Pays.class, personneMoraleDto.getFormeJuridique().getCodeFormeJuridique()));
                 personneMorale.setFormeJuridique(formeJuridique);
             }*/
-            if(personneMoraleDto.getDegre() != null && personneMoraleDto.getDegre().getIdDegre() != null)
-            {
-                Degre degre = degreDao.findById(personneMoraleDto.getDegre().getIdDegre())
-                        .orElseThrow(() -> new com.ged.advice.EntityNotFoundException(Degre.class, personneMoraleDto.getDegre().getIdDegre().toString()));
-                personneMorale.setDegre(degre);
-            }
+                if (personneMoraleDto.getDegre() != null && personneMoraleDto.getDegre().getIdDegre() != null) {
+                    Degre degre = degreDao.findById(personneMoraleDto.getDegre().getIdDegre())
+                            .orElseThrow(() -> new com.ged.advice.EntityNotFoundException(Degre.class, personneMoraleDto.getDegre().getIdDegre().toString()));
+                    personneMorale.setDegre(degre);
+                }
 
-            if (personneMoraleDto.getCategorieClient() != null && personneMoraleDto.getCategorieClient().getIdCategorieClient() != null) {
-                CategorieClient categorieClient = categorieClientDao.findById(personneMoraleDto.getCategorieClient().getIdCategorieClient())
-                        .orElseThrow(() -> new com.ged.advice.EntityNotFoundException(CategorieClient.class, personneMoraleDto.getCategorieClient().getIdCategorieClient().toString()));
-                personneMorale.setCategorieClient(categorieClient);
-            }
+                if (personneMoraleDto.getCategorieClient() != null && personneMoraleDto.getCategorieClient().getIdCategorieClient() != null) {
+                    CategorieClient categorieClient = categorieClientDao.findById(personneMoraleDto.getCategorieClient().getIdCategorieClient())
+                            .orElseThrow(() -> new com.ged.advice.EntityNotFoundException(CategorieClient.class, personneMoraleDto.getCategorieClient().getIdCategorieClient().toString()));
+                    personneMorale.setCategorieClient(categorieClient);
+                }
 
-            if (personneMoraleDto.getSousTypeClient() != null && personneMoraleDto.getSousTypeClient().getIdSousTypeClient() != null) {
-                SousTypeClient sousTypeClient = sousTypeClientDao.findById(personneMoraleDto.getSousTypeClient().getIdSousTypeClient())
-                        .orElseThrow(() -> new com.ged.advice.EntityNotFoundException(SousTypeClient.class, personneMoraleDto.getSousTypeClient().getIdSousTypeClient().toString()));
-                personneMorale.setSousTypeClient(sousTypeClient);
-            }
+                if (personneMoraleDto.getSousTypeClient() != null && personneMoraleDto.getSousTypeClient().getIdSousTypeClient() != null) {
+                    SousTypeClient sousTypeClient = sousTypeClientDao.findById(personneMoraleDto.getSousTypeClient().getIdSousTypeClient())
+                            .orElseThrow(() -> new com.ged.advice.EntityNotFoundException(SousTypeClient.class, personneMoraleDto.getSousTypeClient().getIdSousTypeClient().toString()));
+                    personneMorale.setSousTypeClient(sousTypeClient);
+                }
 
-            if(personneMoraleDto.getSecteur() != null && personneMoraleDto.getSecteur().getIdSecteur() != null)
-            {
-                Secteur secteur = secteurDao.findById(personneMoraleDto.getSecteur().getIdSecteur())
-                        .orElseThrow(() -> new com.ged.advice.EntityNotFoundException(Secteur.class, personneMoraleDto.getSecteur().getIdSecteur().toString()));
-                personneMorale.setSecteur(secteur);
-            }
-            if(personneMoraleDto.getDistributeur() != null && personneMoraleDto.getDistributeur().getIdPersonne() != null)
-            {
-                Personne personne = personneDao.findById(personneMoraleDto.getDistributeur().getIdPersonne())
-                        .orElseThrow(() -> new com.ged.advice.EntityNotFoundException(Personne.class, personneMoraleDto.getDistributeur().getIdPersonne().toString()));
-                personneMorale.setDistributeur(personne);
+                if (personneMoraleDto.getSecteur() != null && personneMoraleDto.getSecteur().getIdSecteur() != null) {
+                    Secteur secteur = secteurDao.findById(personneMoraleDto.getSecteur().getIdSecteur())
+                            .orElseThrow(() -> new com.ged.advice.EntityNotFoundException(Secteur.class, personneMoraleDto.getSecteur().getIdSecteur().toString()));
+                    personneMorale.setSecteur(secteur);
+                }
+                if (personneMoraleDto.getDistributeur() != null && personneMoraleDto.getDistributeur().getIdPersonne() != null) {
+                    Personne personne = personneDao.findById(personneMoraleDto.getDistributeur().getIdPersonne())
+                            .orElseThrow(() -> new com.ged.advice.EntityNotFoundException(Personne.class, personneMoraleDto.getDistributeur().getIdPersonne().toString()));
+                    personneMorale.setDistributeur(personne);
+                }
             }
             PersonneMorale personneMoraleSave = personneMoraleDao.save(personneMorale);
             personneMoraleDtoSaved = personneMoraleMapper.dePersonneMorale(personneMoraleSave);
             if(personneMoraleSave.getIdPersonne() != null)
             {
                 if(
-                        StringUtils.hasLength(personneMoraleSave.getEmailPro()) ||
-                                StringUtils.hasLength(personneMoraleSave.getEmailPerso())
+//                        StringUtils.hasLength(personneMoraleSave.getEmailPro()) ||
+                                !personneMoraleSave.getEmailPerso().trim().equals("")
                 )
                 {
 //                    emailService.sendMail(
@@ -310,11 +467,34 @@ public class PersonneMoraleServiceImpl implements PersonneMoraleService {
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     public PersonneMoraleDto modifierPersonneMorale(PersonneMoraleDto personneMoraleDto) {
         PersonneMorale personneMorale=personneMoraleMapper.dePersonneMoraleDto(personneMoraleDto);
+        personneMorale.setStatutCompte("OUVERT");
+        PersonneMoraleDto moraleDto;
         PersonneMorale personneMoraleSelonId=new PersonneMorale();
-        if(personneMoraleDto.getIdPersonne()!=null)
+        if(personneMoraleDto.getIdPersonne()!=null && personneMoraleDto.getIdPersonne()!=0)
         {
             personneMoraleSelonId=afficherPersonneMoraleSelonId(personneMoraleDto.getIdPersonne());
-            personneMorale.setStatutPersonnes(personneMoraleSelonId.getStatutPersonnes());
+            //personneMorale.setStatutPersonnes(personneMoraleSelonId.getStatutPersonnes());
+            personneMorale.setNumCompteDepositaire(personneMoraleSelonId.getNumCompteDepositaire());
+            personneMorale.setNumCompteSgi(personneMoraleSelonId.getNumCompteSgi());
+            personneMorale.setNumeroCpteDeposit(personneMoraleSelonId.getNumeroCpteDeposit());
+        }
+        else
+            personneMoraleSelonId=null;
+        if(personneMoraleDto.getEstExpose()==null){
+            if(personneMoraleSelonId!=null)
+                personneMorale.setEstExpose(personneMoraleSelonId.getEstExpose());
+            else
+                personneMorale.setEstExpose(false);
+
+            personneMoraleDto.setEstExpose(personneMorale.getEstExpose());
+        }
+        if(personneMoraleDto.getEstJuge()==null){
+            if(personneMoraleSelonId!=null)
+                personneMorale.setEstJuge(personneMoraleSelonId.getEstJuge());
+            else
+                personneMorale.setEstJuge(false);
+
+            personneMoraleDto.setEstJuge(personneMorale.getEstJuge());
         }
 
         personneMorale.setDenomination(personneMoraleDto.getRaisonSociale() + " [" + personneMoraleDto.getSigle() + "]");
@@ -806,6 +986,12 @@ public class PersonneMoraleServiceImpl implements PersonneMoraleService {
     @Override
     public List<PersonneMoraleDto> afficherSelonQualite(String qualite) {
         return personneMoraleDao.afficherPersonneMoraleSelonQualite(qualite).stream().map(personneMoraleMapper::dePersonneMorale).collect(Collectors.toList());
+    }
+
+
+    @Override
+    public List<PersonneMoraleDto> afficherSelonQualiteLab(String qualite) {
+        return personneMoraleDao.afficherPersonneMoraleSelonQualiteLab(qualite).stream().map(personneMoraleMapper::dePersonneMorale).collect(Collectors.toList());
     }
 
     @Override

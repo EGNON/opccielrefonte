@@ -25,4 +25,9 @@ public interface PaysDao extends JpaRepository<Pays,Long> {
                     "or p.monnaie.codeMonnaie like %:search% "+
                     "or p.monnaie.nom like %:search% ")
     Page<Pays> rechercherPays(String search, Pageable pageable);
+
+    @Query(value = "select p from Pays as p " +
+                    "where p.libelleFr like %:search% " +
+                    "or p.libelleEn like %:search% " )
+    Pays rechercherPays(String search);
 }

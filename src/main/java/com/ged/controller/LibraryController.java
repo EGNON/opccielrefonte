@@ -241,9 +241,15 @@ public class LibraryController {
     @PostMapping("/evolutionvl")
     public ResponseEntity<?> evolutionvl(@RequestBody @Valid EvolutionVLRequest request) {
         return service.evolutionVL(request);
-    }@PostMapping("/pointsouscriptionrachat/liste")
+    }
+    @PostMapping("/pointsouscriptionrachat/liste")
     public ResponseEntity<?> pointSousriptionRachatListe(@RequestBody @Valid ReleveTitreFCPRequest request) {
         return service.pointSouscriptionRachatListe(request);
+    }
+    @GetMapping("/soldecompteclient/{idActionnaire}/{idOpcvm}")
+    public ResponseEntity<?> soldeCompteClient(@PathVariable  Long idActionnaire,
+                                               @PathVariable Long idOpcvm) {
+        return service.afficherSoldeCompteClient(idActionnaire, idOpcvm);
     }
     @PostMapping("/etats/pointsouscription")
     public ResponseEntity<Object> pointsouscription(@RequestBody @Valid ReleveTitreFCPRequest request, HttpServletResponse response) throws JRException, IOException {
@@ -273,7 +279,46 @@ public class LibraryController {
     public ResponseEntity<?> pointsouscriptionrachat(@RequestBody @Valid ReleveTitreFCPRequest request) {
         return service.pointSouscriptionRachat(request);
     }
+    @PostMapping("/pointrepartitionportefeuille")
+    public ResponseEntity<?> pointrepartitionportefeuille(@RequestBody @Valid ReleveTitreFCPRequest request) {
+        return service.pointRepartitionPortefeuille(request);
+    }
+    @PostMapping("/pointrepartitionportefeuille/liste")
+    public ResponseEntity<?> pointrepartitionportefeuilleListe(@RequestBody @Valid ReleveTitreFCPRequest request) {
+        return service.pointRepartitionPortefeuilleListe(request);
+    }
+    @PostMapping("/etats/pointrepartitionportefeuille")
+    public ResponseEntity<Object> pointrepartitionportefeuille(@RequestBody @Valid ReleveTitreFCPRequest request, HttpServletResponse response) throws JRException, IOException {
+        response.setContentType("application/pdf");
+        DateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy:hh:mm:ss");
+        String currentDateTime = dateFormatter.format(new Date());
 
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=pointRepartitionPortefeuille" + currentDateTime + ".pdf";
+        response.setHeader(headerKey, headerValue);
+
+        return service.pointRepartitionPortefeuille(request,response);
+    }
+    @PostMapping("/evolutionactifnet")
+    public ResponseEntity<?> evolutionactifnet(@RequestBody @Valid ReleveTitreFCPRequest request) {
+        return service.evolutionActifNet(request);
+    }
+    @PostMapping("/evolutionactifnet/liste")
+    public ResponseEntity<?> evolutionactifnetListe(@RequestBody @Valid ReleveTitreFCPRequest request) {
+        return service.evolutionActifNetListe(request);
+    }
+    @PostMapping("/etats/evolutionactifnet")
+    public ResponseEntity<Object> evolutionactifnet(@RequestBody @Valid ReleveTitreFCPRequest request, HttpServletResponse response) throws JRException, IOException {
+        response.setContentType("application/pdf");
+        DateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy:hh:mm:ss");
+        String currentDateTime = dateFormatter.format(new Date());
+
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=pointRepartitionPortefeuille" + currentDateTime + ".pdf";
+        response.setHeader(headerKey, headerValue);
+
+        return service.evolutionActifNet(request,response);
+    }
     @PostMapping("/etatsuiviclient/liste")
     public ResponseEntity<?> etatSuiviClientListe(@RequestBody @Valid HistoriqueActionnaireRequest request) {
         return service.suiviClient(request);

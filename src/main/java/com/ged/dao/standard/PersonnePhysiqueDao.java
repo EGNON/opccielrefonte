@@ -31,6 +31,13 @@ public interface PersonnePhysiqueDao extends JpaRepository<PersonnePhysique, Lon
             "on q.idQualite = sp.idStatutPersonne.idQualite where q.libelleQualite = :qualite " +
             "order by ph.nom asc,ph.prenom asc")
     List<PersonnePhysique> afficherPersonnePhysiqueSelonQualite(@Param("qualite") String qualite);
+    @Query(value = "select ph from PersonnePhysique as ph left outer join StatutPersonne as sp " +
+            "on sp.idStatutPersonne.idPersonne = ph.idPersonne left outer join Qualite as q " +
+            "on q.idQualite = sp.idStatutPersonne.idQualite " +
+            "inner join Personne p on p.idPersonne=ph.idPersonne " +
+            "where (q.libelleQualite = :qualite) or (p.estJuge=true) or(p.estExpose=true) " +
+            "order by ph.nom asc,ph.prenom asc")
+    List<PersonnePhysique> afficherPersonnePhysiqueSelonQualiteLab(@Param("qualite") String qualite);
 
     @Query(value = "select ph.nom as nom," +
             "ph.prenom as prenom,ph.Sexe as sexe,ph.mobile1 as mobile1 " +
@@ -85,15 +92,31 @@ public interface PersonnePhysiqueDao extends JpaRepository<PersonnePhysique, Lon
             "order by ph.nom asc,ph.prenom asc")
     Page<PersonnePhysique> afficherTousSelonQualite(@Param("qualite") String qualite, Pageable pageable);
 
-    @Query(value = "select ph from PersonnePhysique as ph inner join StatutPersonne as sp " +
-            "on sp.idStatutPersonne.idPersonne = ph.idPersonne inner join Qualite as q " +
-            "on q.idQualite = sp.qualite.idQualite where q.libelleQualite = :qualite " +
-//            "and (concat(ph.denomination, ' ', coalesce(ph.Civilite, ' '), ' ', coalesce(ph.Sexe, ' '), ' ', coalesce(ph.mobile1, ' ')) like %:valeur% " +
-            "and (ph.denomination like %:valeur% " +
-            "or ph.profession.libelleProfession like %:valeur% " +
-            "or ph.secteur.libelleSecteur like %:valeur% " +
-            "or ph.numeroCpteDeposit like %:valeur%) " +
-            "order by ph.nom asc,ph.prenom asc")
+//    @Query(value = "select ph from PersonnePhysique as ph inner join StatutPersonne as sp " +
+//            "on sp.idStatutPersonne.idPersonne = ph.idPersonne inner join Qualite as q " +
+//            "on q.idQualite = sp.qualite.idQualite where q.libelleQualite = :qualite " +
+////            "and (concat(ph.denomination, ' ', coalesce(ph.Civilite, ' '), ' ', coalesce(ph.Sexe, ' '), ' ', coalesce(ph.mobile1, ' ')) like %:valeur% " +
+//            "and (coalesce(ph.denomination,'') like %:valeur% " +
+//            "or coalesce(ph.profession.libelleProfession,'') like %:valeur% " +
+//            "or coalesce(ph.secteur.libelleSecteur,'') like %:valeur% " +
+//            "or coalesce(ph.numeroCpteDeposit,'') like %:valeur%) " +
+//            "order by ph.nom asc,ph.prenom asc")
+    @Query("""
+        select ph
+          from PersonnePhysique ph          
+          inner join StatutPersonne sp on sp.personne.idPersonne=ph.idPersonne
+          join sp.qualite q          
+          left join ph.profession prof
+          left join ph.secteur sec
+          where q.libelleQualite = :qualite
+            and (
+                 lower(coalesce(ph.denomination, '')) like lower(concat('%', :valeur, '%'))
+              or lower(coalesce(prof.libelleProfession, '')) like lower(concat('%', :valeur, '%'))
+              or lower(coalesce(sec.libelleSecteur, '')) like lower(concat('%', :valeur, '%'))
+              or lower(coalesce(ph.numeroCpteDeposit, '')) like lower(concat('%', :valeur, '%'))
+            )
+          order by ph.nom asc, ph.prenom asc
+    """)
     Page<PersonnePhysique> rechercherSelonQualite(@Param("qualite") String qualite, @Param("valeur") String valeur, Pageable pageable);
 
     /*@Query(value = "select ph from PersonnePhysique as ph inner join StatutPersonne as sp " +
@@ -170,7 +193,11 @@ public interface PersonnePhysiqueDao extends JpaRepository<PersonnePhysique, Lon
     Optional<PersonnePhysique> findByNomAndPrenomContainsIgnoreCase(String nom, String prenom);
 
     @Query(value = "select ph from PersonnePhysique as ph "+
-            "where ph.estExpose = true or ph.estJuge=true " +
+            "where ph.estExpose = true " +
             "order by ph.nom asc,ph.prenom asc")
-    Page<PersonnePhysique> afficherPersonneSanctionnee(Pageable pageable);
+    Page<PersonnePhysique> afficherPersonneExpose(Pageable pageable);
+    @Query(value = "select ph from PersonnePhysique as ph "+
+            "where ph.estJuge=true " +
+            "order by ph.nom asc,ph.prenom asc")
+    Page<PersonnePhysique> afficherPersonneJuge(Pageable pageable);
 }

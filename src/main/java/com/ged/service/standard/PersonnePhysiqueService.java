@@ -26,7 +26,8 @@ public interface PersonnePhysiqueService{
     ResponseEntity<Object> afficherTous(DatatableParameters parameters);
 
     DataTablesResponse<PersonnePhysiqueDto> afficherTous(String qualite, DatatableParameters parameters);
-    DataTablesResponse<PersonnePhysiqueDto> afficherPersonneSanctionnee(DatatableParameters parameters);
+    DataTablesResponse<PersonnePhysiqueDto> afficherPersonneExpose(DatatableParameters parameters);
+    DataTablesResponse<PersonnePhysiqueDto> afficherPersonneJuge(DatatableParameters parameters);
     DataTablesResponse<PersonnePhysiqueDto> afficherPersonnePhysiquePolitiquementExpose(String qualite, DatatableParameters parameters);
     DataTablesResponse<PersonnePhysiqueDto> afficherPersonnePhysiqueJuge(String qualite, DatatableParameters parameters);
     Page<PersonnePhysiqueDto> afficherPersonnePhysiques(int page, int size);
@@ -34,6 +35,7 @@ public interface PersonnePhysiqueService{
     PersonnePhysiqueDto afficherSelonIdQualite(Long id, String qualite);
     Long afficherMaxNumordre();
     List<PersonnePhysiqueDto> afficherSelonQualite(String qualite);
+    List<PersonnePhysiqueDto> afficherSelonQualiteLab(String qualite);
     List<PersonnePhysiqueProjection> afficherSelonQualiteEtat(String qualite, HttpServletResponse response) throws IOException, JRException;
     List<PersonnePhysiqueDto> afficherPersonnePhysiqueNayantPasInvesti(String qualite, LocalDateTime dateDebut, LocalDateTime dateFin);
     List<PersonnePhysiqueProjection> afficherPersonnePhysiqueNayantPasInvestiEtat(String qualite, LocalDateTime dateDebut, LocalDateTime dateFin, HttpServletResponse response) throws IOException, JRException;
@@ -41,6 +43,7 @@ public interface PersonnePhysiqueService{
     List<FicheKYCProjection> afficherFicheKYC(long idPersonne, HttpServletResponse response) throws IOException, JRException;
     PersonnePhysiqueDto creerPersonnePhysique(List<MultipartFile> files, PersonnePhysiqueDto personnePhysiqueDto);
     PersonnePhysiqueDto modifierPersonnePhysique(List<MultipartFile> files, PersonnePhysiqueDto personnePhysiqueDto) throws Throwable;
+    PersonnePhysiqueDto modifierPersonnePhysiqueLab(List<MultipartFile> files, PersonnePhysiqueDto personnePhysiqueDto) throws Throwable;
 
     List<Object> createPHFromOppciel1() throws JsonProcessingException;
 

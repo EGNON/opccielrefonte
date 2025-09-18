@@ -118,7 +118,7 @@ public class Personne extends Base {
             mappedBy = "personne",
             /*cascade = {CascadeType.PERSIST, CascadeType.MERGE},*/
             cascade = CascadeType.ALL,
-            orphanRemoval = true
+            orphanRemoval = false
     )
     //@JsonManagedReference
     private Set<StatutPersonne> statutPersonnes = new HashSet<>();

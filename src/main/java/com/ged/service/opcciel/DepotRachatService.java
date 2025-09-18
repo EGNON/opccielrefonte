@@ -8,6 +8,8 @@ import com.ged.dto.opcciel.OperationSouscriptionRachatDto;
 import com.ged.dto.opcciel.comptabilite.VerifDepSouscriptionIntRachatDto;
 import com.ged.dto.request.PrecalculSouscriptionRequest;
 import com.ged.dto.request.VerificationListeDepotRequest;
+import com.ged.dto.standard.PhForm;
+import com.ged.dto.standard.PmForm;
 import com.ged.entity.opcciel.DepotRachat;
 import com.ged.projection.FT_DepotRachatProjection;
 import com.ged.projection.NbrePartProjection;
@@ -27,6 +29,8 @@ public interface DepotRachatService {
     ResponseEntity<Object> afficherTousLesDepots(DatatableParameters parameters, Long idOpcvm, Long idSeance);
 
     ResponseEntity<Object> listeDepotAVerifier(VerificationListeDepotRequest verificationListeDepotRequest);
+    ResponseEntity<Object> importDepotPH(List<PhForm> phForm);
+    ResponseEntity<Object> importDepotPM(List<PmForm> pmForm);
 
     ResponseEntity<Object> afficherTous(DatatableParameters parameters, long idOpcvm, long idSeance, String codeNatureOperation);
     ResponseEntity<Object> afficherTous(long idOpcvm,

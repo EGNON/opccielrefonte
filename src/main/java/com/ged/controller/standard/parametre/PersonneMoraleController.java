@@ -44,6 +44,11 @@ public class PersonneMoraleController {
     {
         return personneMoraleService.afficherSelonQualite(qualite);
     }
+    @GetMapping("qualitelab/{qualite}")
+    public List<PersonneMoraleDto> afficherSelonQualiteLab(@PathVariable("qualite") String qualite)
+    {
+        return personneMoraleService.afficherSelonQualiteLab(qualite);
+    }
     @GetMapping("/qualite/etat/{qualite}")
     public List<PersonneMoraleDto> afficherSelonQualiteEtat(@PathVariable String qualite, HttpServletResponse response) throws JRException, IOException {
         response.setContentType("application/pdf");
@@ -91,11 +96,17 @@ public class PersonneMoraleController {
         return personneMoraleService.afficherTous(qualite, params);
     }
 
-    @PostMapping("/datatable/moralesanctionnee")
-    public DataTablesResponse<PersonneMoraleDto> datatableList_Sanctionnee(
+    @PostMapping("/datatable/moraleexpose")
+    public DataTablesResponse<PersonneMoraleDto> datatableList_Expose(
             @RequestBody DatatableParameters params)
     {
-        return personneMoraleService.afficherPersonneSanctionnee(params);
+        return personneMoraleService.afficherPersonneExpose(params);
+    }
+    @PostMapping("/datatable/moralejuge")
+    public DataTablesResponse<PersonneMoraleDto> datatableList_Juge(
+            @RequestBody DatatableParameters params)
+    {
+        return personneMoraleService.afficherPersonneJuge(params);
     }
 
     @PostMapping("/datatable/juge/list-{qualite}")

@@ -1,47 +1,46 @@
 <!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 7.0.1-573496633c2b4074e32f433154b543003f7d2498  -->
 <jasperReport name="Poins_souscription_personne" language="java" columnCount="1" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="6de26f01-fb53-4f34-8d44-284d600effa3">
 	<parameter name="letterDate" class="java.lang.String"/>
-	<query language="SQL"><![CDATA[select * from Impressions.FT_PointSousRach(null,'01/01/2018','31/01/2020' ,'RACH_PART')]]></query>
-    <field name="idOpcvm" class="java.lang.Long">
-        <property name="com.jaspersoft.studio.field.name" value="idOpcvm"/>
-        <property name="com.jaspersoft.studio.field.label" value="idOpcvm"/>
-    </field>
-    <field name="designationOpcvm" class="java.lang.String">
-        <property name="com.jaspersoft.studio.field.name" value="designationOpcvm"/>
-        <property name="com.jaspersoft.studio.field.label" value="designationOpcvm"/>
-    </field>
-    <field name="pp" class="java.math.BigDecimal">
-        <property name="com.jaspersoft.studio.field.name" value="pp"/>
-        <property name="com.jaspersoft.studio.field.label" value="pp"/>
-    </field>
-    <field name="pm" class="java.math.BigDecimal">
-        <property name="com.jaspersoft.studio.field.name" value="pm"/>
-        <property name="com.jaspersoft.studio.field.label" value="pm"/>
-    </field>
-    <field name="partpp" class="java.math.BigDecimal">
-        <property name="com.jaspersoft.studio.field.name" value="partpp"/>
-        <property name="com.jaspersoft.studio.field.label" value="partpp"/>
-    </field>
-    <field name="partpm" class="java.math.BigDecimal">
-        <property name="com.jaspersoft.studio.field.name" value="partpm"/>
-        <property name="com.jaspersoft.studio.field.label" value="partpm"/>
-    </field>
-    <field name="com" class="java.math.BigDecimal">
-        <property name="com.jaspersoft.studio.field.name" value="com"/>
-        <property name="com.jaspersoft.studio.field.label" value="com"/>
-    </field>
-    <field name="type" class="java.lang.String">
-        <property name="com.jaspersoft.studio.field.name" value="type"/>
-        <property name="com.jaspersoft.studio.field.label" value="type"/>
-    </field>
-    <field name="dateDeb" class="java.time.LocalDateTime">
-        <property name="com.jaspersoft.studio.field.name" value="dateDeb"/>
-        <property name="com.jaspersoft.studio.field.label" value="dateDeb"/>
-    </field>
-    <field name="dateFin" class="java.time.LocalDateTime">
-        <property name="com.jaspersoft.studio.field.name" value="dateFin"/>
-        <property name="com.jaspersoft.studio.field.label" value="dateFin"/>
-    </field>
+	<field name="idOpcvm" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="idOpcvm"/>
+		<property name="com.jaspersoft.studio.field.label" value="idOpcvm"/>
+	</field>
+	<field name="designationOpcvm" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="designationOpcvm"/>
+		<property name="com.jaspersoft.studio.field.label" value="designationOpcvm"/>
+	</field>
+	<field name="pp" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="pp"/>
+		<property name="com.jaspersoft.studio.field.label" value="pp"/>
+	</field>
+	<field name="pm" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="pm"/>
+		<property name="com.jaspersoft.studio.field.label" value="pm"/>
+	</field>
+	<field name="partpp" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="partpp"/>
+		<property name="com.jaspersoft.studio.field.label" value="partpp"/>
+	</field>
+	<field name="partpm" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="partpm"/>
+		<property name="com.jaspersoft.studio.field.label" value="partpm"/>
+	</field>
+	<field name="com" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="com"/>
+		<property name="com.jaspersoft.studio.field.label" value="com"/>
+	</field>
+	<field name="type" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="type"/>
+		<property name="com.jaspersoft.studio.field.label" value="type"/>
+	</field>
+	<field name="dateDeb" class="java.time.LocalDateTime">
+		<property name="com.jaspersoft.studio.field.name" value="dateDeb"/>
+		<property name="com.jaspersoft.studio.field.label" value="dateDeb"/>
+	</field>
+	<field name="dateFin" class="java.time.LocalDateTime">
+		<property name="com.jaspersoft.studio.field.name" value="dateFin"/>
+		<property name="com.jaspersoft.studio.field.label" value="dateFin"/>
+	</field>
 	<variable name="pp1" resetType="Group" calculation="Sum" resetGroup="Group1" class="java.math.BigDecimal">
 		<expression><![CDATA[$F{pp}]]></expression>
 	</variable>
@@ -138,52 +137,52 @@
 		</groupHeader>
 		<groupFooter>
 			<band height="40">
-				<element kind="rectangle" uuid="d444dc3d-2239-4739-9bf9-bd9e690984d3" stretchType="ContainerHeight" x="0" y="0" width="800" height="29" backcolor="#BDD7EE">
+				<element kind="rectangle" uuid="d444dc3d-2239-4739-9bf9-bd9e690984d3" x="0" y="0" width="800" height="29" backcolor="#BDD7EE">
 					<pen lineColor="#3B88D1"/>
 				</element>
-				<element kind="line" uuid="ca0ca96a-1bf8-48af-b691-d7ff753785a4" stretchType="ContainerHeight" x="264" y="0" width="1" height="29">
+				<element kind="line" uuid="ca0ca96a-1bf8-48af-b691-d7ff753785a4" x="264" y="0" width="1" height="29">
 					<pen lineColor="#3B88D1"/>
 				</element>
-				<element kind="line" uuid="5265a6d1-a3c4-4b9e-a2db-11e90862f595" stretchType="ContainerHeight" x="705" y="0" width="1" height="29">
+				<element kind="line" uuid="5265a6d1-a3c4-4b9e-a2db-11e90862f595" x="705" y="0" width="1" height="29">
 					<pen lineColor="#3B88D1"/>
 				</element>
-				<element kind="line" uuid="b00d0b33-5199-46ef-be61-e1c275bb09ab" stretchType="ContainerHeight" x="617" y="0" width="1" height="29">
+				<element kind="line" uuid="b00d0b33-5199-46ef-be61-e1c275bb09ab" x="617" y="0" width="1" height="29">
 					<pen lineColor="#3B88D1"/>
 				</element>
-				<element kind="line" uuid="8ecd9481-00ed-4036-a8df-e2268cf2120d" stretchType="ContainerHeight" x="442" y="0" width="1" height="29">
+				<element kind="line" uuid="8ecd9481-00ed-4036-a8df-e2268cf2120d" x="442" y="0" width="1" height="29">
 					<pen lineColor="#3B88D1"/>
 				</element>
-				<element kind="line" uuid="f6178e92-9724-4d46-b201-4683cfb60d3a" stretchType="ContainerHeight" x="356" y="0" width="1" height="29">
+				<element kind="line" uuid="f6178e92-9724-4d46-b201-4683cfb60d3a" x="356" y="0" width="1" height="29">
 					<pen lineColor="#3B88D1"/>
 				</element>
-				<element kind="line" uuid="c80ac6b6-8943-4ac9-9a9f-1c64fedc4b0f" stretchType="ContainerHeight" x="175" y="0" width="1" height="29">
+				<element kind="line" uuid="c80ac6b6-8943-4ac9-9a9f-1c64fedc4b0f" x="175" y="0" width="1" height="29">
 					<pen lineColor="#3B88D1"/>
 				</element>
-				<element kind="line" uuid="05cf729d-c116-43df-ac74-288432f6cad9" stretchType="ContainerHeight" x="530" y="0" width="1" height="29">
+				<element kind="line" uuid="05cf729d-c116-43df-ac74-288432f6cad9" x="530" y="0" width="1" height="29">
 					<pen lineColor="#3B88D1"/>
 				</element>
 				<element kind="staticText" uuid="929cdbb3-6fcd-483b-989e-3d7beb9eacb8" x="5" y="6" width="154" height="18" bold="true" hTextAlign="Center">
 					<text><![CDATA[TOTAL]]></text>
 				</element>
-				<element kind="textField" uuid="5e161661-6722-4cb2-9c71-d223e35f21bf" x="180" y="6" width="78" height="18" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<element kind="textField" uuid="5e161661-6722-4cb2-9c71-d223e35f21bf" x="180" y="6" width="78" height="18" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
 					<expression><![CDATA[$V{pp1}]]></expression>
 				</element>
-				<element kind="textField" uuid="cd24ff80-ff5d-45d8-bede-3fef13e833f2" x="268" y="6" width="86" height="18" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<element kind="textField" uuid="cd24ff80-ff5d-45d8-bede-3fef13e833f2" x="268" y="6" width="86" height="18" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
 					<expression><![CDATA[$V{partpp1}]]></expression>
 				</element>
-				<element kind="textField" uuid="fb81a12a-b42d-4b47-9a8d-defe58a49461" x="362" y="6" width="78" height="18" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<element kind="textField" uuid="fb81a12a-b42d-4b47-9a8d-defe58a49461" x="362" y="6" width="78" height="18" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
 					<expression><![CDATA[$V{pm1}]]></expression>
 				</element>
-				<element kind="textField" uuid="ebf1241d-f3da-4c43-8934-6bd2fd49cde4" x="447" y="6" width="81" height="18" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<element kind="textField" uuid="ebf1241d-f3da-4c43-8934-6bd2fd49cde4" x="447" y="6" width="81" height="18" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
 					<expression><![CDATA[$V{partpm1}]]></expression>
 				</element>
-				<element kind="textField" uuid="9055aaf7-9e4e-420e-9e45-00ed9351f726" x="723" y="6" width="60" height="18" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<element kind="textField" uuid="9055aaf7-9e4e-420e-9e45-00ed9351f726" x="723" y="6" width="60" height="18" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
 					<expression><![CDATA[$V{com1}]]></expression>
 				</element>
-				<element kind="textField" uuid="d5cf15c2-6bb1-4210-b320-6995ae07f4d4" x="536" y="6" width="77" height="18" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<element kind="textField" uuid="d5cf15c2-6bb1-4210-b320-6995ae07f4d4" x="536" y="6" width="77" height="18" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
 					<expression><![CDATA[SUM($V{pp1},$V{pm1} )]]></expression>
 				</element>
-				<element kind="textField" uuid="34a6b6b0-98c2-44f4-9ef6-e0ed6bd9161a" x="622" y="6" width="81" height="18" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<element kind="textField" uuid="34a6b6b0-98c2-44f4-9ef6-e0ed6bd9161a" x="622" y="6" width="81" height="18" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
 					<expression><![CDATA[SUM($V{pp1},$V{pm1} )]]></expression>
 				</element>
 			</band>
@@ -198,59 +197,59 @@
 			<expression><![CDATA["Cotonou, le "+$P{letterDate}]]></expression>
 		</element>
 		<element kind="textField" uuid="cc1bdd9f-57ad-4828-8693-1b5bfefb20c5" x="166" y="43" width="460" height="16" hTextAlign="Center">
-            <expression><![CDATA["POINT DES "+$F{type} +" PAR TYPE DE PERSONNE DU "+$F{dateDeb}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy")) + " AU " + $F{dateFin}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"))]]></expression>
+			<expression><![CDATA["POINT DES "+$F{type} +" PAR TYPE DE PERSONNE DU "+$F{dateDeb}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy")) + " AU " + $F{dateFin}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"))]]></expression>
 		</element>
 	</title>
 	<pageHeader splitType="Stretch"/>
 	<columnHeader splitType="Stretch"/>
 	<detail>
 		<band height="26" splitType="Stretch">
-			<element kind="rectangle" uuid="b61cd174-8e26-4f1a-99a7-fad20075aae4" stretchType="ContainerHeight" x="0" y="0" width="800" height="25" backcolor="#FFFFFF">
+			<element kind="rectangle" uuid="b61cd174-8e26-4f1a-99a7-fad20075aae4" x="0" y="0" width="800" height="25" backcolor="#FFFFFF">
 				<pen lineColor="#3B88D1"/>
 			</element>
-			<element kind="line" uuid="3d0b45d6-9643-4568-8a34-d5d8982287b1" stretchType="ContainerHeight" x="175" y="0" width="1" height="25">
+			<element kind="line" uuid="3d0b45d6-9643-4568-8a34-d5d8982287b1" x="175" y="0" width="1" height="25">
 				<pen lineColor="#3B88D1"/>
 			</element>
-			<element kind="line" uuid="411cd63e-f0f1-418c-948f-4d2e54ef26bf" stretchType="ContainerHeight" x="442" y="0" width="1" height="25">
+			<element kind="line" uuid="411cd63e-f0f1-418c-948f-4d2e54ef26bf" x="442" y="0" width="1" height="25">
 				<pen lineColor="#3B88D1"/>
 			</element>
-			<element kind="line" uuid="17abc350-7c7e-4d3b-821a-123531acdd03" stretchType="ContainerHeight" x="617" y="0" width="1" height="25">
+			<element kind="line" uuid="17abc350-7c7e-4d3b-821a-123531acdd03" x="617" y="0" width="1" height="25">
 				<pen lineColor="#3B88D1"/>
 			</element>
-			<element kind="line" uuid="cd777b36-4ca0-45e4-9e79-97370999b20d" stretchType="ContainerHeight" x="705" y="0" width="1" height="25">
+			<element kind="line" uuid="cd777b36-4ca0-45e4-9e79-97370999b20d" x="705" y="0" width="1" height="25">
 				<pen lineColor="#3B88D1"/>
 			</element>
-			<element kind="line" uuid="46898bd4-d66a-4d22-affd-11c9b6646d32" stretchType="ContainerHeight" x="264" y="0" width="1" height="25">
+			<element kind="line" uuid="46898bd4-d66a-4d22-affd-11c9b6646d32" x="264" y="0" width="1" height="25">
 				<pen lineColor="#3B88D1"/>
 			</element>
-			<element kind="line" uuid="ed7ba053-2964-4278-a24a-ac46d8e360a5" stretchType="ContainerHeight" x="356" y="0" width="1" height="25">
+			<element kind="line" uuid="ed7ba053-2964-4278-a24a-ac46d8e360a5" x="356" y="0" width="1" height="25">
 				<pen lineColor="#3B88D1"/>
 			</element>
-			<element kind="line" uuid="ab669771-674c-4f84-bae5-14507d6120d2" stretchType="ContainerHeight" x="530" y="0" width="1" height="25">
+			<element kind="line" uuid="ab669771-674c-4f84-bae5-14507d6120d2" x="530" y="0" width="1" height="25">
 				<pen lineColor="#3B88D1"/>
 			</element>
-			<element kind="textField" uuid="eaa5e9e5-8d7c-4854-b3d5-d82deb20c28c" x="5" y="6" width="161" height="13" textAdjust="StretchHeight">
+			<element kind="textField" uuid="eaa5e9e5-8d7c-4854-b3d5-d82deb20c28c" x="5" y="6" width="161" height="13">
 				<expression><![CDATA[$F{designationOpcvm}]]></expression>
 			</element>
-			<element kind="textField" uuid="dc6d7c44-583b-4e30-abbf-6c6a76861c94" x="180" y="6" width="78" height="13" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+			<element kind="textField" uuid="dc6d7c44-583b-4e30-abbf-6c6a76861c94" x="180" y="6" width="78" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
 				<expression><![CDATA[$F{pp}]]></expression>
 			</element>
-			<element kind="textField" uuid="03b7768e-9281-4794-b58d-a22e0afe0b00" x="268" y="6" width="86" height="13" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+			<element kind="textField" uuid="03b7768e-9281-4794-b58d-a22e0afe0b00" x="268" y="6" width="86" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
 				<expression><![CDATA[$F{partpp}]]></expression>
 			</element>
-			<element kind="textField" uuid="4d47c9fe-5ef9-4cb4-a93a-01395e430f87" x="362" y="6" width="78" height="13" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+			<element kind="textField" uuid="4d47c9fe-5ef9-4cb4-a93a-01395e430f87" x="362" y="6" width="78" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
 				<expression><![CDATA[$F{pm}]]></expression>
 			</element>
-			<element kind="textField" uuid="a3a79fb2-7347-4a27-85b4-44a78aaf82b6" x="447" y="6" width="81" height="13" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+			<element kind="textField" uuid="a3a79fb2-7347-4a27-85b4-44a78aaf82b6" x="447" y="6" width="81" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
 				<expression><![CDATA[$F{partpm}]]></expression>
 			</element>
-			<element kind="textField" uuid="8960543e-e55d-4099-8f12-6db2ef4c358a" x="536" y="6" width="77" height="13" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+			<element kind="textField" uuid="8960543e-e55d-4099-8f12-6db2ef4c358a" x="536" y="6" width="77" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
 				<expression><![CDATA[SUM($F{pp}, $F{pm} )]]></expression>
 			</element>
-			<element kind="textField" uuid="c82bd226-64ff-419f-85be-a1d738970bbe" x="622" y="6" width="78" height="13" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+			<element kind="textField" uuid="c82bd226-64ff-419f-85be-a1d738970bbe" x="622" y="6" width="78" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
 				<expression><![CDATA[SUM($F{partpp},$F{partpm} )]]></expression>
 			</element>
-			<element kind="textField" uuid="ffd978b2-64f0-40bb-88f0-e8e146d5fd61" x="723" y="6" width="60" height="13" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+			<element kind="textField" uuid="ffd978b2-64f0-40bb-88f0-e8e146d5fd61" x="723" y="6" width="60" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
 				<expression><![CDATA[$F{com}]]></expression>
 			</element>
 		</band>

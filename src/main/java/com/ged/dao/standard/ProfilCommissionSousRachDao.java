@@ -13,6 +13,7 @@ import java.util.List;
 @Repository
 public interface ProfilCommissionSousRachDao extends JpaRepository<ProfilCommissionSousRach,CleProfilCommissionSousRach> {
     Page<ProfilCommissionSousRach> findByOpcvm(Opcvm opcvm,Pageable pageable);
+    List<ProfilCommissionSousRach> findByOpcvm(Opcvm opcvm);
     List<ProfilCommissionSousRach> findByOpcvmAndStandard(Opcvm opcvm,boolean standard);
     List<ProfilCommissionSousRach> findByTypeCommissionAndOpcvm(String typeCommission,Opcvm opcvm);
 }

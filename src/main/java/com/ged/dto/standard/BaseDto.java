@@ -24,7 +24,7 @@ public class BaseDto implements Serializable {
     /*@Column(insertable = false, updatable = false)
     @JdbcTypeCode(Types.TIMESTAMP)
     private byte[] rowvers;*/
-    private String creerPar;
+    private Long creerPar;
     private String modifierPar;
     /* @ManyToOne
      @JoinColumn(name = "idCreateur")
@@ -64,11 +64,11 @@ public class BaseDto implements Serializable {
         this.supprimer = supprimer;
     }
 
-    public String getCreerPar() {
+    public Long getCreerPar() {
         return creerPar;
     }
 
-    public void setCreerPar(String creerPar) {
+    public void setCreerPar(Long creerPar) {
         this.creerPar = creerPar;
     }
 

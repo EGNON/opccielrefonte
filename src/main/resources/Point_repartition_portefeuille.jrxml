@@ -1,0 +1,416 @@
+<!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 7.0.1-573496633c2b4074e32f433154b543003f7d2498  -->
+<jasperReport name="Point_repartition_portefeuille" language="java" columnCount="1" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="977b0192-6106-4da1-bffd-f78ec1b99caf">
+	<parameter name="letterDate" class="java.lang.String"/>
+    <field name="idOpcvm" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="idOpcvm"/>
+		<property name="com.jaspersoft.studio.field.label" value="idOpcvm"/>
+	</field>
+	<field name="denominationOpcvm" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="denominationOpcvm"/>
+		<property name="com.jaspersoft.studio.field.label" value="denominationOpcvm"/>
+	</field>
+	<field name="actionsMontant" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="actionsMontant"/>
+		<property name="com.jaspersoft.studio.field.label" value="actionsMontant"/>
+	</field>
+	<field name="actionsPC" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="actionsPC"/>
+		<property name="com.jaspersoft.studio.field.label" value="actionsPC"/>
+	</field>
+	<field name="obligationCoteMontant" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="obligationCoteMontant"/>
+		<property name="com.jaspersoft.studio.field.label" value="obligationCoteMontant"/>
+	</field>
+	<field name="obligationCotePC" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="obligationCotePC"/>
+		<property name="com.jaspersoft.studio.field.label" value="obligationCotePC"/>
+	</field>
+	<field name="obligationNcoteMontant" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="obligationNcoteMontant"/>
+		<property name="com.jaspersoft.studio.field.label" value="obligationNcoteMontant"/>
+	</field>
+	<field name="obligationNcotePC" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="obligationNcotePC"/>
+		<property name="com.jaspersoft.studio.field.label" value="obligationNcotePC"/>
+	</field>
+	<field name="botMontant" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="botMontant"/>
+		<property name="com.jaspersoft.studio.field.label" value="botMontant"/>
+	</field>
+	<field name="botPC" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="botPC"/>
+		<property name="com.jaspersoft.studio.field.label" value="botPC"/>
+	</field>
+	<field name="soldeEspece" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="soldeEspece"/>
+		<property name="com.jaspersoft.studio.field.label" value="soldeEspece"/>
+	</field>
+	<field name="soldeEspecePC" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="soldeEspecePC"/>
+		<property name="com.jaspersoft.studio.field.label" value="soldeEspecePC"/>
+	</field>
+	<field name="dateEstimation" class="java.time.LocalDateTime">
+		<property name="com.jaspersoft.studio.field.name" value="dateEstimation"/>
+		<property name="com.jaspersoft.studio.field.label" value="dateEstimation"/>
+	</field>
+	<variable name="actionsMontant1" resetType="Group" calculation="Sum" resetGroup="Group1" class="java.math.BigDecimal">
+		<expression><![CDATA[$F{actionsMontant}]]></expression>
+	</variable>
+	<variable name="actionsPC2" resetType="Group" calculation="Sum" resetGroup="Group1" class="java.math.BigDecimal">
+		<expression><![CDATA[$F{actionsPC}]]></expression>
+	</variable>
+	<variable name="obligationCoteMontant1" resetType="Group" calculation="Sum" resetGroup="Group1" class="java.math.BigDecimal">
+		<expression><![CDATA[$F{obligationCoteMontant}]]></expression>
+	</variable>
+	<variable name="obligationCotePC1" resetType="Group" calculation="Sum" resetGroup="Group1" class="java.math.BigDecimal">
+		<expression><![CDATA[$F{obligationCotePC}]]></expression>
+	</variable>
+	<variable name="obligationNcoteMontant1" resetType="Group" calculation="Sum" resetGroup="Group1" class="java.math.BigDecimal">
+		<expression><![CDATA[$F{obligationNcoteMontant}]]></expression>
+	</variable>
+	<variable name="obligationNcotePC1" resetType="Group" calculation="Sum" resetGroup="Group1" class="java.math.BigDecimal">
+		<expression><![CDATA[$F{obligationNcotePC}]]></expression>
+	</variable>
+	<variable name="botMontant1" resetType="Group" calculation="Sum" resetGroup="Group1" class="java.math.BigDecimal">
+		<expression><![CDATA[$F{botMontant}]]></expression>
+	</variable>
+	<variable name="botPC1" resetType="Group" calculation="Sum" resetGroup="Group1" class="java.math.BigDecimal">
+		<expression><![CDATA[$F{botPC}]]></expression>
+	</variable>
+	<variable name="soldeEspece1" resetType="Group" calculation="Sum" resetGroup="Group1" class="java.math.BigDecimal">
+		<expression><![CDATA[$F{soldeEspece}]]></expression>
+	</variable>
+	<variable name="soldeEspecePC1" resetType="Group" calculation="Sum" resetGroup="Group1" class="java.math.BigDecimal">
+		<expression><![CDATA[$F{soldeEspecePC}]]></expression>
+	</variable>
+	<variable name="actionsMontant2" resetType="Group" calculation="Sum" resetGroup="Group1" class="java.math.BigDecimal">
+		<expression><![CDATA[$F{actionsMontant}]]></expression>
+	</variable>
+	<variable name="actionsPC1" resetType="Group" calculation="Sum" resetGroup="Group1" class="java.math.BigDecimal">
+		<expression><![CDATA[$F{actionsPC}]]></expression>
+	</variable>
+	<variable name="actionsPC3" resetType="Group" calculation="Sum" resetGroup="Group1" class="java.math.BigDecimal">
+		<expression><![CDATA[$F{actionsPC}]]></expression>
+	</variable>
+	<variable name="botPC2" resetType="Group" calculation="Sum" resetGroup="Group1" class="java.math.BigDecimal">
+		<expression><![CDATA[$F{botPC}]]></expression>
+	</variable>
+	<variable name="obligationCotePC2" resetType="Group" calculation="Sum" resetGroup="Group1" class="java.math.BigDecimal">
+		<expression><![CDATA[$F{obligationCotePC}]]></expression>
+	</variable>
+	<variable name="obligationNcotePC2" resetType="Group" calculation="Sum" resetGroup="Group1" class="java.math.BigDecimal">
+		<expression><![CDATA[$F{obligationNcotePC}]]></expression>
+	</variable>
+	<variable name="soldeEspecePC2" resetType="Group" calculation="Sum" resetGroup="Group1" class="java.math.BigDecimal">
+		<expression><![CDATA[$F{soldeEspecePC}]]></expression>
+	</variable>
+	<group name="Group1">
+		<expression><![CDATA[$F{dateEstimation}]]></expression>
+		<groupHeader>
+			<band height="55">
+				<element kind="rectangle" uuid="944161c7-92ce-47e7-801e-19e78b47a113" x="0" y="9" width="801" height="45" backcolor="#BDD7EE">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="staticText" uuid="70739a20-51ea-4259-a539-66fef67a6c04" x="8" y="29" width="126" height="18" bold="true" hTextAlign="Center">
+					<text><![CDATA[DENOMINATION]]></text>
+				</element>
+				<element kind="staticText" uuid="7410dafe-80f9-46c9-b079-7cf67b06f935" x="167" y="16" width="66" height="18" bold="true" hTextAlign="Center">
+					<text><![CDATA[ACTION]]></text>
+				</element>
+				<element kind="staticText" uuid="03199950-bc63-4d08-abeb-efdc7fa03b45" x="281" y="16" width="95" height="18" bold="true" hTextAlign="Center">
+					<text><![CDATA[OBLIGATION.CÔTÉ ]]></text>
+				</element>
+				<element kind="staticText" uuid="1b0d0efb-5acc-4636-b15b-88244019026c" x="403" y="16" width="116" height="18" bold="true" hTextAlign="Center">
+					<text><![CDATA[OBLIGATION.N.CÔTÉ ]]></text>
+				</element>
+				<element kind="staticText" uuid="74110b04-8a06-4ef0-8a6b-655eae45671a" x="530" y="16" width="90" height="18" bold="true" hTextAlign="Center">
+					<text><![CDATA[BON DU TRÉSOR ]]></text>
+				</element>
+				<element kind="staticText" uuid="1e1803d4-bfd2-4811-b780-eab5117abd40" x="740" y="16" width="36" height="18" bold="true" hTextAlign="Center">
+					<text><![CDATA[TOTAL]]></text>
+				</element>
+				<element kind="line" uuid="4a5fb9c4-5278-4867-bed4-5e6b92a2012f" x="142" y="10" width="1" height="43">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="line" uuid="90eff0b9-6ebb-4073-964f-ec3a84eaa32d" x="274" y="10" width="1" height="43">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="line" uuid="4763892c-02dc-4c80-b218-a162a5449b84" x="401" y="10" width="1" height="43">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="line" uuid="85d07786-8ce1-4e2b-9e18-081bfaea428d" x="520" y="10" width="1" height="43">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="line" uuid="04a462c4-f83e-4ede-8cb7-a99db8d9cd83" x="625" y="10" width="1" height="43">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="rectangle" uuid="50ba21f5-f304-435a-b38c-cddc0e19110f" x="146" y="37" width="85" height="15" backcolor="#F0F0F0">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="rectangle" uuid="2c1c4076-4e2f-4a68-b4e0-4479fc4ab296" x="234" y="37" width="36" height="15" backcolor="#F0F0F0">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="rectangle" uuid="821c3a49-f408-4099-9324-0e69249c2247" x="278" y="37" width="72" height="15" backcolor="#F0F0F0">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="rectangle" uuid="929f8b00-b231-4738-b417-3119d1b07386" x="405" y="37" width="66" height="15" backcolor="#F0F0F0">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="rectangle" uuid="92aeed25-ecbe-407d-bfd1-1996bbd9d960" x="524" y="37" width="59" height="15" backcolor="#F0F0F0">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="rectangle" uuid="c540cdb7-9d1a-4f8f-8392-cd341d814503" x="714" y="37" width="55" height="15" backcolor="#F0F0F0">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="staticText" uuid="7efad095-5a6c-4965-9d0e-f789d8e6c951" x="160" y="38" width="55" height="14" hTextAlign="Center">
+					<text><![CDATA[Montants]]></text>
+				</element>
+				<element kind="staticText" uuid="453d298d-a81a-4d79-bab3-9b2d06c122be" x="237" y="38" width="33" height="14" hTextAlign="Center">
+					<text><![CDATA[%]]></text>
+				</element>
+				<element kind="staticText" uuid="5a839f51-a4e2-40c9-9f62-136bf1a91e44" x="286" y="38" width="55" height="14" hTextAlign="Center">
+					<text><![CDATA[Montants]]></text>
+				</element>
+				<element kind="staticText" uuid="64728040-a7c6-45a9-a42f-6c681def4946" x="412" y="38" width="51" height="14" hTextAlign="Center">
+					<text><![CDATA[Montants]]></text>
+				</element>
+				<element kind="staticText" uuid="80e6e431-7480-4413-950b-ad980d57b68b" x="530" y="38" width="47" height="14" hTextAlign="Center">
+					<text><![CDATA[Montants]]></text>
+				</element>
+				<element kind="staticText" uuid="5e8c3388-8be9-41a8-a2fd-481f28ca4028" x="715" y="38" width="53" height="14" hTextAlign="Center">
+					<text><![CDATA[Montants]]></text>
+				</element>
+				<element kind="rectangle" uuid="4d59863f-800a-481c-be2c-edb807d922e2" x="353" y="37" width="45" height="15" backcolor="#F0F0F0">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="staticText" uuid="0c0a88ca-f4f2-4c56-844f-c2a7267c4b72" x="356" y="38" width="40" height="14" hTextAlign="Center">
+					<text><![CDATA[%]]></text>
+				</element>
+				<element kind="rectangle" uuid="be138de5-d59d-4399-ade2-67dfe27f2bdb" x="474" y="37" width="44" height="15" backcolor="#F0F0F0">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="staticText" uuid="021dfd83-6425-4962-99af-4f994f267abb" x="477" y="38" width="34" height="14" hTextAlign="Center">
+					<text><![CDATA[%]]></text>
+				</element>
+				<element kind="rectangle" uuid="21bfa6fe-f87b-4d74-a064-c1aece399714" x="586" y="37" width="35" height="15" backcolor="#F0F0F0">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="staticText" uuid="955c6802-b753-4753-adc7-44cf3bc55d48" x="589" y="38" width="30" height="14" hTextAlign="Center">
+					<text><![CDATA[%]]></text>
+				</element>
+				<element kind="rectangle" uuid="5ccfb6f2-1f52-4663-af52-0f39967b5082" x="771" y="37" width="26" height="15" backcolor="#F0F0F0">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="staticText" uuid="27cf853a-ff6a-4caa-9feb-4faac8444778" x="774" y="38" width="21" height="14" hTextAlign="Center">
+					<text><![CDATA[%]]></text>
+				</element>
+				<element kind="line" uuid="22b381bd-6205-4482-9ff9-021bab58478b" x="710" y="10" width="1" height="43">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="staticText" uuid="eef72bb5-b99f-466c-82b3-d44593155e6e" x="639" y="16" width="57" height="18" bold="true" hTextAlign="Center">
+					<text><![CDATA[LIQUIDITÉ ]]></text>
+				</element>
+				<element kind="rectangle" uuid="4499a73b-c27c-4713-a7d5-e049f9594c32" x="680" y="37" width="25" height="15" backcolor="#F0F0F0">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="rectangle" uuid="733012fa-20a0-4cfc-b35f-2c2d7102bbdc" x="630" y="37" width="47" height="15" backcolor="#F0F0F0">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="staticText" uuid="38b827ea-dc33-4b9b-aa4e-016fbb518cf6" x="633" y="38" width="42" height="14" hTextAlign="Center">
+					<text><![CDATA[Montants]]></text>
+				</element>
+				<element kind="staticText" uuid="e6cc74f6-d23a-44b4-8769-cb3031480dbb" x="683" y="38" width="20" height="14" hTextAlign="Center">
+					<text><![CDATA[%]]></text>
+				</element>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="29">
+				<element kind="rectangle" uuid="902750c1-c579-4c26-81c8-f5f12627abf1" stretchType="ContainerHeight" x="0" y="0" width="801" height="29" backcolor="#BDD7EE">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="line" uuid="44e99d75-8d2f-47c8-8250-084c76f14a56" stretchType="ContainerHeight" x="142" y="0" width="1" height="29">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="staticText" uuid="a173430c-de14-4e31-8cef-07094797604f" x="8" y="6" width="126" height="18" bold="true" hTextAlign="Center">
+					<text><![CDATA[TOTAL]]></text>
+				</element>
+				<element kind="line" uuid="a480988e-7b6a-47ed-a155-4a3346e26316" stretchType="ContainerHeight" x="770" y="0" width="1" height="29">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="line" uuid="e89e5bfd-4979-4ba4-8b8a-5db7fa7fd08c" stretchType="ContainerHeight" x="710" y="0" width="1" height="29">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="line" uuid="a05f6114-7308-4363-ac73-22c709303d80" stretchType="ContainerHeight" x="678" y="0" width="1" height="29">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="line" uuid="7d2ce776-de7c-44c0-9dda-aebdf476a945" stretchType="ContainerHeight" x="625" y="0" width="1" height="29">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="line" uuid="9003f2f9-5855-41aa-b968-c0a3994424e9" stretchType="ContainerHeight" x="584" y="0" width="1" height="29">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="line" uuid="4e9a7043-d671-4e4c-8771-b347e6452f65" stretchType="ContainerHeight" x="520" y="0" width="1" height="29">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="line" uuid="489ac3f5-b929-48f0-9864-b17b52cfc2f3" stretchType="ContainerHeight" x="472" y="0" width="1" height="29">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="line" uuid="e6b1d410-7c60-4268-8f6a-242d81e9b3b8" stretchType="ContainerHeight" x="401" y="0" width="1" height="29">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="line" uuid="280fae43-720a-4612-a67f-60e7e0bcb6e7" stretchType="ContainerHeight" x="351" y="0" width="1" height="29">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="line" uuid="d21e1b62-b5bc-46a6-aba2-cda0d2730bad" stretchType="ContainerHeight" x="274" y="0" width="1" height="29">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="line" uuid="992ce395-104e-479e-aa45-ee0a7bbe6cc3" stretchType="ContainerHeight" x="232" y="0" width="1" height="29">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="textField" uuid="a88bedc0-479c-4b3e-afdd-da57b64e17bc" x="147" y="6" width="80" height="18" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+					<expression><![CDATA[$V{actionsMontant1}]]></expression>
+				</element>
+				<element kind="textField" uuid="ae724ee1-da3b-4b81-8603-2ad4876fc901" x="238" y="6" width="32" height="18" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+					<expression><![CDATA[$V{actionsPC2}]]></expression>
+				</element>
+				<element kind="textField" uuid="5ad1fd1e-4f44-457e-bd41-6d0b3d3e24cf" x="279" y="6" width="65" height="18" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+					<expression><![CDATA[$V{obligationCoteMontant1}]]></expression>
+				</element>
+				<element kind="textField" uuid="cfd317d2-b546-4186-a4c8-adbc27f465b3" x="356" y="6" width="41" height="18" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+					<expression><![CDATA[$V{obligationCotePC1}]]></expression>
+				</element>
+				<element kind="textField" uuid="34bf262f-9e10-4f48-ac7a-350b588c9d08" x="406" y="6" width="64" height="18" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+					<expression><![CDATA[$V{obligationNcoteMontant1}]]></expression>
+				</element>
+				<element kind="textField" uuid="00719612-cb35-4d46-b70d-afb3e6ab8a12" x="477" y="6" width="42" height="18" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+					<expression><![CDATA[$V{obligationNcotePC1}]]></expression>
+				</element>
+				<element kind="textField" uuid="165571f8-710c-40b5-98a6-236264b68ff1" x="526" y="6" width="54" height="18" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+					<expression><![CDATA[$V{botMontant1}]]></expression>
+				</element>
+				<element kind="textField" uuid="042aa1c5-4cc6-4fcc-83af-05c135dfd696" x="589" y="6" width="33" height="18" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+					<expression><![CDATA[$V{botPC1}]]></expression>
+				</element>
+				<element kind="textField" uuid="ec801e10-e72a-424a-8ad6-a238fea33f07" x="629" y="6" width="47" height="18" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+					<expression><![CDATA[$V{soldeEspece1}]]></expression>
+				</element>
+				<element kind="textField" uuid="6f701d2e-053e-4a1d-9b20-d10fe78041fc" x="681" y="6" width="29" height="18" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+					<expression><![CDATA[$V{soldeEspecePC1}]]></expression>
+				</element>
+				<element kind="textField" uuid="2be0f6a4-c1fd-4050-9835-a641c6f6b1c0" x="714" y="6" width="55" height="18" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+					<expression><![CDATA[SUM($F{actionsMontant}, $F{botMontant} , $F{obligationCoteMontant}, $F{obligationNcoteMontant} , $F{soldeEspece})]]></expression>
+				</element>
+				<element kind="textField" uuid="eb09e81c-f53d-4456-9f00-9596be074374" x="772" y="6" width="29" height="18" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+					<expression><![CDATA[ROUND_HALF_UP( SUM($V{actionsPC3}, $V{botPC2}, $V{obligationCotePC2}, $V{obligationNcotePC2}, $V{soldeEspecePC2} ), 2)]]></expression>
+				</element>
+			</band>
+		</groupFooter>
+	</group>
+	<background splitType="Stretch"/>
+	<title height="70" splitType="Stretch">
+		<element kind="rectangle" uuid="a456386e-8ebe-4f35-99a2-5b894ff9bcc9" x="0" y="25" width="801" height="45" backcolor="#BDD7EE">
+			<pen lineColor="#3B88D1"/>
+		</element>
+		<element kind="textField" uuid="366a299b-2f23-4fee-99bc-6f7e6aa6f4e2" x="3" y="3" width="217" height="16">
+			<expression><![CDATA["Cotonou, le "+$P{letterDate}]]></expression>
+		</element>
+		<element kind="textField" uuid="7f17f0f4-eb5f-4c62-ae0d-683240a12e42" x="166" y="43" width="460" height="16" hTextAlign="Center">
+			<expression><![CDATA["REPARTITION DU PORTEFEUILLE AU "+$F{dateEstimation}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"))]]></expression>
+		</element>
+	</title>
+	<pageHeader splitType="Stretch"/>
+	<columnHeader splitType="Stretch"/>
+	<detail>
+		<band height="26" splitType="Stretch">
+			<element kind="rectangle" uuid="a8b57c21-c674-4d6c-b52e-d937b958575f" stretchType="ContainerHeight" x="0" y="0" width="801" height="25" backcolor="#FFFFFF">
+				<pen lineColor="#3B88D1"/>
+			</element>
+			<element kind="line" uuid="3d9c477a-497d-4ddc-8b13-462ec55bfeb6" stretchType="ContainerHeight" x="142" y="0" width="1" height="25">
+				<pen lineColor="#3B88D1"/>
+			</element>
+			<element kind="line" uuid="91ee4953-44f4-41d2-9ebd-6fa968da913b" stretchType="ContainerHeight" x="351" y="0" width="1" height="25">
+				<pen lineColor="#3B88D1"/>
+			</element>
+			<element kind="line" uuid="14bdfeaf-f365-4f1e-89f0-a184e5dc567b" stretchType="ContainerHeight" x="472" y="0" width="1" height="25">
+				<pen lineColor="#3B88D1"/>
+			</element>
+			<element kind="line" uuid="d701a8af-424d-4fe9-a62a-bfd8c3ccd09a" stretchType="ContainerHeight" x="710" y="0" width="1" height="25">
+				<pen lineColor="#3B88D1"/>
+			</element>
+			<element kind="line" uuid="7e6f8fea-cd35-42b9-b8e1-0541c04c9e6e" stretchType="ContainerHeight" x="232" y="0" width="1" height="25">
+				<pen lineColor="#3B88D1"/>
+			</element>
+			<element kind="line" uuid="7de1f492-bfe1-4519-97c4-d2f97e389068" stretchType="ContainerHeight" x="274" y="0" width="1" height="25">
+				<pen lineColor="#3B88D1"/>
+			</element>
+			<element kind="line" uuid="973ca5d7-3256-415d-8034-f947a9d8accf" stretchType="ContainerHeight" x="401" y="0" width="1" height="25">
+				<pen lineColor="#3B88D1"/>
+			</element>
+			<element kind="textField" uuid="a22c8fdb-879a-4c79-ae7a-dff4ff282fdd" x="8" y="5" width="126" height="15">
+				<expression><![CDATA[$F{denominationOpcvm}]]></expression>
+			</element>
+			<element kind="textField" uuid="d97b2752-d9f2-4b0e-8ad6-22c4b7d7862b" x="147" y="5" width="80" height="15" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{actionsMontant}]]></expression>
+			</element>
+			<element kind="textField" uuid="9784d8c5-8bfe-49b4-9562-913813561b34" x="238" y="5" width="32" height="15" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{actionsPC}]]></expression>
+			</element>
+			<element kind="textField" uuid="ff5e5d15-f75e-4654-b835-8bff35c261f3" x="279" y="5" width="65" height="15" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{obligationCoteMontant}]]></expression>
+			</element>
+			<element kind="line" uuid="b3397272-8212-4131-b11d-4fc6f1279e0d" stretchType="ContainerHeight" x="625" y="0" width="1" height="25">
+				<pen lineColor="#3B88D1"/>
+			</element>
+			<element kind="line" uuid="0be4c001-cac2-4ca8-badd-32cf8fe1ae63" stretchType="ContainerHeight" x="520" y="0" width="1" height="25">
+				<pen lineColor="#3B88D1"/>
+			</element>
+			<element kind="line" uuid="43902fb6-47f6-4ee9-b94d-2b59e3b47fef" stretchType="ContainerHeight" x="584" y="0" width="1" height="25">
+				<pen lineColor="#3B88D1"/>
+			</element>
+			<element kind="line" uuid="12956e0c-e7a6-487c-90e4-5bb019df5363" stretchType="ContainerHeight" x="678" y="0" width="1" height="25">
+				<pen lineColor="#3B88D1"/>
+			</element>
+			<element kind="line" uuid="c9913684-813d-4b59-823c-b43a749a71f9" stretchType="ContainerHeight" x="770" y="0" width="1" height="25">
+				<pen lineColor="#3B88D1"/>
+			</element>
+			<element kind="textField" uuid="f6ddf978-eb5f-49b4-9d8c-5669ac400377" x="356" y="5" width="41" height="15" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{obligationCotePC}]]></expression>
+			</element>
+			<element kind="textField" uuid="201aea95-c48c-4076-8fa3-d0366e6eb44a" x="406" y="5" width="64" height="15" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{obligationNcoteMontant}]]></expression>
+			</element>
+			<element kind="textField" uuid="447551f6-8d53-4ba8-9b47-5effcc819d7a" x="477" y="5" width="42" height="15" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{obligationNcotePC}]]></expression>
+			</element>
+			<element kind="textField" uuid="d2dd45d3-48c6-432c-9c9b-8306a73d9e27" x="525" y="5" width="55" height="15" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{botMontant}]]></expression>
+			</element>
+			<element kind="textField" uuid="c90f2b4d-df14-4719-9f17-19c9f4677efe" x="589" y="5" width="33" height="15" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{botPC}]]></expression>
+			</element>
+			<element kind="textField" uuid="4887d4c6-f250-4380-860f-8b2c19f735a8" x="629" y="5" width="47" height="15" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{soldeEspece}]]></expression>
+			</element>
+			<element kind="textField" uuid="5ee5840d-033e-487c-8833-38d8f4273b9f" x="681" y="5" width="29" height="15" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{soldeEspecePC}]]></expression>
+			</element>
+			<element kind="textField" uuid="f8525ec7-2107-4c46-8ee4-860a199fda75" x="714" y="5" width="55" height="15" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[SUM($F{actionsMontant}, $F{botMontant}, $F{obligationCoteMontant}, $F{obligationNcoteMontant}, $F{soldeEspece} )]]></expression>
+			</element>
+			<element kind="textField" uuid="4a8aae5c-87af-43ad-a7fe-8e2d51e35e3e" x="772" y="5" width="29" height="15" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[ROUND_HALF_UP(SUM($F{actionsPC}, $F{botPC}, $F{obligationCotePC}, $F{obligationNcotePC}, $F{soldeEspecePC} ), 2 ) ]]></expression>
+			</element>
+		</band>
+	</detail>
+	<columnFooter splitType="Stretch"/>
+	<pageFooter height="54" splitType="Stretch">
+		<element kind="staticText" uuid="52ec18f8-f71c-46d4-825f-6f94f9649b24" x="5" y="10" width="126" height="13">
+			<text><![CDATA[Edité avec OPCCIEL 2.0]]></text>
+		</element>
+		<element kind="textField" uuid="4606b3fb-0587-46fe-ac4b-01a4a2c08f9e" x="696" y="10" width="100" height="19" hTextAlign="Right">
+			<expression><![CDATA[$V{PAGE_NUMBER}]]></expression>
+		</element>
+	</pageFooter>
+	<summary height="42" splitType="Stretch"/>
+</jasperReport>

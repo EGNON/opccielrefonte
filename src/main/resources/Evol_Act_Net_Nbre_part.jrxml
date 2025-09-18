@@ -1,0 +1,188 @@
+<!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 7.0.1-573496633c2b4074e32f433154b543003f7d2498  -->
+<jasperReport name="Evol_Act_Net_Nbre_part" language="java" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="0378389b-f6b6-48bf-9160-1decfba011b4">
+	<parameter name="letterDate" class="java.lang.String"/>
+	<field name="opcvm" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="opcvm"/>
+		<property name="com.jaspersoft.studio.field.label" value="opcvm"/>
+	</field>
+	<field name="actif_net1" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="actif_net1"/>
+		<property name="com.jaspersoft.studio.field.label" value="actif_net1"/>
+	</field>
+	<field name="part1" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="part1"/>
+		<property name="com.jaspersoft.studio.field.label" value="part1"/>
+	</field>
+	<field name="actif_net2" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="actif_net2"/>
+		<property name="com.jaspersoft.studio.field.label" value="actif_net2"/>
+	</field>
+	<field name="part2" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="part2"/>
+		<property name="com.jaspersoft.studio.field.label" value="part2"/>
+	</field>
+	<field name="actif_net3" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="actif_net3"/>
+		<property name="com.jaspersoft.studio.field.label" value="actif_net3"/>
+	</field>
+	<field name="part3" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="part3"/>
+		<property name="com.jaspersoft.studio.field.label" value="part3"/>
+	</field>
+	<field name="date1" class="java.time.LocalDateTime">
+		<property name="com.jaspersoft.studio.field.name" value="date1"/>
+		<property name="com.jaspersoft.studio.field.label" value="date1"/>
+	</field>
+	<field name="date2" class="java.time.LocalDateTime">
+		<property name="com.jaspersoft.studio.field.name" value="date2"/>
+		<property name="com.jaspersoft.studio.field.label" value="date2"/>
+	</field>
+	<field name="date3" class="java.time.LocalDateTime">
+		<property name="com.jaspersoft.studio.field.name" value="date3"/>
+		<property name="com.jaspersoft.studio.field.label" value="date3"/>
+	</field>
+	<field name="dateEstimation" class="java.time.LocalDateTime">
+		<property name="com.jaspersoft.studio.field.name" value="dateEstimation"/>
+		<property name="com.jaspersoft.studio.field.label" value="dateEstimation"/>
+	</field>
+	<group name="Group1">
+		<expression><![CDATA[$F{dateEstimation}]]></expression>
+		<groupHeader>
+			<band height="53">
+				<element kind="rectangle" uuid="be038ef8-35d0-41f0-b9cd-b78cc42fa58b" x="0" y="7" width="801" height="45" backcolor="#BDD7EE">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="staticText" uuid="26105d77-36d1-4dd3-9428-7ad40cef9a57" x="6" y="27" width="125" height="18" bold="true" hTextAlign="Center">
+					<text><![CDATA[DENOMINATION]]></text>
+				</element>
+				<element kind="line" uuid="513ba836-84a9-48c8-bfdf-3a078f44837d" x="136" y="8" width="1" height="43">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="line" uuid="5b6e0754-da2c-4e30-92d4-750455186b9d" x="357" y="8" width="1" height="43">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="line" uuid="7199dd09-498d-42b8-88be-80c50b5c40f8" x="578" y="8" width="1" height="43">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="rectangle" uuid="93222ff4-af14-4863-bdee-d015337c4200" x="140" y="35" width="110" height="15" backcolor="#F0F0F0">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="rectangle" uuid="92ebd86a-7dc8-4e74-bc10-c6e7713ac014" x="253" y="35" width="101" height="15" backcolor="#F0F0F0">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="rectangle" uuid="574a2d9a-a8f8-425a-8c4d-7c7b2d1e915f" x="361" y="35" width="110" height="15" backcolor="#F0F0F0">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="rectangle" uuid="c9537e55-2d54-4619-b281-b02681258fc8" x="474" y="35" width="101" height="15" backcolor="#F0F0F0">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="rectangle" uuid="5dbcc786-7923-4784-8897-912b05719dfa" x="582" y="35" width="110" height="15" backcolor="#F0F0F0">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="rectangle" uuid="ee853b24-ce42-4bc2-8b62-0996b61d8d83" x="694" y="35" width="101" height="15" backcolor="#F0F0F0">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="textField" uuid="37a30ed6-24b2-4bdd-ac61-f165849a4571" x="166" y="14" width="164" height="13" pattern="EE dd/MM/yyyy" blankWhenNull="true" bold="true" hTextAlign="Center">
+					<expression><![CDATA[$F{date1}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"))]]></expression>
+				</element>
+				<element kind="textField" uuid="66ff8670-852e-42c1-ab94-98c4566bb1c6" x="366" y="13" width="194" height="14" pattern="EE dd/MM/yyyy" blankWhenNull="true" bold="true" hTextAlign="Center">
+					<expression><![CDATA[$F{date2}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"))]]></expression>
+				</element>
+				<element kind="textField" uuid="1062e44b-716b-4c45-a028-4befea3e0116" x="611" y="13" width="160" height="14" pattern="EE dd/MM/yyyy" blankWhenNull="true" bold="true" hTextAlign="Center">
+					<expression><![CDATA[$F{date3}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"))]]></expression>
+				</element>
+				<element kind="staticText" uuid="a412e919-dde0-48e1-a0a9-dbb779b85825" x="145" y="36" width="100" height="14" bold="false" hTextAlign="Center">
+					<text><![CDATA[ACTIF NET]]></text>
+				</element>
+				<element kind="staticText" uuid="aeb1d791-40be-4da3-aa8a-8dd594009477" x="253" y="36" width="100" height="14" bold="false" hTextAlign="Center">
+					<text><![CDATA[NOMBRE DE PARTS]]></text>
+				</element>
+				<element kind="staticText" uuid="a6b89c09-8718-44bc-a48c-35d297612590" x="474" y="36" width="100" height="14" bold="false" hTextAlign="Center">
+					<text><![CDATA[NOMBRE DE PARTS]]></text>
+				</element>
+				<element kind="staticText" uuid="75285759-8bb2-4ea8-8f00-adc2cb368f52" x="366" y="36" width="100" height="14" bold="false" hTextAlign="Center">
+					<text><![CDATA[ACTIF NET]]></text>
+				</element>
+				<element kind="staticText" uuid="00349e34-9652-4a69-8527-a36732c1e955" x="694" y="36" width="100" height="14" bold="false" hTextAlign="Center">
+					<text><![CDATA[NOMBRE DE PARTS]]></text>
+				</element>
+				<element kind="staticText" uuid="7010e8aa-382c-4ebc-9ec2-1f249efc625d" x="586" y="36" width="100" height="14" bold="false" hTextAlign="Center">
+					<text><![CDATA[ACTIF NET]]></text>
+				</element>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band/>
+		</groupFooter>
+	</group>
+	<background splitType="Stretch"/>
+	<title height="70" splitType="Stretch">
+		<element kind="rectangle" uuid="b47954a8-186c-4aa7-b15a-f8644d570806" x="0" y="25" width="801" height="45" backcolor="#BDD7EE">
+			<pen lineColor="#3B88D1"/>
+		</element>
+		<element kind="textField" uuid="8233c223-e267-4420-a7af-b9ffd4559cb9" x="3" y="3" width="217" height="16">
+			<expression><![CDATA["Cotonou, le "+$P{letterDate}]]></expression>
+		</element>
+		<element kind="textField" uuid="c3ae07a2-cdc5-41a7-ac81-67b00bda52e4" x="166" y="43" width="460" height="16" blankWhenNull="false" hTextAlign="Center">
+			<expression><![CDATA["EVOLUTION ACTIFS NETS ET NOMBRE DE PARTS DE "+ $F{dateEstimation}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"))]]></expression>
+		</element>
+	</title>
+	<pageHeader splitType="Stretch"/>
+	<columnHeader splitType="Stretch"/>
+	<detail>
+		<band height="28" splitType="Stretch">
+			<element kind="rectangle" uuid="1ad0eeeb-ead4-4fa1-8b3b-9626966ad0e6" x="0" y="0" width="801" height="25" backcolor="#FFFFFF">
+				<pen lineColor="#3B88D1"/>
+			</element>
+			<element kind="line" uuid="2fe58e75-42c8-4f82-b8e1-b7002ebbdc1a" x="136" y="0" width="1" height="25">
+				<pen lineColor="#3B88D1"/>
+			</element>
+			<element kind="line" uuid="d033d6ee-e88b-4050-ae58-5b88b99beec2" x="251" y="0" width="1" height="25">
+				<pen lineColor="#3B88D1"/>
+			</element>
+			<element kind="line" uuid="f0df8410-0559-4dcf-b324-1d77348ff0ad" x="578" y="0" width="1" height="25">
+				<pen lineColor="#3B88D1"/>
+			</element>
+			<element kind="line" uuid="0fd17b0a-7789-4337-8d1c-c10572125a05" x="357" y="0" width="1" height="25">
+				<pen lineColor="#3B88D1"/>
+			</element>
+			<element kind="line" uuid="91cd52e0-51fb-4079-9e10-739e4e11e481" x="472" y="0" width="1" height="25">
+				<pen lineColor="#3B88D1"/>
+			</element>
+			<element kind="line" uuid="dbb9da09-ff06-471c-8720-632fa0f13913" x="693" y="0" width="1" height="25">
+				<pen lineColor="#3B88D1"/>
+			</element>
+			<element kind="textField" uuid="089f2ffc-5b9a-4fe9-8a97-b83650b214b6" x="6" y="5" width="125" height="15">
+				<expression><![CDATA[$F{opcvm}]]></expression>
+			</element>
+			<element kind="textField" uuid="f763ffce-3da4-43fc-bb01-17c69891ff2c" x="141" y="5" width="105" height="15">
+				<expression><![CDATA[$F{actif_net1}]]></expression>
+			</element>
+			<element kind="textField" uuid="a52191d6-7509-4f0a-aca8-1fb8d08320e7" x="256" y="5" width="96" height="15">
+				<expression><![CDATA[$F{part1}]]></expression>
+			</element>
+			<element kind="textField" uuid="abc57114-ab07-48d9-93db-4b8a0f185b1e" x="362" y="5" width="105" height="15">
+				<expression><![CDATA[$F{actif_net2}]]></expression>
+			</element>
+			<element kind="textField" uuid="e23d33fd-ba08-426f-b7e3-290cf0c57215" x="477" y="5" width="96" height="15">
+				<expression><![CDATA[$F{part2}]]></expression>
+			</element>
+			<element kind="textField" uuid="5d396512-25d4-4b59-a926-9450bf337373" x="584" y="5" width="104" height="15">
+				<expression><![CDATA[$F{actif_net3}]]></expression>
+			</element>
+			<element kind="textField" uuid="28e69425-a2b8-4077-afc5-f6979045ad8a" x="699" y="5" width="95" height="15">
+				<expression><![CDATA[$F{part3}]]></expression>
+			</element>
+		</band>
+	</detail>
+	<columnFooter splitType="Stretch"/>
+	<pageFooter height="54" splitType="Stretch">
+		<element kind="staticText" uuid="9e37ccf7-1db9-4986-889e-aef4bf85796e" x="5" y="10" width="126" height="13">
+			<text><![CDATA[Edité avec OPCCIEL 2.0]]></text>
+		</element>
+		<element kind="textField" uuid="29cc45fa-d7a5-432e-a0ee-c27427570ffb" x="701" y="7" width="100" height="18" hTextAlign="Right">
+			<expression><![CDATA[$V{PAGE_NUMBER}]]></expression>
+		</element>
+	</pageFooter>
+	<summary height="42" splitType="Stretch"/>
+</jasperReport>

@@ -26,6 +26,12 @@ public interface PersonneMoraleDao extends JpaRepository<PersonneMorale, Long> {
             "on q.idQualite = sp.idStatutPersonne.idQualite where q.libelleQualite = :qualite " +
             "order by pm.raisonSociale asc")
     List<PersonneMorale> afficherPersonneMoraleSelonQualite(@Param("qualite") String qualite);
+    @Query(value = "select pm from PersonneMorale as pm inner join StatutPersonne as sp " +
+            "on sp.idStatutPersonne.idPersonne = pm.idPersonne inner join Qualite as q " +
+            "on q.idQualite = sp.idStatutPersonne.idQualite " +
+            "where (q.libelleQualite = :qualite) or(pm.estJuge=true) or (pm.estExpose=true) " +
+            "order by pm.raisonSociale asc")
+    List<PersonneMorale> afficherPersonneMoraleSelonQualiteLab(@Param("qualite") String qualite);
 
     @Query(value = "select pm from PersonneMorale as pm inner join StatutPersonne as sp " +
             "on sp.idStatutPersonne.idPersonne = pm.idPersonne inner join Qualite as q " +
@@ -64,12 +70,14 @@ public interface PersonneMoraleDao extends JpaRepository<PersonneMorale, Long> {
             "order by pm.raisonSociale asc")
     Page<PersonneMorale> afficherPersonneMoraleJuge(@Param("qualite") String qualite, Pageable pageable);
 
-    @Query(value = "select pm from PersonneMorale as pm inner join StatutPersonne as sp " +
-            "on sp.idStatutPersonne.idPersonne = pm.idPersonne inner join Qualite as q " +
-            "on q.idQualite = sp.idStatutPersonne.idQualite where q.libelleQualite = :qualite " +
-            "and (concat(pm.denomination, ' ', coalesce(pm.mobile1, ' ')) like %:valeur% " +
-            "or pm.secteur.libelleSecteur like %:valeur% " +
-            "or pm.numeroCpteDeposit like %:valeur%) " +
+    @Query(value = "select pm from PersonneMorale as pm " +
+            "inner join StatutPersonne sp on sp.personne.idPersonne=pm.idPersonne " +
+            "join sp.qualite q " +
+            "left join pm.secteur sec "+
+            "where q.libelleQualite = :qualite " +
+            "and (concat(coalesce(pm.denomination,''), ' ', coalesce(pm.mobile1, ' ')) like %:valeur% " +
+            "or coalesce(sec.libelleSecteur,'') like %:valeur% " +
+            "or coalesce(pm.numeroCpteDeposit,'') like %:valeur%) " +
             "order by pm.denomination asc")
     Page<PersonneMorale> rechercherSelonQualite(String qualite, String valeur, Pageable pageable);
 
@@ -87,7 +95,11 @@ public interface PersonneMoraleDao extends JpaRepository<PersonneMorale, Long> {
     Optional<PersonneMorale> findByLibelleTypePersonneContainsAndIdOcc(String libelle, Long id);
     Optional<PersonneMorale> findByLibelleTypePersonneContainsAndIdOccAndSigleIgnoreCase(String libelleTypePersonne, Long idOcc, String sigle);
     @Query(value = "select pm from PersonneMorale as pm "+
-            "where pm.estJuge = true or pm.estExpose=true " +
+            "where pm.estJuge = true " +
             "order by pm.raisonSociale asc")
-    Page<PersonneMorale> afficherPersonneSanctionnee(Pageable pageable);
+    Page<PersonneMorale> afficherPersonneJuge(Pageable pageable);
+    @Query(value = "select pm from PersonneMorale as pm "+
+            "where pm.estExpose=true " +
+            "order by pm.raisonSociale asc")
+    Page<PersonneMorale> afficherPersonneExpose(Pageable pageable);
 }

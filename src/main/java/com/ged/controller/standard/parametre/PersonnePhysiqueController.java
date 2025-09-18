@@ -59,6 +59,11 @@ public class PersonnePhysiqueController {
     {
         return personnePhysiqueService.afficherSelonQualite(qualite);
     }
+    @GetMapping("qualitelab/{qualite}")
+    public List<PersonnePhysiqueDto> afficherSelonQualiteLab(@PathVariable("qualite") String qualite)
+    {
+        return personnePhysiqueService.afficherSelonQualiteLab(qualite);
+    }
     @GetMapping("/qualite/etat/{qualite}")
     public List<PersonnePhysiqueProjection> afficherSelonQualiteEtat(@PathVariable String qualite, HttpServletResponse response) throws JRException, IOException {
         response.setContentType("application/pdf");
@@ -126,11 +131,17 @@ public class PersonnePhysiqueController {
         return personnePhysiqueService.afficherTous(qualite, params);
     }
 
-    @PostMapping("/datatable/physiquesanctionnee")
-    public DataTablesResponse<PersonnePhysiqueDto> datatableList_Sanctionnee(
+    @PostMapping("/datatable/physiqueexpose")
+    public DataTablesResponse<PersonnePhysiqueDto> datatableList_Expose(
             @RequestBody DatatableParameters params)
     {
-        return personnePhysiqueService.afficherPersonneSanctionnee(params);
+        return personnePhysiqueService.afficherPersonneExpose(params);
+    }
+    @PostMapping("/datatable/physiquejuge")
+    public DataTablesResponse<PersonnePhysiqueDto> datatableList_Juge(
+            @RequestBody DatatableParameters params)
+    {
+        return personnePhysiqueService.afficherPersonneJuge(params);
     }
 
     @PostMapping("/datatable/juge/list-{qualite}")
@@ -185,6 +196,23 @@ public class PersonnePhysiqueController {
         try {
                 personnePhysiqueDto.setIdPersonne(id);
                 personnePhysiqueDto = personnePhysiqueService.modifierPersonnePhysique(files, personnePhysiqueDto);
+
+        }
+        catch (Throwable e) {
+            throw new RuntimeException(e);
+        }
+
+        return personnePhysiqueDto;
+    }
+    @PutMapping(value = "/uploads/filelab-{id}", consumes = {"*/*"}, produces = MediaType.APPLICATION_JSON_VALUE)
+    public PersonnePhysiqueDto updateUploadedFileLab(
+            @PathVariable Long id,
+            @RequestParam(value = "files",required = false) List<MultipartFile> files,
+            @RequestParam(value = "data", required = false) String data) throws IOException {
+        PersonnePhysiqueDto personnePhysiqueDto = objectMapper.readValue(data, PersonnePhysiqueDto.class);
+        try {
+                personnePhysiqueDto.setIdPersonne(id);
+                personnePhysiqueDto = personnePhysiqueService.modifierPersonnePhysiqueLab(files, personnePhysiqueDto);
 
         }
         catch (Throwable e) {

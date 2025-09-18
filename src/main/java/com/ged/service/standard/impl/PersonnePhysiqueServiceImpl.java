@@ -161,6 +161,8 @@ public class PersonnePhysiqueServiceImpl implements PersonnePhysiqueService {
         Pageable pageable = PageRequest.of(
                 parameters.getStart() / parameters.getLength(), parameters.getLength());
         if (parameters.getSearch() != null && !StringUtils.isEmpty(parameters.getSearch().getValue())) {
+            System.out.println("valeur=="+parameters.getSearch().getValue());
+            System.out.println("qualite=="+qualite);
             personnePhysiquePage = personnePhysiqueDao.rechercherSelonQualite(
                     qualite,
                     parameters.getSearch().getValue(),
@@ -181,7 +183,7 @@ public class PersonnePhysiqueServiceImpl implements PersonnePhysiqueService {
     }
 
     @Override
-    public DataTablesResponse<PersonnePhysiqueDto> afficherPersonneSanctionnee(DatatableParameters parameters) {
+    public DataTablesResponse<PersonnePhysiqueDto> afficherPersonneExpose(DatatableParameters parameters) {
         Page<PersonnePhysique> personnePhysiquePage;
 
         Pageable pageable = PageRequest.of(
@@ -192,7 +194,29 @@ public class PersonnePhysiqueServiceImpl implements PersonnePhysiqueService {
             personnePhysiquePage = personnePhysiqueDao.rechercherSelonQualite(qualite,parameters.getSearch().getValue(), pageable);
         }
         else {*/
-        personnePhysiquePage = personnePhysiqueDao.afficherPersonneSanctionnee(pageable);
+        personnePhysiquePage = personnePhysiqueDao.afficherPersonneExpose(pageable);
+        //}
+        List<PersonnePhysiqueDto> content = personnePhysiquePage.getContent().stream().map(personnePhysiqueMapper::dePersonnePhysique).collect(Collectors.toList());
+        DataTablesResponse<PersonnePhysiqueDto> dataTablesResponse = new DataTablesResponse<>();
+        dataTablesResponse.setDraw(parameters.getDraw());
+        dataTablesResponse.setRecordsFiltered((int) personnePhysiquePage.getTotalElements());
+        dataTablesResponse.setRecordsTotal((int) personnePhysiquePage.getTotalElements());
+        dataTablesResponse.setData(content);
+        return dataTablesResponse;
+    }
+    @Override
+    public DataTablesResponse<PersonnePhysiqueDto> afficherPersonneJuge(DatatableParameters parameters) {
+        Page<PersonnePhysique> personnePhysiquePage;
+
+        Pageable pageable = PageRequest.of(
+                parameters.getStart() / parameters.getLength(), parameters.getLength());
+        /*if(parameters.getSearch() != null && !StringUtils.isEmpty(parameters.getSearch().getValue()))
+        {
+//            System.out.println(qualite);
+            personnePhysiquePage = personnePhysiqueDao.rechercherSelonQualite(qualite,parameters.getSearch().getValue(), pageable);
+        }
+        else {*/
+        personnePhysiquePage = personnePhysiqueDao.afficherPersonneJuge(pageable);
         //}
         List<PersonnePhysiqueDto> content = personnePhysiquePage.getContent().stream().map(personnePhysiqueMapper::dePersonnePhysique).collect(Collectors.toList());
         DataTablesResponse<PersonnePhysiqueDto> dataTablesResponse = new DataTablesResponse<>();
@@ -256,6 +280,12 @@ public class PersonnePhysiqueServiceImpl implements PersonnePhysiqueService {
     @Override
     public List<PersonnePhysiqueDto> afficherSelonQualite(String qualite) {
         return personnePhysiqueDao.afficherPersonnePhysiqueSelonQualite(qualite).stream().map(personnePhysiqueMapper::dePersonnePhysique).collect(Collectors.toList());
+    }
+
+
+    @Override
+    public List<PersonnePhysiqueDto> afficherSelonQualiteLab(String qualite) {
+        return personnePhysiqueDao.afficherPersonnePhysiqueSelonQualiteLab(qualite).stream().map(personnePhysiqueMapper::dePersonnePhysique).collect(Collectors.toList());
     }
 
     @Override
@@ -375,7 +405,7 @@ public class PersonnePhysiqueServiceImpl implements PersonnePhysiqueService {
         PersonnePhysiqueDto personnePhysiqueDtoSaved = null;
         try {
             PersonnePhysiqueDto physiqueDto;
-            if(personnePhysiqueDto.getIdPersonne()!=null)
+            if(personnePhysiqueDto.getIdPersonne()!=null && personnePhysiqueDto.getIdPersonne()!=0)
                 physiqueDto=personnePhysiqueMapper.dePersonnePhysique(personnePhysiqueDao.findById(personnePhysiqueDto.getIdPersonne()).orElseThrow());
             else
                 physiqueDto=null;
@@ -384,7 +414,88 @@ public class PersonnePhysiqueServiceImpl implements PersonnePhysiqueService {
             {
 
                 PersonnePhysique personnePhysique=personnePhysiqueMapper.dePersonnePhysiqueDto(physiqueDto);
+                personnePhysique.setStatutCompte("OUVERT");
                 personnePhysique.setIdPersonne(personnePhysiqueDto.getIdPersonne());
+                personnePhysique.setEstJuge(personnePhysiqueDto.getEstJuge());
+                personnePhysique.setEstExpose(personnePhysiqueDto.getEstExpose());
+                personnePhysique.setDenomination(physiqueDto.getNom() + " " + physiqueDto.getPrenom());
+                personnePhysique.setNomPersonnePhysique(physiqueDto.getNom());
+                personnePhysique.setPrenomPersonnePhysique(physiqueDto.getPrenom());
+                personnePhysique.setNumCompteSgi(physiqueDto.getNumeroCpteDeposit());
+                if (physiqueDto.getProfession() != null && physiqueDto.getProfession().getIdProf() != null) {
+                    Profession profession = professionDao.findById(physiqueDto.getProfession().getIdProf())
+                            .orElseThrow(() -> new com.ged.advice.EntityNotFoundException(Profession.class, physiqueDto.getProfession().getIdProf().toString()));
+                    personnePhysique.setProfession(profession);
+                }
+                if (physiqueDto.getModeEtablissementDto() != null && physiqueDto.getModeEtablissementDto().getIdModeEtablissement() != null) {
+                    ModeEtablissement modeEtablissement = modeEtablissementDao.findById(physiqueDto.getModeEtablissementDto().getIdModeEtablissement())
+                            .orElseThrow(() -> new com.ged.advice.EntityNotFoundException(ModeEtablissement.class, physiqueDto.getModeEtablissementDto().getIdModeEtablissement().toString()));
+                    personnePhysique.setModeEtablissement2(modeEtablissement);
+                }
+                if (physiqueDto.getSecteurEmp() != null && physiqueDto.getSecteurEmp().getIdSecteur() != null) {
+                    Secteur secteurEmp = secteurDao.findById(physiqueDto.getSecteurEmp().getIdSecteur())
+                            .orElseThrow(() -> new com.ged.advice.EntityNotFoundException(Secteur.class, physiqueDto.getSecteurEmp().getIdSecteur().toString()));
+                    personnePhysique.setSecteurEmp(secteurEmp);
+                }
+
+                if (physiqueDto.getCategorieClient() != null && physiqueDto.getCategorieClient().getIdCategorieClient() != null) {
+                    CategorieClient categorieClient = categorieClientDao.findById(physiqueDto.getCategorieClient().getIdCategorieClient())
+                            .orElseThrow(() -> new com.ged.advice.EntityNotFoundException(CategorieClient.class, physiqueDto.getCategorieClient().getIdCategorieClient().toString()));
+                    personnePhysique.setCategorieClient(categorieClient);
+                }
+
+                if (physiqueDto.getSousTypeClient() != null && physiqueDto.getSousTypeClient().getIdSousTypeClient() != null) {
+                    SousTypeClient sousTypeClient = sousTypeClientDao.findById(physiqueDto.getSousTypeClient().getIdSousTypeClient())
+                            .orElseThrow(() -> new com.ged.advice.EntityNotFoundException(SousTypeClient.class, physiqueDto.getSousTypeClient().getIdSousTypeClient().toString()));
+                    personnePhysique.setSousTypeClient(sousTypeClient);
+                }
+
+                if (physiqueDto.getPaysPere() != null && physiqueDto.getPaysPere().getIdPays() != null) {
+                    Pays paysPere = paysDao.findById(physiqueDto.getPaysPere().getIdPays())
+                            .orElseThrow(() -> new com.ged.advice.EntityNotFoundException(Pays.class, physiqueDto.getPaysPere().getIdPays().toString()));
+                    personnePhysique.setPaysPere(paysPere);
+                }
+                if (physiqueDto.getPaysMere() != null && physiqueDto.getPaysMere().getIdPays() != null) {
+                    Pays paysMere = paysDao.findById(physiqueDto.getPaysMere().getIdPays())
+                            .orElseThrow(() -> new com.ged.advice.EntityNotFoundException(Pays.class, physiqueDto.getPaysMere().getIdPays().toString()));
+                    personnePhysique.setPaysMere(paysMere);
+                }
+                if (physiqueDto.getPaysConjoint() != null && physiqueDto.getPaysConjoint().getIdPays() != null) {
+                    Pays paysConjoint = paysDao.findById(physiqueDto.getPaysConjoint().getIdPays())
+                            .orElseThrow(() -> new com.ged.advice.EntityNotFoundException(Pays.class, physiqueDto.getPaysConjoint().getIdPays().toString()));
+                    personnePhysique.setPaysConjoint(paysConjoint);
+                }
+                if (physiqueDto.getPaysNationalite() != null && physiqueDto.getPaysNationalite().getIdPays() != null) {
+                    Pays paysNationalite = paysDao.findById(physiqueDto.getPaysNationalite().getIdPays())
+                            .orElseThrow(() -> new com.ged.advice.EntityNotFoundException(Pays.class, physiqueDto.getPaysNationalite().getIdPays().toString()));
+                    personnePhysique.setPaysNationalite(paysNationalite);
+                }
+                if (physiqueDto.getPaysResidence() != null && physiqueDto.getPaysResidence().getIdPays() != null) {
+                    Pays paysResidence = paysDao.findById(physiqueDto.getPaysResidence().getIdPays())
+                            .orElseThrow(() -> new com.ged.advice.EntityNotFoundException(Pays.class, physiqueDto.getPaysResidence().getIdPays().toString()));
+                    personnePhysique.setPaysResidence(paysResidence);
+                }
+                if (physiqueDto.getDegre() != null && physiqueDto.getDegre().getIdDegre() != null) {
+                    Degre degre = degreDao.findById(physiqueDto.getDegre().getIdDegre())
+                            .orElseThrow(() -> new com.ged.advice.EntityNotFoundException(Degre.class, physiqueDto.getDegre().getIdDegre().toString()));
+                    personnePhysique.setDegre(degre);
+                }
+
+                if (physiqueDto.getSecteur() != null && physiqueDto.getSecteur().getIdSecteur() != null) {
+                    Secteur secteur = secteurDao.findById(physiqueDto.getSecteur().getIdSecteur())
+                            .orElseThrow(() -> new com.ged.advice.EntityNotFoundException(Secteur.class, physiqueDto.getSecteur().getIdSecteur().toString()));
+                    personnePhysique.setSecteur(secteur);
+                }
+                if (physiqueDto.getDistributeur() != null && physiqueDto.getDistributeur().getIdPersonne() != null) {
+                    Personne distributeur = personneDao.findById(physiqueDto.getDistributeur().getIdPersonne())
+                            .orElseThrow(() -> new com.ged.advice.EntityNotFoundException(Personne.class, physiqueDto.getDistributeur().getIdPersonne().toString()));
+                    personnePhysique.setDistributeur(distributeur);
+                }
+                if (physiqueDto.getLangue() != null && physiqueDto.getLangue().getIdLangue() != null) {
+                    Langue langue = langueDao.findById(physiqueDto.getLangue().getIdLangue())
+                            .orElseThrow(() -> new com.ged.advice.EntityNotFoundException(Langue.class, physiqueDto.getLangue().getIdLangue().toString()));
+                    personnePhysique.setLangue(langue);
+                }
                 Set<DocumentDto> documents = personnePhysiqueDto.getDocuments();
                 for (DocumentDto doc : documents) {
                     personnePhysique.ajouterDocument(documentMapper.deDocumentDto(doc));
@@ -414,8 +525,7 @@ public class PersonnePhysiqueServiceImpl implements PersonnePhysiqueService {
                 }
                 if (personnePhysiqueSave.getIdPersonne() != null) {
                     if (
-                            StringUtils.hasLength(personnePhysiqueSave.getEmailPro()) ||
-                                    StringUtils.hasLength(personnePhysiqueSave.getEmailPerso())
+                            (!personnePhysiqueSave.getEmailPerso().equals(""))
                     ) {
                         mailSenderServiceImpl.send("Remerciement",
                                 personnePhysiqueSave.getEmailPerso(),
@@ -437,7 +547,11 @@ public class PersonnePhysiqueServiceImpl implements PersonnePhysiqueService {
             }
             else {
                 PersonnePhysique personnePhysique = personnePhysiqueMapper.dePersonnePhysiqueDto(personnePhysiqueDto);
+                personnePhysique.setStatutCompte("OUVERT");
                 personnePhysique.setDenomination(personnePhysiqueDto.getNom() + " " + personnePhysiqueDto.getPrenom());
+                personnePhysique.setNomPersonnePhysique(personnePhysiqueDto.getNom());
+                personnePhysique.setPrenomPersonnePhysique(personnePhysiqueDto.getPrenom());
+                personnePhysique.setNumCompteSgi(personnePhysiqueDto.getNumeroCpteDeposit());
                 if (personnePhysiqueDto.getProfession() != null && personnePhysiqueDto.getProfession().getIdProf() != null) {
                     Profession profession = professionDao.findById(personnePhysiqueDto.getProfession().getIdProf())
                             .orElseThrow(() -> new com.ged.advice.EntityNotFoundException(Profession.class, personnePhysiqueDto.getProfession().getIdProf().toString()));
@@ -543,8 +657,8 @@ public class PersonnePhysiqueServiceImpl implements PersonnePhysiqueService {
                 }
                 if (personnePhysiqueSave.getIdPersonne() != null) {
                     if (
-                            StringUtils.hasLength(personnePhysiqueSave.getEmailPro()) ||
-                                    StringUtils.hasLength(personnePhysiqueSave.getEmailPerso())
+//                            StringUtils.hasLength(personnePhysiqueSave.getEmailPro()) ||
+                                    personnePhysiqueSave.getEmailPerso().trim()!=""
                     ) {
                         mailSenderServiceImpl.send("Remerciement",
                                 personnePhysiqueSave.getEmailPerso(),
@@ -577,10 +691,439 @@ public class PersonnePhysiqueServiceImpl implements PersonnePhysiqueService {
         PersonnePhysique personnePhysique = personnePhysiqueMapper.dePersonnePhysiqueDto(personnePhysiqueDto);
         PersonnePhysique personnePhysiqueSelonId = new PersonnePhysique();
         personnePhysique.setDenomination(personnePhysiqueDto.getNom() + " " + personnePhysiqueDto.getPrenom());
+        personnePhysique.setStatutCompte("OUVERT");
+        personnePhysique.setNomPersonnePhysique(personnePhysiqueDto.getNom());
+        personnePhysique.setPrenomPersonnePhysique(personnePhysiqueDto.getPrenom());
+        personnePhysique.setNumCompteSgi(personnePhysiqueDto.getNumeroCpteDeposit());
+        PersonnePhysiqueDto physiqueDto;
+        if(personnePhysiqueDto.getIdPersonne()!=null && personnePhysiqueDto.getIdPersonne()!=0)
+            physiqueDto=personnePhysiqueMapper.dePersonnePhysique(personnePhysiqueDao.findById(personnePhysiqueDto.getIdPersonne()).orElseThrow());
+        else
+            physiqueDto=null;
+        if(personnePhysiqueDto.getEstExpose()==null){
+            if(physiqueDto!=null)
+                personnePhysique.setEstExpose(physiqueDto.getEstExpose());
+            else
+                personnePhysique.setEstExpose(false);
+            personnePhysiqueDto.setEstExpose(personnePhysique.getEstExpose());
+        }
+        if(personnePhysiqueDto.getEstJuge()==null){
+            if(physiqueDto!=null)
+                personnePhysique.setEstJuge(physiqueDto.getEstJuge());
+            else
+                personnePhysique.setEstJuge(false);
+            personnePhysiqueDto.setEstJuge(personnePhysique.getEstJuge());
+        }
+
         if (personnePhysiqueDto.getEstExpose() || personnePhysiqueDto.getEstJuge()) {
             if (personnePhysiqueDto.getIdPersonne() != null) {
                 personnePhysiqueSelonId = afficherPersonnePhysiqueSelonId(personnePhysiqueDto.getIdPersonne());
-                personnePhysique.setStatutPersonnes(personnePhysiqueSelonId.getStatutPersonnes());
+                //personnePhysique.setStatutPersonnes(personnePhysiqueSelonId.getStatutPersonnes());
+
+                if (personnePhysiqueSelonId != null) {
+                    if (personnePhysiqueSelonId.getMobile1() != null && personnePhysiqueDto.getMobile1() == null) {
+                        personnePhysique.setMobile1(personnePhysiqueSelonId.getMobile1());
+                    }
+                    if (personnePhysiqueSelonId.getNumeroCpteDeposit() != null && personnePhysiqueDto.getNumeroCpteDeposit() == null) {
+                        personnePhysique.setNumeroCpteDeposit(personnePhysiqueSelonId.getNumeroCpteDeposit());
+                        personnePhysique.setNumCompteSgi(personnePhysiqueSelonId.getNumeroCpteDeposit());
+                    }
+
+                    if (personnePhysiqueSelonId.getMobile2() != null && personnePhysiqueDto.getMobile2() == null) {
+                        personnePhysique.setMobile2(personnePhysiqueSelonId.getMobile2());
+                    }
+                    if (personnePhysiqueSelonId.getFixe1() != null && personnePhysiqueDto.getFixe1() == null) {
+                        personnePhysique.setFixe1(personnePhysiqueSelonId.getFixe1());
+                    }
+                    if (personnePhysiqueSelonId.getFixe2() != null && personnePhysiqueDto.getFixe2() == null) {
+                        personnePhysique.setFixe2(personnePhysiqueSelonId.getFixe2());
+                    }
+                    if (personnePhysiqueSelonId.getNbrPersonneACharge() != 0 && personnePhysiqueDto.getNbrPersonneACharge() == 0) {
+                        personnePhysique.setNbrPersonneACharge(personnePhysiqueSelonId.getNbrPersonneACharge());
+                    }
+                    if (personnePhysiqueSelonId.getNbrEnfant() != 0 && personnePhysiqueDto.getNbrEnfant() == 0) {
+                        personnePhysique.setNbrEnfant(personnePhysiqueSelonId.getNbrEnfant());
+                    }
+                    if (personnePhysiqueSelonId.getOrigineFonds() != null && personnePhysiqueDto.getOrigineFonds() == null) {
+                        personnePhysique.setOrigineFonds(personnePhysiqueSelonId.getOrigineFonds());
+                    }
+                    if (personnePhysiqueSelonId.getSalaire() != 0 && personnePhysiqueDto.getSalaire() == 0
+                            && personnePhysiqueSelonId.getSalaire() != null && personnePhysiqueDto.getSalaire() == null) {
+                        personnePhysique.setSalaire(personnePhysiqueSelonId.getSalaire());
+                    }
+                    if (personnePhysiqueSelonId.getAdresseGeoEmp() != null && personnePhysiqueDto.getAdresseGeoEmp() == null) {
+                        personnePhysique.setAdresseGeoEmp(personnePhysiqueSelonId.getAdresseGeoEmp());
+                    }
+                    if (personnePhysiqueSelonId.getAdressePostaleEmp() != null && personnePhysiqueDto.getAdressePostaleEmp() == null) {
+                        personnePhysique.setAdressePostaleEmp(personnePhysiqueSelonId.getAdressePostaleEmp());
+                    }
+                    if (personnePhysiqueSelonId.getAutresBiens() != null && personnePhysiqueDto.getAutresBiens() == null) {
+                        personnePhysique.setAutresBiens(personnePhysiqueSelonId.getAutresBiens());
+                    }
+                    if (personnePhysiqueSelonId.getAutresRevenus() != 0 && personnePhysiqueDto.getAutresRevenus() == 0
+                            && personnePhysiqueSelonId.getAutresRevenus() != null && personnePhysiqueDto.getAutresRevenus() == null) {
+                        personnePhysique.setAutresRevenus(personnePhysiqueSelonId.getAutresRevenus());
+                    }
+                    if (personnePhysiqueSelonId.getTeint() != null && personnePhysiqueDto.getTeint() == null) {
+                        personnePhysique.setTeint(personnePhysiqueSelonId.getTeint());
+                    }
+                    if (personnePhysiqueSelonId.getDateNaissanceConjoint() != null && personnePhysiqueDto.getDateNaissanceConjoint() == null) {
+                        personnePhysique.setDateNaissanceConjoint(personnePhysiqueSelonId.getDateNaissanceConjoint());
+                    }
+                    if (personnePhysiqueSelonId.getNomConjoint() != null && personnePhysiqueDto.getNomConjoint() == null) {
+                        personnePhysique.setNomConjoint(personnePhysiqueSelonId.getNomConjoint());
+                    }
+                    if (personnePhysiqueSelonId.getPrenomConjoint() != null && personnePhysiqueDto.getPrenomConjoint() == null) {
+                        personnePhysique.setPrenomConjoint(personnePhysiqueSelonId.getPrenomConjoint());
+                    }
+
+                    if (personnePhysiqueSelonId.getCategorieClient() != null && personnePhysiqueDto.getCategorieClient() == null) {
+                        CategorieClient categorieClient = categorieClientDao.findById(personnePhysiqueSelonId.getCategorieClient().getIdCategorieClient())
+                                .orElseThrow(() -> new com.ged.advice.EntityNotFoundException(CategorieClient.class, personnePhysiqueDto.getCategorieClient().getIdCategorieClient().toString()));
+                        personnePhysique.setCategorieClient(categorieClient);
+                    } else if (personnePhysiqueDto.getCategorieClient() != null) {
+                        CategorieClient categorieClient = categorieClientDao.findById(personnePhysiqueDto.getCategorieClient().getIdCategorieClient())
+                                .orElseThrow(() -> new com.ged.advice.EntityNotFoundException(CategorieClient.class, personnePhysiqueDto.getCategorieClient().getIdCategorieClient().toString()));
+                        personnePhysique.setCategorieClient(categorieClient);
+                    }
+
+                    if (personnePhysiqueSelonId.getSousTypeClient() != null && personnePhysiqueDto.getSousTypeClient() == null) {
+                        SousTypeClient sousTypeClient = sousTypeClientDao.findById(personnePhysiqueSelonId.getSousTypeClient().getIdSousTypeClient())
+                                .orElseThrow(() -> new com.ged.advice.EntityNotFoundException(SousTypeClient.class, personnePhysiqueDto.getSousTypeClient().getIdSousTypeClient().toString()));
+                        personnePhysique.setSousTypeClient(sousTypeClient);
+                    } else if (personnePhysiqueDto.getSousTypeClient() != null) {
+                        SousTypeClient sousTypeClient = sousTypeClientDao.findById(personnePhysiqueDto.getSousTypeClient().getIdSousTypeClient())
+                                .orElseThrow(() -> new com.ged.advice.EntityNotFoundException(SousTypeClient.class, personnePhysiqueDto.getSousTypeClient().getIdSousTypeClient().toString()));
+                        personnePhysique.setSousTypeClient(sousTypeClient);
+                    }
+
+                    if (personnePhysiqueSelonId.getPaysConjoint() != null && personnePhysiqueDto.getPaysConjoint() == null) {
+                        Pays paysConjoint = paysDao.findById(personnePhysiqueSelonId.getPaysConjoint().getIdPays())
+                                .orElseThrow(() -> new com.ged.advice.EntityNotFoundException(Pays.class, personnePhysiqueDto.getPaysConjoint().getIdPays().toString()));
+                        personnePhysique.setPaysConjoint(paysConjoint);
+                    } else if (personnePhysiqueDto.getPaysConjoint() != null) {
+                        Pays paysConjoint = paysDao.findById(personnePhysiqueDto.getPaysConjoint().getIdPays())
+                                .orElseThrow(() -> new com.ged.advice.EntityNotFoundException(Pays.class, personnePhysiqueDto.getPaysConjoint().getIdPays().toString()));
+                        personnePhysique.setPaysConjoint(paysConjoint);
+                    }
+                    //pere
+                    if (personnePhysiqueSelonId.getDateNaissancePere() != null && personnePhysiqueDto.getDateNaissancePere() == null) {
+                        personnePhysique.setDateNaissancePere(personnePhysiqueSelonId.getDateNaissancePere());
+                    }
+                    if (personnePhysiqueSelonId.getNomPere() != null && personnePhysiqueDto.getNomPere() == null) {
+                        personnePhysique.setNomPere(personnePhysiqueSelonId.getNomPere());
+                    }
+                    if (personnePhysiqueSelonId.getPrenomsPere() != null && personnePhysiqueDto.getPrenomsPere() == null) {
+                        personnePhysique.setPrenomsPere(personnePhysiqueSelonId.getPrenomsPere());
+                    }
+                    if (personnePhysiqueSelonId.getPaysPere() != null && personnePhysiqueDto.getPaysPere() == null) {
+                        Pays paysPere = paysDao.findById(personnePhysiqueSelonId.getPaysPere().getIdPays())
+                                .orElseThrow(() -> new com.ged.advice.EntityNotFoundException(Pays.class, personnePhysiqueDto.getPaysPere().getIdPays().toString()));
+                        personnePhysique.setPaysPere(paysPere);
+                    } else if (personnePhysiqueDto.getPaysPere() != null) {
+                        Pays paysPere = paysDao.findById(personnePhysiqueDto.getPaysPere().getIdPays())
+                                .orElseThrow(() -> new com.ged.advice.EntityNotFoundException(Pays.class, personnePhysiqueDto.getPaysPere().getIdPays().toString()));
+                        personnePhysique.setPaysPere(paysPere);
+                    }
+                    //mere
+                    if (personnePhysiqueSelonId.getDateNaissanceMere() != null && personnePhysiqueDto.getDateNaissanceMere() == null) {
+                        personnePhysique.setDateNaissanceMere(personnePhysiqueSelonId.getDateNaissanceMere());
+                    }
+                    if (personnePhysiqueSelonId.getNomMere() != null && personnePhysiqueDto.getNomMere() == null) {
+                        personnePhysique.setNomMere(personnePhysiqueSelonId.getNomMere());
+                    }
+                    if (personnePhysiqueSelonId.getPrenomsMere() != null && personnePhysiqueDto.getPrenomsMere() == null) {
+                        personnePhysique.setPrenomsMere(personnePhysiqueSelonId.getPrenomsMere());
+                    }
+                    if (personnePhysiqueSelonId.getPaysMere() != null && personnePhysiqueDto.getPaysMere() == null) {
+                        Pays paysMere = paysDao.findById(personnePhysiqueSelonId.getPaysMere().getIdPays())
+                                .orElseThrow(() -> new com.ged.advice.EntityNotFoundException(Pays.class, personnePhysiqueDto.getPaysMere().getIdPays().toString()));
+                        personnePhysique.setPaysMere(paysMere);
+                    } else if (personnePhysiqueDto.getPaysMere() != null) {
+                        Pays paysMere = paysDao.findById(personnePhysiqueDto.getPaysMere().getIdPays())
+                                .orElseThrow(() -> new com.ged.advice.EntityNotFoundException(Pays.class, personnePhysiqueDto.getPaysMere().getIdPays().toString()));
+                        personnePhysique.setPaysMere(paysMere);
+                    }
+                    //emp
+                    if (personnePhysiqueSelonId.getEmailEmp() != null && personnePhysiqueDto.getEmailEmp() == null) {
+                        personnePhysique.setEmailEmp(personnePhysiqueSelonId.getEmailEmp());
+                    }
+                    if (personnePhysiqueSelonId.getNomEmployeur() != null && personnePhysiqueDto.getNomEmployeur() == null) {
+                        personnePhysique.setNomEmployeur(personnePhysiqueSelonId.getNomEmployeur());
+                    }
+                    if (personnePhysiqueSelonId.getSecteurEmp() != null && personnePhysiqueDto.getSecteurEmp() == null) {
+                        Secteur secteur = secteurDao.findById(personnePhysiqueSelonId.getSecteurEmp().getIdSecteur())
+                                .orElseThrow(() -> new com.ged.advice.EntityNotFoundException(Secteur.class, personnePhysiqueDto.getSecteurEmp().getIdSecteur().toString()));
+                        personnePhysique.setSecteurEmp(secteur);
+                    } else if (personnePhysiqueDto.getSecteurEmp() != null) {
+                        Secteur secteur = secteurDao.findById(personnePhysiqueDto.getSecteurEmp().getIdSecteur())
+                                .orElseThrow(() -> new com.ged.advice.EntityNotFoundException(Secteur.class, personnePhysiqueDto.getSecteurEmp().getIdSecteur().toString()));
+                        personnePhysique.setSecteurEmp(secteur);
+                    }
+                    if (personnePhysiqueSelonId.getTelEmp() != null && personnePhysiqueDto.getTelEmp() == null) {
+                        personnePhysique.setTelEmp(personnePhysiqueSelonId.getTelEmp());
+                    }
+                    if (personnePhysiqueSelonId.getTransactionEnvisagee() != null && personnePhysiqueDto.getTransactionEnvisagee() == null) {
+                        personnePhysique.setTransactionEnvisagee(personnePhysiqueSelonId.getTransactionEnvisagee());
+                    }
+                    if (personnePhysiqueSelonId.getEmailPerso() != null && personnePhysiqueDto.getEmailPerso() == null) {
+                        personnePhysique.setEmailPerso(personnePhysiqueSelonId.getEmailPerso());
+                    }
+                    if (personnePhysiqueSelonId.getEmailPro() != null && personnePhysiqueDto.getEmailPro() == null) {
+                        personnePhysique.setEmailPro(personnePhysiqueSelonId.getEmailPro());
+                    }
+                    if (personnePhysiqueSelonId.getNomContact() != null && personnePhysiqueDto.getNomContact() == null) {
+                        personnePhysique.setNomContact(personnePhysiqueSelonId.getNomContact());
+                    }
+                    if (personnePhysiqueSelonId.getEmailContact() != null && personnePhysiqueDto.getEmailContact() == null) {
+                        personnePhysique.setEmailContact(personnePhysiqueSelonId.getEmailContact());
+                    }
+                    if (personnePhysiqueSelonId.getPrenomContact() != null && personnePhysiqueDto.getPrenomContact() == null) {
+                        personnePhysique.setPrenomContact(personnePhysiqueSelonId.getPrenomContact());
+                    }
+                    if (personnePhysiqueSelonId.getTelContact() != null && personnePhysiqueDto.getTelContact() == null) {
+                        personnePhysique.setTelContact(personnePhysiqueSelonId.getTelContact());
+                    }
+                    if (personnePhysiqueSelonId.getImmobilier() != null && personnePhysiqueDto.getImmobilier() == null) {
+                        personnePhysique.setImmobilier(personnePhysiqueSelonId.getImmobilier());
+                    }
+                    if (personnePhysiqueSelonId.getLieuTravail() != null && personnePhysiqueDto.getLieuTravail() == null) {
+                        personnePhysique.setLieuTravail(personnePhysiqueSelonId.getLieuTravail());
+                    }
+                    if (personnePhysiqueSelonId.getPeriodicite() != null && personnePhysiqueDto.getPeriodicite() == null) {
+                        personnePhysique.setPeriodicite(personnePhysiqueSelonId.getPeriodicite());
+                    }
+
+                    if (personnePhysiqueSelonId.getProfession() != null && personnePhysiqueDto.getProfession() == null) {
+                        Profession profession = professionDao.findById(personnePhysiqueSelonId.getProfession().getIdProf())
+                                .orElseThrow(() -> new com.ged.advice.EntityNotFoundException(Profession.class, personnePhysiqueDto.getProfession().getIdProf().toString()));
+                        personnePhysique.setProfession(profession);
+                    } else if (personnePhysiqueDto.getProfession() != null) {
+                        if (personnePhysiqueDto.getProfession().getIdProf() != null) {
+                            Profession profession = professionDao.findById(personnePhysiqueDto.getProfession().getIdProf())
+                                    .orElseThrow(() -> new com.ged.advice.EntityNotFoundException(Profession.class, personnePhysiqueDto.getProfession().getIdProf().toString()));
+                            personnePhysique.setProfession(profession);
+                        }
+                    }
+                    if (personnePhysiqueDto.getPaysResidence() != null) {
+                        Pays paysResidence = paysDao.findById(personnePhysiqueDto.getPaysResidence().getIdPays())
+                                .orElseThrow(() -> new com.ged.advice.EntityNotFoundException(Pays.class, personnePhysiqueDto.getPaysResidence().getIdPays().toString()));
+                        personnePhysique.setPaysResidence(paysResidence);
+                    }
+
+                    if (personnePhysiqueDto.getPaysNationalite() != null) {
+                        Pays paysNationalite = paysDao.findById(personnePhysiqueDto.getPaysNationalite().getIdPays())
+                                .orElseThrow(() -> new com.ged.advice.EntityNotFoundException(Pays.class, personnePhysiqueDto.getPaysNationalite().getIdPays().toString()));
+                        personnePhysique.setPaysNationalite(paysNationalite);
+//                    personnePhysique.setPaysResidence(personnePhysiqueSelonId.getPaysResidence());
+                    }
+                    if (personnePhysiqueSelonId.getDegre() != null && personnePhysiqueDto.getDegre() == null) {
+                        Degre degre = degreDao.findById(personnePhysiqueSelonId.getDegre().getIdDegre())
+                                .orElseThrow(() -> new com.ged.advice.EntityNotFoundException(Pays.class, personnePhysiqueDto.getDegre().getIdDegre().toString()));
+                        personnePhysique.setDegre(degre);
+                    } else if (personnePhysiqueDto.getDegre() != null) {
+                        Degre degre = degreDao.findById(personnePhysiqueDto.getDegre().getIdDegre())
+                                .orElseThrow(() -> new com.ged.advice.EntityNotFoundException(Pays.class, personnePhysiqueDto.getDegre().getIdDegre().toString()));
+                        personnePhysique.setDegre(degre);
+                    }
+                    // System.out.println("idlangue1==" + personnePhysiqueDto.getLangue().getIdLangue().toString());
+                    if (personnePhysiqueSelonId.getLangue() != null && personnePhysiqueDto.getLangue() == null) {
+                        Langue langue = langueDao.findById(personnePhysiqueSelonId.getLangue().getIdLangue())
+                                .orElseThrow(() -> new com.ged.advice.EntityNotFoundException(Langue.class, personnePhysiqueDto.getLangue().getIdLangue().toString()));
+                        personnePhysique.setLangue(langue);
+                    } else if (personnePhysiqueDto.getLangue() != null) {
+                        Langue langue = langueDao.findById(personnePhysiqueDto.getLangue().getIdLangue())
+                                .orElseThrow(() -> new com.ged.advice.EntityNotFoundException(Langue.class, personnePhysiqueDto.getLangue().getIdLangue().toString()));
+                        personnePhysique.setLangue(langue);
+                    }
+                    if (personnePhysiqueSelonId.getSecteur() != null && personnePhysiqueDto.getSecteur() == null) {
+                        //System.out.println(personnePhysiqueSelonId.getSecteur().getIdSecteur());
+                        Secteur secteur = secteurDao.findById(personnePhysiqueSelonId.getSecteur().getIdSecteur())
+                                .orElseThrow(() -> new com.ged.advice.EntityNotFoundException(Secteur.class, personnePhysiqueDto.getSecteur().getIdSecteur().toString()));
+                        personnePhysique.setSecteur(secteur);
+                    } else if (personnePhysiqueDto.getSecteur() != null) {
+                        Secteur secteur = secteurDao.findById(personnePhysiqueDto.getSecteur().getIdSecteur())
+                                .orElseThrow(() -> new com.ged.advice.EntityNotFoundException(Secteur.class, personnePhysiqueDto.getSecteur().getIdSecteur().toString()));
+                        personnePhysique.setSecteur(secteur);
+                    }
+                    if (personnePhysiqueSelonId.getModeEtablissement2() != null && personnePhysiqueDto.getModeEtablissementDto() == null) {
+                        ModeEtablissement modeEtablissement = modeEtablissementDao.findById(personnePhysiqueSelonId.getModeEtablissement2().getIdModeEtablissement())
+                                .orElseThrow(() -> new com.ged.advice.EntityNotFoundException(ModeEtablissement.class, personnePhysiqueDto.getModeEtablissementDto().getIdModeEtablissement().toString()));
+                        personnePhysique.setModeEtablissement2(modeEtablissement);
+                    } else if (personnePhysiqueDto.getModeEtablissementDto() != null) {
+                        ModeEtablissement modeEtablissement = modeEtablissementDao.findById(personnePhysiqueDto.getModeEtablissementDto().getIdModeEtablissement())
+                                .orElseThrow(() -> new com.ged.advice.EntityNotFoundException(ModeEtablissement.class, personnePhysiqueDto.getModeEtablissementDto().getIdModeEtablissement().toString()));
+                        personnePhysique.setModeEtablissement2(modeEtablissement);
+                    }
+                    if (personnePhysiqueSelonId.getDistributeur() != null && personnePhysiqueDto.getDistributeur() == null) {
+                        Personne distributeur = personneDao.findById(personnePhysiqueSelonId.getDistributeur().getIdPersonne())
+                                .orElseThrow(() -> new com.ged.advice.EntityNotFoundException(Personne.class, personnePhysiqueDto.getDistributeur().getIdPersonne().toString()));
+                        personnePhysique.setDistributeur(distributeur);
+                    } else if (personnePhysiqueDto.getDistributeur() != null) {
+                        Personne distributeur = personneDao.findById(personnePhysiqueDto.getDistributeur().getIdPersonne())
+                                .orElseThrow(() -> new com.ged.advice.EntityNotFoundException(Personne.class, personnePhysiqueDto.getDistributeur().getIdPersonne().toString()));
+                        personnePhysique.setDistributeur(distributeur);
+                    }
+                    if (personnePhysiqueSelonId.getSurfaceTotale() != 0 && personnePhysiqueDto.getSurfaceTotale() == 0) {
+                        personnePhysique.setSurfaceTotale(personnePhysiqueSelonId.getSurfaceTotale());
+                    }
+                    if (personnePhysiqueSelonId.getBp() != null && personnePhysiqueDto.getBp() == null) {
+                        personnePhysique.setBp(personnePhysiqueSelonId.getBp());
+                    }
+                    if (personnePhysiqueSelonId.getIfu() != null && personnePhysiqueDto.getIfu() == null) {
+                        personnePhysique.setIfu(personnePhysiqueSelonId.getIfu());
+                    }
+                    if (personnePhysiqueSelonId.getDomicile() != null && personnePhysiqueDto.getDomicile() == null) {
+                        personnePhysique.setDomicile(personnePhysiqueSelonId.getDomicile());
+                    }
+                    if (personnePhysiqueSelonId.getTitreContact() != null && personnePhysiqueDto.getTitreContact() == null) {
+                        personnePhysique.setTitreContact(personnePhysiqueSelonId.getTitreContact());
+                    }
+                    if (personnePhysiqueSelonId.getModeEtablissement() != null && personnePhysiqueDto.getModeEtablissement() == null) {
+                        personnePhysique.setModeEtablissement(personnePhysiqueSelonId.getModeEtablissement());
+                    }
+                    if (personnePhysiqueSelonId.getStatutMatrimonial() != null && personnePhysiqueDto.getStatutMatrimonial() == null) {
+                        personnePhysique.setStatutMatrimonial(personnePhysiqueSelonId.getStatutMatrimonial());
+                    }
+                }
+            }
+        }
+        else {
+            if (personnePhysiqueDto.getProfession() != null && personnePhysiqueDto.getProfession().getIdProf() != null) {
+                Profession profession = professionDao.findById(personnePhysiqueDto.getProfession().getIdProf())
+                        .orElseThrow(() -> new com.ged.advice.EntityNotFoundException(Profession.class, personnePhysiqueDto.getProfession().getIdProf().toString()));
+                personnePhysique.setProfession(profession);
+            }
+            if (personnePhysiqueDto.getSecteurEmp() != null && personnePhysiqueDto.getSecteurEmp().getIdSecteur() != null) {
+                Secteur secteurEmp = secteurDao.findById(personnePhysiqueDto.getSecteurEmp().getIdSecteur())
+                        .orElseThrow(() -> new com.ged.advice.EntityNotFoundException(Secteur.class, personnePhysiqueDto.getSecteurEmp().getIdSecteur().toString()));
+                personnePhysique.setSecteurEmp(secteurEmp);
+            }
+
+            if (personnePhysiqueDto.getCategorieClient() != null && personnePhysiqueDto.getCategorieClient().getIdCategorieClient() != null) {
+                CategorieClient categorieClient = categorieClientDao.findById(personnePhysiqueDto.getCategorieClient().getIdCategorieClient())
+                        .orElseThrow(() -> new com.ged.advice.EntityNotFoundException(CategorieClient.class, personnePhysiqueDto.getCategorieClient().getIdCategorieClient().toString()));
+                personnePhysique.setCategorieClient(categorieClient);
+            }
+
+            if (personnePhysiqueDto.getSousTypeClient() != null && personnePhysiqueDto.getSousTypeClient().getIdSousTypeClient() != null) {
+               SousTypeClient sousTypeClient = sousTypeClientDao.findById(personnePhysiqueDto.getSousTypeClient().getIdSousTypeClient())
+                        .orElseThrow(() -> new com.ged.advice.EntityNotFoundException(SousTypeClient.class, personnePhysiqueDto.getSousTypeClient().getIdSousTypeClient().toString()));
+                personnePhysique.setSousTypeClient(sousTypeClient);
+            }
+            if (personnePhysiqueDto.getPaysPere() != null && personnePhysiqueDto.getPaysPere().getIdPays() != null) {
+                Pays paysPere = paysDao.findById(personnePhysiqueDto.getPaysPere().getIdPays())
+                        .orElseThrow(() -> new com.ged.advice.EntityNotFoundException(Pays.class, personnePhysiqueDto.getPaysPere().getIdPays().toString()));
+                personnePhysique.setPaysPere(paysPere);
+            }
+            if (personnePhysiqueDto.getPaysMere() != null && personnePhysiqueDto.getPaysMere().getIdPays() != null) {
+                Pays paysMere = paysDao.findById(personnePhysiqueDto.getPaysMere().getIdPays())
+                        .orElseThrow(() -> new com.ged.advice.EntityNotFoundException(Pays.class, personnePhysiqueDto.getPaysMere().getIdPays().toString()));
+                personnePhysique.setPaysMere(paysMere);
+            }
+            if (personnePhysiqueDto.getPaysConjoint() != null && personnePhysiqueDto.getPaysConjoint().getIdPays() != null) {
+                Pays paysConjoint = paysDao.findById(personnePhysiqueDto.getPaysConjoint().getIdPays())
+                        .orElseThrow(() -> new com.ged.advice.EntityNotFoundException(Pays.class, personnePhysiqueDto.getPaysConjoint().getIdPays().toString()));
+                personnePhysique.setPaysConjoint(paysConjoint);
+            }
+            if (personnePhysiqueDto.getPaysNationalite() != null && personnePhysiqueDto.getPaysNationalite().getIdPays() != null) {
+                Pays paysNationalite = paysDao.findById(personnePhysiqueDto.getPaysNationalite().getIdPays())
+                        .orElseThrow(() -> new com.ged.advice.EntityNotFoundException(Pays.class, personnePhysiqueDto.getPaysNationalite().getIdPays().toString()));
+                personnePhysique.setPaysNationalite(paysNationalite);
+            }
+            if (personnePhysiqueDto.getPaysResidence() != null && personnePhysiqueDto.getPaysResidence().getIdPays() != null) {
+                Pays paysResidence = paysDao.findById(personnePhysiqueDto.getPaysResidence().getIdPays())
+                        .orElseThrow(() -> new com.ged.advice.EntityNotFoundException(Pays.class, personnePhysiqueDto.getPaysResidence().getIdPays().toString()));
+                personnePhysique.setPaysResidence(paysResidence);
+            }
+            if (personnePhysiqueDto.getDegre() != null && personnePhysiqueDto.getDegre().getIdDegre() != null) {
+                Degre degre = degreDao.findById(personnePhysiqueDto.getDegre().getIdDegre())
+                        .orElseThrow(() -> new com.ged.advice.EntityNotFoundException(Degre.class, personnePhysiqueDto.getDegre().getIdDegre().toString()));
+                personnePhysique.setDegre(degre);
+            }
+            if (personnePhysiqueDto.getSecteur() != null && personnePhysiqueDto.getSecteur().getIdSecteur() != null) {
+                Secteur secteur = secteurDao.findById(personnePhysiqueDto.getSecteur().getIdSecteur())
+                        .orElseThrow(() -> new com.ged.advice.EntityNotFoundException(Secteur.class, personnePhysiqueDto.getSecteur().getIdSecteur().toString()));
+                personnePhysique.setSecteur(secteur);
+            }
+            if (personnePhysiqueDto.getDistributeur() != null && personnePhysiqueDto.getDistributeur().getIdPersonne() != null) {
+                Personne distributeur = personneDao.findById(personnePhysiqueDto.getDistributeur().getIdPersonne())
+                        .orElseThrow(() -> new com.ged.advice.EntityNotFoundException(Personne.class, personnePhysiqueDto.getDistributeur().getIdPersonne().toString()));
+                personnePhysique.setDistributeur(distributeur);
+            }
+            if (personnePhysiqueDto.getModeEtablissementDto() != null && personnePhysiqueDto.getModeEtablissementDto().getIdModeEtablissement() != null) {
+                ModeEtablissement modeEtablissement = modeEtablissementDao.findById(personnePhysiqueDto.getModeEtablissementDto().getIdModeEtablissement())
+                        .orElseThrow(() -> new com.ged.advice.EntityNotFoundException(ModeEtablissement.class, personnePhysiqueDto.getModeEtablissementDto().getIdModeEtablissement().toString()));
+                personnePhysique.setModeEtablissement2(modeEtablissement);
+            }
+//            System.out.println("idlangue==" + personnePhysiqueDto.getLangue().getIdLangue().toString());
+            if (personnePhysiqueDto.getLangue() != null && personnePhysiqueDto.getLangue().getIdLangue() != null) {
+                Langue langue = langueDao.findById(personnePhysiqueDto.getLangue().getIdLangue())
+                        .orElseThrow(() -> new com.ged.advice.EntityNotFoundException(Langue.class, personnePhysiqueDto.getLangue().getIdLangue().toString()));
+                personnePhysique.setLangue(langue);
+            }
+        }
+        Set<DocumentDto> documents = personnePhysiqueDto.getDocuments();
+        for (DocumentDto doc : documents) {
+            personnePhysique.ajouterDocument(documentMapper.deDocumentDto(doc));
+        }
+        PersonnePhysiqueDto personnePhysiqueSave = personnePhysiqueMapper.dePersonnePhysique(personnePhysiqueDao.save(personnePhysique));
+//        personnePhysiquePaysService.supprimerSelonPersonne(personnePhysiqueSave.getIdPersonne());
+//        PersonnePhysiquePaysDto personnePhysiquePaysDto = new PersonnePhysiquePaysDto();
+//        if (personnePhysiqueDto.getPersonnePhysiquePaysDtos() != null) {
+//            for (PersonnePhysiquePaysDto o : personnePhysiqueDto.getPersonnePhysiquePaysDtos()) {
+//                ClePersonnePhysiquePays clePersonnePhysiquePays = new ClePersonnePhysiquePays();
+//                clePersonnePhysiquePays.setIdPays(o.getPaysDto().getIdPays());
+//                clePersonnePhysiquePays.setIdPersonne(personnePhysiqueSave.getIdPersonne());
+//                personnePhysiquePaysDto.setIdPersonnePhysiquePays(clePersonnePhysiquePays);
+//                personnePhysiquePaysDto.setPaysDto(o.getPaysDto());
+//                personnePhysiquePaysDto.setPersonnePhysiqueDto(personnePhysiqueSave);
+//                personnePhysiquePaysService.creerPersonnePhysiquePays(personnePhysiquePaysDto);
+//            }
+//        }
+
+        if (files != null) {
+            Set<DocumentDto> docs = new HashSet<>(personnePhysiqueSave.getDocuments());
+            Set<DocumentDto> newDocs = fileService.uploadMedia(PATH, files, docs);
+            personnePhysiqueSave.setDocuments(newDocs);
+        }
+
+        return personnePhysiqueSave;
+    }
+
+
+    @Override
+    @Transactional
+    public PersonnePhysiqueDto modifierPersonnePhysiqueLab(List<MultipartFile> files, PersonnePhysiqueDto personnePhysiqueDto) throws Throwable {
+        PersonnePhysique personnePhysique = personnePhysiqueMapper.dePersonnePhysiqueDto(personnePhysiqueDto);
+        PersonnePhysique personnePhysiqueSelonId = new PersonnePhysique();
+        personnePhysique.setDenomination(personnePhysiqueDto.getNom() + " " + personnePhysiqueDto.getPrenom());
+        personnePhysique.setNomPersonnePhysique(personnePhysiqueDto.getNom());
+        personnePhysique.setPrenomPersonnePhysique(personnePhysiqueDto.getPrenom());
+        PersonnePhysiqueDto physiqueDto;
+        if(personnePhysiqueDto.getIdPersonne()!=null && personnePhysiqueDto.getIdPersonne()!=0)
+            physiqueDto=personnePhysiqueMapper.dePersonnePhysique(personnePhysiqueDao.findById(personnePhysiqueDto.getIdPersonne()).orElseThrow());
+        else
+            physiqueDto=null;
+        if(personnePhysiqueDto.getEstExpose()==null){
+            if(physiqueDto!=null)
+                personnePhysique.setEstExpose(physiqueDto.getEstExpose());
+            else
+                personnePhysique.setEstExpose(false);
+            personnePhysiqueDto.setEstExpose(personnePhysique.getEstExpose());
+        }
+        if(personnePhysiqueDto.getEstJuge()==null){
+            if(physiqueDto!=null)
+                personnePhysique.setEstJuge(physiqueDto.getEstJuge());
+            else
+                personnePhysique.setEstJuge(false);
+            personnePhysiqueDto.setEstJuge(personnePhysique.getEstJuge());
+        }
+
+        if (personnePhysiqueDto.getEstExpose() || personnePhysiqueDto.getEstJuge()) {
+            if (personnePhysiqueDto.getIdPersonne() != null) {
+                personnePhysiqueSelonId = afficherPersonnePhysiqueSelonId(personnePhysiqueDto.getIdPersonne());
+                //personnePhysique.setStatutPersonnes(personnePhysiqueSelonId.getStatutPersonnes());
 
                 if (personnePhysiqueSelonId != null) {
                     if (personnePhysiqueSelonId.getMobile1() != null && personnePhysiqueDto.getMobile1() == null) {
@@ -867,7 +1410,7 @@ public class PersonnePhysiqueServiceImpl implements PersonnePhysiqueService {
             }
 
             if (personnePhysiqueDto.getSousTypeClient() != null && personnePhysiqueDto.getSousTypeClient().getIdSousTypeClient() != null) {
-               SousTypeClient sousTypeClient = sousTypeClientDao.findById(personnePhysiqueDto.getSousTypeClient().getIdSousTypeClient())
+                SousTypeClient sousTypeClient = sousTypeClientDao.findById(personnePhysiqueDto.getSousTypeClient().getIdSousTypeClient())
                         .orElseThrow(() -> new com.ged.advice.EntityNotFoundException(SousTypeClient.class, personnePhysiqueDto.getSousTypeClient().getIdSousTypeClient().toString()));
                 personnePhysique.setSousTypeClient(sousTypeClient);
             }

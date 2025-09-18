@@ -5,6 +5,7 @@ import java.util.Date;
 public interface PersonneProjection {
     long getIdPersonne();
     String getDenomination();
+    String getNumeroCpteDeposit();
     String getIfu();
     String getMobile1();
     String getMobile2();

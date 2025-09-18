@@ -62,7 +62,6 @@ public class PersonneMorale extends Personne{
     private LocalDateTime dateFermetureCompte;
     private String motifFermetureCompte;
     private String pieceFermetureCompte;
-    private String statutCompte;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "idVille")
     private Ville ville;
@@ -389,14 +388,6 @@ public class PersonneMorale extends Personne{
         this.pieceFermetureCompte = pieceFermetureCompte;
     }
 
-    public String getStatutCompte() {
-        return statutCompte;
-    }
-
-    public void setStatutCompte(String statutCompte) {
-        this.statutCompte = statutCompte;
-    }
-
     public Place getPlace() {
         return place;
     }
@@ -463,7 +454,6 @@ public class PersonneMorale extends Personne{
                 ", dateFermetureCompte=" + dateFermetureCompte +
                 ", motifFermetureCompte='" + motifFermetureCompte + '\'' +
                 ", pieceFermetureCompte='" + pieceFermetureCompte + '\'' +
-                ", statutCompte='" + statutCompte + '\'' +
                 ", sigle='" + sigle + '\'' +
                 ", siteWeb='" + siteWeb + '\'' +
                 '}';
