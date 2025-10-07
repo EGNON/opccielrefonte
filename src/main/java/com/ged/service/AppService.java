@@ -6,6 +6,7 @@ import com.ged.dao.opcciel.comptabilite.*;
 import com.ged.dao.security.UtilisateurDao;
 import com.ged.dao.standard.PersonneDao;
 import com.ged.datatable.DataTablesResponse;
+import com.ged.dto.request.SoldeDesComptesComptablesRequest;
 import com.ged.dto.lab.reportings.BeginEndDateParameter;
 import com.ged.dto.opcciel.*;
 import com.ged.dto.opcciel.comptabilite.OperationDto;
@@ -224,6 +225,2499 @@ public class AppService {
                     e);
         }
     }
+
+
+    //releveDePartFCP
+    public ResponseEntity<?> afficherReleveDePartFCP(ReleveTitreFCPRequest request) {
+        var parameters = request.getDatatableParameters();
+        try {
+            Pageable pageable = PageRequest.of(parameters.getStart()/ parameters.getLength(), parameters.getLength());
+            Page<ReleveDePartFCPProjection> releveDePartFCPPage;
+            if(parameters.getSearch() != null && !parameters.getSearch().getValue().isEmpty()) {
+                releveDePartFCPPage = new PageImpl<>(new ArrayList<>());
+            }
+            else {
+                releveDePartFCPPage = libraryDao.releveDePartFCP(
+                        request.getIdOpcvm(),request.getDateDebut(),request.getDateFin(),
+                        pageable
+                );
+            }
+            List<ReleveDePartFCPProjection> content = releveDePartFCPPage.getContent().stream().toList();
+            DataTablesResponse<ReleveDePartFCPProjection> dataTablesResponse = new DataTablesResponse<>();
+            dataTablesResponse.setDraw(parameters.getDraw());
+            dataTablesResponse.setRecordsFiltered((int)releveDePartFCPPage.getTotalElements());
+            dataTablesResponse.setRecordsTotal((int)releveDePartFCPPage.getTotalElements());
+            dataTablesResponse.setData(content);
+            return ResponseHandler.generateResponse(
+                    "Releve de Part FCP opcvm",
+                    HttpStatus.OK,
+                    dataTablesResponse);
+        }
+        catch(Exception e) {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e);
+        }
+    }
+    public ResponseEntity<Object> afficherReleveDePartFCP(ReleveTitreFCPRequest request, HttpServletResponse response) throws JRException, IOException {
+
+        InputStream rapportStream = null;
+        InputStream subreportStream = null;
+//        try {
+        // Récupération des données
+        List<ReleveDePartFCPProjection> releveDePartFCPProjections = libraryDao.releveDePartFCP(
+                request.getIdOpcvm(), request.getDateDebut(),request.getDateFin());
+
+        // Chargement des fichiers .jrxml depuis le classpath
+        rapportStream = getClass().getResourceAsStream("/Releve_Part_FCP.jrxml");
+//        subreportStream = getClass().getResourceAsStream("/operationDetachement.jrxml");
+
+        if (rapportStream == null) {
+            throw new RuntimeException("Fichiers .jrxml introuvables dans le classpath !");
+        }
+
+        // Compiler les rapports à la volée
+        JasperReport rapportPrincipal = JasperCompileManager.compileReport(rapportStream);
+//        JasperReport subreport = JasperCompileManager.compileReport(subreportStream);
+
+        // Préparation des paramètres
+        Map<String, Object> parameters = new HashMap<>();
+        DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
+        String letterDate = dateFormatter.format(new Date());
+        String Descrip = request.getDescrip();
+        parameters.put("letterDate", letterDate);
+        OpcvmDto opcvm = opcvmMapper.deOpcvm(opcvmDao.findById(request.getIdOpcvm()).orElseThrow());
+        parameters.put("Descrip", opcvm.getDenominationOpcvm());
+
+        // Remplissage du rapport
+        JasperPrint print = JasperFillManager.fillReport(
+                rapportPrincipal,
+                parameters,
+                new JRBeanCollectionDataSource(releveDePartFCPProjections)
+        );
+        JasperExportManager.exportReportToPdfStream(print, response.getOutputStream());
+        return ResponseHandler.generateResponse(
+                "Ordre de bourse",
+                HttpStatus.OK,
+                releveDePartFCPProjections);
+
+
+    }
+    public ResponseEntity<?> afficherReleveDePartFCPListe(ReleveTitreFCPRequest request) {
+        try
+        {
+            List<ReleveDePartFCPProjection> releveDePartFCPProjections=libraryDao.releveDePartFCP(
+                    request.getIdOpcvm(),request.getDateDebut(),request.getDateFin()
+            );
+            return ResponseHandler.generateResponse(
+                    "Portefeuille opcvm",
+                    HttpStatus.OK,
+                    releveDePartFCPProjections);
+        }
+        catch(Exception e) {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e);
+        }
+    }
+
+    //releveDePartActionnaire
+    public ResponseEntity<?> afficherReleveDePartActionnaire(ReleveDePartActionnaireRequest request) {
+        var parameters = request.getDatatableParameters();
+        try {
+            Pageable pageable = PageRequest.of(parameters.getStart()/ parameters.getLength(), parameters.getLength());
+            Page<ReleveDePartActionnaireProjection> releveDePartActionnairePage;
+            if(parameters.getSearch() != null && !parameters.getSearch().getValue().isEmpty()) {
+                releveDePartActionnairePage = new PageImpl<>(new ArrayList<>());
+            }
+            else {
+                releveDePartActionnairePage = libraryDao.releveDePartActionnaire(
+                        request.getIdActionnaire(), request.getIdOpcvm(),request.getDateDebut(),request.getDateFin(),
+                        pageable
+                );
+            }
+            List<ReleveDePartActionnaireProjection> content = releveDePartActionnairePage.getContent().stream().toList();
+            DataTablesResponse<ReleveDePartActionnaireProjection> dataTablesResponse = new DataTablesResponse<>();
+            dataTablesResponse.setDraw(parameters.getDraw());
+            dataTablesResponse.setRecordsFiltered((int)releveDePartActionnairePage.getTotalElements());
+            dataTablesResponse.setRecordsTotal((int)releveDePartActionnairePage.getTotalElements());
+            dataTablesResponse.setData(content);
+            return ResponseHandler.generateResponse(
+                    "Releve de Part FCP opcvm",
+                    HttpStatus.OK,
+                    dataTablesResponse);
+        }
+        catch(Exception e) {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e);
+        }
+    }
+    public ResponseEntity<Object> afficherReleveDePartActionnaire(ReleveDePartActionnaireRequest request, HttpServletResponse response) throws JRException, IOException {
+
+        InputStream rapportStream = null;
+        InputStream subreportStream = null;
+//        try {
+        // Récupération des données
+        List<ReleveDePartActionnaireProjection> releveDePartActionnaireProjections = libraryDao.releveDePartActionnaire(
+                request.getIdActionnaire(),request.getIdOpcvm(), request.getDateDebut(),request.getDateFin());
+
+        // Chargement des fichiers .jrxml depuis le classpath
+        rapportStream = getClass().getResourceAsStream("/Releve_Part_Actionnaire.jrxml");
+//        subreportStream = getClass().getResourceAsStream("/operationDetachement.jrxml");
+
+        if (rapportStream == null) {
+            throw new RuntimeException("Fichiers .jrxml introuvables dans le classpath !");
+        }
+
+        // Compiler les rapports à la volée
+        JasperReport rapportPrincipal = JasperCompileManager.compileReport(rapportStream);
+//        JasperReport subreport = JasperCompileManager.compileReport(subreportStream);
+
+        // Préparation des paramètres
+        Map<String, Object> parameters = new HashMap<>();
+        DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
+        String letterDate = dateFormatter.format(new Date());
+        String Descrip = request.getDescrip();
+        parameters.put("letterDate", letterDate);
+        OpcvmDto opcvm = opcvmMapper.deOpcvm(opcvmDao.findById(request.getIdOpcvm()).orElseThrow());
+        parameters.put("Descrip", opcvm.getDenominationOpcvm());
+
+        // Remplissage du rapport
+        JasperPrint print = JasperFillManager.fillReport(
+                rapportPrincipal,
+                parameters,
+                new JRBeanCollectionDataSource(releveDePartActionnaireProjections)
+        );
+        JasperExportManager.exportReportToPdfStream(print, response.getOutputStream());
+        return ResponseHandler.generateResponse(
+                "Ordre de bourse",
+                HttpStatus.OK,
+                releveDePartActionnaireProjections);
+
+
+    }
+    public ResponseEntity<?> afficherReleveDePartActionnaireListe(ReleveDePartActionnaireRequest request) {
+        try
+        {
+            List<ReleveDePartActionnaireProjection> releveDePartActionnaireProjections=libraryDao.releveDePartActionnaire(
+                    request.getIdActionnaire(), request.getIdOpcvm(),request.getDateDebut(),request.getDateFin()
+            );
+            return ResponseHandler.generateResponse(
+                    "Portefeuille opcvm",
+                    HttpStatus.OK,
+                    releveDePartActionnaireProjections);
+        }
+        catch(Exception e) {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e);
+        }
+    }
+
+    //journal
+    public ResponseEntity<Object> afficherJournal(ReleveTitreFCPRequest request, HttpServletResponse response) throws JRException, IOException {
+
+        InputStream rapportStream = null;
+        InputStream subreportStream = null;
+//        try {
+        // Récupération des données
+        List<JournalProjection2> journalProjection2s = libraryDao.journal(
+                null, request.getCodeJournal(), request.getDateDebut(),request.getDateFin());
+
+        // Chargement des fichiers .jrxml depuis le classpath
+        rapportStream = getClass().getResourceAsStream("/Journal.jrxml");
+//        subreportStream = getClass().getResourceAsStream("/operationDetachement.jrxml");
+
+        if (rapportStream == null) {
+            throw new RuntimeException("Fichiers .jrxml introuvables dans le classpath !");
+        }
+
+        // Compiler les rapports à la volée
+        JasperReport rapportPrincipal = JasperCompileManager.compileReport(rapportStream);
+//        JasperReport subreport = JasperCompileManager.compileReport(subreportStream);
+
+
+        LocalDateTime dateTime = request.getDateDebut();
+        Instant i = dateTime.atZone(ZoneId.systemDefault()).toInstant();
+        Date dateDebut = Date.from(i);
+
+        dateTime = request.getDateFin();
+        i = dateTime.atZone(ZoneId.systemDefault()).toInstant();
+        Date dateFin = Date.from(i);
+
+        // Préparation des paramètres
+        Map<String, Object> parameters = new HashMap<>();
+        DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
+        String letterDate = dateFormatter.format(new Date());
+//        String dateFin2 = dateFormatter.format(dateFin);
+//        String dateDebut2 = dateFormatter.format(dateDebut);
+        parameters.put("letterDate", letterDate);
+//        parameters.put("dateFin", dateFin2);
+//        parameters.put("dateDebut", dateDebut2);
+//        OpcvmDto opcvm = opcvmMapper.deOpcvm(opcvmDao.findById(request.getIdOpcvm()).orElseThrow());
+//        parameters.put("description", opcvm.getDenominationOpcvm());
+//        parameters.put("idOpcvm", opcvm.getIdOpcvm().toString());
+
+        // Remplissage du rapport
+        JasperPrint print = JasperFillManager.fillReport(
+                rapportPrincipal,
+                parameters,
+                new JRBeanCollectionDataSource(journalProjection2s)
+        );
+        JasperExportManager.exportReportToPdfStream(print, response.getOutputStream());
+        return ResponseHandler.generateResponse(
+                "Ordre de bourse",
+                HttpStatus.OK,
+                journalProjection2s);
+
+
+    }
+
+    //Balance
+    public ResponseEntity<?> afficherBalance(BalanceRequest request) {
+        var parameters = request.getDatatableParameters();
+        try {
+            Pageable pageable = PageRequest.of(parameters.getStart()/ parameters.getLength(), parameters.getLength());
+            Page<BalanceProjection> balancePage;
+            if(parameters.getSearch() != null && !parameters.getSearch().getValue().isEmpty()) {
+                balancePage = new PageImpl<>(new ArrayList<>());
+            }
+            else {
+               balancePage = libraryDao.balance(
+                       request.getCodePlan(), request.getIdOpcvm(), request.getDateDebut(), request.getDateFin(),
+                        pageable
+                );
+            }
+            List<BalanceProjection> content = balancePage.getContent().stream().toList();
+            DataTablesResponse<BalanceProjection> dataTablesResponse = new DataTablesResponse<>();
+            dataTablesResponse.setDraw(parameters.getDraw());
+            dataTablesResponse.setRecordsFiltered((int)balancePage.getTotalElements());
+            dataTablesResponse.setRecordsTotal((int)balancePage.getTotalElements());
+            dataTablesResponse.setData(content);
+            return ResponseHandler.generateResponse(
+                    "Balance opcvm",
+                    HttpStatus.OK,
+                    dataTablesResponse);
+        }
+        catch(Exception e) {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e);
+        }
+    }
+    public ResponseEntity<Object> afficherBalance(BalanceRequest request, HttpServletResponse response) throws JRException, IOException {
+
+        InputStream rapportStream = null;
+        InputStream subreportStream = null;
+//        try {
+        // Récupération des données
+        List<BalanceProjection> balanceProjections = libraryDao.balance(
+                request.getCodePlan(),request.getIdOpcvm(), request.getDateDebut(),request.getDateFin());
+
+        // Chargement des fichiers .jrxml depuis le classpath
+        rapportStream = getClass().getResourceAsStream("/Balance.jrxml");
+//        subreportStream = getClass().getResourceAsStream("/operationDetachement.jrxml");
+
+        if (rapportStream == null) {
+            throw new RuntimeException("Fichiers .jrxml introuvables dans le classpath !");
+        }
+
+        // Compiler les rapports à la volée
+        JasperReport rapportPrincipal = JasperCompileManager.compileReport(rapportStream);
+//        JasperReport subreport = JasperCompileManager.compileReport(subreportStream);
+
+        // Préparation des paramètres
+        Map<String, Object> parameters = new HashMap<>();
+        DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
+        String letterDate = dateFormatter.format(new Date());
+        parameters.put("letterDate", letterDate);
+        OpcvmDto opcvm = opcvmMapper.deOpcvm(opcvmDao.findById(request.getIdOpcvm()).orElseThrow());
+
+        // Remplissage du rapport
+        JasperPrint print = JasperFillManager.fillReport(
+                rapportPrincipal,
+                parameters,
+                new JRBeanCollectionDataSource(balanceProjections)
+        );
+        JasperExportManager.exportReportToPdfStream(print, response.getOutputStream());
+        return ResponseHandler.generateResponse(
+                "Ordre de bourse",
+                HttpStatus.OK,
+                balanceProjections);
+
+
+    }
+    public ResponseEntity<?> afficherBalanceListe(BalanceRequest request) {
+        try
+        {
+            List<BalanceProjection> balanceProjections=libraryDao.balance(
+                    request.getCodePlan(), request.getIdOpcvm(),request.getDateDebut(),request.getDateFin()
+            );
+            return ResponseHandler.generateResponse(
+                    "Balance opcvm",
+                    HttpStatus.OK,
+                    balanceProjections);
+        }
+        catch(Exception e) {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e);
+        }
+    }
+
+    //GrandLivre
+    public ResponseEntity<?> afficherGrandLivre(GrandLivreRequest request) {
+        var parameters = request.getDatatableParameters();
+        try {
+            Pageable pageable = PageRequest.of(parameters.getStart()/ parameters.getLength(), parameters.getLength());
+            Page<GrandLivreProjection> grandLivrePage;
+            if(parameters.getSearch() != null && !parameters.getSearch().getValue().isEmpty()) {
+                grandLivrePage = new PageImpl<>(new ArrayList<>());
+            }
+            else {
+                grandLivrePage = libraryDao.grandLivre(
+                        request.getIdOpcvm(), request.getCodePlan(), request.getNumCompteComptable(), request.getCodeAnalytique(), request.getTypeAnalytique(), request.getDateDebut(), request.getDateFin(),
+                        pageable
+                );
+            }
+            List<GrandLivreProjection> content = grandLivrePage.getContent().stream().toList();
+            DataTablesResponse<GrandLivreProjection> dataTablesResponse = new DataTablesResponse<>();
+            dataTablesResponse.setDraw(parameters.getDraw());
+            dataTablesResponse.setRecordsFiltered((int)grandLivrePage.getTotalElements());
+            dataTablesResponse.setRecordsTotal((int)grandLivrePage.getTotalElements());
+            dataTablesResponse.setData(content);
+            return ResponseHandler.generateResponse(
+                    "Grand Livre opcvm",
+                    HttpStatus.OK,
+                    dataTablesResponse);
+        }
+        catch(Exception e) {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e);
+        }
+    }
+    public ResponseEntity<Object> afficherGrandLivre(GrandLivreRequest request, HttpServletResponse response) throws JRException, IOException {
+
+        InputStream rapportStream = null;
+        InputStream subreportStream = null;
+//        try {
+        // Récupération des données
+        List<GrandLivreProjection> grandLivreProjections = libraryDao.grandLivre(
+                request.getIdOpcvm(), request.getCodePlan(), request.getNumCompteComptable(), request.getCodeAnalytique(), request.getTypeAnalytique(), request.getDateDebut(), request.getDateFin());
+
+        // Chargement des fichiers .jrxml depuis le classpath
+        rapportStream = getClass().getResourceAsStream("/Grand_Livre.jrxml");
+//        subreportStream = getClass().getResourceAsStream("/operationDetachement.jrxml");
+
+        if (rapportStream == null) {
+            throw new RuntimeException("Fichiers .jrxml introuvables dans le classpath !");
+        }
+
+        // Compiler les rapports à la volée
+        JasperReport rapportPrincipal = JasperCompileManager.compileReport(rapportStream);
+//        JasperReport subreport = JasperCompileManager.compileReport(subreportStream);
+
+        // Préparation des paramètres
+        Map<String, Object> parameters = new HashMap<>();
+        DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
+        String letterDate = dateFormatter.format(new Date());
+        parameters.put("letterDate", letterDate);
+        String Descrip = request.getDescrip();
+        OpcvmDto opcvm = opcvmMapper.deOpcvm(opcvmDao.findById(request.getIdOpcvm()).orElseThrow());
+        parameters.put("Descrip", opcvm.getDenominationOpcvm());
+
+        // Remplissage du rapport
+        JasperPrint print = JasperFillManager.fillReport(
+                rapportPrincipal,
+                parameters,
+                new JRBeanCollectionDataSource(grandLivreProjections)
+        );
+        JasperExportManager.exportReportToPdfStream(print, response.getOutputStream());
+        return ResponseHandler.generateResponse(
+                "Ordre de bourse",
+                HttpStatus.OK,
+                grandLivreProjections);
+
+
+    }
+    public ResponseEntity<?> afficherGrandLivreListe(GrandLivreRequest request) {
+        try
+        {
+            List<GrandLivreProjection> grandLivreProjections=libraryDao.grandLivre(
+                    request.getIdOpcvm(),request.getCodePlan(), request.getNumCompteComptable(), request.getCodeAnalytique(), request.getTypeAnalytique(), request.getDateDebut(),request.getDateFin()
+            );
+            return ResponseHandler.generateResponse(
+                    "GrandLivre opcvm",
+                    HttpStatus.OK,
+                    grandLivreProjections);
+        }
+        catch(Exception e) {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e);
+        }
+    }
+
+    //SoldeDesComptesComptable
+    public ResponseEntity<?> afficherSoldeDesComptesComptables(SoldeDesComptesComptablesRequest request) {
+        var parameters = request.getDatatableParameters();
+        try {
+            Pageable pageable = PageRequest.of(parameters.getStart()/ parameters.getLength(), parameters.getLength());
+            Page<SoldeDesComptesComptablesProjection> soldeDesComptesComptablesPage;
+            if(parameters.getSearch() != null && !parameters.getSearch().getValue().isEmpty()) {
+                soldeDesComptesComptablesPage = new PageImpl<>(new ArrayList<>());
+            }
+            else {
+                soldeDesComptesComptablesPage = libraryDao.soldeDesComptesComptables(
+                        request.getCodePlan(), request.getIdOpcvm(), request.getNumCompteComptable(), request.getDateEstimation(),
+                        pageable
+                );
+            }
+            List<SoldeDesComptesComptablesProjection> content = soldeDesComptesComptablesPage.getContent().stream().toList();
+            DataTablesResponse<SoldeDesComptesComptablesProjection> dataTablesResponse = new DataTablesResponse<>();
+            dataTablesResponse.setDraw(parameters.getDraw());
+            dataTablesResponse.setRecordsFiltered((int)soldeDesComptesComptablesPage.getTotalElements());
+            dataTablesResponse.setRecordsTotal((int)soldeDesComptesComptablesPage.getTotalElements());
+            dataTablesResponse.setData(content);
+            return ResponseHandler.generateResponse(
+                    "Releve de Part FCP opcvm",
+                    HttpStatus.OK,
+                    dataTablesResponse);
+        }
+        catch(Exception e) {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e);
+        }
+    }
+    public ResponseEntity<Object> afficherSoldeDesComptesComptables(SoldeDesComptesComptablesRequest request, HttpServletResponse response) throws JRException, IOException {
+
+        InputStream rapportStream = null;
+        InputStream subreportStream = null;
+//        try {
+        // Récupération des données
+        List<SoldeDesComptesComptablesProjection> soldeDesComptesComptablesProjections = libraryDao.soldeDesComptesComptables(
+                request.getCodePlan(),request.getIdOpcvm(), request.getNumCompteComptable(),request.getDateEstimation());
+
+        // Chargement des fichiers .jrxml depuis le classpath
+        rapportStream = getClass().getResourceAsStream("/Solde_Compte_Comptable.jrxml");
+//        subreportStream = getClass().getResourceAsStream("/operationDetachement.jrxml");
+
+        if (rapportStream == null) {
+            throw new RuntimeException("Fichiers .jrxml introuvables dans le classpath !");
+        }
+
+        // Compiler les rapports à la volée
+        JasperReport rapportPrincipal = JasperCompileManager.compileReport(rapportStream);
+//        JasperReport subreport = JasperCompileManager.compileReport(subreportStream);
+
+        // Préparation des paramètres
+        Map<String, Object> parameters = new HashMap<>();
+        DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
+        String letterDate = dateFormatter.format(new Date());
+        parameters.put("letterDate", letterDate);
+        OpcvmDto opcvm = opcvmMapper.deOpcvm(opcvmDao.findById(request.getIdOpcvm()).orElseThrow());
+
+        // Remplissage du rapport
+        JasperPrint print = JasperFillManager.fillReport(
+                rapportPrincipal,
+                parameters,
+                new JRBeanCollectionDataSource(soldeDesComptesComptablesProjections)
+        );
+        JasperExportManager.exportReportToPdfStream(print, response.getOutputStream());
+        return ResponseHandler.generateResponse(
+                "Ordre de bourse",
+                HttpStatus.OK,
+                soldeDesComptesComptablesProjections);
+
+
+    }
+    public ResponseEntity<?> afficherSoldeDesComptesComptablesListe(SoldeDesComptesComptablesRequest request) {
+        try
+        {
+            List<SoldeDesComptesComptablesProjection> soldeDesComptesComptablesProjections=libraryDao.soldeDesComptesComptables(
+                    request.getCodePlan(), request.getIdOpcvm(),request.getNumCompteComptable(),request.getDateEstimation()
+            );
+            return ResponseHandler.generateResponse(
+                    "Solde des Comptes Comptables opcvm",
+                    HttpStatus.OK,
+                    soldeDesComptesComptablesProjections);
+        }
+        catch(Exception e) {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e);
+        }
+    }
+
+    //PointSouscriptionDetaille
+    public ResponseEntity<?> afficherPointSouscriptionDetaille(PointSouscriptionDetailleRequest request) {
+        var parameters = request.getDatatableParameters();
+        try {
+            Pageable pageable = PageRequest.of(parameters.getStart()/ parameters.getLength(), parameters.getLength());
+            Page<PointSouscriptionDetailleProjection> pointSouscriptionDetaillePage;
+            if(parameters.getSearch() != null && !parameters.getSearch().getValue().isEmpty()) {
+                pointSouscriptionDetaillePage = new PageImpl<>(new ArrayList<>());
+            }
+            else {
+                pointSouscriptionDetaillePage = libraryDao.pointSouscriptionDetaille(
+                        request.getIdOpcvm(), request.getIdSeance(), request.getIdActionnaire(), request.getIdPersonne(), request.getDateDebut(), request.getDateFin(),
+                        pageable
+                );
+            }
+            List<PointSouscriptionDetailleProjection> content = pointSouscriptionDetaillePage.getContent().stream().toList();
+            DataTablesResponse<PointSouscriptionDetailleProjection> dataTablesResponse = new DataTablesResponse<>();
+            dataTablesResponse.setDraw(parameters.getDraw());
+            dataTablesResponse.setRecordsFiltered((int)pointSouscriptionDetaillePage.getTotalElements());
+            dataTablesResponse.setRecordsTotal((int)pointSouscriptionDetaillePage.getTotalElements());
+            dataTablesResponse.setData(content);
+            return ResponseHandler.generateResponse(
+                    "Point des Souscriptions Detaillees opcvm",
+                    HttpStatus.OK,
+                    dataTablesResponse);
+        }
+        catch(Exception e) {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e);
+        }
+    }
+    public ResponseEntity<Object> afficherPointSouscriptionDetaille(PointSouscriptionDetailleRequest request, HttpServletResponse response) throws JRException, IOException {
+
+        InputStream rapportStream = null;
+        InputStream subreportStream = null;
+//        try {
+        // Récupération des données
+        List<PointSouscriptionDetailleProjection> pointSouscriptionDetailleProjections = libraryDao.pointSouscriptionDetaille(
+                request.getIdOpcvm(), request.getIdSeance(), request.getIdActionnaire(), request.getIdPersonne(), request.getDateDebut(), request.getDateFin());
+
+                // Chargement des fichiers .jrxml depuis le classpath
+        rapportStream = getClass().getResourceAsStream("/Point_Souscription_Detaille.jrxml");
+//        subreportStream = getClass().getResourceAsStream("/operationDetachement.jrxml");
+
+        if (rapportStream == null) {
+            throw new RuntimeException("Fichiers .jrxml introuvables dans le classpath !");
+        }
+
+        // Compiler les rapports à la volée
+        JasperReport rapportPrincipal = JasperCompileManager.compileReport(rapportStream);
+//        JasperReport subreport = JasperCompileManager.compileReport(subreportStream);
+
+        // Préparation des paramètres
+        Map<String, Object> parameters = new HashMap<>();
+        DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
+        String letterDate = dateFormatter.format(new Date());
+        parameters.put("letterDate", letterDate);
+        OpcvmDto opcvm = opcvmMapper.deOpcvm(opcvmDao.findById(request.getIdOpcvm()).orElseThrow());
+
+        // Remplissage du rapport
+        JasperPrint print = JasperFillManager.fillReport(
+                rapportPrincipal,
+                parameters,
+                new JRBeanCollectionDataSource(pointSouscriptionDetailleProjections)
+        );
+        JasperExportManager.exportReportToPdfStream(print, response.getOutputStream());
+        return ResponseHandler.generateResponse(
+                "Ordre de bourse",
+                HttpStatus.OK,
+                pointSouscriptionDetailleProjections);
+
+
+    }
+    public ResponseEntity<?> afficherPointSouscriptionDetailleListe(PointSouscriptionDetailleRequest request) {
+        try
+        {
+            List<PointSouscriptionDetailleProjection> pointSouscriptionDetailleProjections=libraryDao.pointSouscriptionDetaille(
+                    request.getIdOpcvm(), request.getIdSeance(), request.getIdActionnaire(), request.getIdPersonne(), request.getDateDebut(), request.getDateFin()
+            );
+            return ResponseHandler.generateResponse(
+                    "Point des Souscriptions Detaille opcvm",
+                    HttpStatus.OK,
+                    pointSouscriptionDetailleProjections);
+        }
+        catch(Exception e) {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e);
+        }
+    }
+
+    //PointSouscriptionGlobal
+    public ResponseEntity<?> afficherPointSouscriptionGlobal(PointSouscriptionGlobalRequest request) {
+        var parameters = request.getDatatableParameters();
+        try {
+            Pageable pageable = PageRequest.of(parameters.getStart()/ parameters.getLength(), parameters.getLength());
+            Page<PointSouscriptionGlobalProjection> pointSouscriptionGlobalPage;
+            if(parameters.getSearch() != null && !parameters.getSearch().getValue().isEmpty()) {
+                pointSouscriptionGlobalPage = new PageImpl<>(new ArrayList<>());
+            }
+            else {
+                pointSouscriptionGlobalPage = libraryDao.pointSouscriptionGlobal(
+                        request.getIdOpcvm(), request.getIdSeance(), request.getIdPersonne(), request.getDateDebut(), request.getDateFin(),
+                        pageable
+                );
+            }
+            List<PointSouscriptionGlobalProjection> content = pointSouscriptionGlobalPage.getContent().stream().toList();
+            DataTablesResponse<PointSouscriptionGlobalProjection> dataTablesResponse = new DataTablesResponse<>();
+            dataTablesResponse.setDraw(parameters.getDraw());
+            dataTablesResponse.setRecordsFiltered((int)pointSouscriptionGlobalPage.getTotalElements());
+            dataTablesResponse.setRecordsTotal((int)pointSouscriptionGlobalPage.getTotalElements());
+            dataTablesResponse.setData(content);
+            return ResponseHandler.generateResponse(
+                    "Point des Souscriptions Global opcvm",
+                    HttpStatus.OK,
+                    dataTablesResponse);
+        }
+        catch(Exception e) {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e);
+        }
+    }
+    public ResponseEntity<Object> afficherPointSouscriptionGlobal(PointSouscriptionGlobalRequest request, HttpServletResponse response) throws JRException, IOException {
+
+        InputStream rapportStream = null;
+        InputStream subreportStream = null;
+//        try {
+        // Récupération des données
+        List<PointSouscriptionGlobalProjection> pointSouscriptionGlobalProjections = libraryDao.pointSouscriptionGlobal(
+                request.getIdOpcvm(), request.getIdSeance(), request.getIdPersonne(), request.getDateDebut(), request.getDateFin());
+
+        // Chargement des fichiers .jrxml depuis le classpath
+        rapportStream = getClass().getResourceAsStream("/Point_Souscription_Global.jrxml");
+//        subreportStream = getClass().getResourceAsStream("/operationDetachement.jrxml");
+
+        if (rapportStream == null) {
+            throw new RuntimeException("Fichiers .jrxml introuvables dans le classpath !");
+        }
+
+        // Compiler les rapports à la volée
+        JasperReport rapportPrincipal = JasperCompileManager.compileReport(rapportStream);
+//        JasperReport subreport = JasperCompileManager.compileReport(subreportStream);
+
+        // Préparation des paramètres
+        Map<String, Object> parameters = new HashMap<>();
+        DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
+        String letterDate = dateFormatter.format(new Date());
+        parameters.put("letterDate", letterDate);
+        OpcvmDto opcvm = opcvmMapper.deOpcvm(opcvmDao.findById(request.getIdOpcvm()).orElseThrow());
+
+        // Remplissage du rapport
+        JasperPrint print = JasperFillManager.fillReport(
+                rapportPrincipal,
+                parameters,
+                new JRBeanCollectionDataSource(pointSouscriptionGlobalProjections)
+        );
+        JasperExportManager.exportReportToPdfStream(print, response.getOutputStream());
+        return ResponseHandler.generateResponse(
+                "Ordre de bourse",
+                HttpStatus.OK,
+                pointSouscriptionGlobalProjections);
+
+
+    }
+    public ResponseEntity<?> afficherPointSouscriptionGlobalListe(PointSouscriptionGlobalRequest request) {
+        try
+        {
+            List<PointSouscriptionGlobalProjection> pointSouscriptionGlobalProjections=libraryDao.pointSouscriptionGlobal(
+                    request.getIdOpcvm(), request.getIdSeance(),request.getIdPersonne(), request.getDateDebut(), request.getDateFin()
+            );
+            return ResponseHandler.generateResponse(
+                    "Point des Souscriptions Global opcvm",
+                    HttpStatus.OK,
+                    pointSouscriptionGlobalProjections);
+        }
+        catch(Exception e) {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e);
+        }
+    }
+
+    //PointRachatGlobal
+    public ResponseEntity<?> afficherPointRachatGlobal(PointRachatGlobalRequest request) {
+        var parameters = request.getDatatableParameters();
+        try {
+            Pageable pageable = PageRequest.of(parameters.getStart()/ parameters.getLength(), parameters.getLength());
+            Page<PointRachatGlobalProjection> pointRachatGlobalPage;
+            if(parameters.getSearch() != null && !parameters.getSearch().getValue().isEmpty()) {
+                pointRachatGlobalPage = new PageImpl<>(new ArrayList<>());
+            }
+            else {
+                pointRachatGlobalPage = libraryDao.pointRachatGlobal(
+                        request.getIdOpcvm(), request.getIdSeance(), request.getIdPersonne(), request.getDateDebut(), request.getDateFin(),
+                        pageable
+                );
+            }
+            List<PointRachatGlobalProjection> content = pointRachatGlobalPage.getContent().stream().toList();
+            DataTablesResponse<PointRachatGlobalProjection> dataTablesResponse = new DataTablesResponse<>();
+            dataTablesResponse.setDraw(parameters.getDraw());
+            dataTablesResponse.setRecordsFiltered((int)pointRachatGlobalPage.getTotalElements());
+            dataTablesResponse.setRecordsTotal((int)pointRachatGlobalPage.getTotalElements());
+            dataTablesResponse.setData(content);
+            return ResponseHandler.generateResponse(
+                    "Point des Rachats Detaillees opcvm",
+                    HttpStatus.OK,
+                    dataTablesResponse);
+        }
+        catch(Exception e) {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e);
+        }
+    }
+    public ResponseEntity<Object> afficherPointRachatGlobal(PointRachatGlobalRequest request, HttpServletResponse response) throws JRException, IOException {
+
+        InputStream rapportStream = null;
+        InputStream subreportStream = null;
+//        try {
+        // Récupération des données
+        List<PointRachatGlobalProjection> pointRachatGlobalProjections = libraryDao.pointRachatGlobal(
+                request.getIdOpcvm(), request.getIdSeance(), request.getIdPersonne(), request.getDateDebut(), request.getDateFin());
+
+        // Chargement des fichiers .jrxml depuis le classpath
+        rapportStream = getClass().getResourceAsStream("/Point_Rachats_Global.jrxml");
+//        subreportStream = getClass().getResourceAsStream("/operationDetachement.jrxml");
+
+        if (rapportStream == null) {
+            throw new RuntimeException("Fichiers .jrxml introuvables dans le classpath !");
+        }
+
+        // Compiler les rapports à la volée
+        JasperReport rapportPrincipal = JasperCompileManager.compileReport(rapportStream);
+//        JasperReport subreport = JasperCompileManager.compileReport(subreportStream);
+
+        // Préparation des paramètres
+        Map<String, Object> parameters = new HashMap<>();
+        DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
+        String letterDate = dateFormatter.format(new Date());
+        parameters.put("letterDate", letterDate);
+        OpcvmDto opcvm = opcvmMapper.deOpcvm(opcvmDao.findById(request.getIdOpcvm()).orElseThrow());
+
+        // Remplissage du rapport
+        JasperPrint print = JasperFillManager.fillReport(
+                rapportPrincipal,
+                parameters,
+                new JRBeanCollectionDataSource(pointRachatGlobalProjections)
+        );
+        JasperExportManager.exportReportToPdfStream(print, response.getOutputStream());
+        return ResponseHandler.generateResponse(
+                "Ordre de bourse",
+                HttpStatus.OK,
+                pointRachatGlobalProjections);
+
+
+    }
+    public ResponseEntity<?> afficherPointRachatGlobalListe(PointRachatGlobalRequest request) {
+        try
+        {
+            List<PointRachatGlobalProjection> pointRachatGlobalProjections=libraryDao.pointRachatGlobal(
+                    request.getIdOpcvm(), request.getIdSeance(), request.getIdPersonne(), request.getDateDebut(), request.getDateFin()
+            );
+            return ResponseHandler.generateResponse(
+                    "Point des Rachats Global opcvm",
+                    HttpStatus.OK,
+                    pointRachatGlobalProjections);
+        }
+        catch(Exception e) {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e);
+        }
+    }
+
+    //PointRachatDetaille
+    public ResponseEntity<?> afficherPointRachatDetaille(PointRachatDetailleRequest request) {
+        var parameters = request.getDatatableParameters();
+        try {
+            Pageable pageable = PageRequest.of(parameters.getStart()/ parameters.getLength(), parameters.getLength());
+            Page<PointRachatDetailleProjection> pointRachatDetaillePage;
+            if(parameters.getSearch() != null && !parameters.getSearch().getValue().isEmpty()) {
+                pointRachatDetaillePage = new PageImpl<>(new ArrayList<>());
+            }
+            else {
+                pointRachatDetaillePage = libraryDao.pointRachatDetaille(
+                        request.getIdOpcvm(), request.getIdSeance(), request.getIdActionnaire(), request.getIdPersonne(), request.getDateDebut(), request.getDateFin(),
+                        pageable
+                );
+            }
+            List<PointRachatDetailleProjection> content = pointRachatDetaillePage.getContent().stream().toList();
+            DataTablesResponse<PointRachatDetailleProjection> dataTablesResponse = new DataTablesResponse<>();
+            dataTablesResponse.setDraw(parameters.getDraw());
+            dataTablesResponse.setRecordsFiltered((int)pointRachatDetaillePage.getTotalElements());
+            dataTablesResponse.setRecordsTotal((int)pointRachatDetaillePage.getTotalElements());
+            dataTablesResponse.setData(content);
+            return ResponseHandler.generateResponse(
+                    "Point des Rachats Detaillees opcvm",
+                    HttpStatus.OK,
+                    dataTablesResponse);
+        }
+        catch(Exception e) {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e);
+        }
+    }
+    public ResponseEntity<Object> afficherPointRachatDetaille(PointRachatDetailleRequest request, HttpServletResponse response) throws JRException, IOException {
+
+        InputStream rapportStream = null;
+        InputStream subreportStream = null;
+//        try {
+        // Récupération des données
+        List<PointRachatDetailleProjection> pointRachatDetailleProjections = libraryDao.pointRachatDetaille(
+                request.getIdOpcvm(), request.getIdSeance(), request.getIdActionnaire(), request.getIdPersonne(), request.getDateDebut(), request.getDateFin());
+
+        // Chargement des fichiers .jrxml depuis le classpath
+        rapportStream = getClass().getResourceAsStream("/Point_Rachats_Detaille.jrxml");
+//        subreportStream = getClass().getResourceAsStream("/operationDetachement.jrxml");
+
+        if (rapportStream == null) {
+            throw new RuntimeException("Fichiers .jrxml introuvables dans le classpath !");
+        }
+
+        // Compiler les rapports à la volée
+        JasperReport rapportPrincipal = JasperCompileManager.compileReport(rapportStream);
+//        JasperReport subreport = JasperCompileManager.compileReport(subreportStream);
+
+        // Préparation des paramètres
+        Map<String, Object> parameters = new HashMap<>();
+        DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
+        String letterDate = dateFormatter.format(new Date());
+        parameters.put("letterDate", letterDate);
+        OpcvmDto opcvm = opcvmMapper.deOpcvm(opcvmDao.findById(request.getIdOpcvm()).orElseThrow());
+
+        // Remplissage du rapport
+        JasperPrint print = JasperFillManager.fillReport(
+                rapportPrincipal,
+                parameters,
+                new JRBeanCollectionDataSource(pointRachatDetailleProjections)
+        );
+        JasperExportManager.exportReportToPdfStream(print, response.getOutputStream());
+        return ResponseHandler.generateResponse(
+                "Ordre de bourse",
+                HttpStatus.OK,
+                pointRachatDetailleProjections);
+
+
+    }
+    public ResponseEntity<?> afficherPointRachatDetailleListe(PointRachatDetailleRequest request) {
+        try
+        {
+            List<PointRachatDetailleProjection> pointRachatDetailleProjections=libraryDao.pointRachatDetaille(
+                    request.getIdOpcvm(), request.getIdSeance(), request.getIdActionnaire(), request.getIdPersonne(), request.getDateDebut(), request.getDateFin()
+            );
+            return ResponseHandler.generateResponse(
+                    "Point des Rachats Detaille opcvm",
+                    HttpStatus.OK,
+                    pointRachatDetailleProjections);
+        }
+        catch(Exception e) {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e);
+        }
+    }
+
+    //EtatFinancierAnnuelF1Bilan
+    public ResponseEntity<Object> afficherEtatFinancierAnnuelF1Bilan(EtatFinancierAnnuelF1BilanRequest request, HttpServletResponse response) throws JRException, IOException {
+
+        InputStream rapportStream = null;
+        InputStream subreportStream = null;
+//        try {
+        // Récupération des données
+        List<EtatFinancierAnnuelF1BilanProjection> etatFinancierAnnuelF1BilanProjections = libraryDao.etatFinancierAnnuelF1Bilan(
+                request.getIdOpcvm(), request.getAnnee());
+
+        // Chargement des fichiers .jrxml depuis le classpath
+        rapportStream = getClass().getResourceAsStream("/Etat_Financier_Annuel_F1_Bilan.jrxml");
+//        subreportStream = getClass().getResourceAsStream("/operationDetachement.jrxml");
+
+        if (rapportStream == null) {
+            throw new RuntimeException("Fichiers .jrxml introuvables dans le classpath !");
+        }
+
+        // Compiler les rapports à la volée
+        JasperReport rapportPrincipal = JasperCompileManager.compileReport(rapportStream);
+//        JasperReport subreport = JasperCompileManager.compileReport(subreportStream);
+
+        // Préparation des paramètres
+        Map<String, Object> parameters = new HashMap<>();
+        DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
+        String letterDate = dateFormatter.format(new Date());
+        parameters.put("letterDate", letterDate);
+        String exercice = request.getExercice();
+        parameters.put("exercice", exercice);
+        OpcvmDto opcvm = opcvmMapper.deOpcvm(opcvmDao.findById(request.getIdOpcvm()).orElseThrow());
+
+        // Remplissage du rapport
+        JasperPrint print = JasperFillManager.fillReport(
+                rapportPrincipal,
+                parameters,
+                new JRBeanCollectionDataSource(etatFinancierAnnuelF1BilanProjections)
+        );
+        JasperExportManager.exportReportToPdfStream(print, response.getOutputStream());
+        return ResponseHandler.generateResponse(
+                "Ordre de bourse",
+                HttpStatus.OK,
+                etatFinancierAnnuelF1BilanProjections);
+
+
+    }
+
+    //EtatFinancierAnnuelF1Resultat
+    public ResponseEntity<Object> afficherEtatFinancierAnnuelF1Resultat(EtatFinancierAnnuelF1BilanRequest request, HttpServletResponse response) throws JRException, IOException {
+
+        InputStream rapportStream = null;
+        InputStream subreportStream = null;
+//        try {
+        // Récupération des données
+        List<EtatFinancierAnnuelF1ResultatProjection> etatFinancierAnnuelF1ResultatProjections = libraryDao.etatFinancierAnnuelF1Resultat(
+                request.getIdOpcvm(), request.getAnnee());
+
+        // Chargement des fichiers .jrxml depuis le classpath
+        rapportStream = getClass().getResourceAsStream("/Etat_Financier_Annuel_F1_Resultat.jrxml");
+//        subreportStream = getClass().getResourceAsStream("/operationDetachement.jrxml");
+
+        if (rapportStream == null) {
+            throw new RuntimeException("Fichiers .jrxml introuvables dans le classpath !");
+        }
+
+        // Compiler les rapports à la volée
+        JasperReport rapportPrincipal = JasperCompileManager.compileReport(rapportStream);
+//        JasperReport subreport = JasperCompileManager.compileReport(subreportStream);
+
+        // Préparation des paramètres
+        Map<String, Object> parameters = new HashMap<>();
+        DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
+        String letterDate = dateFormatter.format(new Date());
+        parameters.put("letterDate", letterDate);
+        String exercice = request.getExercice();
+        parameters.put("exercice", exercice);
+        OpcvmDto opcvm = opcvmMapper.deOpcvm(opcvmDao.findById(request.getIdOpcvm()).orElseThrow());
+
+        // Remplissage du rapport
+        JasperPrint print = JasperFillManager.fillReport(
+                rapportPrincipal,
+                parameters,
+                new JRBeanCollectionDataSource(etatFinancierAnnuelF1ResultatProjections)
+        );
+        JasperExportManager.exportReportToPdfStream(print, response.getOutputStream());
+        return ResponseHandler.generateResponse(
+                "Ordre de bourse",
+                HttpStatus.OK,
+                etatFinancierAnnuelF1ResultatProjections);
+
+
+    }
+
+    //EtatFinancierAnnuelF1EtatVariationActifNet
+    public ResponseEntity<Object> afficherEtatFinancierAnnuelF1EtatVariationActifNet(EtatFinancierAnnuelF1BilanRequest request, HttpServletResponse response) throws JRException, IOException {
+
+        InputStream rapportStream = null;
+        InputStream subreportStream = null;
+//        try {
+        // Récupération des données
+        List<EtatFinancierAnnuelF1EtatVariationActifNetProjection> etatFinancierAnnuelF1EtatVariationActifNetProjections = libraryDao.etatFinancierAnnuelF1EtatVariationActifNet(
+                request.getIdOpcvm(), request.getAnnee());
+
+        // Chargement des fichiers .jrxml depuis le classpath
+        rapportStream = getClass().getResourceAsStream("/Etat_Financier_Annuel_F1_Variation_Actif_Net.jrxml");
+//        subreportStream = getClass().getResourceAsStream("/operationDetachement.jrxml");
+
+        if (rapportStream == null) {
+            throw new RuntimeException("Fichiers .jrxml introuvables dans le classpath !");
+        }
+
+        // Compiler les rapports à la volée
+        JasperReport rapportPrincipal = JasperCompileManager.compileReport(rapportStream);
+//        JasperReport subreport = JasperCompileManager.compileReport(subreportStream);
+
+        // Préparation des paramètres
+        Map<String, Object> parameters = new HashMap<>();
+        DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
+        String letterDate = dateFormatter.format(new Date());
+        parameters.put("letterDate", letterDate);
+        String exercice = request.getExercice();
+        parameters.put("exercice", exercice);
+        OpcvmDto opcvm = opcvmMapper.deOpcvm(opcvmDao.findById(request.getIdOpcvm()).orElseThrow());
+
+        // Remplissage du rapport
+        JasperPrint print = JasperFillManager.fillReport(
+                rapportPrincipal,
+                parameters,
+                new JRBeanCollectionDataSource(etatFinancierAnnuelF1EtatVariationActifNetProjections)
+        );
+        JasperExportManager.exportReportToPdfStream(print, response.getOutputStream());
+        return ResponseHandler.generateResponse(
+                "Ordre de bourse",
+                HttpStatus.OK,
+                etatFinancierAnnuelF1EtatVariationActifNetProjections);
+
+
+    }
+
+    //EtatFinancierAnnuelF1NotesRevenusPortefeuilleTitre
+    public ResponseEntity<Object> afficherEtatFinancierAnnuelF1NotesRevenusPortefeuilleTitre(EtatFinancierAnnuelF1BilanRequest request, HttpServletResponse response) throws JRException, IOException {
+
+        InputStream rapportStream = null;
+        InputStream subreportStream = null;
+//        try {
+        // Récupération des données
+        List<EtatFinancierAnnuelF1NotesRevenusPortefeuilleTitreProjection> etatFinancierAnnuelF1NotesRevenusPortefeuilleTitreProjections = libraryDao.etatFinancierAnnuelF1NotesRevenusPortefeuilleTitre(
+                request.getIdOpcvm(), request.getAnnee());
+
+        // Chargement des fichiers .jrxml depuis le classpath
+        rapportStream = getClass().getResourceAsStream("/Etat_Financier_Annuel_F1_Notes_Revenus_Portefeuille_Titre.jrxml");
+//        subreportStream = getClass().getResourceAsStream("/operationDetachement.jrxml");
+
+        if (rapportStream == null) {
+            throw new RuntimeException("Fichiers .jrxml introuvables dans le classpath !");
+        }
+
+        // Compiler les rapports à la volée
+        JasperReport rapportPrincipal = JasperCompileManager.compileReport(rapportStream);
+//        JasperReport subreport = JasperCompileManager.compileReport(subreportStream);
+
+        // Préparation des paramètres
+        Map<String, Object> parameters = new HashMap<>();
+        DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
+        String letterDate = dateFormatter.format(new Date());
+        parameters.put("letterDate", letterDate);
+        String exercice = request.getExercice();
+        parameters.put("exercice", exercice);
+        OpcvmDto opcvm = opcvmMapper.deOpcvm(opcvmDao.findById(request.getIdOpcvm()).orElseThrow());
+
+        // Remplissage du rapport
+        JasperPrint print = JasperFillManager.fillReport(
+                rapportPrincipal,
+                parameters,
+                new JRBeanCollectionDataSource(etatFinancierAnnuelF1NotesRevenusPortefeuilleTitreProjections)
+        );
+        JasperExportManager.exportReportToPdfStream(print, response.getOutputStream());
+        return ResponseHandler.generateResponse(
+                "Ordre de bourse",
+                HttpStatus.OK,
+                etatFinancierAnnuelF1NotesRevenusPortefeuilleTitreProjections);
+
+
+    }
+
+    //EtatFinancierAnnuelF1NotesRevenusPlacementsMonetaires
+    public ResponseEntity<Object> afficherEtatFinancierAnnuelF1NotesRevenusPlacementsMonetaires(EtatFinancierAnnuelF1BilanRequest request, HttpServletResponse response) throws JRException, IOException {
+
+        InputStream rapportStream = null;
+        InputStream subreportStream = null;
+//        try {
+        // Récupération des données
+        List<EtatFinancierAnnuelF1NotesRevenusPlacementsMonetairesProjection> etatFinancierAnnuelF1NotesRevenusPlacementsMonetairesProjections = libraryDao.etatFinancierAnnuelF1NotesRevenusPlacementsMonetaires(
+                request.getIdOpcvm(), request.getAnnee());
+
+        // Chargement des fichiers .jrxml depuis le classpath
+        rapportStream = getClass().getResourceAsStream("/Etat_Financier_Annuel_F1_Notes_Revenus_Placements_Monetaires.jrxml");
+//        subreportStream = getClass().getResourceAsStream("/operationDetachement.jrxml");
+
+        if (rapportStream == null) {
+            throw new RuntimeException("Fichiers .jrxml introuvables dans le classpath !");
+        }
+
+        // Compiler les rapports à la volée
+        JasperReport rapportPrincipal = JasperCompileManager.compileReport(rapportStream);
+//        JasperReport subreport = JasperCompileManager.compileReport(subreportStream);
+
+        // Préparation des paramètres
+        Map<String, Object> parameters = new HashMap<>();
+        DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
+        String letterDate = dateFormatter.format(new Date());
+        parameters.put("letterDate", letterDate);
+        String exercice = request.getExercice();
+        parameters.put("exercice", exercice);
+        OpcvmDto opcvm = opcvmMapper.deOpcvm(opcvmDao.findById(request.getIdOpcvm()).orElseThrow());
+
+        // Remplissage du rapport
+        JasperPrint print = JasperFillManager.fillReport(
+                rapportPrincipal,
+                parameters,
+                new JRBeanCollectionDataSource(etatFinancierAnnuelF1NotesRevenusPlacementsMonetairesProjections)
+        );
+        JasperExportManager.exportReportToPdfStream(print, response.getOutputStream());
+        return ResponseHandler.generateResponse(
+                "Ordre de bourse",
+                HttpStatus.OK,
+                etatFinancierAnnuelF1NotesRevenusPlacementsMonetairesProjections);
+
+
+    }
+
+    //EtatFinancierAnnuelF1NotesSommesDistribuables
+    public ResponseEntity<Object> afficherEtatFinancierAnnuelF1NotesSommesDistribuables(EtatFinancierAnnuelF1BilanRequest request, HttpServletResponse response) throws JRException, IOException {
+
+        InputStream rapportStream = null;
+        InputStream subreportStream = null;
+//        try {
+        // Récupération des données
+        List<EtatFinancierAnnuelF1NotesSommesDistribuablesProjection> etatFinancierAnnuelF1NotesSommesDistribuablesProjections = libraryDao.etatFinancierAnnuelF1NotesSommesDistribuables(
+                request.getIdOpcvm(), request.getAnnee());
+
+        // Chargement des fichiers .jrxml depuis le classpath
+        rapportStream = getClass().getResourceAsStream("/Etat_Financier_Annuel_F1_Notes_Sommes_Distribuables.jrxml");
+//        subreportStream = getClass().getResourceAsStream("/operationDetachement.jrxml");
+
+        if (rapportStream == null) {
+            throw new RuntimeException("Fichiers .jrxml introuvables dans le classpath !");
+        }
+
+        // Compiler les rapports à la volée
+        JasperReport rapportPrincipal = JasperCompileManager.compileReport(rapportStream);
+//        JasperReport subreport = JasperCompileManager.compileReport(subreportStream);
+
+        // Préparation des paramètres
+        Map<String, Object> parameters = new HashMap<>();
+        DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
+        String letterDate = dateFormatter.format(new Date());
+        parameters.put("letterDate", letterDate);
+        String exercice = request.getExercice();
+        parameters.put("exercice", exercice);
+        OpcvmDto opcvm = opcvmMapper.deOpcvm(opcvmDao.findById(request.getIdOpcvm()).orElseThrow());
+
+        // Remplissage du rapport
+        JasperPrint print = JasperFillManager.fillReport(
+                rapportPrincipal,
+                parameters,
+                new JRBeanCollectionDataSource(etatFinancierAnnuelF1NotesSommesDistribuablesProjections)
+        );
+        JasperExportManager.exportReportToPdfStream(print, response.getOutputStream());
+        return ResponseHandler.generateResponse(
+                "Ordre de bourse",
+                HttpStatus.OK,
+                etatFinancierAnnuelF1NotesSommesDistribuablesProjections);
+
+
+    }
+
+    //EtatFinancierAnnuelF1DonneesActionRatiosPertinents
+    public ResponseEntity<Object> afficherEtatFinancierAnnuelF1DonneesActionRatiosPertinents(EtatFinancierAnnuelF1BilanRequest request, HttpServletResponse response) throws JRException, IOException {
+
+        InputStream rapportStream = null;
+        InputStream subreportStream = null;
+//        try {
+        // Récupération des données
+        List<EtatFinancierAnnuelF1DonneesActionRatiosPertinentsProjection> etatFinancierAnnuelF1DonneesActionRatiosPertinentsProjections = libraryDao.etatFinancierAnnuelF1DonneesActionRatiosPertinents(
+                request.getIdOpcvm(), request.getAnnee());
+
+        // Chargement des fichiers .jrxml depuis le classpath
+        rapportStream = getClass().getResourceAsStream("/Etat_Financier_Annuel_F1_Donnees_Action_Ratios_Pertinents.jrxml");
+//        subreportStream = getClass().getResourceAsStream("/operationDetachement.jrxml");
+
+        if (rapportStream == null) {
+            throw new RuntimeException("Fichiers .jrxml introuvables dans le classpath !");
+        }
+
+        // Compiler les rapports à la volée
+        JasperReport rapportPrincipal = JasperCompileManager.compileReport(rapportStream);
+//        JasperReport subreport = JasperCompileManager.compileReport(subreportStream);
+
+        // Préparation des paramètres
+        Map<String, Object> parameters = new HashMap<>();
+        DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
+        String letterDate = dateFormatter.format(new Date());
+        parameters.put("letterDate", letterDate);
+        String exercice = request.getExercice();
+        parameters.put("exercice", exercice);
+        OpcvmDto opcvm = opcvmMapper.deOpcvm(opcvmDao.findById(request.getIdOpcvm()).orElseThrow());
+
+        // Remplissage du rapport
+        JasperPrint print = JasperFillManager.fillReport(
+                rapportPrincipal,
+                parameters,
+                new JRBeanCollectionDataSource(etatFinancierAnnuelF1DonneesActionRatiosPertinentsProjections)
+        );
+        JasperExportManager.exportReportToPdfStream(print, response.getOutputStream());
+        return ResponseHandler.generateResponse(
+                "Ordre de bourse",
+                HttpStatus.OK,
+                etatFinancierAnnuelF1DonneesActionRatiosPertinentsProjections);
+
+
+    }
+
+    //EtatFinancierAnnuelF1EngagementHorsBilan
+    public ResponseEntity<Object> afficherEtatFinancierAnnuelF1EngagementHorsBilan(EtatFinancierAnnuelF1EngagementHorsBilanRequest request, HttpServletResponse response) throws JRException, IOException {
+
+        InputStream rapportStream = null;
+        InputStream subreportStream = null;
+//        try {
+        // Récupération des données
+        List<EtatFinancierAnnuelF1EngagementHorsBilanProjection> etatFinancierAnnuelF1EngagementHorsBilanProjections = libraryDao.etatFinancierAnnuelF1EngagementHorsBilan(
+                request.getIdOpcvm(), request.getDateEstimation());
+
+        // Chargement des fichiers .jrxml depuis le classpath
+        rapportStream = getClass().getResourceAsStream("/Etat_Financier_Annuel_F1_Engagement_Hors_Bilan.jrxml");
+//        subreportStream = getClass().getResourceAsStream("/operationDetachement.jrxml");
+
+        if (rapportStream == null) {
+            throw new RuntimeException("Fichiers .jrxml introuvables dans le classpath !");
+        }
+
+        // Compiler les rapports à la volée
+        JasperReport rapportPrincipal = JasperCompileManager.compileReport(rapportStream);
+//        JasperReport subreport = JasperCompileManager.compileReport(subreportStream);
+
+        // Préparation des paramètres
+        Map<String, Object> parameters = new HashMap<>();
+        DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
+        String letterDate = dateFormatter.format(new Date());
+        parameters.put("letterDate", letterDate);
+        LocalDateTime date1 = request.getDate1();
+        parameters.put("date1", date1);
+        LocalDateTime date2 = request.getDate2();
+        parameters.put("date2", date2);
+        OpcvmDto opcvm = opcvmMapper.deOpcvm(opcvmDao.findById(request.getIdOpcvm()).orElseThrow());
+
+        // Remplissage du rapport
+        JasperPrint print = JasperFillManager.fillReport(
+                rapportPrincipal,
+                parameters,
+                new JRBeanCollectionDataSource(etatFinancierAnnuelF1EngagementHorsBilanProjections)
+        );
+        JasperExportManager.exportReportToPdfStream(print, response.getOutputStream());
+        return ResponseHandler.generateResponse(
+                "Ordre de bourse",
+                HttpStatus.OK,
+                etatFinancierAnnuelF1EngagementHorsBilanProjections);
+
+
+    }
+
+    //EtatFinancierAnnuelF2Bilan
+    public ResponseEntity<Object> afficherEtatFinancierAnnuelF2Bilan(EtatFinancierAnnuelF1BilanRequest request, HttpServletResponse response) throws JRException, IOException {
+
+        InputStream rapportStream = null;
+        InputStream subreportStream = null;
+//        try {
+        // Récupération des données
+        List<EtatFinancierAnnuelF2BilanProjection> etatFinancierAnnuelF2BilanProjections = libraryDao.etatFinancierAnnuelF2Bilan(
+                request.getIdOpcvm(), request.getAnnee());
+
+        // Chargement des fichiers .jrxml depuis le classpath
+        rapportStream = getClass().getResourceAsStream("/Etat_Financier_Annuel_F2_Bilan.jrxml");
+//        subreportStream = getClass().getResourceAsStream("/operationDetachement.jrxml");
+
+        if (rapportStream == null) {
+            throw new RuntimeException("Fichiers .jrxml introuvables dans le classpath !");
+        }
+
+        // Compiler les rapports à la volée
+        JasperReport rapportPrincipal = JasperCompileManager.compileReport(rapportStream);
+//        JasperReport subreport = JasperCompileManager.compileReport(subreportStream);
+
+        // Préparation des paramètres
+        Map<String, Object> parameters = new HashMap<>();
+        DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
+        String letterDate = dateFormatter.format(new Date());
+        parameters.put("letterDate", letterDate);
+        String exercice = request.getExercice();
+        parameters.put("exercice", exercice);
+        OpcvmDto opcvm = opcvmMapper.deOpcvm(opcvmDao.findById(request.getIdOpcvm()).orElseThrow());
+
+        // Remplissage du rapport
+        JasperPrint print = JasperFillManager.fillReport(
+                rapportPrincipal,
+                parameters,
+                new JRBeanCollectionDataSource(etatFinancierAnnuelF2BilanProjections)
+        );
+        JasperExportManager.exportReportToPdfStream(print, response.getOutputStream());
+        return ResponseHandler.generateResponse(
+                "Ordre de bourse",
+                HttpStatus.OK,
+                etatFinancierAnnuelF2BilanProjections);
+
+
+    }
+
+    //EtatFinancierAnnuelF2Resultat
+    public ResponseEntity<Object> afficherEtatFinancierAnnuelF2Resultat(EtatFinancierAnnuelF1BilanRequest request, HttpServletResponse response) throws JRException, IOException {
+
+        InputStream rapportStream = null;
+        InputStream subreportStream = null;
+//        try {
+        // Récupération des données
+        List<EtatFinancierAnnuelF2ResultatProjection> etatFinancierAnnuelF2ResultatProjections = libraryDao.etatFinancierAnnuelF2Resultat(
+                request.getIdOpcvm(), request.getAnnee());
+
+        // Chargement des fichiers .jrxml depuis le classpath
+        rapportStream = getClass().getResourceAsStream("/Etat_Financier_Annuel_F2_Resultat.jrxml");
+//        subreportStream = getClass().getResourceAsStream("/operationDetachement.jrxml");
+
+        if (rapportStream == null) {
+            throw new RuntimeException("Fichiers .jrxml introuvables dans le classpath !");
+        }
+
+        // Compiler les rapports à la volée
+        JasperReport rapportPrincipal = JasperCompileManager.compileReport(rapportStream);
+//        JasperReport subreport = JasperCompileManager.compileReport(subreportStream);
+
+        // Préparation des paramètres
+        Map<String, Object> parameters = new HashMap<>();
+        DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
+        String letterDate = dateFormatter.format(new Date());
+        parameters.put("letterDate", letterDate);
+        String exercice = request.getExercice();
+        parameters.put("exercice", exercice);
+        OpcvmDto opcvm = opcvmMapper.deOpcvm(opcvmDao.findById(request.getIdOpcvm()).orElseThrow());
+
+        // Remplissage du rapport
+        JasperPrint print = JasperFillManager.fillReport(
+                rapportPrincipal,
+                parameters,
+                new JRBeanCollectionDataSource(etatFinancierAnnuelF2ResultatProjections)
+        );
+        JasperExportManager.exportReportToPdfStream(print, response.getOutputStream());
+        return ResponseHandler.generateResponse(
+                "Ordre de bourse",
+                HttpStatus.OK,
+                etatFinancierAnnuelF2ResultatProjections);
+
+
+    }
+
+    //EtatFinancierAnnuelF2EtatVariationActifNet
+    public ResponseEntity<Object> afficherEtatFinancierAnnuelF2EtatVariationActifNet(EtatFinancierAnnuelF1BilanRequest request, HttpServletResponse response) throws JRException, IOException {
+
+        InputStream rapportStream = null;
+        InputStream subreportStream = null;
+//        try {
+        // Récupération des données
+        List<EtatFinancierAnnuelF2EtatVariationActifNetProjection> etatFinancierAnnuelF2EtatVariationActifNetProjections = libraryDao.etatFinancierAnnuelF2EtatVariationActifNet(
+                request.getIdOpcvm(), request.getAnnee());
+
+        // Chargement des fichiers .jrxml depuis le classpath
+        rapportStream = getClass().getResourceAsStream("/Etat_Financier_Annuel_F2_Variation_Actif_Net.jrxml");
+//        subreportStream = getClass().getResourceAsStream("/operationDetachement.jrxml");
+
+        if (rapportStream == null) {
+            throw new RuntimeException("Fichiers .jrxml introuvables dans le classpath !");
+        }
+
+        // Compiler les rapports à la volée
+        JasperReport rapportPrincipal = JasperCompileManager.compileReport(rapportStream);
+//        JasperReport subreport = JasperCompileManager.compileReport(subreportStream);
+
+        // Préparation des paramètres
+        Map<String, Object> parameters = new HashMap<>();
+        DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
+        String letterDate = dateFormatter.format(new Date());
+        parameters.put("letterDate", letterDate);
+        String exercice = request.getExercice();
+        parameters.put("exercice", exercice);
+        OpcvmDto opcvm = opcvmMapper.deOpcvm(opcvmDao.findById(request.getIdOpcvm()).orElseThrow());
+
+        // Remplissage du rapport
+        JasperPrint print = JasperFillManager.fillReport(
+                rapportPrincipal,
+                parameters,
+                new JRBeanCollectionDataSource(etatFinancierAnnuelF2EtatVariationActifNetProjections)
+        );
+        JasperExportManager.exportReportToPdfStream(print, response.getOutputStream());
+        return ResponseHandler.generateResponse(
+                "Ordre de bourse",
+                HttpStatus.OK,
+                etatFinancierAnnuelF2EtatVariationActifNetProjections);
+
+
+    }
+
+    //EtatFinancierAnnuelF2NotesRevenusPortefeuilleTitre
+    public ResponseEntity<Object> afficherEtatFinancierAnnuelF2NotesRevenusPortefeuilleTitre(EtatFinancierAnnuelF1BilanRequest request, HttpServletResponse response) throws JRException, IOException {
+
+        InputStream rapportStream = null;
+        InputStream subreportStream = null;
+//        try {
+        // Récupération des données
+        List<EtatFinancierAnnuelF2NotesRevenusPortefeuilleTitreProjection> etatFinancierAnnuelF2NotesRevenusPortefeuilleTitreProjections = libraryDao.etatFinancierAnnuelF2NotesRevenusPortefeuilleTitre(
+                request.getIdOpcvm(), request.getAnnee());
+
+        // Chargement des fichiers .jrxml depuis le classpath
+        rapportStream = getClass().getResourceAsStream("/Etat_Financier_Annuel_F2_Notes_Revenus_Portefeuille_Titre.jrxml");
+//        subreportStream = getClass().getResourceAsStream("/operationDetachement.jrxml");
+
+        if (rapportStream == null) {
+            throw new RuntimeException("Fichiers .jrxml introuvables dans le classpath !");
+        }
+
+        // Compiler les rapports à la volée
+        JasperReport rapportPrincipal = JasperCompileManager.compileReport(rapportStream);
+//        JasperReport subreport = JasperCompileManager.compileReport(subreportStream);
+
+        // Préparation des paramètres
+        Map<String, Object> parameters = new HashMap<>();
+        DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
+        String letterDate = dateFormatter.format(new Date());
+        parameters.put("letterDate", letterDate);
+        String exercice = request.getExercice();
+        parameters.put("exercice", exercice);
+        OpcvmDto opcvm = opcvmMapper.deOpcvm(opcvmDao.findById(request.getIdOpcvm()).orElseThrow());
+
+        // Remplissage du rapport
+        JasperPrint print = JasperFillManager.fillReport(
+                rapportPrincipal,
+                parameters,
+                new JRBeanCollectionDataSource(etatFinancierAnnuelF2NotesRevenusPortefeuilleTitreProjections)
+        );
+        JasperExportManager.exportReportToPdfStream(print, response.getOutputStream());
+        return ResponseHandler.generateResponse(
+                "Ordre de bourse",
+                HttpStatus.OK,
+                etatFinancierAnnuelF2NotesRevenusPortefeuilleTitreProjections);
+
+
+    }
+
+    //EtatFinancierAnnuelF2NotesRevenusPlacementsMonetaires
+    public ResponseEntity<Object> afficherEtatFinancierAnnuelF2NotesRevenusPlacementsMonetaires(EtatFinancierAnnuelF1BilanRequest request, HttpServletResponse response) throws JRException, IOException {
+
+        InputStream rapportStream = null;
+        InputStream subreportStream = null;
+//        try {
+        // Récupération des données
+        List<EtatFinancierAnnuelF2NotesRevenusPlacementsMonetairesProjection> etatFinancierAnnuelF2NotesRevenusPlacementsMonetairesProjections = libraryDao.etatFinancierAnnuelF2NotesRevenusPlacementsMonetaires(
+                request.getIdOpcvm(), request.getAnnee());
+
+        // Chargement des fichiers .jrxml depuis le classpath
+        rapportStream = getClass().getResourceAsStream("/Etat_Financier_Annuel_F2_Notes_Revenus_Placements_Monetaires.jrxml");
+//        subreportStream = getClass().getResourceAsStream("/operationDetachement.jrxml");
+
+        if (rapportStream == null) {
+            throw new RuntimeException("Fichiers .jrxml introuvables dans le classpath !");
+        }
+
+        // Compiler les rapports à la volée
+        JasperReport rapportPrincipal = JasperCompileManager.compileReport(rapportStream);
+//        JasperReport subreport = JasperCompileManager.compileReport(subreportStream);
+
+        // Préparation des paramètres
+        Map<String, Object> parameters = new HashMap<>();
+        DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
+        String letterDate = dateFormatter.format(new Date());
+        parameters.put("letterDate", letterDate);
+        String exercice = request.getExercice();
+        parameters.put("exercice", exercice);
+        OpcvmDto opcvm = opcvmMapper.deOpcvm(opcvmDao.findById(request.getIdOpcvm()).orElseThrow());
+
+        // Remplissage du rapport
+        JasperPrint print = JasperFillManager.fillReport(
+                rapportPrincipal,
+                parameters,
+                new JRBeanCollectionDataSource(etatFinancierAnnuelF2NotesRevenusPlacementsMonetairesProjections)
+        );
+        JasperExportManager.exportReportToPdfStream(print, response.getOutputStream());
+        return ResponseHandler.generateResponse(
+                "Ordre de bourse",
+                HttpStatus.OK,
+                etatFinancierAnnuelF2NotesRevenusPlacementsMonetairesProjections);
+
+
+    }
+
+    //EtatFinancierAnnuelF2NotesSommesDistribuables
+    public ResponseEntity<Object> afficherEtatFinancierAnnuelF2NotesSommesDistribuables(EtatFinancierAnnuelF1BilanRequest request, HttpServletResponse response) throws JRException, IOException {
+
+        InputStream rapportStream = null;
+        InputStream subreportStream = null;
+//        try {
+        // Récupération des données
+        List<EtatFinancierAnnuelF2NotesSommesDistribuablesProjection> etatFinancierAnnuelF2NotesSommesDistribuablesProjections = libraryDao.etatFinancierAnnuelF2NotesSommesDistribuables(
+                request.getIdOpcvm(), request.getAnnee());
+
+        // Chargement des fichiers .jrxml depuis le classpath
+        rapportStream = getClass().getResourceAsStream("/Etat_Financier_Annuel_F2_Notes_Sommes_Distribuables.jrxml");
+//        subreportStream = getClass().getResourceAsStream("/operationDetachement.jrxml");
+
+        if (rapportStream == null) {
+            throw new RuntimeException("Fichiers .jrxml introuvables dans le classpath !");
+        }
+
+        // Compiler les rapports à la volée
+        JasperReport rapportPrincipal = JasperCompileManager.compileReport(rapportStream);
+//        JasperReport subreport = JasperCompileManager.compileReport(subreportStream);
+
+        // Préparation des paramètres
+        Map<String, Object> parameters = new HashMap<>();
+        DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
+        String letterDate = dateFormatter.format(new Date());
+        parameters.put("letterDate", letterDate);
+        String exercice = request.getExercice();
+        parameters.put("exercice", exercice);
+        OpcvmDto opcvm = opcvmMapper.deOpcvm(opcvmDao.findById(request.getIdOpcvm()).orElseThrow());
+
+        // Remplissage du rapport
+        JasperPrint print = JasperFillManager.fillReport(
+                rapportPrincipal,
+                parameters,
+                new JRBeanCollectionDataSource(etatFinancierAnnuelF2NotesSommesDistribuablesProjections)
+        );
+        JasperExportManager.exportReportToPdfStream(print, response.getOutputStream());
+        return ResponseHandler.generateResponse(
+                "Ordre de bourse",
+                HttpStatus.OK,
+                etatFinancierAnnuelF2NotesSommesDistribuablesProjections);
+
+
+    }
+
+    //EtatFinancierAnnuelF2DonneesActionRatiosPertinents
+    public ResponseEntity<Object> afficherEtatFinancierAnnuelF2DonneesActionRatiosPertinents(EtatFinancierAnnuelF1BilanRequest request, HttpServletResponse response) throws JRException, IOException {
+
+        InputStream rapportStream = null;
+        InputStream subreportStream = null;
+//        try {
+        // Récupération des données
+        List<EtatFinancierAnnuelF2DonneesActionRatiosPertinentsProjection> etatFinancierAnnuelF2DonneesActionRatiosPertinentsProjections = libraryDao.etatFinancierAnnuelF2DonneesActionRatiosPertinents(
+                request.getIdOpcvm(), request.getAnnee());
+
+        // Chargement des fichiers .jrxml depuis le classpath
+        rapportStream = getClass().getResourceAsStream("/Etat_Financier_Annuel_F2_Donnees_Action_Ratios_Pertinents.jrxml");
+//        subreportStream = getClass().getResourceAsStream("/operationDetachement.jrxml");
+
+        if (rapportStream == null) {
+            throw new RuntimeException("Fichiers .jrxml introuvables dans le classpath !");
+        }
+
+        // Compiler les rapports à la volée
+        JasperReport rapportPrincipal = JasperCompileManager.compileReport(rapportStream);
+//        JasperReport subreport = JasperCompileManager.compileReport(subreportStream);
+
+        // Préparation des paramètres
+        Map<String, Object> parameters = new HashMap<>();
+        DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
+        String letterDate = dateFormatter.format(new Date());
+        parameters.put("letterDate", letterDate);
+        String exercice = request.getExercice();
+        parameters.put("exercice", exercice);
+        OpcvmDto opcvm = opcvmMapper.deOpcvm(opcvmDao.findById(request.getIdOpcvm()).orElseThrow());
+
+        // Remplissage du rapport
+        JasperPrint print = JasperFillManager.fillReport(
+                rapportPrincipal,
+                parameters,
+                new JRBeanCollectionDataSource(etatFinancierAnnuelF2DonneesActionRatiosPertinentsProjections)
+        );
+        JasperExportManager.exportReportToPdfStream(print, response.getOutputStream());
+        return ResponseHandler.generateResponse(
+                "Ordre de bourse",
+                HttpStatus.OK,
+                etatFinancierAnnuelF2DonneesActionRatiosPertinentsProjections);
+
+
+    }
+
+    //EtatFinancierAnnexesEtatsEntreesPortefeuilleTitre
+    public ResponseEntity<Object> afficherEtatFinancierAnnexesEtatsEntreesPortefeuilleTitre(EtatFinancierAnnexesEtatsEntreesPortefeuilleTitreRequest request, HttpServletResponse response) throws JRException, IOException {
+
+        InputStream rapportStream = null;
+        InputStream subreportStream = null;
+//        try {
+        // Récupération des données
+        List<EtatFinancierAnnexesEtatsEntreesPortefeuilleTitreProjection> etatFinancierAnnexesEtatsEntreesPortefeuilleTitreProjections = libraryDao.etatFinancierAnnexesEtatsEntreesPortefeuilleTitre(
+                request.getIdOpcvm(), request.getDateDebut(), request.getDateFin());
+
+        // Chargement des fichiers .jrxml depuis le classpath
+        rapportStream = getClass().getResourceAsStream("/Etat_Financier_Annexes_Etats_Entrees_Portefeuille_Titre.jrxml");
+//        subreportStream = getClass().getResourceAsStream("/operationDetachement.jrxml");
+
+        if (rapportStream == null) {
+            throw new RuntimeException("Fichiers .jrxml introuvables dans le classpath !");
+        }
+
+        // Compiler les rapports à la volée
+        JasperReport rapportPrincipal = JasperCompileManager.compileReport(rapportStream);
+//        JasperReport subreport = JasperCompileManager.compileReport(subreportStream);
+
+        // Préparation des paramètres
+        Map<String, Object> parameters = new HashMap<>();
+        DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
+        String letterDate = dateFormatter.format(new Date());
+        parameters.put("letterDate", letterDate);
+        String exercice = request.getExercice();
+        parameters.put("exercice", exercice);
+        String libellePays = request.getLibellePays();
+        parameters.put("libellePays",libellePays);
+        String denominationOpcvm = request.getDenominationOpcvm();
+        OpcvmDto opcvm = opcvmMapper.deOpcvm(opcvmDao.findById(request.getIdOpcvm()).orElseThrow());
+        parameters.put("denominationOpcvm", opcvm.getDenominationOpcvm());
+
+        // Remplissage du rapport
+        JasperPrint print = JasperFillManager.fillReport(
+                rapportPrincipal,
+                parameters,
+                new JRBeanCollectionDataSource(etatFinancierAnnexesEtatsEntreesPortefeuilleTitreProjections)
+        );
+        JasperExportManager.exportReportToPdfStream(print, response.getOutputStream());
+        return ResponseHandler.generateResponse(
+                "Ordre de bourse",
+                HttpStatus.OK,
+                etatFinancierAnnexesEtatsEntreesPortefeuilleTitreProjections);
+
+
+    }
+
+    //EtatFinancierAnnexesEtatSortiesPortefeuilleTitre
+    public ResponseEntity<Object> afficherEtatFinancierAnnexesEtatSortiesPortefeuilleTitre(EtatFinancierAnnexesEtatsEntreesPortefeuilleTitreRequest request, HttpServletResponse response) throws JRException, IOException {
+
+        InputStream rapportStream = null;
+        InputStream subreportStream = null;
+//        try {
+        // Récupération des données
+        List<EtatFinancierAnnexesEtatSortiesPortefeuilleTitreProjection> etatFinancierAnnexesEtatSortiesPortefeuilleTitreProjections = libraryDao.etatFinancierAnnexesEtatSortiesPortefeuilleTitre(
+                request.getIdOpcvm(), request.getDateDebut(), request.getDateFin());
+
+        // Chargement des fichiers .jrxml depuis le classpath
+        rapportStream = getClass().getResourceAsStream("/Etat_Financier_Annexes_Etat_Sorties_Portefeuille_Titre.jrxml");
+//        subreportStream = getClass().getResourceAsStream("/operationDetachement.jrxml");
+
+        if (rapportStream == null) {
+            throw new RuntimeException("Fichiers .jrxml introuvables dans le classpath !");
+        }
+
+        // Compiler les rapports à la volée
+        JasperReport rapportPrincipal = JasperCompileManager.compileReport(rapportStream);
+//        JasperReport subreport = JasperCompileManager.compileReport(subreportStream);
+
+        // Préparation des paramètres
+        Map<String, Object> parameters = new HashMap<>();
+        DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
+        String letterDate = dateFormatter.format(new Date());
+        parameters.put("letterDate", letterDate);
+        String exercice = request.getExercice();
+        parameters.put("exercice", exercice);
+        String libellePays = request.getLibellePays();
+        parameters.put("libellePays",libellePays);
+        String denominationOpcvm = request.getDenominationOpcvm();
+        OpcvmDto opcvm = opcvmMapper.deOpcvm(opcvmDao.findById(request.getIdOpcvm()).orElseThrow());
+        parameters.put("denominationOpcvm", opcvm.getDenominationOpcvm());
+
+        // Remplissage du rapport
+        JasperPrint print = JasperFillManager.fillReport(
+                rapportPrincipal,
+                parameters,
+                new JRBeanCollectionDataSource(etatFinancierAnnexesEtatSortiesPortefeuilleTitreProjections)
+        );
+        JasperExportManager.exportReportToPdfStream(print, response.getOutputStream());
+        return ResponseHandler.generateResponse(
+                "Ordre de bourse",
+                HttpStatus.OK,
+                etatFinancierAnnexesEtatSortiesPortefeuilleTitreProjections);
+
+
+    }
+
+    //EtatFinancierAnnexesNotePortefeuilleTitresAnnuel
+    public ResponseEntity<Object> afficherEtatFinancierAnnexesNotePortefeuilleTitresAnnuel(EtatFinancierAnnexesNotePortefeuilleTitresAnnuelRequest request, HttpServletResponse response) throws JRException, IOException {
+
+        InputStream rapportStream = null;
+        InputStream subreportStream = null;
+//        try {
+        // Récupération des données
+        List<EtatFinancierAnnexesNotePortefeuilleTitresAnnuelProjection> etatFinancierAnnexesNotePortefeuilleTitresAnnuelProjections = libraryDao.etatFinancierAnnexesNotePortefeuilleTitresAnnuel(
+                request.getIdOpcvm(), request.getDateEstimation());
+
+        // Chargement des fichiers .jrxml depuis le classpath
+        rapportStream = getClass().getResourceAsStream("/Etat_Financier_Annexes_Note_Portefeuille_Titres_Annuel.jrxml");
+//        subreportStream = getClass().getResourceAsStream("/operationDetachement.jrxml");
+
+        if (rapportStream == null) {
+            throw new RuntimeException("Fichiers .jrxml introuvables dans le classpath !");
+        }
+
+        // Compiler les rapports à la volée
+        JasperReport rapportPrincipal = JasperCompileManager.compileReport(rapportStream);
+//        JasperReport subreport = JasperCompileManager.compileReport(subreportStream);
+
+        // Préparation des paramètres
+        Map<String, Object> parameters = new HashMap<>();
+        DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
+        String letterDate = dateFormatter.format(new Date());
+        parameters.put("letterDate", letterDate);
+        String libellePays = request.getLibellePays();
+        parameters.put("libellePays",libellePays);
+        String periodicite = request.getPeriodicite();
+        parameters.put("periodicite",periodicite);
+        LocalDateTime dateEstimation = request.getDateEstimation();
+        parameters.put("dateEstimation",dateEstimation);
+        String denominationOpcvm = request.getDenominationOpcvm();
+        OpcvmDto opcvm = opcvmMapper.deOpcvm(opcvmDao.findById(request.getIdOpcvm()).orElseThrow());
+        parameters.put("denominationOpcvm", opcvm.getDenominationOpcvm());
+
+        // Remplissage du rapport
+        JasperPrint print = JasperFillManager.fillReport(
+                rapportPrincipal,
+                parameters,
+                new JRBeanCollectionDataSource(etatFinancierAnnexesNotePortefeuilleTitresAnnuelProjections)
+        );
+        JasperExportManager.exportReportToPdfStream(print, response.getOutputStream());
+        return ResponseHandler.generateResponse(
+                "Ordre de bourse",
+                HttpStatus.OK,
+                etatFinancierAnnexesNotePortefeuilleTitresAnnuelProjections);
+
+
+    }
+
+    //EtatFinancierAnnexesNotePlacementsMonetairesAnnuel
+    public ResponseEntity<Object> afficherEtatFinancierAnnexesNotePlacementsMonetairesAnnuel(EtatFinancierAnnexesNotePortefeuilleTitresAnnuelRequest request, HttpServletResponse response) throws JRException, IOException {
+
+        InputStream rapportStream = null;
+        InputStream subreportStream = null;
+//        try {
+        // Récupération des données
+        List<EtatFinancierAnnexesNotePlacementsMonetairesAnnuelProjection> etatFinancierAnnexesNotePlacementsMonetairesAnnuelProjections = libraryDao.etatFinancierAnnexesNotePlacementsMonetairesAnnuel(
+                request.getIdOpcvm(), request.getDateEstimation());
+
+        // Chargement des fichiers .jrxml depuis le classpath
+        rapportStream = getClass().getResourceAsStream("/Etat_Financier_Annexes_Note_Placements_Monetaires_Annuel.jrxml");
+//        subreportStream = getClass().getResourceAsStream("/operationDetachement.jrxml");
+
+        if (rapportStream == null) {
+            throw new RuntimeException("Fichiers .jrxml introuvables dans le classpath !");
+        }
+
+        // Compiler les rapports à la volée
+        JasperReport rapportPrincipal = JasperCompileManager.compileReport(rapportStream);
+//        JasperReport subreport = JasperCompileManager.compileReport(subreportStream);
+
+        // Préparation des paramètres
+        Map<String, Object> parameters = new HashMap<>();
+        DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
+        String letterDate = dateFormatter.format(new Date());
+        parameters.put("letterDate", letterDate);
+        String libellePays = request.getLibellePays();
+        parameters.put("libellePays",libellePays);
+        String periodicite = request.getPeriodicite();
+        parameters.put("periodicite",periodicite);
+        LocalDateTime dateEstimation = request.getDateEstimation();
+        parameters.put("dateEstimation",dateEstimation);
+        String denominationOpcvm = request.getDenominationOpcvm();
+        OpcvmDto opcvm = opcvmMapper.deOpcvm(opcvmDao.findById(request.getIdOpcvm()).orElseThrow());
+        parameters.put("denominationOpcvm", opcvm.getDenominationOpcvm());
+
+        // Remplissage du rapport
+        JasperPrint print = JasperFillManager.fillReport(
+                rapportPrincipal,
+                parameters,
+                new JRBeanCollectionDataSource(etatFinancierAnnexesNotePlacementsMonetairesAnnuelProjections)
+        );
+        JasperExportManager.exportReportToPdfStream(print, response.getOutputStream());
+        return ResponseHandler.generateResponse(
+                "Ordre de bourse",
+                HttpStatus.OK,
+                etatFinancierAnnexesNotePlacementsMonetairesAnnuelProjections);
+
+
+    }
+
+    //EtatFinancierAnnexesNotesurleCapital
+    public ResponseEntity<Object> afficherEtatFinancierAnnexesNotesurleCapital(EtatFinancierAnnexesNotePortefeuilleTitresAnnuelRequest request, HttpServletResponse response) throws JRException, IOException {
+
+        InputStream rapportStream = null;
+        InputStream subreportStream = null;
+//        try {
+        // Récupération des données
+        List<EtatFinancierAnnexesNotesurleCapitalProjection> etatFinancierAnnexesNotesurleCapitalProjections = libraryDao.etatFinancierAnnexesNotesurleCapital(
+                request.getIdOpcvm(), request.getDateEstimation());
+
+        // Chargement des fichiers .jrxml depuis le classpath
+        rapportStream = getClass().getResourceAsStream("/Etat_Financier_Annexes_Note_sur_le_Capital.jrxml");
+//        subreportStream = getClass().getResourceAsStream("/operationDetachement.jrxml");
+
+        if (rapportStream == null) {
+            throw new RuntimeException("Fichiers .jrxml introuvables dans le classpath !");
+        }
+
+        // Compiler les rapports à la volée
+        JasperReport rapportPrincipal = JasperCompileManager.compileReport(rapportStream);
+//        JasperReport subreport = JasperCompileManager.compileReport(subreportStream);
+
+        // Préparation des paramètres
+        Map<String, Object> parameters = new HashMap<>();
+        DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
+        String letterDate = dateFormatter.format(new Date());
+        parameters.put("letterDate", letterDate);
+        String periodicite = request.getPeriodicite();
+        parameters.put("periodicite",periodicite);
+        LocalDateTime dateEstimation = request.getDateEstimation();
+        parameters.put("dateEstimation",dateEstimation);
+        String denominationOpcvm = request.getDenominationOpcvm();
+        OpcvmDto opcvm = opcvmMapper.deOpcvm(opcvmDao.findById(request.getIdOpcvm()).orElseThrow());
+        parameters.put("denominationOpcvm", opcvm.getDenominationOpcvm());
+
+        // Remplissage du rapport
+        JasperPrint print = JasperFillManager.fillReport(
+                rapportPrincipal,
+                parameters,
+                new JRBeanCollectionDataSource(etatFinancierAnnexesNotesurleCapitalProjections)
+        );
+        JasperExportManager.exportReportToPdfStream(print, response.getOutputStream());
+        return ResponseHandler.generateResponse(
+                "Ordre de bourse",
+                HttpStatus.OK,
+                etatFinancierAnnexesNotesurleCapitalProjections);
+
+
+    }
+
+    //EtatFinancierAnnexesActionAdmiseCote
+    public ResponseEntity<Object> afficherEtatFinancierAnnexesActionAdmiseCote(EtatFinancierAnnexesNotePortefeuilleTitresAnnuelRequest request, HttpServletResponse response) throws JRException, IOException {
+
+        InputStream rapportStream = null;
+        InputStream subreportStream = null;
+//        try {
+        // Récupération des données
+        List<EtatFinancierAnnexesActionAdmiseCoteProjection> etatFinancierAnnexesActionAdmiseCoteProjections = libraryDao.etatFinancierAnnexesActionAdmiseCote(
+                request.getIdOpcvm(), request.getDateEstimation());
+
+        // Chargement des fichiers .jrxml depuis le classpath
+        rapportStream = getClass().getResourceAsStream("/Etat_Financier_Annexes_Action_Admise_a_la_Cote.jrxml");
+//        subreportStream = getClass().getResourceAsStream("/operationDetachement.jrxml");
+
+        if (rapportStream == null) {
+            throw new RuntimeException("Fichiers .jrxml introuvables dans le classpath !");
+        }
+
+        // Compiler les rapports à la volée
+        JasperReport rapportPrincipal = JasperCompileManager.compileReport(rapportStream);
+//        JasperReport subreport = JasperCompileManager.compileReport(subreportStream);
+
+        // Préparation des paramètres
+        Map<String, Object> parameters = new HashMap<>();
+        DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
+        String letterDate = dateFormatter.format(new Date());
+        parameters.put("letterDate", letterDate);
+        String libellePays = request.getLibellePays();
+        parameters.put("libellePays",libellePays);
+        String periodicite = request.getPeriodicite();
+        parameters.put("periodicite",periodicite);
+        LocalDateTime dateEstimation = request.getDateEstimation();
+        parameters.put("dateEstimation",dateEstimation);
+        String denominationOpcvm = request.getDenominationOpcvm();
+        OpcvmDto opcvm = opcvmMapper.deOpcvm(opcvmDao.findById(request.getIdOpcvm()).orElseThrow());
+        parameters.put("denominationOpcvm", opcvm.getDenominationOpcvm());
+
+        // Remplissage du rapport
+        JasperPrint print = JasperFillManager.fillReport(
+                rapportPrincipal,
+                parameters,
+                new JRBeanCollectionDataSource(etatFinancierAnnexesActionAdmiseCoteProjections)
+        );
+        JasperExportManager.exportReportToPdfStream(print, response.getOutputStream());
+        return ResponseHandler.generateResponse(
+                "Ordre de bourse",
+                HttpStatus.OK,
+                etatFinancierAnnexesActionAdmiseCoteProjections);
+
+
+    }
+
+    //EtatFinancierAnnexesRemunerationGestionnaireDepositaire
+    public ResponseEntity<Object> afficherEtatFinancierAnnexesRemunerationGestionnaireDepositaire(EtatFinancierAnnexesRemunerationGestionnaireDepositaireRequest request, HttpServletResponse response) throws JRException, IOException {
+
+        InputStream rapportStream = null;
+        InputStream subreportStream = null;
+//        try {
+        // Récupération des données
+        List<EtatFinancierAnnexesRemunerationGestionnaireDepositaireProjection> etatFinancierAnnexesRemunerationGestionnaireDepositaireProjections = libraryDao.etatFinancierAnnexesRemunerationGestionnaireDepositaire(
+                request.getIdOpcvm(), request.getDateEstimation());
+
+        // Chargement des fichiers .jrxml depuis le classpath
+        rapportStream = getClass().getResourceAsStream("/Etat_Financier_Annexes_Remuneration_Gestionnaire_et_Depositaire.jrxml");
+//        subreportStream = getClass().getResourceAsStream("/operationDetachement.jrxml");
+
+        if (rapportStream == null) {
+            throw new RuntimeException("Fichiers .jrxml introuvables dans le classpath !");
+        }
+
+        // Compiler les rapports à la volée
+        JasperReport rapportPrincipal = JasperCompileManager.compileReport(rapportStream);
+//        JasperReport subreport = JasperCompileManager.compileReport(subreportStream);
+
+        // Préparation des paramètres
+        Map<String, Object> parameters = new HashMap<>();
+        DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
+        String letterDate = dateFormatter.format(new Date());
+        parameters.put("letterDate", letterDate);
+        String libellePersonneIntervenant = request.getLibellePersonneIntervenant();
+        parameters.put("libellePersonneIntervenant",libellePersonneIntervenant);
+        String raisonSocial = request.getRaisonSocial();
+        parameters.put("raisonSocial",raisonSocial);
+        LocalDateTime dateEstimation = request.getDateEstimation();
+        parameters.put("dateEstimation",dateEstimation);
+        String denominationOpcvm = request.getDenominationOpcvm();
+        OpcvmDto opcvm = opcvmMapper.deOpcvm(opcvmDao.findById(request.getIdOpcvm()).orElseThrow());
+        parameters.put("denominationOpcvm", opcvm.getDenominationOpcvm());
+
+        // Remplissage du rapport
+        JasperPrint print = JasperFillManager.fillReport(
+                rapportPrincipal,
+                parameters,
+                new JRBeanCollectionDataSource(etatFinancierAnnexesRemunerationGestionnaireDepositaireProjections)
+        );
+        JasperExportManager.exportReportToPdfStream(print, response.getOutputStream());
+        return ResponseHandler.generateResponse(
+                "Ordre de bourse",
+                HttpStatus.OK,
+                etatFinancierAnnexesRemunerationGestionnaireDepositaireProjections);
+
+
+    }
+
+    //EtatFinancierTrimestrielBilanTrimestriel
+    public ResponseEntity<Object> afficherEtatFinancierTrimestrielBilanTrimestriel(EtatFinancierTrimestrielBilanTrimestrielRequest request, HttpServletResponse response) throws JRException, IOException {
+
+        InputStream rapportStream = null;
+        InputStream subreportStream = null;
+//        try {
+        // Récupération des données
+        List<EtatFinancierTrimestrielBilanTrimestrielProjection> etatFinancierTrimestrielBilanTrimestrielProjections = libraryDao.etatFinancierTrimestrielBilanTrimestriel(
+                request.getIdOpcvm(), request.getDateEstimation(), request.getDenominationOpcvm(), request.getAnnee());
+
+        // Chargement des fichiers .jrxml depuis le classpath
+        rapportStream = getClass().getResourceAsStream("/Etat_Financier_Trimestriel_Bilan_Trimestriel.jrxml");
+//        subreportStream = getClass().getResourceAsStream("/operationDetachement.jrxml");
+
+        if (rapportStream == null) {
+            throw new RuntimeException("Fichiers .jrxml introuvables dans le classpath !");
+        }
+
+        // Compiler les rapports à la volée
+        JasperReport rapportPrincipal = JasperCompileManager.compileReport(rapportStream);
+//        JasperReport subreport = JasperCompileManager.compileReport(subreportStream);
+
+        // Préparation des paramètres
+        Map<String, Object> parameters = new HashMap<>();
+        DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
+        String letterDate = dateFormatter.format(new Date());
+        parameters.put("letterDate", letterDate);
+        OpcvmDto opcvm = opcvmMapper.deOpcvm(opcvmDao.findById(request.getIdOpcvm()).orElseThrow());
+
+        // Remplissage du rapport
+        JasperPrint print = JasperFillManager.fillReport(
+                rapportPrincipal,
+                parameters,
+                new JRBeanCollectionDataSource(etatFinancierTrimestrielBilanTrimestrielProjections)
+        );
+        JasperExportManager.exportReportToPdfStream(print, response.getOutputStream());
+        return ResponseHandler.generateResponse(
+                "Ordre de bourse",
+                HttpStatus.OK,
+                etatFinancierTrimestrielBilanTrimestrielProjections);
+
+
+    }
+
+    //EtatFinancierTrimestrielCompteResultat
+    public ResponseEntity<Object> afficherEtatFinancierTrimestrielCompteResultat(EtatFinancierTrimestrielBilanTrimestrielRequest request, HttpServletResponse response) throws JRException, IOException {
+
+        InputStream rapportStream = null;
+        InputStream subreportStream = null;
+//        try {
+        // Récupération des données
+        List<EtatFinancierTrimestrielCompteResultatProjection> etatFinancierTrimestrielCompteResultatProjections = libraryDao.etatFinancierTrimestrielCompteResultat(
+                request.getIdOpcvm(), request.getDateEstimation(), request.getDenominationOpcvm(), request.getAnnee());
+
+        // Chargement des fichiers .jrxml depuis le classpath
+        rapportStream = getClass().getResourceAsStream("/Etat_Financier_Trimestriel_Compte_Resultat.jrxml");
+//        subreportStream = getClass().getResourceAsStream("/operationDetachement.jrxml");
+
+        if (rapportStream == null) {
+            throw new RuntimeException("Fichiers .jrxml introuvables dans le classpath !");
+        }
+
+        // Compiler les rapports à la volée
+        JasperReport rapportPrincipal = JasperCompileManager.compileReport(rapportStream);
+//        JasperReport subreport = JasperCompileManager.compileReport(subreportStream);
+
+        // Préparation des paramètres
+        Map<String, Object> parameters = new HashMap<>();
+        DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
+        String letterDate = dateFormatter.format(new Date());
+        parameters.put("letterDate", letterDate);
+        OpcvmDto opcvm = opcvmMapper.deOpcvm(opcvmDao.findById(request.getIdOpcvm()).orElseThrow());
+
+        // Remplissage du rapport
+        JasperPrint print = JasperFillManager.fillReport(
+                rapportPrincipal,
+                parameters,
+                new JRBeanCollectionDataSource(etatFinancierTrimestrielCompteResultatProjections)
+        );
+        JasperExportManager.exportReportToPdfStream(print, response.getOutputStream());
+        return ResponseHandler.generateResponse(
+                "Ordre de bourse",
+                HttpStatus.OK,
+                etatFinancierTrimestrielCompteResultatProjections);
+
+
+    }
+
+    //EtatFinancierTrimestrielVariationActifNet
+    public ResponseEntity<Object> afficherEtatFinancierTrimestrielVariationActifNet(EtatFinancierTrimestrielBilanTrimestrielRequest request, HttpServletResponse response) throws JRException, IOException {
+
+        InputStream rapportStream = null;
+        InputStream subreportStream = null;
+//        try {
+        // Récupération des données
+        List<EtatFinancierTrimestrielVariationActifNetProjection> etatFinancierTrimestrielVariationActifNetProjections = libraryDao.etatFinancierTrimestrielVariationActifNet(
+                request.getIdOpcvm(), request.getDateEstimation());
+
+        // Chargement des fichiers .jrxml depuis le classpath
+        rapportStream = getClass().getResourceAsStream("/Etat_Financier_Trimestriel_Variation_Actif_Net.jrxml");
+//        subreportStream = getClass().getResourceAsStream("/operationDetachement.jrxml");
+
+        if (rapportStream == null) {
+            throw new RuntimeException("Fichiers .jrxml introuvables dans le classpath !");
+        }
+
+        // Compiler les rapports à la volée
+        JasperReport rapportPrincipal = JasperCompileManager.compileReport(rapportStream);
+//        JasperReport subreport = JasperCompileManager.compileReport(subreportStream);
+
+        // Préparation des paramètres
+        Map<String, Object> parameters = new HashMap<>();
+        DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
+        String letterDate = dateFormatter.format(new Date());
+        parameters.put("letterDate", letterDate);
+        OpcvmDto opcvm = opcvmMapper.deOpcvm(opcvmDao.findById(request.getIdOpcvm()).orElseThrow());
+
+        // Remplissage du rapport
+        JasperPrint print = JasperFillManager.fillReport(
+                rapportPrincipal,
+                parameters,
+                new JRBeanCollectionDataSource(etatFinancierTrimestrielVariationActifNetProjections)
+        );
+        JasperExportManager.exportReportToPdfStream(print, response.getOutputStream());
+        return ResponseHandler.generateResponse(
+                "Ordre de bourse",
+                HttpStatus.OK,
+                etatFinancierTrimestrielVariationActifNetProjections);
+
+
+    }
+
+    //EtatFinancierTrimestrielNotesRevenusPlacementsMonetaires
+    public ResponseEntity<Object> afficherEtatFinancierTrimestrielNotesRevenusPlacementsMonetaires(EtatFinancierTrimestrielBilanTrimestrielRequest request, HttpServletResponse response) throws JRException, IOException {
+
+        InputStream rapportStream = null;
+        InputStream subreportStream = null;
+//        try {
+        // Récupération des données
+        List<EtatFinancierTrimestrielNotesRevenusPlacementsMonetairesProjection> etatFinancierTrimestrielNotesRevenusPlacementsMonetairesProjections = libraryDao.etatFinancierTrimestrielNotesRevenusPlacementsMonetaires(
+                request.getIdOpcvm(), request.getDateEstimation());
+
+        // Chargement des fichiers .jrxml depuis le classpath
+        rapportStream = getClass().getResourceAsStream("/Etat_Financier_Trimestriel_Notes_Revenus_Placements_Monetaires.jrxml");
+//        subreportStream = getClass().getResourceAsStream("/operationDetachement.jrxml");
+
+        if (rapportStream == null) {
+            throw new RuntimeException("Fichiers .jrxml introuvables dans le classpath !");
+        }
+
+        // Compiler les rapports à la volée
+        JasperReport rapportPrincipal = JasperCompileManager.compileReport(rapportStream);
+//        JasperReport subreport = JasperCompileManager.compileReport(subreportStream);
+
+        // Préparation des paramètres
+        Map<String, Object> parameters = new HashMap<>();
+        DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
+        String letterDate = dateFormatter.format(new Date());
+        parameters.put("letterDate", letterDate);
+        OpcvmDto opcvm = opcvmMapper.deOpcvm(opcvmDao.findById(request.getIdOpcvm()).orElseThrow());
+
+        // Remplissage du rapport
+        JasperPrint print = JasperFillManager.fillReport(
+                rapportPrincipal,
+                parameters,
+                new JRBeanCollectionDataSource(etatFinancierTrimestrielNotesRevenusPlacementsMonetairesProjections)
+        );
+        JasperExportManager.exportReportToPdfStream(print, response.getOutputStream());
+        return ResponseHandler.generateResponse(
+                "Ordre de bourse",
+                HttpStatus.OK,
+                etatFinancierTrimestrielNotesRevenusPlacementsMonetairesProjections);
+
+
+    }
+
+    //EtatFinancierTrimestrielNoteRevenusPortefeuilleTitre
+    public ResponseEntity<Object> afficherEtatFinancierTrimestrielNoteRevenusPortefeuilleTitre(EtatFinancierTrimestrielBilanTrimestrielRequest request, HttpServletResponse response) throws JRException, IOException {
+
+        InputStream rapportStream = null;
+        InputStream subreportStream = null;
+//        try {
+        // Récupération des données
+        List<EtatFinancierTrimestrielNoteRevenusPortefeuilleTitreProjection> etatFinancierTrimestrielNoteRevenusPortefeuilleTitreProjections = libraryDao.etatFinancierTrimestrielNoteRevenusPortefeuilleTitre(
+                request.getIdOpcvm(), request.getDateEstimation());
+
+        // Chargement des fichiers .jrxml depuis le classpath
+        rapportStream = getClass().getResourceAsStream("/Etat_Financier_Trimestriel_Note_Revenus_Portefeuille_Titre.jrxml");
+//        subreportStream = getClass().getResourceAsStream("/operationDetachement.jrxml");
+
+        if (rapportStream == null) {
+            throw new RuntimeException("Fichiers .jrxml introuvables dans le classpath !");
+        }
+
+        // Compiler les rapports à la volée
+        JasperReport rapportPrincipal = JasperCompileManager.compileReport(rapportStream);
+//        JasperReport subreport = JasperCompileManager.compileReport(subreportStream);
+
+        // Préparation des paramètres
+        Map<String, Object> parameters = new HashMap<>();
+        DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
+        String letterDate = dateFormatter.format(new Date());
+        parameters.put("letterDate", letterDate);
+        OpcvmDto opcvm = opcvmMapper.deOpcvm(opcvmDao.findById(request.getIdOpcvm()).orElseThrow());
+
+        // Remplissage du rapport
+        JasperPrint print = JasperFillManager.fillReport(
+                rapportPrincipal,
+                parameters,
+                new JRBeanCollectionDataSource(etatFinancierTrimestrielNoteRevenusPortefeuilleTitreProjections)
+        );
+        JasperExportManager.exportReportToPdfStream(print, response.getOutputStream());
+        return ResponseHandler.generateResponse(
+                "Ordre de bourse",
+                HttpStatus.OK,
+                etatFinancierTrimestrielNoteRevenusPortefeuilleTitreProjections);
+
+
+    }
+
+    //EtatFinancierTrimestrielTableauAnalyseVL
+    public ResponseEntity<Object> afficherEtatFinancierTrimestrielTableauAnalyseVL(EtatFinancierTrimestrielBilanTrimestrielRequest request, HttpServletResponse response) throws JRException, IOException {
+
+        InputStream rapportStream = null;
+        InputStream subreportStream = null;
+//        try {
+        // Récupération des données
+        List<EtatFinancierTrimestrielTableauAnalyseVLProjection> etatFinancierTrimestrielTableauAnalyseVLProjections = libraryDao.etatFinancierTrimestrielTableauAnalyseVL(
+                request.getIdOpcvm(), request.getDateEstimation());
+
+        // Chargement des fichiers .jrxml depuis le classpath
+        rapportStream = getClass().getResourceAsStream("/Etat_Financier_Trimestriel_Tableau_Analyse_VL.jrxml");
+//        subreportStream = getClass().getResourceAsStream("/operationDetachement.jrxml");
+
+        if (rapportStream == null) {
+            throw new RuntimeException("Fichiers .jrxml introuvables dans le classpath !");
+        }
+
+        // Compiler les rapports à la volée
+        JasperReport rapportPrincipal = JasperCompileManager.compileReport(rapportStream);
+//        JasperReport subreport = JasperCompileManager.compileReport(subreportStream);
+
+        // Préparation des paramètres
+        Map<String, Object> parameters = new HashMap<>();
+        DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
+        String letterDate = dateFormatter.format(new Date());
+        parameters.put("letterDate", letterDate);
+        String raisonSocial = request.getRaisonSocial();
+        parameters.put("raisonSocial",raisonSocial);
+        LocalDateTime dateEstimation = request.getDateEstimation();
+        parameters.put("dateEstimation",dateEstimation);
+        String format = request.getFormat();
+        parameters.put("format",format);
+        String denominationOpcvm = request.getDenominationOpcvm();
+        OpcvmDto opcvm = opcvmMapper.deOpcvm(opcvmDao.findById(request.getIdOpcvm()).orElseThrow());
+        parameters.put("denominationOpcvm",opcvm.getDenominationOpcvm());
+
+        // Remplissage du rapport
+        JasperPrint print = JasperFillManager.fillReport(
+                rapportPrincipal,
+                parameters,
+                new JRBeanCollectionDataSource(etatFinancierTrimestrielTableauAnalyseVLProjections)
+        );
+        JasperExportManager.exportReportToPdfStream(print, response.getOutputStream());
+        return ResponseHandler.generateResponse(
+                "Ordre de bourse",
+                HttpStatus.OK,
+                etatFinancierTrimestrielTableauAnalyseVLProjections);
+
+
+    }
+
+    //EtatFinancierTrimestrielNotePortefeuilleTitre
+    public ResponseEntity<Object> afficherEtatFinancierTrimestrielNotePortefeuilleTitre(EtatFinancierTrimestrielBilanTrimestrielRequest request, HttpServletResponse response) throws JRException, IOException {
+
+        InputStream rapportStream = null;
+        InputStream subreportStream = null;
+//        try {
+        // Récupération des données
+        List<EtatFinancierTrimestrielNotePortefeuilleTitreProjection> etatFinancierTrimestrielNotePortefeuilleTitreProjections = libraryDao.etatFinancierTrimestrielNotePortefeuilleTitre(
+                request.getIdOpcvm(), request.getDateEstimation());
+
+        // Chargement des fichiers .jrxml depuis le classpath
+        rapportStream = getClass().getResourceAsStream("/Etat_Financier_Trimestriel_Note_Portefeuille_Titre.jrxml");
+//        subreportStream = getClass().getResourceAsStream("/operationDetachement.jrxml");
+
+        if (rapportStream == null) {
+            throw new RuntimeException("Fichiers .jrxml introuvables dans le classpath !");
+        }
+
+        // Compiler les rapports à la volée
+        JasperReport rapportPrincipal = JasperCompileManager.compileReport(rapportStream);
+//        JasperReport subreport = JasperCompileManager.compileReport(subreportStream);
+
+        // Préparation des paramètres
+        Map<String, Object> parameters = new HashMap<>();
+        DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
+        String letterDate = dateFormatter.format(new Date());
+        parameters.put("letterDate", letterDate);
+        String libellePays = request.getLibellePays();
+        parameters.put("libellePays",libellePays);
+        LocalDateTime dateEstimation = request.getDateEstimation();
+        parameters.put("dateEstimation",dateEstimation);
+        String periodicite = request.getPeriodicite();
+        parameters.put("periodicite",periodicite);
+        String denominationOpcvm = request.getDenominationOpcvm();
+        OpcvmDto opcvm = opcvmMapper.deOpcvm(opcvmDao.findById(request.getIdOpcvm()).orElseThrow());
+        parameters.put("denominationOpcvm",opcvm.getDenominationOpcvm());
+
+        // Remplissage du rapport
+        JasperPrint print = JasperFillManager.fillReport(
+                rapportPrincipal,
+                parameters,
+                new JRBeanCollectionDataSource(etatFinancierTrimestrielNotePortefeuilleTitreProjections)
+        );
+        JasperExportManager.exportReportToPdfStream(print, response.getOutputStream());
+        return ResponseHandler.generateResponse(
+                "Ordre de bourse",
+                HttpStatus.OK,
+                etatFinancierTrimestrielNotePortefeuilleTitreProjections);
+
+
+    }
+
+    //EtatFinancierTrimestrielNotePlacementsMonetaires
+    public ResponseEntity<Object> afficherEtatFinancierTrimestrielNotePlacementsMonetaires(EtatFinancierTrimestrielBilanTrimestrielRequest request, HttpServletResponse response) throws JRException, IOException {
+
+        InputStream rapportStream = null;
+        InputStream subreportStream = null;
+//        try {
+        // Récupération des données
+        List<EtatFinancierTrimestrielNotePlacementsMonetairesProjection> etatFinancierTrimestrielNotePlacementsMonetairesProjections = libraryDao.etatFinancierTrimestrielNotePlacementsMonetaires(
+                request.getIdOpcvm(), request.getDateEstimation());
+
+        // Chargement des fichiers .jrxml depuis le classpath
+        rapportStream = getClass().getResourceAsStream("/Etat_Financier_Trimestriel_Note_Placements_Monetaires.jrxml");
+//        subreportStream = getClass().getResourceAsStream("/operationDetachement.jrxml");
+
+        if (rapportStream == null) {
+            throw new RuntimeException("Fichiers .jrxml introuvables dans le classpath !");
+        }
+
+        // Compiler les rapports à la volée
+        JasperReport rapportPrincipal = JasperCompileManager.compileReport(rapportStream);
+//        JasperReport subreport = JasperCompileManager.compileReport(subreportStream);
+
+        // Préparation des paramètres
+        Map<String, Object> parameters = new HashMap<>();
+        DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
+        String letterDate = dateFormatter.format(new Date());
+        parameters.put("letterDate", letterDate);
+        String libellePays = request.getLibellePays();
+        parameters.put("libellePays",libellePays);
+        LocalDateTime dateEstimation = request.getDateEstimation();
+        parameters.put("dateEstimation",dateEstimation);
+        String periodicite = request.getPeriodicite();
+        parameters.put("periodicite",periodicite);
+        String denominationOpcvm = request.getDenominationOpcvm();
+        OpcvmDto opcvm = opcvmMapper.deOpcvm(opcvmDao.findById(request.getIdOpcvm()).orElseThrow());
+        parameters.put("denominationOpcvm",opcvm.getDenominationOpcvm());
+
+        // Remplissage du rapport
+        JasperPrint print = JasperFillManager.fillReport(
+                rapportPrincipal,
+                parameters,
+                new JRBeanCollectionDataSource(etatFinancierTrimestrielNotePlacementsMonetairesProjections)
+        );
+        JasperExportManager.exportReportToPdfStream(print, response.getOutputStream());
+        return ResponseHandler.generateResponse(
+                "Ordre de bourse",
+                HttpStatus.OK,
+                etatFinancierTrimestrielNotePlacementsMonetairesProjections);
+
+
+    }
+
+    //EtatFinancierTrimestrielActionsAdmisesCote
+    public ResponseEntity<Object> afficherEtatFinancierTrimestrielActionsAdmisesCote(EtatFinancierTrimestrielBilanTrimestrielRequest request, HttpServletResponse response) throws JRException, IOException {
+
+        InputStream rapportStream = null;
+        InputStream subreportStream = null;
+//        try {
+        // Récupération des données
+        List<EtatFinancierTrimestrielActionsAdmisesCoteProjection> etatFinancierTrimestrielActionsAdmisesCoteProjections = libraryDao.etatFinancierTrimestrielActionsAdmisesCote(
+                request.getIdOpcvm(), request.getDateEstimation());
+
+        // Chargement des fichiers .jrxml depuis le classpath
+        rapportStream = getClass().getResourceAsStream("/Etat_Financier_Trimestriel_Actions_Admises_Cote.jrxml");
+//        subreportStream = getClass().getResourceAsStream("/operationDetachement.jrxml");
+
+        if (rapportStream == null) {
+            throw new RuntimeException("Fichiers .jrxml introuvables dans le classpath !");
+        }
+
+        // Compiler les rapports à la volée
+        JasperReport rapportPrincipal = JasperCompileManager.compileReport(rapportStream);
+//        JasperReport subreport = JasperCompileManager.compileReport(subreportStream);
+
+        // Préparation des paramètres
+        Map<String, Object> parameters = new HashMap<>();
+        DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
+        String letterDate = dateFormatter.format(new Date());
+        parameters.put("letterDate", letterDate);
+        String libellePays = request.getLibellePays();
+        parameters.put("libellePays",libellePays);
+        LocalDateTime dateEstimation = request.getDateEstimation();
+        parameters.put("dateEstimation",dateEstimation);
+        String periodicite = request.getPeriodicite();
+        parameters.put("periodicite",periodicite);
+        String denominationOpcvm = request.getDenominationOpcvm();
+        OpcvmDto opcvm = opcvmMapper.deOpcvm(opcvmDao.findById(request.getIdOpcvm()).orElseThrow());
+        parameters.put("denominationOpcvm",opcvm.getDenominationOpcvm());
+
+        // Remplissage du rapport
+        JasperPrint print = JasperFillManager.fillReport(
+                rapportPrincipal,
+                parameters,
+                new JRBeanCollectionDataSource(etatFinancierTrimestrielActionsAdmisesCoteProjections)
+        );
+        JasperExportManager.exportReportToPdfStream(print, response.getOutputStream());
+        return ResponseHandler.generateResponse(
+                "Ordre de bourse",
+                HttpStatus.OK,
+                etatFinancierTrimestrielActionsAdmisesCoteProjections);
+
+
+    }
+
+    //EtatFinancierTrimestrielNoteCapital
+    public ResponseEntity<Object> afficherEtatFinancierTrimestrielNoteCapital(EtatFinancierTrimestrielBilanTrimestrielRequest request, HttpServletResponse response) throws JRException, IOException {
+
+        InputStream rapportStream = null;
+        InputStream subreportStream = null;
+//        try {
+        // Récupération des données
+        List<EtatFinancierTrimestrielNoteCapitalProjection> etatFinancierTrimestrielNoteCapitalProjections = libraryDao.etatFinancierTrimestrielNoteCapital(
+                request.getIdOpcvm(), request.getDateEstimation());
+
+        // Chargement des fichiers .jrxml depuis le classpath
+        rapportStream = getClass().getResourceAsStream("/Etat_Financier_Trimestriel_Note_sur_le_Capital.jrxml");
+//        subreportStream = getClass().getResourceAsStream("/operationDetachement.jrxml");
+
+        if (rapportStream == null) {
+            throw new RuntimeException("Fichiers .jrxml introuvables dans le classpath !");
+        }
+
+        // Compiler les rapports à la volée
+        JasperReport rapportPrincipal = JasperCompileManager.compileReport(rapportStream);
+//        JasperReport subreport = JasperCompileManager.compileReport(subreportStream);
+
+        // Préparation des paramètres
+        Map<String, Object> parameters = new HashMap<>();
+        DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
+        String letterDate = dateFormatter.format(new Date());
+        parameters.put("letterDate", letterDate);
+        LocalDateTime dateEstimation = request.getDateEstimation();
+        parameters.put("dateEstimation",dateEstimation);
+        String periodicite = request.getPeriodicite();
+        parameters.put("periodicite",periodicite);
+        String denominationOpcvm = request.getDenominationOpcvm();
+        OpcvmDto opcvm = opcvmMapper.deOpcvm(opcvmDao.findById(request.getIdOpcvm()).orElseThrow());
+        parameters.put("denominationOpcvm",opcvm.getDenominationOpcvm());
+
+        // Remplissage du rapport
+        JasperPrint print = JasperFillManager.fillReport(
+                rapportPrincipal,
+                parameters,
+                new JRBeanCollectionDataSource(etatFinancierTrimestrielNoteCapitalProjections)
+        );
+        JasperExportManager.exportReportToPdfStream(print, response.getOutputStream());
+        return ResponseHandler.generateResponse(
+                "Ordre de bourse",
+                HttpStatus.OK,
+                etatFinancierTrimestrielNoteCapitalProjections);
+
+
+    }
+
+    //EtatFinancierTrimestrielEtatMensuelSouscriptions
+    public ResponseEntity<Object> afficherEtatFinancierTrimestrielEtatMensuelSouscriptions(EtatFinancierTrimestrielBilanTrimestrielRequest request, HttpServletResponse response) throws JRException, IOException {
+
+        InputStream rapportStream = null;
+        InputStream subreportStream = null;
+//        try {
+        // Récupération des données
+        List<EtatFinancierTrimestrielEtatMensuelSouscriptionsProjection> etatFinancierTrimestrielEtatMensuelSouscriptionsProjections = libraryDao.etatFinancierTrimestrielEtatMensuelSouscriptions(
+                request.getIdOpcvm(), request.getDateDebut(), request.getDateFin());
+
+        // Chargement des fichiers .jrxml depuis le classpath
+        rapportStream = getClass().getResourceAsStream("/Etat_Financier_Trimestriel_Etat_Mensuel_Souscriptions.jrxml");
+//        subreportStream = getClass().getResourceAsStream("/operationDetachement.jrxml");
+
+        if (rapportStream == null) {
+            throw new RuntimeException("Fichiers .jrxml introuvables dans le classpath !");
+        }
+
+        // Compiler les rapports à la volée
+        JasperReport rapportPrincipal = JasperCompileManager.compileReport(rapportStream);
+//        JasperReport subreport = JasperCompileManager.compileReport(subreportStream);
+
+        // Préparation des paramètres
+        Map<String, Object> parameters = new HashMap<>();
+        DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
+        String letterDate = dateFormatter.format(new Date());
+        parameters.put("letterDate", letterDate);
+        LocalDateTime dateEstimation = request.getDateEstimation();
+        parameters.put("dateEstimation",dateEstimation);
+        String raisonSocial = request.getRaisonSocial();
+        parameters.put("raisonSocial",raisonSocial);
+        String format = request.getFormat();
+        parameters.put("format",format);
+        String denominationOpcvm = request.getDenominationOpcvm();
+        OpcvmDto opcvm = opcvmMapper.deOpcvm(opcvmDao.findById(request.getIdOpcvm()).orElseThrow());
+        parameters.put("denominationOpcvm",opcvm.getDenominationOpcvm());
+
+        // Remplissage du rapport
+        JasperPrint print = JasperFillManager.fillReport(
+                rapportPrincipal,
+                parameters,
+                new JRBeanCollectionDataSource(etatFinancierTrimestrielEtatMensuelSouscriptionsProjections)
+        );
+        JasperExportManager.exportReportToPdfStream(print, response.getOutputStream());
+        return ResponseHandler.generateResponse(
+                "Ordre de bourse",
+                HttpStatus.OK,
+                etatFinancierTrimestrielEtatMensuelSouscriptionsProjections);
+
+
+    }
+
     //etatSuiviActionnaire
     public ResponseEntity<?> etatSuiviActionnaire(ReleveTitreFCPRequest request) {
         var parameters = request.getDatatableParameters();

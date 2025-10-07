@@ -1,0 +1,297 @@
+<!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 7.0.1-573496633c2b4074e32f433154b543003f7d2498  -->
+<jasperReport name="Balance" language="java" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c9b5c6dc-450e-4661-80c5-045f537ab493">
+	<parameter name="letterDate" class="java.lang.String"/>
+	<field name="idOpcvm" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="idOpcvm"/>
+		<property name="com.jaspersoft.studio.field.label" value="idOpcvm"/>
+	</field>
+	<field name="sigleOpcvm" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="sigleOpcvm"/>
+		<property name="com.jaspersoft.studio.field.label" value="sigleOpcvm"/>
+	</field>
+	<field name="denominationOpcvm" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="denominationOpcvm"/>
+		<property name="com.jaspersoft.studio.field.label" value="denominationOpcvm"/>
+	</field>
+	<field name="dateDebut" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="dateDebut"/>
+		<property name="com.jaspersoft.studio.field.label" value="dateDebut"/>
+	</field>
+	<field name="dateFin" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="dateFin"/>
+		<property name="com.jaspersoft.studio.field.label" value="dateFin"/>
+	</field>
+	<field name="codePlan" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="codePlan"/>
+		<property name="com.jaspersoft.studio.field.label" value="codePlan"/>
+	</field>
+	<field name="libellePlan" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="libellePlan"/>
+		<property name="com.jaspersoft.studio.field.label" value="libellePlan"/>
+	</field>
+	<field name="numCompteComptable" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="numCompteComptable"/>
+		<property name="com.jaspersoft.studio.field.label" value="numCompteComptable"/>
+	</field>
+	<field name="libelleCompteComptable" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="libelleCompteComptable"/>
+		<property name="com.jaspersoft.studio.field.label" value="libelleCompteComptable"/>
+	</field>
+	<field name="sensMvt" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="sensMvt"/>
+		<property name="com.jaspersoft.studio.field.label" value="sensMvt"/>
+	</field>
+	<field name="estMvt" class="java.lang.Boolean">
+		<property name="com.jaspersoft.studio.field.name" value="estMvt"/>
+		<property name="com.jaspersoft.studio.field.label" value="estMvt"/>
+	</field>
+	<field name="soldeReel" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="soldeReel"/>
+		<property name="com.jaspersoft.studio.field.label" value="soldeReel"/>
+	</field>
+	<field name="soldeAbsolu" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="soldeAbsolu"/>
+		<property name="com.jaspersoft.studio.field.label" value="soldeAbsolu"/>
+	</field>
+	<field name="sensSolde" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="sensSolde"/>
+		<property name="com.jaspersoft.studio.field.label" value="sensSolde"/>
+	</field>
+	<field name="debutD" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="debutD"/>
+		<property name="com.jaspersoft.studio.field.label" value="debutD"/>
+	</field>
+	<field name="debutC" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="debutC"/>
+		<property name="com.jaspersoft.studio.field.label" value="debutC"/>
+	</field>
+	<field name="mvtPeriodeD" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="mvtPeriodeD"/>
+		<property name="com.jaspersoft.studio.field.label" value="mvtPeriodeD"/>
+	</field>
+	<field name="mvtPeriodeC" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="mvtPeriodeC"/>
+		<property name="com.jaspersoft.studio.field.label" value="mvtPeriodeC"/>
+	</field>
+	<field name="debit" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="debit"/>
+		<property name="com.jaspersoft.studio.field.label" value="debit"/>
+	</field>
+	<field name="credit" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="credit"/>
+		<property name="com.jaspersoft.studio.field.label" value="credit"/>
+	</field>
+	<variable name="debutD1" resetType="Page" calculation="Sum" class="java.math.BigDecimal">
+		<expression><![CDATA[$F{debutD}]]></expression>
+	</variable>
+	<variable name="debutC1" resetType="Group" calculation="Sum" resetGroup="Group1" class="java.math.BigDecimal">
+		<expression><![CDATA[$F{debutC}]]></expression>
+	</variable>
+	<variable name="mvtPeriodeD1" resetType="Group" calculation="Sum" resetGroup="Group1" class="java.math.BigDecimal">
+		<expression><![CDATA[$F{mvtPeriodeD}]]></expression>
+	</variable>
+	<variable name="mvtPeriodeC1" resetType="Group" calculation="Sum" resetGroup="Group1" class="java.math.BigDecimal">
+		<expression><![CDATA[$F{mvtPeriodeC}]]></expression>
+	</variable>
+	<variable name="debit1" resetType="Group" calculation="Sum" resetGroup="Group1" class="java.math.BigDecimal">
+		<expression><![CDATA[$F{debit}]]></expression>
+	</variable>
+	<variable name="credit1" resetType="Group" calculation="Sum" resetGroup="Group1" class="java.math.BigDecimal">
+		<expression><![CDATA[$F{credit}]]></expression>
+	</variable>
+	<group name="Group1">
+		<expression><![CDATA[$F{idOpcvm}]]></expression>
+		<groupHeader>
+			<band height="49">
+				<element kind="rectangle" uuid="80685069-6128-4599-80f4-39c83b5c96d4" x="0" y="1" width="801" height="48" backcolor="#BDD7EE">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="line" uuid="e1b1f359-afbf-4a17-a0b0-7c506e50f001" x="86" y="1" width="1" height="48">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="line" uuid="d4e1c376-577b-40d2-baaa-6fc6bee0aa3a" x="633" y="1" width="1" height="48">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="line" uuid="cba3d1c1-9b9a-4430-9fac-e632096fbfea" x="301" y="1" width="1" height="48">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="staticText" uuid="a16cc896-c3c1-4de2-a9ca-258aeb267855" x="10" y="20" width="66" height="19" bold="true" hTextAlign="Center">
+					<text><![CDATA[N°Compte]]></text>
+				</element>
+				<element kind="staticText" uuid="47bcb4b8-d8f6-408f-8ceb-a14b8040de79" x="98" y="20" width="162" height="19" bold="true" hTextAlign="Center">
+					<text><![CDATA[Libellé écriture]]></text>
+				</element>
+				<element kind="staticText" uuid="7cd3b7ee-92a2-4ca1-970d-8686381a4356" x="488" y="8" width="126" height="16" bold="true" hTextAlign="Center">
+					<text><![CDATA[MVT DE PERIODE]]></text>
+				</element>
+				<element kind="staticText" uuid="5465e1fa-a933-4163-afbc-a35055beeaa0" x="654" y="8" width="125" height="16" bold="true" hTextAlign="Center">
+					<text><![CDATA[FIN DE PERIODE]]></text>
+				</element>
+				<element kind="line" uuid="5d4c9d7f-eeb8-4b6a-9c10-d8ee137dd907" x="467" y="1" width="1" height="48">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="staticText" uuid="c5982393-2a6c-4233-b3cf-2d5e60de686b" x="316" y="8" width="139" height="16" bold="true" hTextAlign="Center">
+					<text><![CDATA[DEBUT DE PERIODE]]></text>
+				</element>
+				<element kind="line" uuid="2bd19aa8-4bf0-47a4-8523-b1aa9323a790" x="301" y="25" width="478" height="1">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="line" uuid="a55f08d4-7bef-4cfd-8bdc-e582e71ea9bd" x="384" y="26" width="1" height="23">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="line" uuid="304a24d5-d8e9-4db2-855a-fbc284925e46" x="550" y="26" width="1" height="23">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="line" uuid="81c11361-9d38-4dbe-b146-59822548d8bf" x="717" y="26" width="1" height="23">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="staticText" uuid="c23bf51b-c377-4ad3-bb95-f108928fb09a" x="305" y="31" width="76" height="16" bold="true" hTextAlign="Center">
+					<text><![CDATA[DEBIT]]></text>
+				</element>
+				<element kind="staticText" uuid="de35b33a-f038-4b1f-80b5-bef41ebf2e98" x="388" y="31" width="76" height="16" bold="true" hTextAlign="Center">
+					<text><![CDATA[CREDIT]]></text>
+				</element>
+				<element kind="staticText" uuid="472f9629-077d-4477-8231-f5f598118ec3" x="471" y="31" width="76" height="16" bold="true" hTextAlign="Center">
+					<text><![CDATA[DEBIT]]></text>
+				</element>
+				<element kind="staticText" uuid="c8b388cb-6f1c-44f3-b43b-13420d1f5808" x="554" y="31" width="76" height="16" bold="true" hTextAlign="Center">
+					<text><![CDATA[CREDIT]]></text>
+				</element>
+				<element kind="staticText" uuid="365ebf9a-7c99-4717-9861-759b4d058f64" x="638" y="31" width="76" height="16" bold="true" hTextAlign="Center">
+					<text><![CDATA[DEBIT]]></text>
+				</element>
+				<element kind="staticText" uuid="7fddd561-7501-4525-bd77-0510abe3f5c6" x="721" y="31" width="76" height="16" bold="true" hTextAlign="Center">
+					<text><![CDATA[CREDIT]]></text>
+				</element>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="31">
+				<element kind="rectangle" uuid="45ec473c-c9cf-4045-afdc-17d37c8a5dce" x="0" y="1" width="801" height="29" backcolor="#FFFFFF">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="line" uuid="c4240f74-211d-41a3-a97f-826848d785d1" x="384" y="1" width="1" height="29">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="line" uuid="202a75cb-a9c0-4eb9-a7da-373933e869e8" x="550" y="1" width="1" height="29">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="line" uuid="d81ccba7-2157-4db9-9b46-b3cf1eb58672" x="717" y="1" width="1" height="29">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="line" uuid="1cdc9482-6332-4e9d-90f6-e0eb6abbd046" x="301" y="1" width="1" height="29">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="line" uuid="7b158b55-779c-4af6-b283-3b86dc275faf" x="467" y="1" width="1" height="29">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="line" uuid="bc998573-56d8-4bd4-b62e-67e240850108" x="633" y="1" width="1" height="29">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="staticText" uuid="12ba87d6-ce87-4d7d-9e0d-b5e5c6fa9e58" x="231" y="10" width="66" height="14" bold="true" hTextAlign="Right">
+					<text><![CDATA[TOTAL]]></text>
+				</element>
+				<element kind="textField" uuid="966693bf-2bf0-4e86-851b-9114575f5b76" x="305" y="10" width="76" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+					<expression><![CDATA[$F{estMvt}==true?$V{debutD1}:0]]></expression>
+				</element>
+				<element kind="textField" uuid="570ca2b2-e128-4959-ae09-b452e8bef809" x="388" y="10" width="76" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+					<expression><![CDATA[$F{estMvt}==true?$V{debutC1}:0]]></expression>
+				</element>
+				<element kind="textField" uuid="40e6c551-e631-4dc1-b2c4-f830ff94c88e" x="471" y="10" width="78" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+					<expression><![CDATA[$F{estMvt}==true?$V{mvtPeriodeD1}:0]]></expression>
+				</element>
+				<element kind="textField" uuid="2a896297-2019-4dc5-bdc1-4c58091e6d0f" x="554" y="10" width="78" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+					<expression><![CDATA[$F{estMvt}==true?$V{mvtPeriodeC1}:0]]></expression>
+				</element>
+				<element kind="textField" uuid="e8756c2e-48c7-46ee-95fa-6d10619abb09" x="637" y="10" width="76" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+					<expression><![CDATA[$F{estMvt}==true?$V{debit1}:0]]></expression>
+				</element>
+				<element kind="textField" uuid="a0fefb16-b460-427d-8b9e-048a3b2171a4" x="721" y="10" width="80" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+					<expression><![CDATA[$F{estMvt}==true?$V{credit1}:0]]></expression>
+				</element>
+			</band>
+		</groupFooter>
+	</group>
+	<background splitType="Stretch"/>
+	<title height="105" splitType="Stretch">
+		<element kind="rectangle" uuid="d6bf9987-56fd-43ee-9032-de30e4df181b" x="0" y="25" width="801" height="45" backcolor="#BDD7EE">
+			<pen lineColor="#3B88D1"/>
+		</element>
+		<element kind="textField" uuid="f526bdf5-610b-4433-bf77-ffc76251565f" x="3" y="3" width="217" height="16">
+			<expression><![CDATA["Cotonou, le "+$P{letterDate}]]></expression>
+		</element>
+		<element kind="staticText" uuid="0867a956-7206-4431-9aa5-53f6ca7d0e85" x="150" y="43" width="500" height="17" fontSize="10.0" bold="true" hTextAlign="Center">
+			<text><![CDATA[BALANCE DES COMPTES COMPTABLES]]></text>
+		</element>
+		<element kind="staticText" uuid="3f7b1d7e-4706-4c1d-a24e-cc8063e400a2" x="7" y="80" width="49" height="19" bold="true" hTextAlign="Left">
+			<text><![CDATA[OPCVM :]]></text>
+		</element>
+		<element kind="textField" uuid="d7fba160-d8bf-494b-9402-d6d0b91414a0" x="56" y="80" width="404" height="19">
+			<expression><![CDATA[$F{denominationOpcvm}]]></expression>
+		</element>
+	</title>
+	<pageHeader splitType="Stretch"/>
+	<columnHeader splitType="Stretch"/>
+	<detail>
+		<band height="30" splitType="Stretch">
+			<element kind="rectangle" uuid="bb93f126-79e4-4906-b730-a2d1c41d9538" x="0" y="1" width="801" height="29" backcolor="#FFFFFF">
+				<pen lineColor="#3B88D1"/>
+			</element>
+			<element kind="line" uuid="29449c1f-e307-4996-8f1f-bba74cbb5798" x="384" y="1" width="1" height="29">
+				<pen lineColor="#3B88D1"/>
+			</element>
+			<element kind="line" uuid="294ddbd6-b340-413e-a6ec-aaec65b3e100" x="550" y="1" width="1" height="29">
+				<pen lineColor="#3B88D1"/>
+			</element>
+			<element kind="line" uuid="6b537dff-e768-4e43-82f5-23e220e801dc" x="717" y="1" width="1" height="29">
+				<pen lineColor="#3B88D1"/>
+			</element>
+			<element kind="line" uuid="a6f15c39-8868-4d08-9838-0d3039db837e" x="301" y="1" width="1" height="29">
+				<pen lineColor="#3B88D1"/>
+			</element>
+			<element kind="line" uuid="a901c5d9-3349-4e81-b048-5395e2cc18a4" x="86" y="1" width="1" height="29">
+				<pen lineColor="#3B88D1"/>
+			</element>
+			<element kind="line" uuid="41e703d9-03d7-4cde-9ac8-f7954fb3957d" x="467" y="1" width="1" height="29">
+				<pen lineColor="#3B88D1"/>
+			</element>
+			<element kind="line" uuid="179ad337-5a2d-42de-8367-6e02276d30f5" x="633" y="1" width="1" height="29">
+				<pen lineColor="#3B88D1"/>
+			</element>
+			<element kind="textField" uuid="8c9ff31e-8715-4915-9393-b76caeeeea81" x="3" y="9" width="83" height="18">
+				<expression><![CDATA[$F{numCompteComptable}]]></expression>
+			</element>
+			<element kind="textField" uuid="b98dde53-cf4f-4069-b864-d6d8ab97b4fe" x="90" y="9" width="211" height="18">
+				<expression><![CDATA[$F{libelleCompteComptable}]]></expression>
+			</element>
+			<element kind="textField" uuid="ceae43b1-75cd-4286-a0d3-77efafa418c0" x="305" y="9" width="76" height="18" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{debutD}]]></expression>
+			</element>
+			<element kind="textField" uuid="94a7d593-2ad8-46cf-b6ef-7bb968fc47ce" x="388" y="9" width="76" height="18" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{debutC}]]></expression>
+			</element>
+			<element kind="textField" uuid="340b4d27-fcd0-4200-bb8e-966347ed65b4" x="471" y="9" width="79" height="18" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{mvtPeriodeD}]]></expression>
+			</element>
+			<element kind="textField" uuid="e83df384-ca18-4321-9da0-9e2b5cbe4669" x="554" y="9" width="79" height="18" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{mvtPeriodeC}]]></expression>
+			</element>
+			<element kind="textField" uuid="90a4da18-06f6-47ec-8d16-856b496cf408" x="637" y="9" width="77" height="18" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{debit}]]></expression>
+			</element>
+			<element kind="textField" uuid="17d1826c-cada-466d-9c33-d3fb1e0d74a6" x="721" y="9" width="76" height="18" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{credit}]]></expression>
+			</element>
+		</band>
+	</detail>
+	<columnFooter splitType="Stretch"/>
+	<pageFooter height="57" splitType="Stretch">
+		<element kind="staticText" uuid="4d1d2c3d-26cd-4570-beea-b35c37f879f7" x="5" y="10" width="126" height="13">
+			<text><![CDATA[Edité avec OPCCIEL 2.0]]></text>
+		</element>
+		<element kind="textField" uuid="94d4db9c-5aaf-4b0b-94c3-c108df67ef6f" x="700" y="6" width="100" height="17" hTextAlign="Right">
+			<expression><![CDATA[$V{PAGE_NUMBER}]]></expression>
+		</element>
+	</pageFooter>
+	<summary height="42" splitType="Stretch"/>
+</jasperReport>

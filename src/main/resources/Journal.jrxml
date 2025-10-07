@@ -1,0 +1,271 @@
+<!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 7.0.1-573496633c2b4074e32f433154b543003f7d2498  -->
+<jasperReport name="Journal" language="java" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="e61f6322-51f6-4568-83c5-a24129a175ee">
+    <parameter name="letterDate" class="java.lang.String"/>
+    <field name="num" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="num"/>
+		<property name="com.jaspersoft.studio.field.label" value="num"/>
+	</field>
+	<field name="idOpcvm" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="idOpcvm"/>
+		<property name="com.jaspersoft.studio.field.label" value="idOpcvm"/>
+	</field>
+	<field name="denominationOpcvm" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="denominationOpcvm"/>
+		<property name="com.jaspersoft.studio.field.label" value="denominationOpcvm"/>
+	</field>
+	<field name="codeJournal" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="codeJournal"/>
+		<property name="com.jaspersoft.studio.field.label" value="codeJournal"/>
+	</field>
+	<field name="libelleJournal" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="libelleJournal"/>
+		<property name="com.jaspersoft.studio.field.label" value="libelleJournal"/>
+	</field>
+	<field name="DateDebut" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="DateDebut"/>
+		<property name="com.jaspersoft.studio.field.label" value="DateDebut"/>
+	</field>
+	<field name="DateFin" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="DateFin"/>
+		<property name="com.jaspersoft.studio.field.label" value="DateFin"/>
+	</field>
+	<field name="dateValeur" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="dateValeur"/>
+		<property name="com.jaspersoft.studio.field.label" value="dateValeur"/>
+	</field>
+	<field name="idOperation" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="idOperation"/>
+		<property name="com.jaspersoft.studio.field.label" value="idOperation"/>
+	</field>
+	<field name="referenceOper" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="referenceOper"/>
+		<property name="com.jaspersoft.studio.field.label" value="referenceOper"/>
+	</field>
+	<field name="codePlan" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="codePlan"/>
+		<property name="com.jaspersoft.studio.field.label" value="codePlan"/>
+	</field>
+	<field name="numeroCompteComptable" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="numeroCompteComptable"/>
+		<property name="com.jaspersoft.studio.field.label" value="numeroCompteComptable"/>
+	</field>
+	<field name="codeAnalytique" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="codeAnalytique"/>
+		<property name="com.jaspersoft.studio.field.label" value="codeAnalytique"/>
+	</field>
+	<field name="libelle" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="libelle"/>
+		<property name="com.jaspersoft.studio.field.label" value="libelle"/>
+	</field>
+	<field name="libop" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="libop"/>
+		<property name="com.jaspersoft.studio.field.label" value="libop"/>
+	</field>
+	<field name="Debit" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="Debit"/>
+		<property name="com.jaspersoft.studio.field.label" value="Debit"/>
+	</field>
+	<field name="Credit" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="Credit"/>
+		<property name="com.jaspersoft.studio.field.label" value="Credit"/>
+	</field>
+	<variable name="Debit1" resetType="Group" calculation="Sum" resetGroup="Group1" class="java.math.BigDecimal">
+		<expression><![CDATA[$F{Debit}]]></expression>
+	</variable>
+	<variable name="Credit1" resetType="Group" calculation="Sum" resetGroup="Group1" class="java.math.BigDecimal">
+		<expression><![CDATA[$F{Credit}]]></expression>
+	</variable>
+	<variable name="Debit2" resetType="Group" calculation="Sum" resetGroup="Group1" class="java.math.BigDecimal">
+		<expression><![CDATA[$F{Debit}]]></expression>
+	</variable>
+	<variable name="Credit2" resetType="Group" calculation="Sum" resetGroup="Group1" class="java.math.BigDecimal">
+		<expression><![CDATA[$F{Credit}]]></expression>
+	</variable>
+	<group name="Group1">
+		<expression><![CDATA[$F{idOperation}]]></expression>
+		<groupHeader>
+			<band height="37">
+				<element kind="rectangle" uuid="797ce2fb-de75-4090-8bea-050af2e9d206" x="21" y="7" width="759" height="30">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="textField" uuid="67cce0ed-cf58-4a13-b6f3-b8c49f9ca9f6" x="29" y="16" width="450" height="20" bold="true">
+					<expression><![CDATA["RefOper: "+$F{referenceOper} + " - "+ $F{libop}]]></expression>
+				</element>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="60">
+				<element kind="rectangle" uuid="5b7f7d3e-1aa5-4184-9c78-ea2bd57d7873" x="21" y="0" width="759" height="30">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="line" uuid="ada79aae-2ff8-4811-83fa-37ddac919bf3" x="572" y="0" width="1" height="30">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="line" uuid="908c3653-5444-4975-9d0c-1a50c8c420e6" x="678" y="0" width="1" height="30">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="staticText" uuid="a94ca7de-6383-44c4-a878-e868064f5897" x="343" y="10" width="226" height="19" bold="true" hTextAlign="Right">
+					<text><![CDATA[SOUS TOTAL]]></text>
+				</element>
+				<element kind="textField" uuid="21cacd7c-9ec5-486c-9f1e-c5f88fbd6507" x="577" y="10" width="100" height="19" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+					<expression><![CDATA[$V{Debit1}]]></expression>
+				</element>
+				<element kind="textField" uuid="0261ebb6-20e0-4df4-9094-543558455340" x="683" y="10" width="97" height="19" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+					<expression><![CDATA[$V{Credit1}]]></expression>
+				</element>
+				<element kind="rectangle" uuid="d33eb9c4-48f7-4712-9fca-0927ae9526cc" x="21" y="30" width="759" height="30">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="line" uuid="1d95831b-0cc1-439a-a87c-cadd90674612" x="572" y="30" width="1" height="30">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="line" uuid="54922bbb-e03a-4fcd-91f7-1ed2cc01baf8" x="678" y="30" width="1" height="30">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="staticText" uuid="d9bff083-111e-4599-aeff-f9578df8d81a" x="343" y="40" width="226" height="19" bold="true" hTextAlign="Right">
+					<text><![CDATA[TOTAL JOURNAL]]></text>
+				</element>
+				<element kind="textField" uuid="0f390d98-48c2-44f2-900c-ea0be599d648" x="577" y="40" width="100" height="19" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+					<expression><![CDATA[$V{Debit2}]]></expression>
+				</element>
+				<element kind="textField" uuid="68dd44e2-35fb-48e9-9ea8-86786f1396e1" x="683" y="40" width="97" height="19" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+					<expression><![CDATA[$V{Credit2}]]></expression>
+				</element>
+			</band>
+		</groupFooter>
+	</group>
+	<background splitType="Stretch"/>
+	<title height="198" splitType="Stretch">
+		<element kind="rectangle" uuid="5c426251-2332-40eb-9193-7dd379101173" x="0" y="30" width="800" height="168"/>
+		<element kind="textField" uuid="d35dee8a-2fc4-4433-a741-e60859c67338" x="3" y="3" width="217" height="16">
+			<expression><![CDATA["Cotonou, le "+$P{letterDate}]]></expression>
+		</element>
+		<element kind="textField" uuid="24a53375-6ac3-410a-8f18-3c8ccdac9a8f" x="560" y="40" width="100" height="19" pattern="EE dd/MM/yyyy" blankWhenNull="true" hTextAlign="Center">
+			<expression><![CDATA[$F{DateDebut}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"))]]></expression>
+			<box>
+				<pen lineWidth="1.0" lineColor="#BDD7EE"/>
+			</box>
+		</element>
+		<element kind="textField" uuid="4f3422c8-3adc-4676-aedf-04de073ab487" x="688" y="40" width="100" height="19" pattern="EE dd/MM/yyyy" blankWhenNull="true" hTextAlign="Center">
+			<expression><![CDATA[$F{DateFin}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"))]]></expression>
+			<box>
+				<pen lineWidth="1.0" lineColor="#BDD7EE"/>
+			</box>
+		</element>
+		<element kind="staticText" uuid="9e69466b-06e6-4520-b963-536484c8f183" x="660" y="40" width="28" height="19" hTextAlign="Center">
+			<text><![CDATA[au]]></text>
+			<box>
+				<pen lineWidth="1.0" lineColor="#BDD7EE"/>
+			</box>
+		</element>
+		<element kind="rectangle" uuid="cbddd694-2487-46f8-a431-c59ca8972b3d" x="221" y="69" width="360" height="42">
+			<pen lineWidth="1.0" lineColor="#3B88D1"/>
+		</element>
+		<element kind="rectangle" uuid="076e5ab1-9f98-4ba9-9c73-39a7b863b666" x="228" y="77" width="345" height="26">
+			<pen lineWidth="0.5" lineColor="#BDD7EE"/>
+		</element>
+		<element kind="staticText" uuid="0a0157b1-f9ca-40bf-a636-f2f0d851fde8" x="275" y="84" width="253" height="19" bold="true" hTextAlign="Center">
+			<text><![CDATA[JOURNAL]]></text>
+		</element>
+		<element kind="rectangle" uuid="250b1dfd-058b-4dff-a40c-2b2df5ed2e79" x="10" y="120" width="100" height="26">
+			<pen lineWidth="1.0" lineColor="#BDD7EE"/>
+		</element>
+		<element kind="textField" uuid="404da5cb-e425-4c74-8f82-4fca0c931b50" x="15" y="127" width="94" height="18" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+			<expression><![CDATA[$F{idOpcvm}]]></expression>
+		</element>
+		<element kind="rectangle" uuid="a48d7091-dbec-4fd9-9bea-ff5c8814c63a" x="110" y="120" width="100" height="26">
+			<pen lineWidth="1.0" lineColor="#BDD7EE"/>
+		</element>
+		<element kind="textField" uuid="fc5bfac5-26ad-4306-92da-1d75029e7290" x="115" y="127" width="94" height="18" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+			<expression><![CDATA[$F{denominationOpcvm}]]></expression>
+		</element>
+		<element kind="rectangle" uuid="7a0b6362-9ff5-4703-9a0a-a0265ee65f42" x="21" y="157" width="759" height="41" backcolor="#BDD7EE">
+			<pen lineColor="#3B88D1"/>
+		</element>
+		<element kind="line" uuid="13387053-ae99-4b5d-8cfc-b9ec36fc8f6b" x="121" y="157" width="1" height="41">
+			<pen lineColor="#3B88D1"/>
+		</element>
+		<element kind="line" uuid="d5d7d55b-da7c-4c7f-9d78-2f1d5cc0e4f5" x="207" y="157" width="1" height="41">
+			<pen lineColor="#3B88D1"/>
+		</element>
+		<element kind="line" uuid="b9d34a00-5a9c-40c0-8bc5-d71a9ece5687" x="677" y="157" width="1" height="41">
+			<pen lineColor="#3B88D1"/>
+		</element>
+		<element kind="line" uuid="3704371a-b341-42cb-a811-91d6306f6474" x="571" y="157" width="1" height="41">
+			<pen lineColor="#3B88D1"/>
+		</element>
+		<element kind="staticText" uuid="8eaf4e86-d6b7-46e9-8935-c37b5b520258" x="31" y="172" width="78" height="19" bold="true" hTextAlign="Center">
+			<text><![CDATA[Date]]></text>
+		</element>
+		<element kind="staticText" uuid="5fa1c3b3-9d13-4aca-8e5b-a1a7d441d825" x="131" y="172" width="66" height="19" bold="true" hTextAlign="Center">
+			<text><![CDATA[N°Compte]]></text>
+		</element>
+		<element kind="staticText" uuid="ef83c378-7b9c-4766-94ce-36cf1f5c59cd" x="338" y="172" width="226" height="19" bold="true" hTextAlign="Center">
+			<text><![CDATA[Libellé écriture]]></text>
+		</element>
+		<element kind="staticText" uuid="d80cf291-67ff-41cd-b7a9-dd6babfd6e66" x="580" y="172" width="89" height="19" bold="true" hTextAlign="Center">
+			<text><![CDATA[Débit]]></text>
+		</element>
+		<element kind="staticText" uuid="79c0c7db-e045-4048-b3f5-6936ebecb7b0" x="685" y="172" width="89" height="19" bold="true" hTextAlign="Center">
+			<text><![CDATA[Crédit]]></text>
+		</element>
+		<element kind="line" uuid="de72eb97-4b09-4b4e-8fca-bd87dc9e2ed9" x="330" y="157" width="1" height="41">
+			<pen lineColor="#3B88D1"/>
+		</element>
+		<element kind="staticText" uuid="cff3d6e3-ab2f-4ec7-bdb6-d811289be885" x="217" y="172" width="103" height="19" bold="true" hTextAlign="Center">
+			<text><![CDATA[Code analytique]]></text>
+		</element>
+	</title>
+	<pageHeader splitType="Stretch"/>
+	<columnHeader splitType="Stretch"/>
+	<detail>
+		<band height="30" splitType="Stretch">
+			<element kind="rectangle" uuid="b6c4398f-2fe7-43ad-bad0-98870dc9e559" x="21" y="0" width="759" height="30" backcolor="#FFFFFF">
+				<pen lineColor="#3B88D1"/>
+			</element>
+			<element kind="line" uuid="e59ae673-696f-4b92-8d2d-2f6b0dcc49d4" x="122" y="0" width="1" height="30">
+				<pen lineColor="#3B88D1"/>
+			</element>
+			<element kind="line" uuid="f4cf52e1-0a3c-4f06-a403-431cfe680bee" x="208" y="0" width="1" height="30">
+				<pen lineColor="#3B88D1"/>
+			</element>
+			<element kind="line" uuid="aeed97b2-4a73-450c-b153-de834ea63573" x="572" y="0" width="1" height="30">
+				<pen lineColor="#3B88D1"/>
+			</element>
+			<element kind="line" uuid="917b0108-5c7a-4519-b187-941b5a3a01bb" x="678" y="0" width="1" height="30">
+				<pen lineColor="#3B88D1"/>
+			</element>
+			<element kind="textField" uuid="06a0d173-20e4-4868-a754-17950665e539" x="27" y="8" width="88" height="22" pattern="EE dd/MM/yyyy" blankWhenNull="true">
+				<expression><![CDATA[$F{dateValeur}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"))]]></expression>
+			</element>
+			<element kind="textField" uuid="914819fb-8405-4a1c-b70e-9da0fb41bbe6" x="129" y="8" width="78" height="22" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{numeroCompteComptable}]]></expression>
+			</element>
+			<element kind="line" uuid="a2d89d11-fcfe-4d9e-85ea-c0bb40c7cceb" x="331" y="0" width="1" height="30">
+				<pen lineColor="#3B88D1"/>
+			</element>
+			<element kind="textField" uuid="028d9a32-f060-443d-9427-817287eadbcb" x="214" y="8" width="115" height="22" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{codeAnalytique}]]></expression>
+			</element>
+			<element kind="textField" uuid="d3b0e740-b4c0-40dc-b404-0c5e7bdd2a00" x="337" y="8" width="234" height="22" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{libelle}]]></expression>
+			</element>
+			<element kind="textField" uuid="97b9e0de-be44-4982-af75-dd91ecc762b3" x="577" y="8" width="100" height="22" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{Debit}]]></expression>
+			</element>
+			<element kind="textField" uuid="ed915d6f-79aa-4f8d-aa50-ba3425c0f39e" x="683" y="8" width="96" height="22" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{Credit}]]></expression>
+			</element>
+		</band>
+	</detail>
+	<columnFooter splitType="Stretch"/>
+	<pageFooter height="54" splitType="Stretch">
+		<element kind="staticText" uuid="bc8e2202-8962-4ece-bad0-af06af1e3628" x="5" y="10" width="126" height="13">
+			<text><![CDATA[Edité avec OPCCIEL 2.0]]></text>
+		</element>
+		<element kind="textField" uuid="267a2d04-5903-4f36-b48b-d75fb96ab444" x="700" y="10" width="100" height="13" hTextAlign="Right">
+			<expression><![CDATA[$V{PAGE_NUMBER}]]></expression>
+		</element>
+	</pageFooter>
+	<summary height="42" splitType="Stretch"/>
+</jasperReport>

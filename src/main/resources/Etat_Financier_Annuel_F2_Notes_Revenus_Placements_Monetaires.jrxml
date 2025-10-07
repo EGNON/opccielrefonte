@@ -1,0 +1,216 @@
+<!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 7.0.1-573496633c2b4074e32f433154b543003f7d2498  -->
+<jasperReport name="Etat_Financier_Annuel_F2_Notes_Revenus_Placements_Monetaires" language="java" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a9d2e010-04e5-40b8-8208-ca5be8303766">
+	<parameter name="letterDate" class="java.lang.String"/>
+	<parameter name="exercice" class="java.lang.String"/>
+	<field name="idOpcvm" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="idOpcvm"/>
+		<property name="com.jaspersoft.studio.field.label" value="idOpcvm"/>
+	</field>
+	<field name="sigleOpcvm" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="sigleOpcvm"/>
+		<property name="com.jaspersoft.studio.field.label" value="sigleOpcvm"/>
+	</field>
+	<field name="denominationOpcvm" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="denominationOpcvm"/>
+		<property name="com.jaspersoft.studio.field.label" value="denominationOpcvm"/>
+	</field>
+	<field name="pays" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="pays"/>
+		<property name="com.jaspersoft.studio.field.label" value="pays"/>
+	</field>
+	<field name="anneeN" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="anneeN"/>
+		<property name="com.jaspersoft.studio.field.label" value="anneeN"/>
+	</field>
+	<field name="revenusBonTresoN" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="revenusBonTresoN"/>
+		<property name="com.jaspersoft.studio.field.label" value="revenusBonTresoN"/>
+	</field>
+	<field name="revenusBilletsTresoN" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="revenusBilletsTresoN"/>
+		<property name="com.jaspersoft.studio.field.label" value="revenusBilletsTresoN"/>
+	</field>
+	<field name="revenusCertifcatDepoN" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="revenusCertifcatDepoN"/>
+		<property name="com.jaspersoft.studio.field.label" value="revenusCertifcatDepoN"/>
+	</field>
+	<field name="revenusDatN" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="revenusDatN"/>
+		<property name="com.jaspersoft.studio.field.label" value="revenusDatN"/>
+	</field>
+	<field name="totalN" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="totalN"/>
+		<property name="com.jaspersoft.studio.field.label" value="totalN"/>
+	</field>
+	<field name="anneeA" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="anneeA"/>
+		<property name="com.jaspersoft.studio.field.label" value="anneeA"/>
+	</field>
+	<field name="revenusBonTresoA" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="revenusBonTresoA"/>
+		<property name="com.jaspersoft.studio.field.label" value="revenusBonTresoA"/>
+	</field>
+	<field name="revenusBilletsTresoA" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="revenusBilletsTresoA"/>
+		<property name="com.jaspersoft.studio.field.label" value="revenusBilletsTresoA"/>
+	</field>
+	<field name="revenusCertifcatDepoA" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="revenusCertifcatDepoA"/>
+		<property name="com.jaspersoft.studio.field.label" value="revenusCertifcatDepoA"/>
+	</field>
+	<field name="revenusDatA" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="revenusDatA"/>
+		<property name="com.jaspersoft.studio.field.label" value="revenusDatA"/>
+	</field>
+	<field name="totalA" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="totalA"/>
+		<property name="com.jaspersoft.studio.field.label" value="totalA"/>
+	</field>
+	<background splitType="Stretch"/>
+	<title height="114" splitType="Stretch">
+		<element kind="textField" uuid="d0c65b6a-22c6-47ea-adc1-f21049160f96" x="3" y="3" width="217" height="16">
+			<expression><![CDATA["Cotonou, le "+$P{letterDate}]]></expression>
+		</element>
+		<element kind="rectangle" uuid="d16d2771-8f36-48e0-96d6-bace629a0759" x="445" y="87" width="108" height="27" backcolor="#FFFFFF">
+			<pen lineColor="#3B88D1"/>
+		</element>
+		<element kind="rectangle" uuid="99a535bf-0073-43d4-a158-fffe655c1a48" x="8" y="87" width="430" height="27" backcolor="#FFFFFF">
+			<pen lineColor="#3B88D1"/>
+		</element>
+		<element kind="rectangle" uuid="f679c177-24a9-4d7f-bfcf-7eef76843f30" x="2" y="26" width="550" height="22" backcolor="#BDD7EE">
+			<pen lineColor="#3B88D1"/>
+		</element>
+		<element kind="staticText" uuid="93446f11-3509-421e-8b93-647a3be2f7c8" x="100" y="31" width="342" height="15" fontSize="10.0" bold="true" hTextAlign="Center">
+			<text><![CDATA[NOTE SUR LES REVENUS DES PLACEMENTS MONETAIRES]]></text>
+		</element>
+		<element kind="rectangle" uuid="7fcdfd8c-46d7-460f-bc1b-c56670e5e2c0" x="2" y="55" width="550" height="25" backcolor="#FFFFFF">
+			<pen lineColor="#3B88D1"/>
+		</element>
+		<element kind="textField" uuid="19b59406-9de8-4bc8-afe2-7ffe18bdbca4" x="15" y="97" width="414" height="17" bold="true">
+			<expression><![CDATA["DESIGNATION DE L'ENTREPRISE : "+$F{denominationOpcvm}]]></expression>
+		</element>
+		<element kind="textField" uuid="ab815bac-39a1-42e3-8ac0-4aa8deee4146" x="451" y="97" width="95" height="17" bold="true">
+			<expression><![CDATA["PAYS : "+$F{pays}]]></expression>
+		</element>
+		<element kind="textField" uuid="d3c1a435-cf4f-4e16-bc49-239d383bc47a" x="130" y="61" width="310" height="13" bold="true" hTextAlign="Center">
+			<expression><![CDATA["(du 01 Janvier "+$P{exercice}+" au 31 Décembre "+$P{exercice}+")"]]></expression>
+		</element>
+	</title>
+	<pageHeader splitType="Stretch"/>
+	<columnHeader splitType="Stretch"/>
+	<detail>
+		<band height="180" splitType="Stretch">
+			<element kind="rectangle" uuid="86e4f67f-3407-45c8-ae4a-f55dad7e3eda" x="2" y="9" width="550" height="171"/>
+			<element kind="rectangle" uuid="72e9e8d8-8484-4639-b954-cb1bfb57ab52" x="2" y="6" width="550" height="17" backcolor="#BDD7EE">
+				<pen lineColor="#000000"/>
+			</element>
+			<element kind="staticText" uuid="ab0b0594-ef7b-4fe8-9923-6e3c41307eb7" x="9" y="28" width="210" height="13" bold="true" hTextAlign="Left">
+				<text><![CDATA[- DIVIDENDE DES BONS DE RESOR]]></text>
+				<box>
+					<pen lineWidth="1.0" lineColor="#3B88D1"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="7ae23ca1-6b3f-4589-92d7-8d6495191293" x="9" y="46" width="240" height="30" bold="false" hTextAlign="Left">
+				<text><![CDATA[Revenus des bons de trésor émis sur le marché monétaire]]></text>
+				<box>
+					<pen lineWidth="1.0" lineColor="#3B88D1"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="cc5fd323-ef71-4b73-9a41-0b9d3a6f4702" x="9" y="81" width="240" height="14" bold="true" hTextAlign="Left">
+				<text><![CDATA[- INERETS DES BILLETS DE TRSPRERIES]]></text>
+				<box>
+					<pen lineWidth="1.0" lineColor="#3B88D1"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="4868959d-a634-482a-bc88-ded0d74d84b9" x="9" y="100" width="240" height="13" bold="false" hTextAlign="Left">
+				<text><![CDATA[Revenus des Billets de trésorerie]]></text>
+				<box>
+					<pen lineWidth="1.0" lineColor="#3B88D1"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="97791ac0-3a3a-4eaa-a8b3-9e75dae6dcc8" x="9" y="118" width="210" height="13" bold="true" hTextAlign="Left">
+				<text><![CDATA[- INTERETS DES CERTIFICATS DE DEPOT]]></text>
+				<box>
+					<pen lineWidth="1.0" lineColor="#3B88D1"/>
+				</box>
+			</element>
+			<element kind="textField" uuid="83bec61e-4b86-433a-bb0a-9b7e63349b96" x="341" y="28" width="100" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true" bold="true">
+				<expression><![CDATA[$F{revenusBonTresoN}]]></expression>
+			</element>
+			<element kind="textField" uuid="ee8c4020-104d-4363-88f3-11af22da6336" x="341" y="46" width="100" height="30" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{revenusBonTresoN}]]></expression>
+			</element>
+			<element kind="textField" uuid="ee295da3-1e63-4845-85e4-50a156af7921" x="341" y="80" width="100" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true" bold="true">
+				<expression><![CDATA[$F{revenusBilletsTresoN}]]></expression>
+			</element>
+			<element kind="textField" uuid="1d8b37ae-f02c-438f-858c-149030846499" x="341" y="100" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true" bold="false">
+				<expression><![CDATA[$F{revenusBilletsTresoN}]]></expression>
+			</element>
+			<element kind="textField" uuid="f108e599-7bfa-49c9-9a7d-7e6827958be1" x="341" y="118" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true" bold="true">
+				<expression><![CDATA[$F{revenusCertifcatDepoN}]]></expression>
+			</element>
+			<element kind="textField" uuid="bee179aa-e31c-437f-9bcf-3096212bb731" x="341" y="136" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true" bold="false">
+				<expression><![CDATA[$F{revenusCertifcatDepoN}]]></expression>
+			</element>
+			<element kind="textField" uuid="6e278495-b016-4488-8845-3e1cd33b9158" x="448" y="28" width="100" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true" bold="true">
+				<expression><![CDATA[$F{revenusBonTresoA}]]></expression>
+			</element>
+			<element kind="textField" uuid="d640841e-14f3-436a-a038-7770c74e6d2e" x="448" y="46" width="100" height="30" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{revenusBonTresoA}]]></expression>
+			</element>
+			<element kind="textField" uuid="ea8f0ab8-4824-495d-b7df-8143fb08d1ff" x="448" y="80" width="100" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true" bold="true">
+				<expression><![CDATA[$F{revenusBilletsTresoA}]]></expression>
+			</element>
+			<element kind="textField" uuid="ac4e24ff-0f13-4f15-844d-7414fa208808" x="448" y="100" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true" bold="false">
+				<expression><![CDATA[$F{revenusBilletsTresoA}]]></expression>
+			</element>
+			<element kind="textField" uuid="da51f3a4-36ef-41cf-8b6d-8fa6148330f7" x="448" y="118" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true" bold="true">
+				<expression><![CDATA[$F{revenusCertifcatDepoA}]]></expression>
+			</element>
+			<element kind="textField" uuid="ceccc09d-80f9-4162-b043-77d0525f24a9" x="448" y="136" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true" bold="false">
+				<expression><![CDATA[$F{revenusCertifcatDepoA}]]></expression>
+			</element>
+			<element kind="staticText" uuid="649a97c2-a246-4f2b-a301-6785a1766785" x="9" y="136" width="240" height="13" bold="false" hTextAlign="Left">
+				<text><![CDATA[Revenus des Certificats de dépots]]></text>
+				<box>
+					<pen lineWidth="1.0" lineColor="#3B88D1"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="5beaec3d-28b7-4e20-8667-31f4a752186c" x="291" y="9" width="34" height="13" bold="true" hTextAlign="Center">
+				<text><![CDATA[NOTE]]></text>
+			</element>
+			<element kind="line" uuid="f6188aca-62aa-46dc-b897-728bbf67b5ed" x="276" y="6" width="1" height="174"/>
+			<element kind="line" uuid="91e0a071-b2b6-49e3-827e-fef0fd0d0f81" x="337" y="6" width="1" height="174"/>
+			<element kind="line" uuid="67c095bb-3139-4d39-9e9c-a30436118381" x="444" y="5" width="1" height="174"/>
+			<element kind="line" uuid="869308ec-d0c5-46c3-ae32-57fb67caa07e" x="2" y="153" width="550" height="1"/>
+			<element kind="staticText" uuid="f2c58e7b-3d8e-41a8-a158-2259bc870500" x="9" y="158" width="210" height="13" bold="true" hTextAlign="Left">
+				<text><![CDATA[TOTAL ]]></text>
+				<box>
+					<pen lineWidth="1.0" lineColor="#3B88D1"/>
+				</box>
+			</element>
+			<element kind="textField" uuid="0d0ec75f-a121-46d8-9b15-fd8cc56a7b41" x="341" y="158" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true" bold="true">
+				<expression><![CDATA[$F{totalN}]]></expression>
+			</element>
+			<element kind="textField" uuid="c1481260-1708-409a-ad47-84425681bc2a" x="448" y="158" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true" bold="true">
+				<expression><![CDATA[$F{totalA}]]></expression>
+			</element>
+			<element kind="textField" uuid="5b0325e3-ab2d-409b-915e-da50f8395869" x="356" y="8" width="70" height="13" bold="true" hTextAlign="Center">
+				<expression><![CDATA[$F{anneeN}]]></expression>
+			</element>
+			<element kind="textField" uuid="7f561c27-8306-4097-926e-0add8d42a945" x="463" y="8" width="70" height="13" bold="true" hTextAlign="Center">
+				<expression><![CDATA[$F{anneeA}]]></expression>
+			</element>
+		</band>
+	</detail>
+	<columnFooter splitType="Stretch"/>
+	<pageFooter height="32" splitType="Stretch">
+		<element kind="staticText" uuid="8cfc3f9a-a255-491a-acc1-b8a9345200b6" x="5" y="12" width="126" height="13">
+			<text><![CDATA[Edité avec OPCCIEL 2.0]]></text>
+		</element>
+		<element kind="textField" uuid="e1d00c52-7c43-4ad3-8d05-ad3531c7d5ca" x="453" y="14" width="100" height="18" hTextAlign="Right">
+			<expression><![CDATA[$V{PAGE_NUMBER}]]></expression>
+		</element>
+	</pageFooter>
+	<summary height="42" splitType="Stretch"/>
+</jasperReport>

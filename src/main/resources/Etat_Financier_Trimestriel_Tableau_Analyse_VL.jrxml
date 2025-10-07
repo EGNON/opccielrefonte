@@ -1,0 +1,128 @@
+<!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 7.0.1-573496633c2b4074e32f433154b543003f7d2498  -->
+<jasperReport name="Etat_Financier_Trimestriel_Tableau_Analyse_VL" language="java" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="bc4e2637-c7e7-4cf8-b98f-6d865c57fbfa">
+	<parameter name="letterDate" class="java.lang.String"/>
+	<parameter name="denominationOpcvm" class="java.lang.String"/>
+	<parameter name="raisonSocial" class="java.lang.String"/>
+	<parameter name="dateEstimation" class="java.sql.Date"/>
+	<parameter name="format" class="java.lang.String"/>
+	<field name="designation" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="designation"/>
+		<property name="com.jaspersoft.studio.field.label" value="designation"/>
+	</field>
+	<field name="montantExoN" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="montantExoN"/>
+		<property name="com.jaspersoft.studio.field.label" value="montantExoN"/>
+	</field>
+	<field name="montantExoN2" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="montantExoN-"/>
+		<property name="com.jaspersoft.studio.field.label" value="montantExoN-"/>
+	</field>
+	<field name="idOpcvm" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="idOpcvm"/>
+		<property name="com.jaspersoft.studio.field.label" value="idOpcvm"/>
+	</field>
+	<field name="dateEstimation" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="dateEstimation"/>
+		<property name="com.jaspersoft.studio.field.label" value="dateEstimation"/>
+	</field>
+	<group name="Group1">
+		<expression><![CDATA[$F{idOpcvm}]]></expression>
+		<groupHeader>
+			<band height="39">
+				<element kind="rectangle" uuid="57e7f7fb-6256-4301-a0f5-86e4b2438904" x="3" y="3" width="796" height="36" backcolor="#BDD7EE"/>
+				<element kind="line" uuid="3cc72c32-c800-4349-a125-5b50e7195320" x="633" y="3" width="1" height="35"/>
+				<element kind="line" uuid="4701d78b-3151-44c8-a868-57df1d625659" x="445" y="3" width="1" height="35"/>
+				<element kind="staticText" uuid="255e0c52-d0d7-4a89-8129-0c429f9d5f1b" x="450" y="6" width="173" height="30" bold="true" hTextAlign="Center">
+					<text><![CDATA[EXERCICE N-1 Montant en 
+FCFA]]></text>
+				</element>
+				<element kind="staticText" uuid="a3c8fe43-c7fc-4265-bf6b-68c574968643" x="640" y="6" width="150" height="14" bold="true" hTextAlign="Center">
+					<text><![CDATA[VARIATION A-B]]></text>
+				</element>
+				<element kind="line" uuid="bec6f8bc-afa9-4dd3-bc00-3bf5bd8b4210" x="257" y="4" width="1" height="35"/>
+				<element kind="staticText" uuid="5c9aa438-3776-40b3-ac6b-04b231f1a951" x="262" y="6" width="173" height="30" bold="true" hTextAlign="Center">
+					<text><![CDATA[EXERCICE N Montant en 
+FCFA]]></text>
+				</element>
+				<element kind="line" uuid="34f74aac-57b1-4a07-8d72-5a8c158de65f" x="634" y="20" width="165" height="1"/>
+				<element kind="rectangle" uuid="b2ae396f-410f-471e-989f-5348793e1c0b" x="634" y="21" width="84" height="17">
+					<pen lineWidth="0.0"/>
+				</element>
+				<element kind="rectangle" uuid="69478166-6d2e-4a0c-9c50-425b8596e085" x="718" y="21" width="81" height="17">
+					<pen lineWidth="0.0"/>
+				</element>
+				<element kind="staticText" uuid="f297a795-e9fc-4885-beb0-29b56b601a82" x="638" y="23" width="75" height="14" bold="true" hTextAlign="Center">
+					<text><![CDATA[Favorable]]></text>
+				</element>
+				<element kind="staticText" uuid="81d0ec71-a476-4fee-a554-3b03ce6984fb" x="721" y="23" width="75" height="14" bold="true" hTextAlign="Center">
+					<text><![CDATA[Défavorable]]></text>
+				</element>
+				<element kind="line" uuid="cdca6b23-193e-461a-bb03-3c91dc71c9ef" x="717" y="20" width="1" height="19"/>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band/>
+		</groupFooter>
+	</group>
+	<background splitType="Stretch"/>
+	<title height="109" splitType="Stretch">
+		<element kind="textField" uuid="e90c3e64-5309-4eaf-9ce6-fd1a4267228a" x="3" y="3" width="217" height="16">
+			<expression><![CDATA["Cotonou, le "+$P{letterDate}]]></expression>
+		</element>
+		<element kind="textField" uuid="00c58935-d09a-425b-9297-018725517785" x="3" y="90" width="442" height="19">
+			<expression><![CDATA["GESTIONNAIRE: "+$P{raisonSocial}]]></expression>
+			<box>
+				<pen lineWidth="1.0" lineColor="#3B88D1"/>
+			</box>
+		</element>
+		<element kind="textField" uuid="17443aef-68e6-44fd-a28b-bb92c8cdbab9" x="450" y="90" width="349" height="18">
+			<expression><![CDATA[$P{format} + ": " + new java.text.SimpleDateFormat("dd/MM/yyyy").format($P{dateEstimation})]]></expression>
+			<box>
+				<pen lineWidth="1.0" lineColor="#3B88D1"/>
+			</box>
+		</element>
+		<element kind="rectangle" uuid="74815d44-8c41-4add-b896-8c6133acf09b" x="3" y="27" width="796" height="33" backcolor="#BDD7EE"/>
+		<element kind="staticText" uuid="5421916e-ad82-404e-ad8a-ad82ef5bbfd7" x="230" y="35" width="342" height="17" fontSize="10.0" bold="true" hTextAlign="Center">
+			<text><![CDATA[TABLEAU D'ANALYSE DE LA VALEUR LIQUIDATIVE DES OPCVM]]></text>
+		</element>
+		<element kind="textField" uuid="86835abf-e3ea-4e26-830e-13ef7c558a9c" x="3" y="66" width="731" height="14" hTextAlign="Left">
+			<expression><![CDATA["DESIGNATION DE L'ENTREPRISE : "+$P{denominationOpcvm}]]></expression>
+		</element>
+	</title>
+	<pageHeader splitType="Stretch"/>
+	<columnHeader splitType="Stretch"/>
+	<detail>
+		<band height="28" splitType="Stretch">
+			<element kind="rectangle" uuid="874b8a5d-fb3f-4142-9a5e-fe8e9bc2952a" x="3" y="1" width="796" height="27" backcolor="#FFFFFF"/>
+			<element kind="line" uuid="8db3ea50-9080-4448-8d04-6953876baf21" x="445" y="1" width="1" height="26"/>
+			<element kind="line" uuid="cdd2d4a2-d6a9-4a2a-9dd6-6a8f2488d020" x="257" y="2" width="1" height="26"/>
+			<element kind="line" uuid="0be38300-24a0-446f-9ac0-79c982514c8f" x="717" y="1" width="1" height="27"/>
+			<element kind="line" uuid="62a717b7-8b5a-4c68-b849-5fe2600065b6" x="633" y="1" width="1" height="26"/>
+			<element kind="textField" uuid="bb2239db-ef0b-4296-9d51-fe08f49b4ea6" x="6" y="8" width="250" height="14">
+				<expression><![CDATA[$F{designation}]]></expression>
+			</element>
+			<element kind="textField" uuid="45c95c3b-757a-430e-94c1-b1c2447f3774" x="260" y="8" width="184" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{montantExoN}]]></expression>
+			</element>
+			<element kind="textField" uuid="c4b62f17-3860-4c50-ac32-7bea434e2e37" x="637" y="8" width="76" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{montantExoN}.subtract($F{montantExoN-}).compareTo(java.math.BigDecimal.ZERO) > 0 ? "*" : ""]]></expression>
+			</element>
+			<element kind="textField" uuid="6515ab01-73af-4bab-b435-8105cb7b49df" x="449" y="8" width="182" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{montantExoN-}]]></expression>
+			</element>
+			<element kind="textField" uuid="890a0a8d-7d04-4b9b-9814-6e481bbf0619" x="720" y="8" width="76" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{montantExoN}.subtract($F{montantExoN-}).compareTo(java.math.BigDecimal.ZERO) < 0 ? "*" : ""]]></expression>
+			</element>
+		</band>
+	</detail>
+	<columnFooter splitType="Stretch"/>
+	<pageFooter height="48" splitType="Stretch">
+		<element kind="staticText" uuid="83f2b919-7b85-472a-ba9c-08db0132c063" x="5" y="21" width="126" height="13">
+			<text><![CDATA[Edité avec OPCCIEL 2.0]]></text>
+		</element>
+		<element kind="textField" uuid="96c33d31-7a3a-4499-ab24-85daaead1d69" x="699" y="21" width="100" height="18" hTextAlign="Right">
+			<expression><![CDATA[$V{PAGE_NUMBER}]]></expression>
+		</element>
+	</pageFooter>
+	<summary height="42" splitType="Stretch"/>
+</jasperReport>

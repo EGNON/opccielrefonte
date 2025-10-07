@@ -35,6 +35,155 @@ public interface LibraryDao extends JpaRepository<BaseEntity, Long> {
     @Query(value = "select * from [Impressions].[FT_PortefeuilleOPCVM_New2](:idOpcvm ,:dateEstimation)", nativeQuery = true)
     Page<PortefeuilleOpcvmProjection> portefeuilleOPCVM(Long idOpcvm,LocalDateTime dateEstimation,Pageable pageable);
 
+    @Query(value = "select * from [Impressions].[FT_RelevePartFCP_New] (:idOpcvm,:dateDebut,:dateFin)", nativeQuery = true)
+    List<ReleveDePartFCPProjection> releveDePartFCP(Long idOpcvm,LocalDateTime dateDebut,LocalDateTime dateFin);
+    @Query(value = "select * from [Impressions].[FT_RelevePartFCP_New] (:idOpcvm,:dateDebut,:dateFin)", nativeQuery = true)
+    Page<ReleveDePartFCPProjection> releveDePartFCP(Long idOpcvm,LocalDateTime dateDebut,LocalDateTime dateFin,Pageable pageable);
+
+    @Query(value = "select * from [Impressions].[FT_RelevePartActionnaire_New] (:idActionnaire,:idOpcvm,:dateDebut,:dateFin)", nativeQuery = true)
+    List<ReleveDePartActionnaireProjection> releveDePartActionnaire(Long idActionnaire,Long idOpcvm,LocalDateTime dateDebut,LocalDateTime dateFin);
+    @Query(value = "select * from [Impressions].[FT_RelevePartActionnaire_New] (:idActionnaire,:idOpcvm,:dateDebut,:dateFin)", nativeQuery = true)
+    Page<ReleveDePartActionnaireProjection> releveDePartActionnaire(Long idActionnaire,Long idOpcvm,LocalDateTime dateDebut,LocalDateTime dateFin,Pageable pageable);
+
+    @Query(value = "select * from [Comptabilite].[FT_Journal_New](:idOpcvm,:codeJournal,:dateDebut,:dateFin)", nativeQuery = true)
+    List<JournalProjection2> journal(Long idOpcvm,String codeJournal,LocalDateTime dateDebut,LocalDateTime dateFin);
+    @Query(value = "select * from [Comptabilite].[FT_Journal_New](:idOpcvm,:codeJournal,:dateDebut,:dateFin)", nativeQuery = true)
+    Page<JournalProjection2> journal(Long idOpcvm,String codeJournal,LocalDateTime dateDebut,LocalDateTime dateFin,Pageable pageable);
+
+    @Query(value = "select * from [Comptabilite].[FT_SoldeToutCompte_New] (:codePlan,:idOpcvm,:numCompteComptable,:dateEstimation)", nativeQuery = true)
+    List<SoldeDesComptesComptablesProjection> soldeDesComptesComptables(String codePlan,Long idOpcvm,String numCompteComptable,LocalDateTime dateEstimation);
+    @Query(value = "select * from [Comptabilite].[FT_SoldeToutCompte_New] (:codePlan,:idOpcvm,:numCompteComptable,:dateEstimation)", nativeQuery = true)
+    Page<SoldeDesComptesComptablesProjection> soldeDesComptesComptables(String codePlan,Long idOpcvm,String numCompteComptable,LocalDateTime dateEstimation,Pageable pageable);
+
+    @Query(value = "select * from [Comptabilite].[FT_Balance_New] (:codePlan,:idOpcvm,:dateDebut,:dateFin)", nativeQuery = true)
+    List<BalanceProjection> balance(String codePlan,Long idOpcvm,LocalDateTime dateDebut,LocalDateTime dateFin);
+    @Query(value = "select * from [Comptabilite].[FT_Balance_New] (:codePlan,:idOpcvm,:dateDebut,:dateFin)", nativeQuery = true)
+    Page<BalanceProjection> balance(String codePlan,Long idOpcvm,LocalDateTime dateDebut,LocalDateTime dateFin,Pageable pageable);
+
+    @Query(value = "select * from [Impressions].[FT_GrandLivre_New] (:idOpcvm,:codePlan,:numCompteComptable,:codeAnalytique,:typeAnalytique,:dateDebut,:dateFin)", nativeQuery = true)
+    List<GrandLivreProjection> grandLivre(Long idOpcvm,String codePlan,String numCompteComptable,String codeAnalytique,String typeAnalytique,LocalDateTime dateDebut,LocalDateTime dateFin);
+    @Query(value = "select * from [Impressions].[FT_GrandLivre_New] (:idOpcvm,:codePlan,:numCompteComptable,:codeAnalytique,:typeAnalytique,:dateDebut,:dateFin)", nativeQuery = true)
+    Page<GrandLivreProjection> grandLivre(Long idOpcvm,String codePlan,String numCompteComptable,String codeAnalytique,String typeAnalytique,LocalDateTime dateDebut,LocalDateTime dateFin,Pageable pageable);
+
+    @Query(value = "select * from [Operation].[FT_PointGlobalPeriodiqueSouscription_New] (:idOpcvm,:idSeance,:idPersonne,:dateDebut,:dateFin)", nativeQuery = true)
+    List<PointSouscriptionGlobalProjection> pointSouscriptionGlobal(Long idOpcvm,Long idSeance,Long idPersonne,LocalDateTime dateDebut,LocalDateTime dateFin);
+    @Query(value = "select * from [Operation].[FT_PointGlobalPeriodiqueSouscription_New] (:idOpcvm,:idSeance,:idPersonne,:dateDebut,:dateFin)", nativeQuery = true)
+    Page<PointSouscriptionGlobalProjection> pointSouscriptionGlobal(Long idOpcvm,Long idSeance,Long idPersonne,LocalDateTime dateDebut,LocalDateTime dateFin,Pageable pageable);
+
+    @Query(value = "select * from [Operation].[FT_PointPeriodiqueRachat_New] (:idOpcvm,:idSeance,:idActionnaire,:idPersonne,:dateDebut,:dateFin)", nativeQuery = true)
+    List<PointRachatDetailleProjection> pointRachatDetaille(Long idOpcvm,Long idSeance,Long idActionnaire,Long idPersonne,LocalDateTime dateDebut,LocalDateTime dateFin);
+    @Query(value = "select * from [Impressions].[FT_GrandLivre_New] (:idOpcvm,:idSeance,:idActionnaire,:idPersonne,:dateDebut,:dateFin)", nativeQuery = true)
+    Page<PointRachatDetailleProjection> pointRachatDetaille(Long idOpcvm,Long idSeance,Long idActionnaire,Long idPersonne,LocalDateTime dateDebut,LocalDateTime dateFin,Pageable pageable);
+
+    @Query(value = "select * from [Operation].[FT_PointGlobalPeriodiqueRachat_New] (:idOpcvm,:idSeance,:idPersonne,:dateDebut,:dateFin)", nativeQuery = true)
+    List<PointRachatGlobalProjection> pointRachatGlobal(Long idOpcvm,Long idSeance,Long idPersonne,LocalDateTime dateDebut,LocalDateTime dateFin);
+    @Query(value = "select * from [Operation].[FT_PointGlobalPeriodiqueRachat_New] (:idOpcvm,:idSeance,:idPersonne,:dateDebut,:dateFin)", nativeQuery = true)
+    Page<PointRachatGlobalProjection> pointRachatGlobal(Long idOpcvm,Long idSeance,Long idPersonne,LocalDateTime dateDebut,LocalDateTime dateFin,Pageable pageable);
+
+    @Query(value = "select * from [Impressions].[FT_BilanAn_New](:idOpcvm,:annee)", nativeQuery = true)
+    List<EtatFinancierAnnuelF1BilanProjection> etatFinancierAnnuelF1Bilan(Long idOpcvm,Integer annee);
+
+    @Query(value = "select * from [Impressions].[FT_VariationActifNet_New](:idOpcvm,:annee)", nativeQuery = true)
+    List<EtatFinancierAnnuelF1EtatVariationActifNetProjection> etatFinancierAnnuelF1EtatVariationActifNet(Long idOpcvm,Integer annee);
+
+    @Query(value = "select * from [Impressions].[FT_NotesSurRevenusPortfeuilleTitre_New](:idOpcvm,:annee)", nativeQuery = true)
+    List<EtatFinancierAnnuelF1NotesRevenusPortefeuilleTitreProjection> etatFinancierAnnuelF1NotesRevenusPortefeuilleTitre(Long idOpcvm,Integer annee);
+
+    @Query(value = "select * from [Impressions].[FT_ResultatAn_New](:idOpcvm,:annee)", nativeQuery = true)
+    List<EtatFinancierAnnuelF1ResultatProjection> etatFinancierAnnuelF1Resultat(Long idOpcvm,Integer annee);
+
+    @Query(value = "select * from [Impressions].[FT_NotesSurRevPlacementsMonetaires_New](:idOpcvm,:annee)", nativeQuery = true)
+    List<EtatFinancierAnnuelF1NotesRevenusPlacementsMonetairesProjection> etatFinancierAnnuelF1NotesRevenusPlacementsMonetaires(Long idOpcvm,Integer annee);
+
+    @Query(value = "select * from [Impressions].[FT_NotesSommesDistribuables_New](:idOpcvm,:annee)", nativeQuery = true)
+    List<EtatFinancierAnnuelF1NotesSommesDistribuablesProjection> etatFinancierAnnuelF1NotesSommesDistribuables(Long idOpcvm,Integer annee);
+
+    @Query(value = "select * from [Impressions].[FT_DonneesParActionEtRatioPertinents_New](:idOpcvm,:annee)", nativeQuery = true)
+    List<EtatFinancierAnnuelF1DonneesActionRatiosPertinentsProjection> etatFinancierAnnuelF1DonneesActionRatiosPertinents(Long idOpcvm,Integer annee);
+
+    @Query(value = "select * from [Impressions].[FT_EngagementHorsBilan_New](:idOpcvm,:dateEstimation )", nativeQuery = true)
+    List<EtatFinancierAnnuelF1EngagementHorsBilanProjection> etatFinancierAnnuelF1EngagementHorsBilan(Long idOpcvm,LocalDateTime dateEstimation);
+
+    @Query(value = "select * from [Impressions].[FT_BilanAn_New](:idOpcvm,:annee)", nativeQuery = true)
+    List<EtatFinancierAnnuelF2BilanProjection> etatFinancierAnnuelF2Bilan(Long idOpcvm,Integer annee);
+
+    @Query(value = "select * from [Impressions].[FT_ResultatAn_New](:idOpcvm,:annee)", nativeQuery = true)
+    List<EtatFinancierAnnuelF2ResultatProjection> etatFinancierAnnuelF2Resultat(Long idOpcvm,Integer annee);
+
+    @Query(value = "select * from [Impressions].[FT_VariationActifNet_New](:idOpcvm,:annee)", nativeQuery = true)
+    List<EtatFinancierAnnuelF2EtatVariationActifNetProjection> etatFinancierAnnuelF2EtatVariationActifNet(Long idOpcvm,Integer annee);
+
+    @Query(value = "select * from [Impressions].[FT_NotesSurRevenusPortfeuilleTitre_New](:idOpcvm,:annee)", nativeQuery = true)
+    List<EtatFinancierAnnuelF2NotesRevenusPortefeuilleTitreProjection> etatFinancierAnnuelF2NotesRevenusPortefeuilleTitre(Long idOpcvm,Integer annee);
+
+    @Query(value = "select * from [Impressions].[FT_NotesSurRevPlacementsMonetaires_New](:idOpcvm,:annee)", nativeQuery = true)
+    List<EtatFinancierAnnuelF2NotesRevenusPlacementsMonetairesProjection> etatFinancierAnnuelF2NotesRevenusPlacementsMonetaires(Long idOpcvm,Integer annee);
+
+    @Query(value = "select * from [Impressions].[FT_NotesSommesDistribuables_New](:idOpcvm,:annee)", nativeQuery = true)
+    List<EtatFinancierAnnuelF2NotesSommesDistribuablesProjection> etatFinancierAnnuelF2NotesSommesDistribuables(Long idOpcvm,Integer annee);
+
+    @Query(value = "select * from [Impressions].[FT_DonneesParActionEtRatioPertinents_New](:idOpcvm,:annee)", nativeQuery = true)
+    List<EtatFinancierAnnuelF2DonneesActionRatiosPertinentsProjection> etatFinancierAnnuelF2DonneesActionRatiosPertinents(Long idOpcvm,Integer annee);
+
+    @Query(value = "select * from [Impressions].[FT_EntreeEnPortefeuilleTitre_New](:idOpcvm,:dateDebut,:dateFin)", nativeQuery = true)
+    List<EtatFinancierAnnexesEtatsEntreesPortefeuilleTitreProjection> etatFinancierAnnexesEtatsEntreesPortefeuilleTitre(Long idOpcvm,LocalDateTime dateDebut, LocalDateTime dateFin);
+
+    @Query(value = "select * from [Impressions].[FT_SortieEnPortefeuilleTitre_New](:idOpcvm,:dateDebut,:dateFin)", nativeQuery = true)
+    List<EtatFinancierAnnexesEtatSortiesPortefeuilleTitreProjection> etatFinancierAnnexesEtatSortiesPortefeuilleTitre(Long idOpcvm,LocalDateTime dateDebut, LocalDateTime dateFin);
+
+    @Query(value = "select * from [Impressions].[FT_NotesSurLePortefeuilleTitreTrimestriel_New] (:idOpcvm,:dateEstimation)", nativeQuery = true)
+    List<EtatFinancierAnnexesNotePortefeuilleTitresAnnuelProjection> etatFinancierAnnexesNotePortefeuilleTitresAnnuel(Long idOpcvm,LocalDateTime dateEstimation);
+
+    @Query(value = "select * from [Impressions].[FT_NotesSurPlacementsMonetairesTrimestriel_New] (:idOpcvm,:dateEstimation)", nativeQuery = true)
+    List<EtatFinancierAnnexesNotePlacementsMonetairesAnnuelProjection> etatFinancierAnnexesNotePlacementsMonetairesAnnuel(Long idOpcvm,LocalDateTime dateEstimation);
+
+    @Query(value = "select * from [Impressions].[FT_NotesSurLeCapital_New] (:idOpcvm,:dateEstimation)", nativeQuery = true)
+    List<EtatFinancierAnnexesNotesurleCapitalProjection> etatFinancierAnnexesNotesurleCapital(Long idOpcvm,LocalDateTime dateEstimation);
+
+    @Query(value = "select * from [Impressions].[FT_ActionsAdmisesAlaCote_New] (:idOpcvm,:dateEstimation)", nativeQuery = true)
+    List<EtatFinancierAnnexesActionAdmiseCoteProjection> etatFinancierAnnexesActionAdmiseCote(Long idOpcvm,LocalDateTime dateEstimation);
+
+    @Query(value = "select * from [Impressions].[FT_NotesSurLesFraisDeGestionTrimestriel_New] (:idOpcvm,:dateEstimation)", nativeQuery = true)
+    List<EtatFinancierAnnexesRemunerationGestionnaireDepositaireProjection> etatFinancierAnnexesRemunerationGestionnaireDepositaire(Long idOpcvm,LocalDateTime dateEstimation);
+
+    @Query(value = "select * from [Impressions].[FT_BilanTrimestriel_New](:idOpcvm,:dateEstimation,:denominationOpcvm,:annee)", nativeQuery = true)
+    List<EtatFinancierTrimestrielBilanTrimestrielProjection> etatFinancierTrimestrielBilanTrimestriel(Long idOpcvm,LocalDateTime dateEstimation, String denominationOpcvm, Integer annee);
+
+    @Query(value = "select * from [Impressions].[FT_ResultatTrimestriel_New](:idOpcvm,:dateEstimation,:denominationOpcvm,:annee)", nativeQuery = true)
+    List<EtatFinancierTrimestrielCompteResultatProjection> etatFinancierTrimestrielCompteResultat(Long idOpcvm,LocalDateTime dateEstimation, String denominationOpcvm, Integer annee);
+
+    @Query(value = "select * from [Impressions].[FT_VariationActifNetTrimestriel_New] (:idOpcvm,:dateEstimation)", nativeQuery = true)
+    List<EtatFinancierTrimestrielVariationActifNetProjection> etatFinancierTrimestrielVariationActifNet(Long idOpcvm,LocalDateTime dateEstimation);
+
+    @Query(value = "select * from [Impressions].[FT_NotesSurRevPlacementsMonetairesTrimestriel_New] (:idOpcvm,:dateEstimation)", nativeQuery = true)
+    List<EtatFinancierTrimestrielNotesRevenusPlacementsMonetairesProjection> etatFinancierTrimestrielNotesRevenusPlacementsMonetaires(Long idOpcvm,LocalDateTime dateEstimation);
+
+    @Query(value = "select * from [Impressions].[FT_NotesSurRevenusPortfeuilleTitreTrimestriel_New] (:idOpcvm,:dateEstimation)", nativeQuery = true)
+    List<EtatFinancierTrimestrielNoteRevenusPortefeuilleTitreProjection> etatFinancierTrimestrielNoteRevenusPortefeuilleTitre(Long idOpcvm,LocalDateTime dateEstimation);
+
+    @Query(value = "select * from [Impressions].[FT_TableauAnalyseVLTrimestriel_New] (:idOpcvm,:dateEstimation)", nativeQuery = true)
+    List<EtatFinancierTrimestrielTableauAnalyseVLProjection> etatFinancierTrimestrielTableauAnalyseVL(Long idOpcvm,LocalDateTime dateEstimation);
+
+    @Query(value = "select * from [Impressions].[FT_NotesSurLePortefeuilleTitreTrimestrielNew] (:idOpcvm,:dateEstimation)", nativeQuery = true)
+    List<EtatFinancierTrimestrielNotePortefeuilleTitreProjection> etatFinancierTrimestrielNotePortefeuilleTitre(Long idOpcvm,LocalDateTime dateEstimation);
+
+    @Query(value = "select * from [Impressions].[FT_NotesSurPlacementsMonetairesTrimestrielNew] (:idOpcvm,:dateEstimation)", nativeQuery = true)
+    List<EtatFinancierTrimestrielNotePlacementsMonetairesProjection> etatFinancierTrimestrielNotePlacementsMonetaires(Long idOpcvm,LocalDateTime dateEstimation);
+
+    @Query(value = "select * from [Impressions].[FT_ActionsAdmisesAlaCoteNew] (:idOpcvm,:dateEstimation)", nativeQuery = true)
+    List<EtatFinancierTrimestrielActionsAdmisesCoteProjection> etatFinancierTrimestrielActionsAdmisesCote(Long idOpcvm,LocalDateTime dateEstimation);
+
+    @Query(value = "select * from [Impressions].[FT_NotesSurLeCapitalNew] (:idOpcvm,:dateEstimation)", nativeQuery = true)
+    List<EtatFinancierTrimestrielNoteCapitalProjection> etatFinancierTrimestrielNoteCapital(Long idOpcvm,LocalDateTime dateEstimation);
+
+    @Query(value = "select * from [Impressions].[FT_EtatMensuelSouscriptions_New](:idOpcvm,:dateDebut,:dateFin)", nativeQuery = true)
+    List<EtatFinancierTrimestrielEtatMensuelSouscriptionsProjection> etatFinancierTrimestrielEtatMensuelSouscriptions(Long idOpcvm,LocalDateTime dateDebut, LocalDateTime dateFin);
+
+    @Query(value = "select * from [Operation].[FT_PointPeriodiqueSouscription_New] (:idOpcvm,:idSeance,:idActionnaire,:idPersonne,:dateDebut,:dateFin)", nativeQuery = true)
+    List<PointSouscriptionDetailleProjection> pointSouscriptionDetaille(Long idOpcvm,Long idSeance,Long idActionnaire,Long idPersonne,LocalDateTime dateDebut,LocalDateTime dateFin);
+    @Query(value = "select * from [Impressions].[FT_GrandLivre_New] (:idOpcvm,:idSeance,:idActionnaire,:idPersonne,:dateDebut,:dateFin)", nativeQuery = true)
+    Page<PointSouscriptionDetailleProjection> pointSouscriptionDetaille(Long idOpcvm,Long idSeance,Long idActionnaire,Long idPersonne,LocalDateTime dateDebut,LocalDateTime dateFin,Pageable pageable);
+
     @Query(value = "select * from [Impressions].[FT_ReleveTitreFCP_New] (:idOpcvm,:dateDebut,:dateFin)" +
             " order by idTitre asc", nativeQuery = true)
     Page<ReleveTitreFCPProjection> releveTitreFCP(Long idOpcvm,LocalDateTime dateDebut,LocalDateTime dateFin,Pageable pageable);

@@ -12,9 +12,10 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ReleveTitreFCPRequest {
+public class PointSouscriptionGlobalRequest {
     private Long idOpcvm;
-    private String codeJournal;
+    private Long idSeance;
+    private Long idPersonne;
     private String type;
     private LocalDateTime dateDebut;
     private LocalDateTime dateFin;
