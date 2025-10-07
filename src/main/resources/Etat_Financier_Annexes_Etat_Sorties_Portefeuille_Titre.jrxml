@@ -1,0 +1,108 @@
+<!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 7.0.1-573496633c2b4074e32f433154b543003f7d2498  -->
+<jasperReport name="Etat_Financier_Annexes_Etat_Sorties_Portefeuille_Titre" language="java" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="292c51f7-0182-4b0e-8b25-e3278ec19dc9">
+	<parameter name="letterDate" class="java.lang.String"/>
+	<parameter name="exercice" class="java.lang.String"/>
+	<parameter name="denominationOpcvm" class="java.lang.String"/>
+	<parameter name="libellePays" class="java.lang.String"/>
+	<field name="classeTitre" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="classeTitre"/>
+		<property name="com.jaspersoft.studio.field.label" value="classeTitre"/>
+	</field>
+	<field name="Cout" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="Cout"/>
+		<property name="com.jaspersoft.studio.field.label" value="Cout"/>
+	</field>
+	<field name="prixCession" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="prixCession"/>
+		<property name="com.jaspersoft.studio.field.label" value="prixCession"/>
+	</field>
+	<field name="plusOuMoinValue" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="plusOuMoinValue"/>
+		<property name="com.jaspersoft.studio.field.label" value="plusOuMoinValue"/>
+	</field>
+	<field name="idOpcvm" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="idOpcvm"/>
+		<property name="com.jaspersoft.studio.field.label" value="idOpcvm"/>
+	</field>
+	<field name="dateDebut" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="dateDebut"/>
+		<property name="com.jaspersoft.studio.field.label" value="dateDebut"/>
+	</field>
+	<field name="dateFin" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="dateFin"/>
+		<property name="com.jaspersoft.studio.field.label" value="dateFin"/>
+	</field>
+	<background splitType="Stretch"/>
+	<title height="139" splitType="Stretch">
+		<element kind="textField" uuid="f9d5c551-b0a5-492c-bf81-c5332fa9255c" x="3" y="3" width="217" height="16">
+			<expression><![CDATA["Cotonou, le "+$P{letterDate}]]></expression>
+		</element>
+		<element kind="rectangle" uuid="f5a88085-04a1-4bb8-8cb6-70ea39f3781b" x="3" y="27" width="796" height="33" backcolor="#BDD7EE"/>
+		<element kind="staticText" uuid="236672b8-3977-441a-aa88-009ac68c6042" x="230" y="35" width="342" height="17" fontSize="10.0" bold="true" hTextAlign="Center">
+			<text><![CDATA[ETAT DE SORTIE DU PORTEFEUILLE TITRE]]></text>
+		</element>
+		<element kind="textField" uuid="caab059d-3e46-4f62-97d3-018fc4d09e70" x="66" y="66" width="670" height="15" hTextAlign="Center">
+			<expression><![CDATA["(du 01 Janvier "+$P{exercice}+" au 31 Décembre "+$P{exercice}+")"]]></expression>
+			<box>
+				<pen lineWidth="1.0" lineColor="#3B88D1"/>
+			</box>
+		</element>
+		<element kind="textField" uuid="4ceefc99-9f51-4c18-8ba8-31ab7a6ae82a" x="3" y="90" width="349" height="19">
+			<expression><![CDATA["DESIGNATION DE L'ENTREPRISE : "+$P{denominationOpcvm}]]></expression>
+			<box>
+				<pen lineWidth="1.0" lineColor="#3B88D1"/>
+			</box>
+		</element>
+		<element kind="textField" uuid="1c37e800-10ae-4df5-a61c-60d47f2bea4b" x="352" y="90" width="445" height="18">
+			<expression><![CDATA["Pays: "+$P{libellePays}]]></expression>
+			<box>
+				<pen lineWidth="1.0" lineColor="#3B88D1"/>
+			</box>
+		</element>
+		<element kind="rectangle" uuid="ae75a4c1-bac2-4e72-b7ec-6cd14ccdc1fb" x="3" y="114" width="796" height="25" backcolor="#FFFFFF"/>
+		<element kind="line" uuid="68703d32-d871-4436-82b6-0d1b079cd9af" x="650" y="114" width="1" height="24"/>
+		<element kind="line" uuid="5fcdc9ad-721f-46cf-adbd-9cf46f366c36" x="500" y="114" width="1" height="24"/>
+		<element kind="line" uuid="cf622d32-57f4-4c93-a8a7-c6718050ccd5" x="350" y="114" width="1" height="24"/>
+		<element kind="staticText" uuid="82ebd849-814f-4618-9c53-c3daab32a13b" x="360" y="119" width="130" height="14" hTextAlign="Center">
+			<text><![CDATA[Coût d'acquisition]]></text>
+		</element>
+		<element kind="staticText" uuid="b4dd5a5a-2569-4aba-a957-05e06ead7901" x="509" y="119" width="130" height="14" hTextAlign="Center">
+			<text><![CDATA[Prix de cession]]></text>
+		</element>
+		<element kind="staticText" uuid="1860a447-dfdc-4414-ad53-1fa45d6b6768" x="660" y="119" width="130" height="14" hTextAlign="Center">
+			<text><![CDATA[(+/-) Value]]></text>
+		</element>
+	</title>
+	<pageHeader splitType="Stretch"/>
+	<columnHeader splitType="Stretch"/>
+	<detail>
+		<band height="28" splitType="Stretch">
+			<element kind="rectangle" uuid="e2361283-b2be-4b4a-a604-9124cf5f704f" stretchType="ContainerHeight" x="3" y="1" width="796" height="27" backcolor="#FFFFFF"/>
+			<element kind="line" uuid="f7e3d5fb-cf41-423e-ae5e-7f7adafce2dd" stretchType="ContainerHeight" x="650" y="1" width="1" height="26"/>
+			<element kind="textField" uuid="fa98dfc5-5f33-4990-b8b1-25fafd48116b" x="10" y="5" width="330" height="14">
+				<expression><![CDATA[$F{classeTitre}]]></expression>
+			</element>
+			<element kind="line" uuid="b421f539-204f-4185-83b1-670e6d763a44" stretchType="ContainerHeight" x="500" y="1" width="1" height="26"/>
+			<element kind="line" uuid="e2235214-190d-41d6-a098-9f1c7f3f8f48" stretchType="ContainerHeight" x="350" y="1" width="1" height="26"/>
+			<element kind="textField" uuid="b01fad6b-89c3-4b3e-a68b-51274a7fd83c" x="360" y="5" width="130" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{Cout}]]></expression>
+			</element>
+			<element kind="textField" uuid="3324f292-02d8-4bcd-b04c-c89bc64471c6" x="509" y="5" width="130" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{prixCession}]]></expression>
+			</element>
+			<element kind="textField" uuid="8d67b569-3b7b-4e97-b3fc-6237db5fa849" x="660" y="5" width="130" height="13" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[SUM($F{prixCession},PRODUCT($F{Cout},-1 ) )]]></expression>
+			</element>
+		</band>
+	</detail>
+	<columnFooter splitType="Stretch"/>
+	<pageFooter height="34" splitType="Stretch">
+		<element kind="staticText" uuid="17936554-c872-41ce-b57c-689ccfdbaf7f" x="5" y="12" width="126" height="13">
+			<text><![CDATA[Edité avec OPCCIEL 2.0]]></text>
+		</element>
+		<element kind="textField" uuid="fc50b65d-5f01-4d62-a5c7-f0cfa1434683" x="699" y="14" width="100" height="18" hTextAlign="Right">
+			<expression><![CDATA[$V{PAGE_NUMBER}]]></expression>
+		</element>
+	</pageFooter>
+	<summary height="17" splitType="Stretch"/>
+</jasperReport>

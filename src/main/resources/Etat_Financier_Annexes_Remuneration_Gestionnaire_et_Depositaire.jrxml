@@ -1,0 +1,232 @@
+<!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 7.0.1-573496633c2b4074e32f433154b543003f7d2498  -->
+<jasperReport name="Etat_Financier_Annexes_Remuneration_Gestionnaire_et_Depositaire" language="java" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="6907dc1d-3853-45b5-a3a5-93cdec03e556">
+	<parameter name="letterDate" class="java.lang.String"/>
+	<parameter name="denominationOpcvm" class="java.lang.String"/>
+	<parameter name="raisonSocial" class="java.lang.String"/>
+	<parameter name="libellePersonneIntervenant" class="java.lang.String"/>
+	<parameter name="dateEstimation" class="java.sql.Date"/>
+	<field name="actifNet" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="actifNet"/>
+		<property name="com.jaspersoft.studio.field.label" value="actifNet"/>
+	</field>
+	<field name="montantProvisionGest" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="montantProvisionGest"/>
+		<property name="com.jaspersoft.studio.field.label" value="montantProvisionGest"/>
+	</field>
+	<field name="montantCumuleGest" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="montantCumuleGest"/>
+		<property name="com.jaspersoft.studio.field.label" value="montantCumuleGest"/>
+	</field>
+	<field name="montantProvisionTC" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="montantProvisionTC"/>
+		<property name="com.jaspersoft.studio.field.label" value="montantProvisionTC"/>
+	</field>
+	<field name="montantCumuleTC" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="montantCumuleTC"/>
+		<property name="com.jaspersoft.studio.field.label" value="montantCumuleTC"/>
+	</field>
+	<field name="montantProvisionTrans" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="montantProvisionTrans"/>
+		<property name="com.jaspersoft.studio.field.label" value="montantProvisionTrans"/>
+	</field>
+	<field name="montantCumuleTrans" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="montantCumuleTrans"/>
+		<property name="com.jaspersoft.studio.field.label" value="montantCumuleTrans"/>
+	</field>
+	<field name="montantProvisionAutre" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="montantProvisionAutre"/>
+		<property name="com.jaspersoft.studio.field.label" value="montantProvisionAutre"/>
+	</field>
+	<field name="montantCumuleAutre" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="montantCumuleAutre"/>
+		<property name="com.jaspersoft.studio.field.label" value="montantCumuleAutre"/>
+	</field>
+	<field name="montantProvisionCOC" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="montantProvisionCOC"/>
+		<property name="com.jaspersoft.studio.field.label" value="montantProvisionCOC"/>
+	</field>
+	<field name="montantCumuleCOC" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="montantCumuleCOC"/>
+		<property name="com.jaspersoft.studio.field.label" value="montantCumuleCOC"/>
+	</field>
+	<field name="montantProvisionCREPMF" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="montantProvisionCREPMF"/>
+		<property name="com.jaspersoft.studio.field.label" value="montantProvisionCREPMF"/>
+	</field>
+	<field name="montantCumuleCREPMF" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="montantCumuleCREPMF"/>
+		<property name="com.jaspersoft.studio.field.label" value="montantCumuleCREPMF"/>
+	</field>
+	<field name="montantProvisionAFG" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="montantProvisionAFG"/>
+		<property name="com.jaspersoft.studio.field.label" value="montantProvisionAFG"/>
+	</field>
+	<field name="montantCumuleAFG" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="montantCumuleAFG"/>
+		<property name="com.jaspersoft.studio.field.label" value="montantCumuleAFG"/>
+	</field>
+	<field name="montantProvisionDCBR" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="montantProvisionDCBR"/>
+		<property name="com.jaspersoft.studio.field.label" value="montantProvisionDCBR"/>
+	</field>
+	<field name="montantCumuleDCBR" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="montantCumuleDCBR"/>
+		<property name="com.jaspersoft.studio.field.label" value="montantCumuleDCBR"/>
+	</field>
+	<field name="%actifNetGest" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="%actifNetGest"/>
+		<property name="com.jaspersoft.studio.field.label" value="%actifNetGest"/>
+	</field>
+	<field name="%actifNemontantCumuleGest" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="%actifNemontantCumuleGest"/>
+		<property name="com.jaspersoft.studio.field.label" value="%actifNemontantCumuleGest"/>
+	</field>
+	<field name="%actifNetDCBR" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="%actifNetDCBR"/>
+		<property name="com.jaspersoft.studio.field.label" value="%actifNetDCBR"/>
+	</field>
+	<field name="%actifNemontantCumuleDCBR" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="%actifNemontantCumuleDCBR"/>
+		<property name="com.jaspersoft.studio.field.label" value="%actifNemontantCumuleDCBR"/>
+	</field>
+	<field name="%actifNetTC" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="%actifNetTC"/>
+		<property name="com.jaspersoft.studio.field.label" value="%actifNetTC"/>
+	</field>
+	<field name="%actifNemontantCumuleTC" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="%actifNemontantCumuleTC"/>
+		<property name="com.jaspersoft.studio.field.label" value="%actifNemontantCumuleTC"/>
+	</field>
+	<field name="%actifNetTrans" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="%actifNetTrans"/>
+		<property name="com.jaspersoft.studio.field.label" value="%actifNetTrans"/>
+	</field>
+	<field name="%actifNemontantCumuleTrans" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="%actifNemontantCumuleTrans"/>
+		<property name="com.jaspersoft.studio.field.label" value="%actifNemontantCumuleTrans"/>
+	</field>
+	<field name="%actifNetAutre" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="%actifNetAutre"/>
+		<property name="com.jaspersoft.studio.field.label" value="%actifNetAutre"/>
+	</field>
+	<field name="%actifNemontantCumuleAutre" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="%actifNemontantCumuleAutre"/>
+		<property name="com.jaspersoft.studio.field.label" value="%actifNemontantCumuleAutre"/>
+	</field>
+	<field name="%actifNetCOC" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="%actifNetCOC"/>
+		<property name="com.jaspersoft.studio.field.label" value="%actifNetCOC"/>
+	</field>
+	<field name="%actifNemontantCumuleCOC" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="%actifNemontantCumuleCOC"/>
+		<property name="com.jaspersoft.studio.field.label" value="%actifNemontantCumuleCOC"/>
+	</field>
+	<field name="%actifNetCREPMF" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="%actifNetCREPMF"/>
+		<property name="com.jaspersoft.studio.field.label" value="%actifNetCREPMF"/>
+	</field>
+	<field name="%actifNemontantCumuleCREPMF" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="%actifNemontantCumuleCREPMF"/>
+		<property name="com.jaspersoft.studio.field.label" value="%actifNemontantCumuleCREPMF"/>
+	</field>
+	<field name="%actifNetAFG" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="%actifNetAFG"/>
+		<property name="com.jaspersoft.studio.field.label" value="%actifNetAFG"/>
+	</field>
+	<field name="%actifNemontantCumuleAFG" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="%actifNemontantCumuleAFG"/>
+		<property name="com.jaspersoft.studio.field.label" value="%actifNemontantCumuleAFG"/>
+	</field>
+	<field name="idOpcvm" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="idOpcvm"/>
+		<property name="com.jaspersoft.studio.field.label" value="idOpcvm"/>
+	</field>
+	<field name="dateEstimation" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="dateEstimation"/>
+		<property name="com.jaspersoft.studio.field.label" value="dateEstimation"/>
+	</field>
+	<background splitType="Stretch"/>
+	<title height="92" splitType="Stretch">
+		<element kind="textField" uuid="70d9130b-8c2d-45b3-9777-1279fcfb03b0" x="3" y="3" width="217" height="16">
+			<expression><![CDATA["Cotonou, le "+$P{letterDate}]]></expression>
+		</element>
+		<element kind="rectangle" uuid="1ea49b15-8904-46d8-8aff-887c4b7e001a" x="2" y="26" width="550" height="25" backcolor="#BDD7EE">
+			<pen lineColor="#3B88D1"/>
+		</element>
+		<element kind="staticText" uuid="fc9d88c7-075a-42de-96fd-c2480602bf15" x="152" y="33" width="249" height="17" fontSize="10.0" bold="true" hTextAlign="Center">
+			<text><![CDATA[NOTE SUR LE CAPITAL]]></text>
+		</element>
+		<element kind="textField" uuid="99e07d45-a430-46d3-9ad6-939307b37a35" x="2" y="77" width="458" height="15">
+			<expression><![CDATA["DESIGNATION DE L'ENTREPRISE : "+$P{denominationOpcvm}]]></expression>
+		</element>
+		<element kind="textField" uuid="8f99a822-56e9-4e9f-86cd-ab9284f9e639" x="41" y="56" width="472" height="14" hTextAlign="Center">
+			<expression><![CDATA["(Du 31/12/" + (YEAR($P{dateEstimation}) - 1) + " au " + new java.text.SimpleDateFormat("dd MMMM yyyy").format($P{dateEstimation}) + ")"]]></expression>
+		</element>
+	</title>
+	<pageHeader splitType="Stretch"/>
+	<columnHeader splitType="Stretch"/>
+	<detail>
+		<band height="269" splitType="Stretch">
+			<element kind="staticText" uuid="3ca90031-792f-428a-94ab-702d03429811" x="3" y="5" width="549" height="15">
+				<text><![CDATA[4-3 Rémunération du gestionnaire et du dépositaire]]></text>
+			</element>
+			<element kind="textField" uuid="212c07ee-381d-437c-855e-ef1f1b2eda33" x="3" y="21" width="550" height="159">
+				<expression><![CDATA["La gestion de la société "+$P{denominationOpcvm}+" est confiée à l’établissement gestionnaire "+$P{raisonSocial}+". Celui-ci est chargé des choix des placements et de la gestion administrative et financière de la société."+
+"En contrepartie de ses prestations, le gestionnaire perçoit une rémunération calculée sur la base de l’actif net quotidien."+
+$P{libellePersonneIntervenant}+" assure les fonctions de dépositaire pour "+$P{denominationOpcvm}+". Elle est chargée à ce titre :"+
+"  -    de conserver les titres et les fonds de "+$P{denominationOpcvm}+
+"  -    d’encaisser le montant des souscriptions des actionnaires entrants et le règlement du montant des rachats aux actionnaires sortants."+
+
+"En contrepartie de ses services, elle perçoit une rémunération calculée sur la base de l’actif net quotidien."+
+
+$P{denominationOpcvm}+" doit donner les informations suivantes relatives à cette opération : "]]></expression>
+			</element>
+			<element kind="rectangle" uuid="76a70235-4b2f-4eda-a9c3-f40475c7e324" x="23" y="177" width="507" height="30" backcolor="#BDD7EE"/>
+			<element kind="line" uuid="e38f21d2-d483-4391-9d89-e7963294c3e2" x="430" y="178" width="1" height="29"/>
+			<element kind="line" uuid="50485a42-3d4e-46aa-8d0a-4f8ba01f9933" x="326" y="178" width="1" height="29"/>
+			<element kind="rectangle" uuid="e65f534e-4cf0-4c30-95ea-5a0a029759af" x="23" y="208" width="507" height="30" backcolor="#FFFFFF"/>
+			<element kind="line" uuid="64c8029b-19d1-42db-96a4-84bb7c6caa71" x="430" y="209" width="1" height="29"/>
+			<element kind="line" uuid="f6770078-b415-4a33-86a5-33000762036a" x="326" y="209" width="1" height="29"/>
+			<element kind="rectangle" uuid="8b26880d-d177-4b63-af57-56b958551994" x="23" y="239" width="507" height="30" backcolor="#FFFFFF"/>
+			<element kind="line" uuid="e582b9ff-3f8d-493e-a156-f5ddf49461bf" x="430" y="240" width="1" height="29"/>
+			<element kind="line" uuid="c490cbc8-d2a1-4126-ad56-7c05095a5424" x="326" y="240" width="1" height="29"/>
+			<element kind="staticText" uuid="c1120fe8-68ad-4a00-bb95-f7c96bd569ea" x="29" y="186" width="291" height="13" hTextAlign="Center">
+				<text><![CDATA[Commission]]></text>
+			</element>
+			<element kind="staticText" uuid="9b239790-caed-4c82-8520-cf12a0da0707" x="340" y="187" width="77" height="13" hTextAlign="Center">
+				<text><![CDATA[Montant]]></text>
+			</element>
+			<element kind="staticText" uuid="ae93f742-c63e-4533-bdfb-8d7f3fe16a0e" x="442" y="187" width="77" height="13" hTextAlign="Center">
+				<text><![CDATA[%]]></text>
+			</element>
+			<element kind="staticText" uuid="70e9aa1d-a6f6-4eaa-ae49-c49fee70b67c" x="30" y="217" width="291" height="13" hTextAlign="Left">
+				<text><![CDATA[Gestionnaire]]></text>
+			</element>
+			<element kind="staticText" uuid="baab11c9-5cd6-4b9f-a299-0b229a958e2f" x="30" y="248" width="291" height="13" hTextAlign="Left">
+				<text><![CDATA[Depositaire]]></text>
+			</element>
+			<element kind="textField" uuid="678ecc40-614e-47fe-b11b-6e3dd6e8ecb7" x="330" y="217" width="100" height="16">
+				<expression><![CDATA[$F{montantCumuleGest}]]></expression>
+			</element>
+			<element kind="textField" uuid="bbaf57f1-032f-41c9-9a29-4b7de408b6dd" x="435" y="217" width="94" height="16">
+				<expression><![CDATA[$F{montantCumuleGest}.doubleValue() / (SUM($F{montantCumuleAFG}, $F{montantCumuleAutre}, $F{montantCumuleCOC}, $F{montantCumuleCREPMF}, $F{montantCumuleDCBR}, $F{montantCumuleGest}, $F{montantCumuleTC}, $F{montantCumuleTrans}).doubleValue())]]></expression>
+			</element>
+			<element kind="textField" uuid="342934f1-8d2c-4d08-a3c1-6c6967c1c232" x="330" y="247" width="100" height="14">
+				<expression><![CDATA[$F{montantCumuleDCBR}]]></expression>
+			</element>
+			<element kind="textField" uuid="481f616b-64dc-485b-a643-987840dd36be" x="435" y="247" width="94" height="14">
+				<expression><![CDATA[$F{montantCumuleDCBR}.doubleValue() / (SUM($F{montantCumuleAFG}, $F{montantCumuleAutre}, $F{montantCumuleCOC}, $F{montantCumuleCREPMF}, $F{montantCumuleDCBR}, $F{montantCumuleGest}, $F{montantCumuleTC}, $F{montantCumuleTrans}).doubleValue())]]></expression>
+			</element>
+		</band>
+	</detail>
+	<columnFooter splitType="Stretch"/>
+	<pageFooter height="54" splitType="Stretch">
+		<element kind="staticText" uuid="ee9071be-a924-45c1-ab0f-70f96be32b06" x="5" y="12" width="126" height="13">
+			<text><![CDATA[Edité avec OPCCIEL 2.0]]></text>
+		</element>
+		<element kind="textField" uuid="80f8bbf2-fad3-40b4-b321-016dd2a97f25" x="442" y="13" width="110" height="17" hTextAlign="Right">
+			<expression><![CDATA[$V{PAGE_NUMBER}]]></expression>
+		</element>
+	</pageFooter>
+	<summary height="42" splitType="Stretch"/>
+</jasperReport>

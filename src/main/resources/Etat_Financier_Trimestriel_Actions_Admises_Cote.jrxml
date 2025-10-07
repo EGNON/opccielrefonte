@@ -1,0 +1,113 @@
+<!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 7.0.1-573496633c2b4074e32f433154b543003f7d2498  -->
+<jasperReport name="Etat_Financier_Trimestriel_Actions_Admises_Cote" language="java" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="54d1bcde-27fe-429d-8a40-7d46c58529c6">
+	<parameter name="letterDate" class="java.lang.String"/>
+	<parameter name="denominationOpcvm" class="java.lang.String"/>
+	<parameter name="libellePays" class="java.lang.String"/>
+	<parameter name="dateEstimation" class="java.sql.Date"/>
+	<parameter name="periodicite" class="java.lang.String"/>
+	<field name="idTitre" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="idTitre"/>
+		<property name="com.jaspersoft.studio.field.label" value="idTitre"/>
+	</field>
+	<field name="symboleTitre" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="symboleTitre"/>
+		<property name="com.jaspersoft.studio.field.label" value="symboleTitre"/>
+	</field>
+	<field name="designationTitre" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="designationTitre"/>
+		<property name="com.jaspersoft.studio.field.label" value="designationTitre"/>
+	</field>
+	<field name="coursBoursier" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="coursBoursier"/>
+		<property name="com.jaspersoft.studio.field.label" value="coursBoursier"/>
+	</field>
+	<field name="valeurBaseEvaluation" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="valeurBaseEvaluation"/>
+		<property name="com.jaspersoft.studio.field.label" value="valeurBaseEvaluation"/>
+	</field>
+	<field name="idOpcvm" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="idOpcvm"/>
+		<property name="com.jaspersoft.studio.field.label" value="idOpcvm"/>
+	</field>
+	<field name="dateEstimation" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="dateEstimation"/>
+		<property name="com.jaspersoft.studio.field.label" value="dateEstimation"/>
+	</field>
+	<group name="Group1">
+		<expression><![CDATA[$F{idOpcvm}]]></expression>
+		<groupHeader>
+			<band height="39">
+				<element kind="rectangle" uuid="aa78c165-17ae-4149-a223-5055017bd93f" x="3" y="3" width="796" height="36" backcolor="#FFFFFF"/>
+				<element kind="line" uuid="103ff0f5-b551-43ad-a65a-24f8f7692b8a" x="633" y="3" width="1" height="35"/>
+				<element kind="line" uuid="8303a45b-29d9-41e5-b3cc-dc4d3789fd45" x="445" y="3" width="1" height="35"/>
+				<element kind="staticText" uuid="c95323be-6c6d-4f4a-bd8c-8859c6862b44" x="450" y="8" width="173" height="30" bold="true" hTextAlign="Center">
+					<text><![CDATA[Cours boursier le plus récent (en FCFA)]]></text>
+				</element>
+				<element kind="staticText" uuid="64bb015b-ab00-4d97-8580-8b4c534ba9e4" x="640" y="8" width="150" height="30" bold="true" hTextAlign="Center">
+					<text><![CDATA[Valeur base d'évaluation (en FCFA)]]></text>
+				</element>
+				<element kind="staticText" uuid="a8992c6b-75ff-4421-9fcd-96a3bc029ef9" x="10" y="8" width="419" height="30" bold="true" hTextAlign="Center" vTextAlign="Middle">
+					<text><![CDATA[Désignation]]></text>
+				</element>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band/>
+		</groupFooter>
+	</group>
+	<background splitType="Stretch"/>
+	<title height="109" splitType="Stretch">
+		<element kind="textField" uuid="c4d9352c-7118-49d1-9c72-ec86e8c41885" x="3" y="3" width="217" height="16">
+			<expression><![CDATA["Cotonou, le "+$P{letterDate}]]></expression>
+		</element>
+		<element kind="textField" uuid="34faa566-1894-491b-bacd-293244982beb" x="3" y="90" width="442" height="19">
+			<expression><![CDATA["DESIGNATION DE L'ENTREPRISE : "+$P{denominationOpcvm}]]></expression>
+			<box>
+				<pen lineWidth="1.0" lineColor="#3B88D1"/>
+			</box>
+		</element>
+		<element kind="textField" uuid="05d93194-f9bc-49f0-a0ab-1c43fddf41bf" x="450" y="90" width="349" height="18">
+			<expression><![CDATA["Pays: "+$P{libellePays}]]></expression>
+			<box>
+				<pen lineWidth="1.0" lineColor="#3B88D1"/>
+			</box>
+		</element>
+		<element kind="rectangle" uuid="e416a18c-2d89-4045-b535-4b5b435a1669" x="3" y="27" width="796" height="33" backcolor="#BDD7EE"/>
+		<element kind="staticText" uuid="615d06db-69ca-4928-b90f-b2eda0033598" x="230" y="35" width="342" height="17" fontSize="10.0" bold="true" hTextAlign="Center">
+			<text><![CDATA[PORTEFEUILLE ACTIONS ADMISE A LA COTE]]></text>
+		</element>
+		<element kind="textField" uuid="e1c33964-9fd2-43ac-8a7f-5d9e7ce0a278" x="58" y="66" width="676" height="14" hTextAlign="Center">
+			<expression><![CDATA[EQUALS($P{periodicite}.trim(), "Annuel") ? 
+    "(Du " +  new java.text.SimpleDateFormat("dd/MM/ yyyy").format(new java.sql.Date($P{dateEstimation}.toLocalDate().plusMonths($P{periodicite}=="Trimestre"?-2:-5).withDayOfMonth(1).atStartOfDay(java.time.ZoneId.systemDefault()).toInstant().toEpochMilli())) + " au " + new java.text.SimpleDateFormat("dd/MM/ yyyy").format($P{dateEstimation}) + ")" : 
+    "(du 01 Janvier "+YEAR( $P{dateEstimation})+" au 31 Décembre "+YEAR($P{dateEstimation} )+")"]]></expression>
+		</element>
+	</title>
+	<pageHeader splitType="Stretch"/>
+	<columnHeader splitType="Stretch"/>
+	<detail>
+		<band height="27" splitType="Stretch">
+			<element kind="rectangle" uuid="996e4d3f-f8c4-43c6-bba1-6fb8bf78031b" x="3" y="1" width="796" height="26" backcolor="#FFFFFF"/>
+			<element kind="line" uuid="827ea18a-948e-4cdf-9fe8-8faf1c019443" x="633" y="1" width="1" height="25"/>
+			<element kind="line" uuid="54e12689-3b54-4849-9ad8-8327e4451463" x="445" y="1" width="1" height="25"/>
+			<element kind="textField" uuid="5a3bfd9f-3a9c-41b7-8e18-21ed918cdbd0" x="10" y="8" width="419" height="18">
+				<expression><![CDATA[$F{designationTitre}]]></expression>
+			</element>
+			<element kind="textField" uuid="f07eb36c-bfbf-4972-bc6e-37b591b739ef" x="450" y="8" width="172" height="18" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{coursBoursier}]]></expression>
+			</element>
+			<element kind="textField" uuid="30340cd8-1385-4b45-aa8f-c19327130859" x="640" y="8" width="150" height="18" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{valeurBaseEvaluation}]]></expression>
+			</element>
+		</band>
+	</detail>
+	<columnFooter splitType="Stretch"/>
+	<pageFooter height="36" splitType="Stretch">
+		<element kind="staticText" uuid="76819c50-4d3c-4d6c-aa7a-786166e29dad" x="5" y="12" width="126" height="13">
+			<text><![CDATA[Edité avec OPCCIEL 2.0]]></text>
+		</element>
+		<element kind="textField" uuid="4173b6e0-fdcd-4169-aab8-1eefa51a14a5" x="696" y="13" width="100" height="17" hTextAlign="Right">
+			<expression><![CDATA[$V{PAGE_NUMBER}]]></expression>
+		</element>
+	</pageFooter>
+	<summary height="42" splitType="Stretch"/>
+</jasperReport>

@@ -12,12 +12,12 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ReleveTitreFCPRequest {
+public class EtatFinancierAnnexesNotePortefeuilleTitresAnnuelRequest {
     private Long idOpcvm;
-    private String codeJournal;
     private String type;
-    private LocalDateTime dateDebut;
-    private LocalDateTime dateFin;
     private DatatableParameters datatableParameters;
-    private String Descrip;
+    private String libellePays;
+    private String denominationOpcvm;
+    private String periodicite;
+    private LocalDateTime dateEstimation;
 }

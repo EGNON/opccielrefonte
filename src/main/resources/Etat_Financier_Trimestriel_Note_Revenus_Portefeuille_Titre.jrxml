@@ -1,0 +1,299 @@
+<!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 7.0.1-573496633c2b4074e32f433154b543003f7d2498  -->
+<jasperReport name="Etat_Financier_Trimestriel_Note_Revenus_Portefeuille_Titre" language="java" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="91ada631-204a-4502-8879-cfee5121dc41">
+	<parameter name="letterDate" class="java.lang.String"/>
+	<field name="idOpcvm" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="idOpcvm"/>
+		<property name="com.jaspersoft.studio.field.label" value="idOpcvm"/>
+	</field>
+	<field name="sigleOpcvm" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="sigleOpcvm"/>
+		<property name="com.jaspersoft.studio.field.label" value="sigleOpcvm"/>
+	</field>
+	<field name="denominationOpcvm" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="denominationOpcvm"/>
+		<property name="com.jaspersoft.studio.field.label" value="denominationOpcvm"/>
+	</field>
+	<field name="pays" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="pays"/>
+		<property name="com.jaspersoft.studio.field.label" value="pays"/>
+	</field>
+	<field name="dateEstimation" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="dateEstimation"/>
+		<property name="com.jaspersoft.studio.field.label" value="dateEstimation"/>
+	</field>
+	<field name="dateMois1" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="dateMois1"/>
+		<property name="com.jaspersoft.studio.field.label" value="dateMois1"/>
+	</field>
+	<field name="dividende1" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="dividende1"/>
+		<property name="com.jaspersoft.studio.field.label" value="dividende1"/>
+	</field>
+	<field name="revenusActionCote1" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="revenusActionCote1"/>
+		<property name="com.jaspersoft.studio.field.label" value="revenusActionCote1"/>
+	</field>
+	<field name="revenusActionNonCote1" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="revenusActionNonCote1"/>
+		<property name="com.jaspersoft.studio.field.label" value="revenusActionNonCote1"/>
+	</field>
+	<field name="revenusOpcvm1" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="revenusOpcvm1"/>
+		<property name="com.jaspersoft.studio.field.label" value="revenusOpcvm1"/>
+	</field>
+	<field name="revenusObligation1" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="revenusObligation1"/>
+		<property name="com.jaspersoft.studio.field.label" value="revenusObligation1"/>
+	</field>
+	<field name="interets1" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="interets1"/>
+		<property name="com.jaspersoft.studio.field.label" value="interets1"/>
+	</field>
+	<field name="primesRemboursement1" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="primesRemboursement1"/>
+		<property name="com.jaspersoft.studio.field.label" value="primesRemboursement1"/>
+	</field>
+	<field name="revenusTCsurMF1" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="revenusTCsurMF1"/>
+		<property name="com.jaspersoft.studio.field.label" value="revenusTCsurMF1"/>
+	</field>
+	<field name="total1" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="total1"/>
+		<property name="com.jaspersoft.studio.field.label" value="total1"/>
+	</field>
+	<field name="dateMois2" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="dateMois2"/>
+		<property name="com.jaspersoft.studio.field.label" value="dateMois2"/>
+	</field>
+	<field name="dividende2" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="dividende2"/>
+		<property name="com.jaspersoft.studio.field.label" value="dividende2"/>
+	</field>
+	<field name="revenusActionCote2" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="revenusActionCote2"/>
+		<property name="com.jaspersoft.studio.field.label" value="revenusActionCote2"/>
+	</field>
+	<field name="revenusActionNonCote2" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="revenusActionNonCote2"/>
+		<property name="com.jaspersoft.studio.field.label" value="revenusActionNonCote2"/>
+	</field>
+	<field name="revenusOpcvm2" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="revenusOpcvm2"/>
+		<property name="com.jaspersoft.studio.field.label" value="revenusOpcvm2"/>
+	</field>
+	<field name="revenusObligation2" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="revenusObligation2"/>
+		<property name="com.jaspersoft.studio.field.label" value="revenusObligation2"/>
+	</field>
+	<field name="interets2" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="interets2"/>
+		<property name="com.jaspersoft.studio.field.label" value="interets2"/>
+	</field>
+	<field name="primesRemboursement2" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="primesRemboursement2"/>
+		<property name="com.jaspersoft.studio.field.label" value="primesRemboursement2"/>
+	</field>
+	<field name="revenusTCsurMF2" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="revenusTCsurMF2"/>
+		<property name="com.jaspersoft.studio.field.label" value="revenusTCsurMF2"/>
+	</field>
+	<field name="total2" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="total2"/>
+		<property name="com.jaspersoft.studio.field.label" value="total2"/>
+	</field>
+	<background splitType="Stretch"/>
+	<title height="114" splitType="Stretch">
+		<element kind="textField" uuid="7f69d16a-04b3-4dde-9c4b-63e66ed6b0fb" x="3" y="3" width="217" height="16">
+			<expression><![CDATA["Cotonou, le "+$P{letterDate}]]></expression>
+		</element>
+		<element kind="rectangle" uuid="0622c37a-0e92-4a95-b6be-c94949d2664a" x="445" y="87" width="108" height="27" backcolor="#FFFFFF">
+			<pen lineColor="#3B88D1"/>
+		</element>
+		<element kind="rectangle" uuid="d62b9717-9265-4761-989c-2fa8670df2bc" x="8" y="87" width="430" height="27" backcolor="#FFFFFF">
+			<pen lineColor="#3B88D1"/>
+		</element>
+		<element kind="rectangle" uuid="c738f613-01e6-41b6-82d2-fe1854eb5c23" x="2" y="26" width="550" height="22" backcolor="#BDD7EE">
+			<pen lineColor="#3B88D1"/>
+		</element>
+		<element kind="staticText" uuid="03445cc3-d1ee-4d1d-b928-01b5da544814" x="100" y="31" width="342" height="15" fontSize="10.0" bold="true" hTextAlign="Center">
+			<text><![CDATA[NOTE SUR LES REVENUS DU PORTEFEUILLE TITRE]]></text>
+		</element>
+		<element kind="rectangle" uuid="6447a465-cee5-4ffd-b410-e2f419fa576f" x="2" y="55" width="550" height="25" backcolor="#FFFFFF">
+			<pen lineColor="#3B88D1"/>
+		</element>
+		<element kind="textField" uuid="812fc920-7a57-469a-b803-419812fe9599" x="15" y="97" width="414" height="17" bold="true">
+			<expression><![CDATA["DESIGNATION DE L'ENTREPRISE : "+$F{denominationOpcvm}]]></expression>
+		</element>
+		<element kind="textField" uuid="2f7e0dc3-089e-4503-a1bf-ce7600d61530" x="451" y="97" width="95" height="17" bold="true">
+			<expression><![CDATA["PAYS : "+$F{pays}]]></expression>
+		</element>
+		<element kind="textField" uuid="8a36ec94-9832-4288-8b5e-2fddcc1ad73a" x="130" y="61" width="310" height="13" bold="true" hTextAlign="Center">
+			<expression><![CDATA["(du 01 Janvier 2017 au 31 Décembre 2017)"]]></expression>
+		</element>
+	</title>
+	<pageHeader splitType="Stretch"/>
+	<columnHeader splitType="Stretch"/>
+	<detail>
+		<band height="300" splitType="Stretch">
+			<element kind="rectangle" uuid="f741a49e-9aa8-433a-84fc-b4246ce7db69" x="2" y="9" width="550" height="291"/>
+			<element kind="rectangle" uuid="cf5c42d7-a03c-415d-b07c-7d3fac9c9a58" x="2" y="6" width="550" height="17" backcolor="#BDD7EE">
+				<pen lineColor="#000000"/>
+			</element>
+			<element kind="staticText" uuid="d863f9ea-dbc5-4eee-ad10-e9ebf46c1150" x="9" y="28" width="210" height="13" bold="true" hTextAlign="Left">
+				<text><![CDATA[- DIVIDENDE]]></text>
+				<box>
+					<pen lineWidth="1.0" lineColor="#3B88D1"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="fcb5e2ce-8d4a-42d7-adc3-b924004be33f" x="9" y="46" width="240" height="30" bold="false" hTextAlign="Left">
+				<text><![CDATA[Revenus des actions et valeurs assimilées admises à la cote]]></text>
+				<box>
+					<pen lineWidth="1.0" lineColor="#3B88D1"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="d535e0e0-fa0d-49c7-b91f-ed04964a46ef" x="9" y="81" width="240" height="29" bold="true" hTextAlign="Left">
+				<text><![CDATA[Revenus des actions et valeurs assimilées non admises à la cote]]></text>
+				<box>
+					<pen lineWidth="1.0" lineColor="#3B88D1"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="5828bb15-7167-4992-82a5-d5942c17b09f" x="9" y="115" width="240" height="13" bold="false" hTextAlign="Left">
+				<text><![CDATA[Revenus des titres OPCVM]]></text>
+				<box>
+					<pen lineWidth="1.0" lineColor="#3B88D1"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="4c5af59e-6c53-4f2e-a657-32b166a268fc" x="9" y="133" width="210" height="27" bold="true" hTextAlign="Left">
+				<text><![CDATA[-REVENUS DES OBLIGATIONS ET VALEURS ASSIMILEES]]></text>
+				<box>
+					<pen lineWidth="1.0" lineColor="#3B88D1"/>
+				</box>
+			</element>
+			<element kind="textField" uuid="d551d1fd-305b-4e94-9a0c-b127e437f8b8" x="341" y="28" width="100" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true" bold="true">
+				<expression><![CDATA[$F{dividende1}]]></expression>
+			</element>
+			<element kind="textField" uuid="14033de9-6948-4be5-9607-975847c3de7d" x="341" y="46" width="100" height="30" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{revenusActionCote1}]]></expression>
+			</element>
+			<element kind="textField" uuid="076fd018-4f4b-4c4c-9a02-7c85cc8f9595" x="341" y="80" width="100" height="29" pattern="#,##0.###;#,##0.###" blankWhenNull="true" bold="true">
+				<expression><![CDATA[$F{revenusActionNonCote1}]]></expression>
+			</element>
+			<element kind="textField" uuid="888ec889-cd94-435b-bfa7-fd5e87bc2a5a" x="341" y="115" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true" bold="false">
+				<expression><![CDATA[$F{revenusOpcvm1}]]></expression>
+			</element>
+			<element kind="textField" uuid="9fc9b406-9c0f-4a2d-a225-885234c800ba" x="341" y="133" width="100" height="27" pattern="#,##0.###;#,##0.###" blankWhenNull="true" bold="true">
+				<expression><![CDATA[$F{revenusObligation1}]]></expression>
+			</element>
+			<element kind="textField" uuid="0694e9dd-9dbe-4618-bb9e-8898f9b6cd41" x="341" y="165" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true" bold="false">
+				<expression><![CDATA[$F{revenusObligation1}]]></expression>
+			</element>
+			<element kind="textField" uuid="49d22a27-3f79-4fc2-93b6-dddb86be12ce" x="448" y="28" width="100" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true" bold="true">
+				<expression><![CDATA[$F{dividende2}]]></expression>
+			</element>
+			<element kind="textField" uuid="4f287500-e0dd-4e21-a8ae-0aa7c87652eb" x="448" y="46" width="100" height="30" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{revenusActionCote2}]]></expression>
+			</element>
+			<element kind="textField" uuid="a2e9efdd-ed80-44b6-bdbb-96ed209d5bba" x="448" y="80" width="100" height="29" pattern="#,##0.###;#,##0.###" blankWhenNull="true" bold="true">
+				<expression><![CDATA[$F{revenusActionNonCote2}]]></expression>
+			</element>
+			<element kind="textField" uuid="63210816-0abc-44b6-8bbd-27e6fd69f60e" x="448" y="115" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true" bold="false">
+				<expression><![CDATA[$F{revenusOpcvm2}]]></expression>
+			</element>
+			<element kind="textField" uuid="ad3b7a96-88ec-4f3b-a27f-de59127af60c" x="448" y="133" width="100" height="27" pattern="#,##0.###;#,##0.###" blankWhenNull="true" bold="true">
+				<expression><![CDATA[$F{revenusObligation2}]]></expression>
+			</element>
+			<element kind="textField" uuid="92255027-acc0-4a9b-8e9e-f1688dadef20" x="448" y="165" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true" bold="false">
+				<expression><![CDATA[$F{revenusObligation2}]]></expression>
+			</element>
+			<element kind="staticText" uuid="bfe47ad0-1d93-4f63-8172-1fcc75841df2" x="9" y="165" width="240" height="13" bold="false" hTextAlign="Left">
+				<text><![CDATA[Revenus des obligations et valeurs assimilées]]></text>
+				<box>
+					<pen lineWidth="1.0" lineColor="#3B88D1"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="996f7637-b6cc-410a-9a0d-193ff3286eff" x="291" y="9" width="34" height="13" bold="true" hTextAlign="Center">
+				<text><![CDATA[NOTE]]></text>
+			</element>
+			<element kind="line" uuid="cf759ef1-7fc3-4076-9617-4e0c5765292c" x="276" y="6" width="1" height="294"/>
+			<element kind="line" uuid="1e90901f-69cd-4080-be09-be82b62bee68" x="337" y="6" width="1" height="294"/>
+			<element kind="line" uuid="a6c0eea2-89a6-4238-b5b9-5d6750520542" x="444" y="5" width="1" height="294"/>
+			<element kind="line" uuid="842f0556-b671-4514-91ff-068ce7ffe2c4" x="2" y="274" width="550" height="1"/>
+			<element kind="staticText" uuid="ef3db5eb-6da5-4f45-961f-75cb7ed53beb" x="9" y="279" width="210" height="13" bold="true" hTextAlign="Left">
+				<text><![CDATA[TOTAL ]]></text>
+				<box>
+					<pen lineWidth="1.0" lineColor="#3B88D1"/>
+				</box>
+			</element>
+			<element kind="textField" uuid="7bef3d80-8cac-48e7-b06a-0c00788c8d56" x="341" y="279" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true" bold="true">
+				<expression><![CDATA[$F{total1}]]></expression>
+			</element>
+			<element kind="textField" uuid="58773dd1-f66c-4daf-bab9-4c7344586255" x="448" y="279" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true" bold="true">
+				<expression><![CDATA[$F{total2}]]></expression>
+			</element>
+			<element kind="textField" uuid="5f790dad-5f88-453b-abf2-11eddc39b73e" x="356" y="8" width="70" height="13" bold="true" hTextAlign="Center">
+				<expression><![CDATA[$F{dateMois1}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"))]]></expression>
+			</element>
+			<element kind="textField" uuid="5d79cab8-c306-4f80-88d5-04c650a8585d" x="463" y="8" width="70" height="13" bold="true" hTextAlign="Center">
+				<expression><![CDATA[$F{dateMois2}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"))]]></expression>
+			</element>
+			<element kind="staticText" uuid="6db26b13-3bf1-45dd-9cb1-c15104a80d50" x="9" y="255" width="240" height="13" bold="false" hTextAlign="Left">
+				<text><![CDATA[Intérets]]></text>
+				<box>
+					<pen lineWidth="1.0" lineColor="#3B88D1"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="ab933a2f-2d19-48c7-a099-69052db97121" x="9" y="220" width="210" height="30" bold="true" hTextAlign="Left">
+				<text><![CDATA[Revenus des titres de Créances émis par le Trésor et négociable sur le MF]]></text>
+				<box>
+					<pen lineWidth="1.0" lineColor="#3B88D1"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="4981874f-6464-46cc-900f-1c8df99ea17c" x="9" y="202" width="240" height="13" bold="false" hTextAlign="Left">
+				<text><![CDATA[Primes de remboursement]]></text>
+				<box>
+					<pen lineWidth="1.0" lineColor="#3B88D1"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="849cd3fb-24e0-4873-bcf4-02871d012c59" x="9" y="183" width="240" height="14" bold="true" hTextAlign="Left">
+				<text><![CDATA[Intérets]]></text>
+				<box>
+					<pen lineWidth="1.0" lineColor="#3B88D1"/>
+				</box>
+			</element>
+			<element kind="textField" uuid="e391d211-6f9e-4380-be11-86eb7e692f68" x="341" y="182" width="100" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true" bold="true">
+				<expression><![CDATA[$F{interets1}]]></expression>
+			</element>
+			<element kind="textField" uuid="5066103c-941c-4580-899f-2f9efac92fd9" x="341" y="202" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true" bold="false">
+				<expression><![CDATA[$F{primesRemboursement1}]]></expression>
+			</element>
+			<element kind="textField" uuid="04b26744-8a01-4cf7-a2c8-2f9d745872ae" x="448" y="182" width="100" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true" bold="true">
+				<expression><![CDATA[$F{interets2}]]></expression>
+			</element>
+			<element kind="textField" uuid="fc823598-4ffd-463f-afd0-ad91656c201e" x="448" y="202" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true" bold="false">
+				<expression><![CDATA[$F{primesRemboursement2}]]></expression>
+			</element>
+			<element kind="textField" uuid="219f22f0-32e9-4716-89aa-dad13a445446" x="448" y="220" width="100" height="30" pattern="#,##0.###;#,##0.###" blankWhenNull="true" bold="true">
+				<expression><![CDATA[$F{revenusTCsurMF2}]]></expression>
+			</element>
+			<element kind="textField" uuid="52e2cbd6-abed-4417-8d71-61dd9a74b52d" x="448" y="255" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true" bold="false">
+				<expression><![CDATA[$F{revenusTCsurMF2}]]></expression>
+			</element>
+			<element kind="textField" uuid="9165a27d-9036-46a9-a83c-c767bb2bd9ee" x="341" y="220" width="100" height="30" pattern="#,##0.###;#,##0.###" blankWhenNull="true" bold="true">
+				<expression><![CDATA[$F{revenusTCsurMF1}]]></expression>
+			</element>
+			<element kind="textField" uuid="ababeaaa-846c-4666-871d-9d4057666893" x="341" y="255" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true" bold="false">
+				<expression><![CDATA[$F{revenusTCsurMF1}]]></expression>
+			</element>
+		</band>
+	</detail>
+	<columnFooter splitType="Stretch"/>
+	<pageFooter height="54" splitType="Stretch">
+		<element kind="staticText" uuid="d67ca1a8-0a62-4605-8dde-741401cd5fdd" x="5" y="21" width="126" height="13">
+			<text><![CDATA[Edité avec OPCCIEL 2.0]]></text>
+		</element>
+		<element kind="textField" uuid="9b238ba1-5c0d-4c1e-975f-811260f8132d" x="453" y="21" width="100" height="19" hTextAlign="Right">
+			<expression><![CDATA[$V{PAGE_NUMBER}]]></expression>
+		</element>
+	</pageFooter>
+	<summary height="42" splitType="Stretch"/>
+</jasperReport>

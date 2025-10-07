@@ -1,0 +1,127 @@
+<!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 7.0.1-573496633c2b4074e32f433154b543003f7d2498  -->
+<jasperReport name="Etat_Financier_Annuel_F1_Engagement_Hors_Bilan" language="java" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8f512f84-1b2e-4384-a55d-25cfb2681047">
+	<parameter name="letterDate" class="java.lang.String"/>
+	<parameter name="date1" class="java.sql.Date"/>
+	<parameter name="date2" class="java.sql.Date"/>
+	<field name="typeTitre" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="typeTitre"/>
+		<property name="com.jaspersoft.studio.field.label" value="typeTitre"/>
+	</field>
+	<field name="designationTitre" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="designationTitre"/>
+		<property name="com.jaspersoft.studio.field.label" value="designationTitre"/>
+	</field>
+	<field name="qte1" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="qte1"/>
+		<property name="com.jaspersoft.studio.field.label" value="qte1"/>
+	</field>
+	<field name="qte2" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="qte2"/>
+		<property name="com.jaspersoft.studio.field.label" value="qte2"/>
+	</field>
+	<field name="denominationOpcvm" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="denominationOpcvm"/>
+		<property name="com.jaspersoft.studio.field.label" value="denominationOpcvm"/>
+	</field>
+	<field name="pays" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="pays"/>
+		<property name="com.jaspersoft.studio.field.label" value="pays"/>
+	</field>
+	<field name="idOpcvm" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="idOpcvm"/>
+		<property name="com.jaspersoft.studio.field.label" value="idOpcvm"/>
+	</field>
+	<field name="dateEstimation" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="dateEstimation"/>
+		<property name="com.jaspersoft.studio.field.label" value="dateEstimation"/>
+	</field>
+	<group name="Group1">
+		<expression><![CDATA[$F{dateEstimation}]]></expression>
+		<groupHeader>
+			<band height="60">
+				<element kind="rectangle" uuid="731fedcb-ff19-4dc1-ac0b-79924d2cf9d9" x="2" y="15" width="796" height="35" backcolor="#BDD7EE"/>
+				<element kind="line" uuid="0f0f28c8-04c9-42f7-96db-7dfae67d2e35" x="663" y="15" width="1" height="35"/>
+				<element kind="line" uuid="a2cc0896-ce96-45f2-96f2-00c7bd0a78fa" x="520" y="15" width="1" height="35"/>
+				<element kind="staticText" uuid="756a1919-b19e-491a-b1d5-3df90a008192" x="10" y="28" width="496" height="17" fontSize="10.0" bold="true" hTextAlign="Center">
+					<text><![CDATA[ETAT DE VARIATION DE L'ACTIF NET]]></text>
+				</element>
+				<element kind="textField" uuid="a5c1cef0-f030-4333-8b23-f73e994a17c4" x="530" y="28" width="118" height="17">
+					<expression><![CDATA[$P{date1}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"))]]></expression>
+				</element>
+				<element kind="textField" uuid="8f631ba2-8da7-494d-9ff3-952b7463368f" x="670" y="28" width="118" height="17">
+					<expression><![CDATA[$P{date2}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"))]]></expression>
+				</element>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band/>
+		</groupFooter>
+	</group>
+	<group name="Group2">
+		<expression><![CDATA[$F{typeTitre}]]></expression>
+		<groupHeader>
+			<band height="37">
+				<element kind="rectangle" uuid="2a1d961a-c399-47f8-b400-a012f96c2fef" x="2" y="2" width="796" height="35" backcolor="#FFFFFF"/>
+				<element kind="textField" uuid="3e0d89c7-d03f-4bfa-8159-0e7cd86d8484" x="12" y="13" width="776" height="19" hTextAlign="Center">
+					<expression><![CDATA[$F{typeTitre}]]></expression>
+				</element>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band/>
+		</groupFooter>
+	</group>
+	<background splitType="Stretch"/>
+	<title height="129" splitType="Stretch">
+		<element kind="rectangle" uuid="e88262fd-50fa-4b38-aa62-fbb746a25bc3" x="2" y="26" width="797" height="103"/>
+		<element kind="textField" uuid="e4d7342b-5cf5-470d-94ef-847a451e99bd" x="3" y="3" width="464" height="16">
+			<expression><![CDATA["Cotonou, le "+$P{letterDate}]]></expression>
+		</element>
+		<element kind="rectangle" uuid="99f28e8d-c9ba-45de-bec3-03d2860f7362" x="623" y="86" width="170" height="27" backcolor="#FFFFFF">
+			<pen lineColor="#3B88D1"/>
+		</element>
+		<element kind="rectangle" uuid="8d581de2-389c-4044-9bd5-3b34cdc9b8c3" x="8" y="86" width="602" height="27" backcolor="#FFFFFF">
+			<pen lineColor="#3B88D1"/>
+		</element>
+		<element kind="rectangle" uuid="27f49dc1-68fd-4fef-9c63-2fb727fcf032" x="2" y="26" width="797" height="45" backcolor="#BDD7EE">
+			<pen lineColor="#3B88D1"/>
+		</element>
+		<element kind="staticText" uuid="b01746ab-eeb1-4d7e-b428-8ced936e18f9" x="152" y="44" width="496" height="17" fontSize="10.0" bold="true" hTextAlign="Center">
+			<text><![CDATA[ENGAGEMENT HORS BILAN]]></text>
+		</element>
+		<element kind="textField" uuid="695e53ef-fed6-4808-8339-7ab38fa901c0" x="15" y="96" width="584" height="17" bold="true">
+			<expression><![CDATA["DESIGNATION DE L'ENTREPRISE : "+$F{denominationOpcvm}]]></expression>
+		</element>
+		<element kind="textField" uuid="e26c440d-e960-4fdf-8206-1565a53a5764" x="633" y="96" width="153" height="17" bold="true">
+			<expression><![CDATA["PAYS : "+$F{pays}]]></expression>
+		</element>
+	</title>
+	<pageHeader splitType="Stretch"/>
+	<columnHeader splitType="Stretch"/>
+	<detail>
+		<band height="37" splitType="Stretch">
+			<element kind="rectangle" uuid="0534f27f-4ee8-4b17-bdc3-5308265d2824" x="2" y="2" width="796" height="35" backcolor="#FFFFFF"/>
+			<element kind="line" uuid="35cfcf02-f17b-4510-808b-f140ad61b659" x="663" y="2" width="1" height="35"/>
+			<element kind="line" uuid="8753b2d3-e69c-4918-9d1a-04c75522b495" x="520" y="2" width="1" height="35"/>
+			<element kind="textField" uuid="c00854c5-0a98-4482-bac0-eebe44ef0b4f" x="12" y="13" width="494" height="18">
+				<expression><![CDATA[$F{designationTitre}]]></expression>
+			</element>
+			<element kind="textField" uuid="b0d4a6f7-0bdd-4a44-af1a-4b2db899ed45" x="530" y="13" width="118" height="18">
+				<expression><![CDATA[$F{qte1}]]></expression>
+			</element>
+			<element kind="textField" uuid="55eb5ff6-a9ce-4dc3-8452-ea959716ce9a" x="670" y="13" width="116" height="18">
+				<expression><![CDATA[$F{qte2}]]></expression>
+			</element>
+		</band>
+	</detail>
+	<columnFooter splitType="Stretch"/>
+	<pageFooter height="54" splitType="Stretch">
+		<element kind="staticText" uuid="687310ff-f1e1-4b1e-87dd-f85438188ba1" x="5" y="21" width="126" height="13">
+			<text><![CDATA[Edité avec OPCCIEL 2.0]]></text>
+		</element>
+		<element kind="textField" uuid="fb7216d7-5ff5-429e-bf86-7e96c8bd8ead" x="698" y="21" width="100" height="18" hTextAlign="Right">
+			<expression><![CDATA[$V{PAGE_NUMBER}]]></expression>
+		</element>
+	</pageFooter>
+	<summary height="42" splitType="Stretch"/>
+</jasperReport>

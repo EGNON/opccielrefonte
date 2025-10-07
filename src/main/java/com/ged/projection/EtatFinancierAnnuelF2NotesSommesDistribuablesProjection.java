@@ -1,0 +1,23 @@
+package com.ged.projection;
+
+import java.math.BigDecimal;
+
+public interface EtatFinancierAnnuelF2NotesSommesDistribuablesProjection {
+
+    Long getIdOpcvm();
+    String getSigleOpcvm();
+    String getDenominationOpcvm();
+    String getPays();
+
+    Integer getAnneeN();
+    BigDecimal getresulatDistribN();
+    BigDecimal getregulResultatDistribN();
+    BigDecimal getTotalN();
+
+
+
+    Integer getAnneeA();
+    BigDecimal getresulatDistribA();
+    BigDecimal getregulResultatDistribA();
+    BigDecimal getTotalA();
+}

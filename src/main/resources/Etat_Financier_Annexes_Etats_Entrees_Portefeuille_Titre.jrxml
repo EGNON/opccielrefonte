@@ -1,0 +1,105 @@
+<!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 7.0.1-573496633c2b4074e32f433154b543003f7d2498  -->
+<jasperReport name="Etat_Financier_Annexes_Etats_Entrees_Portefeuille_Titre" language="java" columnCount="1" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="1d7ad17b-4483-4719-babb-37ed881f9e30">
+	<parameter name="letterDate" class="java.lang.String"/>
+	<parameter name="exercice" class="java.lang.String"/>
+	<parameter name="denominationOpcvm" class="java.lang.String"/>
+	<parameter name="libellePays" class="java.lang.String"/>
+	<field name="classeTitre" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="classeTitre"/>
+		<property name="com.jaspersoft.studio.field.label" value="classeTitre"/>
+	</field>
+	<field name="Cout" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="Cout"/>
+		<property name="com.jaspersoft.studio.field.label" value="Cout"/>
+	</field>
+	<field name="Entete1" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="Entete1"/>
+		<property name="com.jaspersoft.studio.field.label" value="Entete1"/>
+	</field>
+	<field name="Entete2" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="Entete2"/>
+		<property name="com.jaspersoft.studio.field.label" value="Entete2"/>
+	</field>
+	<field name="idOpcvm" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="idOpcvm"/>
+		<property name="com.jaspersoft.studio.field.label" value="idOpcvm"/>
+	</field>
+	<field name="dateDebut" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="dateDebut"/>
+		<property name="com.jaspersoft.studio.field.label" value="dateDebut"/>
+	</field>
+	<field name="dateFin" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="dateFin"/>
+		<property name="com.jaspersoft.studio.field.label" value="dateFin"/>
+	</field>
+	<group name="Group1">
+		<expression><![CDATA[$F{Entete1}]]></expression>
+		<groupHeader>
+			<band height="42">
+				<element kind="rectangle" uuid="e3a39673-99f8-40e0-ad2b-2d87fc7b4872" x="3" y="4" width="796" height="33" backcolor="#BDD7EE"/>
+				<element kind="line" uuid="10495820-c4bc-4fa7-a61e-4b358b1ca946" x="589" y="5" width="1" height="32"/>
+				<element kind="textField" uuid="63335d83-8dbc-4f55-9917-0f607be681a4" x="10" y="13" width="562" height="15">
+					<expression><![CDATA[$F{Entete1}]]></expression>
+				</element>
+				<element kind="textField" uuid="a814b5ce-834b-4643-9f0d-37cac3ffd588" x="595" y="13" width="195" height="14">
+					<expression><![CDATA[$F{Entete2}]]></expression>
+				</element>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band/>
+		</groupFooter>
+	</group>
+	<background splitType="Stretch"/>
+	<title height="109" splitType="Stretch">
+		<element kind="textField" uuid="91eca6db-c5e5-44b0-b7ef-b19fd363602d" x="3" y="3" width="217" height="16">
+			<expression><![CDATA["Cotonou, le "+$P{letterDate}]]></expression>
+		</element>
+		<element kind="rectangle" uuid="155662f2-9002-4240-b3bf-d1e481e76d91" x="3" y="27" width="796" height="33" backcolor="#BDD7EE"/>
+		<element kind="staticText" uuid="58a0ba42-d98a-4d47-a21d-c416805cf0fb" x="230" y="35" width="342" height="17" fontSize="10.0" bold="true" hTextAlign="Center">
+			<text><![CDATA[ETAT DES ENTRES EN PORTEFEUILLE TITRE]]></text>
+		</element>
+		<element kind="textField" uuid="e97bc722-be07-442b-a128-82171be46ac8" x="66" y="66" width="670" height="15" hTextAlign="Center">
+			<expression><![CDATA["(du 01 Janvier "+$P{exercice}+" au 31 Décembre "+$P{exercice}+")"]]></expression>
+			<box>
+				<pen lineWidth="1.0" lineColor="#3B88D1"/>
+			</box>
+		</element>
+		<element kind="textField" uuid="ae1f728a-6676-45c1-8324-ce5a3f2c72f2" x="3" y="90" width="569" height="19">
+			<expression><![CDATA["DESIGNATION DE L'ENTREPRISE : "+$P{denominationOpcvm}]]></expression>
+			<box>
+				<pen lineWidth="1.0" lineColor="#3B88D1"/>
+			</box>
+		</element>
+		<element kind="textField" uuid="a992af13-e23f-49d1-9496-fb9c41239d1e" x="595" y="90" width="203" height="18">
+			<expression><![CDATA["Pays: "+$P{libellePays}]]></expression>
+			<box>
+				<pen lineWidth="1.0" lineColor="#3B88D1"/>
+			</box>
+		</element>
+	</title>
+	<pageHeader splitType="Stretch"/>
+	<columnHeader splitType="Stretch"/>
+	<detail>
+		<band height="29" splitType="Stretch">
+			<element kind="rectangle" uuid="5fc27f18-935d-461c-89fc-a198313a8e91" x="3" y="-4" width="796" height="33" backcolor="#FFFFFF"/>
+			<element kind="line" uuid="0b75d17a-89b2-41cd-95d2-8a5e56423759" x="589" y="-3" width="1" height="32"/>
+			<element kind="textField" uuid="154ed612-2b38-4aff-93ce-58d8ab33cfaa" x="10" y="5" width="562" height="20">
+				<expression><![CDATA[$F{classeTitre}]]></expression>
+			</element>
+			<element kind="textField" uuid="6719e3b3-8b9f-4f2d-b40c-859870c267ba" x="595" y="5" width="195" height="20" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{Cout}]]></expression>
+			</element>
+		</band>
+	</detail>
+	<columnFooter splitType="Stretch"/>
+	<pageFooter height="55" splitType="Stretch">
+		<element kind="staticText" uuid="48374f44-580b-4cb2-8072-254de3402fc0" x="5" y="12" width="126" height="13">
+			<text><![CDATA[Edité avec OPCCIEL 2.0]]></text>
+		</element>
+		<element kind="textField" uuid="a092963f-7442-439b-a195-ce56e80a78d0" x="698" y="17" width="100" height="13">
+			<expression><![CDATA[$V{PAGE_NUMBER}]]></expression>
+		</element>
+	</pageFooter>
+	<summary height="42" splitType="Stretch"/>
+</jasperReport>

@@ -1,0 +1,174 @@
+package com.ged.projection;
+
+import com.ged.entity.opcciel.Opcvm;
+import com.ged.entity.opcciel.comptabilite.NatureOperation;
+
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+
+public interface EtatFinancierTrimestrielBilanTrimestrielProjection {
+
+    Long getIdOpcvm();
+    String getSigleOpcvm();
+    LocalDateTime getDateEstimation();
+    String getDenominationOpcvm();
+    Integer getAnnee();
+    String getPays();
+
+    LocalDateTime getDateMois1();
+    BigDecimal getPortefeuilleTitre1();
+    BigDecimal getActionAssimDroit1();
+    BigDecimal getObligationAssim1();
+    BigDecimal getAutresValeurs1();
+    BigDecimal getPlacementMonetDisposition1();
+    BigDecimal getPlacementMonetaire1();
+    BigDecimal getDisponibilite1();
+    BigDecimal getCreanceExploitation1();
+    BigDecimal getAutreActif1();
+    BigDecimal getTotalActif1();
+    BigDecimal getOperateurCrediteur1();
+    BigDecimal getAutreCrediteurDivers1();
+    BigDecimal getTotalPassif1();
+    BigDecimal getCapital1();
+    BigDecimal getSommeDistribuable1();
+    BigDecimal getSommeDistribuableExoAnt1();
+    BigDecimal getSommeDistribuableExoEnc1();
+    BigDecimal getActifNet1();
+    BigDecimal getTotalPassifActifNet1();
+
+    BigDecimal getTitresOpcvm1();
+    BigDecimal getPersonnelsDebiteurs1();
+    BigDecimal getAutresDebiteurs1();
+    BigDecimal getCompteDeRegularisationActif1();
+    BigDecimal getImmoFinancieres1();
+    BigDecimal getImmoCorporelles1();
+    BigDecimal getAmortImmo1();
+    BigDecimal getGestionnaires1();
+    BigDecimal getDepositaires1();
+    BigDecimal getSousAchTitAregler1();
+    BigDecimal getCourtierEtAutresInter1();
+    BigDecimal getAutresOpCrediteurs1();
+    BigDecimal getComptesAffectPeriodCharges1();
+    BigDecimal getActionnaires1();
+    BigDecimal getPersonnelCrediteurs1();
+    BigDecimal getEtat1();
+    BigDecimal getOrganismsSociaux1();
+    BigDecimal getAutresCrediteurs1();
+    BigDecimal getCompteRegulPassif1();
+    BigDecimal getCapitalSocial1();
+    BigDecimal getSousRach1();
+    BigDecimal getSommesNonDistribuable1();
+    BigDecimal getFraisConstFusionApport1();
+    BigDecimal getCommissionSousRach1();
+    BigDecimal getFraisNegocTransAutresTitres1();
+    BigDecimal getVariationVDEsurPortTitres1();
+    BigDecimal getPlusOuMoinsValueSurTitres1();
+    BigDecimal getRegulSomNonDistribExoEnCours1();
+    BigDecimal getSommesNonDistribuableExoAnt1();
+
+
+    LocalDateTime getDateMois2();
+    BigDecimal getPortefeuilleTitre2();
+    BigDecimal getActionAssimDroit2();
+    BigDecimal getObligationAssim2();
+    BigDecimal getAutresValeurs2();
+    BigDecimal getPlacementMonetDisposition2();
+    BigDecimal getPlacementMonetaire2();
+    BigDecimal getDisponibilite2();
+    BigDecimal getCreanceExploitation2();
+    BigDecimal getAutreActif2();
+    BigDecimal getTotalActif2();
+    BigDecimal getOperateurCrediteur2();
+    BigDecimal getAutreCrediteurDivers2();
+    BigDecimal getTotalPassif2();
+    BigDecimal getCapital2();
+    BigDecimal getSommeDistribuable2();
+    BigDecimal getSommeDistribuableExoAnt2();
+    BigDecimal getSommeDistribuableExoEnc2();
+    BigDecimal getActifNet2();
+    BigDecimal getTotalPassifActifNet2();
+
+
+    BigDecimal getTitresOpcvm2();
+    BigDecimal getPersonnelsDebiteurs2();
+    BigDecimal getAutresDebiteurs2();
+    BigDecimal getCompteDeRegularisationActif2();
+    BigDecimal getImmoFinancieres2();
+    BigDecimal getImmoCorporelles2();
+    BigDecimal getAmortImmo2();
+    BigDecimal getGestionnaires2();
+    BigDecimal getDepositaires2();
+    BigDecimal getSousAchTitAregler2();
+    BigDecimal getCourtierEtAutresInter2();
+    BigDecimal getAutresOpCrediteurs2();
+    BigDecimal getComptesAffectPeriodCharges2();
+    BigDecimal getActionnaires2();
+    BigDecimal getPersonnelCrediteurs2();
+    BigDecimal getEtat2();
+    BigDecimal getOrganismsSociaux2();
+    BigDecimal getAutresCrediteurs2();
+    BigDecimal getCompteRegulPassif2();
+    BigDecimal getCapitalSocial2();
+    BigDecimal getSousRach2();
+    BigDecimal getSommesNonDistribuable2();
+    BigDecimal getFraisConstFusionApport2();
+    BigDecimal getCommissionSousRach2();
+    BigDecimal getFraisNegocTransAutresTitres2();
+    BigDecimal getVariationVDEsurPortTitres2();
+    BigDecimal getPlusOuMoinsValueSurTitres2();
+    BigDecimal getRegulSomNonDistribExoEnCours2();
+    BigDecimal getSommesNonDistribuableExoAnt2();
+
+
+    LocalDateTime getDateMois3();
+    BigDecimal getPortefeuilleTitre3();
+    BigDecimal getActionAssimDroit3();
+    BigDecimal getObligationAssim3();
+    BigDecimal getAutresValeurs3();
+    BigDecimal getPlacementMonetDisposition3();
+    BigDecimal getPlacementMonetaire3();
+    BigDecimal getDisponibilite3();
+    BigDecimal getCreanceExploitation3();
+    BigDecimal getAutreActif3();
+    BigDecimal getTotalActif3();
+    BigDecimal getOperateurCrediteur3();
+    BigDecimal getAutreCrediteurDivers3();
+    BigDecimal getTotalPassif3();
+    BigDecimal getCapital3();
+    BigDecimal getSommeDistribuable3();
+    BigDecimal getSommeDistribuableExoAnt3();
+    BigDecimal getSommeDistribuableExoEnc3();
+    BigDecimal getActifNet3();
+    BigDecimal getTotalPassifActifNet3();
+
+
+    BigDecimal getTitresOpcvm3();
+    BigDecimal getPersonnelsDebiteurs3();
+    BigDecimal getAutresDebiteurs3();
+    BigDecimal getCompteDeRegularisationActif3();
+    BigDecimal getImmoFinancieres3();
+    BigDecimal getImmoCorporelles3();
+    BigDecimal getAmortImmo3();
+    BigDecimal getGestionnaires3();
+    BigDecimal getDepositaires3();
+    BigDecimal getSousAchTitAregler3();
+    BigDecimal getCourtierEtAutresInter3();
+    BigDecimal getAutresOpCrediteurs3();
+    BigDecimal getComptesAffectPeriodCharges3();
+    BigDecimal getActionnaires3();
+    BigDecimal getPersonnelCrediteurs3();
+    BigDecimal getEtat3();
+    BigDecimal getOrganismsSociaux3();
+    BigDecimal getAutresCrediteurs3();
+    BigDecimal getCompteRegulPassif3();
+    BigDecimal getCapitalSocial3();
+    BigDecimal getSousRach3();
+    BigDecimal getSommesNonDistribuable3();
+    BigDecimal getFraisConstFusionApport3();
+    BigDecimal getCommissionSousRach3();
+    BigDecimal getFraisNegocTransAutresTitres3();
+    BigDecimal getVariationVDEsurPortTitres3();
+    BigDecimal getPlusOuMoinsValueSurTitres3();
+    BigDecimal getRegulSomNonDistribExoEnCours3();
+    BigDecimal getSommesNonDistribuableExoAnt3();
+}

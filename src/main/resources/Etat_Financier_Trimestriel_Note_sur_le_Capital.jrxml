@@ -1,0 +1,232 @@
+<!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 7.0.1-573496633c2b4074e32f433154b543003f7d2498  -->
+<jasperReport name="Etat_Financier_Trimestriel_Note_sur_le_Capital" language="java" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4fe0a4c4-776e-4efc-b1f8-b8be1c190064">
+	<parameter name="letterDate" class="java.lang.String"/>
+	<parameter name="periodicite" class="java.lang.String"/>
+	<parameter name="denominationOpcvm" class="java.lang.String"/>
+	<parameter name="dateEstimation" class="java.sql.Date"/>
+	<field name="montant1" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="montant1"/>
+		<property name="com.jaspersoft.studio.field.label" value="montant1"/>
+	</field>
+	<field name="nombreTitres1" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="nombreTitres1"/>
+		<property name="com.jaspersoft.studio.field.label" value="nombreTitres1"/>
+	</field>
+	<field name="nombreActionnaire1" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="nombreActionnaire1"/>
+		<property name="com.jaspersoft.studio.field.label" value="nombreActionnaire1"/>
+	</field>
+	<field name="montant2" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="montant2"/>
+		<property name="com.jaspersoft.studio.field.label" value="montant2"/>
+	</field>
+	<field name="nombreTitres2" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="nombreTitres2"/>
+		<property name="com.jaspersoft.studio.field.label" value="nombreTitres2"/>
+	</field>
+	<field name="nombreActionnaire2" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="nombreActionnaire2"/>
+		<property name="com.jaspersoft.studio.field.label" value="nombreActionnaire2"/>
+	</field>
+	<field name="montant3" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="montant3"/>
+		<property name="com.jaspersoft.studio.field.label" value="montant3"/>
+	</field>
+	<field name="nombreTitres3" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="nombreTitres3"/>
+		<property name="com.jaspersoft.studio.field.label" value="nombreTitres3"/>
+	</field>
+	<field name="nombreActionnaire3" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="nombreActionnaire3"/>
+		<property name="com.jaspersoft.studio.field.label" value="nombreActionnaire3"/>
+	</field>
+	<field name="montant4" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="montant4"/>
+		<property name="com.jaspersoft.studio.field.label" value="montant4"/>
+	</field>
+	<field name="nombreTitres4" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="nombreTitres4"/>
+		<property name="com.jaspersoft.studio.field.label" value="nombreTitres4"/>
+	</field>
+	<field name="nombreActionnaire4" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="nombreActionnaire4"/>
+		<property name="com.jaspersoft.studio.field.label" value="nombreActionnaire4"/>
+	</field>
+	<field name="idOpcvm" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="idOpcvm"/>
+		<property name="com.jaspersoft.studio.field.label" value="idOpcvm"/>
+	</field>
+	<field name="dateEstimation" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="dateEstimation"/>
+		<property name="com.jaspersoft.studio.field.label" value="dateEstimation"/>
+	</field>
+	<background splitType="Stretch"/>
+	<title height="92" splitType="Stretch">
+		<element kind="textField" uuid="c75ee3b5-991a-4ec1-8dac-685b238e2f49" x="3" y="3" width="217" height="16">
+			<expression><![CDATA["Cotonou, le "+$P{letterDate}]]></expression>
+		</element>
+		<element kind="rectangle" uuid="055fa345-394d-4b7b-8393-6734aaa73805" x="2" y="26" width="550" height="25" backcolor="#BDD7EE">
+			<pen lineColor="#3B88D1"/>
+		</element>
+		<element kind="staticText" uuid="4482c91b-4392-47be-adde-10b3ead6a92e" x="152" y="33" width="249" height="17" fontSize="10.0" bold="true" hTextAlign="Center">
+			<text><![CDATA[NOTE SUR LE CAPITAL]]></text>
+		</element>
+		<element kind="textField" uuid="cb156914-129f-4fef-b244-5fc9de0d258b" x="2" y="77" width="288" height="15">
+			<expression><![CDATA[$P{denominationOpcvm}]]></expression>
+		</element>
+		<element kind="textField" uuid="305e68e3-d652-40d6-af38-42d132846b7c" x="390" y="59" width="162" height="14">
+			<expression><![CDATA[$P{periodicite}.trim().equals("Trimestre") || $P{periodicite}.trim().equals("Semestre") ? 
+    "(Du " +  new java.text.SimpleDateFormat("dd/MM/ yyyy").format(new java.sql.Date($P{dateEstimation}.toLocalDate().plusMonths($P{periodicite}=="Trimestre"?-2:-5).withDayOfMonth(1).atStartOfDay(java.time.ZoneId.systemDefault()).toInstant().toEpochMilli())) + " au " + new java.text.SimpleDateFormat("dd/MM/ yyyy").format($P{dateEstimation}) + ")" : 
+    "(Du "+new java.sql.Date($P{dateEstimation}.toLocalDate().plusMonths(-12).plusDays(1).atStartOfDay(java.time.ZoneId.systemDefault()).toInstant().toEpochMilli())+" au "+$P{dateEstimation}+")"]]></expression>
+		</element>
+	</title>
+	<pageHeader splitType="Stretch"/>
+	<columnHeader splitType="Stretch"/>
+	<detail>
+		<band height="299" splitType="Stretch">
+			<element kind="rectangle" uuid="73d2f520-a339-48ad-b655-9bff2ac5a72d" x="3" y="3" width="550" height="296"/>
+			<element kind="staticText" uuid="6e9c11b7-28f1-4f92-b5d7-68b509b4133f" x="10" y="9" width="210" height="13" bold="true" hTextAlign="Left">
+				<text><![CDATA[Capital au ]]></text>
+				<box>
+					<pen lineWidth="1.0" lineColor="#3B88D1"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="613d2f53-b873-4d22-8146-1f9606071f46" x="10" y="27" width="240" height="13" bold="false" hTextAlign="Left">
+				<text><![CDATA[Montant]]></text>
+				<box>
+					<pen lineWidth="1.0" lineColor="#3B88D1"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="dd34f855-6383-4b30-b198-f1467f1a4125" x="10" y="45" width="240" height="13" bold="false" hTextAlign="Left">
+				<text><![CDATA[Nombre de titres]]></text>
+				<box>
+					<pen lineWidth="1.0" lineColor="#3B88D1"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="527c0147-bede-44b7-9fcf-60ecf65fd383" x="10" y="63" width="240" height="13" bold="false" hTextAlign="Left">
+				<text><![CDATA[Nombre d'actionnaires]]></text>
+				<box>
+					<pen lineWidth="1.0" lineColor="#3B88D1"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="d83184de-781e-4b7b-baf3-40e2014772a2" x="10" y="81" width="210" height="13" bold="true" hTextAlign="Left">
+				<text><![CDATA[Souscriptions réalisées]]></text>
+				<box>
+					<pen lineWidth="1.0" lineColor="#3B88D1"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="d2982c24-b18d-43d7-93d3-8bfcc404611d" x="10" y="117" width="240" height="13" bold="false" hTextAlign="Left">
+				<text><![CDATA[Nombre de titres]]></text>
+				<box>
+					<pen lineWidth="1.0" lineColor="#3B88D1"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="bbbd3240-61dd-47fe-9efd-a78f1219cc93" x="10" y="135" width="240" height="13" bold="false" hTextAlign="Left">
+				<text><![CDATA[Nombre d'actionnaires nouveaux]]></text>
+				<box>
+					<pen lineWidth="1.0" lineColor="#3B88D1"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="5fa087de-5fe3-4526-9416-1953dc78e6be" x="10" y="153" width="210" height="13" bold="true" hTextAlign="Left">
+				<text><![CDATA[Rachats effectués]]></text>
+				<box>
+					<pen lineWidth="1.0" lineColor="#3B88D1"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="05976e5c-2749-437e-bbc1-44fe29320974" x="10" y="171" width="210" height="13" bold="false" hTextAlign="Left">
+				<text><![CDATA[Montant]]></text>
+				<box>
+					<pen lineWidth="1.0" lineColor="#3B88D1"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="49f4de2a-c7bf-4d26-b97a-037d228b2b33" x="10" y="189" width="210" height="13" bold="false" hTextAlign="Left">
+				<text><![CDATA[Nombre de titres]]></text>
+				<box>
+					<pen lineWidth="1.0" lineColor="#3B88D1"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="bcca4609-1da9-40f4-ac11-b6b8a81720d2" x="10" y="207" width="210" height="13" bold="false" hTextAlign="Left">
+				<text><![CDATA[Nombre d'actionnaires sortants]]></text>
+				<box>
+					<pen lineWidth="1.0" lineColor="#3B88D1"/>
+				</box>
+			</element>
+			<element kind="textField" uuid="d705ac1f-c0f1-4882-bfde-357f0e3c863d" x="449" y="27" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{montant1}]]></expression>
+			</element>
+			<element kind="textField" uuid="63c8fd83-7bce-4f67-b967-9e14e83cdab8" x="449" y="44" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{nombreTitres1}]]></expression>
+			</element>
+			<element kind="textField" uuid="f0de1ed2-e863-4a59-856d-78b76d75029c" x="449" y="63" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{nombreActionnaire1}]]></expression>
+			</element>
+			<element kind="textField" uuid="7b9a90b3-d050-4dab-a8b0-1f6281020dd3" x="449" y="99" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true" bold="true">
+				<expression><![CDATA[$F{montant2}]]></expression>
+			</element>
+			<element kind="textField" uuid="3fdaaa45-851d-4b7c-aef4-f85bb704511b" x="449" y="117" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{nombreTitres2}]]></expression>
+			</element>
+			<element kind="textField" uuid="fcda43ce-33e6-404b-88d5-aeb33bb2a43e" x="449" y="135" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{nombreActionnaire2}]]></expression>
+			</element>
+			<element kind="textField" uuid="81fb1a4c-7fc5-49df-bd07-9725cab2ac3e" x="449" y="171" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{montant3}]]></expression>
+			</element>
+			<element kind="textField" uuid="37b163cf-9cc1-452d-88ab-3b0193286943" x="449" y="189" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true" bold="false">
+				<expression><![CDATA[$F{nombreTitres3}]]></expression>
+			</element>
+			<element kind="textField" uuid="e6d39422-81e6-4e2c-a765-5f6b8fd2a1d1" x="449" y="207" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{nombreActionnaire3}]]></expression>
+			</element>
+			<element kind="staticText" uuid="c8910aaa-f8ba-4cd3-99f3-80b73f412224" x="10" y="99" width="240" height="13" bold="false" hTextAlign="Left">
+				<text><![CDATA[Montant]]></text>
+				<box>
+					<pen lineWidth="1.0" lineColor="#3B88D1"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="7630a10f-07ff-45f9-93f7-b0668589d71b" x="10" y="225" width="210" height="13" bold="true" hTextAlign="Left">
+				<text><![CDATA[Capital au ]]></text>
+				<box>
+					<pen lineWidth="1.0" lineColor="#3B88D1"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="5247b066-bb77-4984-a0f6-c05acdb14d37" x="10" y="243" width="210" height="13" bold="false" hTextAlign="Left">
+				<text><![CDATA[Montant]]></text>
+				<box>
+					<pen lineWidth="1.0" lineColor="#3B88D1"/>
+				</box>
+			</element>
+			<element kind="textField" uuid="f6d73d22-81bb-4c0a-a64e-510ea3896afd" x="449" y="243" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{montant4}]]></expression>
+			</element>
+			<element kind="staticText" uuid="e9a24bf5-da35-4f64-bf23-bb489a5f2f6e" x="10" y="279" width="210" height="13" bold="false" hTextAlign="Left">
+				<text><![CDATA[Nombre d'actionnaires]]></text>
+				<box>
+					<pen lineWidth="1.0" lineColor="#3B88D1"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="7d05e407-2407-4d08-a2b8-e4b0e2b2eeca" x="10" y="261" width="210" height="13" bold="false" hTextAlign="Left">
+				<text><![CDATA[Nombre de titres]]></text>
+				<box>
+					<pen lineWidth="1.0" lineColor="#3B88D1"/>
+				</box>
+			</element>
+			<element kind="textField" uuid="cfd33c37-1db9-4442-b2b5-5ab5e89d09b6" x="449" y="261" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{nombreTitres4}]]></expression>
+			</element>
+			<element kind="textField" uuid="48651a15-385b-4a87-bcae-f38707eaf0b4" x="449" y="279" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{nombreActionnaire4}]]></expression>
+			</element>
+		</band>
+	</detail>
+	<columnFooter splitType="Stretch"/>
+	<pageFooter height="58" splitType="Stretch">
+		<element kind="staticText" uuid="f03f4c8a-e7b3-43ff-968c-8b0bd5148495" x="5" y="12" width="126" height="13">
+			<text><![CDATA[Edité avec OPCCIEL 2.0]]></text>
+		</element>
+		<element kind="textField" uuid="62ec82e6-49f1-4e34-a65f-38607ac1165e" x="453" y="12" width="100" height="18" hTextAlign="Right">
+			<expression><![CDATA[$V{PAGE_NUMBER}]]></expression>
+		</element>
+	</pageFooter>
+	<summary height="42" splitType="Stretch"/>
+</jasperReport>

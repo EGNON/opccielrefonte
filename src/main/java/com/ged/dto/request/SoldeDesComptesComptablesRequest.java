@@ -12,12 +12,12 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ReleveTitreFCPRequest {
+public class SoldeDesComptesComptablesRequest {
+    private String codePlan;
     private Long idOpcvm;
-    private String codeJournal;
+    private String numCompteComptable;
     private String type;
-    private LocalDateTime dateDebut;
-    private LocalDateTime dateFin;
+    private LocalDateTime dateEstimation;
     private DatatableParameters datatableParameters;
     private String Descrip;
 }

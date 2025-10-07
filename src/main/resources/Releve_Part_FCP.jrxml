@@ -1,0 +1,189 @@
+<!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 7.0.1-573496633c2b4074e32f433154b543003f7d2498  -->
+<jasperReport name="Releve_Part_FCP" language="java" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9aefb54a-0df5-4f38-881c-eeff3977a9f2">
+	<parameter name="Descrip" class="java.lang.String"/>
+	<parameter name="letterDate" class="java.lang.String"/>
+	<field name="dateOperation" class="java.time.LocalDateTime">
+		<property name="com.jaspersoft.studio.field.name" value="dateOperation"/>
+		<property name="com.jaspersoft.studio.field.label" value="dateOperation"/>
+	</field>
+	<field name="libelleOperation" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="libelleOperation"/>
+		<property name="com.jaspersoft.studio.field.label" value="libelleOperation"/>
+	</field>
+	<field name="valeurUnitaire" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="valeurUnitaire"/>
+		<property name="com.jaspersoft.studio.field.label" value="valeurUnitaire"/>
+	</field>
+	<field name="debit" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="debit"/>
+		<property name="com.jaspersoft.studio.field.label" value="debit"/>
+	</field>
+	<field name="credit" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="credit"/>
+		<property name="com.jaspersoft.studio.field.label" value="credit"/>
+	</field>
+	<field name="solde" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="solde"/>
+		<property name="com.jaspersoft.studio.field.label" value="solde"/>
+	</field>
+	<field name="idOpcvm" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="idOpcvm"/>
+		<property name="com.jaspersoft.studio.field.label" value="idOpcvm"/>
+	</field>
+	<field name="dateDebut" class="java.time.LocalDateTime">
+		<property name="com.jaspersoft.studio.field.name" value="dateDebut"/>
+		<property name="com.jaspersoft.studio.field.label" value="dateDebut"/>
+	</field>
+	<field name="dateFin" class="java.time.LocalDateTime">
+		<property name="com.jaspersoft.studio.field.name" value="dateFin"/>
+		<property name="com.jaspersoft.studio.field.label" value="dateFin"/>
+	</field>
+	<group name="Group1">
+		<expression><![CDATA[$F{idOpcvm}]]></expression>
+		<groupHeader>
+			<band height="39">
+				<element kind="rectangle" uuid="716c425e-01c3-45ed-b8c6-5ba119268856" x="0" y="8" width="801" height="31" backcolor="#BDD7EE">
+					<pen lineColor="#000000"/>
+				</element>
+				<element kind="staticText" uuid="f0764bb4-e3a1-4840-9524-168d496e0135" x="6" y="17" width="74" height="18" bold="true" hTextAlign="Center">
+					<text><![CDATA[Date Oper.]]></text>
+				</element>
+				<element kind="line" uuid="ea9ef76e-616f-4d42-90e4-74e536119222" x="86" y="8" width="1" height="31">
+					<pen lineColor="#000000"/>
+				</element>
+				<element kind="staticText" uuid="29636e8e-e482-4226-a8d8-6ab49379c51c" x="99" y="17" width="260" height="18" bold="true" hTextAlign="Center">
+					<text><![CDATA[Libelle Operation]]></text>
+				</element>
+				<element kind="line" uuid="39ee0f9c-0161-4c2a-81aa-a9751d3a5ff2" x="370" y="8" width="1" height="31">
+					<pen lineColor="#000000"/>
+				</element>
+				<element kind="line" uuid="ae68ecb2-ceed-4702-9a4c-17cc6fdc9ad8" x="470" y="8" width="1" height="31">
+					<pen lineColor="#000000"/>
+				</element>
+				<element kind="line" uuid="fefbdefd-4dda-4409-b7a3-c3edba1f2e72" x="580" y="8" width="1" height="31">
+					<pen lineColor="#000000"/>
+				</element>
+				<element kind="line" uuid="6567e3bf-e868-47c2-9a6f-80ba168466f9" x="690" y="8" width="1" height="31">
+					<pen lineColor="#000000"/>
+				</element>
+				<element kind="staticText" uuid="0f91339e-0387-491e-9d01-c359f163ced6" x="383" y="11" width="74" height="26" bold="true" hTextAlign="Center">
+					<text><![CDATA[Valeur
+Unitaire]]></text>
+				</element>
+				<element kind="staticText" uuid="b3fe4f82-4a3c-4d74-88d9-35023b5d573a" x="478" y="17" width="94" height="18" bold="true" hTextAlign="Center">
+					<text><![CDATA[Debit]]></text>
+				</element>
+				<element kind="staticText" uuid="83ffdeef-0aae-4616-81f6-6dd137d13576" x="588" y="17" width="94" height="18" bold="true" hTextAlign="Center">
+					<text><![CDATA[Credit]]></text>
+				</element>
+				<element kind="staticText" uuid="58c1f520-c966-49a7-9ce4-8da87f999820" x="698" y="17" width="94" height="18" bold="true" hTextAlign="Center">
+					<text><![CDATA[Solde]]></text>
+				</element>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band/>
+		</groupFooter>
+	</group>
+	<background splitType="Stretch"/>
+	<title height="125" splitType="Stretch">
+		<element kind="rectangle" uuid="59b47891-7abf-4167-bc8b-84a765125875" x="0" y="35" width="801" height="64"/>
+		<element kind="rectangle" uuid="7df76b90-2ab5-460e-a5b0-ed2fe0103a05" x="269" y="41" width="291" height="24">
+			<pen lineColor="#BDD7EE"/>
+		</element>
+		<element kind="rectangle" uuid="34c31f83-b9a2-4d1d-b0b7-6587cbfd2b58" x="269" y="69" width="291" height="24">
+			<pen lineColor="#BDD7EE"/>
+		</element>
+		<element kind="staticText" uuid="dc748f70-feb8-4444-b455-6ea3678616b7" x="343" y="46" width="144" height="14" bold="true" hTextAlign="Center">
+			<text><![CDATA[RELEVE DE PART]]></text>
+		</element>
+		<element kind="staticText" uuid="92839693-b70f-4a64-9115-be0af7b541f8" x="276" y="74" width="16" height="14" bold="true" hTextAlign="Left">
+			<text><![CDATA[DU]]></text>
+		</element>
+		<element kind="line" uuid="25a251b6-b88e-44bf-ad0e-996d0d704f23" x="300" y="69" width="1" height="24">
+			<pen lineColor="#BDD7EE"/>
+		</element>
+		<element kind="textField" uuid="36dd84c5-e036-43ac-912d-ed105fc538ab" x="304" y="74" width="100" height="14">
+			<expression><![CDATA[$F{dateDebut}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"))]]></expression>
+		</element>
+		<element kind="line" uuid="a9272306-d549-4e54-b603-ec7784ab063d" x="410" y="69" width="1" height="24">
+			<pen lineColor="#BDD7EE"/>
+		</element>
+		<element kind="staticText" uuid="1bdc56e1-84dd-49f9-903d-d44ab39c0c7f" x="418" y="74" width="16" height="14" bold="true" hTextAlign="Left">
+			<text><![CDATA[AU]]></text>
+		</element>
+		<element kind="line" uuid="396cfefa-c1d8-46c2-8168-0be24211aedd" x="443" y="69" width="1" height="24">
+			<pen lineColor="#BDD7EE"/>
+		</element>
+		<element kind="textField" uuid="55d71838-c1f5-4b22-b643-6d2e0635cb7e" x="447" y="74" width="100" height="14">
+			<expression><![CDATA[$F{dateFin}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"))]]></expression>
+		</element>
+		<element kind="rectangle" uuid="0379cc72-7cee-4083-be7d-51b2d705d671" x="36" y="101" width="411" height="24">
+			<pen lineColor="#BDD7EE"/>
+		</element>
+		<element kind="line" uuid="100da152-0619-41d8-8914-a7d18786f5c5" x="176" y="101" width="1" height="24">
+			<pen lineColor="#BDD7EE"/>
+		</element>
+		<element kind="textField" uuid="10c21247-f04a-496c-9fe3-2415db545cd3" x="40" y="105" width="100" height="15" bold="true">
+			<expression><![CDATA[$F{idOpcvm}]]></expression>
+		</element>
+		<element kind="textField" uuid="6bd685f5-d1e1-45a6-9cd6-29ac8f35ccac" x="3" y="3" width="217" height="16">
+			<expression><![CDATA["Cotonou, le "+$P{letterDate}]]></expression>
+		</element>
+		<element kind="textField" uuid="30884132-00a0-4401-8190-4458a90cc0d3" x="181" y="105" width="262" height="15" bold="true">
+			<expression><![CDATA[$P{Descrip}]]></expression>
+		</element>
+	</title>
+	<pageHeader splitType="Stretch"/>
+	<columnHeader splitType="Stretch"/>
+	<detail>
+		<band height="25" splitType="Stretch">
+			<element kind="rectangle" uuid="0a4e5403-7c0e-45a0-be65-f5b088b8276a" x="0" y="0" width="801" height="25" backcolor="#FFFFFF">
+				<pen lineColor="#000000"/>
+			</element>
+			<element kind="line" uuid="790cd686-fe6e-44e7-a667-4e7f3b1dcec9" x="86" y="0" width="1" height="25">
+				<pen lineColor="#000000"/>
+			</element>
+			<element kind="line" uuid="2666f58b-e534-469f-b981-4d349b31a22e" x="370" y="0" width="1" height="25">
+				<pen lineColor="#000000"/>
+			</element>
+			<element kind="line" uuid="a2e39597-ffbd-4e14-9911-73e4a7257627" x="470" y="0" width="1" height="25">
+				<pen lineColor="#000000"/>
+			</element>
+			<element kind="line" uuid="bfbb221c-bba9-4eb7-96da-d83077bd5233" x="580" y="0" width="1" height="25">
+				<pen lineColor="#000000"/>
+			</element>
+			<element kind="line" uuid="f61050c5-b1aa-403e-850b-2794f85692b1" x="690" y="0" width="1" height="25">
+				<pen lineColor="#000000"/>
+			</element>
+			<element kind="textField" uuid="0a40e5a7-6f6e-4339-a641-153476955da5" x="4" y="6" width="77" height="13" pattern="EE dd/MM/yyyy" blankWhenNull="true">
+				<expression><![CDATA[$F{dateOperation}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"))]]></expression>
+			</element>
+			<element kind="textField" uuid="b2ff14eb-c606-48cf-9de4-9788d1233300" x="91" y="6" width="268" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{libelleOperation}]]></expression>
+			</element>
+			<element kind="textField" uuid="c364232d-a8df-43c4-9da2-37c9f646cf4d" x="375" y="6" width="95" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{valeurUnitaire}]]></expression>
+			</element>
+			<element kind="textField" uuid="c5738462-9b3e-4356-9dde-eaab62ed005e" x="475" y="6" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{debit}]]></expression>
+			</element>
+			<element kind="textField" uuid="bf72cfa1-8a94-4d89-976a-fde5ac84eea8" x="585" y="6" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{credit}]]></expression>
+			</element>
+			<element kind="textField" uuid="4c3f61ef-de7c-4737-8248-e42a4f871f54" x="695" y="6" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{solde}]]></expression>
+			</element>
+		</band>
+	</detail>
+	<columnFooter splitType="Stretch"/>
+	<pageFooter height="54" splitType="Stretch">
+		<element kind="staticText" uuid="4ead2fe4-1833-49df-95d6-7f7e42bdbad9" x="5" y="10" width="126" height="13">
+			<text><![CDATA[Edité avec OPCCIEL 2.0]]></text>
+		</element>
+		<element kind="textField" uuid="233fb129-dc4a-4d52-8588-a8d0e508a9e2" x="701" y="10" width="100" height="19" hTextAlign="Right">
+			<expression><![CDATA[$V{PAGE_NUMBER}]]></expression>
+		</element>
+	</pageFooter>
+	<summary height="42" splitType="Stretch"/>
+</jasperReport>

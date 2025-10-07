@@ -1,0 +1,732 @@
+<!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 7.0.1-573496633c2b4074e32f433154b543003f7d2498  -->
+<jasperReport name="Etat_Financier_F1_Bilan" language="java" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="03d9f9cf-bded-4bb5-ac44-6d5c9c29ee56">
+	<parameter name="letterDate" class="java.lang.String"/>
+	<parameter name="exercice" class="java.lang.String"/>
+	<field name="idOpcvm" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="idOpcvm"/>
+		<property name="com.jaspersoft.studio.field.label" value="idOpcvm"/>
+	</field>
+	<field name="sigleOpcvm" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="sigleOpcvm"/>
+		<property name="com.jaspersoft.studio.field.label" value="sigleOpcvm"/>
+	</field>
+	<field name="denominationOpcvm" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="denominationOpcvm"/>
+		<property name="com.jaspersoft.studio.field.label" value="denominationOpcvm"/>
+	</field>
+	<field name="pays" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="pays"/>
+		<property name="com.jaspersoft.studio.field.label" value="pays"/>
+	</field>
+	<field name="anneeN" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="anneeN"/>
+		<property name="com.jaspersoft.studio.field.label" value="anneeN"/>
+	</field>
+	<field name="portefeuilleTitreN" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="portefeuilleTitreN"/>
+		<property name="com.jaspersoft.studio.field.label" value="portefeuilleTitreN"/>
+	</field>
+	<field name="actionAssimDroitN" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="actionAssimDroitN"/>
+		<property name="com.jaspersoft.studio.field.label" value="actionAssimDroitN"/>
+	</field>
+	<field name="obligationAssimN" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="obligationAssimN"/>
+		<property name="com.jaspersoft.studio.field.label" value="obligationAssimN"/>
+	</field>
+	<field name="autresValeursN" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="autresValeursN"/>
+		<property name="com.jaspersoft.studio.field.label" value="autresValeursN"/>
+	</field>
+	<field name="placementMonetDispositionN" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="placementMonetDispositionN"/>
+		<property name="com.jaspersoft.studio.field.label" value="placementMonetDispositionN"/>
+	</field>
+	<field name="placementMonetaireN" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="placementMonetaireN"/>
+		<property name="com.jaspersoft.studio.field.label" value="placementMonetaireN"/>
+	</field>
+	<field name="disponibiliteN" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="disponibiliteN"/>
+		<property name="com.jaspersoft.studio.field.label" value="disponibiliteN"/>
+	</field>
+	<field name="creanceExploitationN" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="creanceExploitationN"/>
+		<property name="com.jaspersoft.studio.field.label" value="creanceExploitationN"/>
+	</field>
+	<field name="autreActifN" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="autreActifN"/>
+		<property name="com.jaspersoft.studio.field.label" value="autreActifN"/>
+	</field>
+	<field name="totalActifN" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="totalActifN"/>
+		<property name="com.jaspersoft.studio.field.label" value="totalActifN"/>
+	</field>
+	<field name="operateurCrediteurN" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="operateurCrediteurN"/>
+		<property name="com.jaspersoft.studio.field.label" value="operateurCrediteurN"/>
+	</field>
+	<field name="autreCrediteurDiversN" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="autreCrediteurDiversN"/>
+		<property name="com.jaspersoft.studio.field.label" value="autreCrediteurDiversN"/>
+	</field>
+	<field name="totalPassifN" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="totalPassifN"/>
+		<property name="com.jaspersoft.studio.field.label" value="totalPassifN"/>
+	</field>
+	<field name="capitalN" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="capitalN"/>
+		<property name="com.jaspersoft.studio.field.label" value="capitalN"/>
+	</field>
+	<field name="sommeDistribuableN" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="sommeDistribuableN"/>
+		<property name="com.jaspersoft.studio.field.label" value="sommeDistribuableN"/>
+	</field>
+	<field name="sommeDistribuableExoAntN" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="sommeDistribuableExoAntN"/>
+		<property name="com.jaspersoft.studio.field.label" value="sommeDistribuableExoAntN"/>
+	</field>
+	<field name="sommeDistribuableExoEncN" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="sommeDistribuableExoEncN"/>
+		<property name="com.jaspersoft.studio.field.label" value="sommeDistribuableExoEncN"/>
+	</field>
+	<field name="actifNetN" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="actifNetN"/>
+		<property name="com.jaspersoft.studio.field.label" value="actifNetN"/>
+	</field>
+	<field name="totalPassifActifNetN" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="totalPassifActifNetN"/>
+		<property name="com.jaspersoft.studio.field.label" value="totalPassifActifNetN"/>
+	</field>
+	<field name="titresOpcvmN" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="titresOpcvmN"/>
+		<property name="com.jaspersoft.studio.field.label" value="titresOpcvmN"/>
+	</field>
+	<field name="personnelsDebiteursN" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="personnelsDebiteursN"/>
+		<property name="com.jaspersoft.studio.field.label" value="personnelsDebiteursN"/>
+	</field>
+	<field name="autresDebiteursN" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="autresDebiteursN"/>
+		<property name="com.jaspersoft.studio.field.label" value="autresDebiteursN"/>
+	</field>
+	<field name="compteDeRegularisationActifN" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="compteDeRegularisationActifN"/>
+		<property name="com.jaspersoft.studio.field.label" value="compteDeRegularisationActifN"/>
+	</field>
+	<field name="immoFinancieresN" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="immoFinancieresN"/>
+		<property name="com.jaspersoft.studio.field.label" value="immoFinancieresN"/>
+	</field>
+	<field name="immoCorporellesN" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="immoCorporellesN"/>
+		<property name="com.jaspersoft.studio.field.label" value="immoCorporellesN"/>
+	</field>
+	<field name="amortImmoN" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="amortImmoN"/>
+		<property name="com.jaspersoft.studio.field.label" value="amortImmoN"/>
+	</field>
+	<field name="gestionnairesN" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="gestionnairesN"/>
+		<property name="com.jaspersoft.studio.field.label" value="gestionnairesN"/>
+	</field>
+	<field name="depositairesN" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="depositairesN"/>
+		<property name="com.jaspersoft.studio.field.label" value="depositairesN"/>
+	</field>
+	<field name="sousAchTitAreglerN" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="sousAchTitAreglerN"/>
+		<property name="com.jaspersoft.studio.field.label" value="sousAchTitAreglerN"/>
+	</field>
+	<field name="courtierEtAutresInterN" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="courtierEtAutresInterN"/>
+		<property name="com.jaspersoft.studio.field.label" value="courtierEtAutresInterN"/>
+	</field>
+	<field name="autresOpCrediteursN" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="autresOpCrediteursN"/>
+		<property name="com.jaspersoft.studio.field.label" value="autresOpCrediteursN"/>
+	</field>
+	<field name="comptesAffectPeriodChargesN" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="comptesAffectPeriodChargesN"/>
+		<property name="com.jaspersoft.studio.field.label" value="comptesAffectPeriodChargesN"/>
+	</field>
+	<field name="actionnairesN" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="actionnairesN"/>
+		<property name="com.jaspersoft.studio.field.label" value="actionnairesN"/>
+	</field>
+	<field name="personnelCrediteursN" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="personnelCrediteursN"/>
+		<property name="com.jaspersoft.studio.field.label" value="personnelCrediteursN"/>
+	</field>
+	<field name="etatN" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="etatN"/>
+		<property name="com.jaspersoft.studio.field.label" value="etatN"/>
+	</field>
+	<field name="organismsSociauxN" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="organismsSociauxN"/>
+		<property name="com.jaspersoft.studio.field.label" value="organismsSociauxN"/>
+	</field>
+	<field name="autresCrediteursN" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="autresCrediteursN"/>
+		<property name="com.jaspersoft.studio.field.label" value="autresCrediteursN"/>
+	</field>
+	<field name="compteRegulPassifN" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="compteRegulPassifN"/>
+		<property name="com.jaspersoft.studio.field.label" value="compteRegulPassifN"/>
+	</field>
+	<field name="capitalSocialN" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="capitalSocialN"/>
+		<property name="com.jaspersoft.studio.field.label" value="capitalSocialN"/>
+	</field>
+	<field name="sousRachN" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="sousRachN"/>
+		<property name="com.jaspersoft.studio.field.label" value="sousRachN"/>
+	</field>
+	<field name="sommesNonDistribuableN" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="sommesNonDistribuableN"/>
+		<property name="com.jaspersoft.studio.field.label" value="sommesNonDistribuableN"/>
+	</field>
+	<field name="fraisConstFusionApportN" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="fraisConstFusionApportN"/>
+		<property name="com.jaspersoft.studio.field.label" value="fraisConstFusionApportN"/>
+	</field>
+	<field name="commissionSousRachN" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="commissionSousRachN"/>
+		<property name="com.jaspersoft.studio.field.label" value="commissionSousRachN"/>
+	</field>
+	<field name="fraisNegocTransAutresTitresN" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="fraisNegocTransAutresTitresN"/>
+		<property name="com.jaspersoft.studio.field.label" value="fraisNegocTransAutresTitresN"/>
+	</field>
+	<field name="variationVDEsurPortTitresN" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="variationVDEsurPortTitresN"/>
+		<property name="com.jaspersoft.studio.field.label" value="variationVDEsurPortTitresN"/>
+	</field>
+	<field name="plusOuMoinsValueSurTitresN" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="plusOuMoinsValueSurTitresN"/>
+		<property name="com.jaspersoft.studio.field.label" value="plusOuMoinsValueSurTitresN"/>
+	</field>
+	<field name="regulSomNonDistribExoEnCoursN" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="regulSomNonDistribExoEnCoursN"/>
+		<property name="com.jaspersoft.studio.field.label" value="regulSomNonDistribExoEnCoursN"/>
+	</field>
+	<field name="anneeA" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="anneeA"/>
+		<property name="com.jaspersoft.studio.field.label" value="anneeA"/>
+	</field>
+	<field name="portefeuilleTitreA" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="portefeuilleTitreA"/>
+		<property name="com.jaspersoft.studio.field.label" value="portefeuilleTitreA"/>
+	</field>
+	<field name="actionAssimDroitA" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="actionAssimDroitA"/>
+		<property name="com.jaspersoft.studio.field.label" value="actionAssimDroitA"/>
+	</field>
+	<field name="obligationAssimA" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="obligationAssimA"/>
+		<property name="com.jaspersoft.studio.field.label" value="obligationAssimA"/>
+	</field>
+	<field name="autresValeursA" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="autresValeursA"/>
+		<property name="com.jaspersoft.studio.field.label" value="autresValeursA"/>
+	</field>
+	<field name="placementMonetDispositionA" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="placementMonetDispositionA"/>
+		<property name="com.jaspersoft.studio.field.label" value="placementMonetDispositionA"/>
+	</field>
+	<field name="placementMonetaireA" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="placementMonetaireA"/>
+		<property name="com.jaspersoft.studio.field.label" value="placementMonetaireA"/>
+	</field>
+	<field name="disponibiliteA" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="disponibiliteA"/>
+		<property name="com.jaspersoft.studio.field.label" value="disponibiliteA"/>
+	</field>
+	<field name="creanceExploitationA" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="creanceExploitationA"/>
+		<property name="com.jaspersoft.studio.field.label" value="creanceExploitationA"/>
+	</field>
+	<field name="autreActifA" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="autreActifA"/>
+		<property name="com.jaspersoft.studio.field.label" value="autreActifA"/>
+	</field>
+	<field name="totalActifA" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="totalActifA"/>
+		<property name="com.jaspersoft.studio.field.label" value="totalActifA"/>
+	</field>
+	<field name="operateurCrediteurA" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="operateurCrediteurA"/>
+		<property name="com.jaspersoft.studio.field.label" value="operateurCrediteurA"/>
+	</field>
+	<field name="autreCrediteurDiversA" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="autreCrediteurDiversA"/>
+		<property name="com.jaspersoft.studio.field.label" value="autreCrediteurDiversA"/>
+	</field>
+	<field name="totalPassifA" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="totalPassifA"/>
+		<property name="com.jaspersoft.studio.field.label" value="totalPassifA"/>
+	</field>
+	<field name="capitalA" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="capitalA"/>
+		<property name="com.jaspersoft.studio.field.label" value="capitalA"/>
+	</field>
+	<field name="sommeDistribuableA" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="sommeDistribuableA"/>
+		<property name="com.jaspersoft.studio.field.label" value="sommeDistribuableA"/>
+	</field>
+	<field name="sommeDistribuableExoAntA" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="sommeDistribuableExoAntA"/>
+		<property name="com.jaspersoft.studio.field.label" value="sommeDistribuableExoAntA"/>
+	</field>
+	<field name="sommeDistribuableExoEncA" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="sommeDistribuableExoEncA"/>
+		<property name="com.jaspersoft.studio.field.label" value="sommeDistribuableExoEncA"/>
+	</field>
+	<field name="actifNetA" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="actifNetA"/>
+		<property name="com.jaspersoft.studio.field.label" value="actifNetA"/>
+	</field>
+	<field name="totalPassifActifNetA" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="totalPassifActifNetA"/>
+		<property name="com.jaspersoft.studio.field.label" value="totalPassifActifNetA"/>
+	</field>
+	<field name="titresOpcvmA" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="titresOpcvmA"/>
+		<property name="com.jaspersoft.studio.field.label" value="titresOpcvmA"/>
+	</field>
+	<field name="personnelsDebiteursA" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="personnelsDebiteursA"/>
+		<property name="com.jaspersoft.studio.field.label" value="personnelsDebiteursA"/>
+	</field>
+	<field name="autresDebiteursA" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="autresDebiteursA"/>
+		<property name="com.jaspersoft.studio.field.label" value="autresDebiteursA"/>
+	</field>
+	<field name="compteDeRegularisationActifA" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="compteDeRegularisationActifA"/>
+		<property name="com.jaspersoft.studio.field.label" value="compteDeRegularisationActifA"/>
+	</field>
+	<field name="immoFinancieresA" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="immoFinancieresA"/>
+		<property name="com.jaspersoft.studio.field.label" value="immoFinancieresA"/>
+	</field>
+	<field name="immoCorporellesA" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="immoCorporellesA"/>
+		<property name="com.jaspersoft.studio.field.label" value="immoCorporellesA"/>
+	</field>
+	<field name="amortImmoA" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="amortImmoA"/>
+		<property name="com.jaspersoft.studio.field.label" value="amortImmoA"/>
+	</field>
+	<field name="gestionnairesA" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="gestionnairesA"/>
+		<property name="com.jaspersoft.studio.field.label" value="gestionnairesA"/>
+	</field>
+	<field name="depositairesA" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="depositairesA"/>
+		<property name="com.jaspersoft.studio.field.label" value="depositairesA"/>
+	</field>
+	<field name="sousAchTitAreglerA" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="sousAchTitAreglerA"/>
+		<property name="com.jaspersoft.studio.field.label" value="sousAchTitAreglerA"/>
+	</field>
+	<field name="courtierEtAutresInterA" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="courtierEtAutresInterA"/>
+		<property name="com.jaspersoft.studio.field.label" value="courtierEtAutresInterA"/>
+	</field>
+	<field name="autresOpCrediteursA" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="autresOpCrediteursA"/>
+		<property name="com.jaspersoft.studio.field.label" value="autresOpCrediteursA"/>
+	</field>
+	<field name="comptesAffectPeriodChargesA" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="comptesAffectPeriodChargesA"/>
+		<property name="com.jaspersoft.studio.field.label" value="comptesAffectPeriodChargesA"/>
+	</field>
+	<field name="actionnairesA" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="actionnairesA"/>
+		<property name="com.jaspersoft.studio.field.label" value="actionnairesA"/>
+	</field>
+	<field name="personnelCrediteursA" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="personnelCrediteursA"/>
+		<property name="com.jaspersoft.studio.field.label" value="personnelCrediteursA"/>
+	</field>
+	<field name="etatA" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="etatA"/>
+		<property name="com.jaspersoft.studio.field.label" value="etatA"/>
+	</field>
+	<field name="organismsSociauxA" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="organismsSociauxA"/>
+		<property name="com.jaspersoft.studio.field.label" value="organismsSociauxA"/>
+	</field>
+	<field name="autresCrediteursA" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="autresCrediteursA"/>
+		<property name="com.jaspersoft.studio.field.label" value="autresCrediteursA"/>
+	</field>
+	<field name="compteRegulPassifA" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="compteRegulPassifA"/>
+		<property name="com.jaspersoft.studio.field.label" value="compteRegulPassifA"/>
+	</field>
+	<field name="capitalSocialA" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="capitalSocialA"/>
+		<property name="com.jaspersoft.studio.field.label" value="capitalSocialA"/>
+	</field>
+	<field name="sousRachA" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="sousRachA"/>
+		<property name="com.jaspersoft.studio.field.label" value="sousRachA"/>
+	</field>
+	<field name="sommesNonDistribuableA" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="sommesNonDistribuableA"/>
+		<property name="com.jaspersoft.studio.field.label" value="sommesNonDistribuableA"/>
+	</field>
+	<field name="fraisConstFusionApportA" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="fraisConstFusionApportA"/>
+		<property name="com.jaspersoft.studio.field.label" value="fraisConstFusionApportA"/>
+	</field>
+	<field name="commissionSousRachA" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="commissionSousRachA"/>
+		<property name="com.jaspersoft.studio.field.label" value="commissionSousRachA"/>
+	</field>
+	<field name="fraisNegocTransAutresTitresA" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="fraisNegocTransAutresTitresA"/>
+		<property name="com.jaspersoft.studio.field.label" value="fraisNegocTransAutresTitresA"/>
+	</field>
+	<field name="variationVDEsurPortTitresA" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="variationVDEsurPortTitresA"/>
+		<property name="com.jaspersoft.studio.field.label" value="variationVDEsurPortTitresA"/>
+	</field>
+	<field name="plusOuMoinsValueSurTitresA" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="plusOuMoinsValueSurTitresA"/>
+		<property name="com.jaspersoft.studio.field.label" value="plusOuMoinsValueSurTitresA"/>
+	</field>
+	<field name="regulSomNonDistribExoEnCoursA" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="regulSomNonDistribExoEnCoursA"/>
+		<property name="com.jaspersoft.studio.field.label" value="regulSomNonDistribExoEnCoursA"/>
+	</field>
+	<background splitType="Stretch"/>
+	<title height="141" splitType="Stretch">
+		<element kind="textField" uuid="ad57f89e-45c1-4c62-9d23-705731ef8bd1" x="3" y="3" width="217" height="16">
+			<expression><![CDATA["Cotonou, le "+$P{letterDate}]]></expression>
+		</element>
+		<element kind="rectangle" uuid="afa066e3-5cc5-4cfa-a729-b5c44eb3b3a3" x="445" y="114" width="108" height="27" backcolor="#FFFFFF">
+			<pen lineColor="#3B88D1"/>
+		</element>
+		<element kind="rectangle" uuid="84b5c35b-5d66-4357-ae2b-ca7c183d0d21" x="8" y="114" width="430" height="27" backcolor="#FFFFFF">
+			<pen lineColor="#3B88D1"/>
+		</element>
+		<element kind="rectangle" uuid="c059e994-448d-487b-b059-a4c6e711bd59" x="2" y="26" width="550" height="45" backcolor="#BDD7EE">
+			<pen lineColor="#3B88D1"/>
+		</element>
+		<element kind="staticText" uuid="ffa5280e-8570-4a33-8b08-f9f51e53ae9d" x="152" y="44" width="249" height="17" fontSize="10.0" bold="true" hTextAlign="Center">
+			<text><![CDATA[BILAN OPCVM]]></text>
+		</element>
+		<element kind="rectangle" uuid="9a3c4610-510e-4d05-93b8-5be7c51689fd" x="2" y="77" width="550" height="27" backcolor="#FFFFFF">
+			<pen lineColor="#3B88D1"/>
+		</element>
+		<element kind="textField" uuid="2393b273-70c9-4fbc-ac6f-4b9d604c3f96" x="15" y="124" width="414" height="17" bold="true">
+			<expression><![CDATA["DESIGNATION DE L'ENTREPRISE : "+$F{denominationOpcvm}]]></expression>
+		</element>
+		<element kind="textField" uuid="58e63d45-900b-4293-8b46-ee662f5a18a4" x="451" y="124" width="95" height="17" bold="true">
+			<expression><![CDATA["PAYS : "+$F{pays}]]></expression>
+		</element>
+		<element kind="textField" uuid="d0f0c7bb-922b-4e86-a8d0-563337ea7ef5" x="130" y="84" width="310" height="13" bold="true" hTextAlign="Center">
+			<expression><![CDATA["(du 01 Janvier "+$P{exercice}+" au 31 Décembre "+$P{exercice}+")"]]></expression>
+		</element>
+	</title>
+	<pageHeader splitType="Stretch"/>
+	<columnHeader splitType="Stretch"/>
+	<detail>
+		<band height="560" splitType="Stretch">
+			<element kind="rectangle" uuid="5bfd165d-4e9f-4043-a58c-708c20d4c151" x="3" y="13" width="550" height="547"/>
+			<element kind="line" uuid="184e8524-ac81-4459-9d7f-bc8e8c82a8a6" x="277" y="13" width="1" height="546"/>
+			<element kind="line" uuid="e19767fa-bd3e-46ae-a88d-ee7d1c119b03" x="338" y="14" width="1" height="546"/>
+			<element kind="line" uuid="50610ade-70e4-4325-824e-14b33acb12e3" x="445" y="13" width="1" height="546"/>
+			<element kind="rectangle" uuid="d28f59cf-ca4d-49cb-ac88-eb65c2e36aeb" x="94" y="23" width="108" height="27" backcolor="#FFFFFF">
+				<pen lineColor="#3B88D1"/>
+			</element>
+			<element kind="staticText" uuid="67cf9b83-51d2-4a86-bec5-4e877bdce719" x="118" y="30" width="60" height="13" bold="true" hTextAlign="Center">
+				<text><![CDATA[ACTIF]]></text>
+			</element>
+			<element kind="rectangle" uuid="a4a57ba2-cd64-407d-b7df-e8219ad75a8d" x="285" y="23" width="46" height="27" backcolor="#FFFFFF">
+				<pen lineColor="#3B88D1"/>
+			</element>
+			<element kind="staticText" uuid="1c970c0c-2219-489f-b4d8-00ed12341c77" x="291" y="30" width="34" height="13" bold="true" hTextAlign="Center">
+				<text><![CDATA[NOTE]]></text>
+			</element>
+			<element kind="rectangle" uuid="24e066d7-32f3-47a8-93d5-569322415940" x="347" y="23" width="90" height="27" backcolor="#FFFFFF">
+				<pen lineColor="#3B88D1"/>
+			</element>
+			<element kind="textField" uuid="4410efd7-3667-4932-811e-610e865af680" x="357" y="30" width="70" height="13" bold="true" hTextAlign="Center">
+				<expression><![CDATA[$F{anneeN}]]></expression>
+			</element>
+			<element kind="rectangle" uuid="06e33228-39d0-409f-8dff-a8a51813d8bc" x="454" y="23" width="90" height="27" backcolor="#FFFFFF">
+				<pen lineColor="#3B88D1"/>
+			</element>
+			<element kind="textField" uuid="8b98d81f-68bf-4b4d-874d-7f86fe420e4d" x="464" y="30" width="70" height="13" bold="true" hTextAlign="Center">
+				<expression><![CDATA[$F{anneeN}]]></expression>
+			</element>
+			<element kind="staticText" uuid="4479ee66-7fe0-45ea-9901-ae35507d3082" x="10" y="63" width="210" height="13" bold="true" hTextAlign="Left">
+				<text><![CDATA[  - Portefeuille titres]]></text>
+				<box>
+					<pen lineWidth="1.0" lineColor="#3B88D1"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="a1da1c14-946e-446a-98cd-311000a462f7" x="40" y="84" width="210" height="13" bold="false" hTextAlign="Left">
+				<text><![CDATA[  Actions, valeurs assimilées et droits rattachés]]></text>
+				<box>
+					<pen lineWidth="1.0" lineColor="#3B88D1"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="c62d5622-c269-41be-ba67-ce20d7b338b7" x="40" y="102" width="210" height="13" bold="false" hTextAlign="Left">
+				<text><![CDATA[  Obligations et valeurs assimilées]]></text>
+				<box>
+					<pen lineWidth="1.0" lineColor="#3B88D1"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="b5738213-cbea-46e5-b863-3a594cac198b" x="40" y="121" width="210" height="13" bold="false" hTextAlign="Left">
+				<text><![CDATA[  Autres valeurs]]></text>
+				<box>
+					<pen lineWidth="1.0" lineColor="#3B88D1"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="df761ae4-2786-43f0-a6af-1e6aeabfdd26" x="10" y="144" width="210" height="13" bold="true" hTextAlign="Left">
+				<text><![CDATA[  - Placements monétaires et disponibilités]]></text>
+				<box>
+					<pen lineWidth="1.0" lineColor="#3B88D1"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="5ba4db45-09d2-4c1b-83f5-61b70cff0436" x="40" y="165" width="210" height="13" bold="false" hTextAlign="Left">
+				<text><![CDATA[  Placements monétaires]]></text>
+				<box>
+					<pen lineWidth="1.0" lineColor="#3B88D1"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="6ff99ed0-e19a-454f-ab6e-4992a145fb29" x="40" y="183" width="210" height="13" bold="false" hTextAlign="Left">
+				<text><![CDATA[  Disponibilités]]></text>
+				<box>
+					<pen lineWidth="1.0" lineColor="#3B88D1"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="0f2b267c-ee52-462d-9132-f64eca38a75d" x="10" y="206" width="210" height="13" bold="true" hTextAlign="Left">
+				<text><![CDATA[  - Créances d'exploitation]]></text>
+				<box>
+					<pen lineWidth="1.0" lineColor="#3B88D1"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="555b8afa-6db8-49ea-8ca5-e051c2eb2cfc" x="10" y="230" width="210" height="13" bold="true" hTextAlign="Left">
+				<text><![CDATA[  - Autres actifs]]></text>
+				<box>
+					<pen lineWidth="1.0" lineColor="#3B88D1"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="63194f8b-1b2f-4154-b74a-968c06e4feec" x="10" y="254" width="210" height="19" bold="true" hTextAlign="Left" vTextAlign="Middle">
+				<text><![CDATA[  TOTAL ACTIF]]></text>
+				<box>
+					<pen lineWidth="1.0" lineColor="#3B88D1"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="e284cc63-fb4d-43b3-a9da-aa29de3cbfb6" x="90" y="292" width="85" height="13" bold="true" hTextAlign="Center">
+				<text><![CDATA[  PASSIF]]></text>
+				<box>
+					<pen lineWidth="1.0" lineColor="#3B88D1"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="9723be04-a38f-48fe-811c-b6dfa7830a67" x="10" y="318" width="210" height="13" bold="true" hTextAlign="Left">
+				<text><![CDATA[  - Opérateurs créditeurs]]></text>
+				<box>
+					<pen lineWidth="1.0" lineColor="#3B88D1"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="4e859db2-319e-4b4e-8fa9-a9240f3c72b0" x="10" y="342" width="210" height="13" bold="true" hTextAlign="Left">
+				<text><![CDATA[  - Autres créditeurs divers]]></text>
+				<box>
+					<pen lineWidth="1.0" lineColor="#3B88D1"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="01bc095f-beec-498c-a668-6f46be8c79f4" x="10" y="367" width="210" height="19" bold="true" hTextAlign="Left" vTextAlign="Middle">
+				<text><![CDATA[  TOTAL PASSIF]]></text>
+				<box>
+					<pen lineWidth="1.0" lineColor="#3B88D1"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="14280b50-a380-4292-a8ee-352824672bf5" x="10" y="419" width="210" height="13" bold="true" hTextAlign="Left">
+				<text><![CDATA[  - Capital]]></text>
+				<box>
+					<pen lineWidth="1.0" lineColor="#3B88D1"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="857725d6-8651-47c9-8c54-81a174a9b026" x="10" y="444" width="210" height="13" bold="true" hTextAlign="Left">
+				<text><![CDATA[  - Sommes distribuables]]></text>
+				<box>
+					<pen lineWidth="1.0" lineColor="#3B88D1"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="37d82b85-595e-4f7d-b9b5-205dc78f70b8" x="40" y="465" width="230" height="13" bold="false" hTextAlign="Left">
+				<text><![CDATA[  Sommes distribuables des exercices antérieurs]]></text>
+				<box>
+					<pen lineWidth="1.0" lineColor="#3B88D1"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="933e8f65-e253-4774-a2b1-b4b2166dee9d" x="40" y="483" width="230" height="13" bold="false" hTextAlign="Left">
+				<text><![CDATA[  Sommes distribuables de l'exercice]]></text>
+				<box>
+					<pen lineWidth="1.0" lineColor="#3B88D1"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="53a05465-ee90-4aae-9efc-ad6cfdaec42c" x="10" y="506" width="210" height="19" bold="true" hTextAlign="Left" vTextAlign="Middle">
+				<text><![CDATA[ACTIF NET]]></text>
+				<box>
+					<pen lineWidth="1.0" lineColor="#3B88D1"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="66adc460-2a7b-49d5-9343-074b0ccec097" x="10" y="535" width="210" height="19" bold="true" hTextAlign="Left" vTextAlign="Middle">
+				<text><![CDATA[TOTAL PASSIF ET ACTIF NET]]></text>
+				<box>
+					<pen lineWidth="1.0" lineColor="#3B88D1"/>
+				</box>
+			</element>
+			<element kind="textField" uuid="b20488cc-5857-4ed9-9a36-b89454457162" x="342" y="63" width="100" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{portefeuilleTitreN}]]></expression>
+			</element>
+			<element kind="textField" uuid="37e1e34f-c7e1-45f4-a97f-781336702783" x="342" y="82" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{actionAssimDroitN}]]></expression>
+			</element>
+			<element kind="textField" uuid="f5945c19-168d-4c0c-83eb-d85d1a8d2bf7" x="342" y="101" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{obligationAssimN}]]></expression>
+			</element>
+			<element kind="textField" uuid="8d422b34-91c5-48f9-9c86-f8cf126fde2e" x="342" y="121" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{autresValeursN}]]></expression>
+			</element>
+			<element kind="textField" uuid="69270113-b176-49c7-a0d0-080164cb02b9" x="342" y="144" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{placementMonetDispositionN}]]></expression>
+			</element>
+			<element kind="textField" uuid="03a6828a-9e5b-4f5c-8cff-e07957fe2ef8" x="342" y="165" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{placementMonetaireN}]]></expression>
+			</element>
+			<element kind="textField" uuid="22f7c45d-f8ef-4a18-a590-2ecf940de535" x="342" y="183" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{disponibiliteN}]]></expression>
+			</element>
+			<element kind="textField" uuid="454bd04a-ee4d-4c96-a1d4-4a54fe3650f2" x="342" y="206" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{creanceExploitationN}]]></expression>
+			</element>
+			<element kind="textField" uuid="4cfd9584-ff7f-4bbe-9b86-0545bd99f1bc" x="342" y="230" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{autreActifN}]]></expression>
+			</element>
+			<element kind="textField" uuid="eac17fee-9170-42d2-ac24-4f8ffbd7588d" x="342" y="254" width="100" height="19" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{totalActifN}]]></expression>
+			</element>
+			<element kind="line" uuid="fef31f5e-439f-4f00-a00e-fcae5f3c15a8" x="338" y="279" width="215" height="1"/>
+			<element kind="rectangle" uuid="af0d2dfc-b8f3-409d-a143-58f9017bf5e8" x="347" y="285" width="90" height="27" backcolor="#FFFFFF">
+				<pen lineColor="#3B88D1"/>
+			</element>
+			<element kind="textField" uuid="404b4b13-6752-480f-8a8a-a474731ac7a2" x="357" y="292" width="70" height="13" bold="true" hTextAlign="Center">
+				<expression><![CDATA[$F{anneeN}]]></expression>
+			</element>
+			<element kind="rectangle" uuid="7898291c-9521-4da9-bebd-3dbb160d3faa" x="454" y="285" width="90" height="27" backcolor="#FFFFFF">
+				<pen lineColor="#3B88D1"/>
+			</element>
+			<element kind="textField" uuid="c7941c17-cde6-4058-bc9f-13d0ba06a711" x="464" y="292" width="70" height="13" bold="true" hTextAlign="Center">
+				<expression><![CDATA[$F{anneeN}]]></expression>
+			</element>
+			<element kind="textField" uuid="58a437f3-aad3-4651-8dc9-35fae8fd6268" x="342" y="318" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{operateurCrediteurN}]]></expression>
+			</element>
+			<element kind="textField" uuid="86f519ff-435d-4ec3-88ef-ba38ae179772" x="342" y="342" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{autreCrediteurDiversN}]]></expression>
+			</element>
+			<element kind="textField" uuid="d94816cc-08ce-4ddc-9fb1-19382362557c" x="342" y="367" width="100" height="19" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{totalPassifN}]]></expression>
+			</element>
+			<element kind="textField" uuid="dd017d22-b0e6-454d-a0ef-7a19808bcfcb" x="342" y="419" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{capitalN}]]></expression>
+			</element>
+			<element kind="textField" uuid="5ba41885-5957-4ad4-a899-b0ea79d03347" x="342" y="444" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{sommeDistribuableN}]]></expression>
+			</element>
+			<element kind="textField" uuid="5fc560b4-753f-44e6-9e4a-12ebfa0f86d9" x="342" y="465" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{sommeDistribuableExoAntN}]]></expression>
+			</element>
+			<element kind="textField" uuid="9b8f3069-222a-4d4d-9ff1-7c914245bb24" x="342" y="483" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{sommeDistribuableExoEncN}]]></expression>
+			</element>
+			<element kind="textField" uuid="4326236e-5961-4792-bbe2-baaecab61835" x="342" y="506" width="100" height="19" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{actifNetN}]]></expression>
+			</element>
+			<element kind="textField" uuid="f3441b0b-7e05-4996-9cd6-46c3128c1800" x="342" y="535" width="100" height="19" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{totalPassifActifNetN}]]></expression>
+			</element>
+			<element kind="textField" uuid="eb8f7605-bd79-400d-a078-62bbff18127a" x="449" y="63" width="100" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{portefeuilleTitreA}]]></expression>
+			</element>
+			<element kind="textField" uuid="eb255ce2-61ba-44e4-bb5c-64bd83a024c6" x="449" y="82" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{actionAssimDroitA}]]></expression>
+			</element>
+			<element kind="textField" uuid="7d97396b-55ab-4345-9d9b-95510d001915" x="449" y="101" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{obligationAssimA}]]></expression>
+			</element>
+			<element kind="textField" uuid="c7ddae9e-b00b-48a9-8f3b-9afa059c1ede" x="449" y="121" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{autresValeursA}]]></expression>
+			</element>
+			<element kind="textField" uuid="c5cf0648-7b34-4317-bd61-7fb2c8cd0cee" x="449" y="144" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{placementMonetDispositionA}]]></expression>
+			</element>
+			<element kind="textField" uuid="8b6d61bd-5fbe-4601-a3b3-501c640e3ce7" x="449" y="165" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{placementMonetaireA}]]></expression>
+			</element>
+			<element kind="textField" uuid="4d488c6f-52f6-4fe8-80ad-5ddcc584a78b" x="449" y="183" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{disponibiliteA}]]></expression>
+			</element>
+			<element kind="textField" uuid="7b7e7132-ffca-4ba9-8b64-25adf094cf00" x="449" y="206" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{creanceExploitationA}]]></expression>
+			</element>
+			<element kind="textField" uuid="421994ff-5316-42ec-9cd3-073bb23080ee" x="449" y="230" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{autreActifA}]]></expression>
+			</element>
+			<element kind="textField" uuid="9af891d5-1405-49bb-bd26-17ab4a2c89c9" x="449" y="254" width="100" height="19" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{autreActifA}]]></expression>
+			</element>
+			<element kind="textField" uuid="7c29e39d-8a33-4f7d-8864-ac45fd75231a" x="449" y="318" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{operateurCrediteurA}]]></expression>
+			</element>
+			<element kind="textField" uuid="20b0c686-1a8e-48f0-9c30-5b23a8ddcb36" x="449" y="342" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{autresCrediteursA}]]></expression>
+			</element>
+			<element kind="textField" uuid="b007a459-6d37-407a-a670-109739d40954" x="449" y="367" width="100" height="19" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{totalPassifA}]]></expression>
+			</element>
+			<element kind="staticText" uuid="8a017f6d-ec1c-46db-836b-ef8acb7d103c" x="100" y="396" width="85" height="13" bold="true" hTextAlign="Center">
+				<text><![CDATA[ACTIF NET]]></text>
+				<box>
+					<pen lineWidth="1.0" lineColor="#3B88D1"/>
+				</box>
+			</element>
+			<element kind="textField" uuid="0c3cfd68-beb2-447a-beb3-79c12d9b23b6" x="449" y="419" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{capitalA}]]></expression>
+			</element>
+			<element kind="textField" uuid="16958d98-f1fe-43f8-b4f4-02e29ff1d0fe" x="449" y="444" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{sommeDistribuableA}]]></expression>
+			</element>
+			<element kind="textField" uuid="2eb4d995-967d-492a-8cc0-eba5943defc6" x="449" y="465" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{sommeDistribuableExoAntA}]]></expression>
+			</element>
+			<element kind="textField" uuid="280c78ed-df35-421d-80ce-83c13d3e761a" x="449" y="483" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{sommeDistribuableExoEncA}]]></expression>
+			</element>
+			<element kind="textField" uuid="e29277ec-a6c5-474a-b4ec-bbc818396479" x="449" y="506" width="100" height="19" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{actifNetA}]]></expression>
+			</element>
+			<element kind="textField" uuid="326dde26-d336-449a-ac46-b7e6ef0c8547" x="449" y="535" width="100" height="19" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{totalPassifActifNetA}]]></expression>
+			</element>
+		</band>
+	</detail>
+	<columnFooter splitType="Stretch"/>
+	<pageFooter height="54" splitType="Stretch">
+		<element kind="staticText" uuid="98676762-dfb0-4a87-8a00-ba2829e8e6ed" x="5" y="21" width="126" height="13">
+			<text><![CDATA[Edité avec OPCCIEL 2.0]]></text>
+		</element>
+		<element kind="textField" uuid="92b164d5-c365-49db-be17-e70ca566048b" x="453" y="20" width="100" height="30">
+			<expression><![CDATA[$V{PAGE_NUMBER}]]></expression>
+		</element>
+	</pageFooter>
+	<summary height="42" splitType="Stretch"/>
+</jasperReport>

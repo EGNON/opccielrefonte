@@ -1,0 +1,553 @@
+<!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 7.0.1-573496633c2b4074e32f433154b543003f7d2498  -->
+<jasperReport name="Etat_Financier_Trimestriel_Etat_Mensuel_Souscriptions" language="java" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ce418000-c6f7-4b0c-b3f8-39979bba0d99">
+	<parameter name="letterDate" class="java.lang.String"/>
+	<parameter name="denominationOpcvm" class="java.lang.String"/>
+	<parameter name="raisonSocial" class="java.lang.String"/>
+	<parameter name="format" class="java.lang.String"/>
+	<parameter name="dateEstimation" class="java.sql.Date"/>
+	<field name="idOpcvm" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="idOpcvm"/>
+		<property name="com.jaspersoft.studio.field.label" value="idOpcvm"/>
+	</field>
+	<field name="designationOpcvm" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="designationOpcvm"/>
+		<property name="com.jaspersoft.studio.field.label" value="designationOpcvm"/>
+	</field>
+	<field name="nbreSousPP" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="nbreSousPP"/>
+		<property name="com.jaspersoft.studio.field.label" value="nbreSousPP"/>
+	</field>
+	<field name="nbrePartSousPP" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="nbrePartSousPP"/>
+		<property name="com.jaspersoft.studio.field.label" value="nbrePartSousPP"/>
+	</field>
+	<field name="volumeSousPP" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="volumeSousPP"/>
+		<property name="com.jaspersoft.studio.field.label" value="volumeSousPP"/>
+	</field>
+	<field name="nbreRachatPP" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="nbreRachatPP"/>
+		<property name="com.jaspersoft.studio.field.label" value="nbreRachatPP"/>
+	</field>
+	<field name="nbrePartRachatPP" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="nbrePartRachatPP"/>
+		<property name="com.jaspersoft.studio.field.label" value="nbrePartRachatPP"/>
+	</field>
+	<field name="volumeRachatPP" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="volumeRachatPP"/>
+		<property name="com.jaspersoft.studio.field.label" value="volumeRachatPP"/>
+	</field>
+	<field name="nbreTotalPorteurPartPP" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="nbreTotalPorteurPartPP"/>
+		<property name="com.jaspersoft.studio.field.label" value="nbreTotalPorteurPartPP"/>
+	</field>
+	<field name="volumeTotalDetenuPP" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="volumeTotalDetenuPP"/>
+		<property name="com.jaspersoft.studio.field.label" value="volumeTotalDetenuPP"/>
+	</field>
+	<field name="dateDebut" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="dateDebut"/>
+		<property name="com.jaspersoft.studio.field.label" value="dateDebut"/>
+	</field>
+	<field name="dateFin" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="dateFin"/>
+		<property name="com.jaspersoft.studio.field.label" value="dateFin"/>
+	</field>
+	<field name="nbreSousBanquesPM" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="nbreSousBanquesPM"/>
+		<property name="com.jaspersoft.studio.field.label" value="nbreSousBanquesPM"/>
+	</field>
+	<field name="nbrePartSousBanquesPM" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="nbrePartSousBanquesPM"/>
+		<property name="com.jaspersoft.studio.field.label" value="nbrePartSousBanquesPM"/>
+	</field>
+	<field name="volumeSousBanquesPM" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="volumeSousBanquesPM"/>
+		<property name="com.jaspersoft.studio.field.label" value="volumeSousBanquesPM"/>
+	</field>
+	<field name="nbreRachatBanquesPM" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="nbreRachatBanquesPM"/>
+		<property name="com.jaspersoft.studio.field.label" value="nbreRachatBanquesPM"/>
+	</field>
+	<field name="nbrePartRachatBanquesPM" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="nbrePartRachatBanquesPM"/>
+		<property name="com.jaspersoft.studio.field.label" value="nbrePartRachatBanquesPM"/>
+	</field>
+	<field name="volumeRachatBanquesPM" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="volumeRachatBanquesPM"/>
+		<property name="com.jaspersoft.studio.field.label" value="volumeRachatBanquesPM"/>
+	</field>
+	<field name="nbreTotalPorteurPartBanquesPM" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="nbreTotalPorteurPartBanquesPM"/>
+		<property name="com.jaspersoft.studio.field.label" value="nbreTotalPorteurPartBanquesPM"/>
+	</field>
+	<field name="volumeTotalDetenuBanquesPM" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="volumeTotalDetenuBanquesPM"/>
+		<property name="com.jaspersoft.studio.field.label" value="volumeTotalDetenuBanquesPM"/>
+	</field>
+	<field name="nbreSousSocieteFinancementPM" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="nbreSousSocieteFinancementPM"/>
+		<property name="com.jaspersoft.studio.field.label" value="nbreSousSocieteFinancementPM"/>
+	</field>
+	<field name="nbrePartSousSocieteFinancementPM" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="nbrePartSousSocieteFinancementPM"/>
+		<property name="com.jaspersoft.studio.field.label" value="nbrePartSousSocieteFinancementPM"/>
+	</field>
+	<field name="volumeSousSocieteFinancementPM" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="volumeSousSocieteFinancementPM"/>
+		<property name="com.jaspersoft.studio.field.label" value="volumeSousSocieteFinancementPM"/>
+	</field>
+	<field name="nbreRachatSocieteFinancementPM" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="nbreRachatSocieteFinancementPM"/>
+		<property name="com.jaspersoft.studio.field.label" value="nbreRachatSocieteFinancementPM"/>
+	</field>
+	<field name="nbrePartRachatSocieteFinancementPM" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="nbrePartRachatSocieteFinancementPM"/>
+		<property name="com.jaspersoft.studio.field.label" value="nbrePartRachatSocieteFinancementPM"/>
+	</field>
+	<field name="volumeRachatSocieteFinancementPM" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="volumeRachatSocieteFinancementPM"/>
+		<property name="com.jaspersoft.studio.field.label" value="volumeRachatSocieteFinancementPM"/>
+	</field>
+	<field name="nbreTotalPorteurPartSocieteFinancementPM" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="nbreTotalPorteurPartSocieteFinancementPM"/>
+		<property name="com.jaspersoft.studio.field.label" value="nbreTotalPorteurPartSocieteFinancementPM"/>
+	</field>
+	<field name="volumeTotalDetenuSocieteFinancementPM" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="volumeTotalDetenuSocieteFinancementPM"/>
+		<property name="com.jaspersoft.studio.field.label" value="volumeTotalDetenuSocieteFinancementPM"/>
+	</field>
+	<field name="nbreSousCompaAssuranceReassurancePM" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="nbreSousCompaAssuranceReassurancePM"/>
+		<property name="com.jaspersoft.studio.field.label" value="nbreSousCompaAssuranceReassurancePM"/>
+	</field>
+	<field name="nbrePartSousCompaAssuranceReassurancePM" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="nbrePartSousCompaAssuranceReassurancePM"/>
+		<property name="com.jaspersoft.studio.field.label" value="nbrePartSousCompaAssuranceReassurancePM"/>
+	</field>
+	<field name="volumeSousCompaAssuranceReassurancePM" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="volumeSousCompaAssuranceReassurancePM"/>
+		<property name="com.jaspersoft.studio.field.label" value="volumeSousCompaAssuranceReassurancePM"/>
+	</field>
+	<field name="nbreRachatCompaAssuranceReassurancePM" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="nbreRachatCompaAssuranceReassurancePM"/>
+		<property name="com.jaspersoft.studio.field.label" value="nbreRachatCompaAssuranceReassurancePM"/>
+	</field>
+	<field name="nbrePartRachatCompaAssuranceReassurancePM" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="nbrePartRachatCompaAssuranceReassurancePM"/>
+		<property name="com.jaspersoft.studio.field.label" value="nbrePartRachatCompaAssuranceReassurancePM"/>
+	</field>
+	<field name="volumeRachatCompaAssuranceReassurancePM" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="volumeRachatCompaAssuranceReassurancePM"/>
+		<property name="com.jaspersoft.studio.field.label" value="volumeRachatCompaAssuranceReassurancePM"/>
+	</field>
+	<field name="nbreTotalPorteurPartCompaAssuranceReassurancePM" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="nbreTotalPorteurPartCompaAssuranceReassurancePM"/>
+		<property name="com.jaspersoft.studio.field.label" value="nbreTotalPorteurPartCompaAssuranceReassurancePM"/>
+	</field>
+	<field name="volumeTotalDetenuCompaAssuranceReassurancePM" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="volumeTotalDetenuCompaAssuranceReassurancePM"/>
+		<property name="com.jaspersoft.studio.field.label" value="volumeTotalDetenuCompaAssuranceReassurancePM"/>
+	</field>
+	<field name="nbreSousOrganPrevoRetraitePM" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="nbreSousOrganPrevoRetraitePM"/>
+		<property name="com.jaspersoft.studio.field.label" value="nbreSousOrganPrevoRetraitePM"/>
+	</field>
+	<field name="nbrePartSousOrganPrevoRetraitePM" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="nbrePartSousOrganPrevoRetraitePM"/>
+		<property name="com.jaspersoft.studio.field.label" value="nbrePartSousOrganPrevoRetraitePM"/>
+	</field>
+	<field name="volumeSousOrganPrevoRetraitePM" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="volumeSousOrganPrevoRetraitePM"/>
+		<property name="com.jaspersoft.studio.field.label" value="volumeSousOrganPrevoRetraitePM"/>
+	</field>
+	<field name="nbreRachatOrganPrevoRetraitePM" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="nbreRachatOrganPrevoRetraitePM"/>
+		<property name="com.jaspersoft.studio.field.label" value="nbreRachatOrganPrevoRetraitePM"/>
+	</field>
+	<field name="nbrePartRachatOrganPrevoRetraitePM" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="nbrePartRachatOrganPrevoRetraitePM"/>
+		<property name="com.jaspersoft.studio.field.label" value="nbrePartRachatOrganPrevoRetraitePM"/>
+	</field>
+	<field name="volumeRachatOrganPrevoRetraitePM" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="volumeRachatOrganPrevoRetraitePM"/>
+		<property name="com.jaspersoft.studio.field.label" value="volumeRachatOrganPrevoRetraitePM"/>
+	</field>
+	<field name="nbreTotalPorteurPartOrganPrevoRetraitePM" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="nbreTotalPorteurPartOrganPrevoRetraitePM"/>
+		<property name="com.jaspersoft.studio.field.label" value="nbreTotalPorteurPartOrganPrevoRetraitePM"/>
+	</field>
+	<field name="volumeTotalDetenuOrganPrevoRetraitePM" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="volumeTotalDetenuOrganPrevoRetraitePM"/>
+		<property name="com.jaspersoft.studio.field.label" value="volumeTotalDetenuOrganPrevoRetraitePM"/>
+	</field>
+	<field name="nbreSousOpcvmPM" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="nbreSousOpcvmPM"/>
+		<property name="com.jaspersoft.studio.field.label" value="nbreSousOpcvmPM"/>
+	</field>
+	<field name="nbrePartSousOpcvmPM" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="nbrePartSousOpcvmPM"/>
+		<property name="com.jaspersoft.studio.field.label" value="nbrePartSousOpcvmPM"/>
+	</field>
+	<field name="volumeSousOpcvmPM" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="volumeSousOpcvmPM"/>
+		<property name="com.jaspersoft.studio.field.label" value="volumeSousOpcvmPM"/>
+	</field>
+	<field name="nbreRachatOpcvmPM" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="nbreRachatOpcvmPM"/>
+		<property name="com.jaspersoft.studio.field.label" value="nbreRachatOpcvmPM"/>
+	</field>
+	<field name="nbrePartRachatOpcvmPM" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="nbrePartRachatOpcvmPM"/>
+		<property name="com.jaspersoft.studio.field.label" value="nbrePartRachatOpcvmPM"/>
+	</field>
+	<field name="volumeRachatOpcvmPM" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="volumeRachatOpcvmPM"/>
+		<property name="com.jaspersoft.studio.field.label" value="volumeRachatOpcvmPM"/>
+	</field>
+	<field name="nbreTotalPorteurPartOpcvmPM" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="nbreTotalPorteurPartOpcvmPM"/>
+		<property name="com.jaspersoft.studio.field.label" value="nbreTotalPorteurPartOpcvmPM"/>
+	</field>
+	<field name="volumeTotalDetenuOpcvmPM" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="volumeTotalDetenuOpcvmPM"/>
+		<property name="com.jaspersoft.studio.field.label" value="volumeTotalDetenuOpcvmPM"/>
+	</field>
+	<field name="nbreSousSocieteBoursePM" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="nbreSousSocieteBoursePM"/>
+		<property name="com.jaspersoft.studio.field.label" value="nbreSousSocieteBoursePM"/>
+	</field>
+	<field name="nbrePartSousSocieteBoursePM" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="nbrePartSousSocieteBoursePM"/>
+		<property name="com.jaspersoft.studio.field.label" value="nbrePartSousSocieteBoursePM"/>
+	</field>
+	<field name="volumeSousSocieteBoursePM" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="volumeSousSocieteBoursePM"/>
+		<property name="com.jaspersoft.studio.field.label" value="volumeSousSocieteBoursePM"/>
+	</field>
+	<field name="nbreRachatSocieteBoursePM" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="nbreRachatSocieteBoursePM"/>
+		<property name="com.jaspersoft.studio.field.label" value="nbreRachatSocieteBoursePM"/>
+	</field>
+	<field name="nbrePartRachatSocieteBoursePM" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="nbrePartRachatSocieteBoursePM"/>
+		<property name="com.jaspersoft.studio.field.label" value="nbrePartRachatSocieteBoursePM"/>
+	</field>
+	<field name="volumeRachatSocieteBoursePM" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="volumeRachatSocieteBoursePM"/>
+		<property name="com.jaspersoft.studio.field.label" value="volumeRachatSocieteBoursePM"/>
+	</field>
+	<field name="nbreTotalPorteurPartSocieteBoursePM" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="nbreTotalPorteurPartSocieteBoursePM"/>
+		<property name="com.jaspersoft.studio.field.label" value="nbreTotalPorteurPartSocieteBoursePM"/>
+	</field>
+	<field name="volumeTotalDetenuSocieteBoursePM" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="volumeTotalDetenuSocieteBoursePM"/>
+		<property name="com.jaspersoft.studio.field.label" value="volumeTotalDetenuSocieteBoursePM"/>
+	</field>
+	<background splitType="Stretch"/>
+	<title height="50" splitType="Stretch">
+		<element kind="textField" uuid="555d9b75-35f6-4714-bf6c-99ac231bd95b" x="3" y="3" width="217" height="16">
+			<expression><![CDATA["Cotonou, le "+$P{letterDate}]]></expression>
+		</element>
+		<element kind="staticText" uuid="ac24206b-7d41-4729-bacc-e934f71a67e4" x="3" y="30" width="547" height="20" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[Règles comptables spécifiques applicables aux intervenants agréés du Marché Financier Régional de l’UMOA]]></text>
+			<box>
+				<pen lineWidth="1.0" lineColor="#3B88D1"/>
+			</box>
+		</element>
+	</title>
+	<pageHeader splitType="Stretch"/>
+	<columnHeader splitType="Stretch"/>
+	<detail>
+		<band height="580" splitType="Stretch">
+			<element kind="rectangle" uuid="d143b5dd-393f-4222-a375-bec6ce90fb9f" x="154" y="140" width="397" height="50"/>
+			<element kind="staticText" uuid="2546cbcf-ce6f-4309-9248-331429100971" x="3" y="7" width="77" height="20" hTextAlign="Center" vTextAlign="Middle">
+				<text><![CDATA[Annexe 18]]></text>
+				<box>
+					<pen lineWidth="1.0" lineColor="#3B88D1"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="d091263a-3271-4ad5-af08-42ad3efdc053" x="3" y="30" width="547" height="20" hTextAlign="Left" vTextAlign="Middle">
+				<text><![CDATA[Etat mensuel des souscriptions et rachats]]></text>
+				<box>
+					<pen lineWidth="1.0" lineColor="#3B88D1"/>
+				</box>
+			</element>
+			<element kind="textField" uuid="ad2c8727-8a47-47cf-a814-8a0c99c8b626" x="30" y="60" width="268" height="15">
+				<expression><![CDATA["OPCVM : " +$P{denominationOpcvm}]]></expression>
+			</element>
+			<element kind="textField" uuid="fd7bc5ed-fd31-46f1-b1ea-cc5a69317b1e" x="30" y="80" width="268" height="15">
+				<expression><![CDATA["Gestionnaire : " +$P{raisonSocial}]]></expression>
+			</element>
+			<element kind="textField" uuid="443a9e5d-82f2-46e5-a47d-047a3ac0df97" x="353" y="80" width="196" height="15">
+				<expression><![CDATA[EQUALS($P{format}.trim(), "Trimestre")? "(Du " +  new java.text.SimpleDateFormat("dd/MM/ yyyy").format(new java.sql.Date($P{dateEstimation}.toLocalDate().plusMonths($P{format}=="Trimestre"?-2:-5).withDayOfMonth(1).atStartOfDay(java.time.ZoneId.systemDefault()).toInstant().toEpochMilli())):" Mois : Du "+new java.sql.Date($P{dateEstimation}.toLocalDate().plusMonths(-1).plusDays(1).atStartOfDay(java.time.ZoneId.systemDefault()).toInstant().toEpochMilli())+" au "+$P{dateEstimation}+""]]></expression>
+			</element>
+			<element kind="rectangle" uuid="5ac76d4c-f8ac-47d8-8386-aa4295e41d4d" x="4" y="188" width="547" height="392"/>
+			<element kind="line" uuid="e3090f33-9230-4cbf-a806-1daab75e5e93" x="502" y="188" width="1" height="392"/>
+			<element kind="line" uuid="d928c0b9-1eea-4c52-a0b9-8d1e13d1876d" x="452" y="188" width="1" height="392"/>
+			<element kind="line" uuid="c870b014-fd75-41dd-ba77-879b66bb047c" x="352" y="188" width="1" height="392"/>
+			<element kind="line" uuid="b6fb6b5e-bcd7-428c-ab65-983d49a025c8" x="402" y="188" width="1" height="392"/>
+			<element kind="line" uuid="112570ae-5640-4612-bdf7-ef3293fbd95b" x="153" y="188" width="1" height="392"/>
+			<element kind="line" uuid="3936b27c-f4fa-4bfe-8bed-cc1dd25b2bed" x="203" y="188" width="1" height="392"/>
+			<element kind="line" uuid="5f187443-08c0-4388-9db9-4005c60bf51c" x="253" y="188" width="1" height="392"/>
+			<element kind="line" uuid="bd6a9e0d-0760-4549-8179-243ce64e6dc7" x="303" y="188" width="1" height="392"/>
+			<element kind="line" uuid="4f0db65a-f7f6-435d-9f3c-3699d27b76cd" x="3" y="314" width="548" height="1"/>
+			<element kind="line" uuid="ea45ca11-01dc-48a1-981b-5468a130e48b" x="303" y="141" width="1" height="47"/>
+			<element kind="line" uuid="f57c9839-6355-4813-b167-f53b4a6a6be2" x="452" y="141" width="1" height="47"/>
+			<element kind="line" uuid="b46a1624-2b3a-4eda-9db6-0e0b6ea11477" x="502" y="141" width="1" height="47"/>
+			<element kind="staticText" uuid="ded7feda-bf24-4095-83ab-166f12e1475c" x="10" y="321" width="140" height="15">
+				<text><![CDATA[Personnes physiques]]></text>
+			</element>
+			<element kind="line" uuid="2b3f12eb-b024-452c-a833-2260667df1cd" x="3" y="342" width="548" height="1"/>
+			<element kind="staticText" uuid="3ef464a8-5f99-4135-a3d5-21a7ecdaa2c6" x="10" y="348" width="140" height="31">
+				<text><![CDATA[Investisseurs institutionnels dont :]]></text>
+			</element>
+			<element kind="line" uuid="0abed398-9fb1-4ad1-9f96-3d0dd9d299f9" x="3" y="379" width="548" height="1"/>
+			<element kind="staticText" uuid="44a00c6a-6bc6-44e1-9b79-7f19d50478ca" x="10" y="387" width="140" height="15">
+				<text><![CDATA[Banques]]></text>
+			</element>
+			<element kind="line" uuid="492ee257-75dc-4c41-a83c-658a962e1d44" x="3" y="408" width="548" height="1"/>
+			<element kind="line" uuid="353a3d9b-9695-46d6-8eaa-22db4a1e8061" x="3" y="438" width="548" height="1"/>
+			<element kind="staticText" uuid="3eb473b4-8d1d-4880-85b5-04f700958cac" x="10" y="417" width="140" height="15">
+				<text><![CDATA[Sociétés de financement]]></text>
+			</element>
+			<element kind="staticText" uuid="a402291b-8700-413f-84e3-67f9c164e152" x="10" y="447" width="140" height="32">
+				<text><![CDATA[Compagnies d'assurances et de réassurance]]></text>
+			</element>
+			<element kind="line" uuid="2c34654d-f6d6-4b42-81e1-c1fda35c0186" x="3" y="479" width="548" height="1"/>
+			<element kind="line" uuid="f099e471-2296-445e-bc64-b6be5d4fc0c2" x="3" y="521" width="548" height="1"/>
+			<element kind="staticText" uuid="69f8ea4c-8281-4bda-94dc-950c192edbfa" x="10" y="489" width="140" height="32">
+				<text><![CDATA[Organismes de prévoyance et de retraite]]></text>
+			</element>
+			<element kind="staticText" uuid="b0988e77-8c21-441d-a446-e9e354842591" x="10" y="530" width="140" height="15">
+				<text><![CDATA[OPCVM]]></text>
+			</element>
+			<element kind="line" uuid="10b875da-3952-47b0-818f-ab1b1ac3ab78" x="3" y="551" width="548" height="1"/>
+			<element kind="staticText" uuid="ffcc27c7-37cd-4a6c-9c26-9ece0f75c956" x="10" y="560" width="140" height="15">
+				<text><![CDATA[Sociétés de bourse]]></text>
+			</element>
+			<element kind="staticText" uuid="4d8bc939-256c-48b3-8df8-70511c74925e" x="10" y="197" width="139" height="108" bold="true">
+				<text><![CDATA[Catégories]]></text>
+			</element>
+			<element kind="staticText" uuid="90330d4c-a68c-41e8-bdb3-07822f962f60" x="158" y="197" width="40" height="108">
+				<text><![CDATA[nombre de souscrip-teurs]]></text>
+			</element>
+			<element kind="staticText" uuid="24ee5c05-4362-4525-9a0a-a65d442c8c75" x="208" y="197" width="40" height="108">
+				<text><![CDATA[nombre de parts souscrites du mois]]></text>
+			</element>
+			<element kind="staticText" uuid="6e25b2ff-b2e7-4ec1-8bc6-a644267c3fa7" x="258" y="197" width="40" height="108">
+				<text><![CDATA[volume de souscription (hors commissions de souscription)]]></text>
+			</element>
+			<element kind="staticText" uuid="b3f4cd66-d99c-41b4-a1e3-7f4d27a438e6" x="308" y="197" width="40" height="108">
+				<text><![CDATA[nombre de vendeurs]]></text>
+			</element>
+			<element kind="staticText" uuid="6dfd41f3-913e-49b4-9974-adbe521bc680" x="358" y="197" width="40" height="108">
+				<text><![CDATA[nombre de parts rachetées du mois]]></text>
+			</element>
+			<element kind="staticText" uuid="b7e6db25-908a-415a-a529-5516577107a4" x="407" y="197" width="40" height="108">
+				<text><![CDATA[volume de rachats (hors commissions rachat)]]></text>
+			</element>
+			<element kind="staticText" uuid="377e4f9c-b050-4404-8f9f-c0a05e320444" x="457" y="197" width="40" height="108" bold="true">
+				<text><![CDATA[Nbre total de porteurs de parts]]></text>
+			</element>
+			<element kind="staticText" uuid="fa2a246a-ab48-41df-8649-9687ac504eb1" x="507" y="197" width="40" height="108" bold="true">
+				<text><![CDATA[Volume total détenu (en FCFA)]]></text>
+			</element>
+			<element kind="staticText" uuid="914b8db0-5559-4e0f-9dfd-d0102742270f" x="159" y="148" width="139" height="34" bold="true" vTextAlign="Middle">
+				<text><![CDATA[Souscriptions]]></text>
+			</element>
+			<element kind="staticText" uuid="a2de65b1-2da9-48a5-b852-b103b88eb691" x="309" y="148" width="139" height="34" bold="true" vTextAlign="Middle">
+				<text><![CDATA[Rachats]]></text>
+			</element>
+			<element kind="textField" uuid="8d12b699-3d68-4af1-8c85-c1ff1ec7313e" x="158" y="321" width="40" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{nbreSousPP}]]></expression>
+			</element>
+			<element kind="textField" uuid="a0e2c400-fd95-42d3-bdf4-f33d054250eb" x="208" y="321" width="40" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{nbrePartSousPP}]]></expression>
+			</element>
+			<element kind="textField" uuid="c385fbd8-41d7-420f-94f2-7b363803329f" x="258" y="321" width="40" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{volumeSousPP}]]></expression>
+			</element>
+			<element kind="textField" uuid="3b667baf-7faf-4ffc-8919-ea7dc50ca77d" x="308" y="321" width="40" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{nbreRachatPP}]]></expression>
+			</element>
+			<element kind="textField" uuid="efd107ba-b3f0-4871-8e63-41e378abbeab" x="358" y="321" width="40" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{nbrePartRachatPP}]]></expression>
+			</element>
+			<element kind="textField" uuid="8e7cae4b-9f85-4623-84c7-526cc9617101" x="407" y="321" width="40" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{volumeRachatPP}]]></expression>
+			</element>
+			<element kind="textField" uuid="9a6dfa5e-4a98-4f86-b861-0d833d0b5b68" x="457" y="321" width="40" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{nbreTotalPorteurPartPP}]]></expression>
+			</element>
+			<element kind="textField" uuid="9acac65f-28e5-41c1-b09a-d9853fc6c86f" x="507" y="322" width="40" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{volumeTotalDetenuPP}]]></expression>
+			</element>
+			<element kind="textField" uuid="3ec79d0f-699a-4125-9834-745476e1d4c7" x="457" y="387" width="40" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{nbreTotalPorteurPartBanquesPM}]]></expression>
+			</element>
+			<element kind="textField" uuid="dd7e7a32-6f6c-4683-bfff-f5a3a34a7122" x="158" y="387" width="40" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{nbreSousBanquesPM}]]></expression>
+			</element>
+			<element kind="textField" uuid="9391bbac-d812-47fc-b724-28ef6f99eb0c" x="208" y="387" width="40" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{nbrePartSousBanquesPM}]]></expression>
+			</element>
+			<element kind="textField" uuid="14fea2bd-e6c1-4c6f-b1d9-00719294ee9b" x="258" y="387" width="40" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{volumeSousBanquesPM}]]></expression>
+			</element>
+			<element kind="textField" uuid="424da063-7241-4798-a914-b1f55a59ea91" x="308" y="387" width="40" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{nbreRachatBanquesPM}]]></expression>
+			</element>
+			<element kind="textField" uuid="04bb47a2-6def-4a99-9018-4fe7e02e4a09" x="358" y="387" width="40" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{nbrePartRachatBanquesPM}]]></expression>
+			</element>
+			<element kind="textField" uuid="8a8e7d04-4d50-426d-ac9f-7d0d77f1b31b" x="407" y="387" width="40" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{volumeRachatBanquesPM}]]></expression>
+			</element>
+			<element kind="textField" uuid="fa2d504d-f13a-456f-8edb-2c0dfebf1c39" x="507" y="388" width="40" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{volumeTotalDetenuBanquesPM}]]></expression>
+			</element>
+			<element kind="textField" uuid="5ffa179e-1853-4a74-aead-93549b063e8c" x="457" y="417" width="40" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{nbreTotalPorteurPartSocieteFinancementPM}]]></expression>
+			</element>
+			<element kind="textField" uuid="218513f2-fa35-4c7b-a6e7-8247fa42871d" x="158" y="417" width="40" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{nbreSousSocieteFinancementPM}]]></expression>
+			</element>
+			<element kind="textField" uuid="e1006ddc-0f9c-4b48-98b7-af844f020023" x="208" y="417" width="40" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{nbrePartSousSocieteFinancementPM}]]></expression>
+			</element>
+			<element kind="textField" uuid="b51cd453-8586-4386-a9df-3114f2e4103e" x="258" y="417" width="40" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{volumeSousSocieteFinancementPM}]]></expression>
+			</element>
+			<element kind="textField" uuid="743c7432-5fb2-47f8-9313-28f629310426" x="308" y="417" width="40" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{nbreSousPP}]]></expression>
+			</element>
+			<element kind="textField" uuid="5d299229-e4bc-43f3-80ef-67f739490834" x="358" y="417" width="40" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{nbrePartRachatSocieteFinancementPM}]]></expression>
+			</element>
+			<element kind="textField" uuid="f157952a-2917-4032-a68d-211016395c6f" x="407" y="417" width="40" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{volumeRachatSocieteFinancementPM}]]></expression>
+			</element>
+			<element kind="textField" uuid="e39dfc1d-e11b-4487-bbb1-d680d80175be" x="507" y="418" width="40" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{volumeTotalDetenuSocieteFinancementPM}]]></expression>
+			</element>
+			<element kind="textField" uuid="3d328a64-7db1-4b25-98b8-857b1039ef56" x="457" y="447" width="40" height="31" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{nbreTotalPorteurPartCompaAssuranceReassurancePM}]]></expression>
+			</element>
+			<element kind="textField" uuid="94509bc5-21cc-4c2f-b63d-f50e7697edd9" x="158" y="447" width="40" height="31" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{nbreSousCompaAssuranceReassurancePM}]]></expression>
+			</element>
+			<element kind="textField" uuid="600b1bae-907f-432b-b5e4-84b22f64f38a" x="208" y="447" width="40" height="31" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{nbrePartSousCompaAssuranceReassurancePM}]]></expression>
+			</element>
+			<element kind="textField" uuid="9a7489f8-94d6-4daa-b1ce-b7463f7129a5" x="258" y="447" width="40" height="31" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{volumeSousCompaAssuranceReassurancePM}]]></expression>
+			</element>
+			<element kind="textField" uuid="aae774c7-fc52-456b-a0a2-ae9f4453f9a6" x="308" y="447" width="40" height="31" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{nbreRachatCompaAssuranceReassurancePM}]]></expression>
+			</element>
+			<element kind="textField" uuid="6790edf1-86e5-42c0-91b3-f5078b30d19d" x="358" y="447" width="40" height="31" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{nbrePartRachatCompaAssuranceReassurancePM}]]></expression>
+			</element>
+			<element kind="textField" uuid="71986f65-4790-42c0-a864-eb59e38ef80d" x="407" y="447" width="40" height="31" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{volumeRachatCompaAssuranceReassurancePM}]]></expression>
+			</element>
+			<element kind="textField" uuid="0726454c-330a-436f-9415-7edec428073f" x="507" y="448" width="40" height="31" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{volumeTotalDetenuCompaAssuranceReassurancePM}]]></expression>
+			</element>
+			<element kind="textField" uuid="5141b221-9a6e-472c-ae79-1ad313eb9bd9" x="457" y="489" width="40" height="31" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{nbreTotalPorteurPartOrganPrevoRetraitePM}]]></expression>
+			</element>
+			<element kind="textField" uuid="02c6b6dd-0c86-4511-bc73-88c88d4d0600" x="158" y="489" width="40" height="31" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{nbreSousOrganPrevoRetraitePM}]]></expression>
+			</element>
+			<element kind="textField" uuid="fb3ee575-b1a9-4fbc-ad72-e22fd2a54dd8" x="208" y="489" width="40" height="31" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{nbrePartSousOrganPrevoRetraitePM}]]></expression>
+			</element>
+			<element kind="textField" uuid="885e2b11-8416-4f36-9e73-9b5ed0883807" x="258" y="489" width="40" height="31" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{volumeSousOrganPrevoRetraitePM}]]></expression>
+			</element>
+			<element kind="textField" uuid="db6664f3-175b-4f77-860c-3a341875f5b6" x="308" y="489" width="40" height="31" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{nbreRachatOrganPrevoRetraitePM}]]></expression>
+			</element>
+			<element kind="textField" uuid="2e9efeba-cfc1-47c8-927d-6b7fd1729905" x="358" y="489" width="40" height="31" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{nbrePartRachatOrganPrevoRetraitePM}]]></expression>
+			</element>
+			<element kind="textField" uuid="63093176-e2ef-4795-bd61-a9f6fdd22960" x="407" y="489" width="40" height="31" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{volumeRachatOrganPrevoRetraitePM}]]></expression>
+			</element>
+			<element kind="textField" uuid="07a0212e-11a9-4d44-846b-273a5071b5d4" x="507" y="490" width="40" height="31" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{volumeTotalDetenuOrganPrevoRetraitePM}]]></expression>
+			</element>
+			<element kind="textField" uuid="727a0d04-4c1b-4816-a517-d3c9a573bc97" x="457" y="530" width="40" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{nbreTotalPorteurPartOpcvmPM}]]></expression>
+			</element>
+			<element kind="textField" uuid="dcb531bd-f45a-4806-b498-82bd3a38604c" x="158" y="530" width="40" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{nbreSousOpcvmPM}]]></expression>
+			</element>
+			<element kind="textField" uuid="ba375ac3-1003-4e69-8582-c14624b3828d" x="208" y="530" width="40" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{nbrePartSousOpcvmPM}]]></expression>
+			</element>
+			<element kind="textField" uuid="f70e3ce8-0e37-4ff5-8342-64fb23e05781" x="258" y="530" width="40" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{volumeSousOpcvmPM}]]></expression>
+			</element>
+			<element kind="textField" uuid="50f36d76-2007-4387-848d-2d1de725e26e" x="308" y="530" width="40" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{nbreRachatOpcvmPM}]]></expression>
+			</element>
+			<element kind="textField" uuid="826777d8-7a67-4a24-a89f-ce6503578cb6" x="358" y="530" width="40" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{nbrePartRachatOpcvmPM}]]></expression>
+			</element>
+			<element kind="textField" uuid="ab03f2d2-c8d1-4bbf-8f1d-9bde5714d827" x="407" y="530" width="40" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{volumeRachatOpcvmPM}]]></expression>
+			</element>
+			<element kind="textField" uuid="f558d542-fb8b-4353-b44a-ac06f9e7d982" x="507" y="531" width="40" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{nbreSousPP}]]></expression>
+			</element>
+			<element kind="textField" uuid="6efe36a5-60d9-4e8d-b5b3-6925ebcc00e8" x="457" y="560" width="40" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{nbreTotalPorteurPartSocieteBoursePM}]]></expression>
+			</element>
+			<element kind="textField" uuid="f5f946b6-6b4f-4885-8f79-126258678585" x="158" y="560" width="40" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{nbreSousSocieteBoursePM}]]></expression>
+			</element>
+			<element kind="textField" uuid="a8c6a616-c95c-4e0a-8702-ff6a624dd37b" x="208" y="560" width="40" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{nbreSousPP}]]></expression>
+			</element>
+			<element kind="textField" uuid="abfa9477-0ee9-4f4e-82ae-1bcd13cf51bc" x="258" y="560" width="40" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{volumeSousSocieteBoursePM}]]></expression>
+			</element>
+			<element kind="textField" uuid="3f0286ac-a4fd-421b-8eea-ca28f1914ab7" x="308" y="560" width="40" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{nbrePartRachatSocieteBoursePM}]]></expression>
+			</element>
+			<element kind="textField" uuid="5efba31f-6eec-4ffb-85a8-35b00927c4cf" x="358" y="560" width="40" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{nbrePartRachatSocieteBoursePM}]]></expression>
+			</element>
+			<element kind="textField" uuid="ac3c0ee9-b209-4d6a-bb75-7796d126748e" x="407" y="560" width="40" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{volumeRachatSocieteBoursePM}]]></expression>
+			</element>
+			<element kind="textField" uuid="e3ce76c8-762d-40c9-807c-b050486c59e7" x="507" y="561" width="40" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{volumeTotalDetenuSocieteBoursePM}]]></expression>
+			</element>
+		</band>
+	</detail>
+	<columnFooter splitType="Stretch"/>
+	<pageFooter height="54" splitType="Stretch">
+		<element kind="staticText" uuid="5f599d5a-3e10-4499-974e-927d62b815c9" x="5" y="12" width="126" height="13">
+			<text><![CDATA[Edité avec OPCCIEL 2.0]]></text>
+		</element>
+		<element kind="textField" uuid="224eafec-1a33-40e9-b560-cc87aab16a65" x="452" y="12" width="100" height="18" hTextAlign="Right">
+			<expression><![CDATA[$V{PAGE_NUMBER}]]></expression>
+		</element>
+	</pageFooter>
+	<summary height="116" splitType="Stretch">
+		<element kind="staticText" uuid="acd35971-9dab-48a5-86e5-98e97a7c23e2" x="3" y="10" width="504" height="30">
+			<text><![CDATA[2 Il s'agit du nombre de personnes détenant des parts de l'OPCVM à la date de calcul de la valeur liquidative du dernier jour du mois.]]></text>
+		</element>
+		<element kind="staticText" uuid="1226d429-a0f9-4fa8-ba0f-78d4a2227ba2" x="30" y="46" width="476" height="14">
+			<text><![CDATA[ce tableau sera conçu également pour les non-résidents de l’espace UMOA.]]></text>
+		</element>
+		<element kind="staticText" uuid="3fc23a6c-824f-4818-a16e-79a1c95b43ab" x="3" y="46" width="27" height="14" bold="true">
+			<text><![CDATA[NB : ]]></text>
+		</element>
+	</summary>
+</jasperReport>
