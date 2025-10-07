@@ -20,4 +20,8 @@ public interface GelDegelDao extends JpaRepository<GelDegel,Long> {
             "where g.personne.idPersonne=:mIdPersonne and g.estGele=true")
     @Modifying
     int updateGelDegel(long mIdPersonne, LocalDateTime mDateFin);
+
+    @Query(value = "select g from GelDegel g " +
+            "where g.personne.idPersonne=:mIdPersonne and g.estGele=true")
+        GelDegel verifierPersonneGele(Long mIdPersonne);
 }

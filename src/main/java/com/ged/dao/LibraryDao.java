@@ -112,6 +112,9 @@ public interface LibraryDao extends JpaRepository<BaseEntity, Long> {
             ":dateDebut,:dateFin) " +
             "order by idactionnaire asc,idopcvm asc", nativeQuery = true)
     List<PerformancePortefeuilleActionnaireProjection> performancePortefeuilleActionnaire(Long idOpcvm,String idActionnaire,LocalDateTime dateDebut,LocalDateTime dateFin);
+    @Query(value = "select * from [Impressions].[FT_PortefeuilleActionnaire_New_JAVA](:idOpcvm,:idActionnaire,:dateDebutEstimation,:dateEstimation) " +
+            "order by idopcvm asc", nativeQuery = true)
+    Page<PortefeuilleActionnaireProjection> portefeuilleActionnaire(Long idOpcvm,String idActionnaire,LocalDateTime dateDebutEstimation,LocalDateTime dateEstimation,Pageable pageable);
     @Query(value = "select * from [Impressions].[FT_RegistreActionnaire_New](:dateDebut,:dateFin)", nativeQuery = true)
     List<HistoriqueActionnaireProjection> historiqueActionnaire(LocalDateTime dateDebut,LocalDateTime dateFin);
     @Query(value = "select * from [Impressions].[FT_RegistreActionnaire_New](:dateDebut,:dateFin)", nativeQuery = true)

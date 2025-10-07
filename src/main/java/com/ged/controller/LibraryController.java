@@ -351,6 +351,10 @@ public class LibraryController {
     public ResponseEntity<?> releveTitreFCPListe(@RequestBody @Valid ReleveTitreFCPRequest request) {
         return service.afficherReleveTitreFCPListe(request);
     }
+    @PostMapping("/opcvm/portefeuilleactionnaire")
+    public ResponseEntity<?> portefeuilleactionnaire(@RequestBody @Valid PortefeuilleActionnaireRequest request) {
+        return service.portefeuilleActionnaire(request);
+    }
     @Order(1)
     @PostMapping("/registre/actionnaire/opcvm")
     public ResponseEntity<?> registreActionnaire(@RequestBody RegistreActionnaireRequest request) {

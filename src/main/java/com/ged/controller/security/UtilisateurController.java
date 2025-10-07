@@ -5,10 +5,15 @@ import com.ged.datatable.DatatableParameters;
 import com.ged.dto.security.Utilisateur2Dto;
 import com.ged.dto.security.UtilisateurDto;
 import com.ged.service.standard.UtilisateurService;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -26,7 +31,23 @@ public class UtilisateurController {
     public ResponseEntity<Object> afficherTous(){
         return utilisateurService.afficherTous();
     }
+    @GetMapping("/liste")
+    public ResponseEntity<Object> afficherTousListe(){
+        return utilisateurService.afficherTousListe();
+    }
+    @GetMapping("/exportexcel")
+    public ResponseEntity<byte[]> exportExcel() throws IOException {
 
+        Workbook workbook = utilisateurService.createExcel();
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        workbook.write(out);
+        workbook.close();
+
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=matrice_des_habilitations.xlsx")
+                .contentType(MediaType.APPLICATION_OCTET_STREAM)
+                .body(out.toByteArray());
+    }
     @GetMapping("/{id}")
     public ResponseEntity<Object> afficherUtilisateur(@PathVariable("id") Long id)
     {
