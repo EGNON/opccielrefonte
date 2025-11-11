@@ -45,9 +45,9 @@ public class OpcvmMapper {
         if(opcvm.getClassification()!=null)
             opcvmDto.setClassification(classificationOPCMapper.deClassification(opcvm.getClassification()));
        /* if(opcvm.getPersonneEmetteur()!=null)
-            opcvmDto.setPersonneEmetteur(personneMoraleMapper.dePersonneMorale(opcvm.getPersonneEmetteur()));
+            opcvmDto.setPersonneEmetteur(personneMoraleMapper.dePersonneMorale(opcvm.getPersonneEmetteur()));*/
         if(opcvm.getPersonneIntervenant()!=null)
-            opcvmDto.setPersonneIntervenant(personneMoraleMapper.dePersonneMorale(opcvm.getPersonneIntervenant()));*/
+            opcvmDto.setPersonneIntervenant(personneMoraleMapper.dePersonneMorale(opcvm.getPersonneIntervenant()));
         if(opcvm.getFormeJuridiqueOpc()!=null)
             opcvmDto.setFormeJuridiqueOpc(formeJuridiqueOpcMapper.deFormeJuridiqueOpc(opcvm.getFormeJuridiqueOpc()));
         if(opcvm.getPersonneGestionnaire()!=null)

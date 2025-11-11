@@ -31,7 +31,7 @@ public class OrdreController {
         this.OrdreService = OrdreService;
     }
     @GetMapping("/jasperpdf/ordreDeBourse/{numeroOrdre}")
-    public ResponseEntity<Object> ordreDeBourseApercu(@PathVariable String[] numeroOrdre,
+    public void ordreDeBourseApercu(@PathVariable String[] numeroOrdre,
                                                 HttpServletResponse response) throws JRException, IOException {
         response.setContentType("application/pdf");
         DateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy:hh:mm:ss");
@@ -41,7 +41,7 @@ public class OrdreController {
         String headerValue = "attachment; filename=ordreDeBourse" + currentDateTime + ".pdf";
         response.setHeader(headerKey, headerValue);
 
-        return OrdreService.jaspertReportOrdreBourse(numeroOrdre,response);
+         OrdreService.jaspertReportOrdreBourse(numeroOrdre,response);
     }
     @GetMapping("tous/{idOpcvm}")
     public ResponseEntity<Object> afficherTous(@PathVariable Long idOpcvm)

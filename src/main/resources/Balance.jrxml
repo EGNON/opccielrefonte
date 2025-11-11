@@ -191,22 +191,22 @@
 				<element kind="staticText" uuid="12ba87d6-ce87-4d7d-9e0d-b5e5c6fa9e58" x="231" y="10" width="66" height="14" bold="true" hTextAlign="Right">
 					<text><![CDATA[TOTAL]]></text>
 				</element>
-				<element kind="textField" uuid="966693bf-2bf0-4e86-851b-9114575f5b76" x="305" y="10" width="76" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<element kind="textField" uuid="966693bf-2bf0-4e86-851b-9114575f5b76" x="305" y="10" width="76" height="14" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
 					<expression><![CDATA[$F{estMvt}==true?$V{debutD1}:0]]></expression>
 				</element>
-				<element kind="textField" uuid="570ca2b2-e128-4959-ae09-b452e8bef809" x="388" y="10" width="76" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<element kind="textField" uuid="570ca2b2-e128-4959-ae09-b452e8bef809" x="388" y="10" width="76" height="14" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
 					<expression><![CDATA[$F{estMvt}==true?$V{debutC1}:0]]></expression>
 				</element>
-				<element kind="textField" uuid="40e6c551-e631-4dc1-b2c4-f830ff94c88e" x="471" y="10" width="78" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<element kind="textField" uuid="40e6c551-e631-4dc1-b2c4-f830ff94c88e" x="471" y="10" width="78" height="14" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
 					<expression><![CDATA[$F{estMvt}==true?$V{mvtPeriodeD1}:0]]></expression>
 				</element>
-				<element kind="textField" uuid="2a896297-2019-4dc5-bdc1-4c58091e6d0f" x="554" y="10" width="78" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<element kind="textField" uuid="2a896297-2019-4dc5-bdc1-4c58091e6d0f" x="554" y="10" width="78" height="14" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
 					<expression><![CDATA[$F{estMvt}==true?$V{mvtPeriodeC1}:0]]></expression>
 				</element>
-				<element kind="textField" uuid="e8756c2e-48c7-46ee-95fa-6d10619abb09" x="637" y="10" width="76" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<element kind="textField" uuid="e8756c2e-48c7-46ee-95fa-6d10619abb09" x="637" y="10" width="76" height="14" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
 					<expression><![CDATA[$F{estMvt}==true?$V{debit1}:0]]></expression>
 				</element>
-				<element kind="textField" uuid="a0fefb16-b460-427d-8b9e-048a3b2171a4" x="721" y="10" width="80" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<element kind="textField" uuid="a0fefb16-b460-427d-8b9e-048a3b2171a4" x="721" y="10" width="80" height="14" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
 					<expression><![CDATA[$F{estMvt}==true?$V{credit1}:0]]></expression>
 				</element>
 			</band>
@@ -264,22 +264,22 @@
 			<element kind="textField" uuid="b98dde53-cf4f-4069-b864-d6d8ab97b4fe" x="90" y="9" width="211" height="18">
 				<expression><![CDATA[$F{libelleCompteComptable}]]></expression>
 			</element>
-			<element kind="textField" uuid="ceae43b1-75cd-4286-a0d3-77efafa418c0" x="305" y="9" width="76" height="18" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+			<element kind="textField" uuid="ceae43b1-75cd-4286-a0d3-77efafa418c0" x="305" y="9" width="76" height="18" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
 				<expression><![CDATA[$F{debutD}]]></expression>
 			</element>
-			<element kind="textField" uuid="94a7d593-2ad8-46cf-b6ef-7bb968fc47ce" x="388" y="9" width="76" height="18" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+			<element kind="textField" uuid="94a7d593-2ad8-46cf-b6ef-7bb968fc47ce" x="388" y="9" width="76" height="18" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
 				<expression><![CDATA[$F{debutC}]]></expression>
 			</element>
-			<element kind="textField" uuid="340b4d27-fcd0-4200-bb8e-966347ed65b4" x="471" y="9" width="79" height="18" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+			<element kind="textField" uuid="340b4d27-fcd0-4200-bb8e-966347ed65b4" x="471" y="9" width="79" height="18" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
 				<expression><![CDATA[$F{mvtPeriodeD}]]></expression>
 			</element>
-			<element kind="textField" uuid="e83df384-ca18-4321-9da0-9e2b5cbe4669" x="554" y="9" width="79" height="18" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+			<element kind="textField" uuid="e83df384-ca18-4321-9da0-9e2b5cbe4669" x="554" y="9" width="79" height="18" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
 				<expression><![CDATA[$F{mvtPeriodeC}]]></expression>
 			</element>
-			<element kind="textField" uuid="90a4da18-06f6-47ec-8d16-856b496cf408" x="637" y="9" width="77" height="18" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+			<element kind="textField" uuid="90a4da18-06f6-47ec-8d16-856b496cf408" x="637" y="9" width="77" height="18" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
 				<expression><![CDATA[$F{debit}]]></expression>
 			</element>
-			<element kind="textField" uuid="17d1826c-cada-466d-9c33-d3fb1e0d74a6" x="721" y="9" width="76" height="18" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+			<element kind="textField" uuid="17d1826c-cada-466d-9c33-d3fb1e0d74a6" x="721" y="9" width="76" height="18" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
 				<expression><![CDATA[$F{credit}]]></expression>
 			</element>
 		</band>

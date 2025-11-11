@@ -2,10 +2,13 @@ package com.ged.service;
 
 import com.ged.dao.LibraryDao;
 import com.ged.dao.opcciel.OpcvmDao;
+import com.ged.dao.opcciel.SocieteDeGestionDao;
 import com.ged.dao.opcciel.comptabilite.*;
 import com.ged.dao.security.UtilisateurDao;
 import com.ged.dao.standard.PersonneDao;
 import com.ged.datatable.DataTablesResponse;
+import com.ged.dto.etats.PointRachatGlobalDto;
+import com.ged.dto.opcciel.comptabilite.ExerciceDto;
 import com.ged.dto.request.SoldeDesComptesComptablesRequest;
 import com.ged.dto.lab.reportings.BeginEndDateParameter;
 import com.ged.dto.opcciel.*;
@@ -28,6 +31,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.transaction.Transactional;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -37,14 +41,18 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import javax.sql.DataSource;
 import java.io.*;
 import java.math.BigDecimal;
 import java.security.Principal;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 //@RequiredArgsConstructor
@@ -52,14 +60,21 @@ import java.util.*;
 public class AppService {
     @PersistenceContext
     EntityManager em;
+
+    @Autowired
+    private DataSource dataSource;
     private final UtilisateurDao utilisateurDao;
     private final LibraryDao libraryDao;
+    private final ExerciceDao exerciceDao;
+    private final ExerciceMapper exerciceMapper;
     private final PlanService planService;
     private final OpcvmService opcvmService;
     private final IbService ibService;
     private final MouvementDao mouvementDao;
     private final OpcvmMapper opcvmMapper;
     private final OpcvmDao opcvmDao;
+    private final SocieteDeGestionMapper societeDeGestionMapper;
+    private final SocieteDeGestionDao societeDeGestionDao;
     private final NatureOperationMapper natureOperationMapper;
     private final TransactionDao transactionDao;
     private final OperationMapper operationMapper;
@@ -76,15 +91,19 @@ public class AppService {
     private final OperationConstatationChargeMapper constatationChargeMapper;
     private final OperationCommissionMapper commissionMapper;
 
-    public AppService(UtilisateurDao utilisateurDao, LibraryDao libraryDao, PlanService planService, OpcvmService opcvmService, IbService ibService, MouvementDao mouvementDao, OpcvmMapper opcvmMapper, OpcvmDao opcvmDao, NatureOperationMapper natureOperationMapper, TransactionDao transactionDao, OperationMapper operationMapper, FormuleDao formuleDao, OperationFormuleDao operationFormuleDao, OperationCodeAnalytiqueDao operationCodeAnalytiqueDao, NatureOperationDao natureOperationDao, JournalDao journalDao, OperationJournalDao operationJournalDao, PersonneDao personneDao, OperationSouscriptionRachatMapper souscriptionRachatMapper, OperationRestitutionReliquatMapper operationRestitutionReliquatMapper, OperationTransfertPartMapper transfertPartMapper, OperationConstatationChargeMapper constatationChargeMapper, OperationCommissionMapper commissionMapper) {
+    public AppService(UtilisateurDao utilisateurDao, LibraryDao libraryDao, ExerciceDao exerciceDao, ExerciceMapper exerciceMapper, PlanService planService, OpcvmService opcvmService, IbService ibService, MouvementDao mouvementDao, OpcvmMapper opcvmMapper, OpcvmDao opcvmDao, SocieteDeGestionMapper societeDeGestionMapper, SocieteDeGestionDao societeDeGestionDao, NatureOperationMapper natureOperationMapper, TransactionDao transactionDao, OperationMapper operationMapper, FormuleDao formuleDao, OperationFormuleDao operationFormuleDao, OperationCodeAnalytiqueDao operationCodeAnalytiqueDao, NatureOperationDao natureOperationDao, JournalDao journalDao, OperationJournalDao operationJournalDao, PersonneDao personneDao, OperationSouscriptionRachatMapper souscriptionRachatMapper, OperationRestitutionReliquatMapper operationRestitutionReliquatMapper, OperationTransfertPartMapper transfertPartMapper, OperationConstatationChargeMapper constatationChargeMapper, OperationCommissionMapper commissionMapper) {
         this.utilisateurDao = utilisateurDao;
         this.libraryDao = libraryDao;
+        this.exerciceDao = exerciceDao;
+        this.exerciceMapper = exerciceMapper;
         this.planService = planService;
         this.opcvmService = opcvmService;
         this.ibService = ibService;
         this.mouvementDao = mouvementDao;
         this.opcvmMapper = opcvmMapper;
         this.opcvmDao = opcvmDao;
+        this.societeDeGestionMapper = societeDeGestionMapper;
+        this.societeDeGestionDao = societeDeGestionDao;
         this.natureOperationMapper = natureOperationMapper;
         this.transactionDao = transactionDao;
         this.operationMapper = operationMapper;
@@ -385,6 +404,8 @@ public class AppService {
         parameters.put("letterDate", letterDate);
         OpcvmDto opcvm = opcvmMapper.deOpcvm(opcvmDao.findById(request.getIdOpcvm()).orElseThrow());
         parameters.put("Descrip", opcvm.getDenominationOpcvm());
+        Personne personne=personneDao.afficherPersonneSelonId(request.getIdActionnaire());
+        parameters.put("Actionnaire", personne.getDenomination());
 
         // Remplissage du rapport
         JasperPrint print = JasperFillManager.fillReport(
@@ -427,7 +448,7 @@ public class AppService {
 //        try {
         // Récupération des données
         List<JournalProjection2> journalProjection2s = libraryDao.journal(
-                null, request.getCodeJournal(), request.getDateDebut(),request.getDateFin());
+                request.getIdOpcvm(), request.getCodeJournal(), request.getDateDebut(),request.getDateFin());
 
         // Chargement des fichiers .jrxml depuis le classpath
         rapportStream = getClass().getResourceAsStream("/Journal.jrxml");
@@ -478,6 +499,99 @@ public class AppService {
 
     }
 
+    //Balance avant inventaire
+    public ResponseEntity<?> afficherBalanceAvantInventaire(BalanceRequest request) {
+        var parameters = request.getDatatableParameters();
+        try {
+            Pageable pageable = PageRequest.of(parameters.getStart()/ parameters.getLength(), parameters.getLength());
+            Page<BalanceProjection> balancePage;
+            if(parameters.getSearch() != null && !parameters.getSearch().getValue().isEmpty()) {
+                balancePage = new PageImpl<>(new ArrayList<>());
+            }
+            else {
+               balancePage = libraryDao.balanceAvantInventaire(
+                       request.getCodePlan(), request.getIdOpcvm(), request.getDateDebut(), request.getDateFin(),
+                        pageable
+                );
+            }
+            List<BalanceProjection> content = balancePage.getContent().stream().toList();
+            DataTablesResponse<BalanceProjection> dataTablesResponse = new DataTablesResponse<>();
+            dataTablesResponse.setDraw(parameters.getDraw());
+            dataTablesResponse.setRecordsFiltered((int)balancePage.getTotalElements());
+            dataTablesResponse.setRecordsTotal((int)balancePage.getTotalElements());
+            dataTablesResponse.setData(content);
+            return ResponseHandler.generateResponse(
+                    "Balance opcvm",
+                    HttpStatus.OK,
+                    dataTablesResponse);
+        }
+        catch(Exception e) {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e);
+        }
+    }
+    public ResponseEntity<Object> afficherBalanceAvantInventaire(BalanceRequest request, HttpServletResponse response) throws JRException, IOException {
+
+        InputStream rapportStream = null;
+        InputStream subreportStream = null;
+//        try {
+        // Récupération des données
+        List<BalanceProjection> balanceProjections = libraryDao.balanceAvantInventaire(
+                request.getCodePlan(),request.getIdOpcvm(), request.getDateDebut(),request.getDateFin());
+
+        // Chargement des fichiers .jrxml depuis le classpath
+        rapportStream = getClass().getResourceAsStream("/Balance.jrxml");
+//        subreportStream = getClass().getResourceAsStream("/operationDetachement.jrxml");
+
+        if (rapportStream == null) {
+            throw new RuntimeException("Fichiers .jrxml introuvables dans le classpath !");
+        }
+
+        // Compiler les rapports à la volée
+        JasperReport rapportPrincipal = JasperCompileManager.compileReport(rapportStream);
+//        JasperReport subreport = JasperCompileManager.compileReport(subreportStream);
+
+        // Préparation des paramètres
+        Map<String, Object> parameters = new HashMap<>();
+        DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
+        String letterDate = dateFormatter.format(new Date());
+        parameters.put("letterDate", letterDate);
+        OpcvmDto opcvm = opcvmMapper.deOpcvm(opcvmDao.findById(request.getIdOpcvm()).orElseThrow());
+
+        // Remplissage du rapport
+        JasperPrint print = JasperFillManager.fillReport(
+                rapportPrincipal,
+                parameters,
+                new JRBeanCollectionDataSource(balanceProjections)
+        );
+        JasperExportManager.exportReportToPdfStream(print, response.getOutputStream());
+        return ResponseHandler.generateResponse(
+                "Ordre de bourse",
+                HttpStatus.OK,
+                balanceProjections);
+
+
+    }
+    public ResponseEntity<?> afficherBalanceAvantInventaireListe(BalanceRequest request) {
+        try
+        {
+            List<BalanceProjection> balanceProjections=libraryDao.balanceAvantInventaire(
+                    request.getCodePlan(), request.getIdOpcvm(),request.getDateDebut(),request.getDateFin()
+            );
+            return ResponseHandler.generateResponse(
+                    "Balance opcvm",
+                    HttpStatus.OK,
+                    balanceProjections);
+        }
+        catch(Exception e) {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e);
+        }
+    }
     //Balance
     public ResponseEntity<?> afficherBalance(BalanceRequest request) {
         var parameters = request.getDatatableParameters();
@@ -679,7 +793,7 @@ public class AppService {
             }
             else {
                 soldeDesComptesComptablesPage = libraryDao.soldeDesComptesComptables(
-                        request.getCodePlan(), request.getIdOpcvm(), request.getNumCompteComptable(), request.getDateEstimation(),
+                        request.getCodePlan(), request.getIdOpcvm(),null, request.getDateEstimation(),
                         pageable
                 );
             }
@@ -701,53 +815,41 @@ public class AppService {
                     e);
         }
     }
-    public ResponseEntity<Object> afficherSoldeDesComptesComptables(SoldeDesComptesComptablesRequest request, HttpServletResponse response) throws JRException, IOException {
+    public void afficherSoldeDesComptesComptables(
+            SoldeDesComptesComptablesRequest request,
+            HttpServletResponse response
+    ) throws JRException, IOException {
 
-        InputStream rapportStream = null;
-        InputStream subreportStream = null;
-//        try {
-        // Récupération des données
-        List<SoldeDesComptesComptablesProjection> soldeDesComptesComptablesProjections = libraryDao.soldeDesComptesComptables(
-                request.getCodePlan(),request.getIdOpcvm(), request.getNumCompteComptable(),request.getDateEstimation());
+        // Exemple : récupère les données (à adapter selon ton DAO)
+        List<SoldeDesComptesComptablesProjection> data =
+                libraryDao.soldeDesComptesComptables(
+                        request.getCodePlan(),
+                        request.getIdOpcvm(),
+                        null,
+                        request.getDateEstimation()
+                );
 
-        // Chargement des fichiers .jrxml depuis le classpath
-        rapportStream = getClass().getResourceAsStream("/Solde_Compte_Comptable.jrxml");
-//        subreportStream = getClass().getResourceAsStream("/operationDetachement.jrxml");
-
+        // Charge le fichier JRXML
+        InputStream rapportStream = getClass().getResourceAsStream("/Solde_Compte_Comptable.jrxml");
         if (rapportStream == null) {
-            throw new RuntimeException("Fichiers .jrxml introuvables dans le classpath !");
+            throw new RuntimeException("Fichier de rapport introuvable !");
         }
 
-        // Compiler les rapports à la volée
-        JasperReport rapportPrincipal = JasperCompileManager.compileReport(rapportStream);
-//        JasperReport subreport = JasperCompileManager.compileReport(subreportStream);
+        // Compile et remplit le rapport
+        JasperReport report = JasperCompileManager.compileReport(rapportStream);
+        Map<String, Object> params = new HashMap<>();
+        params.put("letterDate", new SimpleDateFormat("dd MMMM yyyy").format(new Date()));
 
-        // Préparation des paramètres
-        Map<String, Object> parameters = new HashMap<>();
-        DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
-        String letterDate = dateFormatter.format(new Date());
-        parameters.put("letterDate", letterDate);
-        OpcvmDto opcvm = opcvmMapper.deOpcvm(opcvmDao.findById(request.getIdOpcvm()).orElseThrow());
+        JasperPrint print = JasperFillManager.fillReport(report, params, new JRBeanCollectionDataSource(data));
 
-        // Remplissage du rapport
-        JasperPrint print = JasperFillManager.fillReport(
-                rapportPrincipal,
-                parameters,
-                new JRBeanCollectionDataSource(soldeDesComptesComptablesProjections)
-        );
+        // Écrit directement le flux PDF dans la réponse HTTP
         JasperExportManager.exportReportToPdfStream(print, response.getOutputStream());
-        return ResponseHandler.generateResponse(
-                "Ordre de bourse",
-                HttpStatus.OK,
-                soldeDesComptesComptablesProjections);
-
-
     }
     public ResponseEntity<?> afficherSoldeDesComptesComptablesListe(SoldeDesComptesComptablesRequest request) {
         try
         {
             List<SoldeDesComptesComptablesProjection> soldeDesComptesComptablesProjections=libraryDao.soldeDesComptesComptables(
-                    request.getCodePlan(), request.getIdOpcvm(),request.getNumCompteComptable(),request.getDateEstimation()
+                    request.getCodePlan(), request.getIdOpcvm(),null,request.getDateEstimation()
             );
             return ResponseHandler.generateResponse(
                     "Solde des Comptes Comptables opcvm",
@@ -773,7 +875,7 @@ public class AppService {
             }
             else {
                 pointSouscriptionDetaillePage = libraryDao.pointSouscriptionDetaille(
-                        request.getIdOpcvm(), request.getIdSeance(), request.getIdActionnaire(), request.getIdPersonne(), request.getDateDebut(), request.getDateFin(),
+                        request.getIdOpcvm(), null, null, request.getIdPersonne(), request.getDateDebut(), request.getDateFin(),
                         pageable
                 );
             }
@@ -802,7 +904,7 @@ public class AppService {
 //        try {
         // Récupération des données
         List<PointSouscriptionDetailleProjection> pointSouscriptionDetailleProjections = libraryDao.pointSouscriptionDetaille(
-                request.getIdOpcvm(), request.getIdSeance(), request.getIdActionnaire(), request.getIdPersonne(), request.getDateDebut(), request.getDateFin());
+                request.getIdOpcvm(), null, null, request.getIdPersonne(), request.getDateDebut(), request.getDateFin());
 
                 // Chargement des fichiers .jrxml depuis le classpath
         rapportStream = getClass().getResourceAsStream("/Point_Souscription_Detaille.jrxml");
@@ -841,7 +943,7 @@ public class AppService {
         try
         {
             List<PointSouscriptionDetailleProjection> pointSouscriptionDetailleProjections=libraryDao.pointSouscriptionDetaille(
-                    request.getIdOpcvm(), request.getIdSeance(), request.getIdActionnaire(), request.getIdPersonne(), request.getDateDebut(), request.getDateFin()
+                    request.getIdOpcvm(), null, null, request.getIdPersonne(), request.getDateDebut(), request.getDateFin()
             );
             return ResponseHandler.generateResponse(
                     "Point des Souscriptions Detaille opcvm",
@@ -867,7 +969,7 @@ public class AppService {
             }
             else {
                 pointSouscriptionGlobalPage = libraryDao.pointSouscriptionGlobal(
-                        request.getIdOpcvm(), request.getIdSeance(), request.getIdPersonne(), request.getDateDebut(), request.getDateFin(),
+                        request.getIdOpcvm(),null, request.getIdPersonne(), request.getDateDebut(), request.getDateFin(),
                         pageable
                 );
             }
@@ -896,26 +998,29 @@ public class AppService {
 //        try {
         // Récupération des données
         List<PointSouscriptionGlobalProjection> pointSouscriptionGlobalProjections = libraryDao.pointSouscriptionGlobal(
-                request.getIdOpcvm(), request.getIdSeance(), request.getIdPersonne(), request.getDateDebut(), request.getDateFin());
+                request.getIdOpcvm(), null, request.getIdPersonne(), request.getDateDebut(), request.getDateFin());
+
 
         // Chargement des fichiers .jrxml depuis le classpath
         rapportStream = getClass().getResourceAsStream("/Point_Souscription_Global.jrxml");
-//        subreportStream = getClass().getResourceAsStream("/operationDetachement.jrxml");
+        subreportStream = getClass().getResourceAsStream("/Point_Souscription_Global_Recap.jrxml");
 
-        if (rapportStream == null) {
+        if (rapportStream == null || subreportStream == null) {
             throw new RuntimeException("Fichiers .jrxml introuvables dans le classpath !");
         }
 
         // Compiler les rapports à la volée
         JasperReport rapportPrincipal = JasperCompileManager.compileReport(rapportStream);
-//        JasperReport subreport = JasperCompileManager.compileReport(subreportStream);
+        JasperReport subreport = JasperCompileManager.compileReport(subreportStream);
 
         // Préparation des paramètres
         Map<String, Object> parameters = new HashMap<>();
         DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
         String letterDate = dateFormatter.format(new Date());
         parameters.put("letterDate", letterDate);
-        OpcvmDto opcvm = opcvmMapper.deOpcvm(opcvmDao.findById(request.getIdOpcvm()).orElseThrow());
+        parameters.put("ALL_LIGNES", new JRBeanCollectionDataSource(pointSouscriptionGlobalProjections));
+        parameters.put("SUBREPORT_REF", subreport); // Passer le sous-rapport compilé
+        parameters.put("SUBREPORT_NAME", "Point_Souscription_Global_Recap.jrxml"); // Chemin relatif pour le sous-rapport
 
         // Remplissage du rapport
         JasperPrint print = JasperFillManager.fillReport(
@@ -928,14 +1033,13 @@ public class AppService {
                 "Ordre de bourse",
                 HttpStatus.OK,
                 pointSouscriptionGlobalProjections);
-
-
+//
     }
     public ResponseEntity<?> afficherPointSouscriptionGlobalListe(PointSouscriptionGlobalRequest request) {
         try
         {
             List<PointSouscriptionGlobalProjection> pointSouscriptionGlobalProjections=libraryDao.pointSouscriptionGlobal(
-                    request.getIdOpcvm(), request.getIdSeance(),request.getIdPersonne(), request.getDateDebut(), request.getDateFin()
+                    request.getIdOpcvm(),null,request.getIdPersonne(), request.getDateDebut(), request.getDateFin()
             );
             return ResponseHandler.generateResponse(
                     "Point des Souscriptions Global opcvm",
@@ -961,7 +1065,7 @@ public class AppService {
             }
             else {
                 pointRachatGlobalPage = libraryDao.pointRachatGlobal(
-                        request.getIdOpcvm(), request.getIdSeance(), request.getIdPersonne(), request.getDateDebut(), request.getDateFin(),
+                        request.getIdOpcvm(), null, request.getIdPersonne(), request.getDateDebut(), request.getDateFin(),
                         pageable
                 );
             }
@@ -990,26 +1094,67 @@ public class AppService {
 //        try {
         // Récupération des données
         List<PointRachatGlobalProjection> pointRachatGlobalProjections = libraryDao.pointRachatGlobal(
-                request.getIdOpcvm(), request.getIdSeance(), request.getIdPersonne(), request.getDateDebut(), request.getDateFin());
+                request.getIdOpcvm(), null, request.getIdPersonne(), request.getDateDebut(), request.getDateFin());
+
 
         // Chargement des fichiers .jrxml depuis le classpath
         rapportStream = getClass().getResourceAsStream("/Point_Rachats_Global.jrxml");
-//        subreportStream = getClass().getResourceAsStream("/operationDetachement.jrxml");
+        subreportStream = getClass().getResourceAsStream("/Point_Rachats_Global_Recap.jrxml");
 
-        if (rapportStream == null) {
+        if (rapportStream == null || subreportStream == null) {
             throw new RuntimeException("Fichiers .jrxml introuvables dans le classpath !");
         }
 
         // Compiler les rapports à la volée
         JasperReport rapportPrincipal = JasperCompileManager.compileReport(rapportStream);
-//        JasperReport subreport = JasperCompileManager.compileReport(subreportStream);
+        JasperReport subreport = JasperCompileManager.compileReport(subreportStream);
+
 
         // Préparation des paramètres
         Map<String, Object> parameters = new HashMap<>();
         DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
         String letterDate = dateFormatter.format(new Date());
         parameters.put("letterDate", letterDate);
-        OpcvmDto opcvm = opcvmMapper.deOpcvm(opcvmDao.findById(request.getIdOpcvm()).orElseThrow());
+
+        if(pointRachatGlobalProjections.isEmpty()|| pointRachatGlobalProjections.size()==2){
+            parameters.put("ALL_LIGNES", new JRBeanCollectionDataSource(pointRachatGlobalProjections));
+        }
+        else
+        {
+            List<PointRachatGlobalDto>  pointRachatGlobalDtos=new ArrayList<>();
+            for( PointRachatGlobalProjection o:pointRachatGlobalProjections){
+                PointRachatGlobalDto pointRachatGlobalDto=new PointRachatGlobalDto();
+                if(o.getLibelleTypePersonne()=="PERSONNE MORALE"){
+                    pointRachatGlobalDto.setLibelleTypePersonne("PERSONNE PHYSIQUE");
+                    pointRachatGlobalDto.setNombrePartSousRachat(BigDecimal.ZERO);
+                    pointRachatGlobalDto.setCommisiionSousRachat(BigDecimal.ZERO);
+                    pointRachatGlobalDto.setMontantSousALiquider(BigDecimal.ZERO);
+                    pointRachatGlobalDto.setRetrocessionSousRachat(BigDecimal.ZERO);
+                    pointRachatGlobalDtos.add(pointRachatGlobalDto);
+                }
+                else
+                {
+                    pointRachatGlobalDto.setLibelleTypePersonne("PERSONNE MORALE");
+                    pointRachatGlobalDto.setNombrePartSousRachat(BigDecimal.ZERO);
+                    pointRachatGlobalDto.setCommisiionSousRachat(BigDecimal.ZERO);
+                    pointRachatGlobalDto.setMontantSousALiquider(BigDecimal.ZERO);
+                    pointRachatGlobalDto.setRetrocessionSousRachat(BigDecimal.ZERO);
+                    pointRachatGlobalDtos.add(pointRachatGlobalDto);
+                }
+                pointRachatGlobalDto=new PointRachatGlobalDto();
+                pointRachatGlobalDto.setLibelleTypePersonne(o.getLibelleTypePersonne());
+                pointRachatGlobalDto.setNombrePartSousRachat(o.getNombrePartSousRachat());
+                pointRachatGlobalDto.setCommisiionSousRachat(o.getCommisiionSousRachat());
+                pointRachatGlobalDto.setMontantSousALiquider(o.getMontantSousALiquider());
+                pointRachatGlobalDto.setRetrocessionSousRachat(o.getRetrocessionSousRachat());
+                pointRachatGlobalDtos.add(pointRachatGlobalDto);
+            }
+            parameters.put("ALL_LIGNES", new JRBeanCollectionDataSource(pointRachatGlobalDtos));
+            //List<PointRachatGlobalProjection>
+        }
+
+        parameters.put("SUBREPORT_REF", subreport); // Passer le sous-rapport compilé
+        parameters.put("SUBREPORT_NAME", "Point_Souscription_Global_Recap.jrxml"); // Chemin relatif pour le sous-rapport
 
         // Remplissage du rapport
         JasperPrint print = JasperFillManager.fillReport(
@@ -1029,7 +1174,7 @@ public class AppService {
         try
         {
             List<PointRachatGlobalProjection> pointRachatGlobalProjections=libraryDao.pointRachatGlobal(
-                    request.getIdOpcvm(), request.getIdSeance(), request.getIdPersonne(), request.getDateDebut(), request.getDateFin()
+                    request.getIdOpcvm(), null, request.getIdPersonne(), request.getDateDebut(), request.getDateFin()
             );
             return ResponseHandler.generateResponse(
                     "Point des Rachats Global opcvm",
@@ -1055,7 +1200,7 @@ public class AppService {
             }
             else {
                 pointRachatDetaillePage = libraryDao.pointRachatDetaille(
-                        request.getIdOpcvm(), request.getIdSeance(), request.getIdActionnaire(), request.getIdPersonne(), request.getDateDebut(), request.getDateFin(),
+                        request.getIdOpcvm(), null, null, request.getIdPersonne(), request.getDateDebut(), request.getDateFin(),
                         pageable
                 );
             }
@@ -1084,7 +1229,7 @@ public class AppService {
 //        try {
         // Récupération des données
         List<PointRachatDetailleProjection> pointRachatDetailleProjections = libraryDao.pointRachatDetaille(
-                request.getIdOpcvm(), request.getIdSeance(), request.getIdActionnaire(), request.getIdPersonne(), request.getDateDebut(), request.getDateFin());
+                request.getIdOpcvm(), null, null, request.getIdPersonne(), request.getDateDebut(), request.getDateFin());
 
         // Chargement des fichiers .jrxml depuis le classpath
         rapportStream = getClass().getResourceAsStream("/Point_Rachats_Detaille.jrxml");
@@ -1123,7 +1268,7 @@ public class AppService {
         try
         {
             List<PointRachatDetailleProjection> pointRachatDetailleProjections=libraryDao.pointRachatDetaille(
-                    request.getIdOpcvm(), request.getIdSeance(), request.getIdActionnaire(), request.getIdPersonne(), request.getDateDebut(), request.getDateFin()
+                    request.getIdOpcvm(), null, null, request.getIdPersonne(), request.getDateDebut(), request.getDateFin()
             );
             return ResponseHandler.generateResponse(
                     "Point des Rachats Detaille opcvm",
@@ -1165,7 +1310,7 @@ public class AppService {
         DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
         String letterDate = dateFormatter.format(new Date());
         parameters.put("letterDate", letterDate);
-        String exercice = request.getExercice();
+        String exercice = request.getAnnee().toString();
         parameters.put("exercice", exercice);
         OpcvmDto opcvm = opcvmMapper.deOpcvm(opcvmDao.findById(request.getIdOpcvm()).orElseThrow());
 
@@ -1211,7 +1356,7 @@ public class AppService {
         DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
         String letterDate = dateFormatter.format(new Date());
         parameters.put("letterDate", letterDate);
-        String exercice = request.getExercice();
+        String exercice = request.getAnnee().toString();
         parameters.put("exercice", exercice);
         OpcvmDto opcvm = opcvmMapper.deOpcvm(opcvmDao.findById(request.getIdOpcvm()).orElseThrow());
 
@@ -1257,7 +1402,7 @@ public class AppService {
         DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
         String letterDate = dateFormatter.format(new Date());
         parameters.put("letterDate", letterDate);
-        String exercice = request.getExercice();
+        String exercice = request.getAnnee().toString();
         parameters.put("exercice", exercice);
         OpcvmDto opcvm = opcvmMapper.deOpcvm(opcvmDao.findById(request.getIdOpcvm()).orElseThrow());
 
@@ -1303,7 +1448,7 @@ public class AppService {
         DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
         String letterDate = dateFormatter.format(new Date());
         parameters.put("letterDate", letterDate);
-        String exercice = request.getExercice();
+        String exercice = request.getAnnee().toString();
         parameters.put("exercice", exercice);
         OpcvmDto opcvm = opcvmMapper.deOpcvm(opcvmDao.findById(request.getIdOpcvm()).orElseThrow());
 
@@ -1349,7 +1494,7 @@ public class AppService {
         DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
         String letterDate = dateFormatter.format(new Date());
         parameters.put("letterDate", letterDate);
-        String exercice = request.getExercice();
+        String exercice = request.getAnnee().toString();
         parameters.put("exercice", exercice);
         OpcvmDto opcvm = opcvmMapper.deOpcvm(opcvmDao.findById(request.getIdOpcvm()).orElseThrow());
 
@@ -1395,7 +1540,7 @@ public class AppService {
         DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
         String letterDate = dateFormatter.format(new Date());
         parameters.put("letterDate", letterDate);
-        String exercice = request.getExercice();
+        String exercice = request.getAnnee().toString();
         parameters.put("exercice", exercice);
         OpcvmDto opcvm = opcvmMapper.deOpcvm(opcvmDao.findById(request.getIdOpcvm()).orElseThrow());
 
@@ -1441,7 +1586,7 @@ public class AppService {
         DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
         String letterDate = dateFormatter.format(new Date());
         parameters.put("letterDate", letterDate);
-        String exercice = request.getExercice();
+        String exercice = request.getAnnee().toString();
         parameters.put("exercice", exercice);
         OpcvmDto opcvm = opcvmMapper.deOpcvm(opcvmDao.findById(request.getIdOpcvm()).orElseThrow());
 
@@ -1487,9 +1632,13 @@ public class AppService {
         DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
         String letterDate = dateFormatter.format(new Date());
         parameters.put("letterDate", letterDate);
-        LocalDateTime date1 = request.getDate1();
+        LocalDateTime date1 = request.getDateEstimation();
         parameters.put("date1", date1);
-        LocalDateTime date2 = request.getDate2();
+        LocalDateTime dateEstimation = request.getDateEstimation(); // supposons que c’est un LocalDate
+        int anneePrecedente = dateEstimation.minusYears(1).getYear();
+        LocalDateTime date2 = LocalDateTime.parse(anneePrecedente+"-12-31T00:00:00");
+
+        //LocalDateTime date2 = request.getDate2();
         parameters.put("date2", date2);
         OpcvmDto opcvm = opcvmMapper.deOpcvm(opcvmDao.findById(request.getIdOpcvm()).orElseThrow());
 
@@ -1535,7 +1684,7 @@ public class AppService {
         DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
         String letterDate = dateFormatter.format(new Date());
         parameters.put("letterDate", letterDate);
-        String exercice = request.getExercice();
+        String exercice = request.getAnnee().toString();
         parameters.put("exercice", exercice);
         OpcvmDto opcvm = opcvmMapper.deOpcvm(opcvmDao.findById(request.getIdOpcvm()).orElseThrow());
 
@@ -1581,7 +1730,7 @@ public class AppService {
         DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
         String letterDate = dateFormatter.format(new Date());
         parameters.put("letterDate", letterDate);
-        String exercice = request.getExercice();
+        String exercice = request.getAnnee().toString();
         parameters.put("exercice", exercice);
         OpcvmDto opcvm = opcvmMapper.deOpcvm(opcvmDao.findById(request.getIdOpcvm()).orElseThrow());
 
@@ -1611,7 +1760,7 @@ public class AppService {
                 request.getIdOpcvm(), request.getAnnee());
 
         // Chargement des fichiers .jrxml depuis le classpath
-        rapportStream = getClass().getResourceAsStream("/Etat_Financier_Annuel_F2_Variation_Actif_Net.jrxml");
+        rapportStream = getClass().getResourceAsStream("/Etat_Financier_Annuel_F2_Etat_Variation_Actif_Net.jrxml");
 //        subreportStream = getClass().getResourceAsStream("/operationDetachement.jrxml");
 
         if (rapportStream == null) {
@@ -1627,7 +1776,7 @@ public class AppService {
         DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
         String letterDate = dateFormatter.format(new Date());
         parameters.put("letterDate", letterDate);
-        String exercice = request.getExercice();
+        String exercice = request.getAnnee().toString();
         parameters.put("exercice", exercice);
         OpcvmDto opcvm = opcvmMapper.deOpcvm(opcvmDao.findById(request.getIdOpcvm()).orElseThrow());
 
@@ -1673,7 +1822,7 @@ public class AppService {
         DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
         String letterDate = dateFormatter.format(new Date());
         parameters.put("letterDate", letterDate);
-        String exercice = request.getExercice();
+        String exercice = request.getAnnee().toString();
         parameters.put("exercice", exercice);
         OpcvmDto opcvm = opcvmMapper.deOpcvm(opcvmDao.findById(request.getIdOpcvm()).orElseThrow());
 
@@ -1719,7 +1868,7 @@ public class AppService {
         DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
         String letterDate = dateFormatter.format(new Date());
         parameters.put("letterDate", letterDate);
-        String exercice = request.getExercice();
+        String exercice = request.getAnnee().toString();
         parameters.put("exercice", exercice);
         OpcvmDto opcvm = opcvmMapper.deOpcvm(opcvmDao.findById(request.getIdOpcvm()).orElseThrow());
 
@@ -1749,7 +1898,7 @@ public class AppService {
                 request.getIdOpcvm(), request.getAnnee());
 
         // Chargement des fichiers .jrxml depuis le classpath
-        rapportStream = getClass().getResourceAsStream("/Etat_Financier_Annuel_F2_Notes_Sommes_Distribuables.jrxml");
+        rapportStream = getClass().getResourceAsStream("/Etat_Financier_Annuel_F2_Notes_Sommes_Distribuable.jrxml");
 //        subreportStream = getClass().getResourceAsStream("/operationDetachement.jrxml");
 
         if (rapportStream == null) {
@@ -1765,7 +1914,7 @@ public class AppService {
         DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
         String letterDate = dateFormatter.format(new Date());
         parameters.put("letterDate", letterDate);
-        String exercice = request.getExercice();
+        String exercice = request.getAnnee().toString();
         parameters.put("exercice", exercice);
         OpcvmDto opcvm = opcvmMapper.deOpcvm(opcvmDao.findById(request.getIdOpcvm()).orElseThrow());
 
@@ -1811,7 +1960,7 @@ public class AppService {
         DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
         String letterDate = dateFormatter.format(new Date());
         parameters.put("letterDate", letterDate);
-        String exercice = request.getExercice();
+        String exercice = request.getAnnee().toString();
         parameters.put("exercice", exercice);
         OpcvmDto opcvm = opcvmMapper.deOpcvm(opcvmDao.findById(request.getIdOpcvm()).orElseThrow());
 
@@ -1831,14 +1980,66 @@ public class AppService {
     }
 
     //EtatFinancierAnnexesEtatsEntreesPortefeuilleTitre
+    public ResponseEntity<Object> afficherEtatFinancierAnnexesNotesEtatsFinanaciers(EtatFinancierAnnexesEtatsEntreesPortefeuilleTitreRequest request, HttpServletResponse response) throws JRException, IOException {
+
+        InputStream rapportStream = null;
+        InputStream subreportStream = null;
+
+        // Chargement des fichiers .jrxml depuis le classpath
+        rapportStream = getClass().getResourceAsStream("/Etat_Financier_Annuel_Annexes_Notes_Etas_Financiers_Annuels.jrxml");
+//        subreportStream = getClass().getResourceAsStream("/operationDetachement.jrxml");
+
+        if (rapportStream == null) {
+            throw new RuntimeException("Fichiers .jrxml introuvables dans le classpath !");
+        }
+
+        // Compiler les rapports à la volée
+        JasperReport rapportPrincipal = JasperCompileManager.compileReport(rapportStream);
+//        JasperReport subreport = JasperCompileManager.compileReport(subreportStream);
+
+        // Préparation des paramètres
+        Map<String, Object> parameters = new HashMap<>();
+        DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
+        String letterDate = dateFormatter.format(new Date());
+        parameters.put("letterDate", letterDate);
+        LocalDateTime localDateTime =  request.getDateDebut(); // ton LocalDateTime
+        ZoneId zone = ZoneId.systemDefault(); // ou ZoneId.of("Africa/Porto-Novo") si tu veux un fuseau spécifique
+
+        // Conversion
+        Date date = Date.from(localDateTime.atZone(zone).toInstant());
+
+        parameters.put("dateEstimation", date);
+        OpcvmDto opcvm = opcvmMapper.deOpcvm(opcvmDao.findById(request.getIdOpcvm()).orElseThrow());
+        parameters.put("denominationOpcvm", opcvm.getDenominationOpcvm());
+
+        // Remplissage du rapport
+        JasperPrint print = JasperFillManager.fillReport(
+                rapportPrincipal,
+                parameters,
+                new JRBeanCollectionDataSource(null)
+        );
+        JasperExportManager.exportReportToPdfStream(print, response.getOutputStream());
+        return ResponseHandler.generateResponse(
+                "Ordre de bourse",
+                HttpStatus.OK,
+                null);
+
+
+    }
+//EtatFinancierAnnexesEtatsEntreesPortefeuilleTitre
     public ResponseEntity<Object> afficherEtatFinancierAnnexesEtatsEntreesPortefeuilleTitre(EtatFinancierAnnexesEtatsEntreesPortefeuilleTitreRequest request, HttpServletResponse response) throws JRException, IOException {
 
         InputStream rapportStream = null;
         InputStream subreportStream = null;
 //        try {
         // Récupération des données
+        CleExercice cleExercice=new CleExercice();
+        cleExercice.setIdOpcvm(request.getIdOpcvm());
+        cleExercice.setCodeExercice(request.getExercice());
+        ExerciceDto exerciceDto=exerciceMapper.deExercice(exerciceDao.findById(cleExercice).orElseThrow());
+
         List<EtatFinancierAnnexesEtatsEntreesPortefeuilleTitreProjection> etatFinancierAnnexesEtatsEntreesPortefeuilleTitreProjections = libraryDao.etatFinancierAnnexesEtatsEntreesPortefeuilleTitre(
-                request.getIdOpcvm(), request.getDateDebut(), request.getDateFin());
+                request.getIdOpcvm(), exerciceDto.getDateDebut(), exerciceDto.getDateFin());
 
         // Chargement des fichiers .jrxml depuis le classpath
         rapportStream = getClass().getResourceAsStream("/Etat_Financier_Annexes_Etats_Entrees_Portefeuille_Titre.jrxml");
@@ -1859,12 +2060,11 @@ public class AppService {
         parameters.put("letterDate", letterDate);
         String exercice = request.getExercice();
         parameters.put("exercice", exercice);
-        String libellePays = request.getLibellePays();
-        parameters.put("libellePays",libellePays);
-        String denominationOpcvm = request.getDenominationOpcvm();
+
         OpcvmDto opcvm = opcvmMapper.deOpcvm(opcvmDao.findById(request.getIdOpcvm()).orElseThrow());
         parameters.put("denominationOpcvm", opcvm.getDenominationOpcvm());
-
+        String libellePays = opcvm.getPays().getLibelleFr();
+        parameters.put("libellePays",libellePays);
         // Remplissage du rapport
         JasperPrint print = JasperFillManager.fillReport(
                 rapportPrincipal,
@@ -1887,8 +2087,13 @@ public class AppService {
         InputStream subreportStream = null;
 //        try {
         // Récupération des données
+        CleExercice cleExercice=new CleExercice();
+        cleExercice.setIdOpcvm(request.getIdOpcvm());
+        cleExercice.setCodeExercice(request.getExercice());
+        ExerciceDto exerciceDto=exerciceMapper.deExercice(exerciceDao.findById(cleExercice).orElseThrow());
+
         List<EtatFinancierAnnexesEtatSortiesPortefeuilleTitreProjection> etatFinancierAnnexesEtatSortiesPortefeuilleTitreProjections = libraryDao.etatFinancierAnnexesEtatSortiesPortefeuilleTitre(
-                request.getIdOpcvm(), request.getDateDebut(), request.getDateFin());
+                request.getIdOpcvm(), exerciceDto.getDateDebut(), exerciceDto.getDateFin());
 
         // Chargement des fichiers .jrxml depuis le classpath
         rapportStream = getClass().getResourceAsStream("/Etat_Financier_Annexes_Etat_Sorties_Portefeuille_Titre.jrxml");
@@ -1909,12 +2114,11 @@ public class AppService {
         parameters.put("letterDate", letterDate);
         String exercice = request.getExercice();
         parameters.put("exercice", exercice);
-        String libellePays = request.getLibellePays();
-        parameters.put("libellePays",libellePays);
         String denominationOpcvm = request.getDenominationOpcvm();
         OpcvmDto opcvm = opcvmMapper.deOpcvm(opcvmDao.findById(request.getIdOpcvm()).orElseThrow());
         parameters.put("denominationOpcvm", opcvm.getDenominationOpcvm());
-
+        String libellePays = opcvm.getPays().getLibelleFr();
+        parameters.put("libellePays",libellePays);
         // Remplissage du rapport
         JasperPrint print = JasperFillManager.fillReport(
                 rapportPrincipal,
@@ -1957,16 +2161,22 @@ public class AppService {
         DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
         String letterDate = dateFormatter.format(new Date());
         parameters.put("letterDate", letterDate);
-        String libellePays = request.getLibellePays();
-        parameters.put("libellePays",libellePays);
+
         String periodicite = request.getPeriodicite();
         parameters.put("periodicite",periodicite);
-        LocalDateTime dateEstimation = request.getDateEstimation();
-        parameters.put("dateEstimation",dateEstimation);
-        String denominationOpcvm = request.getDenominationOpcvm();
+//        LocalDateTime dateEstimation = request.getDateEstimation();
+
+        LocalDateTime localDateTime =  request.getDateEstimation(); // ton LocalDateTime
+        ZoneId zone = ZoneId.systemDefault(); // ou ZoneId.of("Africa/Porto-Novo") si tu veux un fuseau spécifique
+
+        // Conversion
+        Date date = Date.from(localDateTime.atZone(zone).toInstant());
+        parameters.put("dateEstimation",date);
+//        String denominationOpcvm = request.getDenominationOpcvm();
         OpcvmDto opcvm = opcvmMapper.deOpcvm(opcvmDao.findById(request.getIdOpcvm()).orElseThrow());
         parameters.put("denominationOpcvm", opcvm.getDenominationOpcvm());
-
+        String libellePays = opcvm.getPays().getLibelleFr();
+        parameters.put("libellePays",libellePays);
         // Remplissage du rapport
         JasperPrint print = JasperFillManager.fillReport(
                 rapportPrincipal,
@@ -2009,16 +2219,20 @@ public class AppService {
         DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
         String letterDate = dateFormatter.format(new Date());
         parameters.put("letterDate", letterDate);
-        String libellePays = request.getLibellePays();
-        parameters.put("libellePays",libellePays);
+
         String periodicite = request.getPeriodicite();
         parameters.put("periodicite",periodicite);
-        LocalDateTime dateEstimation = request.getDateEstimation();
-        parameters.put("dateEstimation",dateEstimation);
+        LocalDateTime localDateTime =  request.getDateEstimation(); // ton LocalDateTime
+        ZoneId zone = ZoneId.systemDefault(); // ou ZoneId.of("Africa/Porto-Novo") si tu veux un fuseau spécifique
+
+        // Conversion
+        Date date = Date.from(localDateTime.atZone(zone).toInstant());
+        parameters.put("dateEstimation",date);
         String denominationOpcvm = request.getDenominationOpcvm();
         OpcvmDto opcvm = opcvmMapper.deOpcvm(opcvmDao.findById(request.getIdOpcvm()).orElseThrow());
         parameters.put("denominationOpcvm", opcvm.getDenominationOpcvm());
-
+        String libellePays = opcvm.getPays().getLibelleFr();
+        parameters.put("libellePays",libellePays);
         // Remplissage du rapport
         JasperPrint print = JasperFillManager.fillReport(
                 rapportPrincipal,
@@ -2062,13 +2276,42 @@ public class AppService {
         String letterDate = dateFormatter.format(new Date());
         parameters.put("letterDate", letterDate);
         String periodicite = request.getPeriodicite();
-        parameters.put("periodicite",periodicite);
+//        parameters.put("periodicite",periodicite);
         LocalDateTime dateEstimation = request.getDateEstimation();
-        parameters.put("dateEstimation",dateEstimation);
+        LocalDateTime firstDayOfMonth = LocalDateTime.of(
+                dateEstimation.getYear(),
+                dateEstimation.plusMonths(periodicite.equals("Trimestre") ? -2 : -5).getMonth(),
+                1,
+                0, 0
+        );
+
+// Formatage des dates
+        DateTimeFormatter fmtShort = DateTimeFormatter.ofPattern("dd/MM/yyyy", Locale.FRENCH);
+        DateTimeFormatter fmtLong = DateTimeFormatter.ofPattern("dd MMMM yyyy", Locale.FRENCH);
+
+// txt_capital2
+        LocalDateTime txt_capital2 = dateEstimation;
+
+// txt_capital1
+        LocalDateTime txt_capital1 =LocalDateTime.parse(dateEstimation.minusYears(1).getYear()+"-12-31T00:00:00");
+
+// txt_periode
+        String txt_periode;
+        if (periodicite.trim().equals("Trimestre") || periodicite.trim().equals("Semestre")) {
+            txt_periode = "(Du " + firstDayOfMonth.format(fmtLong)
+                    + " au " + dateEstimation.format(fmtLong) + ")";
+        } else {
+            LocalDateTime dateDebut = dateEstimation.minusMonths(12).plusDays(1);
+            txt_periode = "(Du " + dateDebut.format(fmtLong)
+                    + " au " + dateEstimation.format(fmtLong) + ")";
+        }
+
         String denominationOpcvm = request.getDenominationOpcvm();
         OpcvmDto opcvm = opcvmMapper.deOpcvm(opcvmDao.findById(request.getIdOpcvm()).orElseThrow());
         parameters.put("denominationOpcvm", opcvm.getDenominationOpcvm());
-
+        parameters.put("Capital2",txt_capital2);
+        parameters.put("Capital1", txt_capital1);
+        parameters.put("periodicite", txt_periode);
         // Remplissage du rapport
         JasperPrint print = JasperFillManager.fillReport(
                 rapportPrincipal,
@@ -2111,15 +2354,34 @@ public class AppService {
         DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
         String letterDate = dateFormatter.format(new Date());
         parameters.put("letterDate", letterDate);
-        String libellePays = request.getLibellePays();
-        parameters.put("libellePays",libellePays);
         String periodicite = request.getPeriodicite();
-        parameters.put("periodicite",periodicite);
+        DateTimeFormatter fmtLong = DateTimeFormatter.ofPattern("dd MMMM yyyy", Locale.FRENCH);
+
+// Construction de la période
+
+        String txt_periode;
         LocalDateTime dateEstimation = request.getDateEstimation();
-        parameters.put("dateEstimation",dateEstimation);
-        String denominationOpcvm = request.getDenominationOpcvm();
+        LocalDateTime firstDayOfMonth = LocalDateTime.of(
+                dateEstimation.getYear(),
+                dateEstimation.plusMonths(periodicite.equals("Trimestre") ? -2 : -5).getMonth(),
+                1,
+                0, 0
+        );
+        if (!periodicite.trim().equals("Annuel")) {
+            txt_periode = "(Du " + firstDayOfMonth.format(fmtLong)
+                    + " au " + dateEstimation.format(fmtLong) + ")";
+        } else {
+            txt_periode = "(Du 01 Janvier " + dateEstimation.getYear()
+                    + " au 31 Décembre " + dateEstimation.getYear() + ")";
+        }
+        parameters.put("periodicite",txt_periode);
+
+//        parameters.put("dateEstimation",dateEstimation);
+//        String denominationOpcvm = request.getDenominationOpcvm();
         OpcvmDto opcvm = opcvmMapper.deOpcvm(opcvmDao.findById(request.getIdOpcvm()).orElseThrow());
         parameters.put("denominationOpcvm", opcvm.getDenominationOpcvm());
+        String libellePays = opcvm.getPays().getLibelleFr();
+        parameters.put("libellePays",libellePays);
 
         // Remplissage du rapport
         JasperPrint print = JasperFillManager.fillReport(
@@ -2163,16 +2425,25 @@ public class AppService {
         DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
         String letterDate = dateFormatter.format(new Date());
         parameters.put("letterDate", letterDate);
-        String libellePersonneIntervenant = request.getLibellePersonneIntervenant();
-        parameters.put("libellePersonneIntervenant",libellePersonneIntervenant);
+//        SocieteDeGestionDto societeDeGestionDto=societeDeGestionMapper.deSocieteDeGestion(societeDeGestionDao.findById(
+//                504
+//        ))
         String raisonSocial = request.getRaisonSocial();
         parameters.put("raisonSocial",raisonSocial);
         LocalDateTime dateEstimation = request.getDateEstimation();
         parameters.put("dateEstimation",dateEstimation);
+
+        DateTimeFormatter fmtLong = DateTimeFormatter.ofPattern("dd MMMM yyyy", Locale.FRENCH);
+        // Construction de la chaîne
+        String titre = "(Du 31/12/" + (dateEstimation.getYear() - 1)
+                + " au " + dateEstimation.format(fmtLong) + ")";
+
         String denominationOpcvm = request.getDenominationOpcvm();
         OpcvmDto opcvm = opcvmMapper.deOpcvm(opcvmDao.findById(request.getIdOpcvm()).orElseThrow());
         parameters.put("denominationOpcvm", opcvm.getDenominationOpcvm());
-
+        parameters.put("titre",titre);
+        String libellePersonneIntervenant = opcvm.getPersonneIntervenant().getDenomination();
+        parameters.put("libellePersonneIntervenant",libellePersonneIntervenant);
         // Remplissage du rapport
         JasperPrint print = JasperFillManager.fillReport(
                 rapportPrincipal,
@@ -3243,6 +3514,89 @@ public class AppService {
                     e);
         }
     }
+    public ResponseEntity<?> afficherPortefeuilleActionnaireListe(PortefeuilleActionnaireRequest request) {
+        try
+        {
+            List<PortefeuilleActionnaireProjection> portefeuilleActionnaireProjections=libraryDao.portefeuilleActionnaire(
+                    request.getIdOpcvm(),request.getIdActionnaire(),request.getDateDebutEstimation(),request.getDateEstimation()
+            );
+            return ResponseHandler.generateResponse(
+                    "Portefeuille opcvm",
+                    HttpStatus.OK,
+                    portefeuilleActionnaireProjections);
+        }
+        catch(Exception e) {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e);
+        }
+    }
+    public ResponseEntity<Object> portefeuilleActionnaire(PortefeuilleActionnaireRequest request, HttpServletResponse response) throws JRException, IOException, SQLException {
+
+        InputStream rapportStream = null;
+        InputStream subreportStream = null;
+//        try {
+        // Récupération des données
+        List<PortefeuilleActionnaireProjection> portefeuilleActionnaireProjections=libraryDao.portefeuilleActionnaire(
+                request.getIdOpcvm(),request.getIdActionnaire(),request.getDateDebutEstimation(),request.getDateEstimation()
+        );
+        // Chargement des fichiers .jrxml depuis le classpath
+        rapportStream = getClass().getResourceAsStream("/PortefeuilleActionnaireF1.jrxml");
+
+        JasperReport rapportPrincipal = JasperCompileManager.compileReport(rapportStream);
+//        JasperReport subreport = JasperCompileManager.compileReport(subreportStream);
+
+
+        // Préparation des paramètres
+        Map<String, Object> parameters = new HashMap<>();
+//        BigDecimal soldeEspece = portefeuille.get(0).getSoldeEspece();
+        DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
+        String letterDate = dateFormatter.format(new Date());
+//        String dateFin = dateFormatter.format(date);
+        parameters.put("letterDate", letterDate);
+        DateFormat dateFormatter2 = new SimpleDateFormat("yyyy/MM/dd");
+        LocalDateTime dateDebut = request.getDateDebutEstimation();
+        LocalDateTime dateFin = request.getDateEstimation();
+
+//        Date dateDebutAsDate = Date.from(dateDebut.atZone(ZoneId.systemDefault()).toInstant());
+//        Date dateFinAsDate = Date.from(dateFin.atZone(ZoneId.systemDefault()).toInstant());
+//
+//        String dateDebutStr = dateFormatter2.format(dateDebutAsDate);
+//        String dateFinStr = dateFormatter2.format(dateFinAsDate);
+        parameters.put("letterDate", new SimpleDateFormat("dd MMMM yyyy").format(new Date()));
+
+// ⚠️ ici on ajoute les apostrophes manuellement pour SQL
+        parameters.put("idActionnaireList", request.getIdActionnaire() );
+        parameters.put("dateDebutEstimation", dateDebut );
+        parameters.put("dateEstimation", dateFin);
+        parameters.put("idActionnaire", request.getIdActionnaire());
+        //parameters.put("TABLE_DATASOURCE", new JRBeanCollectionDataSource(portefeuilleActionnaireProjections));
+        Connection connection = null;
+        try {
+            connection = dataSource.getConnection(); // connexion JDBC
+            JasperPrint print = JasperFillManager.fillReport(
+                    rapportPrincipal,
+                    parameters,
+                    connection
+            );
+            JasperExportManager.exportReportToPdfStream(print, response.getOutputStream());
+        } finally {
+            if (connection != null) connection.close();
+        }
+//        JasperPrint print = JasperFillManager.fillReport(
+//                rapportPrincipal,
+//                parameters,
+//                new JRBeanCollectionDataSource(portefeuilleActionnaireProjections)
+//        );
+//        JasperExportManager.exportReportToPdfStream(print, response.getOutputStream());
+        return ResponseHandler.generateResponse(
+                "Ordre de bourse",
+                HttpStatus.OK,
+                portefeuilleActionnaireProjections);
+
+    }
+
     //point repartition portefeuille
     public ResponseEntity<?> pointRepartitionPortefeuille(ReleveTitreFCPRequest request) {
         var parameters = request.getDatatableParameters();

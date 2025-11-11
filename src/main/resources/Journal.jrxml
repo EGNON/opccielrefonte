@@ -1,10 +1,6 @@
 <!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 7.0.1-573496633c2b4074e32f433154b543003f7d2498  -->
 <jasperReport name="Journal" language="java" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="e61f6322-51f6-4568-83c5-a24129a175ee">
-    <parameter name="letterDate" class="java.lang.String"/>
-    <field name="num" class="java.lang.Integer">
-		<property name="com.jaspersoft.studio.field.name" value="num"/>
-		<property name="com.jaspersoft.studio.field.label" value="num"/>
-	</field>
+	<parameter name="letterDate" class="java.lang.String"/>
 	<field name="idOpcvm" class="java.lang.Long">
 		<property name="com.jaspersoft.studio.field.name" value="idOpcvm"/>
 		<property name="com.jaspersoft.studio.field.label" value="idOpcvm"/>
@@ -21,15 +17,15 @@
 		<property name="com.jaspersoft.studio.field.name" value="libelleJournal"/>
 		<property name="com.jaspersoft.studio.field.label" value="libelleJournal"/>
 	</field>
-	<field name="DateDebut" class="java.sql.Date">
-		<property name="com.jaspersoft.studio.field.name" value="DateDebut"/>
-		<property name="com.jaspersoft.studio.field.label" value="DateDebut"/>
+	<field name="dateDebut" class="java.time.LocalDateTime">
+		<property name="com.jaspersoft.studio.field.name" value="dateDebut"/>
+		<property name="com.jaspersoft.studio.field.label" value="dateDebut"/>
 	</field>
-	<field name="DateFin" class="java.sql.Date">
-		<property name="com.jaspersoft.studio.field.name" value="DateFin"/>
-		<property name="com.jaspersoft.studio.field.label" value="DateFin"/>
+	<field name="dateFin" class="java.time.LocalDateTime">
+		<property name="com.jaspersoft.studio.field.name" value="dateFin"/>
+		<property name="com.jaspersoft.studio.field.label" value="dateFin"/>
 	</field>
-	<field name="dateValeur" class="java.sql.Date">
+	<field name="dateValeur" class="java.time.LocalDateTime">
 		<property name="com.jaspersoft.studio.field.name" value="dateValeur"/>
 		<property name="com.jaspersoft.studio.field.label" value="dateValeur"/>
 	</field>
@@ -61,25 +57,25 @@
 		<property name="com.jaspersoft.studio.field.name" value="libop"/>
 		<property name="com.jaspersoft.studio.field.label" value="libop"/>
 	</field>
-	<field name="Debit" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.name" value="Debit"/>
-		<property name="com.jaspersoft.studio.field.label" value="Debit"/>
+	<field name="debit" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="debit"/>
+		<property name="com.jaspersoft.studio.field.label" value="debit"/>
 	</field>
-	<field name="Credit" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.name" value="Credit"/>
-		<property name="com.jaspersoft.studio.field.label" value="Credit"/>
+	<field name="credit" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="credit"/>
+		<property name="com.jaspersoft.studio.field.label" value="credit"/>
 	</field>
-	<variable name="Debit1" resetType="Group" calculation="Sum" resetGroup="Group1" class="java.math.BigDecimal">
-		<expression><![CDATA[$F{Debit}]]></expression>
+	<variable name="debit1" resetType="Group" calculation="Sum" resetGroup="Group1" class="java.math.BigDecimal">
+		<expression><![CDATA[$F{debit}]]></expression>
 	</variable>
-	<variable name="Credit1" resetType="Group" calculation="Sum" resetGroup="Group1" class="java.math.BigDecimal">
-		<expression><![CDATA[$F{Credit}]]></expression>
+	<variable name="credit1" resetType="Group" calculation="Sum" resetGroup="Group1" class="java.math.BigDecimal">
+		<expression><![CDATA[$F{credit}]]></expression>
 	</variable>
-	<variable name="Debit2" resetType="Group" calculation="Sum" resetGroup="Group1" class="java.math.BigDecimal">
-		<expression><![CDATA[$F{Debit}]]></expression>
+	<variable name="debit2" resetType="Group" calculation="Sum" resetGroup="Group1" class="java.math.BigDecimal">
+		<expression><![CDATA[$F{debit}]]></expression>
 	</variable>
-	<variable name="Credit2" resetType="Group" calculation="Sum" resetGroup="Group1" class="java.math.BigDecimal">
-		<expression><![CDATA[$F{Credit}]]></expression>
+	<variable name="credit2" resetType="Group" calculation="Sum" resetGroup="Group1" class="java.math.BigDecimal">
+		<expression><![CDATA[$F{credit}]]></expression>
 	</variable>
 	<group name="Group1">
 		<expression><![CDATA[$F{idOperation}]]></expression>
@@ -88,7 +84,7 @@
 				<element kind="rectangle" uuid="797ce2fb-de75-4090-8bea-050af2e9d206" x="21" y="7" width="759" height="30">
 					<pen lineColor="#3B88D1"/>
 				</element>
-				<element kind="textField" uuid="67cce0ed-cf58-4a13-b6f3-b8c49f9ca9f6" x="29" y="16" width="450" height="20" bold="true">
+				<element kind="textField" uuid="67cce0ed-cf58-4a13-b6f3-b8c49f9ca9f6" x="29" y="16" width="745" height="20" bold="true">
 					<expression><![CDATA["RefOper: "+$F{referenceOper} + " - "+ $F{libop}]]></expression>
 				</element>
 			</band>
@@ -108,10 +104,10 @@
 					<text><![CDATA[SOUS TOTAL]]></text>
 				</element>
 				<element kind="textField" uuid="21cacd7c-9ec5-486c-9f1e-c5f88fbd6507" x="577" y="10" width="100" height="19" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
-					<expression><![CDATA[$V{Debit1}]]></expression>
+					<expression><![CDATA[$V{debit1}]]></expression>
 				</element>
 				<element kind="textField" uuid="0261ebb6-20e0-4df4-9094-543558455340" x="683" y="10" width="97" height="19" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
-					<expression><![CDATA[$V{Credit1}]]></expression>
+					<expression><![CDATA[$V{credit1}]]></expression>
 				</element>
 				<element kind="rectangle" uuid="d33eb9c4-48f7-4712-9fca-0927ae9526cc" x="21" y="30" width="759" height="30">
 					<pen lineColor="#3B88D1"/>
@@ -126,10 +122,10 @@
 					<text><![CDATA[TOTAL JOURNAL]]></text>
 				</element>
 				<element kind="textField" uuid="0f390d98-48c2-44f2-900c-ea0be599d648" x="577" y="40" width="100" height="19" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
-					<expression><![CDATA[$V{Debit2}]]></expression>
+					<expression><![CDATA[$V{debit2}]]></expression>
 				</element>
 				<element kind="textField" uuid="68dd44e2-35fb-48e9-9ea8-86786f1396e1" x="683" y="40" width="97" height="19" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
-					<expression><![CDATA[$V{Credit2}]]></expression>
+					<expression><![CDATA[$V{credit2}]]></expression>
 				</element>
 			</band>
 		</groupFooter>
@@ -141,13 +137,13 @@
 			<expression><![CDATA["Cotonou, le "+$P{letterDate}]]></expression>
 		</element>
 		<element kind="textField" uuid="24a53375-6ac3-410a-8f18-3c8ccdac9a8f" x="560" y="40" width="100" height="19" pattern="EE dd/MM/yyyy" blankWhenNull="true" hTextAlign="Center">
-			<expression><![CDATA[$F{DateDebut}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"))]]></expression>
+			<expression><![CDATA[$F{dateDebut}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"))]]></expression>
 			<box>
 				<pen lineWidth="1.0" lineColor="#BDD7EE"/>
 			</box>
 		</element>
 		<element kind="textField" uuid="4f3422c8-3adc-4676-aedf-04de073ab487" x="688" y="40" width="100" height="19" pattern="EE dd/MM/yyyy" blankWhenNull="true" hTextAlign="Center">
-			<expression><![CDATA[$F{DateFin}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"))]]></expression>
+			<expression><![CDATA[$F{dateFin}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"))]]></expression>
 			<box>
 				<pen lineWidth="1.0" lineColor="#BDD7EE"/>
 			</box>
@@ -167,16 +163,16 @@
 		<element kind="staticText" uuid="0a0157b1-f9ca-40bf-a636-f2f0d851fde8" x="275" y="84" width="253" height="19" bold="true" hTextAlign="Center">
 			<text><![CDATA[JOURNAL]]></text>
 		</element>
-		<element kind="rectangle" uuid="250b1dfd-058b-4dff-a40c-2b2df5ed2e79" x="10" y="120" width="100" height="26">
+		<element kind="rectangle" uuid="250b1dfd-058b-4dff-a40c-2b2df5ed2e79" x="10" y="120" width="80" height="26">
 			<pen lineWidth="1.0" lineColor="#BDD7EE"/>
 		</element>
-		<element kind="textField" uuid="404da5cb-e425-4c74-8f82-4fca0c931b50" x="15" y="127" width="94" height="18" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+		<element kind="textField" uuid="404da5cb-e425-4c74-8f82-4fca0c931b50" x="15" y="127" width="65" height="18" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
 			<expression><![CDATA[$F{idOpcvm}]]></expression>
 		</element>
-		<element kind="rectangle" uuid="a48d7091-dbec-4fd9-9bea-ff5c8814c63a" x="110" y="120" width="100" height="26">
+		<element kind="rectangle" uuid="a48d7091-dbec-4fd9-9bea-ff5c8814c63a" x="90" y="120" width="320" height="26">
 			<pen lineWidth="1.0" lineColor="#BDD7EE"/>
 		</element>
-		<element kind="textField" uuid="fc5bfac5-26ad-4306-92da-1d75029e7290" x="115" y="127" width="94" height="18" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+		<element kind="textField" uuid="fc5bfac5-26ad-4306-92da-1d75029e7290" x="94" y="127" width="306" height="18" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
 			<expression><![CDATA[$F{denominationOpcvm}]]></expression>
 		</element>
 		<element kind="rectangle" uuid="7a0b6362-9ff5-4703-9a0a-a0265ee65f42" x="21" y="157" width="759" height="41" backcolor="#BDD7EE">
@@ -251,10 +247,10 @@
 				<expression><![CDATA[$F{libelle}]]></expression>
 			</element>
 			<element kind="textField" uuid="97b9e0de-be44-4982-af75-dd91ecc762b3" x="577" y="8" width="100" height="22" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
-				<expression><![CDATA[$F{Debit}]]></expression>
+				<expression><![CDATA[$F{debit}]]></expression>
 			</element>
 			<element kind="textField" uuid="ed915d6f-79aa-4f8d-aa50-ba3425c0f39e" x="683" y="8" width="96" height="22" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
-				<expression><![CDATA[$F{Credit}]]></expression>
+				<expression><![CDATA[$F{credit}]]></expression>
 			</element>
 		</band>
 	</detail>

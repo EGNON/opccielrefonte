@@ -8,17 +8,17 @@
 		<property name="com.jaspersoft.studio.field.name" value="classeTitre"/>
 		<property name="com.jaspersoft.studio.field.label" value="classeTitre"/>
 	</field>
-	<field name="Cout" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.name" value="Cout"/>
-		<property name="com.jaspersoft.studio.field.label" value="Cout"/>
+	<field name="cout" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="cout"/>
+		<property name="com.jaspersoft.studio.field.label" value="cout"/>
 	</field>
-	<field name="Entete1" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.name" value="Entete1"/>
-		<property name="com.jaspersoft.studio.field.label" value="Entete1"/>
+	<field name="entete1" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="entete1"/>
+		<property name="com.jaspersoft.studio.field.label" value="entete1"/>
 	</field>
-	<field name="Entete2" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.name" value="Entete2"/>
-		<property name="com.jaspersoft.studio.field.label" value="Entete2"/>
+	<field name="entete2" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="entete2"/>
+		<property name="com.jaspersoft.studio.field.label" value="entete2"/>
 	</field>
 	<field name="idOpcvm" class="java.lang.Long">
 		<property name="com.jaspersoft.studio.field.name" value="idOpcvm"/>
@@ -33,16 +33,16 @@
 		<property name="com.jaspersoft.studio.field.label" value="dateFin"/>
 	</field>
 	<group name="Group1">
-		<expression><![CDATA[$F{Entete1}]]></expression>
+		<expression><![CDATA[$F{entete1}]]></expression>
 		<groupHeader>
 			<band height="42">
 				<element kind="rectangle" uuid="e3a39673-99f8-40e0-ad2b-2d87fc7b4872" x="3" y="4" width="796" height="33" backcolor="#BDD7EE"/>
 				<element kind="line" uuid="10495820-c4bc-4fa7-a61e-4b358b1ca946" x="589" y="5" width="1" height="32"/>
 				<element kind="textField" uuid="63335d83-8dbc-4f55-9917-0f607be681a4" x="10" y="13" width="562" height="15">
-					<expression><![CDATA[$F{Entete1}]]></expression>
+					<expression><![CDATA[$F{entete1}]]></expression>
 				</element>
 				<element kind="textField" uuid="a814b5ce-834b-4643-9f0d-37cac3ffd588" x="595" y="13" width="195" height="14">
-					<expression><![CDATA[$F{Entete2}]]></expression>
+					<expression><![CDATA[$F{entete2}]]></expression>
 				</element>
 			</band>
 		</groupHeader>
@@ -88,7 +88,7 @@
 				<expression><![CDATA[$F{classeTitre}]]></expression>
 			</element>
 			<element kind="textField" uuid="6719e3b3-8b9f-4f2d-b40c-859870c267ba" x="595" y="5" width="195" height="20" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
-				<expression><![CDATA[$F{Cout}]]></expression>
+				<expression><![CDATA[$F{cout}]]></expression>
 			</element>
 		</band>
 	</detail>

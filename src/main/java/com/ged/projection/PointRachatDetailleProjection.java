@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 public interface PointRachatDetailleProjection {
                    LocalDateTime getDateOperation();
                    Long getIdActionnaire();
-				   String getNomPersonnePhysique();
+				   String getPersonne();
 				   String getLibelleTypePersonne();
 				   BigDecimal getNombrePartSousRachat();
 				   BigDecimal getValeurLiquidative();

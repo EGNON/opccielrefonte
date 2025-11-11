@@ -1,21 +1,21 @@
 <!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 7.0.1-573496633c2b4074e32f433154b543003f7d2498  -->
 <jasperReport name="Point_Rachats_Detaille" language="java" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9bf622b9-cd07-4568-bf2c-e9fbabc6fac7">
 	<parameter name="letterDate" class="java.lang.String"/>
-	<field name="dateOperation" class="java.sql.Date">
+	<field name="dateOperation" class="java.time.LocalDateTime">
 		<property name="com.jaspersoft.studio.field.name" value="dateOperation"/>
 		<property name="com.jaspersoft.studio.field.label" value="dateOperation"/>
 	</field>
-	<field name="idActionnaire" class="java.math.BigDecimal">
+	<field name="idActionnaire" class="java.lang.Long">
 		<property name="com.jaspersoft.studio.field.name" value="idActionnaire"/>
 		<property name="com.jaspersoft.studio.field.label" value="idActionnaire"/>
 	</field>
-	<field name="NomPersonnePhysique" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.name" value="NomPersonnePhysique"/>
-		<property name="com.jaspersoft.studio.field.label" value="NomPersonnePhysique"/>
+	<field name="personne" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="personne"/>
+		<property name="com.jaspersoft.studio.field.label" value="personne"/>
 	</field>
-	<field name="LibelleTypePersonne" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.name" value="LibelleTypePersonne"/>
-		<property name="com.jaspersoft.studio.field.label" value="LibelleTypePersonne"/>
+	<field name="libelleTypePersonne" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="libelleTypePersonne"/>
+		<property name="com.jaspersoft.studio.field.label" value="libelleTypePersonne"/>
 	</field>
 	<field name="nombrePartSousRachat" class="java.math.BigDecimal">
 		<property name="com.jaspersoft.studio.field.name" value="nombrePartSousRachat"/>
@@ -37,11 +37,11 @@
 		<property name="com.jaspersoft.studio.field.name" value="retrocessionSousRachat"/>
 		<property name="com.jaspersoft.studio.field.label" value="retrocessionSousRachat"/>
 	</field>
-	<field name="RaisonSociale" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.name" value="RaisonSociale"/>
-		<property name="com.jaspersoft.studio.field.label" value="RaisonSociale"/>
+	<field name="raisonSociale" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="raisonSociale"/>
+		<property name="com.jaspersoft.studio.field.label" value="raisonSociale"/>
 	</field>
-	<field name="idOpcvm" class="java.math.BigDecimal">
+	<field name="idOpcvm" class="java.lang.Long">
 		<property name="com.jaspersoft.studio.field.name" value="idOpcvm"/>
 		<property name="com.jaspersoft.studio.field.label" value="idOpcvm"/>
 	</field>
@@ -49,15 +49,15 @@
 		<property name="com.jaspersoft.studio.field.name" value="denominationOpcvm"/>
 		<property name="com.jaspersoft.studio.field.label" value="denominationOpcvm"/>
 	</field>
-	<field name="idPersonne" class="java.math.BigDecimal">
+	<field name="idPersonne" class="java.lang.Long">
 		<property name="com.jaspersoft.studio.field.name" value="idPersonne"/>
 		<property name="com.jaspersoft.studio.field.label" value="idPersonne"/>
 	</field>
-	<field name="dateDebut" class="java.sql.Date">
+	<field name="dateDebut" class="java.time.LocalDateTime">
 		<property name="com.jaspersoft.studio.field.name" value="dateDebut"/>
 		<property name="com.jaspersoft.studio.field.label" value="dateDebut"/>
 	</field>
-	<field name="dateFin" class="java.sql.Date">
+	<field name="dateFin" class="java.time.LocalDateTime">
 		<property name="com.jaspersoft.studio.field.name" value="dateFin"/>
 		<property name="com.jaspersoft.studio.field.label" value="dateFin"/>
 	</field>
@@ -97,174 +97,230 @@
 	<variable name="retrocessionSousRachat3" resetType="Group" calculation="Sum" resetGroup="Group1" class="java.math.BigDecimal">
 		<expression><![CDATA[$F{retrocessionSousRachat}]]></expression>
 	</variable>
+	<variable name="nombrePartSousRachat4" resetType="Group" calculation="Sum" resetGroup="Group3" class="java.math.BigDecimal">
+		<expression><![CDATA[$F{nombrePartSousRachat}]]></expression>
+	</variable>
+	<variable name="montantSousALiquider4" resetType="Group" calculation="Sum" resetGroup="Group3" class="java.math.BigDecimal">
+		<expression><![CDATA[$F{montantSousALiquider}]]></expression>
+	</variable>
+	<variable name="commisiionSousRachat4" resetType="Group" calculation="Sum" resetGroup="Group3" class="java.math.BigDecimal">
+		<expression><![CDATA[$F{commisiionSousRachat}]]></expression>
+	</variable>
+	<variable name="retrocessionSousRachat4" resetType="Group" calculation="Sum" resetGroup="Group3" class="java.math.BigDecimal">
+		<expression><![CDATA[$F{retrocessionSousRachat}]]></expression>
+	</variable>
+	<variable name="nombrePartSousRachat5" resetType="Group" calculation="Sum" resetGroup="Group2" class="java.math.BigDecimal">
+		<expression><![CDATA[$F{nombrePartSousRachat}]]></expression>
+	</variable>
+	<variable name="montantSousALiquider5" resetType="Group" calculation="Sum" resetGroup="Group2" class="java.math.BigDecimal">
+		<expression><![CDATA[$F{montantSousALiquider}]]></expression>
+	</variable>
+	<variable name="commisiionSousRachat5" resetType="Group" calculation="Sum" resetGroup="Group2" class="java.math.BigDecimal">
+		<expression><![CDATA[$F{commisiionSousRachat}]]></expression>
+	</variable>
+	<variable name="retrocessionSousRachat5" resetType="Group" calculation="Sum" resetGroup="Group2" class="java.math.BigDecimal">
+		<expression><![CDATA[$F{retrocessionSousRachat}]]></expression>
+	</variable>
+	<variable name="nombrePartSousRachat6" resetType="Group" calculation="Sum" resetGroup="Group1" class="java.math.BigDecimal">
+		<expression><![CDATA[$F{nombrePartSousRachat}]]></expression>
+	</variable>
+	<variable name="montantSousALiquider6" resetType="Group" calculation="Sum" resetGroup="Group1" class="java.math.BigDecimal">
+		<expression><![CDATA[$F{montantSousALiquider}]]></expression>
+	</variable>
+	<variable name="commisiionSousRachat6" resetType="Group" calculation="Sum" resetGroup="Group1" class="java.math.BigDecimal">
+		<expression><![CDATA[$F{commisiionSousRachat}]]></expression>
+	</variable>
+	<variable name="retrocessionSousRachat6" resetType="Group" calculation="Sum" resetGroup="Group1" class="java.math.BigDecimal">
+		<expression><![CDATA[$F{retrocessionSousRachat}]]></expression>
+	</variable>
 	<group name="Group1">
-		<expression><![CDATA[$F{RaisonSociale}]]></expression>
+		<expression><![CDATA[$F{idOpcvm}]]></expression>
 		<groupHeader>
-			<band height="58">
-				<element kind="rectangle" uuid="1e167f64-a234-4240-9bbe-d22da9ce5b64" x="1" y="1" width="801" height="30" backcolor="#FFFFFF">
+			<band height="32">
+				<element kind="rectangle" uuid="8c790a1e-2c28-4039-9bc1-c8434b151ac8" x="-1" y="4" width="801" height="21" backcolor="#FFFFFF">
 					<pen lineColor="#3B88D1"/>
 				</element>
-				<element kind="rectangle" uuid="c2ed6874-7f6d-43cf-9a17-4c9d0d94ff0f" x="1" y="32" width="801" height="26" backcolor="#BDD7EE">
-					<pen lineColor="#3B88D1"/>
+				<element kind="staticText" uuid="1ca6161f-7bd2-4cbd-b97f-ac2926ab6e62" x="18" y="9" width="60" height="16" bold="true" hTextAlign="Center">
+					<text><![CDATA[OPCVM :]]></text>
 				</element>
-				<element kind="line" uuid="8bfc9c9d-57cf-43d8-8d92-73cdd5d44474" x="97" y="32" width="1" height="26">
-					<pen lineColor="#3B88D1"/>
-				</element>
-				<element kind="line" uuid="8923608a-35f7-47e8-89c2-04c386065a00" x="680" y="32" width="1" height="26">
-					<pen lineColor="#3B88D1"/>
-				</element>
-				<element kind="line" uuid="d2f9f411-d233-4edd-ab71-7cfab7809f71" x="302" y="32" width="1" height="26">
-					<pen lineColor="#3B88D1"/>
-				</element>
-				<element kind="staticText" uuid="cd340e85-0835-4390-ac50-7624787dcb8e" x="702" y="39" width="78" height="18" bold="true" hTextAlign="Center">
-					<text><![CDATA[Retrocession]]></text>
-				</element>
-				<element kind="staticText" uuid="93a2157a-fdf6-4d7c-bf2d-d22d27c08abc" x="448" y="39" width="94" height="18" bold="true" hTextAlign="Center">
-					<text><![CDATA[Mont.Racheté]]></text>
-				</element>
-				<element kind="staticText" uuid="5ea92ecd-7ea9-4750-8018-494e1dd01da1" x="576" y="39" width="89" height="18" bold="true" hTextAlign="Center">
-					<text><![CDATA[Commissions]]></text>
-				</element>
-				<element kind="line" uuid="d7576989-77dc-48bb-85c9-612f27ed74f3" x="559" y="32" width="1" height="26">
-					<pen lineColor="#3B88D1"/>
-				</element>
-				<element kind="staticText" uuid="b8d3bf51-4bc2-49a5-aa88-1ea814f130ac" x="140" y="39" width="119" height="18" bold="true" hTextAlign="Center">
-					<text><![CDATA[Actionnaire]]></text>
-				</element>
-				<element kind="line" uuid="60d8a0f1-cbf5-40b1-b6bc-937c9298997b" x="431" y="32" width="1" height="26">
-					<pen lineColor="#3B88D1"/>
-				</element>
-				<element kind="staticText" uuid="38d65e51-038b-4ed2-85f1-2bd379dafad4" x="327" y="39" width="79" height="18" bold="true" hTextAlign="Center">
-					<text><![CDATA[Qté]]></text>
-				</element>
-				<element kind="staticText" uuid="28f986f3-8d66-4aad-a867-2352762dfb45" x="8" y="37" width="82" height="16" bold="true" hTextAlign="Center">
-					<text><![CDATA[Date Opération :]]></text>
-				</element>
-				<element kind="staticText" uuid="62f7a1cb-b651-42d1-a6e1-bd0be3c7d0d0" x="55" y="10" width="84" height="16" bold="true" hTextAlign="Left">
-					<text><![CDATA[DISTRIBUTEUR :]]></text>
-				</element>
-				<element kind="textField" uuid="44109726-0f40-4abb-be62-d234552cba1c" x="140" y="10" width="235" height="16">
-					<expression><![CDATA[$F{RaisonSociale}]]></expression>
+				<element kind="textField" uuid="30ee0f4f-a85e-40fe-8c56-54c111978087" x="83" y="9" width="235" height="16">
+					<expression><![CDATA[$F{denominationOpcvm}]]></expression>
 				</element>
 			</band>
 		</groupHeader>
 		<groupFooter>
-			<band height="74">
-				<element kind="rectangle" uuid="46741f45-d625-4baa-906e-3ff6bed6e02c" x="1" y="9" width="801" height="26" backcolor="#BDD7EE">
+			<band height="39">
+				<element kind="rectangle" uuid="8604d634-27d3-4286-9037-77764cd84994" x="0" y="0" width="801" height="26" backcolor="#BDD7EE">
 					<pen lineColor="#3B88D1"/>
 				</element>
-				<element kind="line" uuid="cd9354cb-44ed-4db1-bf06-b6210321f99b" x="680" y="9" width="1" height="26">
+				<element kind="line" uuid="c493ada5-a936-427a-bce2-371cc9dac2b9" x="679" y="0" width="1" height="26">
 					<pen lineColor="#3B88D1"/>
 				</element>
-				<element kind="line" uuid="4a00c651-a894-4df4-82e3-10fbe3d57538" x="302" y="9" width="1" height="26">
+				<element kind="line" uuid="013db290-f360-4bf8-a2a1-94bbb5db38bd" x="301" y="0" width="1" height="26">
 					<pen lineColor="#3B88D1"/>
 				</element>
-				<element kind="line" uuid="68348f4b-f0ed-4b85-a65e-89415f5530ac" x="559" y="9" width="1" height="26">
+				<element kind="line" uuid="c181633b-8f09-42c0-87fc-48cbd56a61df" x="558" y="0" width="1" height="26">
 					<pen lineColor="#3B88D1"/>
 				</element>
-				<element kind="line" uuid="7a257d66-50bf-4c98-aa3f-92498418df19" x="431" y="9" width="1" height="26">
+				<element kind="line" uuid="33d146f0-5847-4212-b3b7-725560795c5f" x="430" y="0" width="1" height="26">
 					<pen lineColor="#3B88D1"/>
 				</element>
-				<element kind="staticText" uuid="8ea0da03-3a0d-46de-bb81-16a2ba0d3cb5" x="6" y="16" width="44" height="16" bold="true" hTextAlign="Left">
-					<text><![CDATA[TOTAL]]></text>
-				</element>
-				<element kind="textField" uuid="d5033172-00f5-4de6-845b-e6959d3bafaf" x="52" y="16" width="248" height="16">
-					<expression><![CDATA[$F{RaisonSociale}]]></expression>
-				</element>
-				<element kind="textField" uuid="e4a45813-4bb8-4da6-a9a3-b14185d77474" x="308" y="16" width="123" height="16" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
-					<expression><![CDATA[$V{nombrePartSousRachat2}]]></expression>
-				</element>
-				<element kind="textField" uuid="8954e8c0-167a-4e5a-987d-a6a343bbc88e" x="437" y="16" width="122" height="16" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
-					<expression><![CDATA[$V{montantSousALiquider2}]]></expression>
-				</element>
-				<element kind="textField" uuid="18eb7633-efe2-4b8d-9299-e6e972269b32" x="565" y="16" width="115" height="16" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
-					<expression><![CDATA[$V{commisiionSousRachat2}]]></expression>
-				</element>
-				<element kind="textField" uuid="f718540d-5fd6-4c36-ad17-49c50e0ad9b2" x="686" y="16" width="115" height="16" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
-					<expression><![CDATA[$V{retrocessionSousRachat2}]]></expression>
-				</element>
-				<element kind="rectangle" uuid="8604d634-27d3-4286-9037-77764cd84994" x="1" y="48" width="801" height="26" backcolor="#BDD7EE">
-					<pen lineColor="#3B88D1"/>
-				</element>
-				<element kind="line" uuid="c493ada5-a936-427a-bce2-371cc9dac2b9" x="680" y="48" width="1" height="26">
-					<pen lineColor="#3B88D1"/>
-				</element>
-				<element kind="line" uuid="013db290-f360-4bf8-a2a1-94bbb5db38bd" x="302" y="48" width="1" height="26">
-					<pen lineColor="#3B88D1"/>
-				</element>
-				<element kind="line" uuid="c181633b-8f09-42c0-87fc-48cbd56a61df" x="559" y="48" width="1" height="26">
-					<pen lineColor="#3B88D1"/>
-				</element>
-				<element kind="line" uuid="33d146f0-5847-4212-b3b7-725560795c5f" x="431" y="48" width="1" height="26">
-					<pen lineColor="#3B88D1"/>
-				</element>
-				<element kind="staticText" uuid="07775369-43c1-4462-934f-1636629fae5a" x="6" y="55" width="264" height="16" bold="true" hTextAlign="Left">
+				<element kind="staticText" uuid="07775369-43c1-4462-934f-1636629fae5a" x="5" y="7" width="264" height="16" bold="true" hTextAlign="Left">
 					<text><![CDATA[TOTAL GENERAL]]></text>
 				</element>
-				<element kind="textField" uuid="30232c85-6241-43cd-9e9a-d37af126c41c" x="308" y="55" width="123" height="16" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
-					<expression><![CDATA[$V{nombrePartSousRachat3}]]></expression>
+				<element kind="textField" uuid="d00e83e1-10d1-416c-ba45-a7a23d3707c3" x="305" y="7" width="123" height="16" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###">
+					<expression><![CDATA[$V{nombrePartSousRachat6}]]></expression>
 				</element>
-				<element kind="textField" uuid="301af7df-5b9d-488c-b55f-682c0b0f1af7" x="437" y="55" width="122" height="16" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
-					<expression><![CDATA[$V{montantSousALiquider3}]]></expression>
+				<element kind="textField" uuid="571869f2-8668-42df-9454-bd3a04e60966" x="432" y="7" width="125" height="16" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###">
+					<expression><![CDATA[$V{montantSousALiquider6}]]></expression>
 				</element>
-				<element kind="textField" uuid="b04969fe-2197-4455-8d65-40eb3b72afd4" x="565" y="55" width="115" height="16" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
-					<expression><![CDATA[$V{commisiionSousRachat3}]]></expression>
+				<element kind="textField" uuid="5acd42fd-f7c1-4e45-b60c-418c534db8c0" x="560" y="7" width="119" height="16" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###">
+					<expression><![CDATA[$V{commisiionSousRachat6}]]></expression>
 				</element>
-				<element kind="textField" uuid="34e3754c-1cdd-4b84-a9aa-bc89dee45f82" x="686" y="55" width="115" height="16" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
-					<expression><![CDATA[$V{retrocessionSousRachat3}]]></expression>
+				<element kind="textField" uuid="1c3881b1-1304-4660-bb7e-4175bcf1abfb" x="681" y="7" width="119" height="16" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###">
+					<expression><![CDATA[$V{retrocessionSousRachat6}]]></expression>
 				</element>
 			</band>
 		</groupFooter>
 	</group>
 	<group name="Group2">
-		<expression><![CDATA[$F{LibelleTypePersonne}]]></expression>
+		<expression><![CDATA[$F{raisonSociale}]]></expression>
 		<groupHeader>
-			<band height="29">
-				<element kind="textField" uuid="28dc52ef-388d-4be0-9342-1a0b198a08a3" x="116" y="10" width="630" height="19" hTextAlign="Center">
-					<expression><![CDATA[$F{LibelleTypePersonne}]]></expression>
+			<band height="59">
+				<element kind="rectangle" uuid="1e167f64-a234-4240-9bbe-d22da9ce5b64" x="0" y="2" width="801" height="30" backcolor="#FFFFFF">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="rectangle" uuid="c2ed6874-7f6d-43cf-9a17-4c9d0d94ff0f" x="0" y="33" width="801" height="26" backcolor="#BDD7EE">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="line" uuid="8bfc9c9d-57cf-43d8-8d92-73cdd5d44474" x="96" y="33" width="1" height="26">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="line" uuid="8923608a-35f7-47e8-89c2-04c386065a00" x="679" y="33" width="1" height="26">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="line" uuid="d2f9f411-d233-4edd-ab71-7cfab7809f71" x="301" y="33" width="1" height="26">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="staticText" uuid="cd340e85-0835-4390-ac50-7624787dcb8e" x="701" y="40" width="78" height="18" bold="true" hTextAlign="Center">
+					<text><![CDATA[Retrocession]]></text>
+				</element>
+				<element kind="staticText" uuid="93a2157a-fdf6-4d7c-bf2d-d22d27c08abc" x="447" y="40" width="94" height="18" bold="true" hTextAlign="Center">
+					<text><![CDATA[Mont.Racheté]]></text>
+				</element>
+				<element kind="staticText" uuid="5ea92ecd-7ea9-4750-8018-494e1dd01da1" x="575" y="40" width="89" height="18" bold="true" hTextAlign="Center">
+					<text><![CDATA[Commissions]]></text>
+				</element>
+				<element kind="line" uuid="d7576989-77dc-48bb-85c9-612f27ed74f3" x="558" y="33" width="1" height="26">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="staticText" uuid="b8d3bf51-4bc2-49a5-aa88-1ea814f130ac" x="139" y="40" width="119" height="18" bold="true" hTextAlign="Center">
+					<text><![CDATA[Actionnaire]]></text>
+				</element>
+				<element kind="line" uuid="60d8a0f1-cbf5-40b1-b6bc-937c9298997b" x="430" y="33" width="1" height="26">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="staticText" uuid="38d65e51-038b-4ed2-85f1-2bd379dafad4" x="326" y="40" width="79" height="18" bold="true" hTextAlign="Center">
+					<text><![CDATA[Qté]]></text>
+				</element>
+				<element kind="staticText" uuid="28f986f3-8d66-4aad-a867-2352762dfb45" x="7" y="38" width="82" height="16" bold="true" hTextAlign="Center">
+					<text><![CDATA[Date Opération :]]></text>
+				</element>
+				<element kind="staticText" uuid="62f7a1cb-b651-42d1-a6e1-bd0be3c7d0d0" x="54" y="11" width="84" height="16" bold="true" hTextAlign="Left">
+					<text><![CDATA[DISTRIBUTEUR :]]></text>
+				</element>
+				<element kind="textField" uuid="44109726-0f40-4abb-be62-d234552cba1c" x="139" y="11" width="235" height="16">
+					<expression><![CDATA[$F{raisonSociale}]]></expression>
 				</element>
 			</band>
 		</groupHeader>
 		<groupFooter>
-			<band height="27">
-				<element kind="rectangle" uuid="605b76f7-48ed-494a-af04-e62d8854a998" x="1" y="1" width="801" height="26" backcolor="#BDD7EE">
+			<band height="38">
+				<element kind="rectangle" uuid="46741f45-d625-4baa-906e-3ff6bed6e02c" x="1" y="0" width="801" height="26" backcolor="#BDD7EE">
 					<pen lineColor="#3B88D1"/>
 				</element>
-				<element kind="line" uuid="36f38dd1-03e0-46d3-a571-463b1e213e36" x="680" y="1" width="1" height="26">
+				<element kind="line" uuid="cd9354cb-44ed-4db1-bf06-b6210321f99b" x="680" y="0" width="1" height="26">
 					<pen lineColor="#3B88D1"/>
 				</element>
-				<element kind="line" uuid="d65cac04-0943-4f66-b277-6696f27c5e7b" x="302" y="1" width="1" height="26">
+				<element kind="line" uuid="4a00c651-a894-4df4-82e3-10fbe3d57538" x="302" y="0" width="1" height="26">
 					<pen lineColor="#3B88D1"/>
 				</element>
-				<element kind="line" uuid="6b389f22-d386-4366-ac0c-e043702fb31d" x="559" y="1" width="1" height="26">
+				<element kind="line" uuid="68348f4b-f0ed-4b85-a65e-89415f5530ac" x="559" y="0" width="1" height="26">
 					<pen lineColor="#3B88D1"/>
 				</element>
-				<element kind="line" uuid="e02a004c-5ff6-4651-92c4-5963bc90d4db" x="431" y="1" width="1" height="26">
+				<element kind="line" uuid="7a257d66-50bf-4c98-aa3f-92498418df19" x="431" y="0" width="1" height="26">
 					<pen lineColor="#3B88D1"/>
 				</element>
-				<element kind="staticText" uuid="d40a0595-f8d1-438c-906c-7bc2eaeead31" x="6" y="8" width="44" height="16" bold="true" hTextAlign="Left">
+				<element kind="staticText" uuid="8ea0da03-3a0d-46de-bb81-16a2ba0d3cb5" x="6" y="7" width="44" height="16" bold="true" hTextAlign="Left">
 					<text><![CDATA[TOTAL]]></text>
 				</element>
-				<element kind="textField" uuid="2b965f7a-9776-4d2e-b894-a43607a75bfa" x="52" y="8" width="248" height="16">
-					<expression><![CDATA[$F{LibelleTypePersonne}]]></expression>
+				<element kind="textField" uuid="d5033172-00f5-4de6-845b-e6959d3bafaf" x="52" y="7" width="248" height="16">
+					<expression><![CDATA[$F{raisonSociale}]]></expression>
 				</element>
-				<element kind="textField" uuid="b2f9bcd5-4f67-4c7e-800e-f839345901f5" x="308" y="8" width="123" height="16" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
-					<expression><![CDATA[$V{nombrePartSousRachat1}]]></expression>
+				<element kind="textField" uuid="4446543a-d61d-4ce7-98c7-7319850080c6" x="305" y="7" width="123" height="16" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###">
+					<expression><![CDATA[$V{nombrePartSousRachat5}]]></expression>
 				</element>
-				<element kind="textField" uuid="5f8ba738-2c6d-41ab-94c0-791413467c89" x="437" y="8" width="122" height="16" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
-					<expression><![CDATA[$V{montantSousALiquider1}]]></expression>
+				<element kind="textField" uuid="c6b4a78e-f3d6-4f70-b88b-928770e01822" x="436" y="7" width="121" height="16" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###">
+					<expression><![CDATA[$V{montantSousALiquider5}]]></expression>
 				</element>
-				<element kind="textField" uuid="667aa66e-6f29-4e62-89c4-5735d13e2633" x="565" y="8" width="115" height="16" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
-					<expression><![CDATA[$V{commisiionSousRachat1}]]></expression>
+				<element kind="textField" uuid="b59d3b33-1523-4549-9c09-bf554db96c7d" x="560" y="7" width="119" height="16" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###">
+					<expression><![CDATA[$V{commisiionSousRachat5}]]></expression>
 				</element>
-				<element kind="textField" uuid="653c340a-c61a-4cd8-82b0-2985920a1832" x="686" y="8" width="115" height="16" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
-					<expression><![CDATA[$V{retrocessionSousRachat1}]]></expression>
+				<element kind="textField" uuid="f6c1a1f4-fbb5-415f-87b2-99c1077bc0b5" x="686" y="7" width="114" height="16">
+					<expression><![CDATA[$V{retrocessionSousRachat5}]]></expression>
+				</element>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="Group3">
+		<expression><![CDATA[$F{libelleTypePersonne}]]></expression>
+		<groupHeader>
+			<band height="19">
+				<element kind="textField" uuid="28dc52ef-388d-4be0-9342-1a0b198a08a3" x="103" y="0" width="630" height="19" hTextAlign="Center">
+					<expression><![CDATA[$F{libelleTypePersonne}]]></expression>
+				</element>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="26">
+				<element kind="rectangle" uuid="605b76f7-48ed-494a-af04-e62d8854a998" x="1" y="0" width="801" height="26" backcolor="#BDD7EE">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="line" uuid="36f38dd1-03e0-46d3-a571-463b1e213e36" x="680" y="0" width="1" height="26">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="line" uuid="d65cac04-0943-4f66-b277-6696f27c5e7b" x="302" y="0" width="1" height="26">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="line" uuid="6b389f22-d386-4366-ac0c-e043702fb31d" x="559" y="0" width="1" height="26">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="line" uuid="e02a004c-5ff6-4651-92c4-5963bc90d4db" x="431" y="0" width="1" height="26">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="staticText" uuid="d40a0595-f8d1-438c-906c-7bc2eaeead31" x="6" y="7" width="44" height="16" bold="true" hTextAlign="Left">
+					<text><![CDATA[TOTAL]]></text>
+				</element>
+				<element kind="textField" uuid="2b965f7a-9776-4d2e-b894-a43607a75bfa" x="52" y="7" width="248" height="16">
+					<expression><![CDATA[$F{libelleTypePersonne}]]></expression>
+				</element>
+				<element kind="textField" uuid="d70d444f-43bd-4c1f-83e7-5bfea4201422" x="302" y="7" width="128" height="16" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###">
+					<expression><![CDATA[$V{nombrePartSousRachat4}]]></expression>
+				</element>
+				<element kind="textField" uuid="8edbf387-e2a2-4650-b73c-fcca45248ba4" x="435" y="7" width="122" height="16" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###">
+					<expression><![CDATA[$V{montantSousALiquider4}]]></expression>
+				</element>
+				<element kind="textField" uuid="3d982b2f-8a6b-4f59-8a87-07f999a1e117" x="560" y="7" width="119" height="16" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###">
+					<expression><![CDATA[$V{commisiionSousRachat4}]]></expression>
+				</element>
+				<element kind="textField" uuid="fa1985c7-464e-43bb-b2a6-cff73cd76910" x="686" y="7" width="114" height="16">
+					<expression><![CDATA[$V{retrocessionSousRachat4}]]></expression>
 				</element>
 			</band>
 		</groupFooter>
 	</group>
 	<background splitType="Stretch"/>
-	<title height="111" splitType="Stretch">
+	<title height="92" splitType="Stretch">
 		<element kind="rectangle" uuid="2b94645e-48f9-43f8-8794-c24368ce8b24" x="1" y="30" width="800" height="50" backcolor="#BDD7EE">
 			<pen lineColor="#3B88D1"/>
 		</element>
@@ -273,15 +329,6 @@
 		</element>
 		<element kind="textField" uuid="044b6dd2-03d3-408d-b81f-d7ebb0c8dffc" x="177" y="50" width="447" height="17" hTextAlign="Center">
 			<expression><![CDATA["POINT DES SUR RACHATS DU " + $F{dateDebut}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy")) + "AU " + $F{dateFin}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"))]]></expression>
-		</element>
-		<element kind="rectangle" uuid="8c790a1e-2c28-4039-9bc1-c8434b151ac8" x="1" y="90" width="801" height="21" backcolor="#FFFFFF">
-			<pen lineColor="#3B88D1"/>
-		</element>
-		<element kind="staticText" uuid="1ca6161f-7bd2-4cbd-b97f-ac2926ab6e62" x="20" y="95" width="60" height="16" bold="true" hTextAlign="Center">
-			<text><![CDATA[OPCVM :]]></text>
-		</element>
-		<element kind="textField" uuid="30ee0f4f-a85e-40fe-8c56-54c111978087" x="85" y="95" width="235" height="16">
-			<expression><![CDATA[$F{denominationOpcvm}]]></expression>
 		</element>
 	</title>
 	<pageHeader splitType="Stretch"/>
@@ -307,10 +354,10 @@
 				<pen lineColor="#3B88D1"/>
 			</element>
 			<element kind="textField" uuid="f3f193ed-6bbb-4e2e-ad3b-c6cc8fc8e58b" x="6" y="8" width="91" height="14" pattern="EE dd/MM/yyyy" blankWhenNull="true">
-				<expression><![CDATA[$F{dateOperation}]]></expression>
+				<expression><![CDATA[$F{dateOperation}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"))]]></expression>
 			</element>
 			<element kind="textField" uuid="ab9eeada-8508-4641-8df7-402fcf1e3099" x="103" y="8" width="197" height="14">
-				<expression><![CDATA[$F{NomPersonnePhysique}]]></expression>
+				<expression><![CDATA[$F{personne}]]></expression>
 			</element>
 			<element kind="textField" uuid="7076c7ab-b0b2-4bfb-9866-a25d8fdd6d91" x="308" y="8" width="123" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
 				<expression><![CDATA[$F{nombrePartSousRachat}]]></expression>

@@ -13,10 +13,11 @@ public interface EtatFinancierAnnexesNotePortefeuilleTitresAnnuelProjection {
     String getGroup2();
     String getLibelleTypeTitre();
     String getDesignationTitre();
-    Long getNombreTitres();
+    BigDecimal getNombreTitres();
     BigDecimal getCoutAcquisition();
     BigDecimal getValeur();
     BigDecimal getActifNet();
+    BigDecimal getActifnetpourcent();
     Long getIdOpcvm();
-    LocalDateTime dateEstimation();
+    LocalDateTime getDateEstimation();
 }

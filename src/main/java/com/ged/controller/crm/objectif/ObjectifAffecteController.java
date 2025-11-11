@@ -38,7 +38,7 @@ public class ObjectifAffecteController {
         return objectifAffecteService.afficherSelonPersonnelEtPeriodicite(idPersonne,beginEndDateParameter);
     }
     @PostMapping("/objectifprevu/{idPersonne}")
-    public List<ObjectifAffecteProjection> afficherObjectifPrevu(@PathVariable("idPersonne") long idPersonne,
+    public void afficherObjectifPrevu(@PathVariable("idPersonne") long idPersonne,
                                                                  @RequestBody BeginEndDateParameter beginEndDateParameter,
                                                                  HttpServletResponse response) throws JRException, IOException {
         response.setContentType("application/pdf");
@@ -48,10 +48,10 @@ public class ObjectifAffecteController {
         String headerKey = "Content-Disposition";
         String headerValue = "attachment; filename=objectif"+etat + currentDateTime + ".pdf";
         response.setHeader(headerKey, headerValue);
-        return objectifAffecteService.afficherSelonPersonnelEtPeriodiciteEtat(etat,idPersonne,beginEndDateParameter,response);
+         objectifAffecteService.afficherSelonPersonnelEtPeriodiciteEtat(etat,idPersonne,beginEndDateParameter,response);
     }
     @PostMapping("/objectifreel/{idPersonne}")
-    public List<ObjectifAffecteProjection> afficherObjectifReel(@PathVariable("idPersonne") long idPersonne,
+    public void afficherObjectifReel(@PathVariable("idPersonne") long idPersonne,
                                                                 @RequestBody BeginEndDateParameter beginEndDateParameter,
                                                                 HttpServletResponse response) throws JRException, IOException {
         response.setContentType("application/pdf");
@@ -61,7 +61,7 @@ public class ObjectifAffecteController {
         String headerKey = "Content-Disposition";
         String headerValue = "attachment; filename=objectif"+etat + currentDateTime + ".pdf";
         response.setHeader(headerKey, headerValue);
-        return objectifAffecteService.afficherSelonPersonnelEtPeriodiciteEtat(etat,idPersonne,beginEndDateParameter,response);
+         objectifAffecteService.afficherSelonPersonnelEtPeriodiciteEtat(etat,idPersonne,beginEndDateParameter,response);
     }
     @PostMapping
     public ObjectifAffecteDto ajouter(@RequestBody ObjectifAffecteDto objectifAffecteDto)

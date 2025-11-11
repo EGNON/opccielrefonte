@@ -55,6 +55,10 @@ public interface LibraryDao extends JpaRepository<BaseEntity, Long> {
     @Query(value = "select * from [Comptabilite].[FT_SoldeToutCompte_New] (:codePlan,:idOpcvm,:numCompteComptable,:dateEstimation)", nativeQuery = true)
     Page<SoldeDesComptesComptablesProjection> soldeDesComptesComptables(String codePlan,Long idOpcvm,String numCompteComptable,LocalDateTime dateEstimation,Pageable pageable);
 
+    @Query(value = "select * from [Comptabilite].[FT_BalanceAvantInventaire_New] (:codePlan,:idOpcvm,:dateDebut,:dateFin)", nativeQuery = true)
+    List<BalanceProjection> balanceAvantInventaire(String codePlan,Long idOpcvm,LocalDateTime dateDebut,LocalDateTime dateFin);
+    @Query(value = "select * from [Comptabilite].[FT_BalanceAvantInventaire_New] (:codePlan,:idOpcvm,:dateDebut,:dateFin)", nativeQuery = true)
+    Page<BalanceProjection> balanceAvantInventaire(String codePlan,Long idOpcvm,LocalDateTime dateDebut,LocalDateTime dateFin,Pageable pageable);
     @Query(value = "select * from [Comptabilite].[FT_Balance_New] (:codePlan,:idOpcvm,:dateDebut,:dateFin)", nativeQuery = true)
     List<BalanceProjection> balance(String codePlan,Long idOpcvm,LocalDateTime dateDebut,LocalDateTime dateFin);
     @Query(value = "select * from [Comptabilite].[FT_Balance_New] (:codePlan,:idOpcvm,:dateDebut,:dateFin)", nativeQuery = true)
@@ -72,10 +76,12 @@ public interface LibraryDao extends JpaRepository<BaseEntity, Long> {
 
     @Query(value = "select * from [Operation].[FT_PointPeriodiqueRachat_New] (:idOpcvm,:idSeance,:idActionnaire,:idPersonne,:dateDebut,:dateFin)", nativeQuery = true)
     List<PointRachatDetailleProjection> pointRachatDetaille(Long idOpcvm,Long idSeance,Long idActionnaire,Long idPersonne,LocalDateTime dateDebut,LocalDateTime dateFin);
-    @Query(value = "select * from [Impressions].[FT_GrandLivre_New] (:idOpcvm,:idSeance,:idActionnaire,:idPersonne,:dateDebut,:dateFin)", nativeQuery = true)
+    @Query(value = "select * from [Operation].[FT_PointPeriodiqueRachat_New] (:idOpcvm,:idSeance,:idActionnaire,:idPersonne,:dateDebut,:dateFin)", nativeQuery = true)
     Page<PointRachatDetailleProjection> pointRachatDetaille(Long idOpcvm,Long idSeance,Long idActionnaire,Long idPersonne,LocalDateTime dateDebut,LocalDateTime dateFin,Pageable pageable);
 
-    @Query(value = "select * from [Operation].[FT_PointGlobalPeriodiqueRachat_New] (:idOpcvm,:idSeance,:idPersonne,:dateDebut,:dateFin)", nativeQuery = true)
+    @Query(value = "select * from [Operation].[FT_PointGlobalPeriodiqueRachat2_New] (:idOpcvm,:idSeance,:idPersonne,:dateDebut,:dateFin,:libelleTypePersonne)", nativeQuery = true)
+    List<PointRachatGlobalProjection> pointRachatGlobal2(Long idOpcvm,Long idSeance,Long idPersonne,LocalDateTime dateDebut,LocalDateTime dateFin,String libelleTypePersonne);
+   @Query(value = "select * from [Operation].[FT_PointGlobalPeriodiqueRachat_New] (:idOpcvm,:idSeance,:idPersonne,:dateDebut,:dateFin)", nativeQuery = true)
     List<PointRachatGlobalProjection> pointRachatGlobal(Long idOpcvm,Long idSeance,Long idPersonne,LocalDateTime dateDebut,LocalDateTime dateFin);
     @Query(value = "select * from [Operation].[FT_PointGlobalPeriodiqueRachat_New] (:idOpcvm,:idSeance,:idPersonne,:dateDebut,:dateFin)", nativeQuery = true)
     Page<PointRachatGlobalProjection> pointRachatGlobal(Long idOpcvm,Long idSeance,Long idPersonne,LocalDateTime dateDebut,LocalDateTime dateFin,Pageable pageable);
@@ -131,7 +137,8 @@ public interface LibraryDao extends JpaRepository<BaseEntity, Long> {
     @Query(value = "select * from [Impressions].[FT_SortieEnPortefeuilleTitre_New](:idOpcvm,:dateDebut,:dateFin)", nativeQuery = true)
     List<EtatFinancierAnnexesEtatSortiesPortefeuilleTitreProjection> etatFinancierAnnexesEtatSortiesPortefeuilleTitre(Long idOpcvm,LocalDateTime dateDebut, LocalDateTime dateFin);
 
-    @Query(value = "select * from [Impressions].[FT_NotesSurLePortefeuilleTitreTrimestriel_New] (:idOpcvm,:dateEstimation)", nativeQuery = true)
+    @Query(value = "select * from [Impressions].[FT_NotesSurLePortefeuilleTitreTrimestriel_New] " +
+            "(:idOpcvm,:dateEstimation) order by groupe1 asc,group2 asc,libelleTypeTitre asc", nativeQuery = true)
     List<EtatFinancierAnnexesNotePortefeuilleTitresAnnuelProjection> etatFinancierAnnexesNotePortefeuilleTitresAnnuel(Long idOpcvm,LocalDateTime dateEstimation);
 
     @Query(value = "select * from [Impressions].[FT_NotesSurPlacementsMonetairesTrimestriel_New] (:idOpcvm,:dateEstimation)", nativeQuery = true)
@@ -179,9 +186,9 @@ public interface LibraryDao extends JpaRepository<BaseEntity, Long> {
     @Query(value = "select * from [Impressions].[FT_EtatMensuelSouscriptions_New](:idOpcvm,:dateDebut,:dateFin)", nativeQuery = true)
     List<EtatFinancierTrimestrielEtatMensuelSouscriptionsProjection> etatFinancierTrimestrielEtatMensuelSouscriptions(Long idOpcvm,LocalDateTime dateDebut, LocalDateTime dateFin);
 
-    @Query(value = "select * from [Operation].[FT_PointPeriodiqueSouscription_New] (:idOpcvm,:idSeance,:idActionnaire,:idPersonne,:dateDebut,:dateFin)", nativeQuery = true)
+    @Query(value = "select * from [Impressions].[FT_PointPeriodiqueSouscription_New] (:idOpcvm,:idSeance,:idActionnaire,:idPersonne,:dateDebut,:dateFin)", nativeQuery = true)
     List<PointSouscriptionDetailleProjection> pointSouscriptionDetaille(Long idOpcvm,Long idSeance,Long idActionnaire,Long idPersonne,LocalDateTime dateDebut,LocalDateTime dateFin);
-    @Query(value = "select * from [Impressions].[FT_GrandLivre_New] (:idOpcvm,:idSeance,:idActionnaire,:idPersonne,:dateDebut,:dateFin)", nativeQuery = true)
+    @Query(value = "select * from [Impressions].[FT_PointPeriodiqueSouscription_New] (:idOpcvm,:idSeance,:idActionnaire,:idPersonne,:dateDebut,:dateFin)", nativeQuery = true)
     Page<PointSouscriptionDetailleProjection> pointSouscriptionDetaille(Long idOpcvm,Long idSeance,Long idActionnaire,Long idPersonne,LocalDateTime dateDebut,LocalDateTime dateFin,Pageable pageable);
 
     @Query(value = "select * from [Impressions].[FT_ReleveTitreFCP_New] (:idOpcvm,:dateDebut,:dateFin)" +
@@ -264,6 +271,9 @@ public interface LibraryDao extends JpaRepository<BaseEntity, Long> {
     @Query(value = "select * from [Impressions].[FT_PortefeuilleActionnaire_New_JAVA](:idOpcvm,:idActionnaire,:dateDebutEstimation,:dateEstimation) " +
             "order by idopcvm asc", nativeQuery = true)
     Page<PortefeuilleActionnaireProjection> portefeuilleActionnaire(Long idOpcvm,String idActionnaire,LocalDateTime dateDebutEstimation,LocalDateTime dateEstimation,Pageable pageable);
+     @Query(value = "select * from [Impressions].[FT_PortefeuilleActionnaire_New_JAVA](:idOpcvm,:idActionnaire,:dateDebutEstimation,:dateEstimation) " +
+            "order by idopcvm asc", nativeQuery = true)
+    List<PortefeuilleActionnaireProjection> portefeuilleActionnaire(Long idOpcvm,String idActionnaire,LocalDateTime dateDebutEstimation,LocalDateTime dateEstimation);
     @Query(value = "select * from [Impressions].[FT_RegistreActionnaire_New](:dateDebut,:dateFin)", nativeQuery = true)
     List<HistoriqueActionnaireProjection> historiqueActionnaire(LocalDateTime dateDebut,LocalDateTime dateFin);
     @Query(value = "select * from [Impressions].[FT_RegistreActionnaire_New](:dateDebut,:dateFin)", nativeQuery = true)

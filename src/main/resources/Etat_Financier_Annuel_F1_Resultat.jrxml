@@ -82,9 +82,9 @@
 		<property name="com.jaspersoft.studio.field.name" value="varPluOuMoinsValueN"/>
 		<property name="com.jaspersoft.studio.field.label" value="varPluOuMoinsValueN"/>
 	</field>
-	<field name="PluOuMoinsValueRealN" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.name" value="PluOuMoinsValueRealN"/>
-		<property name="com.jaspersoft.studio.field.label" value="PluOuMoinsValueRealN"/>
+	<field name="pluOuMoinsValueRealN" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="pluOuMoinsValueRealN"/>
+		<property name="com.jaspersoft.studio.field.label" value="pluOuMoinsValueRealN"/>
 	</field>
 	<field name="fraisNegocN" class="java.math.BigDecimal">
 		<property name="com.jaspersoft.studio.field.name" value="fraisNegocN"/>
@@ -134,17 +134,17 @@
 		<property name="com.jaspersoft.studio.field.name" value="anneeA"/>
 		<property name="com.jaspersoft.studio.field.label" value="anneeA"/>
 	</field>
-	<field name="RevPortefeuilleTitreA" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.name" value="RevPortefeuilleTitreA"/>
-		<property name="com.jaspersoft.studio.field.label" value="RevPortefeuilleTitreA"/>
+	<field name="revPortefeuilleTitreA" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="revPortefeuilleTitreA"/>
+		<property name="com.jaspersoft.studio.field.label" value="revPortefeuilleTitreA"/>
 	</field>
 	<field name="dividendeA" class="java.math.BigDecimal">
 		<property name="com.jaspersoft.studio.field.name" value="dividendeA"/>
 		<property name="com.jaspersoft.studio.field.label" value="dividendeA"/>
 	</field>
-	<field name="RevObligationAssimA" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.name" value="RevObligationAssimA"/>
-		<property name="com.jaspersoft.studio.field.label" value="RevObligationAssimA"/>
+	<field name="revObligationAssimA" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="revObligationAssimA"/>
+		<property name="com.jaspersoft.studio.field.label" value="revObligationAssimA"/>
 	</field>
 	<field name="revAutresValeursA" class="java.math.BigDecimal">
 		<property name="com.jaspersoft.studio.field.name" value="revAutresValeursA"/>
@@ -194,9 +194,9 @@
 		<property name="com.jaspersoft.studio.field.name" value="varPluOuMoinsValueA"/>
 		<property name="com.jaspersoft.studio.field.label" value="varPluOuMoinsValueA"/>
 	</field>
-	<field name="PluOuMoinsValueRealA" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.name" value="PluOuMoinsValueRealA"/>
-		<property name="com.jaspersoft.studio.field.label" value="PluOuMoinsValueRealA"/>
+	<field name="pluOuMoinsValueRealA" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="pluOuMoinsValueRealA"/>
+		<property name="com.jaspersoft.studio.field.label" value="pluOuMoinsValueRealA"/>
 	</field>
 	<field name="fraisNegocA" class="java.math.BigDecimal">
 		<property name="com.jaspersoft.studio.field.name" value="fraisNegocA"/>
@@ -432,16 +432,16 @@
 				<expression><![CDATA[$F{varPluOuMoinsValueN}]]></expression>
 			</element>
 			<element kind="textField" uuid="ee7c29c8-39c6-4de2-b152-f8e4972c7f36" x="342" y="455" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
-				<expression><![CDATA[$F{PluOuMoinsValueRealN}]]></expression>
+				<expression><![CDATA[$F{pluOuMoinsValueRealN}]]></expression>
 			</element>
 			<element kind="textField" uuid="29bdafe0-ed03-4c61-ac1a-43e54ee066b6" x="449" y="64" width="100" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
-				<expression><![CDATA[$F{RevPortefeuilleTitreA}]]></expression>
+				<expression><![CDATA[$F{revPortefeuilleTitreA}]]></expression>
 			</element>
 			<element kind="textField" uuid="c9012361-ed61-4410-89a7-215c099eae85" x="449" y="83" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
 				<expression><![CDATA[$F{dividendeA}]]></expression>
 			</element>
 			<element kind="textField" uuid="ebc3d6df-1481-4cdb-b5e0-851871834224" x="449" y="102" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
-				<expression><![CDATA[$F{RevObligationAssimA}]]></expression>
+				<expression><![CDATA[$F{revObligationAssimA}]]></expression>
 			</element>
 			<element kind="textField" uuid="7ff70b88-6a3c-4b36-8b8f-27c873b89185" x="449" y="122" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
 				<expression><![CDATA[$F{revAutresValeursA}]]></expression>
@@ -480,7 +480,7 @@
 				<expression><![CDATA[$F{varPluOuMoinsValueA}]]></expression>
 			</element>
 			<element kind="textField" uuid="b90fb158-6953-4d71-861f-ffe1308b0660" x="449" y="455" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
-				<expression><![CDATA[$F{PluOuMoinsValueRealA}]]></expression>
+				<expression><![CDATA[$F{pluOuMoinsValueRealA}]]></expression>
 			</element>
 			<element kind="staticText" uuid="9373ef11-3189-416d-aa8b-4f596e09be82" x="10" y="170" width="210" height="19" bold="true" hTextAlign="Left" vTextAlign="Middle">
 				<text><![CDATA[TOTAL DES REVENUS DES PLACEMENTS]]></text>

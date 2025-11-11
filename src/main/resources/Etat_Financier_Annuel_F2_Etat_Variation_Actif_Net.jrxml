@@ -34,9 +34,9 @@
 		<property name="com.jaspersoft.studio.field.name" value="varPluOuMoinsValueA"/>
 		<property name="com.jaspersoft.studio.field.label" value="varPluOuMoinsValueA"/>
 	</field>
-	<field name="PluOuMoinsValueRealA" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.name" value="PluOuMoinsValueRealA"/>
-		<property name="com.jaspersoft.studio.field.label" value="PluOuMoinsValueRealA"/>
+	<field name="pluOuMoinsValueRealA" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="pluOuMoinsValueRealA"/>
+		<property name="com.jaspersoft.studio.field.label" value="pluOuMoinsValueRealA"/>
 	</field>
 	<field name="fraisNegocA" class="java.math.BigDecimal">
 		<property name="com.jaspersoft.studio.field.name" value="fraisNegocA"/>
@@ -142,9 +142,9 @@
 		<property name="com.jaspersoft.studio.field.name" value="varPluOuMoinsValueN"/>
 		<property name="com.jaspersoft.studio.field.label" value="varPluOuMoinsValueN"/>
 	</field>
-	<field name="PluOuMoinsValueRealN" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.name" value="PluOuMoinsValueRealN"/>
-		<property name="com.jaspersoft.studio.field.label" value="PluOuMoinsValueRealN"/>
+	<field name="pluOuMoinsValueRealN" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="pluOuMoinsValueRealN"/>
+		<property name="com.jaspersoft.studio.field.label" value="pluOuMoinsValueRealN"/>
 	</field>
 	<field name="fraisNegocN" class="java.math.BigDecimal">
 		<property name="com.jaspersoft.studio.field.name" value="fraisNegocN"/>
@@ -321,7 +321,7 @@
 				<expression><![CDATA[$F{varPluOuMoinsValueN}]]></expression>
 			</element>
 			<element kind="textField" uuid="acc06247-a7ac-4362-80e4-53d0578b4748" x="341" y="97" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true" bold="false">
-				<expression><![CDATA[$F{PluOuMoinsValueRealN}]]></expression>
+				<expression><![CDATA[$F{pluOuMoinsValueRealN}]]></expression>
 			</element>
 			<element kind="textField" uuid="065d9ade-e0ef-4bff-97d5-93978ec8adfc" x="341" y="115" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
 				<expression><![CDATA[$F{fraisNegocN}]]></expression>
@@ -342,7 +342,7 @@
 				<expression><![CDATA[$F{varPluOuMoinsValueA}]]></expression>
 			</element>
 			<element kind="textField" uuid="b0b9860c-7af2-48c1-9749-880de9aa5ed0" x="448" y="97" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true" bold="false">
-				<expression><![CDATA[$F{PluOuMoinsValueRealA}]]></expression>
+				<expression><![CDATA[$F{pluOuMoinsValueRealA}]]></expression>
 			</element>
 			<element kind="textField" uuid="cba32b80-8c7b-439f-8c46-f64842201b02" x="448" y="115" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
 				<expression><![CDATA[$F{fraisNegocA}]]></expression>

@@ -4,12 +4,12 @@
 	<parameter name="periodicite" class="java.lang.String"/>
 	<parameter name="denominationOpcvm" class="java.lang.String"/>
 	<parameter name="libellePays" class="java.lang.String"/>
-	<parameter name="dateEstimation" class="java.sql.Date"/>
+	<parameter name="dateEstimation" class="java.util.Date"/>
 	<field name="designationTitre" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.name" value="designationTitre"/>
 		<property name="com.jaspersoft.studio.field.label" value="designationTitre"/>
 	</field>
-	<field name="nombre" class="java.math.BigDecimal">
+	<field name="nombre" class="java.lang.Long">
 		<property name="com.jaspersoft.studio.field.name" value="nombre"/>
 		<property name="com.jaspersoft.studio.field.label" value="nombre"/>
 	</field>
@@ -25,15 +25,15 @@
 		<property name="com.jaspersoft.studio.field.name" value="actifNet"/>
 		<property name="com.jaspersoft.studio.field.label" value="actifNet"/>
 	</field>
-	<field name="%actifnet" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.name" value="%actifnet"/>
-		<property name="com.jaspersoft.studio.field.label" value="%actifnet"/>
+	<field name="actifNetPourCent" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="actifNetPourCent"/>
+		<property name="com.jaspersoft.studio.field.label" value="actifNetPourCent"/>
 	</field>
 	<field name="idOpcvm" class="java.lang.Long">
 		<property name="com.jaspersoft.studio.field.name" value="idOpcvm"/>
 		<property name="com.jaspersoft.studio.field.label" value="idOpcvm"/>
 	</field>
-	<field name="dateEstimation" class="java.sql.Date">
+	<field name="dateEstimation" class="java.time.LocalDateTime">
 		<property name="com.jaspersoft.studio.field.name" value="dateEstimation"/>
 		<property name="com.jaspersoft.studio.field.label" value="dateEstimation"/>
 	</field>
@@ -46,8 +46,8 @@
 	<variable name="valeur1" resetType="Group" calculation="Sum" resetGroup="Group1" class="java.math.BigDecimal">
 		<expression><![CDATA[$F{valeur}]]></expression>
 	</variable>
-	<variable name="%actifnet1" resetType="Group" calculation="Sum" resetGroup="Group1" class="java.math.BigDecimal">
-		<expression><![CDATA[$F{%actifnet}]]></expression>
+	<variable name="actifNetPourCent1" resetType="Group" calculation="Sum" resetGroup="Group1" class="java.math.BigDecimal">
+		<expression><![CDATA[$F{actifNetPourCent}]]></expression>
 	</variable>
 	<group name="Group1">
 		<expression><![CDATA[$F{idOpcvm}]]></expression>
@@ -95,7 +95,7 @@
 					<expression><![CDATA[$V{valeur1}]]></expression>
 				</element>
 				<element kind="textField" uuid="787cb6f3-ef3f-4190-b075-f7b8d5d57323" x="715" y="8" width="82" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
-					<expression><![CDATA[$V{%actifnet1}]]></expression>
+					<expression><![CDATA[$V{actifNetPourCent1}]]></expression>
 				</element>
 			</band>
 		</groupFooter>
@@ -119,12 +119,32 @@
 		</element>
 		<element kind="rectangle" uuid="ca2e4254-143f-4b20-b711-39ff50ef1293" x="3" y="27" width="796" height="33" backcolor="#BDD7EE"/>
 		<element kind="staticText" uuid="3488bf90-8895-4105-8ab9-27d1a6f72548" x="230" y="35" width="342" height="17" fontSize="10.0" bold="true" hTextAlign="Center">
-			<text><![CDATA[ETAT DE SORTIE DU PORTEFEUILLE TITRE]]></text>
+			<text><![CDATA[NOTE SUR LES PLACEMENTS MONETAIRES]]></text>
 		</element>
 		<element kind="textField" uuid="efc66643-7376-4fb2-ac12-5fdeaed2122a" x="58" y="66" width="676" height="14">
-			<expression><![CDATA[EQUALS($P{periodicite}.trim(), "Annuel") ? 
-    "(Du " +  new java.text.SimpleDateFormat("dd/MM/ yyyy").format(new java.sql.Date($P{dateEstimation}.toLocalDate().plusMonths($P{periodicite}=="Trimestre"?-2:-5).withDayOfMonth(1).atStartOfDay(java.time.ZoneId.systemDefault()).toInstant().toEpochMilli())) + " au " + new java.text.SimpleDateFormat("dd/MM/ yyyy").format($P{dateEstimation}) + ")" : 
-    "(Du "+new java.sql.Date($P{dateEstimation}.toLocalDate().plusMonths(-12).plusDays(1).atStartOfDay(java.time.ZoneId.systemDefault()).toInstant().toEpochMilli())+" au "+$P{dateEstimation}+")"]]></expression>
+			<expression><![CDATA[
+                EQUALS($P{periodicite}.trim(), "Annuel") ?
+                    "(Du " +
+                    new java.text.SimpleDateFormat("dd/MM/yyyy").format(
+                        new java.util.Date(
+                            $P{dateEstimation}.getTime() -
+                            ($P{periodicite}.equals("Trimestre") ? 2L : 5L) * 30L * 24L * 60L * 60L * 1000L
+                        )
+                    ) +
+                    " au " +
+                    new java.text.SimpleDateFormat("dd/MM/yyyy").format($P{dateEstimation}) +
+                    ")"
+                :
+                    "(Du " +
+                    new java.text.SimpleDateFormat("dd/MM/yyyy").format(
+                        new java.util.Date(
+                            $P{dateEstimation}.getTime() - 365L * 24L * 60L * 60L * 1000L
+                        )
+                    ) +
+                    " au " +
+                    new java.text.SimpleDateFormat("dd/MM/yyyy").format($P{dateEstimation}) +
+                    ")"
+                ]]></expression>
 		</element>
 	</title>
 	<pageHeader splitType="Stretch"/>
@@ -149,7 +169,7 @@
 				<expression><![CDATA[$F{valeur}]]></expression>
 			</element>
 			<element kind="textField" uuid="cc7fc4fa-5c49-4b82-91e9-c54959a1ac79" x="723" y="6" width="65" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
-				<expression><![CDATA[$F{%actifnet}]]></expression>
+				<expression><![CDATA[$F{actifNetPourCent}]]></expression>
 			</element>
 		</band>
 	</detail>

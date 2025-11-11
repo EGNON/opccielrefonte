@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
-@Data
+//@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -18,5 +18,46 @@ public class EtatFinancierAnnuelF1BilanRequest {
     private String type;
     private DatatableParameters datatableParameters;
     private String Descrip;
-    private String exercice;
+
+    public Long getIdOpcvm() {
+        return idOpcvm;
+    }
+
+    public void setIdOpcvm(Long idOpcvm) {
+        this.idOpcvm = idOpcvm;
+    }
+
+    public Integer getAnnee() {
+        return annee;
+    }
+
+    public void setAnnee(Integer annee) {
+        this.annee = annee;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public DatatableParameters getDatatableParameters() {
+        return datatableParameters;
+    }
+
+    public void setDatatableParameters(DatatableParameters datatableParameters) {
+        this.datatableParameters = datatableParameters;
+    }
+
+    public String getDescrip() {
+        return Descrip;
+    }
+
+    public void setDescrip(String descrip) {
+        Descrip = descrip;
+    }
+
+
 }

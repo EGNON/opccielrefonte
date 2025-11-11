@@ -65,7 +65,7 @@ public class PersonnePhysiqueController {
         return personnePhysiqueService.afficherSelonQualiteLab(qualite);
     }
     @GetMapping("/qualite/etat/{qualite}")
-    public List<PersonnePhysiqueProjection> afficherSelonQualiteEtat(@PathVariable String qualite, HttpServletResponse response) throws JRException, IOException {
+    public void afficherSelonQualiteEtat(@PathVariable String qualite, HttpServletResponse response) throws JRException, IOException {
         response.setContentType("application/pdf");
         DateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy:hh:mm:ss");
         String currentDateTime = dateFormatter.format(new Date());
@@ -73,10 +73,10 @@ public class PersonnePhysiqueController {
         String headerKey = "Content-Disposition";
         String headerValue = "attachment; filename="+qualite.toLowerCase()+"_physique"+  currentDateTime + ".pdf";
         response.setHeader(headerKey, headerValue);
-        return personnePhysiqueService.afficherSelonQualiteEtat(qualite,response);
+         personnePhysiqueService.afficherSelonQualiteEtat(qualite,response);
     }
     @GetMapping("/fichekyc/{idPersonne}")
-        public List<FicheKYCProjection> afficherFicheKYC(@PathVariable Long idPersonne, HttpServletResponse response) throws JRException, IOException {
+        public void afficherFicheKYC(@PathVariable Long idPersonne, HttpServletResponse response) throws JRException, IOException {
             response.setContentType("application/pdf");
             DateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy:hh:mm:ss");
             String currentDateTime = dateFormatter.format(new Date());
@@ -84,11 +84,11 @@ public class PersonnePhysiqueController {
             String headerKey = "Content-Disposition";
             String headerValue = "attachment; filename=ficheKYC"+  currentDateTime + ".pdf";
             response.setHeader(headerKey, headerValue);
-            return personnePhysiqueService.afficherFicheKYC(idPersonne,response);
+             personnePhysiqueService.afficherFicheKYC(idPersonne,response);
         }
 
     @GetMapping("investietat/{qualite}/{dateDebut}/{dateFin}")
-    public List<PersonnePhysiqueProjection> afficherPersonnePhysiqueNayantPasInvestiEtat(@PathVariable("qualite") String qualite,
+    public void afficherPersonnePhysiqueNayantPasInvestiEtat(@PathVariable("qualite") String qualite,
                                                                           @PathVariable("dateDebut") LocalDateTime dateDebut,
                                                                           @PathVariable("dateFin") LocalDateTime dateFin
                                                                           , HttpServletResponse response) throws JRException, IOException {
@@ -99,7 +99,7 @@ public class PersonnePhysiqueController {
         String headerKey = "Content-Disposition";
         String headerValue = "attachment; filename=client_Physique_Nayant_pas_investi"+  currentDateTime + ".pdf";
         response.setHeader(headerKey, headerValue);
-        return personnePhysiqueService.afficherPersonnePhysiqueNayantPasInvestiEtat(qualite,dateDebut,dateFin,response);
+         personnePhysiqueService.afficherPersonnePhysiqueNayantPasInvestiEtat(qualite,dateDebut,dateFin,response);
     }
     @GetMapping("investi/{qualite}/{dateDebut}/{dateFin}")
     public List<PersonnePhysiqueDto> afficherPersonnePhysiqueNayantPasInvesti(@PathVariable("qualite") String qualite,

@@ -25,6 +25,8 @@ public class ExerciceMapper {
         BeanUtils.copyProperties(Exercice, ExerciceDto);
         if(Exercice.getPlan()!=null)
             ExerciceDto.setPlan(planMapper.dePlan(Exercice.getPlan()));
+        if(Exercice.getOpcvm()!=null)
+            ExerciceDto.setOpcvm(opcvmMapper.deOpcvm(Exercice.getOpcvm()));
         return ExerciceDto;
     }
 

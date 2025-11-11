@@ -403,473 +403,473 @@
 		<property name="com.jaspersoft.studio.field.label" value="regulSomNonDistribExoEnCoursA"/>
 	</field>
 	<background splitType="Stretch"/>
-	<title height="116" splitType="Stretch">
+	<title height="103" splitType="Stretch">
 		<element kind="textField" uuid="0f6ef163-9cd9-4215-b172-e9bb31780de9" x="3" y="3" width="217" height="16">
 			<expression><![CDATA["Cotonou, le "+$P{letterDate}]]></expression>
 		</element>
-		<element kind="rectangle" uuid="2661ee86-5a66-4778-9cf6-c33e29f3278f" x="445" y="89" width="108" height="27" backcolor="#FFFFFF">
+		<element kind="rectangle" uuid="2661ee86-5a66-4778-9cf6-c33e29f3278f" x="445" y="76" width="108" height="27" backcolor="#FFFFFF">
 			<pen lineColor="#3B88D1"/>
 		</element>
-		<element kind="rectangle" uuid="391e4033-999a-4321-95e1-36f4e7770105" x="8" y="89" width="430" height="27" backcolor="#FFFFFF">
+		<element kind="rectangle" uuid="391e4033-999a-4321-95e1-36f4e7770105" x="2" y="76" width="436" height="27" backcolor="#FFFFFF">
 			<pen lineColor="#3B88D1"/>
 		</element>
-		<element kind="rectangle" uuid="61baee73-995f-4c85-a9a1-c66626cd5d4f" x="2" y="26" width="550" height="25" backcolor="#BDD7EE">
+		<element kind="rectangle" uuid="61baee73-995f-4c85-a9a1-c66626cd5d4f" x="2" y="23" width="550" height="25" backcolor="#BDD7EE">
 			<pen lineColor="#3B88D1"/>
 		</element>
-		<element kind="staticText" uuid="8424edb3-01c0-4f62-99ac-de40b31aeccf" x="152" y="33" width="249" height="17" fontSize="10.0" bold="true" hTextAlign="Center">
+		<element kind="staticText" uuid="8424edb3-01c0-4f62-99ac-de40b31aeccf" x="152" y="28" width="249" height="17" fontSize="10.0" bold="true" hTextAlign="Center">
 			<text><![CDATA[BILAN OPCVM]]></text>
 		</element>
-		<element kind="rectangle" uuid="50d98b85-c48a-4194-abf1-0cd8c247ebf2" x="2" y="56" width="550" height="27" backcolor="#FFFFFF">
+		<element kind="rectangle" uuid="50d98b85-c48a-4194-abf1-0cd8c247ebf2" x="2" y="52" width="550" height="20" backcolor="#FFFFFF">
 			<pen lineColor="#3B88D1"/>
 		</element>
-		<element kind="textField" uuid="7f1ff384-0dbe-4ead-9b42-e856b2ced4b2" x="15" y="99" width="414" height="17" bold="true">
+		<element kind="textField" uuid="7f1ff384-0dbe-4ead-9b42-e856b2ced4b2" x="15" y="81" width="414" height="17" bold="true">
 			<expression><![CDATA["DESIGNATION DE L'ENTREPRISE : "+$F{denominationOpcvm}]]></expression>
 		</element>
-		<element kind="textField" uuid="fd32c506-7014-411f-8e77-c68809abd9a9" x="451" y="99" width="95" height="17" bold="true">
+		<element kind="textField" uuid="fd32c506-7014-411f-8e77-c68809abd9a9" x="451" y="81" width="95" height="17" bold="true">
 			<expression><![CDATA["PAYS : "+$F{pays}]]></expression>
 		</element>
-		<element kind="textField" uuid="453fef87-d706-4bd5-a31a-82b1194935e0" x="130" y="63" width="310" height="13" bold="true" hTextAlign="Center">
+		<element kind="textField" uuid="453fef87-d706-4bd5-a31a-82b1194935e0" x="130" y="56" width="310" height="13" fontSize="9.0" bold="true" hTextAlign="Center">
 			<expression><![CDATA["(du 01 Janvier "+$P{exercice}+" au 31 Décembre "+$P{exercice}+")"]]></expression>
 		</element>
 	</title>
 	<pageHeader splitType="Stretch"/>
 	<columnHeader splitType="Stretch"/>
 	<detail>
-		<band height="668" splitType="Stretch">
-			<element kind="rectangle" uuid="e36b3083-e2f0-48b9-a78d-67915411831a" x="3" y="17" width="550" height="651"/>
-			<element kind="rectangle" uuid="98dde491-74b4-4f5a-94b3-14c9d2f67ed3" x="3" y="11" width="550" height="19" backcolor="#BDD7EE">
+		<band height="660" splitType="Stretch">
+			<element kind="rectangle" uuid="e36b3083-e2f0-48b9-a78d-67915411831a" x="3" y="9" width="550" height="651"/>
+			<element kind="rectangle" uuid="98dde491-74b4-4f5a-94b3-14c9d2f67ed3" x="3" y="3" width="550" height="19" backcolor="#BDD7EE">
 				<pen lineColor="#000000"/>
 			</element>
-			<element kind="staticText" uuid="d5dabfe5-db5e-46ea-88a4-fb89bc8b2d42" x="118" y="15" width="60" height="13" bold="true" hTextAlign="Center">
+			<element kind="staticText" uuid="d5dabfe5-db5e-46ea-88a4-fb89bc8b2d42" x="118" y="7" width="60" height="13" bold="true" hTextAlign="Center">
 				<text><![CDATA[ACTIF]]></text>
 			</element>
-			<element kind="staticText" uuid="55c0d639-d24e-4093-8c73-1fb37a7d396c" x="291" y="15" width="34" height="13" bold="true" hTextAlign="Center">
+			<element kind="staticText" uuid="55c0d639-d24e-4093-8c73-1fb37a7d396c" x="291" y="7" width="34" height="13" bold="true" hTextAlign="Center">
 				<text><![CDATA[NOTE]]></text>
 			</element>
-			<element kind="textField" uuid="6fa53762-337e-4703-9a8e-db0e5e73f212" x="357" y="15" width="70" height="13" bold="true" hTextAlign="Center">
+			<element kind="textField" uuid="6fa53762-337e-4703-9a8e-db0e5e73f212" x="357" y="7" width="70" height="13" bold="true" hTextAlign="Center">
 				<expression><![CDATA[$F{anneeN}]]></expression>
 			</element>
-			<element kind="textField" uuid="704a25ce-94d5-496a-bbf6-65b82d7d5f9a" x="464" y="15" width="70" height="13" bold="true" hTextAlign="Center">
+			<element kind="textField" uuid="704a25ce-94d5-496a-bbf6-65b82d7d5f9a" x="464" y="7" width="70" height="13" bold="true" hTextAlign="Center">
 				<expression><![CDATA[$F{anneeA}]]></expression>
 			</element>
-			<element kind="staticText" uuid="c08f62d6-09c9-466c-8a37-40a7992a2142" x="10" y="36" width="210" height="13" bold="true" hTextAlign="Left">
+			<element kind="staticText" uuid="c08f62d6-09c9-466c-8a37-40a7992a2142" x="10" y="28" width="210" height="13" bold="true" hTextAlign="Left">
 				<text><![CDATA[-PORTEFEUILLE TITRE]]></text>
 				<box>
 					<pen lineWidth="1.0" lineColor="#3B88D1"/>
 				</box>
 			</element>
-			<element kind="staticText" uuid="5e976607-9843-4ffa-8859-11cf3dc03249" x="10" y="54" width="240" height="13" bold="false" hTextAlign="Left">
+			<element kind="staticText" uuid="5e976607-9843-4ffa-8859-11cf3dc03249" x="10" y="46" width="240" height="13" bold="false" hTextAlign="Left">
 				<text><![CDATA[Actions, valeurs assimilées et droits rattachés]]></text>
 				<box>
 					<pen lineWidth="1.0" lineColor="#3B88D1"/>
 				</box>
 			</element>
-			<element kind="staticText" uuid="b62ba145-3ce5-40f2-bdf8-cabb09b2899e" x="10" y="72" width="240" height="13" bold="false" hTextAlign="Left">
+			<element kind="staticText" uuid="b62ba145-3ce5-40f2-bdf8-cabb09b2899e" x="10" y="64" width="240" height="13" bold="false" hTextAlign="Left">
 				<text><![CDATA[Obligations et valeurs assimilées]]></text>
 				<box>
 					<pen lineWidth="1.0" lineColor="#3B88D1"/>
 				</box>
 			</element>
-			<element kind="staticText" uuid="797e1a79-7b1a-4116-8f0f-d10552536c55" x="10" y="90" width="240" height="13" bold="false" hTextAlign="Left">
+			<element kind="staticText" uuid="797e1a79-7b1a-4116-8f0f-d10552536c55" x="10" y="82" width="240" height="13" bold="false" hTextAlign="Left">
 				<text><![CDATA[Titres OPCVM]]></text>
 				<box>
 					<pen lineWidth="1.0" lineColor="#3B88D1"/>
 				</box>
 			</element>
-			<element kind="staticText" uuid="63a896ed-a401-44a9-ab6d-47aa74bc4125" x="10" y="108" width="210" height="13" bold="false" hTextAlign="Left">
+			<element kind="staticText" uuid="63a896ed-a401-44a9-ab6d-47aa74bc4125" x="10" y="100" width="210" height="13" bold="false" hTextAlign="Left">
 				<text><![CDATA[Autres valeurs]]></text>
 				<box>
 					<pen lineWidth="1.0" lineColor="#3B88D1"/>
 				</box>
 			</element>
-			<element kind="staticText" uuid="fb0d8b1e-8081-42d9-a754-9eedc20e52d6" x="10" y="144" width="240" height="13" bold="false" hTextAlign="Left">
+			<element kind="staticText" uuid="fb0d8b1e-8081-42d9-a754-9eedc20e52d6" x="10" y="136" width="240" height="13" bold="false" hTextAlign="Left">
 				<text><![CDATA[Placements monétaires]]></text>
 				<box>
 					<pen lineWidth="1.0" lineColor="#3B88D1"/>
 				</box>
 			</element>
-			<element kind="staticText" uuid="0e515f0a-1ce4-4811-b809-4442c08c7a60" x="10" y="162" width="240" height="13" bold="false" hTextAlign="Left">
+			<element kind="staticText" uuid="0e515f0a-1ce4-4811-b809-4442c08c7a60" x="10" y="154" width="240" height="13" bold="false" hTextAlign="Left">
 				<text><![CDATA[  Disponibilités]]></text>
 				<box>
 					<pen lineWidth="1.0" lineColor="#3B88D1"/>
 				</box>
 			</element>
-			<element kind="staticText" uuid="d1d62e96-74c8-4bf3-817a-1fc29394c6fc" x="10" y="180" width="210" height="13" bold="true" hTextAlign="Left">
+			<element kind="staticText" uuid="d1d62e96-74c8-4bf3-817a-1fc29394c6fc" x="10" y="172" width="210" height="13" bold="true" hTextAlign="Left">
 				<text><![CDATA[-CREANCES D'EXPLOITATION]]></text>
 				<box>
 					<pen lineWidth="1.0" lineColor="#3B88D1"/>
 				</box>
 			</element>
-			<element kind="staticText" uuid="601645dc-0795-432b-94c1-0e27b7238c19" x="10" y="198" width="210" height="13" bold="false" hTextAlign="Left">
+			<element kind="staticText" uuid="601645dc-0795-432b-94c1-0e27b7238c19" x="10" y="190" width="210" height="13" bold="false" hTextAlign="Left">
 				<text><![CDATA[Opérateurs débiteurs]]></text>
 				<box>
 					<pen lineWidth="1.0" lineColor="#3B88D1"/>
 				</box>
 			</element>
-			<element kind="staticText" uuid="ac852ae6-20a5-4e21-b5ef-59a7e0ebc4cb" x="10" y="216" width="210" height="13" bold="true" hTextAlign="Left">
+			<element kind="staticText" uuid="ac852ae6-20a5-4e21-b5ef-59a7e0ebc4cb" x="10" y="208" width="210" height="13" bold="true" hTextAlign="Left">
 				<text><![CDATA[-AUTRES ACTIFS]]></text>
 				<box>
 					<pen lineWidth="1.0" lineColor="#3B88D1"/>
 				</box>
 			</element>
-			<element kind="staticText" uuid="9596d1bc-de2b-4bf6-9f59-5a2fb6c36bd9" x="10" y="234" width="210" height="13" bold="false" hTextAlign="Left">
+			<element kind="staticText" uuid="9596d1bc-de2b-4bf6-9f59-5a2fb6c36bd9" x="10" y="226" width="210" height="13" bold="false" hTextAlign="Left">
 				<text><![CDATA[Personnel débiteurs]]></text>
 				<box>
 					<pen lineWidth="1.0" lineColor="#3B88D1"/>
 				</box>
 			</element>
-			<element kind="textField" uuid="8c5336ce-b53b-4bcd-aa18-c63284bd2085" x="342" y="36" width="100" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true" bold="true">
+			<element kind="textField" uuid="8c5336ce-b53b-4bcd-aa18-c63284bd2085" x="342" y="28" width="100" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true" bold="true">
 				<expression><![CDATA[$F{portefeuilleTitreN}]]></expression>
 			</element>
-			<element kind="textField" uuid="9971cf6f-c264-47e3-bbbc-4b2a77e39724" x="342" y="54" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+			<element kind="textField" uuid="9971cf6f-c264-47e3-bbbc-4b2a77e39724" x="342" y="46" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
 				<expression><![CDATA[$F{actionAssimDroitN}]]></expression>
 			</element>
-			<element kind="textField" uuid="8e47f06f-7806-4c5c-9ff6-199e5293b5d0" x="342" y="71" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+			<element kind="textField" uuid="8e47f06f-7806-4c5c-9ff6-199e5293b5d0" x="342" y="63" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
 				<expression><![CDATA[$F{obligationAssimN}]]></expression>
 			</element>
-			<element kind="textField" uuid="8330ccb5-8043-484f-867f-6fe47278f9df" x="342" y="90" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+			<element kind="textField" uuid="8330ccb5-8043-484f-867f-6fe47278f9df" x="342" y="82" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
 				<expression><![CDATA[$F{titresOpcvmN}]]></expression>
 			</element>
-			<element kind="textField" uuid="23bde15b-89bf-4bd3-897b-a9e1f62ae4b3" x="342" y="108" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+			<element kind="textField" uuid="23bde15b-89bf-4bd3-897b-a9e1f62ae4b3" x="342" y="100" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
 				<expression><![CDATA[$F{autresValeursN}]]></expression>
 			</element>
-			<element kind="textField" uuid="4e50e8a6-a5c8-4478-b083-5b0d74a0accf" x="342" y="126" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true" bold="true">
+			<element kind="textField" uuid="4e50e8a6-a5c8-4478-b083-5b0d74a0accf" x="342" y="118" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true" bold="true">
 				<expression><![CDATA[$F{placementMonetDispositionN}]]></expression>
 			</element>
-			<element kind="textField" uuid="2e6dd795-e600-4b2b-80c6-d1e1a2edb6f6" x="342" y="144" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+			<element kind="textField" uuid="2e6dd795-e600-4b2b-80c6-d1e1a2edb6f6" x="342" y="136" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
 				<expression><![CDATA[$F{placementMonetaireN}]]></expression>
 			</element>
-			<element kind="textField" uuid="0096666b-9c42-487e-944b-37cafecb3dd6" x="342" y="162" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+			<element kind="textField" uuid="0096666b-9c42-487e-944b-37cafecb3dd6" x="342" y="154" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
 				<expression><![CDATA[$F{disponibiliteN}]]></expression>
 			</element>
-			<element kind="textField" uuid="9da155c6-4a8e-488a-9350-ad19f0bfd786" x="342" y="180" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true" bold="true">
+			<element kind="textField" uuid="9da155c6-4a8e-488a-9350-ad19f0bfd786" x="342" y="172" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true" bold="true">
 				<expression><![CDATA[$F{creanceExploitationN}]]></expression>
 			</element>
-			<element kind="textField" uuid="a01569d1-d462-4f39-9d4a-2b9c606d73c2" x="342" y="198" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+			<element kind="textField" uuid="a01569d1-d462-4f39-9d4a-2b9c606d73c2" x="342" y="190" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
 				<expression><![CDATA[$F{creanceExploitationN}]]></expression>
 			</element>
-			<element kind="textField" uuid="bb616153-41e2-4fc6-bb40-93c4c2eda138" x="342" y="216" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true" bold="true">
+			<element kind="textField" uuid="bb616153-41e2-4fc6-bb40-93c4c2eda138" x="342" y="208" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true" bold="true">
 				<expression><![CDATA[$F{autreActifN}]]></expression>
 			</element>
-			<element kind="textField" uuid="df2daa74-2191-410f-8df5-fd91b2d02791" x="342" y="234" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+			<element kind="textField" uuid="df2daa74-2191-410f-8df5-fd91b2d02791" x="342" y="226" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
 				<expression><![CDATA[$F{personnelsDebiteursN}]]></expression>
 			</element>
-			<element kind="textField" uuid="12a84264-0702-4096-932e-3937c5f3cadd" x="449" y="36" width="100" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true" bold="true">
+			<element kind="textField" uuid="12a84264-0702-4096-932e-3937c5f3cadd" x="449" y="28" width="100" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true" bold="true">
 				<expression><![CDATA[$F{portefeuilleTitreA}]]></expression>
 			</element>
-			<element kind="textField" uuid="35c5d704-6579-4faf-9f46-d56b4bcb1f86" x="449" y="54" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+			<element kind="textField" uuid="35c5d704-6579-4faf-9f46-d56b4bcb1f86" x="449" y="46" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
 				<expression><![CDATA[$F{actionAssimDroitA}]]></expression>
 			</element>
-			<element kind="textField" uuid="6e47a553-c408-4628-8387-3867157baf4d" x="449" y="71" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+			<element kind="textField" uuid="6e47a553-c408-4628-8387-3867157baf4d" x="449" y="63" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
 				<expression><![CDATA[$F{obligationAssimA}]]></expression>
 			</element>
-			<element kind="textField" uuid="0bf82b96-eefc-476e-866b-7e0b8f4840c3" x="449" y="90" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+			<element kind="textField" uuid="0bf82b96-eefc-476e-866b-7e0b8f4840c3" x="449" y="82" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
 				<expression><![CDATA[$F{titresOpcvmA}]]></expression>
 			</element>
-			<element kind="textField" uuid="a784915a-8c35-45b1-8f81-a9d1c49b04b6" x="449" y="108" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+			<element kind="textField" uuid="a784915a-8c35-45b1-8f81-a9d1c49b04b6" x="449" y="100" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
 				<expression><![CDATA[$F{autresValeursA}]]></expression>
 			</element>
-			<element kind="textField" uuid="eb413efa-027e-4229-8759-301bf53e1158" x="449" y="126" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true" bold="true">
+			<element kind="textField" uuid="eb413efa-027e-4229-8759-301bf53e1158" x="449" y="118" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true" bold="true">
 				<expression><![CDATA[$F{placementMonetDispositionA}]]></expression>
 			</element>
-			<element kind="textField" uuid="d28c1c6b-5ef4-4117-97bd-c0c881a3a555" x="449" y="144" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+			<element kind="textField" uuid="d28c1c6b-5ef4-4117-97bd-c0c881a3a555" x="449" y="136" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
 				<expression><![CDATA[$F{placementMonetaireA}]]></expression>
 			</element>
-			<element kind="textField" uuid="d49906c0-b76f-4a7a-a366-9b85e12a2104" x="449" y="162" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+			<element kind="textField" uuid="d49906c0-b76f-4a7a-a366-9b85e12a2104" x="449" y="154" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
 				<expression><![CDATA[$F{disponibiliteA}]]></expression>
 			</element>
-			<element kind="textField" uuid="84c4f229-8c22-4c72-aa03-7d33c10206ac" x="449" y="180" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true" bold="true">
+			<element kind="textField" uuid="84c4f229-8c22-4c72-aa03-7d33c10206ac" x="449" y="172" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true" bold="true">
 				<expression><![CDATA[$F{creanceExploitationA}]]></expression>
 			</element>
-			<element kind="textField" uuid="ef7efd98-1819-4c7e-9d81-16e26b37fb60" x="449" y="198" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+			<element kind="textField" uuid="ef7efd98-1819-4c7e-9d81-16e26b37fb60" x="449" y="190" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
 				<expression><![CDATA[$F{creanceExploitationA}]]></expression>
 			</element>
-			<element kind="textField" uuid="c574973d-1e92-448b-9958-f87f684c060f" x="449" y="216" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true" bold="true">
+			<element kind="textField" uuid="c574973d-1e92-448b-9958-f87f684c060f" x="449" y="208" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true" bold="true">
 				<expression><![CDATA[$F{autreActifA}]]></expression>
 			</element>
-			<element kind="textField" uuid="e57b2f78-5225-48e5-aff2-1638ca7f8fd6" x="449" y="234" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+			<element kind="textField" uuid="e57b2f78-5225-48e5-aff2-1638ca7f8fd6" x="449" y="226" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
 				<expression><![CDATA[$F{personnelsDebiteursA}]]></expression>
 			</element>
-			<element kind="staticText" uuid="4b98dddd-fb1e-498f-bf96-af8c59bbb468" x="10" y="126" width="240" height="13" bold="true" hTextAlign="Left">
+			<element kind="staticText" uuid="4b98dddd-fb1e-498f-bf96-af8c59bbb468" x="10" y="118" width="240" height="13" bold="true" hTextAlign="Left">
 				<text><![CDATA[-PLACEMENTS MONETAIRES ET DISPONIBILITES]]></text>
 				<box>
 					<pen lineWidth="1.0" lineColor="#3B88D1"/>
 				</box>
 			</element>
-			<element kind="staticText" uuid="2f9a489a-0f0d-4037-94a8-419b8e8c5f97" x="10" y="252" width="210" height="13" bold="false" hTextAlign="Left">
+			<element kind="staticText" uuid="2f9a489a-0f0d-4037-94a8-419b8e8c5f97" x="10" y="244" width="210" height="13" bold="false" hTextAlign="Left">
 				<text><![CDATA[Autres débieurs]]></text>
 				<box>
 					<pen lineWidth="1.0" lineColor="#3B88D1"/>
 				</box>
 			</element>
-			<element kind="textField" uuid="22d84242-eb8b-49e3-9c8f-ae2d1d44b089" x="342" y="252" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+			<element kind="textField" uuid="22d84242-eb8b-49e3-9c8f-ae2d1d44b089" x="342" y="244" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
 				<expression><![CDATA[$F{autresValeursN}]]></expression>
 			</element>
-			<element kind="textField" uuid="b39a11bf-cb07-4240-8b47-8fa0c3b85543" x="449" y="252" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+			<element kind="textField" uuid="b39a11bf-cb07-4240-8b47-8fa0c3b85543" x="449" y="244" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
 				<expression><![CDATA[$F{autresDebiteursA}]]></expression>
 			</element>
-			<element kind="staticText" uuid="7b0aba66-f900-42aa-98f4-97344e7abaea" x="10" y="270" width="210" height="13" bold="false" hTextAlign="Left">
+			<element kind="staticText" uuid="7b0aba66-f900-42aa-98f4-97344e7abaea" x="10" y="262" width="210" height="13" bold="false" hTextAlign="Left">
 				<text><![CDATA[Comptes de régularisation - Actif]]></text>
 				<box>
 					<pen lineWidth="1.0" lineColor="#3B88D1"/>
 				</box>
 			</element>
-			<element kind="textField" uuid="44ed1eee-48a4-48c8-9187-4801bf1768ea" x="342" y="270" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+			<element kind="textField" uuid="44ed1eee-48a4-48c8-9187-4801bf1768ea" x="342" y="262" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
 				<expression><![CDATA[$F{compteDeRegularisationActifN}]]></expression>
 			</element>
-			<element kind="textField" uuid="ada1072b-1381-4ca1-83d3-89fc721050d0" x="449" y="270" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+			<element kind="textField" uuid="ada1072b-1381-4ca1-83d3-89fc721050d0" x="449" y="262" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
 				<expression><![CDATA[$F{compteDeRegularisationActifA}]]></expression>
 			</element>
-			<element kind="staticText" uuid="1e02c8c1-2bbd-4b31-9390-68f73d060822" x="10" y="324" width="210" height="13" bold="false" hTextAlign="Left">
+			<element kind="staticText" uuid="1e02c8c1-2bbd-4b31-9390-68f73d060822" x="10" y="316" width="210" height="13" bold="false" hTextAlign="Left">
 				<text><![CDATA[Amortissement des Immobilisations]]></text>
 				<box>
 					<pen lineWidth="1.0" lineColor="#3B88D1"/>
 				</box>
 			</element>
-			<element kind="staticText" uuid="68ba8b1b-dd13-4403-bdc8-831cff5f22f8" x="10" y="306" width="210" height="13" bold="false" hTextAlign="Left">
+			<element kind="staticText" uuid="68ba8b1b-dd13-4403-bdc8-831cff5f22f8" x="10" y="298" width="210" height="13" bold="false" hTextAlign="Left">
 				<text><![CDATA[Immobilisations Corporelles]]></text>
 				<box>
 					<pen lineWidth="1.0" lineColor="#3B88D1"/>
 				</box>
 			</element>
-			<element kind="staticText" uuid="923d81ec-827e-4a59-aebf-a767e5d375e3" x="10" y="288" width="210" height="13" bold="false" hTextAlign="Left">
+			<element kind="staticText" uuid="923d81ec-827e-4a59-aebf-a767e5d375e3" x="10" y="280" width="210" height="13" bold="false" hTextAlign="Left">
 				<text><![CDATA[Immobilisaions financières]]></text>
 				<box>
 					<pen lineWidth="1.0" lineColor="#3B88D1"/>
 				</box>
 			</element>
-			<element kind="textField" uuid="77f4c5fb-5e19-4c86-80b8-1836a6a5714a" x="342" y="288" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+			<element kind="textField" uuid="77f4c5fb-5e19-4c86-80b8-1836a6a5714a" x="342" y="280" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
 				<expression><![CDATA[$F{immoFinancieresN}]]></expression>
 			</element>
-			<element kind="textField" uuid="72d2bc08-7886-4dda-b49d-bd9c230589b7" x="342" y="306" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+			<element kind="textField" uuid="72d2bc08-7886-4dda-b49d-bd9c230589b7" x="342" y="298" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
 				<expression><![CDATA[$F{immoCorporellesN}]]></expression>
 			</element>
-			<element kind="textField" uuid="b2c0c409-15b7-475c-8be5-3fb6ba9667a7" x="342" y="324" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+			<element kind="textField" uuid="b2c0c409-15b7-475c-8be5-3fb6ba9667a7" x="342" y="316" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
 				<expression><![CDATA[$F{amortImmoN}]]></expression>
 			</element>
-			<element kind="textField" uuid="cb63ad79-c74f-4dc4-8c41-cbaf75adc3ec" x="449" y="288" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+			<element kind="textField" uuid="cb63ad79-c74f-4dc4-8c41-cbaf75adc3ec" x="449" y="280" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
 				<expression><![CDATA[$F{immoFinancieresA}]]></expression>
 			</element>
-			<element kind="textField" uuid="e8bc49c7-6f41-4663-aff3-5b46599decc5" x="449" y="306" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+			<element kind="textField" uuid="e8bc49c7-6f41-4663-aff3-5b46599decc5" x="449" y="298" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
 				<expression><![CDATA[$F{immoCorporellesA}]]></expression>
 			</element>
-			<element kind="textField" uuid="f4d18de7-c33d-474d-be45-cd8f936241dc" x="449" y="324" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+			<element kind="textField" uuid="f4d18de7-c33d-474d-be45-cd8f936241dc" x="449" y="316" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
 				<expression><![CDATA[$F{amortImmoA}]]></expression>
 			</element>
-			<element kind="line" uuid="5b28ca68-de75-4f5d-b49a-45acc9078030" x="3" y="341" width="550" height="1"/>
-			<element kind="staticText" uuid="7364501d-5ec1-41e3-b70f-39a74d4787b9" x="10" y="346" width="210" height="13" bold="true" hTextAlign="Left">
+			<element kind="line" uuid="5b28ca68-de75-4f5d-b49a-45acc9078030" x="3" y="333" width="550" height="1"/>
+			<element kind="staticText" uuid="7364501d-5ec1-41e3-b70f-39a74d4787b9" x="10" y="338" width="210" height="13" bold="true" hTextAlign="Left">
 				<text><![CDATA[TOTAL ACTIF]]></text>
 				<box>
 					<pen lineWidth="1.0" lineColor="#3B88D1"/>
 				</box>
 			</element>
-			<element kind="rectangle" uuid="d9604ac0-53fe-408f-85fe-30aadf36b15b" x="3" y="366" width="550" height="18" backcolor="#BDD7EE">
+			<element kind="rectangle" uuid="d9604ac0-53fe-408f-85fe-30aadf36b15b" x="3" y="358" width="550" height="18" backcolor="#BDD7EE">
 				<pen lineColor="#000000"/>
 			</element>
-			<element kind="staticText" uuid="e39f04e1-a3a8-4bc5-b01a-816d8a8089ed" x="118" y="369" width="60" height="13" bold="true" hTextAlign="Center">
+			<element kind="staticText" uuid="e39f04e1-a3a8-4bc5-b01a-816d8a8089ed" x="118" y="361" width="60" height="13" bold="true" hTextAlign="Center">
 				<text><![CDATA[PASSIF]]></text>
 			</element>
-			<element kind="staticText" uuid="be206355-17b0-4345-955a-249c64c896f0" x="10" y="391" width="210" height="13" bold="true" hTextAlign="Left">
+			<element kind="staticText" uuid="be206355-17b0-4345-955a-249c64c896f0" x="10" y="379" width="210" height="13" bold="true" hTextAlign="Left">
 				<text><![CDATA[-OPERATEURS CREDITEURS]]></text>
 				<box>
 					<pen lineWidth="1.0" lineColor="#3B88D1"/>
 				</box>
 			</element>
-			<element kind="staticText" uuid="3d7f71bd-6bd0-46b2-84df-9b33777c72da" x="10" y="409" width="240" height="13" bold="false" hTextAlign="Left">
+			<element kind="staticText" uuid="3d7f71bd-6bd0-46b2-84df-9b33777c72da" x="10" y="397" width="240" height="13" bold="false" hTextAlign="Left">
 				<text><![CDATA[Gestionnaires]]></text>
 				<box>
 					<pen lineWidth="1.0" lineColor="#3B88D1"/>
 				</box>
 			</element>
-			<element kind="staticText" uuid="59200747-fd82-4ffd-bf22-ff82e6e39636" x="10" y="427" width="240" height="13" bold="false" hTextAlign="Left">
+			<element kind="staticText" uuid="59200747-fd82-4ffd-bf22-ff82e6e39636" x="10" y="415" width="240" height="13" bold="false" hTextAlign="Left">
 				<text><![CDATA[Dépositaires]]></text>
 				<box>
 					<pen lineWidth="1.0" lineColor="#3B88D1"/>
 				</box>
 			</element>
-			<element kind="staticText" uuid="4584412f-cb99-44d6-b526-cdd513a4d53d" x="10" y="445" width="240" height="13" bold="false" hTextAlign="Left">
+			<element kind="staticText" uuid="4584412f-cb99-44d6-b526-cdd513a4d53d" x="10" y="433" width="240" height="13" bold="false" hTextAlign="Left">
 				<text><![CDATA[Souscription- Achat titres à régler]]></text>
 				<box>
 					<pen lineWidth="1.0" lineColor="#3B88D1"/>
 				</box>
 			</element>
-			<element kind="staticText" uuid="890a56e2-ccc5-4d74-83bf-ff983bab0351" x="10" y="463" width="210" height="13" bold="false" hTextAlign="Left">
+			<element kind="staticText" uuid="890a56e2-ccc5-4d74-83bf-ff983bab0351" x="10" y="451" width="210" height="13" bold="false" hTextAlign="Left">
 				<text><![CDATA[Courtiers et autres intermédiaires]]></text>
 				<box>
 					<pen lineWidth="1.0" lineColor="#3B88D1"/>
 				</box>
 			</element>
-			<element kind="staticText" uuid="09907e17-8bb1-4b68-9576-0912664f6279" x="10" y="499" width="240" height="13" bold="false" hTextAlign="Left">
+			<element kind="staticText" uuid="09907e17-8bb1-4b68-9576-0912664f6279" x="10" y="487" width="240" height="13" bold="false" hTextAlign="Left">
 				<text><![CDATA[Comptes d'affectation périodique des charges]]></text>
 				<box>
 					<pen lineWidth="1.0" lineColor="#3B88D1"/>
 				</box>
 			</element>
-			<element kind="staticText" uuid="f8dcf117-0218-4539-9d47-f62aa063319d" x="10" y="517" width="240" height="13" bold="true" hTextAlign="Left">
+			<element kind="staticText" uuid="f8dcf117-0218-4539-9d47-f62aa063319d" x="10" y="505" width="240" height="13" bold="true" hTextAlign="Left">
 				<text><![CDATA[-AUTRES CREDITEURS DIVERS]]></text>
 				<box>
 					<pen lineWidth="1.0" lineColor="#3B88D1"/>
 				</box>
 			</element>
-			<element kind="staticText" uuid="004d0e97-56ca-40fe-8a0e-60976cef09f7" x="10" y="535" width="210" height="13" bold="false" hTextAlign="Left">
+			<element kind="staticText" uuid="004d0e97-56ca-40fe-8a0e-60976cef09f7" x="10" y="523" width="210" height="13" bold="false" hTextAlign="Left">
 				<text><![CDATA[Actionnaires ou porteurs de pars]]></text>
 				<box>
 					<pen lineWidth="1.0" lineColor="#3B88D1"/>
 				</box>
 			</element>
-			<element kind="staticText" uuid="d478a3eb-bb7d-4b8e-93fd-9c0a2abde45d" x="10" y="553" width="210" height="13" bold="false" hTextAlign="Left">
+			<element kind="staticText" uuid="d478a3eb-bb7d-4b8e-93fd-9c0a2abde45d" x="10" y="541" width="210" height="13" bold="false" hTextAlign="Left">
 				<text><![CDATA[Personnels Créditeurs]]></text>
 				<box>
 					<pen lineWidth="1.0" lineColor="#3B88D1"/>
 				</box>
 			</element>
-			<element kind="staticText" uuid="43e59587-7257-452f-9408-3d0cea4e7326" x="10" y="571" width="210" height="13" bold="false" hTextAlign="Left">
+			<element kind="staticText" uuid="43e59587-7257-452f-9408-3d0cea4e7326" x="10" y="559" width="210" height="13" bold="false" hTextAlign="Left">
 				<text><![CDATA[Etat]]></text>
 				<box>
 					<pen lineWidth="1.0" lineColor="#3B88D1"/>
 				</box>
 			</element>
-			<element kind="staticText" uuid="a5986566-4723-45d1-a3cb-aabefccb310b" x="10" y="589" width="210" height="13" bold="false" hTextAlign="Left">
+			<element kind="staticText" uuid="a5986566-4723-45d1-a3cb-aabefccb310b" x="10" y="577" width="210" height="13" bold="false" hTextAlign="Left">
 				<text><![CDATA[Organismes sociaux]]></text>
 				<box>
 					<pen lineWidth="1.0" lineColor="#3B88D1"/>
 				</box>
 			</element>
-			<element kind="textField" uuid="45cf2068-8826-4380-9349-67a6f2eed026" x="342" y="391" width="100" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+			<element kind="textField" uuid="45cf2068-8826-4380-9349-67a6f2eed026" x="342" y="379" width="100" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
 				<expression><![CDATA[$F{operateurCrediteurN}]]></expression>
 			</element>
-			<element kind="textField" uuid="9fb14bf7-5f28-4cd0-a0a8-eaafba017d9b" x="342" y="409" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+			<element kind="textField" uuid="9fb14bf7-5f28-4cd0-a0a8-eaafba017d9b" x="342" y="397" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
 				<expression><![CDATA[$F{gestionnairesN}]]></expression>
 			</element>
-			<element kind="textField" uuid="b46370af-11cc-4082-924e-793957827605" x="342" y="426" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+			<element kind="textField" uuid="b46370af-11cc-4082-924e-793957827605" x="342" y="414" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
 				<expression><![CDATA[$F{depositairesN}]]></expression>
 			</element>
-			<element kind="textField" uuid="9ebc5c4e-31a2-4e2f-9d8a-f9c497c4a99e" x="342" y="445" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+			<element kind="textField" uuid="9ebc5c4e-31a2-4e2f-9d8a-f9c497c4a99e" x="342" y="433" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
 				<expression><![CDATA[$F{sousAchTitAreglerN}]]></expression>
 			</element>
-			<element kind="textField" uuid="6355c2a8-129e-488f-a15d-b52f2b91fe35" x="342" y="463" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+			<element kind="textField" uuid="6355c2a8-129e-488f-a15d-b52f2b91fe35" x="342" y="451" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
 				<expression><![CDATA[$F{courtierEtAutresInterN}]]></expression>
 			</element>
-			<element kind="textField" uuid="567d02fd-657c-4a1d-ba2d-2aab4cbb08f8" x="342" y="481" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+			<element kind="textField" uuid="567d02fd-657c-4a1d-ba2d-2aab4cbb08f8" x="342" y="469" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
 				<expression><![CDATA[$F{autresOpCrediteursN}]]></expression>
 			</element>
-			<element kind="textField" uuid="f23acfb6-105a-47a0-985a-61caf0b50720" x="342" y="499" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+			<element kind="textField" uuid="f23acfb6-105a-47a0-985a-61caf0b50720" x="342" y="487" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
 				<expression><![CDATA[$F{comptesAffectPeriodChargesN}]]></expression>
 			</element>
-			<element kind="textField" uuid="d0d7c930-46ba-47f9-8671-03882d31c605" x="342" y="517" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+			<element kind="textField" uuid="d0d7c930-46ba-47f9-8671-03882d31c605" x="342" y="505" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
 				<expression><![CDATA[$F{autreCrediteurDiversN}]]></expression>
 			</element>
-			<element kind="textField" uuid="3bbef7ec-5729-416c-ab5f-e3b962912fb2" x="342" y="535" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+			<element kind="textField" uuid="3bbef7ec-5729-416c-ab5f-e3b962912fb2" x="342" y="523" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
 				<expression><![CDATA[$F{actionnairesN}]]></expression>
 			</element>
-			<element kind="textField" uuid="b9ab3514-d380-453e-920e-29531122db15" x="342" y="553" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+			<element kind="textField" uuid="b9ab3514-d380-453e-920e-29531122db15" x="342" y="541" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
 				<expression><![CDATA[$F{personnelCrediteursN}]]></expression>
 			</element>
-			<element kind="textField" uuid="eaeaa038-4fec-40a0-9d6d-996d87a26d8b" x="342" y="571" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+			<element kind="textField" uuid="eaeaa038-4fec-40a0-9d6d-996d87a26d8b" x="342" y="559" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
 				<expression><![CDATA[$F{etatN}]]></expression>
 			</element>
-			<element kind="textField" uuid="f88e5aed-c3d0-49d3-b832-8d1a0a5a79c1" x="342" y="589" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+			<element kind="textField" uuid="f88e5aed-c3d0-49d3-b832-8d1a0a5a79c1" x="342" y="577" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
 				<expression><![CDATA[$F{organismsSociauxN}]]></expression>
 			</element>
-			<element kind="textField" uuid="88bdd589-f80e-40f2-b6b0-e27cc15c075b" x="449" y="391" width="100" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+			<element kind="textField" uuid="88bdd589-f80e-40f2-b6b0-e27cc15c075b" x="449" y="379" width="100" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
 				<expression><![CDATA[$F{operateurCrediteurA}]]></expression>
 			</element>
-			<element kind="textField" uuid="02c38eb5-c17e-4d6e-927b-9f55ee1ee98a" x="449" y="409" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+			<element kind="textField" uuid="02c38eb5-c17e-4d6e-927b-9f55ee1ee98a" x="449" y="397" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
 				<expression><![CDATA[$F{gestionnairesA}]]></expression>
 			</element>
-			<element kind="textField" uuid="bc706cfe-a9cf-4b68-970f-661820508376" x="449" y="426" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+			<element kind="textField" uuid="bc706cfe-a9cf-4b68-970f-661820508376" x="449" y="414" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
 				<expression><![CDATA[$F{depositairesA}]]></expression>
 			</element>
-			<element kind="textField" uuid="208d59dd-0e56-413b-99ed-959f74725c02" x="449" y="445" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+			<element kind="textField" uuid="208d59dd-0e56-413b-99ed-959f74725c02" x="449" y="433" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
 				<expression><![CDATA[$F{sousAchTitAreglerA}]]></expression>
 			</element>
-			<element kind="textField" uuid="b2ce5d6a-d4dd-4ac6-af5d-36cdfe8c42cf" x="449" y="463" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+			<element kind="textField" uuid="b2ce5d6a-d4dd-4ac6-af5d-36cdfe8c42cf" x="449" y="451" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
 				<expression><![CDATA[$F{courtierEtAutresInterA}]]></expression>
 			</element>
-			<element kind="textField" uuid="45b60a7b-269e-4b57-83ce-d13098bfb514" x="449" y="481" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+			<element kind="textField" uuid="45b60a7b-269e-4b57-83ce-d13098bfb514" x="449" y="469" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
 				<expression><![CDATA[$F{autresOpCrediteursA}]]></expression>
 			</element>
-			<element kind="textField" uuid="e317a729-48be-455a-8399-087b8c6f30dc" x="449" y="499" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+			<element kind="textField" uuid="e317a729-48be-455a-8399-087b8c6f30dc" x="449" y="487" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
 				<expression><![CDATA[$F{comptesAffectPeriodChargesA}]]></expression>
 			</element>
-			<element kind="textField" uuid="c69c2d28-82a9-4a6d-9157-c701178173ea" x="449" y="517" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+			<element kind="textField" uuid="c69c2d28-82a9-4a6d-9157-c701178173ea" x="449" y="505" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
 				<expression><![CDATA[$F{autreCrediteurDiversA}]]></expression>
 			</element>
-			<element kind="textField" uuid="5fa07219-dfd1-4930-9238-ede01031f090" x="449" y="535" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+			<element kind="textField" uuid="5fa07219-dfd1-4930-9238-ede01031f090" x="449" y="523" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
 				<expression><![CDATA[$F{actionnairesA}]]></expression>
 			</element>
-			<element kind="textField" uuid="d3db5390-79e1-4bd6-9b0b-001c43a839e8" x="449" y="553" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+			<element kind="textField" uuid="d3db5390-79e1-4bd6-9b0b-001c43a839e8" x="449" y="541" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
 				<expression><![CDATA[$F{personnelCrediteursA}]]></expression>
 			</element>
-			<element kind="textField" uuid="c3d30485-3c8b-4e35-9c8c-05453448e1fb" x="449" y="571" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+			<element kind="textField" uuid="c3d30485-3c8b-4e35-9c8c-05453448e1fb" x="449" y="559" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
 				<expression><![CDATA[$F{etatA}]]></expression>
 			</element>
-			<element kind="textField" uuid="03a2129d-0a2d-4983-841e-f20c5e7759a3" x="449" y="589" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+			<element kind="textField" uuid="03a2129d-0a2d-4983-841e-f20c5e7759a3" x="449" y="577" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
 				<expression><![CDATA[$F{organismsSociauxA}]]></expression>
 			</element>
-			<element kind="staticText" uuid="5ef6ec06-42e2-4f4f-8384-b847fd5ed88e" x="10" y="481" width="240" height="13" bold="false" hTextAlign="Left">
+			<element kind="staticText" uuid="5ef6ec06-42e2-4f4f-8384-b847fd5ed88e" x="10" y="469" width="240" height="13" bold="false" hTextAlign="Left">
 				<text><![CDATA[Autres opérateurs créditeurs]]></text>
 				<box>
 					<pen lineWidth="1.0" lineColor="#3B88D1"/>
 				</box>
 			</element>
-			<element kind="staticText" uuid="f58ca339-e846-4b7b-99cf-38682c5d8f1d" x="10" y="607" width="210" height="13" bold="false" hTextAlign="Left">
+			<element kind="staticText" uuid="f58ca339-e846-4b7b-99cf-38682c5d8f1d" x="10" y="596" width="210" height="13" bold="false" hTextAlign="Left">
 				<text><![CDATA[Autres créditeurs]]></text>
 				<box>
 					<pen lineWidth="1.0" lineColor="#3B88D1"/>
 				</box>
 			</element>
-			<element kind="textField" uuid="d9b58a70-a5e7-4ad5-b4ee-04527d3af9c7" x="342" y="607" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+			<element kind="textField" uuid="d9b58a70-a5e7-4ad5-b4ee-04527d3af9c7" x="342" y="595" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
 				<expression><![CDATA[$F{autresCrediteursN}]]></expression>
 			</element>
-			<element kind="textField" uuid="db82ea25-4f81-4683-92c1-32f6a6816c7c" x="449" y="607" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+			<element kind="textField" uuid="db82ea25-4f81-4683-92c1-32f6a6816c7c" x="449" y="595" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
 				<expression><![CDATA[$F{autresCrediteursA}]]></expression>
 			</element>
-			<element kind="staticText" uuid="9743c32b-0dc6-4506-8f78-720327a4576d" x="10" y="625" width="210" height="13" bold="false" hTextAlign="Left">
+			<element kind="staticText" uuid="9743c32b-0dc6-4506-8f78-720327a4576d" x="10" y="614" width="210" height="13" bold="false" hTextAlign="Left">
 				<text><![CDATA[Comptes de régularisation - Passif]]></text>
 				<box>
 					<pen lineWidth="1.0" lineColor="#3B88D1"/>
 				</box>
 			</element>
-			<element kind="textField" uuid="127c2557-7bfa-4e26-84ee-cce034247a22" x="342" y="625" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+			<element kind="textField" uuid="127c2557-7bfa-4e26-84ee-cce034247a22" x="342" y="614" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
 				<expression><![CDATA[$F{compteRegulPassifN}]]></expression>
 			</element>
-			<element kind="textField" uuid="e9cbbd4d-196a-4ebd-8e04-98acb92b6bc2" x="449" y="625" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+			<element kind="textField" uuid="e9cbbd4d-196a-4ebd-8e04-98acb92b6bc2" x="449" y="614" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
 				<expression><![CDATA[$F{compteRegulPassifA}]]></expression>
 			</element>
-			<element kind="line" uuid="4e079f12-935f-4abf-a1f9-d9cb6f2e97bf" x="3" y="642" width="550" height="1"/>
-			<element kind="staticText" uuid="a16605f7-d955-40e6-b59c-f74306cdcfac" x="10" y="647" width="210" height="13" bold="false" hTextAlign="Left">
+			<element kind="line" uuid="4e079f12-935f-4abf-a1f9-d9cb6f2e97bf" x="3" y="631" width="550" height="1"/>
+			<element kind="staticText" uuid="a16605f7-d955-40e6-b59c-f74306cdcfac" x="10" y="636" width="210" height="13" bold="false" hTextAlign="Left">
 				<text><![CDATA[TOTAL PASSIF]]></text>
 				<box>
 					<pen lineWidth="1.0" lineColor="#3B88D1"/>
 				</box>
 			</element>
-			<element kind="line" uuid="a7700ec4-5921-405c-869d-441efebaefa7" x="277" y="11" width="1" height="657"/>
-			<element kind="line" uuid="1af4f0c2-ade8-404f-886e-dc6bf591ae6f" x="338" y="11" width="1" height="657"/>
-			<element kind="line" uuid="e3274fb7-6766-4164-9fbf-57c580b3a6c5" x="445" y="10" width="1" height="657"/>
-			<element kind="staticText" uuid="ed0a40fe-19d4-4b08-988f-272fd9347707" x="291" y="369" width="34" height="13" bold="true" hTextAlign="Center">
+			<element kind="line" uuid="a7700ec4-5921-405c-869d-441efebaefa7" x="277" y="3" width="1" height="657"/>
+			<element kind="line" uuid="1af4f0c2-ade8-404f-886e-dc6bf591ae6f" x="338" y="11" width="1" height="649"/>
+			<element kind="line" uuid="e3274fb7-6766-4164-9fbf-57c580b3a6c5" x="445" y="10" width="1" height="650"/>
+			<element kind="staticText" uuid="ed0a40fe-19d4-4b08-988f-272fd9347707" x="291" y="361" width="34" height="13" bold="true" hTextAlign="Center">
 				<text><![CDATA[NOTE]]></text>
 			</element>
-			<element kind="textField" uuid="128d5a6b-afac-4a41-ae1a-537169e5a428" x="342" y="346" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true" bold="true">
+			<element kind="textField" uuid="128d5a6b-afac-4a41-ae1a-537169e5a428" x="342" y="338" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true" bold="true">
 				<expression><![CDATA[$F{totalActifN}]]></expression>
 			</element>
-			<element kind="textField" uuid="772350f4-2f9c-4c9b-8fd1-643b08a04a65" x="449" y="346" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true" bold="true">
+			<element kind="textField" uuid="772350f4-2f9c-4c9b-8fd1-643b08a04a65" x="449" y="338" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true" bold="true">
 				<expression><![CDATA[$F{totalActifA}]]></expression>
 			</element>
-			<element kind="textField" uuid="f9d1522b-abfd-40b7-a457-8fdbdb3583ba" x="449" y="647" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+			<element kind="textField" uuid="f9d1522b-abfd-40b7-a457-8fdbdb3583ba" x="449" y="636" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
 				<expression><![CDATA[$F{totalPassifA}]]></expression>
 			</element>
-			<element kind="textField" uuid="2032d463-44a4-4bd1-b656-06d669694376" x="342" y="647" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+			<element kind="textField" uuid="2032d463-44a4-4bd1-b656-06d669694376" x="342" y="636" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
 				<expression><![CDATA[$F{totalPassifN}]]></expression>
 			</element>
 		</band>
 	</detail>
 	<columnFooter splitType="Stretch"/>
-	<pageFooter height="51" splitType="Stretch">
-		<element kind="staticText" uuid="0e9e90d8-dd8d-4a31-9733-16d522da882f" x="5" y="21" width="126" height="13">
+	<pageFooter height="30" splitType="Stretch">
+		<element kind="staticText" uuid="0e9e90d8-dd8d-4a31-9733-16d522da882f" x="5" y="11" width="126" height="13">
 			<text><![CDATA[Edité avec OPCCIEL 2.0]]></text>
 		</element>
-		<element kind="textField" uuid="7acb623d-37a3-48ef-aedb-7e4d36d9128d" x="451" y="21" width="100" height="19" hTextAlign="Right">
+		<element kind="textField" uuid="7acb623d-37a3-48ef-aedb-7e4d36d9128d" x="451" y="11" width="100" height="19" hTextAlign="Right">
 			<expression><![CDATA[$V{PAGE_NUMBER}]]></expression>
 		</element>
 	</pageFooter>

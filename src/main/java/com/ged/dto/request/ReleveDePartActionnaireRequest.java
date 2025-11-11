@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ReleveDePartActionnaireRequest {
     private Long idActionnaire;
+    private String actionnaire;
     private Long idOpcvm;
     private String type;
     private LocalDateTime dateDebut;

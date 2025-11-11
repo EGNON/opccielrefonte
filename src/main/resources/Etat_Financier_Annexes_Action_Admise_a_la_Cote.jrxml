@@ -4,7 +4,7 @@
 	<parameter name="periodicite" class="java.lang.String"/>
 	<parameter name="denominationOpcvm" class="java.lang.String"/>
 	<parameter name="libellePays" class="java.lang.String"/>
-	<parameter name="dateEstimation" class="java.sql.Date"/>
+<!--	<parameter name="dateEstimation" class="java.sql.Date"/>-->
 	<field name="idTitre" class="java.lang.Long">
 		<property name="com.jaspersoft.studio.field.name" value="idTitre"/>
 		<property name="com.jaspersoft.studio.field.label" value="idTitre"/>
@@ -25,30 +25,8 @@
 		<property name="com.jaspersoft.studio.field.name" value="valeurBaseEvaluation"/>
 		<property name="com.jaspersoft.studio.field.label" value="valeurBaseEvaluation"/>
 	</field>
-	<group name="Group1">
-		<expression><![CDATA[$F{designationTitre}]]></expression>
-		<groupHeader>
-			<band height="39">
-				<element kind="rectangle" uuid="111119bd-c61b-4ac4-8d4a-ae96fb32b720" x="3" y="3" width="796" height="36" backcolor="#BDD7EE"/>
-				<element kind="line" uuid="760554cb-abc5-4553-a1b8-2391dac346d9" x="633" y="3" width="1" height="35"/>
-				<element kind="line" uuid="4b260b94-fe7c-4045-abfc-31deb787cc58" x="445" y="3" width="1" height="35"/>
-				<element kind="staticText" uuid="28fb624d-a3bd-46b6-ab8e-3e55643e6962" x="450" y="8" width="173" height="30" bold="true" hTextAlign="Center">
-					<text><![CDATA[Cours boursier le plus récent (en FCFA)]]></text>
-				</element>
-				<element kind="staticText" uuid="1e781b25-8a41-4969-bbb0-d42b9476d19e" x="640" y="8" width="150" height="30" bold="true" hTextAlign="Center">
-					<text><![CDATA[Valeur base d'évaluation (en FCFA)]]></text>
-				</element>
-				<element kind="staticText" uuid="ed2ba592-4221-4980-812a-8e1d722f6d42" x="10" y="8" width="419" height="30" bold="true" hTextAlign="Center" vTextAlign="Middle">
-					<text><![CDATA[Désignation]]></text>
-				</element>
-			</band>
-		</groupHeader>
-		<groupFooter>
-			<band/>
-		</groupFooter>
-	</group>
 	<background splitType="Stretch"/>
-	<title height="109" splitType="Stretch">
+	<title height="155" splitType="Stretch">
 		<element kind="textField" uuid="3c2945fb-38cb-4511-8024-73ed31bbb90b" x="3" y="3" width="217" height="16">
 			<expression><![CDATA["Cotonou, le "+$P{letterDate}]]></expression>
 		</element>
@@ -69,9 +47,19 @@
 			<text><![CDATA[PORTEFEUILLE ACTIONS ADMISE A LA COTE]]></text>
 		</element>
 		<element kind="textField" uuid="e5a5cb92-63a2-4301-8340-60d77479f2d4" x="58" y="66" width="676" height="14" hTextAlign="Center">
-			<expression><![CDATA[EQUALS($P{periodicite}.trim(), "Annuel") ? 
-    "(Du " +  new java.text.SimpleDateFormat("dd/MM/ yyyy").format(new java.sql.Date($P{dateEstimation}.toLocalDate().plusMonths($P{periodicite}=="Trimestre"?-2:-5).withDayOfMonth(1).atStartOfDay(java.time.ZoneId.systemDefault()).toInstant().toEpochMilli())) + " au " + new java.text.SimpleDateFormat("dd/MM/ yyyy").format($P{dateEstimation}) + ")" : 
-    "(du 01 Janvier "+YEAR( $P{dateEstimation})+" au 31 Décembre "+YEAR($P{dateEstimation} )+")"]]></expression>
+			<expression><![CDATA[$P{periodicite}]]></expression>
+		</element>
+		<element kind="rectangle" uuid="111119bd-c61b-4ac4-8d4a-ae96fb32b720" x="3" y="119" width="796" height="36" backcolor="#BDD7EE"/>
+		<element kind="line" uuid="760554cb-abc5-4553-a1b8-2391dac346d9" x="633" y="119" width="1" height="35"/>
+		<element kind="line" uuid="4b260b94-fe7c-4045-abfc-31deb787cc58" x="445" y="119" width="1" height="35"/>
+		<element kind="staticText" uuid="28fb624d-a3bd-46b6-ab8e-3e55643e6962" x="450" y="124" width="173" height="30" bold="true" hTextAlign="Center">
+			<text><![CDATA[Cours boursier le plus récent (en FCFA)]]></text>
+		</element>
+		<element kind="staticText" uuid="1e781b25-8a41-4969-bbb0-d42b9476d19e" x="640" y="124" width="150" height="30" bold="true" hTextAlign="Center">
+			<text><![CDATA[Valeur base d'évaluation (en FCFA)]]></text>
+		</element>
+		<element kind="staticText" uuid="ed2ba592-4221-4980-812a-8e1d722f6d42" x="10" y="124" width="419" height="30" bold="true" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[Désignation]]></text>
 		</element>
 	</title>
 	<pageHeader splitType="Stretch"/>

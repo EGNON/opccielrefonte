@@ -116,7 +116,7 @@ public class DepotRachatController {
     }
 
     @GetMapping("/verifintrach/{idOpcvm}/{niveau1}/{niveau2}")
-    public List<FT_DepotRachatProjection> verifIntRach( @PathVariable Long idOpcvm,
+    public void verifIntRach( @PathVariable Long idOpcvm,
                                                                                    @PathVariable boolean niveau1,
                                                                                    @PathVariable boolean niveau2,
                                                                                   HttpServletResponse response) throws JRException, IOException {
@@ -127,10 +127,10 @@ public class DepotRachatController {
         String headerKey = "Content-Disposition";
         String headerValue = "attachment; filename=verification_intention_rachat" + currentDateTime + ".pdf";
         response.setHeader(headerKey, headerValue);
-        return depotRachatService.verifIntentionRachat(idOpcvm,niveau1,niveau2,response);
+         depotRachatService.verifIntentionRachat(idOpcvm,niveau1,niveau2,response);
     }
     @GetMapping("/verifintrachN1/{idOpcvm}/{niveau1}/{niveau2}")
-    public List<FT_DepotRachatProjection> verifIntRachN1N2( @PathVariable Long idOpcvm,
+    public void verifIntRachN1N2( @PathVariable Long idOpcvm,
                                                            @PathVariable boolean niveau1,
                                                            @PathVariable boolean niveau2,
                                                           HttpServletResponse response) throws JRException, IOException {
@@ -141,7 +141,7 @@ public class DepotRachatController {
         String headerKey = "Content-Disposition";
         String headerValue = "attachment; filename=verification_intention_rachat_N1_" + currentDateTime + ".pdf";
         response.setHeader(headerKey, headerValue);
-        return depotRachatService.verifIntentionRachatN1N2(idOpcvm,niveau1,niveau2,response);
+         depotRachatService.verifIntentionRachatN1N2(idOpcvm,niveau1,niveau2,response);
     }
 
     @GetMapping("precalculrachat/{idSeance}/{idOpcvm}/{idPersonne}")

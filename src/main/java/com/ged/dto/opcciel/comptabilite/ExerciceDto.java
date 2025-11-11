@@ -3,12 +3,14 @@ package com.ged.dto.opcciel.comptabilite;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.ged.dto.opcciel.OpcvmDto;
 import com.ged.dto.opcciel.PlanDto;
+import com.ged.entity.opcciel.comptabilite.CleExercice;
 
 import java.time.LocalDateTime;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ExerciceDto {
     private String codeExercice;
     private OpcvmDto opcvm;
+    private CleExercice idExercie;
 	private LocalDateTime dateDebut;
     private LocalDateTime dateFin;
     private PlanDto plan;
@@ -21,6 +23,14 @@ public class ExerciceDto {
     private String declassement;
 
     public ExerciceDto() {
+    }
+
+    public CleExercice getIdExercie() {
+        return idExercie;
+    }
+
+    public void setIdExercie(CleExercice idExercie) {
+        this.idExercie = idExercie;
     }
 
     public OpcvmDto getOpcvm() {

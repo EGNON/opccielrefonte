@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -50,7 +51,7 @@ public class LibraryController {
     }
 //    @PostMapping("/opcvm/etats/portefeuille")
     @PostMapping("/opcvm/etats/portefeuille")
-    public ResponseEntity<Object> porteFeuille(@RequestBody @Valid DifferenceEstimationRequest request, HttpServletResponse response) throws JRException, IOException {
+    public void porteFeuille(@RequestBody @Valid DifferenceEstimationRequest request, HttpServletResponse response) throws JRException, IOException {
         response.setContentType("application/pdf");
         DateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy:hh:mm:ss");
         String currentDateTime = dateFormatter.format(new Date());
@@ -59,7 +60,7 @@ public class LibraryController {
         String headerValue = "attachment; filename=portefeuille" + currentDateTime + ".pdf";
         response.setHeader(headerKey, headerValue);
 
-        return service.afficherPortefeuille(request,response);
+         service.afficherPortefeuille(request,response);
     }
     @PostMapping("/opcvm/portefeuille")
     public ResponseEntity<?> porteFeuille(@RequestBody @Valid ConstatationChargeListeRequest request) {
@@ -73,7 +74,7 @@ public class LibraryController {
 
     //relevepart fcp
     @PostMapping("/opcvm/etats/relevepartfcp")
-    public ResponseEntity<Object> relevepartfcp(@RequestBody @Valid ReleveTitreFCPRequest request, HttpServletResponse response) throws JRException, IOException {
+    public void relevepartfcp(@RequestBody @Valid ReleveTitreFCPRequest request, HttpServletResponse response) throws JRException, IOException {
         response.setContentType("application/pdf");
         DateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy:hh:mm:ss");
         String currentDateTime = dateFormatter.format(new Date());
@@ -82,7 +83,7 @@ public class LibraryController {
         String headerValue = "attachment; filename=Releve de part FCP" + currentDateTime + ".pdf";
         response.setHeader(headerKey, headerValue);
 
-        return service.afficherReleveDePartFCP(request,response);
+         service.afficherReleveDePartFCP(request,response);
     }
     @PostMapping("/opcvm/relevepartfcp")
     public ResponseEntity<?> relevepartfcp(@RequestBody @Valid ReleveTitreFCPRequest request) {
@@ -92,10 +93,27 @@ public class LibraryController {
     public ResponseEntity<?> relevepartfcpListe(@RequestBody @Valid ReleveTitreFCPRequest request) {
         return service.afficherReleveDePartFCPListe(request);
     }
+    //portefeuille actionnaire
+    @PostMapping("/etats/portefeuilleactionnaire")
+    public void portefeuilleActionnaireF1(@RequestBody @Valid PortefeuilleActionnaireRequest request, HttpServletResponse response) throws JRException, IOException, SQLException {
+        response.setContentType("application/pdf");
+        DateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy:hh:mm:ss");
+        String currentDateTime = dateFormatter.format(new Date());
+
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=Portefeuille actionnaire" + currentDateTime + ".pdf";
+        response.setHeader(headerKey, headerValue);
+
+         service.portefeuilleActionnaire(request,response);
+    }
+    @PostMapping("/portefeuilleactionnaire/liste")
+    public ResponseEntity<?> portefeuilleactionnaireF1(@RequestBody @Valid PortefeuilleActionnaireRequest request) {
+        return service.portefeuilleActionnaire(request);
+    }
 
     //relevePartActionnaire
     @PostMapping("/opcvm/etats/relevepartactionnaire")
-    public ResponseEntity<Object> relevepartactionnaire(@RequestBody @Valid ReleveDePartActionnaireRequest request, HttpServletResponse response) throws JRException, IOException {
+    public void relevepartactionnaire(@RequestBody @Valid ReleveDePartActionnaireRequest request, HttpServletResponse response) throws JRException, IOException {
         response.setContentType("application/pdf");
         DateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy:hh:mm:ss");
         String currentDateTime = dateFormatter.format(new Date());
@@ -104,7 +122,7 @@ public class LibraryController {
         String headerValue = "attachment; filename=Releve de part Actionnaire" + currentDateTime + ".pdf";
         response.setHeader(headerKey, headerValue);
 
-        return service.afficherReleveDePartActionnaire(request,response);
+         service.afficherReleveDePartActionnaire(request,response);
     }
     @PostMapping("/opcvm/relevepartactionnaire")
     public ResponseEntity<?> relevepartactionnaire(@RequestBody @Valid ReleveDePartActionnaireRequest request) {
@@ -117,7 +135,7 @@ public class LibraryController {
 
     //journal
     @PostMapping("/opcvm/etats/journal")
-    public ResponseEntity<Object> journal(@RequestBody @Valid ReleveTitreFCPRequest request, HttpServletResponse response) throws JRException, IOException {
+    public void journal(@RequestBody @Valid ReleveTitreFCPRequest request, HttpServletResponse response) throws JRException, IOException {
         response.setContentType("application/pdf");
         DateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy:hh:mm:ss");
         String currentDateTime = dateFormatter.format(new Date());
@@ -126,12 +144,12 @@ public class LibraryController {
         String headerValue = "attachment; filename=Journal" + currentDateTime + ".pdf";
         response.setHeader(headerKey, headerValue);
 
-        return service.afficherJournal(request,response);
+         service.afficherJournal(request,response);
     }
 
-    //balance
-    @PostMapping("/opcvm/etats/balance")
-    public ResponseEntity<Object> balance(@RequestBody @Valid BalanceRequest request, HttpServletResponse response) throws JRException, IOException {
+    //balance avant inventaire
+    @PostMapping("/opcvm/etats/balanceavantinventaire")
+    public void balanceAvantInventaire(@RequestBody @Valid BalanceRequest request, HttpServletResponse response) throws JRException, IOException {
         response.setContentType("application/pdf");
         DateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy:hh:mm:ss");
         String currentDateTime = dateFormatter.format(new Date());
@@ -140,7 +158,28 @@ public class LibraryController {
         String headerValue = "attachment; filename=Balance" + currentDateTime + ".pdf";
         response.setHeader(headerKey, headerValue);
 
-        return service.afficherBalance(request,response);
+         service.afficherBalanceAvantInventaire(request,response);
+    }
+    @PostMapping("/opcvm/balanceavantinventaire")
+    public ResponseEntity<?> balanceAvantInventaire(@RequestBody @Valid BalanceRequest request) {
+        return service.afficherBalanceAvantInventaire(request);
+    }
+    @PostMapping("/opcvm/balanceavantinventaire/liste")
+    public ResponseEntity<?> balanceAvantInventaireListe(@RequestBody @Valid BalanceRequest request) {
+        return service.afficherBalanceAvantInventaireListe(request);
+    }
+    //balance
+    @PostMapping("/opcvm/etats/balance")
+    public void balance(@RequestBody @Valid BalanceRequest request, HttpServletResponse response) throws JRException, IOException {
+        response.setContentType("application/pdf");
+        DateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy:hh:mm:ss");
+        String currentDateTime = dateFormatter.format(new Date());
+
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=Balance" + currentDateTime + ".pdf";
+        response.setHeader(headerKey, headerValue);
+
+         service.afficherBalance(request,response);
     }
     @PostMapping("/opcvm/balance")
     public ResponseEntity<?> balance(@RequestBody @Valid BalanceRequest request) {
@@ -153,7 +192,7 @@ public class LibraryController {
 
     //grandLivre
     @PostMapping("/opcvm/etats/grandlivre")
-    public ResponseEntity<Object> grandlivre(@RequestBody @Valid GrandLivreRequest request, HttpServletResponse response) throws JRException, IOException {
+    public void grandlivre(@RequestBody @Valid GrandLivreRequest request, HttpServletResponse response) throws JRException, IOException {
         response.setContentType("application/pdf");
         DateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy:hh:mm:ss");
         String currentDateTime = dateFormatter.format(new Date());
@@ -162,7 +201,7 @@ public class LibraryController {
         String headerValue = "attachment; filename=Grand Livre" + currentDateTime + ".pdf";
         response.setHeader(headerKey, headerValue);
 
-        return service.afficherGrandLivre(request,response);
+         service.afficherGrandLivre(request,response);
     }
     @PostMapping("/opcvm/grandlivre")
     public ResponseEntity<?> grandlivre(@RequestBody @Valid GrandLivreRequest request) {
@@ -175,7 +214,7 @@ public class LibraryController {
 
     //soldedescomptescomptable
     @PostMapping("/opcvm/etats/soldedescomptescomptables")
-    public ResponseEntity<Object> soldedescomptescomptables(@RequestBody @Valid SoldeDesComptesComptablesRequest request, HttpServletResponse response) throws JRException, IOException {
+    public void soldedescomptescomptables(@RequestBody @Valid SoldeDesComptesComptablesRequest request, HttpServletResponse response) throws JRException, IOException {
         response.setContentType("application/pdf");
         DateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy:hh:mm:ss");
         String currentDateTime = dateFormatter.format(new Date());
@@ -184,7 +223,7 @@ public class LibraryController {
         String headerValue = "attachment; filename=Solde des comptes comptables" + currentDateTime + ".pdf";
         response.setHeader(headerKey, headerValue);
 
-        return service.afficherSoldeDesComptesComptables(request,response);
+         service.afficherSoldeDesComptesComptables(request,response);
     }
     @PostMapping("/opcvm/soldedescomptescomptables")
     public ResponseEntity<?> soldedescomptescomptables(@RequestBody @Valid SoldeDesComptesComptablesRequest request) {
@@ -192,12 +231,12 @@ public class LibraryController {
     }
     @PostMapping("/opcvm/soldedescomptescomptables/liste")
     public ResponseEntity<?> soldedescomptescomptablesListe(@RequestBody @Valid SoldeDesComptesComptablesRequest request) {
-        return service.afficherSoldeDesComptesComptables(request);
+        return service.afficherSoldeDesComptesComptablesListe(request);
     }
 
     //pointsouscriptiondetaille
     @PostMapping("/opcvm/etats/pointsouscriptiondetaille")
-    public ResponseEntity<Object> pointsouscriptiondetaille(@RequestBody @Valid PointSouscriptionDetailleRequest request, HttpServletResponse response) throws JRException, IOException {
+    public void pointsouscriptiondetaille(@RequestBody @Valid PointSouscriptionDetailleRequest request, HttpServletResponse response) throws JRException, IOException {
         response.setContentType("application/pdf");
         DateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy:hh:mm:ss");
         String currentDateTime = dateFormatter.format(new Date());
@@ -206,7 +245,7 @@ public class LibraryController {
         String headerValue = "attachment; filename=Point des souscriptions detaillees" + currentDateTime + ".pdf";
         response.setHeader(headerKey, headerValue);
 
-        return service.afficherPointSouscriptionDetaille(request,response);
+         service.afficherPointSouscriptionDetaille(request,response);
     }
     @PostMapping("/opcvm/pointsouscriptiondetaille")
     public ResponseEntity<?> pointsouscriptiondetaille(@RequestBody @Valid PointSouscriptionDetailleRequest request) {
@@ -214,12 +253,12 @@ public class LibraryController {
     }
     @PostMapping("/opcvm/pointsouscriptiondetaille/liste")
     public ResponseEntity<?> pointsouscriptiondetailleListe(@RequestBody @Valid PointSouscriptionDetailleRequest request) {
-        return service.afficherPointSouscriptionDetaille(request);
+        return service.afficherPointSouscriptionDetailleListe(request);
     }
 
     //pointsouscriptionglobal
     @PostMapping("/opcvm/etats/pointsouscriptionglobal")
-    public ResponseEntity<Object> pointsouscriptionglobal(@RequestBody @Valid PointSouscriptionGlobalRequest request, HttpServletResponse response) throws JRException, IOException {
+    public void pointsouscriptionglobal(@RequestBody @Valid PointSouscriptionGlobalRequest request, HttpServletResponse response) throws JRException, IOException {
         response.setContentType("application/pdf");
         DateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy:hh:mm:ss");
         String currentDateTime = dateFormatter.format(new Date());
@@ -228,7 +267,7 @@ public class LibraryController {
         String headerValue = "attachment; filename=Point des souscriptions global" + currentDateTime + ".pdf";
         response.setHeader(headerKey, headerValue);
 
-        return service.afficherPointSouscriptionGlobal(request,response);
+         service.afficherPointSouscriptionGlobal(request,response);
     }
     @PostMapping("/opcvm/pointsouscriptionglobal")
     public ResponseEntity<?> pointsouscriptionglobal(@RequestBody @Valid PointSouscriptionGlobalRequest request) {
@@ -236,12 +275,12 @@ public class LibraryController {
     }
     @PostMapping("/opcvm/pointsouscriptionglobal/liste")
     public ResponseEntity<?> pointsouscriptionglobalListe(@RequestBody @Valid PointSouscriptionGlobalRequest request) {
-        return service.afficherPointSouscriptionGlobal(request);
+        return service.afficherPointSouscriptionGlobalListe(request);
     }
 
     //pointrachatglobal
     @PostMapping("/opcvm/etats/pointrachatglobal")
-    public ResponseEntity<Object> pointrachatglobal(@RequestBody @Valid PointRachatGlobalRequest request, HttpServletResponse response) throws JRException, IOException {
+    public void pointrachatglobal(@RequestBody @Valid PointRachatGlobalRequest request, HttpServletResponse response) throws JRException, IOException {
         response.setContentType("application/pdf");
         DateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy:hh:mm:ss");
         String currentDateTime = dateFormatter.format(new Date());
@@ -250,7 +289,7 @@ public class LibraryController {
         String headerValue = "attachment; filename=Point des rachats global" + currentDateTime + ".pdf";
         response.setHeader(headerKey, headerValue);
 
-        return service.afficherPointRachatGlobal(request,response);
+         service.afficherPointRachatGlobal(request,response);
     }
     @PostMapping("/opcvm/pointrachatglobal")
     public ResponseEntity<?> pointrachatglobal(@RequestBody @Valid PointRachatGlobalRequest request) {
@@ -258,12 +297,12 @@ public class LibraryController {
     }
     @PostMapping("/opcvm/pointrachatglobal/liste")
     public ResponseEntity<?> pointrachatglobalListe(@RequestBody @Valid PointRachatGlobalRequest request) {
-        return service.afficherPointRachatGlobal(request);
+        return service.afficherPointRachatGlobalListe(request);
     }
 
     //pointrachatdetaille
     @PostMapping("/opcvm/etats/pointrachatdetaille")
-    public ResponseEntity<Object> pointrachatdetaille(@RequestBody @Valid PointRachatDetailleRequest request, HttpServletResponse response) throws JRException, IOException {
+    public void pointrachatdetaille(@RequestBody @Valid PointRachatDetailleRequest request, HttpServletResponse response) throws JRException, IOException {
         response.setContentType("application/pdf");
         DateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy:hh:mm:ss");
         String currentDateTime = dateFormatter.format(new Date());
@@ -272,7 +311,7 @@ public class LibraryController {
         String headerValue = "attachment; filename=Point des rachats detaille" + currentDateTime + ".pdf";
         response.setHeader(headerKey, headerValue);
 
-        return service.afficherPointRachatDetaille(request,response);
+         service.afficherPointRachatDetaille(request,response);
     }
     @PostMapping("/opcvm/pointrachatdetaille")
     public ResponseEntity<?> pointrachatdetaille(@RequestBody @Valid PointRachatDetailleRequest request) {
@@ -280,12 +319,12 @@ public class LibraryController {
     }
     @PostMapping("/opcvm/pointrachatdetaille/liste")
     public ResponseEntity<?> pointrachatdetailleListe(@RequestBody @Valid PointRachatDetailleRequest request) {
-        return service.afficherPointRachatDetaille(request);
+        return service.afficherPointRachatDetailleListe(request);
     }
 
     //etatfinancierannuelf1bilan
     @PostMapping("/opcvm/etats/etatfinancierannuelf1bilan")
-    public ResponseEntity<Object> etatfinancierannuelf1bilan(@RequestBody @Valid EtatFinancierAnnuelF1BilanRequest request, HttpServletResponse response) throws JRException, IOException {
+    public void etatfinancierannuelf1bilan(@RequestBody @Valid EtatFinancierAnnuelF1BilanRequest request, HttpServletResponse response) throws JRException, IOException {
         response.setContentType("application/pdf");
         DateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy:hh:mm:ss");
         String currentDateTime = dateFormatter.format(new Date());
@@ -294,12 +333,12 @@ public class LibraryController {
         String headerValue = "attachment; filename=Etat financier annuel format1 bilan" + currentDateTime + ".pdf";
         response.setHeader(headerKey, headerValue);
 
-        return service.afficherEtatFinancierAnnuelF1Bilan(request,response);
+         service.afficherEtatFinancierAnnuelF1Bilan(request,response);
     }
 
     //etatfinancierannuelf1resultat
     @PostMapping("/opcvm/etats/etatfinancierannuelf1resultat")
-    public ResponseEntity<Object> etatfinancierannuelf1resultat(@RequestBody @Valid EtatFinancierAnnuelF1BilanRequest request, HttpServletResponse response) throws JRException, IOException {
+    public void etatfinancierannuelf1resultat(@RequestBody @Valid EtatFinancierAnnuelF1BilanRequest request, HttpServletResponse response) throws JRException, IOException {
         response.setContentType("application/pdf");
         DateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy:hh:mm:ss");
         String currentDateTime = dateFormatter.format(new Date());
@@ -308,12 +347,12 @@ public class LibraryController {
         String headerValue = "attachment; filename=Etat financier annuel format1 resultat" + currentDateTime + ".pdf";
         response.setHeader(headerKey, headerValue);
 
-        return service.afficherEtatFinancierAnnuelF1Resultat(request,response);
+         service.afficherEtatFinancierAnnuelF1Resultat(request,response);
     }
 
     //etatfinancierannuelf1etatvariationactifnet
     @PostMapping("/opcvm/etats/etatfinancierannuelf1etatvariationactifnet")
-    public ResponseEntity<Object> etatfinancierannuelf1etatvariationactifnet(@RequestBody @Valid EtatFinancierAnnuelF1BilanRequest request, HttpServletResponse response) throws JRException, IOException {
+    public void etatfinancierannuelf1etatvariationactifnet(@RequestBody @Valid EtatFinancierAnnuelF1BilanRequest request, HttpServletResponse response) throws JRException, IOException {
         response.setContentType("application/pdf");
         DateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy:hh:mm:ss");
         String currentDateTime = dateFormatter.format(new Date());
@@ -322,12 +361,12 @@ public class LibraryController {
         String headerValue = "attachment; filename=Etat financier annuel format1 resultat" + currentDateTime + ".pdf";
         response.setHeader(headerKey, headerValue);
 
-        return service.afficherEtatFinancierAnnuelF1EtatVariationActifNet(request,response);
+        service.afficherEtatFinancierAnnuelF1EtatVariationActifNet(request,response);
     }
 
     //etatfinancierannuelf1notesrevenusportefeuilletitre
     @PostMapping("/opcvm/etats/etatfinancierannuelf1notesrevenusportefeuilletitre")
-    public ResponseEntity<Object> etatfinancierannuelf1notesrevenusportefeuilletitre(@RequestBody @Valid EtatFinancierAnnuelF1BilanRequest request, HttpServletResponse response) throws JRException, IOException {
+    public void etatfinancierannuelf1notesrevenusportefeuilletitre(@RequestBody @Valid EtatFinancierAnnuelF1BilanRequest request, HttpServletResponse response) throws JRException, IOException {
         response.setContentType("application/pdf");
         DateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy:hh:mm:ss");
         String currentDateTime = dateFormatter.format(new Date());
@@ -336,12 +375,12 @@ public class LibraryController {
         String headerValue = "attachment; filename=Etat financier annuel format1 note sur les revenus portefeuille titre" + currentDateTime + ".pdf";
         response.setHeader(headerKey, headerValue);
 
-        return service.afficherEtatFinancierAnnuelF1NotesRevenusPortefeuilleTitre(request,response);
+         service.afficherEtatFinancierAnnuelF1NotesRevenusPortefeuilleTitre(request,response);
     }
 
     //etatfinancierannuelf1notesrevenusplacementsmonetaires
     @PostMapping("/opcvm/etats/etatfinancierannuelf1notesrevenusplacementsmonetaires")
-    public ResponseEntity<Object> etatfinancierannuelf1notesrevenusplacementsmonetaires(@RequestBody @Valid EtatFinancierAnnuelF1BilanRequest request, HttpServletResponse response) throws JRException, IOException {
+    public void etatfinancierannuelf1notesrevenusplacementsmonetaires(@RequestBody @Valid EtatFinancierAnnuelF1BilanRequest request, HttpServletResponse response) throws JRException, IOException {
         response.setContentType("application/pdf");
         DateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy:hh:mm:ss");
         String currentDateTime = dateFormatter.format(new Date());
@@ -350,12 +389,12 @@ public class LibraryController {
         String headerValue = "attachment; filename=Etat financier annuel format1 note sur les revenus placements monetaires" + currentDateTime + ".pdf";
         response.setHeader(headerKey, headerValue);
 
-        return service.afficherEtatFinancierAnnuelF1NotesRevenusPlacementsMonetaires(request,response);
+         service.afficherEtatFinancierAnnuelF1NotesRevenusPlacementsMonetaires(request,response);
     }
 
     //etatfinancierannuelf1notessommesdistribuables
     @PostMapping("/opcvm/etats/etatfinancierannuelf1notessommesdistribuables")
-    public ResponseEntity<Object> etatfinancierannuelf1notessommesdistribuables(@RequestBody @Valid EtatFinancierAnnuelF1BilanRequest request, HttpServletResponse response) throws JRException, IOException {
+    public void etatfinancierannuelf1notessommesdistribuables(@RequestBody @Valid EtatFinancierAnnuelF1BilanRequest request, HttpServletResponse response) throws JRException, IOException {
         response.setContentType("application/pdf");
         DateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy:hh:mm:ss");
         String currentDateTime = dateFormatter.format(new Date());
@@ -364,12 +403,12 @@ public class LibraryController {
         String headerValue = "attachment; filename=Etat financier annuel format1 note sur les sommes distribuables" + currentDateTime + ".pdf";
         response.setHeader(headerKey, headerValue);
 
-        return service.afficherEtatFinancierAnnuelF1NotesSommesDistribuables(request,response);
+         service.afficherEtatFinancierAnnuelF1NotesSommesDistribuables(request,response);
     }
 
     //etatfinancierannuelf1donneesactionratiospertinents
     @PostMapping("/opcvm/etats/etatfinancierannuelf1donneesactionratiospertinents")
-    public ResponseEntity<Object> etatfinancierannuelf1donneesactionratiospertinents(@RequestBody @Valid EtatFinancierAnnuelF1BilanRequest request, HttpServletResponse response) throws JRException, IOException {
+    public void etatfinancierannuelf1donneesactionratiospertinents(@RequestBody @Valid EtatFinancierAnnuelF1BilanRequest request, HttpServletResponse response) throws JRException, IOException {
         response.setContentType("application/pdf");
         DateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy:hh:mm:ss");
         String currentDateTime = dateFormatter.format(new Date());
@@ -378,12 +417,12 @@ public class LibraryController {
         String headerValue = "attachment; filename=Etat financier annuel format1 donnees par action et ratios pertinents" + currentDateTime + ".pdf";
         response.setHeader(headerKey, headerValue);
 
-        return service.afficherEtatFinancierAnnuelF1DonneesActionRatiosPertinents(request,response);
+         service.afficherEtatFinancierAnnuelF1DonneesActionRatiosPertinents(request,response);
     }
 
     //etatfinancierannuelf1engagementhorsbilan
     @PostMapping("/opcvm/etats/etatfinancierannuelf1engagementhorsbilan")
-    public ResponseEntity<Object> etatfinancierannuelf1engagementhorsbilan(@RequestBody @Valid EtatFinancierAnnuelF1EngagementHorsBilanRequest request, HttpServletResponse response) throws JRException, IOException {
+    public void etatfinancierannuelf1engagementhorsbilan(@RequestBody @Valid EtatFinancierAnnuelF1EngagementHorsBilanRequest request, HttpServletResponse response) throws JRException, IOException {
         response.setContentType("application/pdf");
         DateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy:hh:mm:ss");
         String currentDateTime = dateFormatter.format(new Date());
@@ -392,12 +431,12 @@ public class LibraryController {
         String headerValue = "attachment; filename=Etat financier annuel format1 engagement hors bilan" + currentDateTime + ".pdf";
         response.setHeader(headerKey, headerValue);
 
-        return service.afficherEtatFinancierAnnuelF1EngagementHorsBilan(request,response);
+         service.afficherEtatFinancierAnnuelF1EngagementHorsBilan(request,response);
     }
 
     //etatfinancierannuelf2bilan
     @PostMapping("/opcvm/etats/etatfinancierannuelf2bilan")
-    public ResponseEntity<Object> etatfinancierannuelf2bilan(@RequestBody @Valid EtatFinancierAnnuelF1BilanRequest request, HttpServletResponse response) throws JRException, IOException {
+    public void etatfinancierannuelf2bilan(@RequestBody @Valid EtatFinancierAnnuelF1BilanRequest request, HttpServletResponse response) throws JRException, IOException {
         response.setContentType("application/pdf");
         DateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy:hh:mm:ss");
         String currentDateTime = dateFormatter.format(new Date());
@@ -406,12 +445,12 @@ public class LibraryController {
         String headerValue = "attachment; filename=Etat financier annuel format2 bilan" + currentDateTime + ".pdf";
         response.setHeader(headerKey, headerValue);
 
-        return service.afficherEtatFinancierAnnuelF2Bilan(request,response);
+         service.afficherEtatFinancierAnnuelF2Bilan(request,response);
     }
 
     //etatfinancierannuelf2resultat
     @PostMapping("/opcvm/etats/etatfinancierannuelf2resultat")
-    public ResponseEntity<Object> etatfinancierannuelf2resultat(@RequestBody @Valid EtatFinancierAnnuelF1BilanRequest request, HttpServletResponse response) throws JRException, IOException {
+    public void etatfinancierannuelf2resultat(@RequestBody @Valid EtatFinancierAnnuelF1BilanRequest request, HttpServletResponse response) throws JRException, IOException {
         response.setContentType("application/pdf");
         DateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy:hh:mm:ss");
         String currentDateTime = dateFormatter.format(new Date());
@@ -420,12 +459,12 @@ public class LibraryController {
         String headerValue = "attachment; filename=Etat financier annuel format2 resultat" + currentDateTime + ".pdf";
         response.setHeader(headerKey, headerValue);
 
-        return service.afficherEtatFinancierAnnuelF2Resultat(request,response);
+         service.afficherEtatFinancierAnnuelF2Resultat(request,response);
     }
 
     //etatfinancierannuelf2etatvariationactifnet
     @PostMapping("/opcvm/etats/etatfinancierannuelf2etatvariationactifnet")
-    public ResponseEntity<Object> etatfinancierannuelf2etatvariationactifnet(@RequestBody @Valid EtatFinancierAnnuelF1BilanRequest request, HttpServletResponse response) throws JRException, IOException {
+    public void etatfinancierannuelf2etatvariationactifnet(@RequestBody @Valid EtatFinancierAnnuelF1BilanRequest request, HttpServletResponse response) throws JRException, IOException {
         response.setContentType("application/pdf");
         DateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy:hh:mm:ss");
         String currentDateTime = dateFormatter.format(new Date());
@@ -434,12 +473,12 @@ public class LibraryController {
         String headerValue = "attachment; filename=Etat financier annuel format2 etat de variation actif net" + currentDateTime + ".pdf";
         response.setHeader(headerKey, headerValue);
 
-        return service.afficherEtatFinancierAnnuelF2EtatVariationActifNet(request,response);
+         service.afficherEtatFinancierAnnuelF2EtatVariationActifNet(request,response);
     }
 
     //etatfinancierannuelf2notesrevenusportefeuilletitre
     @PostMapping("/opcvm/etats/etatfinancierannuelf2notesrevenusportefeuilletitre")
-    public ResponseEntity<Object> etatfinancierannuelf2notesrevenusportefeuilletitre(@RequestBody @Valid EtatFinancierAnnuelF1BilanRequest request, HttpServletResponse response) throws JRException, IOException {
+    public void etatfinancierannuelf2notesrevenusportefeuilletitre(@RequestBody @Valid EtatFinancierAnnuelF1BilanRequest request, HttpServletResponse response) throws JRException, IOException {
         response.setContentType("application/pdf");
         DateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy:hh:mm:ss");
         String currentDateTime = dateFormatter.format(new Date());
@@ -448,12 +487,12 @@ public class LibraryController {
         String headerValue = "attachment; filename=Etat financier annuel format2 note sur les revenus portefeuille titre" + currentDateTime + ".pdf";
         response.setHeader(headerKey, headerValue);
 
-        return service.afficherEtatFinancierAnnuelF2NotesRevenusPortefeuilleTitre(request,response);
+         service.afficherEtatFinancierAnnuelF2NotesRevenusPortefeuilleTitre(request,response);
     }
 
     //etatfinancierannuelf2notesrevenusplacementsmonetaires
     @PostMapping("/opcvm/etats/etatfinancierannuelf2notesrevenusplacementsmonetaires")
-    public ResponseEntity<Object> etatfinancierannuelf2notesrevenusplacementsmonetaires(@RequestBody @Valid EtatFinancierAnnuelF1BilanRequest request, HttpServletResponse response) throws JRException, IOException {
+    public void etatfinancierannuelf2notesrevenusplacementsmonetaires(@RequestBody @Valid EtatFinancierAnnuelF1BilanRequest request, HttpServletResponse response) throws JRException, IOException {
         response.setContentType("application/pdf");
         DateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy:hh:mm:ss");
         String currentDateTime = dateFormatter.format(new Date());
@@ -462,12 +501,12 @@ public class LibraryController {
         String headerValue = "attachment; filename=Etat financier annuel format2 note sur les revenus placements monetaires" + currentDateTime + ".pdf";
         response.setHeader(headerKey, headerValue);
 
-        return service.afficherEtatFinancierAnnuelF2NotesRevenusPlacementsMonetaires(request,response);
+         service.afficherEtatFinancierAnnuelF2NotesRevenusPlacementsMonetaires(request,response);
     }
 
     //etatfinancierannuelf2notessommesdistribuables
     @PostMapping("/opcvm/etats/etatfinancierannuelf2notessommesdistribuables")
-    public ResponseEntity<Object> etatfinancierannuelf2notessommesdistribuables(@RequestBody @Valid EtatFinancierAnnuelF1BilanRequest request, HttpServletResponse response) throws JRException, IOException {
+    public void etatfinancierannuelf2notessommesdistribuables(@RequestBody @Valid EtatFinancierAnnuelF1BilanRequest request, HttpServletResponse response) throws JRException, IOException {
         response.setContentType("application/pdf");
         DateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy:hh:mm:ss");
         String currentDateTime = dateFormatter.format(new Date());
@@ -476,12 +515,12 @@ public class LibraryController {
         String headerValue = "attachment; filename=Etat financier annuel format2 note sur les sommes distribuables" + currentDateTime + ".pdf";
         response.setHeader(headerKey, headerValue);
 
-        return service.afficherEtatFinancierAnnuelF2NotesSommesDistribuables(request,response);
+         service.afficherEtatFinancierAnnuelF2NotesSommesDistribuables(request,response);
     }
 
     //etatfinancierannuelf2donneesactionratiospertinents
     @PostMapping("/opcvm/etats/etatfinancierannuelf2donneesactionratiospertinents")
-    public ResponseEntity<Object> etatfinancierannuelf2donneesactionratiospertinents(@RequestBody @Valid EtatFinancierAnnuelF1BilanRequest request, HttpServletResponse response) throws JRException, IOException {
+    public void etatfinancierannuelf2donneesactionratiospertinents(@RequestBody @Valid EtatFinancierAnnuelF1BilanRequest request, HttpServletResponse response) throws JRException, IOException {
         response.setContentType("application/pdf");
         DateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy:hh:mm:ss");
         String currentDateTime = dateFormatter.format(new Date());
@@ -490,12 +529,12 @@ public class LibraryController {
         String headerValue = "attachment; filename=Etat financier annuel format2 donnees par action et ratios pertinents" + currentDateTime + ".pdf";
         response.setHeader(headerKey, headerValue);
 
-        return service.afficherEtatFinancierAnnuelF2DonneesActionRatiosPertinents(request,response);
+         service.afficherEtatFinancierAnnuelF2DonneesActionRatiosPertinents(request,response);
     }
 
-    //etatfinancierannexesetatsentreesportefeuilletitre
-    @PostMapping("/opcvm/etats/etatfinancierannexesetatsentreesportefeuilletitre")
-    public ResponseEntity<Object> etatfinancierannexesetatsentreesportefeuilletitre(@RequestBody @Valid EtatFinancierAnnexesEtatsEntreesPortefeuilleTitreRequest request, HttpServletResponse response) throws JRException, IOException {
+    //afficherEtatFinancierAnnexesNotesEtatsFinanaciers
+    @PostMapping("/opcvm/etats/etatfinancierannexesnotesetatsfinanciers")
+    public void afficherEtatFinancierAnnexesNotesEtatsFinanaciers(@RequestBody @Valid EtatFinancierAnnexesEtatsEntreesPortefeuilleTitreRequest request, HttpServletResponse response) throws JRException, IOException {
         response.setContentType("application/pdf");
         DateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy:hh:mm:ss");
         String currentDateTime = dateFormatter.format(new Date());
@@ -504,12 +543,25 @@ public class LibraryController {
         String headerValue = "attachment; filename=Etat financier annexes etats des entrees en portefeuille titre" + currentDateTime + ".pdf";
         response.setHeader(headerKey, headerValue);
 
-        return service.afficherEtatFinancierAnnexesEtatsEntreesPortefeuilleTitre(request,response);
+         service.afficherEtatFinancierAnnexesNotesEtatsFinanaciers(request,response);
+    }
+    //etatfinancierannexesetatsentreesportefeuilletitre
+    @PostMapping("/opcvm/etats/etatfinancierannexesetatsentreesportefeuilletitre")
+    public void etatfinancierannexesetatsentreesportefeuilletitre(@RequestBody @Valid EtatFinancierAnnexesEtatsEntreesPortefeuilleTitreRequest request, HttpServletResponse response) throws JRException, IOException {
+        response.setContentType("application/pdf");
+        DateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy:hh:mm:ss");
+        String currentDateTime = dateFormatter.format(new Date());
+
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=Etat financier annexes etats des entrees en portefeuille titre" + currentDateTime + ".pdf";
+        response.setHeader(headerKey, headerValue);
+
+         service.afficherEtatFinancierAnnexesEtatsEntreesPortefeuilleTitre(request,response);
     }
 
     //etatfinancierannexesetatsortiesportefeuilletitre
     @PostMapping("/opcvm/etats/etatfinancierannexesetatsortiesportefeuilletitre")
-    public ResponseEntity<Object> etatfinancierannexesetatsortiesportefeuilletitre(@RequestBody @Valid EtatFinancierAnnexesEtatsEntreesPortefeuilleTitreRequest request, HttpServletResponse response) throws JRException, IOException {
+    public void etatfinancierannexesetatsortiesportefeuilletitre(@RequestBody @Valid EtatFinancierAnnexesEtatsEntreesPortefeuilleTitreRequest request, HttpServletResponse response) throws JRException, IOException {
         response.setContentType("application/pdf");
         DateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy:hh:mm:ss");
         String currentDateTime = dateFormatter.format(new Date());
@@ -518,12 +570,12 @@ public class LibraryController {
         String headerValue = "attachment; filename=Etat financier annexes etats des sorties en portefeuille titre" + currentDateTime + ".pdf";
         response.setHeader(headerKey, headerValue);
 
-        return service.afficherEtatFinancierAnnexesEtatSortiesPortefeuilleTitre(request,response);
+         service.afficherEtatFinancierAnnexesEtatSortiesPortefeuilleTitre(request,response);
     }
 
     //etatfinancierannexesnoteportefeuilletitresannuel
     @PostMapping("/opcvm/etats/etatfinancierannexesnoteportefeuilletitresannuel")
-    public ResponseEntity<Object> etatfinancierannexesnoteportefeuilletitresannuel(@RequestBody @Valid EtatFinancierAnnexesNotePortefeuilleTitresAnnuelRequest request, HttpServletResponse response) throws JRException, IOException {
+    public void etatfinancierannexesnoteportefeuilletitresannuel(@RequestBody @Valid EtatFinancierAnnexesNotePortefeuilleTitresAnnuelRequest request, HttpServletResponse response) throws JRException, IOException {
         response.setContentType("application/pdf");
         DateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy:hh:mm:ss");
         String currentDateTime = dateFormatter.format(new Date());
@@ -532,12 +584,12 @@ public class LibraryController {
         String headerValue = "attachment; filename=Etat financier annexes note sur le portefeuille titre annuel" + currentDateTime + ".pdf";
         response.setHeader(headerKey, headerValue);
 
-        return service.afficherEtatFinancierAnnexesNotePortefeuilleTitresAnnuel(request,response);
+         service.afficherEtatFinancierAnnexesNotePortefeuilleTitresAnnuel(request,response);
     }
 
     //etatfinancierannexesnoteplacementsmonetairesannuel
     @PostMapping("/opcvm/etats/etatfinancierannexesnoteplacementsmonetairesannuel")
-    public ResponseEntity<Object> etatfinancierannexesnoteplacementsmonetairesannuel(@RequestBody @Valid EtatFinancierAnnexesNotePortefeuilleTitresAnnuelRequest request, HttpServletResponse response) throws JRException, IOException {
+    public void etatfinancierannexesnoteplacementsmonetairesannuel(@RequestBody @Valid EtatFinancierAnnexesNotePortefeuilleTitresAnnuelRequest request, HttpServletResponse response) throws JRException, IOException {
         response.setContentType("application/pdf");
         DateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy:hh:mm:ss");
         String currentDateTime = dateFormatter.format(new Date());
@@ -546,12 +598,12 @@ public class LibraryController {
         String headerValue = "attachment; filename=Etat financier annexes note sur les placements monetaires annuel" + currentDateTime + ".pdf";
         response.setHeader(headerKey, headerValue);
 
-        return service.afficherEtatFinancierAnnexesNotePlacementsMonetairesAnnuel(request,response);
+         service.afficherEtatFinancierAnnexesNotePlacementsMonetairesAnnuel(request,response);
     }
 
     //etatfinancierannexesnotesurlecapital
     @PostMapping("/opcvm/etats/etatfinancierannexesnotesurlecapital")
-    public ResponseEntity<Object> etatfinancierannexesnotesurlecapital(@RequestBody @Valid EtatFinancierAnnexesNotePortefeuilleTitresAnnuelRequest request, HttpServletResponse response) throws JRException, IOException {
+    public void etatfinancierannexesnotesurlecapital(@RequestBody @Valid EtatFinancierAnnexesNotePortefeuilleTitresAnnuelRequest request, HttpServletResponse response) throws JRException, IOException {
         response.setContentType("application/pdf");
         DateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy:hh:mm:ss");
         String currentDateTime = dateFormatter.format(new Date());
@@ -560,12 +612,12 @@ public class LibraryController {
         String headerValue = "attachment; filename=Etat financier annexes note sur le capital" + currentDateTime + ".pdf";
         response.setHeader(headerKey, headerValue);
 
-        return service.afficherEtatFinancierAnnexesNotesurleCapital(request,response);
+         service.afficherEtatFinancierAnnexesNotesurleCapital(request,response);
     }
 
     //etatfinancierannexesactionadmisecote
     @PostMapping("/opcvm/etats/etatfinancierannexesactionadmisecote")
-    public ResponseEntity<Object> etatfinancierannexesactionadmisecote(@RequestBody @Valid EtatFinancierAnnexesNotePortefeuilleTitresAnnuelRequest request, HttpServletResponse response) throws JRException, IOException {
+    public void etatfinancierannexesactionadmisecote(@RequestBody @Valid EtatFinancierAnnexesNotePortefeuilleTitresAnnuelRequest request, HttpServletResponse response) throws JRException, IOException {
         response.setContentType("application/pdf");
         DateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy:hh:mm:ss");
         String currentDateTime = dateFormatter.format(new Date());
@@ -574,12 +626,12 @@ public class LibraryController {
         String headerValue = "attachment; filename=Etat financier annexes action admise cote" + currentDateTime + ".pdf";
         response.setHeader(headerKey, headerValue);
 
-        return service.afficherEtatFinancierAnnexesActionAdmiseCote(request,response);
+         service.afficherEtatFinancierAnnexesActionAdmiseCote(request,response);
     }
 
     //etatfinancierannexesremunerationgestionnairedepositaire
     @PostMapping("/opcvm/etats/etatfinancierannexesremunerationgestionnairedepositaire")
-    public ResponseEntity<Object> etatfinancierannexesremunerationgestionnairedepositaire(@RequestBody @Valid EtatFinancierAnnexesRemunerationGestionnaireDepositaireRequest request, HttpServletResponse response) throws JRException, IOException {
+    public void etatfinancierannexesremunerationgestionnairedepositaire(@RequestBody @Valid EtatFinancierAnnexesRemunerationGestionnaireDepositaireRequest request, HttpServletResponse response) throws JRException, IOException {
         response.setContentType("application/pdf");
         DateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy:hh:mm:ss");
         String currentDateTime = dateFormatter.format(new Date());
@@ -588,7 +640,7 @@ public class LibraryController {
         String headerValue = "attachment; filename=Etat financier annexes remuneration gestionnaire depositaire" + currentDateTime + ".pdf";
         response.setHeader(headerKey, headerValue);
 
-        return service.afficherEtatFinancierAnnexesRemunerationGestionnaireDepositaire(request,response);
+         service.afficherEtatFinancierAnnexesRemunerationGestionnaireDepositaire(request,response);
     }
 
     //etatfinanciertrimestrielbilantrimestriel
@@ -746,7 +798,7 @@ public class LibraryController {
     }
 
     @PostMapping("/etats/pointtresorerie")
-    public ResponseEntity<Object> pointTresorerie(@RequestBody @Valid BeginEndDateParameter request, HttpServletResponse response) throws JRException, IOException {
+    public void pointTresorerie(@RequestBody @Valid BeginEndDateParameter request, HttpServletResponse response) throws JRException, IOException {
         response.setContentType("application/pdf");
         DateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy:hh:mm:ss");
         String currentDateTime = dateFormatter.format(new Date());
@@ -755,10 +807,10 @@ public class LibraryController {
         String headerValue = "attachment; filename=pointTresorerie" + currentDateTime + ".pdf";
         response.setHeader(headerKey, headerValue);
 
-        return service.pointTresorerie(request,response);
+         service.pointTresorerie(request,response);
     }
     @PostMapping("/etats/ficheclient")
-    public ResponseEntity<Object> ficheClient(@RequestBody FicheClientRequest request,
+    public void ficheClient(@RequestBody FicheClientRequest request,
                                               HttpServletResponse response) throws JRException, IOException {
         response.setContentType("application/pdf");
         DateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy:hh:mm:ss");
@@ -768,10 +820,10 @@ public class LibraryController {
         String headerValue = "attachment; filename=fiche_client" + currentDateTime + ".pdf";
         response.setHeader(headerKey, headerValue);
 
-        return service.ficheClientEtat(request,response);
+         service.ficheClientEtat(request,response);
     }
     @PostMapping("/etats/historiqueactionnaire")
-    public ResponseEntity<Object> historiqueActionnaire(@RequestBody @Valid BeginEndDateParameter request, HttpServletResponse response) throws JRException, IOException {
+    public void historiqueActionnaire(@RequestBody @Valid BeginEndDateParameter request, HttpServletResponse response) throws JRException, IOException {
         response.setContentType("application/pdf");
         DateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy:hh:mm:ss");
         String currentDateTime = dateFormatter.format(new Date());
@@ -780,7 +832,7 @@ public class LibraryController {
         String headerValue = "attachment; filename=historiqueActionnaire" + currentDateTime + ".pdf";
         response.setHeader(headerKey, headerValue);
 
-        return service.historiqueActionnaire(request,response);
+         service.historiqueActionnaire(request,response);
     }
     @PostMapping("/historiqueactionnaire")
     public ResponseEntity<?> historiqueActionnaire(@RequestBody @Valid HistoriqueActionnaireRequest request){
@@ -793,7 +845,7 @@ public class LibraryController {
         return service.historiqueActionnaireListe(request);
     }
     @PostMapping("/etats/releveactionnaire")
-    public ResponseEntity<Object> releveActionnaire(@RequestBody @Valid HistoriqueActionnaireRequest request, HttpServletResponse response) throws JRException, IOException {
+    public void releveActionnaire(@RequestBody @Valid HistoriqueActionnaireRequest request, HttpServletResponse response) throws JRException, IOException {
         response.setContentType("application/pdf");
         DateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy:hh:mm:ss");
         String currentDateTime = dateFormatter.format(new Date());
@@ -802,7 +854,7 @@ public class LibraryController {
         String headerValue = "attachment; filename=releveActionnaire" + currentDateTime + ".pdf";
         response.setHeader(headerKey, headerValue);
 
-        return service.releveActionnaire(request,response);
+         service.releveActionnaire(request,response);
     }
     @PostMapping("/releveactionnaire/liste")
     public ResponseEntity<?> releveActionnaire(@RequestBody @Valid HistoriqueActionnaireRequest request){
@@ -831,7 +883,7 @@ public class LibraryController {
         return service.afficherPersonnePhysiqueMorale(null,null,null,valeur);
     }
     @GetMapping("/etats/procedurecomptable")
-    public ResponseEntity<Object> procedureComptable(HttpServletResponse response) throws JRException, IOException {
+    public void procedureComptable(HttpServletResponse response) throws JRException, IOException {
         response.setContentType("application/pdf");
         DateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy:hh:mm:ss");
         String currentDateTime = dateFormatter.format(new Date());
@@ -840,10 +892,10 @@ public class LibraryController {
         String headerValue = "attachment; filename=procedureComptable" + currentDateTime + ".pdf";
         response.setHeader(headerKey, headerValue);
 
-        return service.procedureComptable(response);
+         service.procedureComptable(response);
     }
     @PostMapping("/opcvm/etats/relevetitrefcp")
-    public ResponseEntity<Object> releveTitreFCP(@RequestBody @Valid ReleveTitreFCPRequest request, HttpServletResponse response) throws JRException, IOException {
+    public void releveTitreFCP(@RequestBody @Valid ReleveTitreFCPRequest request, HttpServletResponse response) throws JRException, IOException {
         response.setContentType("application/pdf");
         DateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy:hh:mm:ss");
         String currentDateTime = dateFormatter.format(new Date());
@@ -852,7 +904,7 @@ public class LibraryController {
         String headerValue = "attachment; filename=releveTitreFCP" + currentDateTime + ".pdf";
         response.setHeader(headerKey, headerValue);
 
-        return service.afficherReleveTitreFCP(request,response);
+         service.afficherReleveTitreFCP(request,response);
     }
     @PostMapping("/opcvm/relevetitrefcp")
     public ResponseEntity<?> releveTitreFCP(@RequestBody @Valid ReleveTitreFCPRequest request) {
@@ -863,7 +915,7 @@ public class LibraryController {
         return service.etatSuiviActionnaireListe(request);
     }
     @PostMapping("/etats/etatsuiviactionnaire")
-    public ResponseEntity<Object> etatSuiviActionnaire(@RequestBody @Valid ReleveTitreFCPRequest request, HttpServletResponse response) throws JRException, IOException {
+    public void etatSuiviActionnaire(@RequestBody @Valid ReleveTitreFCPRequest request, HttpServletResponse response) throws JRException, IOException {
         response.setContentType("application/pdf");
         DateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy:hh:mm:ss");
         String currentDateTime = dateFormatter.format(new Date());
@@ -872,7 +924,7 @@ public class LibraryController {
         String headerValue = "attachment; filename=etatSuiviActionnaire" + currentDateTime + ".pdf";
         response.setHeader(headerKey, headerValue);
 
-        return service.etatSuiviActionnaire(request,response);
+         service.etatSuiviActionnaire(request,response);
     }
     @PostMapping("/etatsuiviactionnaire")
     public ResponseEntity<?> etatSuiviActionnaire(@RequestBody @Valid ReleveTitreFCPRequest request) {
@@ -883,7 +935,7 @@ public class LibraryController {
         return service.etatFraisFonctionnementListe(request);
     }
     @PostMapping("/etats/etatfraisfonctionnement")
-    public ResponseEntity<Object> etatFraisFonctionnement(@RequestBody @Valid ReleveTitreFCPRequest request, HttpServletResponse response) throws JRException, IOException {
+    public void etatFraisFonctionnement(@RequestBody @Valid ReleveTitreFCPRequest request, HttpServletResponse response) throws JRException, IOException {
         response.setContentType("application/pdf");
         DateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy:hh:mm:ss");
         String currentDateTime = dateFormatter.format(new Date());
@@ -892,7 +944,7 @@ public class LibraryController {
         String headerValue = "attachment; filename=etatFraisFonctionnement" + currentDateTime + ".pdf";
         response.setHeader(headerKey, headerValue);
 
-        return service.etatFraisFonctionnement(request,response);
+         service.etatFraisFonctionnement(request,response);
     }
     @PostMapping("/etatfraisfonctionnement")
     public ResponseEntity<?> etatFraisFonctionnement(@RequestBody @Valid ReleveTitreFCPRequest request) {
@@ -903,7 +955,7 @@ public class LibraryController {
         return service.evolutionVLListe(request);
     }
     @PostMapping("/etats/evolutionvl")
-    public ResponseEntity<Object> evolutionvl(@RequestBody @Valid EvolutionVLRequest request, HttpServletResponse response) throws JRException, IOException {
+    public void evolutionvl(@RequestBody @Valid EvolutionVLRequest request, HttpServletResponse response) throws JRException, IOException {
         response.setContentType("application/pdf");
         DateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy:hh:mm:ss");
         String currentDateTime = dateFormatter.format(new Date());
@@ -912,7 +964,7 @@ public class LibraryController {
         String headerValue = "attachment; filename=evolutionVL" + currentDateTime + ".pdf";
         response.setHeader(headerKey, headerValue);
 
-        return service.evolutionVL(request,response);
+         service.evolutionVL(request,response);
     }
     @PostMapping("/evolutionvl")
     public ResponseEntity<?> evolutionvl(@RequestBody @Valid EvolutionVLRequest request) {
@@ -928,7 +980,7 @@ public class LibraryController {
         return service.afficherSoldeCompteClient(idActionnaire, idOpcvm);
     }
     @PostMapping("/etats/pointsouscription")
-    public ResponseEntity<Object> pointsouscription(@RequestBody @Valid ReleveTitreFCPRequest request, HttpServletResponse response) throws JRException, IOException {
+    public void pointsouscription(@RequestBody @Valid ReleveTitreFCPRequest request, HttpServletResponse response) throws JRException, IOException {
         response.setContentType("application/pdf");
         DateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy:hh:mm:ss");
         String currentDateTime = dateFormatter.format(new Date());
@@ -937,10 +989,10 @@ public class LibraryController {
         String headerValue = "attachment; filename=pointSousriptionParTypePersonne" + currentDateTime + ".pdf";
         response.setHeader(headerKey, headerValue);
 
-        return service.pointSousriptionRachat(request,response);
+         service.pointSousriptionRachat(request,response);
     }
     @PostMapping("/etats/pointrachat")
-    public ResponseEntity<Object> pointrachat(@RequestBody @Valid ReleveTitreFCPRequest request, HttpServletResponse response) throws JRException, IOException {
+    public void pointrachat(@RequestBody @Valid ReleveTitreFCPRequest request, HttpServletResponse response) throws JRException, IOException {
         response.setContentType("application/pdf");
         DateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy:hh:mm:ss");
         String currentDateTime = dateFormatter.format(new Date());
@@ -949,7 +1001,7 @@ public class LibraryController {
         String headerValue = "attachment; filename=pointRachatParTypePersonne" + currentDateTime + ".pdf";
         response.setHeader(headerKey, headerValue);
 
-        return service.pointSousriptionRachat(request,response);
+         service.pointSousriptionRachat(request,response);
     }
     @PostMapping("/pointsouscriptionrachat")
     public ResponseEntity<?> pointsouscriptionrachat(@RequestBody @Valid ReleveTitreFCPRequest request) {
@@ -964,7 +1016,7 @@ public class LibraryController {
         return service.pointRepartitionPortefeuilleListe(request);
     }
     @PostMapping("/etats/pointrepartitionportefeuille")
-    public ResponseEntity<Object> pointrepartitionportefeuille(@RequestBody @Valid ReleveTitreFCPRequest request, HttpServletResponse response) throws JRException, IOException {
+    public void pointrepartitionportefeuille(@RequestBody @Valid ReleveTitreFCPRequest request, HttpServletResponse response) throws JRException, IOException {
         response.setContentType("application/pdf");
         DateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy:hh:mm:ss");
         String currentDateTime = dateFormatter.format(new Date());
@@ -973,7 +1025,7 @@ public class LibraryController {
         String headerValue = "attachment; filename=pointRepartitionPortefeuille" + currentDateTime + ".pdf";
         response.setHeader(headerKey, headerValue);
 
-        return service.pointRepartitionPortefeuille(request,response);
+         service.pointRepartitionPortefeuille(request,response);
     }
     @PostMapping("/evolutionactifnet")
     public ResponseEntity<?> evolutionactifnet(@RequestBody @Valid ReleveTitreFCPRequest request) {
@@ -984,7 +1036,7 @@ public class LibraryController {
         return service.evolutionActifNetListe(request);
     }
     @PostMapping("/etats/evolutionactifnet")
-    public ResponseEntity<Object> evolutionactifnet(@RequestBody @Valid ReleveTitreFCPRequest request, HttpServletResponse response) throws JRException, IOException {
+    public void evolutionactifnet(@RequestBody @Valid ReleveTitreFCPRequest request, HttpServletResponse response) throws JRException, IOException {
         response.setContentType("application/pdf");
         DateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy:hh:mm:ss");
         String currentDateTime = dateFormatter.format(new Date());
@@ -993,14 +1045,14 @@ public class LibraryController {
         String headerValue = "attachment; filename=pointRepartitionPortefeuille" + currentDateTime + ".pdf";
         response.setHeader(headerKey, headerValue);
 
-        return service.evolutionActifNet(request,response);
+         service.evolutionActifNet(request,response);
     }
     @PostMapping("/etatsuiviclient/liste")
     public ResponseEntity<?> etatSuiviClientListe(@RequestBody @Valid HistoriqueActionnaireRequest request) {
         return service.suiviClient(request);
     }
     @PostMapping("/etats/etatsuiviclient")
-    public ResponseEntity<Object> etatSuiviClient(@RequestBody @Valid HistoriqueActionnaireRequest request, HttpServletResponse response) throws JRException, IOException {
+    public void etatSuiviClient(@RequestBody @Valid HistoriqueActionnaireRequest request, HttpServletResponse response) throws JRException, IOException {
         response.setContentType("application/pdf");
         DateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy:hh:mm:ss");
         String currentDateTime = dateFormatter.format(new Date());
@@ -1009,10 +1061,10 @@ public class LibraryController {
         String headerValue = "attachment; filename=SuiviClient" + currentDateTime + ".pdf";
         response.setHeader(headerKey, headerValue);
 
-        return service.suiviClient(request,response);
+         service.suiviClient(request,response);
     }
     @PostMapping("/etats/performanceportefeuilleactionnaire")
-    public ResponseEntity<Object> performancePortefeuilleActionnaire(@RequestBody @Valid HistoriqueActionnaireRequest request, HttpServletResponse response) throws JRException, IOException {
+    public void performancePortefeuilleActionnaire(@RequestBody @Valid HistoriqueActionnaireRequest request, HttpServletResponse response) throws JRException, IOException {
         response.setContentType("application/pdf");
         DateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy:hh:mm:ss");
         String currentDateTime = dateFormatter.format(new Date());
@@ -1021,7 +1073,7 @@ public class LibraryController {
         String headerValue = "attachment; filename=PerformancePortefeuilleActionnaire" + currentDateTime + ".pdf";
         response.setHeader(headerKey, headerValue);
 
-        return service.perfomancePortefeuilleAcctionnaire(request,response);
+         service.perfomancePortefeuilleAcctionnaire(request,response);
     }
     @PostMapping("/opcvm/relevetitrefcp/liste")
     public ResponseEntity<?> releveTitreFCPListe(@RequestBody @Valid ReleveTitreFCPRequest request) {
@@ -1049,7 +1101,7 @@ public class LibraryController {
     }
 
     @PostMapping("jasperpdf/export/registre/actionnaire/xxxxxxx/yyyy")
-    public ResponseEntity<Object> registreActionnairePDF(
+    public void registreActionnairePDF(
             HttpServletResponse response,
             @RequestBody RegistreActionPDFRequest request) {
 
@@ -1060,7 +1112,7 @@ public class LibraryController {
         String headerValue = "attachment; filename=registre_actionnaire_" + currentDateTime + ".pdf";
         response.setHeader(headerKey, headerValue);
 
-        return service.registreActionnaireExportJasperReport(
+         service.registreActionnaireExportJasperReport(
             response,
             request
         );

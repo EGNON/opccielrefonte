@@ -14,6 +14,6 @@ public interface PointRachatGlobalProjection {
 					String getLibelleTypePersonne();
 					String getDenominationOpcvm();
 					Long getIdOpcvm();
-					Long getDateDebut();
-					Long getDateFin();
+					LocalDateTime getDateDebut();
+					LocalDateTime getDateFin();
 }

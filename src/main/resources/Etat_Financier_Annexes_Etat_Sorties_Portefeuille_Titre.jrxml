@@ -8,9 +8,9 @@
 		<property name="com.jaspersoft.studio.field.name" value="classeTitre"/>
 		<property name="com.jaspersoft.studio.field.label" value="classeTitre"/>
 	</field>
-	<field name="Cout" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.name" value="Cout"/>
-		<property name="com.jaspersoft.studio.field.label" value="Cout"/>
+	<field name="cout" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="cout"/>
+		<property name="com.jaspersoft.studio.field.label" value="cout"/>
 	</field>
 	<field name="prixCession" class="java.math.BigDecimal">
 		<property name="com.jaspersoft.studio.field.name" value="prixCession"/>
@@ -85,13 +85,13 @@
 			<element kind="line" uuid="b421f539-204f-4185-83b1-670e6d763a44" stretchType="ContainerHeight" x="500" y="1" width="1" height="26"/>
 			<element kind="line" uuid="e2235214-190d-41d6-a098-9f1c7f3f8f48" stretchType="ContainerHeight" x="350" y="1" width="1" height="26"/>
 			<element kind="textField" uuid="b01fad6b-89c3-4b3e-a68b-51274a7fd83c" x="360" y="5" width="130" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
-				<expression><![CDATA[$F{Cout}]]></expression>
+				<expression><![CDATA[$F{cout}]]></expression>
 			</element>
 			<element kind="textField" uuid="3324f292-02d8-4bcd-b04c-c89bc64471c6" x="509" y="5" width="130" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
 				<expression><![CDATA[$F{prixCession}]]></expression>
 			</element>
 			<element kind="textField" uuid="8d67b569-3b7b-4e97-b3fc-6237db5fa849" x="660" y="5" width="130" height="13" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
-				<expression><![CDATA[SUM($F{prixCession},PRODUCT($F{Cout},-1 ) )]]></expression>
+				<expression><![CDATA[SUM($F{prixCession},PRODUCT($F{cout},-1 ) )]]></expression>
 			</element>
 		</band>
 	</detail>

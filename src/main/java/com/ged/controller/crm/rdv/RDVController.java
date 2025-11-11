@@ -57,7 +57,7 @@ public class RDVController {
     }
 
     @GetMapping("/listerdvs/{etat}")
-    public List<RDVEtatDto> afficherRDVEtat(@PathVariable String etat, HttpServletResponse response) throws JRException, IOException {
+    public void afficherRDVEtat(@PathVariable String etat, HttpServletResponse response) throws JRException, IOException {
         response.setContentType("application/pdf");
         DateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy:hh:mm:ss");
         String currentDateTime = dateFormatter.format(new Date());
@@ -65,7 +65,7 @@ public class RDVController {
         String headerKey = "Content-Disposition";
         String headerValue = "attachment; filename=rdv_liste_" + currentDateTime + ".pdf";
         response.setHeader(headerKey, headerValue);
-        return rdvService.afficherRDVEtat(etat,response);
+         rdvService.afficherRDVEtat(etat,response);
     }
 
     @GetMapping("/modelemsgalerte/{id}")

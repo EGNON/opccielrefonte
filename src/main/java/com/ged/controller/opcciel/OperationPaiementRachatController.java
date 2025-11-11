@@ -34,7 +34,7 @@ public class OperationPaiementRachatController {
         return operationPaiementRachatService.liste(idOpcvm,idSeance);
     }
     @GetMapping("verifierpaiementrachat/{idOpcvm}/{idSeance}/{denominationOpcvm}/{dateOuv}/{dateFerm}")
-    public ResponseEntity<Object> Liste(@PathVariable Long idOpcvm,
+    public void Liste(@PathVariable Long idOpcvm,
                                         @PathVariable Long idSeance,
                                         @PathVariable String denominationOpcvm,
                                         @PathVariable String dateOuv,
@@ -48,7 +48,7 @@ public class OperationPaiementRachatController {
         String headerKey = "Content-Disposition";
         String headerValue = "attachment; filename=vérification_Paiement_Rachat" + currentDateTime + ".pdf";
         response.setHeader(headerKey, headerValue);
-        return operationPaiementRachatService.verifierPaiementRachat(idOpcvm,idSeance,denominationOpcvm,dateOuv,dateFerm,response);
+         operationPaiementRachatService.verifierPaiementRachat(idOpcvm,idSeance,denominationOpcvm,dateOuv,dateFerm,response);
     }
 
     @PostMapping()

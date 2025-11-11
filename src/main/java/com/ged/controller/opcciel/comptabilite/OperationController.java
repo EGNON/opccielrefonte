@@ -145,7 +145,7 @@ public class OperationController {
         return appService.afficherDetailsEcriture(idOperation);
     }
     @PostMapping("/jasperpdf/verificationecriture/{niveau}/{codeTypeOperation}")
-    public ResponseEntity<Object> ordreDeBourseApercu(@PathVariable String niveau,
+    public void ordreDeBourseApercu(@PathVariable String niveau,
                                                       @PathVariable String codeTypeOperation,
                                                       @RequestBody VerificationEcritureRequest verificationEcritureRequest,
                                                       HttpServletResponse response) throws JRException, IOException {
@@ -157,6 +157,6 @@ public class OperationController {
         String headerValue = "attachment; filename=verification_Niveau"+niveau+"_" + currentDateTime + ".pdf";
         response.setHeader(headerKey, headerValue);
 
-        return operationService.verificationeEcritureNiveauPrint(verificationEcritureRequest,response,niveau,codeTypeOperation);
+         operationService.verificationeEcritureNiveauPrint(verificationEcritureRequest,response,niveau,codeTypeOperation);
     }
 }

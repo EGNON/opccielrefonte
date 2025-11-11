@@ -44,7 +44,7 @@ public class OperationSouscriptionRachatController {
         return operationSouscriptionRachatService.avisOperation(idOperation);
     }
     @GetMapping("/jasperpdf/avisoperation/{idOperation}")
-    public ResponseEntity<Object> avisOperation(@PathVariable String idOperation,
+    public void avisOperation(@PathVariable String idOperation,
                                                 HttpServletResponse response)
     {
         response.setContentType("application/pdf");
@@ -55,7 +55,7 @@ public class OperationSouscriptionRachatController {
         String headerValue = "attachment; filename=avis_Rachat" + currentDateTime + ".pdf";
         response.setHeader(headerKey, headerValue);
 
-        return operationSouscriptionRachatService.avisOperation(idOperation,response);
+         operationSouscriptionRachatService.avisOperation(idOperation,response);
     }
     @GetMapping("/jasperpdf/avisoperation2/{idOperation}")
     public ResponseEntity<Object> avisOperation2(@PathVariable String idOperation) throws JRException, FileNotFoundException {
@@ -97,7 +97,7 @@ public class OperationSouscriptionRachatController {
     }
 
     @PostMapping("jasperpdf/export/avis/souscription")
-    public ResponseEntity<Object> avisSouscriptionPDF(
+    public void avisSouscriptionPDF(
             HttpServletResponse response,
             @RequestBody List<OperationSouscriptionRachatDto> operationSouscriptionRachatDtoList) {
         System.out.println(operationSouscriptionRachatDtoList.size());
@@ -109,7 +109,7 @@ public class OperationSouscriptionRachatController {
         String headerValue = "attachment; filename=avis_souscription_" + currentDateTime + ".pdf";
         response.setHeader(headerKey, headerValue);
 
-        return operationSouscriptionRachatService.avisSouscriptionExportJasperReport(
+         operationSouscriptionRachatService.avisSouscriptionExportJasperReport(
                 response,
                 operationSouscriptionRachatDtoList);
     }

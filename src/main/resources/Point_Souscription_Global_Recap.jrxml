@@ -1,0 +1,206 @@
+<!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 7.0.1-573496633c2b4074e32f433154b543003f7d2498  -->
+<jasperReport name="Point_Souscription_Global" language="java" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="07fb0f2f-7e6d-4e5b-996f-6f9f1f91b6df">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="db_opcciel_data_adapter"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<field name="montantDepose" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="montantDepose"/>
+		<property name="com.jaspersoft.studio.field.label" value="montantDepose"/>
+	</field>
+	<field name="nombrePartSousRachat" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="nombrePartSousRachat"/>
+		<property name="com.jaspersoft.studio.field.label" value="nombrePartSousRachat"/>
+	</field>
+	<field name="montantSousALiquider" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="montantSousALiquider"/>
+		<property name="com.jaspersoft.studio.field.label" value="montantSousALiquider"/>
+	</field>
+	<field name="commisiionSousRachat" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="commisiionSousRachat"/>
+		<property name="com.jaspersoft.studio.field.label" value="commisiionSousRachat"/>
+	</field>
+	<field name="retrocessionSousRachat" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="retrocessionSousRachat"/>
+		<property name="com.jaspersoft.studio.field.label" value="retrocessionSousRachat"/>
+	</field>
+	<field name="raisonSociale" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="raisonSociale"/>
+		<property name="com.jaspersoft.studio.field.label" value="raisonSociale"/>
+	</field>
+	<field name="idPersonne" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="idPersonne"/>
+		<property name="com.jaspersoft.studio.field.label" value="idPersonne"/>
+	</field>
+	<field name="libelleTypePersonne" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="libelleTypePersonne"/>
+		<property name="com.jaspersoft.studio.field.label" value="libelleTypePersonne"/>
+	</field>
+	<field name="denominationOpcvm" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="denominationOpcvm"/>
+		<property name="com.jaspersoft.studio.field.label" value="denominationOpcvm"/>
+	</field>
+	<field name="idOpcvm" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="idOpcvm"/>
+		<property name="com.jaspersoft.studio.field.label" value="idOpcvm"/>
+	</field>
+	<field name="dateDebut" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="dateDebut"/>
+		<property name="com.jaspersoft.studio.field.label" value="dateDebut"/>
+	</field>
+	<field name="dateFin" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="dateFin"/>
+		<property name="com.jaspersoft.studio.field.label" value="dateFin"/>
+	</field>
+	<variable name="montantDepose5" resetType="Group" calculation="Sum" resetGroup="Group3" class="java.math.BigDecimal">
+		<expression><![CDATA[$F{montantDepose}]]></expression>
+	</variable>
+	<variable name="nombrePartSousRachat5" resetType="Group" calculation="Sum" resetGroup="Group3" class="java.math.BigDecimal">
+		<expression><![CDATA[$F{nombrePartSousRachat}]]></expression>
+	</variable>
+	<variable name="montantSousALiquider5" resetType="Group" calculation="Sum" resetGroup="Group3" class="java.math.BigDecimal">
+		<expression><![CDATA[$F{montantSousALiquider}]]></expression>
+	</variable>
+	<variable name="commisiionSousRachat5" resetType="Group" calculation="Sum" resetGroup="Group3" class="java.math.BigDecimal">
+		<expression><![CDATA[$F{commisiionSousRachat}]]></expression>
+	</variable>
+	<variable name="retrocessionSousRachat5" resetType="Group" calculation="Sum" resetGroup="Group3" class="java.math.BigDecimal">
+		<expression><![CDATA[$F{retrocessionSousRachat}]]></expression>
+	</variable>
+	<group name="Group3">
+		<expression><![CDATA[$F{raisonSociale}]]></expression>
+		<groupHeader>
+			<band height="73">
+				<element kind="rectangle" uuid="adec4d0c-dc07-4beb-96ba-9c749e0ce282" x="-1" y="3" width="742" height="70" backcolor="#FFFFFF">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="rectangle" uuid="07b3fb97-eb25-4fde-ba2f-8333423138c7" x="-1" y="47" width="742" height="26" backcolor="#BDD7EE">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="line" uuid="eb53f883-240c-4ab3-beda-30c7261e24b3" x="160" y="47" width="1" height="26">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="line" uuid="ddd5add8-d721-4ccd-86c8-429d43115625" x="621" y="47" width="1" height="26">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="line" uuid="cc8ea21a-b4e6-4e79-9a46-760b0f9d53b4" x="282" y="47" width="1" height="26">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="line" uuid="2a373502-3308-4560-816a-2628f5005b40" x="511" y="47" width="1" height="26">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="line" uuid="68b5cdf8-3087-4d6d-8966-b6e5609fd0b4" x="392" y="47" width="1" height="26">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="staticText" uuid="05b49ad8-bd44-45cb-a93d-bee05b111508" x="65" y="17" width="580" height="23" bold="true" hTextAlign="Center">
+					<text><![CDATA[RECAPITULATIF]]></text>
+				</element>
+				<element kind="staticText" uuid="85544fb7-9b11-497b-964b-aba9fc9980cc" x="171" y="54" width="109" height="18" bold="true" hTextAlign="Center">
+					<text><![CDATA[Mont.Déposé]]></text>
+				</element>
+				<element kind="staticText" uuid="a2e2a5f0-4f33-4225-b59b-cc9207a71bd0" x="300" y="54" width="79" height="18" bold="true" hTextAlign="Center">
+					<text><![CDATA[Parts]]></text>
+				</element>
+				<element kind="staticText" uuid="9032773c-d6bb-4bb3-a01f-56d8018acc39" x="407" y="54" width="94" height="18" bold="true" hTextAlign="Center">
+					<text><![CDATA[Mont.Souscrit]]></text>
+				</element>
+				<element kind="staticText" uuid="ba2219d0-0299-4f3a-8d3e-1722fc8dd435" x="520" y="54" width="89" height="18" bold="true" hTextAlign="Center">
+					<text><![CDATA[Commission]]></text>
+				</element>
+				<element kind="staticText" uuid="00d86d27-0793-468d-9018-690bcddcabb1" x="644" y="54" width="78" height="18" bold="true" hTextAlign="Center">
+					<text><![CDATA[Retrocession]]></text>
+				</element>
+				<element kind="staticText" uuid="112da905-4dd4-46f0-a56d-7388bd4b0efc" x="20" y="54" width="119" height="18" bold="true" hTextAlign="Center">
+					<text><![CDATA[Type Personne]]></text>
+				</element>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="26">
+				<element kind="rectangle" uuid="df527c33-2ec5-4359-9094-78dca6af3e36" x="-1" y="0" width="742" height="26" backcolor="#BDD7EE">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="line" uuid="0600c6c0-56c8-4263-8365-cb0ec27986ef" x="160" y="0" width="1" height="26">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="line" uuid="8b9504e8-505d-4d72-a9b7-dae2512381f9" x="282" y="0" width="1" height="26">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="line" uuid="b7f680ed-fc2b-42dc-af42-f01030dffc61" x="392" y="0" width="1" height="26">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="line" uuid="a3568638-bdc4-40f0-b95e-15210ac6ba3c" x="511" y="0" width="1" height="26">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="line" uuid="700e5ffa-3397-48ba-bbc8-14bdaa680c6b" x="621" y="0" width="1" height="26">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="staticText" uuid="2ba2490b-fa52-48c8-957f-4b9c6c722479" x="20" y="7" width="119" height="18" bold="true" hTextAlign="Center">
+					<text><![CDATA[TOTAL GENERAL]]></text>
+				</element>
+				<element kind="textField" uuid="3c7e1710-397e-4552-84d6-d5fbb4022519" x="166" y="7" width="114" height="17" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###">
+					<expression><![CDATA[$V{montantDepose5}]]></expression>
+				</element>
+				<element kind="textField" uuid="af88436a-333b-4e60-af35-5fccc7c452ca" x="286" y="7" width="104" height="17" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###">
+					<expression><![CDATA[$V{nombrePartSousRachat5}]]></expression>
+				</element>
+				<element kind="textField" uuid="f57d7033-de2c-45a7-a4a8-72cd3b3764d2" x="396" y="7" width="114" height="17" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###">
+					<expression><![CDATA[$V{montantSousALiquider5}]]></expression>
+				</element>
+				<element kind="textField" uuid="63e8aa42-3bb8-496c-a113-de2ca259c758" x="516" y="7" width="103" height="17" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###">
+					<expression><![CDATA[$V{commisiionSousRachat5}]]></expression>
+				</element>
+				<element kind="textField" uuid="c3bd0a20-e894-4110-a2ba-68ceab75d68a" x="626" y="7" width="115" height="17" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###">
+					<expression><![CDATA[$V{retrocessionSousRachat5}]]></expression>
+				</element>
+				<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			</band>
+		</groupFooter>
+	</group>
+	<background splitType="Stretch"/>
+	<title height="1" splitType="Stretch"/>
+	<pageHeader splitType="Stretch"/>
+	<columnHeader splitType="Stretch"/>
+	<detail>
+		<band height="27" splitType="Stretch">
+			<element kind="rectangle" uuid="00acb21b-e44d-423c-ba1a-7e0232e9d3a2" x="-1" y="1" width="742" height="26" backcolor="#FFFFFF">
+				<pen lineColor="#3B88D1"/>
+			</element>
+			<element kind="line" uuid="3143600d-b7f3-4f8e-a4b6-f638b03fcb17" x="160" y="1" width="1" height="26">
+				<pen lineColor="#3B88D1"/>
+			</element>
+			<element kind="line" uuid="2db2db90-523b-46e4-820d-f39d435507b3" x="282" y="1" width="1" height="26">
+				<pen lineColor="#3B88D1"/>
+			</element>
+			<element kind="line" uuid="6493dd79-dc9f-4d32-98a1-f8b0f109783a" x="392" y="1" width="1" height="26">
+				<pen lineColor="#3B88D1"/>
+			</element>
+			<element kind="line" uuid="49fc7f6c-0a6b-4e35-a03d-888914bf3cb4" x="511" y="1" width="1" height="26">
+				<pen lineColor="#3B88D1"/>
+			</element>
+			<element kind="line" uuid="b2c9578a-5882-4b1e-a86f-f3eddf090906" x="621" y="1" width="1" height="26">
+				<pen lineColor="#3B88D1"/>
+			</element>
+			<element kind="textField" uuid="e41d2813-93d7-4f87-916f-4e5982e51ea3" x="166" y="8" width="114" height="18" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{montantDepose}]]></expression>
+			</element>
+			<element kind="textField" uuid="bfb6f509-5128-41c1-83e9-1e47c831d2b8" x="288" y="8" width="102" height="18" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{nombrePartSousRachat}]]></expression>
+			</element>
+			<element kind="textField" uuid="c1678919-ad33-40bb-8ed8-7aaafc6e973c" x="396" y="8" width="114" height="18" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{montantSousALiquider}]]></expression>
+			</element>
+			<element kind="textField" uuid="54e6406f-fb9b-4aff-9ccb-f07af330cabe" x="516" y="8" width="103" height="18" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{commisiionSousRachat}]]></expression>
+			</element>
+			<element kind="textField" uuid="11c8fd61-e7f7-4433-978e-113f6d955461" x="626" y="8" width="115" height="18" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{retrocessionSousRachat}]]></expression>
+			</element>
+			<element kind="textField" uuid="a62791a8-573b-427c-81f0-adde625550ed" x="0" y="6" width="160" height="18">
+				<expression><![CDATA[$F{libelleTypePersonne}]]></expression>
+			</element>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</band>
+	</detail>
+	<columnFooter splitType="Stretch"/>
+	<pageFooter height="17" splitType="Stretch"/>
+	<summary height="42" splitType="Stretch"/>
+</jasperReport>

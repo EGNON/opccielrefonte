@@ -10,6 +10,7 @@ public interface EtatFinancierAnnexesNotePlacementsMonetairesAnnuelProjection {
     BigDecimal getCoutAcquisition();
     BigDecimal getValeur();
     BigDecimal getActifNet();
+    BigDecimal getActifNetPourCent();
 	Long getIdOpcvm();
     LocalDateTime getDateEstimation();
 }

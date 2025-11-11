@@ -62,7 +62,7 @@ public class OperationExtourneVDEController {
         this.libraryDao = libraryDao;
     }
     @GetMapping("/jasperpdf/vde/{idSeance}/{idOpcvm}/{estVerifie}/{estVerifie1}/{estVerifie2}/{niveau}")
-    public ResponseEntity<Object> ordreDeBourseApercu(@PathVariable Long idSeance,
+    public void ordreDeBourseApercu(@PathVariable Long idSeance,
                                                       @PathVariable Long idOpcvm,
                                                       @PathVariable Boolean estVerifie,
                                                       @PathVariable Boolean estVerifie1,
@@ -77,7 +77,7 @@ public class OperationExtourneVDEController {
         String headerValue = "attachment; filename=verificationExtourneVDE_Niveau"+niveau+"_" + currentDateTime + ".pdf";
         response.setHeader(headerKey, headerValue);
 
-        return operationExtourneVDEService.jaspertReportVDE(idSeance,idOpcvm,estVerifie,estVerifie1,estVerifie2,niveau,response);
+         operationExtourneVDEService.jaspertReportVDE(idSeance,idOpcvm,estVerifie,estVerifie1,estVerifie2,niveau,response);
     }
     @GetMapping("/excel/vde/{idSeance}/{idOpcvm}/{estVerifie}/{estVerifie1}/{estVerifie2}/{niveau}")
     public ResponseEntity<byte[]> excelVDE(@PathVariable Long idSeance,
@@ -139,7 +139,7 @@ public class OperationExtourneVDEController {
         return new ResponseEntity<>(excelBytes, headers, HttpStatus.OK);
     }
     @PostMapping("/jasperpdf/vde/soldecompteextourne")
-    public ResponseEntity<Object> soldeCompteExtourne(@RequestBody SoldeToutCompteRequest soldeToutCompteRequest,
+    public void soldeCompteExtourne(@RequestBody SoldeToutCompteRequest soldeToutCompteRequest,
                                                       HttpServletResponse response) throws JRException, IOException {
         response.setContentType("application/pdf");
         DateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy:hh:mm:ss");
@@ -149,7 +149,7 @@ public class OperationExtourneVDEController {
         String headerValue = "attachment; filename=soldeCompteExtourne_Niveau_" + currentDateTime + ".pdf";
         response.setHeader(headerKey, headerValue);
 //        SeanceOpcvmDto seanceOpcvmDto=seanceOpcvmMapper.deSeanceOpcvm(seanceOpcvmDao.afficherSeanceEnCours(soldeToutCompteRequest.getIdOpcvm()));
-        return operationExtourneVDEService.soldeCompteExtourne(soldeToutCompteRequest.getIdOpcvm(),
+         operationExtourneVDEService.soldeCompteExtourne(soldeToutCompteRequest.getIdOpcvm(),
                 soldeToutCompteRequest.getNumCompteComptable(),soldeToutCompteRequest.getDateEstimation(),response);
     }
     @GetMapping("tous/{idOpcvm}")

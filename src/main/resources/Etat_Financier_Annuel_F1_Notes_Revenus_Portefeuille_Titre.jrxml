@@ -113,7 +113,7 @@
 			<pen lineColor="#3B88D1"/>
 		</element>
 		<element kind="staticText" uuid="34fc58c2-e99f-4ec4-9d49-f9f54a44740c" x="152" y="44" width="249" height="17" fontSize="10.0" bold="true" hTextAlign="Center">
-			<text><![CDATA[ETAT DE VARIATION DE L'ACTIF NET]]></text>
+			<text><![CDATA[NOTE SUR LES REVENUS DU PORTEFEUILLE TITRE]]></text>
 		</element>
 		<element kind="rectangle" uuid="75db935d-ed2a-4822-8519-886fd9078870" x="2" y="77" width="550" height="37" backcolor="#FFFFFF">
 			<pen lineColor="#3B88D1"/>

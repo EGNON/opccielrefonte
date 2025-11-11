@@ -44,7 +44,7 @@ public class CompteRenduController {
         return compteRenduService.afficherTous();
     }
     @GetMapping("/cr/{etat}")
-    public List<CompteRenduEtatDto> afficherRDVEtat(@PathVariable String etat, HttpServletResponse response) throws JRException, IOException, ParseException {
+    public void afficherRDVEtat(@PathVariable String etat, HttpServletResponse response) throws JRException, IOException, ParseException {
         response.setContentType("application/pdf");
         DateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy:hh:mm:ss");
         String currentDateTime = dateFormatter.format(new Date());
@@ -52,7 +52,7 @@ public class CompteRenduController {
         String headerKey = "Content-Disposition";
         String headerValue = "attachment; filename=compteRendu_" + currentDateTime + ".pdf";
         response.setHeader(headerKey, headerValue);
-        return compteRenduService.afficherEtat(etat,response);
+         compteRenduService.afficherEtat(etat,response);
     }
 
     @GetMapping("/etats/tous")

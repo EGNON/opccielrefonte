@@ -50,7 +50,7 @@ public class PersonneMoraleController {
         return personneMoraleService.afficherSelonQualiteLab(qualite);
     }
     @GetMapping("/qualite/etat/{qualite}")
-    public List<PersonneMoraleDto> afficherSelonQualiteEtat(@PathVariable String qualite, HttpServletResponse response) throws JRException, IOException {
+    public void afficherSelonQualiteEtat(@PathVariable String qualite, HttpServletResponse response) throws JRException, IOException {
         response.setContentType("application/pdf");
         DateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy:hh:mm:ss");
         String currentDateTime = dateFormatter.format(new Date());
@@ -58,7 +58,7 @@ public class PersonneMoraleController {
         String headerKey = "Content-Disposition";
         String headerValue = "attachment; filename="+qualite.toLowerCase()+"_morale" + currentDateTime + ".pdf";
         response.setHeader(headerKey, headerValue);
-        return personneMoraleService.afficherSelonQualiteEtat(qualite,response);
+         personneMoraleService.afficherSelonQualiteEtat(qualite,response);
     }
     @GetMapping("investi/{qualite}/{dateDebut}/{dateFin}")
     public List<PersonneMoraleDto> afficherPersonneMoraleNayantPasInvesti(@PathVariable("qualite") String qualite,
@@ -68,7 +68,7 @@ public class PersonneMoraleController {
         return personneMoraleService.afficherPersonneMoraleNayantPasInvesti(qualite,dateDebut,dateFin);
     }
     @GetMapping("investietat/{qualite}/{dateDebut}/{dateFin}")
-    public List<PersonneMoraleDto> afficherPersonneMoraleNayantPasInvestiEtat(@PathVariable("qualite") String qualite,
+    public void afficherPersonneMoraleNayantPasInvestiEtat(@PathVariable("qualite") String qualite,
                                                                           @PathVariable("dateDebut") LocalDateTime dateDebut,
                                                                           @PathVariable("dateFin") LocalDateTime dateFin,
                                                                           HttpServletResponse response) throws JRException, IOException {
@@ -79,7 +79,7 @@ public class PersonneMoraleController {
         String headerKey = "Content-Disposition";
         String headerValue = "attachment; filename=client_morale_Nayant_pas_investi" + currentDateTime + ".pdf";
         response.setHeader(headerKey, headerValue);
-        return personneMoraleService.afficherPersonneMoraleNayantPasInvestiEtat(qualite,dateDebut,dateFin,response);
+         personneMoraleService.afficherPersonneMoraleNayantPasInvestiEtat(qualite,dateDebut,dateFin,response);
     }
 
     @GetMapping("{id}")

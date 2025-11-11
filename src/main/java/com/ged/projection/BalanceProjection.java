@@ -24,5 +24,5 @@ public interface BalanceProjection {
     BigDecimal getMvtPeriodeD();
     BigDecimal getMvtPeriodeC();
     BigDecimal getDebit();
-    BigDecimal getDredit();
+    BigDecimal getCredit();
 }
