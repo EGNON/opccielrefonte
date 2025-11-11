@@ -2,6 +2,7 @@ package com.ged.service.opcciel.impl;
 
 import com.ged.advice.EntityNotFoundException;
 import com.ged.dao.LibraryDao;
+import com.ged.dao.lab.GelDegelDao;
 import com.ged.dao.opcciel.DepotRachatDao;
 import com.ged.dao.opcciel.OpcvmDao;
 import com.ged.dao.opcciel.OperationSouscriptionRachatDao;
@@ -20,6 +21,7 @@ import com.ged.dto.request.VerificationListeDepotRequest;
 import com.ged.dto.standard.PaysDto;
 import com.ged.dto.standard.PhForm;
 import com.ged.dto.standard.PmForm;
+import com.ged.entity.lab.GelDegel;
 import com.ged.entity.opcciel.DepotRachat;
 import com.ged.entity.opcciel.Opcvm;
 import com.ged.entity.opcciel.OperationSouscriptionRachat;
@@ -73,6 +75,7 @@ public class DepotRachatImpl implements DepotRachatService {
     private EntityManager em;
     private final DepotRachatDao depotRachatDao;
     private final OpcvmDao opcvmDao;
+    private final GelDegelDao gelDegelDao;
     private final NatureOperationDao natureOperationDao;
     private final DepotRachatMapper depotRachatMapper;
     private final PersonneDao personneDao;
@@ -101,7 +104,7 @@ public class DepotRachatImpl implements DepotRachatService {
 
     public DepotRachatImpl(
             DepotRachatDao DepotRachatDao,
-            OpcvmDao opcvmDao,
+            OpcvmDao opcvmDao, GelDegelDao gelDegelDao,
             NatureOperationDao natureOperationDao,
             DepotRachatMapper DepotRachatMapper,
             PersonneDao personneDao, PersonnePhysiqueDao personnePhysiqueDao, PersonneMoraleDao personneMoraleDao, PaysDao paysDao, ActionnaireOpcvmDao actionnaireOpcvmDao, ActionnaireCommissionDao actionnaireCommissionDao, ProfessionDao professionDao, ProfilCommissionSousRachDao profilCommissionSousRachDao, PaysMapper paysMapper,
@@ -109,6 +112,7 @@ public class DepotRachatImpl implements DepotRachatService {
             SeanceOpcvmService seanceOpcvmService, AppService appService, OperationSouscriptionRachatMapper souscriptionRachatMapper, OperationSouscriptionRachatDao souscriptionRachatDao, OperationDao operationDao, OperationMapper operationMapper) {
         this.depotRachatDao = DepotRachatDao;
         this.opcvmDao = opcvmDao;
+        this.gelDegelDao = gelDegelDao;
         this.natureOperationDao = natureOperationDao;
 
         this.depotRachatMapper = DepotRachatMapper;
@@ -225,6 +229,21 @@ public class DepotRachatImpl implements DepotRachatService {
                                 HttpStatus.OK,
                                 message
                         );
+                    }
+
+                    {
+                        GelDegel gelDegel=gelDegelDao.verifierPersonneGele(obj.get(0).getIdPersonne());
+                        if(gelDegel!=null){
+                            message=
+                                    "ATTENTION: COMPTE N°" + phForms.get(i).getNumeroCpteDeposit() + " \n les avoirs de ce compte sont gelés";
+
+                            i=phForms.size();
+                            return ResponseHandler.generateResponse(
+                                    "IMPORT DEPOT POUR SOUSCRIPTIONS",
+                                    HttpStatus.OK,
+                                    message
+                            );
+                        }
                     }
                 }
             }
@@ -509,6 +528,20 @@ public class DepotRachatImpl implements DepotRachatService {
                                 HttpStatus.OK,
                                 message
                         );
+                    }
+                    {
+                        GelDegel gelDegel=gelDegelDao.verifierPersonneGele(obj.get(0).getIdPersonne());
+                        if(gelDegel!=null){
+                            message=
+                                    "ATTENTION: COMPTE N°" + pmForms.get(i).getNumeroCpteDeposit() + " \n les avoirs de ce compte sont gelés";
+
+                            i=pmForms.size();
+                            return ResponseHandler.generateResponse(
+                                    "IMPORT DEPOT POUR SOUSCRIPTIONS",
+                                    HttpStatus.OK,
+                                    message
+                            );
+                        }
                     }
                 }
             }

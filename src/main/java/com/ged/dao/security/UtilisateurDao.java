@@ -8,6 +8,7 @@ import org.springframework.lang.NonNullApi;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Transactional(propagation = Propagation.REQUIRES_NEW)
@@ -22,4 +23,7 @@ public interface UtilisateurDao extends JpaRepository<Utilisateur,Long> {
     @Query(value = "SELECT u FROM Utilisateur u WHERE u.username = :username AND u.estActif = :estActif")
     Optional<Utilisateur> findByUsernameAndEstActif(String username, boolean estActif);
     Boolean existsByUsername(String username);
+
+    @Query(value = "SELECT u FROM Utilisateur u order by u.denomination asc")
+    List<Utilisateur> afficherTous();
 }

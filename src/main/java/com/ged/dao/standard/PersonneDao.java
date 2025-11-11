@@ -95,7 +95,8 @@ public interface PersonneDao extends JpaRepository<Personne, Long> {
             "inner join Qualite q on q.idQualite=st.qualite.idQualite "+
             "where q.libelleQualite='ACTIONNAIRES' and p.idPersonne  in(" +
             " select a.personne.idPersonne from ActionnaireOpcvm a" +
-            " where a.opcvm.idOpcvm=:idOpcvm ) and p.statutCompte='OUVERT' "+
+            " where a.opcvm.idOpcvm=:idOpcvm ) and p.statutCompte='OUVERT' " +
+            "and p.idPersonne not in(select g.personne.idPersonne from GelDegel g where g.estGele=true)"+
             "order by COALESCE(pm.raisonSociale, CONCAT(pp.nom, ' ', pp.prenom)) asc")
     List<PersonneProjection> afficherPersonneInOpcvmEtStatutCompte(Long idOpcvm);
 

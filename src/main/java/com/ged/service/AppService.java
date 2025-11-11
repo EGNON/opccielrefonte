@@ -3683,7 +3683,40 @@ public class AppService {
                     e);
         }
     }
-
+    //portefeuille actionnaire
+    public ResponseEntity<?> portefeuilleActionnaire(PortefeuilleActionnaireRequest request) {
+        var parameters = request.getDatatableParameters();
+        try {
+            Pageable pageable = PageRequest.of(parameters.getStart()/ parameters.getLength(), parameters.getLength());
+            Page<PortefeuilleActionnaireProjection> portefeuilleActionnaireProjections;
+            if(parameters.getSearch() != null && !parameters.getSearch().getValue().isEmpty()) {
+                portefeuilleActionnaireProjections = new PageImpl<>(new ArrayList<>());
+            }
+            else {
+                portefeuilleActionnaireProjections = libraryDao.portefeuilleActionnaire(
+                        null,request.getIdActionnaire(),request.getDateDebutEstimation()
+                        ,request.getDateEstimation(),
+                        pageable
+                );
+            }
+            List<PortefeuilleActionnaireProjection> content = portefeuilleActionnaireProjections.getContent().stream().toList();
+            DataTablesResponse<PortefeuilleActionnaireProjection> dataTablesResponse = new DataTablesResponse<>();
+            dataTablesResponse.setDraw(parameters.getDraw());
+            dataTablesResponse.setRecordsFiltered((int)portefeuilleActionnaireProjections.getTotalElements());
+            dataTablesResponse.setRecordsTotal((int)portefeuilleActionnaireProjections.getTotalElements());
+            dataTablesResponse.setData(content);
+            return ResponseHandler.generateResponse(
+                    "Portefeuille opcvm",
+                    HttpStatus.OK,
+                    dataTablesResponse);
+        }
+        catch(Exception e) {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e);
+        }
+    }
     //point repartition portefeuille
     public ResponseEntity<?> pointRepartitionPortefeuille(ReleveTitreFCPRequest request) {
         var parameters = request.getDatatableParameters();
@@ -3885,8 +3918,6 @@ public class AppService {
                     e);
         }
     }
-
-
 
     //evoulutionVL
     public Long mois1(String mois){
