@@ -797,6 +797,116 @@ public class LibraryController {
         return service.afficherEtatFinancierTrimestrielEtatMensuelSouscriptions(request,response);
     }
 
+    //declarationcommissionactif
+    @PostMapping("/opcvm/etats/declarationcommissionactif")
+    public ResponseEntity<Object> declarationcommissionactif(@RequestBody @Valid DeclarationCommissionActifRequest request, HttpServletResponse response) throws JRException, IOException {
+        response.setContentType("application/pdf");
+        DateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy:hh:mm:ss");
+        String currentDateTime = dateFormatter.format(new Date());
+
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=Declaration-Commission sur Actif" + currentDateTime + ".pdf";
+        response.setHeader(headerKey, headerValue);
+
+        return service.afficherDeclarationCommissionActif(request,response);
+    }
+    @PostMapping("/opcvm/declarationcommissionactif")
+    public ResponseEntity<?> declarationcommissionactif(@RequestBody @Valid DeclarationCommissionActifRequest request) {
+        return service.afficherDeclarationCommissionActif(request);
+    }
+    @PostMapping("/opcvm/declarationcommissionactif/liste")
+    public ResponseEntity<?> declarationcommissionactifListe(@RequestBody @Valid PointRachatDetailleRequest request) {
+        return service.afficherPointRachatDetaille(request);
+    }
+
+    //pointinvestissement
+    @PostMapping("/opcvm/etats/pointinvestissement")
+    public ResponseEntity<Object> pointinvestissement(@RequestBody @Valid PointInvestissementRequest request, HttpServletResponse response) throws JRException, IOException {
+        response.setContentType("application/pdf");
+        DateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy:hh:mm:ss");
+        String currentDateTime = dateFormatter.format(new Date());
+
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=Point des investissements / désinvestissements sur une période" + currentDateTime + ".pdf";
+        response.setHeader(headerKey, headerValue);
+
+        return service.afficherPointInvestissement(request,response);
+    }
+    @PostMapping("/opcvm/pointinvestissement")
+    public ResponseEntity<?> pointinvestissement(@RequestBody @Valid PointInvestissementRequest request) {
+        return service.afficherPointInvestissement(request);
+    }
+    @PostMapping("/opcvm/pointinvestissement/liste")
+    public ResponseEntity<?> pointinvestissementListe(@RequestBody @Valid PointInvestissementRequest request) {
+        return service.afficherPointInvestissement(request);
+    }
+
+    //previsionnelremboursements
+    @PostMapping("/opcvm/etats/previsionnelremboursements")
+    public ResponseEntity<Object> previsionnelremboursements(@RequestBody @Valid PointInvestissementRequest request, HttpServletResponse response) throws JRException, IOException {
+        response.setContentType("application/pdf");
+        DateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy:hh:mm:ss");
+        String currentDateTime = dateFormatter.format(new Date());
+
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=Previsionnel des Remboursements" + currentDateTime + ".pdf";
+        response.setHeader(headerKey, headerValue);
+
+        return service.afficherPrevisionnelRemboursements(request,response);
+    }
+    @PostMapping("/opcvm/previsionnelremboursements")
+    public ResponseEntity<?> previsionnelremboursements(@RequestBody @Valid PointInvestissementRequest request) {
+        return service.afficherPrevisionnelRemboursements(request);
+    }
+    @PostMapping("/opcvm/previsionnelremboursements/liste")
+    public ResponseEntity<?> previsionnelremboursementListe(@RequestBody @Valid PointInvestissementRequest request) {
+        return service.afficherPrevisionnelRemboursements(request);
+    }
+
+    //suiviecheancetitre
+    @PostMapping("/opcvm/etats/suiviecheancetitre")
+    public ResponseEntity<Object> suiviecheancetitre(@RequestBody @Valid PointInvestissementRequest request, HttpServletResponse response) throws JRException, IOException {
+        response.setContentType("application/pdf");
+        DateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy:hh:mm:ss");
+        String currentDateTime = dateFormatter.format(new Date());
+
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=Suivi echeance des Titres" + currentDateTime + ".pdf";
+        response.setHeader(headerKey, headerValue);
+
+        return service.afficherSuiviEcheanceTitre(request,response);
+    }
+    @PostMapping("/opcvm/suiviecheancetitre")
+    public ResponseEntity<?> suiviecheancetitre(@RequestBody @Valid PointInvestissementRequest request) {
+        return service.afficherSuiviEcheanceTitre(request);
+    }
+    @PostMapping("/opcvm/suiviecheancetitre/liste")
+    public ResponseEntity<?> suiviecheancetitreListe(@RequestBody @Valid PointInvestissementRequest request) {
+        return service.afficherSuiviEcheanceTitre(request);
+    }
+
+    //avistransfertpart
+    @PostMapping("/opcvm/etats/avistransfertpart")
+    public ResponseEntity<Object> avistransfertpart(@RequestBody @Valid AvisTransfertPartRequest request, HttpServletResponse response) throws JRException, IOException {
+        response.setContentType("application/pdf");
+        DateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy:hh:mm:ss");
+        String currentDateTime = dateFormatter.format(new Date());
+
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=Avis de transfert de parts" + currentDateTime + ".pdf";
+        response.setHeader(headerKey, headerValue);
+
+        return service.afficherAvisTransfertPart(request,response);
+    }
+    @PostMapping("/opcvm/avistransfertpart")
+    public ResponseEntity<?> avistransfertpart(@RequestBody @Valid AvisTransfertPartRequest request) {
+        return service.afficherAvisTransfertPart(request);
+    }
+    @PostMapping("/opcvm/avistransfertpart/liste")
+    public ResponseEntity<?> avistransfertpartListe(@RequestBody @Valid AvisTransfertPartRequest request) {
+        return service.afficherAvisTransfertPart(request);
+    }
+
     @PostMapping("/etats/pointtresorerie")
     public void pointTresorerie(@RequestBody @Valid BeginEndDateParameter request, HttpServletResponse response) throws JRException, IOException {
         response.setContentType("application/pdf");

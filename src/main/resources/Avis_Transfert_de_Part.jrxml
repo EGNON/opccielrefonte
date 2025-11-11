@@ -1,0 +1,293 @@
+<!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 7.0.1-573496633c2b4074e32f433154b543003f7d2498  -->
+<jasperReport name="Avis_Transfert_de_Part" language="java" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="69ede11e-99f1-4402-913f-a6c013e7832c">
+	<parameter name="letterDate" class="java.lang.String"/>
+	<field name="idOperationDepart" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="idOperationDepart"/>
+		<property name="com.jaspersoft.studio.field.label" value="idOperationDepart"/>
+	</field>
+	<field name="idOperationArrivée" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="idOperationArrivée"/>
+		<property name="com.jaspersoft.studio.field.label" value="idOperationArrivée"/>
+	</field>
+	<field name="idDemandeur" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="idDemandeur"/>
+		<property name="com.jaspersoft.studio.field.label" value="idDemandeur"/>
+	</field>
+	<field name="idBeneficiaire" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="idBeneficiaire"/>
+		<property name="com.jaspersoft.studio.field.label" value="idBeneficiaire"/>
+	</field>
+	<field name="demandeur" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="demandeur"/>
+		<property name="com.jaspersoft.studio.field.label" value="demandeur"/>
+	</field>
+	<field name="beneficiaire" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="beneficiaire"/>
+		<property name="com.jaspersoft.studio.field.label" value="beneficiaire"/>
+	</field>
+	<field name="numCompteDepositaireDemandeur" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="numCompteDepositaireDemandeur"/>
+		<property name="com.jaspersoft.studio.field.label" value="numCompteDepositaireDemandeur"/>
+	</field>
+	<field name="numCompteDepositaireBeneficiaire" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="numCompteDepositaireBeneficiaire"/>
+		<property name="com.jaspersoft.studio.field.label" value="numCompteDepositaireBeneficiaire"/>
+	</field>
+	<field name="dateOperation" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="dateOperation"/>
+		<property name="com.jaspersoft.studio.field.label" value="dateOperation"/>
+	</field>
+	<field name="typeFCP" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="typeFCP"/>
+		<property name="com.jaspersoft.studio.field.label" value="typeFCP"/>
+	</field>
+	<field name="qteTransfert" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="qteTransfert"/>
+		<property name="com.jaspersoft.studio.field.label" value="qteTransfert"/>
+	</field>
+	<field name="idOperation" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="idOperation"/>
+		<property name="com.jaspersoft.studio.field.label" value="idOperation"/>
+	</field>
+	<field name="idOpcvm" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="idOpcvm"/>
+		<property name="com.jaspersoft.studio.field.label" value="idOpcvm"/>
+	</field>
+	<field name="dateDeb" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="dateDeb"/>
+		<property name="com.jaspersoft.studio.field.label" value="dateDeb"/>
+	</field>
+	<field name="dateFin" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="dateFin"/>
+		<property name="com.jaspersoft.studio.field.label" value="dateFin"/>
+	</field>
+	<group name="Group1">
+		<expression><![CDATA[$F{idOperationDepart}]]></expression>
+		<groupHeader>
+			<band height="54">
+				<element kind="rectangle" uuid="21a5446b-fffb-4ab3-96d5-6e14e7b4c04a" x="3" y="7" width="797" height="25" backcolor="#BDD7EE">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="staticText" uuid="52564ade-9fe0-441b-94b6-18543829a60e" x="153" y="14" width="496" height="17" fontSize="10.0" bold="true" hTextAlign="Center">
+					<text><![CDATA[AVIS DE TRANSFERT DE PARTS]]></text>
+				</element>
+				<element kind="staticText" uuid="8970e219-a4d5-4f63-924c-1425e6b92808" x="3" y="39" width="537" height="15">
+					<text><![CDATA[Nous avons exécuté pour les comptes titres suivants ce qui suit :]]></text>
+				</element>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band/>
+		</groupFooter>
+	</group>
+	<background splitType="Stretch"/>
+	<title height="19" splitType="Stretch">
+		<element kind="textField" uuid="f199b24c-e3bd-460d-9088-47d27df864d7" x="3" y="3" width="217" height="16">
+			<expression><![CDATA["Cotonou, le "+$P{letterDate}]]></expression>
+		</element>
+	</title>
+	<pageHeader splitType="Stretch"/>
+	<columnHeader splitType="Stretch"/>
+	<detail>
+		<band height="286" splitType="Stretch">
+			<element kind="rectangle" uuid="e9343e3d-fbf3-446c-a618-5cd077218986" x="3" y="10" width="340" height="25" backcolor="#BDD7EE">
+				<pen lineColor="#3B88D1"/>
+			</element>
+			<element kind="staticText" uuid="2c07eadb-4bf4-483e-a956-8bc4d17d48a9" x="22" y="15" width="300" height="17" fontSize="10.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+				<text><![CDATA[TRANSFERT DEPART]]></text>
+			</element>
+			<element kind="rectangle" uuid="1130691b-3af0-4ad4-9bfc-0b9b692c31d0" x="3" y="36" width="340" height="25" backcolor="#BDD7EE">
+				<pen lineColor="#3B88D1"/>
+			</element>
+			<element kind="staticText" uuid="04e54ed1-c87e-4afa-988f-5c06613dafcb" x="11" y="41" width="180" height="17" fontSize="10.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+				<text><![CDATA[DONNEUR D'ORDRE]]></text>
+			</element>
+			<element kind="line" uuid="4ccf4fb8-2b46-41eb-9af2-fd8d75237922" stretchType="ContainerHeight" x="200" y="36" width="1" height="25">
+				<pen lineColor="#3B88D1"/>
+			</element>
+			<element kind="staticText" uuid="9597b512-5ff8-4efb-911d-da1680f29b85" x="209" y="41" width="124" height="17" fontSize="10.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+				<text><![CDATA[N° COMPTE]]></text>
+			</element>
+			<element kind="rectangle" uuid="82f2ae8b-6837-465f-aaa1-674ca3e037f1" x="3" y="62" width="340" height="25" backcolor="#FFFFFF">
+				<pen lineColor="#3B88D1"/>
+			</element>
+			<element kind="line" uuid="3fdb07bd-abee-41fe-b0b6-ee8088029c1e" stretchType="ContainerHeight" x="200" y="62" width="1" height="25">
+				<pen lineColor="#3B88D1"/>
+			</element>
+			<element kind="rectangle" uuid="cef95216-1ca6-4d18-a24d-3ea59ca6c0ec" x="459" y="10" width="340" height="25" backcolor="#BDD7EE">
+				<pen lineColor="#3B88D1"/>
+			</element>
+			<element kind="staticText" uuid="35d8daff-47d1-4786-840e-9be234a30535" x="478" y="15" width="300" height="17" fontSize="10.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+				<text><![CDATA[TRANSFERT DEPART]]></text>
+			</element>
+			<element kind="rectangle" uuid="e031fab9-e914-4880-8118-4ee65a35b443" x="459" y="36" width="340" height="25" backcolor="#BDD7EE">
+				<pen lineColor="#3B88D1"/>
+			</element>
+			<element kind="staticText" uuid="df901460-aa17-42d3-9a2d-efee1b9694e5" x="467" y="41" width="180" height="17" fontSize="10.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+				<text><![CDATA[BENEFICIAIRE]]></text>
+			</element>
+			<element kind="line" uuid="8485ac8d-f478-4c99-9619-e1422d16dcb8" stretchType="ContainerHeight" x="656" y="36" width="1" height="25">
+				<pen lineColor="#3B88D1"/>
+			</element>
+			<element kind="staticText" uuid="e1b74498-79e8-46ba-8214-3c49952bf046" x="665" y="41" width="124" height="17" fontSize="10.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+				<text><![CDATA[N° COMPTE]]></text>
+			</element>
+			<element kind="rectangle" uuid="3aa43c66-2904-4e6b-b74e-265aa1b4a1e2" x="459" y="62" width="340" height="25" backcolor="#FFFFFF">
+				<pen lineColor="#3B88D1"/>
+			</element>
+			<element kind="line" uuid="e4337fe9-d7e3-4c68-824e-b867f58111b3" stretchType="ContainerHeight" x="656" y="62" width="1" height="25">
+				<pen lineColor="#3B88D1"/>
+			</element>
+			<element kind="rectangle" uuid="d23e25f2-ba86-4f9d-815d-333aaa81e983" x="2" y="107" width="797" height="25" backcolor="#BDD7EE">
+				<pen lineColor="#3B88D1"/>
+			</element>
+			<element kind="line" uuid="1bdc8460-61d7-4435-a4bb-75f8339bbcf7" x="129" y="107" width="1" height="25">
+				<pen lineColor="#3B88D1"/>
+			</element>
+			<element kind="line" uuid="2f59f0d5-d10c-4481-8331-956caa0804ba" x="267" y="107" width="1" height="25">
+				<pen lineColor="#3B88D1"/>
+			</element>
+			<element kind="line" uuid="6b6c13c5-084d-446e-8963-63188d8a3f97" x="3" y="202" width="795" height="1">
+				<pen lineColor="#3B88D1"/>
+			</element>
+			<element kind="line" uuid="9bdf62eb-6484-4b3c-b848-213c5ef14bbe" x="473" y="107" width="1" height="25">
+				<pen lineColor="#3B88D1"/>
+			</element>
+			<element kind="line" uuid="29a7617b-97ac-4bee-821a-72b6d806a4f3" x="699" y="107" width="1" height="25">
+				<pen lineColor="#3B88D1"/>
+			</element>
+			<element kind="staticText" uuid="80904484-5ab6-4c25-ad00-28220289bb8b" x="11" y="112" width="109" height="15" hTextAlign="Center">
+				<text><![CDATA[TYPE DE TRANSFERT]]></text>
+			</element>
+			<element kind="staticText" uuid="87b219f8-82b5-4a6d-8905-6eafbae67ac4" x="140" y="112" width="118" height="15" hTextAlign="Center">
+				<text><![CDATA[N° OPERATION]]></text>
+			</element>
+			<element kind="staticText" uuid="bc1af3c5-4766-4956-9716-e88d42af658a" x="274" y="112" width="90" height="15" hTextAlign="Center">
+				<text><![CDATA[DATE OPERATION]]></text>
+			</element>
+			<element kind="staticText" uuid="1994cfec-a7e8-4449-88c3-d8d8246c6802" x="377" y="112" width="90" height="15" hTextAlign="Center">
+				<text><![CDATA[DATE  VALEUR]]></text>
+			</element>
+			<element kind="staticText" uuid="4552f968-6aac-4511-a1e4-dd47b1da1c35" x="480" y="112" width="212" height="15" hTextAlign="Center">
+				<text><![CDATA[TYPE FCP]]></text>
+			</element>
+			<element kind="staticText" uuid="cc4e0ac1-d018-4da5-aa89-5b8c37e0877f" x="703" y="112" width="92" height="15" hTextAlign="Center">
+				<text><![CDATA[QUANTITE]]></text>
+			</element>
+			<element kind="rectangle" uuid="c8240b89-34a5-4a16-91d5-0e7c582d1231" x="2" y="133" width="797" height="25" backcolor="#FFFFFF">
+				<pen lineColor="#3B88D1"/>
+			</element>
+			<element kind="line" uuid="7035c85f-e560-4edb-bcc8-31975530eb63" x="129" y="133" width="1" height="25">
+				<pen lineColor="#3B88D1"/>
+			</element>
+			<element kind="line" uuid="1370a72f-fe28-4a08-889f-139b93d09c49" x="267" y="133" width="1" height="25">
+				<pen lineColor="#3B88D1"/>
+			</element>
+			<element kind="line" uuid="73e6b72b-7858-4e46-a8e7-cf824303db71" x="371" y="133" width="1" height="25">
+				<pen lineColor="#3B88D1"/>
+			</element>
+			<element kind="line" uuid="a78654d0-7445-482b-ad2a-c3370e4ca968" x="473" y="133" width="1" height="25">
+				<pen lineColor="#3B88D1"/>
+			</element>
+			<element kind="line" uuid="3092b7d5-9459-44f8-a69c-141832cf5a75" x="699" y="133" width="1" height="25">
+				<pen lineColor="#3B88D1"/>
+			</element>
+			<element kind="rectangle" uuid="e31a61f8-10eb-4b6a-b011-44bb6807d2a7" x="2" y="159" width="797" height="25" backcolor="#FFFFFF">
+				<pen lineColor="#3B88D1"/>
+			</element>
+			<element kind="line" uuid="c0e54227-ab0c-4d7f-9952-3b21cb95672a" x="129" y="159" width="1" height="25">
+				<pen lineColor="#3B88D1"/>
+			</element>
+			<element kind="line" uuid="0b6668db-808b-4bfa-ae94-99a908fe72ca" x="267" y="159" width="1" height="25">
+				<pen lineColor="#3B88D1"/>
+			</element>
+			<element kind="line" uuid="48d476c2-9af3-45be-b28e-8f438a8402e3" x="371" y="159" width="1" height="25">
+				<pen lineColor="#3B88D1"/>
+			</element>
+			<element kind="line" uuid="15b028fe-aacf-4858-8025-8f407fa9a926" x="473" y="159" width="1" height="25">
+				<pen lineColor="#3B88D1"/>
+			</element>
+			<element kind="line" uuid="ef689a92-f851-483a-983a-a6b0885a63bf" x="699" y="159" width="1" height="25">
+				<pen lineColor="#3B88D1"/>
+			</element>
+			<element kind="textField" uuid="1c06e5c2-64af-4125-a2d3-d54b57335926" x="11" y="67" width="180" height="14">
+				<expression><![CDATA[$F{demandeur}]]></expression>
+			</element>
+			<element kind="textField" uuid="7fa092a8-e555-4943-8056-d50a9a20456d" x="205" y="67" width="132" height="14">
+				<expression><![CDATA[$F{numCompteDepositaireDemandeur}]]></expression>
+			</element>
+			<element kind="textField" uuid="cabbe153-b420-4349-866c-256d6dd3d65c" x="467" y="67" width="180" height="14">
+				<expression><![CDATA[$F{beneficiaire}]]></expression>
+			</element>
+			<element kind="textField" uuid="acba4287-8172-4b96-b36b-67c2397d9361" x="660" y="67" width="134" height="14">
+				<expression><![CDATA[$F{numCompteDepositaireBeneficiaire}]]></expression>
+			</element>
+			<element kind="staticText" uuid="1a53e1ef-f812-4e14-87f8-ab3506c62187" x="11" y="138" width="109" height="15" hTextAlign="Center">
+				<text><![CDATA[DEPART]]></text>
+			</element>
+			<element kind="staticText" uuid="d6bf0acc-d318-4878-9d58-c60f09f87b80" x="11" y="164" width="109" height="15" hTextAlign="Center">
+				<text><![CDATA[ARRIVE]]></text>
+			</element>
+			<element kind="textField" uuid="26804279-2397-408d-b564-ac8ee37f7aea" x="132" y="138" width="133" height="15">
+				<expression><![CDATA[$F{idOperationDepart}]]></expression>
+			</element>
+			<element kind="textField" uuid="69e6b212-284a-4189-a32f-e70fbe696ca9" x="132" y="164" width="133" height="15">
+				<expression><![CDATA[$F{idOperationArrivée}]]></expression>
+			</element>
+			<element kind="textField" uuid="d9cff8f3-2cad-4dfc-85dc-9958fb694434" x="270" y="138" width="99" height="15" pattern="EE dd/MM/yyyy" blankWhenNull="true">
+				<expression><![CDATA[$F{dateOperation}]]></expression>
+			</element>
+			<element kind="textField" uuid="8f88b07b-e69e-4e2c-95fa-e1c9d1b777a9" x="270" y="164" width="99" height="15" pattern="EE dd/MM/yyyy" blankWhenNull="true">
+				<expression><![CDATA[$F{dateOperation}]]></expression>
+			</element>
+			<element kind="textField" uuid="38c31935-b509-424c-ab23-a3653be99507" x="375" y="138" width="96" height="15" pattern="EE dd/MM/yyyy" blankWhenNull="true">
+				<expression><![CDATA[$F{dateOperation}]]></expression>
+			</element>
+			<element kind="textField" uuid="b3286f03-4e60-4d4f-9334-611d1bdcb567" x="375" y="164" width="96" height="15" pattern="EE dd/MM/yyyy" blankWhenNull="true">
+				<expression><![CDATA[$F{dateOperation}]]></expression>
+			</element>
+			<element kind="textField" uuid="1184c7e3-97b6-4d44-9e27-5545d8a01016" x="476" y="138" width="221" height="15">
+				<expression><![CDATA[$F{typeFCP}]]></expression>
+			</element>
+			<element kind="textField" uuid="20d9d6b9-ff2f-4029-8d27-d0744a57cf96" x="476" y="164" width="221" height="15">
+				<expression><![CDATA[$F{typeFCP}]]></expression>
+			</element>
+			<element kind="textField" uuid="e50c9497-c7a5-46d2-9779-db36b70e81ea" x="703" y="138" width="92" height="15" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA["-"+$F{qteTransfert}]]></expression>
+			</element>
+			<element kind="textField" uuid="c9d1243c-c461-4944-91f2-67ce2a75ce49" x="703" y="164" width="92" height="15" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA["+"+$F{qteTransfert}]]></expression>
+			</element>
+			<element kind="line" uuid="4525fdc6-0d55-4213-9eb7-44a60b4baedb" x="371" y="107" width="1" height="25">
+				<pen lineColor="#3B88D1"/>
+			</element>
+			<element kind="rectangle" uuid="364c7114-bb3b-41fe-8be2-2513a404e92c" x="2" y="213" width="797" height="47" backcolor="#FFFFFF">
+				<pen lineColor="#3B88D1"/>
+			</element>
+			<element kind="staticText" uuid="086f3bde-04d5-4288-9f8d-d6bc9dc71e6d" x="22" y="229" width="755" height="15" italic="true" hTextAlign="Center">
+				<text><![CDATA[Nous vous remercions pour votre confiance]]></text>
+			</element>
+			<element kind="staticText" uuid="5e5dae35-ab08-4555-b882-f1664e50e265" x="3" y="271" width="755" height="15" italic="false" hTextAlign="Left">
+				<text><![CDATA[Cet avis édité par ordinateur ne porte pas de signature]]></text>
+			</element>
+		</band>
+	</detail>
+	<columnFooter splitType="Stretch"/>
+	<pageFooter height="111" splitType="Stretch">
+		<element kind="staticText" uuid="6dccec0d-f408-4223-9852-848d0e6f9786" x="5" y="89" width="126" height="13">
+			<text><![CDATA[Edité avec OPCCIEL 2.0]]></text>
+		</element>
+		<element kind="textField" uuid="dad11cb5-1137-41d4-8146-6c492af2dd6d" x="695" y="89" width="100" height="22" hTextAlign="Right">
+			<expression><![CDATA[$V{PAGE_NUMBER}]]></expression>
+		</element>
+		<element kind="rectangle" uuid="4fa18680-eb30-4c3c-a720-ac96422dd3a8" x="2" y="17" width="797" height="53" backcolor="#BDD7EE">
+			<pen lineColor="#3B88D1"/>
+		</element>
+		<element kind="staticText" uuid="f4f45ba6-a656-4497-a127-d72de3c4b8bf" x="22" y="24" width="755" height="38" italic="true" hTextAlign="Center">
+			<text><![CDATA[Capital: 100 000 000 F CFA Agrément N°SG/2017-02 CREPMF RC N° RCCM/RB/COT/15 B 14715 IFU N°: 3201502603811
+Rue du Gouverneur Gal Félix EBOUE R. 5.160 CARRE 211 ST MICHEL IMMEUBLE SGI BENIN 01 BP 4546 COTONOU BENIN                                                                       
+Tél : (229) 21 31 15 41/ 66 18 01 74        www.saphiram.com       contact@saphiram.com ]]></text>
+		</element>
+	</pageFooter>
+	<summary height="42" splitType="Stretch"/>
+</jasperReport>
