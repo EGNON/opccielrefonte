@@ -1,0 +1,415 @@
+<!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 7.0.1-573496633c2b4074e32f433154b543003f7d2498  -->
+<jasperReport name="Previsionnel_des_Remboursements" language="java" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="2c030e77-8944-49bf-a533-d4d69c2d4f61">
+	<parameter name="letterDate" class="java.lang.String"/>
+	<parameter name="denominationOpcvm" class="java.lang.String"/>
+	<field name="idTitre" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="idTitre"/>
+		<property name="com.jaspersoft.studio.field.label" value="idTitre"/>
+	</field>
+	<field name="symbolTitre" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="symbolTitre"/>
+		<property name="com.jaspersoft.studio.field.label" value="symbolTitre"/>
+	</field>
+	<field name="designationTitre" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="designationTitre"/>
+		<property name="com.jaspersoft.studio.field.label" value="designationTitre"/>
+	</field>
+	<field name="classeTitre" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="classeTitre"/>
+		<property name="com.jaspersoft.studio.field.label" value="classeTitre"/>
+	</field>
+	<field name="dateEcheance" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="dateEcheance"/>
+		<property name="com.jaspersoft.studio.field.label" value="dateEcheance"/>
+	</field>
+	<field name="moisAnnee" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="moisAnnee"/>
+		<property name="com.jaspersoft.studio.field.label" value="moisAnnee"/>
+	</field>
+	<field name="numEcheance" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="numEcheance"/>
+		<property name="com.jaspersoft.studio.field.label" value="numEcheance"/>
+	</field>
+	<field name="quantite" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="quantite"/>
+		<property name="com.jaspersoft.studio.field.label" value="quantite"/>
+	</field>
+	<field name="interet" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="interet"/>
+		<property name="com.jaspersoft.studio.field.label" value="interet"/>
+	</field>
+	<field name="Amortissement" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="Amortissement"/>
+		<property name="com.jaspersoft.studio.field.label" value="Amortissement"/>
+	</field>
+	<field name="modeAmortissement" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="modeAmortissement"/>
+		<property name="com.jaspersoft.studio.field.label" value="modeAmortissement"/>
+	</field>
+	<field name="idOpcvm" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="idOpcvm"/>
+		<property name="com.jaspersoft.studio.field.label" value="idOpcvm"/>
+	</field>
+	<field name="echue" class="java.lang.Boolean">
+		<property name="com.jaspersoft.studio.field.name" value="echue"/>
+		<property name="com.jaspersoft.studio.field.label" value="echue"/>
+	</field>
+	<field name="detache" class="java.lang.Boolean">
+		<property name="com.jaspersoft.studio.field.name" value="detache"/>
+		<property name="com.jaspersoft.studio.field.label" value="detache"/>
+	</field>
+	<field name="traiter" class="java.lang.Boolean">
+		<property name="com.jaspersoft.studio.field.name" value="traiter"/>
+		<property name="com.jaspersoft.studio.field.label" value="traiter"/>
+	</field>
+	<field name="solde" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="solde"/>
+		<property name="com.jaspersoft.studio.field.label" value="solde"/>
+	</field>
+	<field name="datedebut" class="java.util.Date">
+		<property name="com.jaspersoft.studio.field.name" value="datedebut"/>
+		<property name="com.jaspersoft.studio.field.label" value="datedebut"/>
+	</field>
+	<field name="datefin" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="datefin"/>
+		<property name="com.jaspersoft.studio.field.label" value="datefin"/>
+	</field>
+	<field name="total" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="total"/>
+		<property name="com.jaspersoft.studio.field.label" value="total"/>
+	</field>
+	<variable name="interet1" resetType="Group" calculation="Sum" resetGroup="Group3" class="java.math.BigDecimal">
+		<expression><![CDATA[$F{interet}]]></expression>
+	</variable>
+	<variable name="Amortissement1" resetType="Group" calculation="Sum" resetGroup="Group3" class="java.math.BigDecimal">
+		<expression><![CDATA[$F{Amortissement}]]></expression>
+	</variable>
+	<variable name="total1" resetType="Group" calculation="Sum" resetGroup="Group3" class="java.math.BigDecimal">
+		<expression><![CDATA[$F{total}]]></expression>
+	</variable>
+	<variable name="interet2" resetType="Group" calculation="Sum" resetGroup="Group2" class="java.math.BigDecimal">
+		<expression><![CDATA[$F{interet}]]></expression>
+	</variable>
+	<variable name="Amortissement2" resetType="Group" calculation="Sum" resetGroup="Group2" class="java.math.BigDecimal">
+		<expression><![CDATA[$F{Amortissement}]]></expression>
+	</variable>
+	<variable name="total2" resetType="Group" calculation="Sum" resetGroup="Group2" class="java.math.BigDecimal">
+		<expression><![CDATA[$F{total}]]></expression>
+	</variable>
+	<variable name="interet3" resetType="Group" calculation="Sum" resetGroup="Group1" class="java.math.BigDecimal">
+		<expression><![CDATA[$F{interet}]]></expression>
+	</variable>
+	<variable name="Amortissement3" resetType="Group" calculation="Sum" resetGroup="Group1" class="java.math.BigDecimal">
+		<expression><![CDATA[$F{Amortissement}]]></expression>
+	</variable>
+	<variable name="total3" resetType="Group" calculation="Sum" resetGroup="Group1" class="java.math.BigDecimal">
+		<expression><![CDATA[$F{total}]]></expression>
+	</variable>
+	<group name="Group1">
+		<expression><![CDATA[$F{idTitre}]]></expression>
+		<groupHeader>
+			<band height="42">
+				<element kind="rectangle" uuid="a7b4f361-a20c-4436-ba38-e1427948b3aa" stretchType="ContainerHeight" x="2" y="7" width="797" height="30" backcolor="#BDD7EE">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="line" uuid="f34ea8d0-6756-45c5-83f0-7f124392e7f4" stretchType="ContainerHeight" x="185" y="7" width="1" height="30">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="line" uuid="00b74b4a-4650-4bf5-a9a3-2f3b1bdb1ce0" stretchType="ContainerHeight" x="444" y="7" width="1" height="30">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="line" uuid="13869f3f-4606-455f-a28e-4cb4e216123a" stretchType="ContainerHeight" x="511" y="7" width="1" height="30">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="line" uuid="d595297e-7e0e-4dc8-8a80-642e88a3b3a4" stretchType="ContainerHeight" x="577" y="7" width="1" height="30">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="line" uuid="490a9592-03b8-4f63-9423-5bb73b73d911" stretchType="ContainerHeight" x="633" y="7" width="1" height="30">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="line" uuid="5a07e2d2-9df1-4867-83ef-bc381c3af2a3" stretchType="ContainerHeight" x="687" y="7" width="1" height="30">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="line" uuid="e5707f25-1cb5-4cfc-929a-a30e5759d589" stretchType="ContainerHeight" x="746" y="7" width="1" height="30">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="staticText" uuid="6300bcac-15cd-4bf3-80b5-068f1428fdd4" stretchType="ContainerHeight" x="7" y="7" width="173" height="30" hTextAlign="Center" vTextAlign="Middle">
+					<text><![CDATA[Symbole]]></text>
+				</element>
+				<element kind="staticText" uuid="9fa6db57-81d5-4fcd-909a-24525ea21f3f" stretchType="ContainerHeight" x="348" y="7" width="43" height="30" hTextAlign="Center" vTextAlign="Middle">
+					<text><![CDATA[N° Ech.]]></text>
+				</element>
+				<element kind="staticText" uuid="da7ae3a1-9d15-4874-b597-fc8153ec5386" stretchType="ContainerHeight" x="449" y="7" width="57" height="30" hTextAlign="Center" vTextAlign="Middle">
+					<text><![CDATA[Intérêt]]></text>
+				</element>
+				<element kind="staticText" uuid="612a2e80-f97c-440f-bb71-05d009c96bb1" stretchType="ContainerHeight" x="517" y="7" width="54" height="30" hTextAlign="Center" vTextAlign="Middle">
+					<text><![CDATA[Amorti.]]></text>
+				</element>
+				<element kind="staticText" uuid="7847b3fc-0bbc-4578-a7b5-c2c0a98c18a5" stretchType="ContainerHeight" x="584" y="7" width="42" height="30" hTextAlign="Center" vTextAlign="Middle">
+					<text><![CDATA[Total]]></text>
+				</element>
+				<element kind="staticText" uuid="201fd9fd-af75-422d-a019-7aa54626a297" stretchType="ContainerHeight" x="639" y="7" width="42" height="30" hTextAlign="Center" vTextAlign="Middle">
+					<text><![CDATA[Echue ?]]></text>
+				</element>
+				<element kind="staticText" uuid="ba035c69-cc0f-4030-81d7-2cfcf6f7603c" stretchType="ContainerHeight" x="693" y="7" width="48" height="30" hTextAlign="Center" vTextAlign="Middle">
+					<text><![CDATA[Détaché ?]]></text>
+				</element>
+				<element kind="staticText" uuid="1b062bfd-b08a-492e-821b-f821caab4c2b" stretchType="ContainerHeight" x="751" y="7" width="44" height="30" hTextAlign="Center" vTextAlign="Middle">
+					<text><![CDATA[Traiter ?]]></text>
+				</element>
+				<element kind="line" uuid="096b2ffa-f918-4f2c-9846-da911c41645e" stretchType="ContainerHeight" x="344" y="7" width="1" height="30">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="staticText" uuid="ad8fcb8c-bf60-4acf-96b0-79728cfbb1be" stretchType="ContainerHeight" x="280" y="7" width="60" height="30" hTextAlign="Center" vTextAlign="Middle">
+					<text><![CDATA[Echéance]]></text>
+				</element>
+				<element kind="line" uuid="e481e1f4-d9a2-4229-b3f8-2e10d184c06d" stretchType="ContainerHeight" x="276" y="7" width="1" height="30">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="staticText" uuid="e61b764b-1d92-45b6-938e-6b15c409c645" stretchType="ContainerHeight" x="192" y="7" width="79" height="30" hTextAlign="Center" vTextAlign="Middle">
+					<text><![CDATA[Type amortissement]]></text>
+				</element>
+				<element kind="line" uuid="43180c19-c139-4edd-9148-da5264b8a9f0" stretchType="ContainerHeight" x="394" y="7" width="1" height="30">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="staticText" uuid="a1d31de7-5c3d-42b4-9382-f3ef5c7c64e7" stretchType="ContainerHeight" x="398" y="7" width="43" height="30" hTextAlign="Center" vTextAlign="Middle">
+					<text><![CDATA[Qté. ]]></text>
+				</element>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="31">
+				<element kind="rectangle" uuid="73906cc5-580a-4d1d-9a52-18f418b75b33" stretchType="ContainerHeight" x="2" y="1" width="797" height="30" backcolor="#BDD7EE">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="line" uuid="9e8d1073-28e1-46f2-9c3e-90b9e577365b" stretchType="ContainerHeight" x="444" y="1" width="1" height="30">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="line" uuid="58d7c51b-85cd-4c5b-a622-45e2b3e29c0b" stretchType="ContainerHeight" x="511" y="1" width="1" height="30">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="line" uuid="949ad031-e163-4abc-b295-73f48a1904ee" stretchType="ContainerHeight" x="577" y="1" width="1" height="30">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="line" uuid="ce4dfdbc-ddb8-4cdb-bece-37f2f556fec0" stretchType="ContainerHeight" x="633" y="1" width="1" height="30">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="line" uuid="c97fd0a7-f998-40f0-a048-b23b4e9e25a3" stretchType="ContainerHeight" x="687" y="1" width="1" height="30">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="line" uuid="ef7c283e-0271-4c4f-b8c9-5e2c12333fcb" stretchType="ContainerHeight" x="746" y="1" width="1" height="30">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="staticText" uuid="7d63dc2f-2475-4d55-8823-6e46771ab491" x="7" y="9" width="432" height="14">
+					<text><![CDATA[TOTAL GENERAL]]></text>
+				</element>
+				<element kind="textField" uuid="9f39f0a5-0d27-4010-820d-77762f403d1b" x="449" y="9" width="56" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+					<expression><![CDATA[$V{interet3}]]></expression>
+				</element>
+				<element kind="textField" uuid="33bb3e6e-6fe4-4583-986d-6e26d10e6470" x="516" y="9" width="58" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+					<expression><![CDATA[$V{Amortissement3}]]></expression>
+				</element>
+				<element kind="textField" uuid="dde4bbd8-49dd-47b5-9a56-9c5f928349e3" x="580" y="9" width="50" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+					<expression><![CDATA[$V{total3}]]></expression>
+				</element>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="Group2">
+		<expression><![CDATA[$F{classeTitre}]]></expression>
+		<groupHeader>
+			<band height="26">
+				<element kind="rectangle" uuid="ad79fd40-88d8-4365-815d-ac9a696f8d36" x="2" y="1" width="797" height="25" backcolor="#EDEDED">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="textField" uuid="1e775e28-141e-4226-a9b1-eb63a6ef1f1c" x="7" y="6" width="788" height="16">
+					<expression><![CDATA[$F{classeTitre}]]></expression>
+				</element>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="31">
+				<element kind="rectangle" uuid="c682521e-f9ef-443e-a777-2cb6558b4726" stretchType="ContainerHeight" x="2" y="1" width="797" height="30" backcolor="#EDEDED">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="line" uuid="85adab23-cf6c-4138-bc64-ccba6daf1f29" stretchType="ContainerHeight" x="444" y="1" width="1" height="30">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="line" uuid="aac1e522-012f-49a7-b4ef-19492d66a7d7" stretchType="ContainerHeight" x="511" y="1" width="1" height="30">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="line" uuid="2ac99688-9a32-4d46-a8b2-075599aa8d44" stretchType="ContainerHeight" x="577" y="1" width="1" height="30">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="line" uuid="0ff902c7-3c0e-4485-84dc-f59ad5799734" stretchType="ContainerHeight" x="633" y="1" width="1" height="30">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="line" uuid="4b16962d-9f70-4581-8271-de88659ede61" stretchType="ContainerHeight" x="687" y="1" width="1" height="30">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="line" uuid="9069d421-7ad8-4849-b4e5-146c836fd7ef" stretchType="ContainerHeight" x="746" y="1" width="1" height="30">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="textField" uuid="8f73b869-a584-45ec-9fc8-d4038e77d696" x="7" y="8" width="432" height="16">
+					<expression><![CDATA["TOTAL "+$F{classeTitre}]]></expression>
+				</element>
+				<element kind="textField" uuid="e1198eaa-198a-42ad-879b-0dba95e5740e" x="449" y="8" width="56" height="16" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+					<expression><![CDATA[$V{interet2}]]></expression>
+				</element>
+				<element kind="textField" uuid="52ad7449-5ab8-420f-a02d-d7be63eb382b" x="516" y="8" width="58" height="16" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+					<expression><![CDATA[$V{Amortissement2}]]></expression>
+				</element>
+				<element kind="textField" uuid="f25b345a-ec8a-4bbe-8e11-c6459a9b31f5" x="580" y="8" width="50" height="16" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+					<expression><![CDATA[$V{total2}]]></expression>
+				</element>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="Group3">
+		<expression><![CDATA[$F{moisAnnee}]]></expression>
+		<groupHeader>
+			<band height="26">
+				<element kind="rectangle" uuid="98958250-4ff8-46d4-b6f1-25ae8a4c2fa7" x="2" y="1" width="797" height="25" backcolor="#EDEDED">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="textField" uuid="567a0fc1-16f8-4191-8b33-e6f68f06bec5" x="7" y="6" width="788" height="16">
+					<expression><![CDATA[$F{moisAnnee}]]></expression>
+				</element>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="31">
+				<element kind="rectangle" uuid="c3ce3e33-5f2f-4a21-9ca0-77be352c69f1" stretchType="ContainerHeight" x="2" y="1" width="797" height="30" backcolor="#EDEDED">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="line" uuid="a2f31884-2687-46fe-82d1-f5574f2a07b3" stretchType="ContainerHeight" x="444" y="1" width="1" height="30">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="line" uuid="9eb660e0-747a-4f7d-9871-00b02c3cc426" stretchType="ContainerHeight" x="511" y="1" width="1" height="30">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="line" uuid="42e1e89c-c529-4f52-8612-5b136b1fc98f" stretchType="ContainerHeight" x="577" y="1" width="1" height="30">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="line" uuid="08659360-3bab-4a3f-8ada-5e5268cbd8c5" stretchType="ContainerHeight" x="633" y="1" width="1" height="30">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="line" uuid="02307253-c811-4d5e-af2c-2be9b56f941f" stretchType="ContainerHeight" x="687" y="1" width="1" height="30">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="line" uuid="5fe013fb-0524-4fd4-afcb-12b26d80ea63" stretchType="ContainerHeight" x="746" y="1" width="1" height="30">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="textField" uuid="6f14bf56-ed62-4914-a85a-de1317df9c2a" x="7" y="8" width="432" height="16">
+					<expression><![CDATA["TOTAL DE "+$F{moisAnnee}]]></expression>
+				</element>
+				<element kind="textField" uuid="6f361665-dc5e-4118-8590-af3857d54a69" x="449" y="8" width="56" height="16" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+					<expression><![CDATA[$V{interet1}]]></expression>
+				</element>
+				<element kind="textField" uuid="57bc96a8-2882-4044-ac8d-f95f971b2f32" x="516" y="8" width="58" height="16" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+					<expression><![CDATA[$V{Amortissement1}]]></expression>
+				</element>
+				<element kind="textField" uuid="e9ebeab2-053e-493a-9a78-1d2716f23620" x="580" y="8" width="50" height="16" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+					<expression><![CDATA[$V{total1}]]></expression>
+				</element>
+			</band>
+		</groupFooter>
+	</group>
+	<background splitType="Stretch"/>
+	<title height="73" splitType="Stretch">
+		<element kind="textField" uuid="d52ecfae-b2b9-4ab2-8bd8-706f4cb34200" x="3" y="3" width="217" height="16">
+			<expression><![CDATA["Cotonou, le "+$P{letterDate}]]></expression>
+		</element>
+		<element kind="rectangle" uuid="43a33ef6-4d76-4d9c-88c1-252776d93bc0" x="2" y="26" width="797" height="25" backcolor="#BDD7EE">
+			<pen lineColor="#3B88D1"/>
+		</element>
+		<element kind="staticText" uuid="ce3fc3bd-5af1-4dea-869b-9c7cf775377c" x="152" y="33" width="496" height="17" fontSize="10.0" bold="true" hTextAlign="Center">
+			<text><![CDATA[ETAT PREVISIONNEL DES REMBOURSEMENTS]]></text>
+		</element>
+		<element kind="textField" uuid="f7e2388e-79f8-42f2-b44f-fc54d9cbac59" x="65" y="58" width="215" height="15">
+			<expression><![CDATA[$P{denominationOpcvm}]]></expression>
+		</element>
+		<element kind="staticText" uuid="1b5de28c-72c8-4f82-a046-dd9d0b2a85ec" x="2" y="58" width="58" height="15">
+			<text><![CDATA[OPCVM :]]></text>
+		</element>
+		<element kind="textField" uuid="3d733015-0054-4060-87ae-4dbd4523f7ac" x="580" y="58" width="215" height="15">
+			<expression><![CDATA["DU"+$F{datedebut}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"))+" au "+$F{datefin}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"))]]></expression>
+		</element>
+		<element kind="staticText" uuid="6a96b9fa-a6dd-4ed9-9fb5-c8cacb96b683" x="517" y="58" width="58" height="15">
+			<text><![CDATA[PERIODE :]]></text>
+		</element>
+	</title>
+	<pageHeader splitType="Stretch"/>
+	<columnHeader splitType="Stretch"/>
+	<detail>
+		<band height="31" splitType="Stretch">
+			<element kind="rectangle" uuid="f7f73b17-6c9e-4ff0-9d7c-7e2d3b489457" stretchType="ContainerHeight" x="2" y="1" width="797" height="30" backcolor="#FFFFFF">
+				<pen lineColor="#3B88D1"/>
+			</element>
+			<element kind="line" uuid="d028d0c9-3769-4658-95b0-bbc9266f5663" stretchType="ContainerHeight" x="185" y="1" width="1" height="30">
+				<pen lineColor="#3B88D1"/>
+			</element>
+			<element kind="line" uuid="f606d2d3-d676-4581-b041-82b10499e3c3" stretchType="ContainerHeight" x="444" y="1" width="1" height="30">
+				<pen lineColor="#3B88D1"/>
+			</element>
+			<element kind="line" uuid="860df63c-dc60-439a-a89e-21bdf73b650b" stretchType="ContainerHeight" x="511" y="1" width="1" height="30">
+				<pen lineColor="#3B88D1"/>
+			</element>
+			<element kind="line" uuid="a035b454-5e37-4a84-8c27-845a207e7db2" stretchType="ContainerHeight" x="577" y="1" width="1" height="30">
+				<pen lineColor="#3B88D1"/>
+			</element>
+			<element kind="line" uuid="b26283cc-9224-4527-9100-de6384ab055b" stretchType="ContainerHeight" x="633" y="1" width="1" height="30">
+				<pen lineColor="#3B88D1"/>
+			</element>
+			<element kind="line" uuid="fc372b11-557b-4574-a57b-c9b75f25d14c" stretchType="ContainerHeight" x="687" y="1" width="1" height="30">
+				<pen lineColor="#3B88D1"/>
+			</element>
+			<element kind="line" uuid="2ef77411-5335-4206-a88f-6f543777e6a0" stretchType="ContainerHeight" x="746" y="1" width="1" height="30">
+				<pen lineColor="#3B88D1"/>
+			</element>
+			<element kind="line" uuid="61fb565c-848c-4cfa-93e6-6d436ab69145" stretchType="ContainerHeight" x="344" y="1" width="1" height="30">
+				<pen lineColor="#3B88D1"/>
+			</element>
+			<element kind="line" uuid="f3113b0c-6b47-451e-a229-055c2db20157" stretchType="ContainerHeight" x="276" y="1" width="1" height="30">
+				<pen lineColor="#3B88D1"/>
+			</element>
+			<element kind="line" uuid="4b41b58d-dee6-430c-adae-7f426f3dcfcd" stretchType="ContainerHeight" x="394" y="1" width="1" height="30">
+				<pen lineColor="#3B88D1"/>
+			</element>
+			<element kind="textField" uuid="810d8da7-724a-404e-ba5e-d9bc52fad31b" x="7" y="9" width="172" height="14" textAdjust="StretchHeight">
+				<expression><![CDATA[$F{symbolTitre}]]></expression>
+			</element>
+			<element kind="textField" uuid="5ab25b64-0198-4d2a-866e-c33141e1013b" x="192" y="9" width="78" height="14" textAdjust="StretchHeight">
+				<expression><![CDATA[$F{modeAmortissement}]]></expression>
+			</element>
+			<element kind="textField" uuid="adf0a1f0-78a9-436c-9f2a-0088c184a7ec" x="280" y="9" width="60" height="14" textAdjust="StretchHeight" pattern="EE dd/MM/yyyy" blankWhenNull="true">
+				<expression><![CDATA[$F{dateEcheance}]]></expression>
+			</element>
+			<element kind="textField" uuid="5fcaca3c-2fbe-4c2b-920d-1f3ce9de0e1b" x="348" y="9" width="42" height="14" textAdjust="StretchHeight">
+				<expression><![CDATA[$F{numEcheance}]]></expression>
+			</element>
+			<element kind="textField" uuid="b0fa4eea-4c4e-4fdb-bd21-24ae11287f04" x="398" y="9" width="42" height="14" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{solde}]]></expression>
+			</element>
+			<element kind="textField" uuid="f06e9e81-671b-4ca7-8513-067e137e7bc6" x="450" y="9" width="56" height="14" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{interet}]]></expression>
+			</element>
+			<element kind="textField" uuid="1b3e3499-22a9-4fe5-8b5e-88f15932fd99" x="516" y="9" width="58" height="14" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{Amortissement}]]></expression>
+			</element>
+			<element kind="textField" uuid="ca9982dd-45d8-4338-bd6b-fe42877e9fb5" x="580" y="9" width="50" height="14" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{total}]]></expression>
+			</element>
+		</band>
+	</detail>
+	<columnFooter splitType="Stretch"/>
+	<pageFooter height="54" splitType="Stretch">
+		<element kind="staticText" uuid="43da51ee-825e-4fad-8775-943a69c3767a" x="5" y="21" width="126" height="13">
+			<text><![CDATA[Edité avec OPCCIEL 2.0]]></text>
+		</element>
+		<element kind="textField" uuid="2abaef4e-d518-4909-a6dc-ec59eb2916ae" x="696" y="21" width="100" height="18">
+			<expression><![CDATA[$V{PAGE_NUMBER}]]></expression>
+		</element>
+	</pageFooter>
+	<summary height="42" splitType="Stretch"/>
+</jasperReport>

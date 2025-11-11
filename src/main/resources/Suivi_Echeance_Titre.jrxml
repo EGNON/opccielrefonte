@@ -1,0 +1,142 @@
+<!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 7.0.1-573496633c2b4074e32f433154b543003f7d2498  -->
+<jasperReport name="Suivi_Echeance_Titre" language="java" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a96a39ac-3e3f-42aa-b027-89360ca283b0">
+	<parameter name="letterDate" class="java.lang.String"/>
+	<parameter name="denominationOpcvm" class="java.lang.String"/>
+	<parameter name="dateOuverture" class="java.sql.Date"/>
+	<field name="idTitre" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="idTitre"/>
+		<property name="com.jaspersoft.studio.field.label" value="idTitre"/>
+	</field>
+	<field name="symbole" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="symbole"/>
+		<property name="com.jaspersoft.studio.field.label" value="symbole"/>
+	</field>
+	<field name="designationTitre" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="designationTitre"/>
+		<property name="com.jaspersoft.studio.field.label" value="designationTitre"/>
+	</field>
+	<field name="maturite" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="maturite"/>
+		<property name="com.jaspersoft.studio.field.label" value="maturite"/>
+	</field>
+	<field name="nbreJoursCourus" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="nbreJoursCourus"/>
+		<property name="com.jaspersoft.studio.field.label" value="nbreJoursCourus"/>
+	</field>
+	<field name="dureeRestant" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="dureeRestant"/>
+		<property name="com.jaspersoft.studio.field.label" value="dureeRestant"/>
+	</field>
+	<field name="idOpcvm" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="idOpcvm"/>
+		<property name="com.jaspersoft.studio.field.label" value="idOpcvm"/>
+	</field>
+	<field name="dateEstimation" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="dateEstimation"/>
+		<property name="com.jaspersoft.studio.field.label" value="dateEstimation"/>
+	</field>
+	<group name="Group1">
+		<expression><![CDATA[$F{idTitre}]]></expression>
+		<groupHeader>
+			<band height="38">
+				<element kind="rectangle" uuid="25974835-fcac-430b-b707-bc76a43dfb6a" stretchType="ContainerHeight" x="2" y="8" width="797" height="30" backcolor="#BDD7EE">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="line" uuid="386b55d2-3e80-43f7-abbf-9d04767884b2" stretchType="ContainerHeight" x="200" y="8" width="1" height="30">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="line" uuid="f2fa2e46-71fc-4d5a-9cb6-18001d33e4b2" stretchType="ContainerHeight" x="489" y="8" width="1" height="30">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="line" uuid="3b710b81-5236-4c05-aeb3-0dddc3929b17" stretchType="ContainerHeight" x="588" y="8" width="1" height="30">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="line" uuid="dd8a3f7f-b6a3-48fc-9856-5891ff430447" stretchType="ContainerHeight" x="700" y="8" width="1" height="30">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="staticText" uuid="077092b6-e3e9-4fc8-99ca-c27630a05551" stretchType="ContainerHeight" x="7" y="8" width="183" height="30" hTextAlign="Center" vTextAlign="Middle">
+					<text><![CDATA[Symbole]]></text>
+				</element>
+				<element kind="staticText" uuid="e0427dfa-c015-4470-a028-ab404d902c80" stretchType="ContainerHeight" x="497" y="8" width="82" height="30" hTextAlign="Center" vTextAlign="Middle">
+					<text><![CDATA[Maturité]]></text>
+				</element>
+				<element kind="staticText" uuid="ec71ff25-8070-436a-9d87-d00e2df37f33" stretchType="ContainerHeight" x="596" y="8" width="93" height="30" hTextAlign="Center" vTextAlign="Middle">
+					<text><![CDATA[Nbr.Jr.Couru]]></text>
+				</element>
+				<element kind="staticText" uuid="79289a00-3c35-429e-a678-3a6d267f1a99" stretchType="ContainerHeight" x="708" y="8" width="84" height="30" hTextAlign="Center" vTextAlign="Middle">
+					<text><![CDATA[Durée restante]]></text>
+				</element>
+				<element kind="staticText" uuid="578228ba-22fa-4d51-9890-f7043c69b528" stretchType="ContainerHeight" x="210" y="8" width="270" height="30" hTextAlign="Center" vTextAlign="Middle">
+					<text><![CDATA[Désignation Titre]]></text>
+				</element>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band/>
+		</groupFooter>
+	</group>
+	<background splitType="Stretch"/>
+	<title height="73" splitType="Stretch">
+		<element kind="textField" uuid="58e682aa-6353-47b8-b68e-2c0c98a6c863" x="3" y="3" width="217" height="16">
+			<expression><![CDATA["Cotonou, le "+$P{letterDate}]]></expression>
+		</element>
+		<element kind="rectangle" uuid="285925dc-7fb7-47f7-9948-378a97944f64" x="2" y="26" width="797" height="25" backcolor="#BDD7EE">
+			<pen lineColor="#3B88D1"/>
+		</element>
+		<element kind="textField" uuid="ed11da73-3079-4ad1-a5d7-48032a7c0069" x="100" y="58" width="390" height="15">
+			<expression><![CDATA[$P{denominationOpcvm}]]></expression>
+		</element>
+		<element kind="staticText" uuid="c2c5750d-cad1-4e13-a4b8-ff8875b758c8" x="2" y="58" width="88" height="15">
+			<text><![CDATA[OPCVM :]]></text>
+		</element>
+		<element kind="textField" uuid="dbd8be81-b377-42f6-aff4-1236b5130a00" x="18" y="30" width="761" height="17" hTextAlign="Center" vTextAlign="Middle">
+			<expression><![CDATA[$F{dateEstimation}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"))]]></expression>
+		</element>
+	</title>
+	<pageHeader splitType="Stretch"/>
+	<columnHeader splitType="Stretch"/>
+	<detail>
+		<band height="24" splitType="Stretch">
+			<element kind="rectangle" uuid="43cd5227-63f8-467a-bcc7-eef9b066c57f" stretchType="ContainerHeight" x="2" y="1" width="797" height="23" backcolor="#FFFFFF">
+				<pen lineColor="#3B88D1"/>
+			</element>
+			<element kind="line" uuid="1f640886-c197-4d7c-82f0-d4038fb37283" stretchType="ContainerHeight" x="200" y="1" width="1" height="23">
+				<pen lineColor="#3B88D1"/>
+			</element>
+			<element kind="line" uuid="d81952dc-89bd-41c1-9872-9fb90a4af30a" stretchType="ContainerHeight" x="489" y="1" width="1" height="23">
+				<pen lineColor="#3B88D1"/>
+			</element>
+			<element kind="line" uuid="5183281d-b1b8-41d4-8db8-30f568e38d83" stretchType="ContainerHeight" x="588" y="1" width="1" height="23">
+				<pen lineColor="#3B88D1"/>
+			</element>
+			<element kind="line" uuid="1e7102b5-ac7f-4bca-b91e-48e43b9e5aca" stretchType="ContainerHeight" x="700" y="1" width="1" height="23">
+				<pen lineColor="#3B88D1"/>
+			</element>
+			<element kind="textField" uuid="3f4334d3-2d21-4dd1-bddf-0246b77c5a3c" x="7" y="5" width="183" height="14">
+				<expression><![CDATA[$F{symbole}]]></expression>
+			</element>
+			<element kind="textField" uuid="5522f0f8-3dbb-4768-a68d-b0b6c53a2003" x="210" y="5" width="270" height="14">
+				<expression><![CDATA[$F{designationTitre}]]></expression>
+			</element>
+			<element kind="textField" uuid="5f863439-eaf9-479d-bb03-64b6a443019e" x="497" y="5" width="82" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{maturite}]]></expression>
+			</element>
+			<element kind="textField" uuid="dc896b24-d121-4a4e-9666-c71e0a58ad0a" x="596" y="5" width="100" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{nbreJoursCourus}]]></expression>
+			</element>
+			<element kind="textField" uuid="569e8c48-e98d-4b64-a2c4-8ea9f3d31e1c" x="708" y="5" width="84" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{dureeRestant}]]></expression>
+			</element>
+		</band>
+	</detail>
+	<columnFooter splitType="Stretch"/>
+	<pageFooter height="60" splitType="Stretch">
+		<element kind="staticText" uuid="d3ac2a84-dac4-49ea-901d-7ef6ae262921" x="5" y="21" width="126" height="13">
+			<text><![CDATA[Edité avec OPCCIEL 2.0]]></text>
+		</element>
+		<element kind="textField" uuid="87fe2b1f-9e89-43b0-995f-470463c9d11a" x="699" y="15" width="100" height="18" hTextAlign="Right">
+			<expression><![CDATA[$V{PAGE_NUMBER}]]></expression>
+		</element>
+	</pageFooter>
+	<summary height="42" splitType="Stretch"/>
+</jasperReport>

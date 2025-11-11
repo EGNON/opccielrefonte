@@ -181,8 +181,33 @@ public interface LibraryDao extends JpaRepository<BaseEntity, Long> {
 
     @Query(value = "select * from [Operation].[FT_PointPeriodiqueSouscription_New] (:idOpcvm,:idSeance,:idActionnaire,:idPersonne,:dateDebut,:dateFin)", nativeQuery = true)
     List<PointSouscriptionDetailleProjection> pointSouscriptionDetaille(Long idOpcvm,Long idSeance,Long idActionnaire,Long idPersonne,LocalDateTime dateDebut,LocalDateTime dateFin);
-    @Query(value = "select * from [Impressions].[FT_GrandLivre_New] (:idOpcvm,:idSeance,:idActionnaire,:idPersonne,:dateDebut,:dateFin)", nativeQuery = true)
+    @Query(value = "select * from [Operation].[FT_PointPeriodiqueSouscription_New] (:idOpcvm,:idSeance,:idActionnaire,:idPersonne,:dateDebut,:dateFin)", nativeQuery = true)
     Page<PointSouscriptionDetailleProjection> pointSouscriptionDetaille(Long idOpcvm,Long idSeance,Long idActionnaire,Long idPersonne,LocalDateTime dateDebut,LocalDateTime dateFin,Pageable pageable);
+
+    @Query(value = "select * from [Impressions].[FT_DeclarationComSurActifs] (:idOpcvm,:dateDebut,:dateFin,:trimestre,:anneeExo,:taux)", nativeQuery = true)
+    List<DeclarationCommissionActifProjection> declarationCommissionActif(Long idOpcvm,LocalDateTime dateDebut,LocalDateTime dateFin,String trimestre,Long anneeExo,BigDecimal taux);
+    @Query(value = "select * from [Impressions].[FT_DeclarationComSurActifs] (:idOpcvm,:dateDebut,:dateFin,:trimestre,:anneeExo,:taux)", nativeQuery = true)
+    Page<DeclarationCommissionActifProjection> declarationCommissionActif(Long idOpcvm,LocalDateTime dateDebut,LocalDateTime dateFin,String trimestre,Long anneeExo,BigDecimal taux,Pageable pageable);
+
+    @Query(value = "select * from [Operation].[FT_InvestissementPeriodique](:dateDeb,:dateFin,:idOpcvm,:typeOp)", nativeQuery = true)
+    List<PointInvestissementProjection> pointInvestissement(LocalDateTime dateDeb,LocalDateTime dateFin,Long idOpcvm,String typeOp);
+    @Query(value = "select * from [Operation].[FT_InvestissementPeriodique](:dateDeb,:dateFin,:idOpcvm,:typeOp)", nativeQuery = true)
+    Page<PointInvestissementProjection> pointInvestissement(LocalDateTime dateDeb,LocalDateTime dateFin,Long idOpcvm,String typeOp,Pageable pageable);
+
+    @Query(value = "select * from [Impressions].[FT_PrevisionnelRembourement_New](:idOpcvm,:echue,:detache,:traiter,:datedebut,:datefin)", nativeQuery = true)
+    List<PrevisionnelRemboursementsProjection> previsionnelRemboursements(Long idOpcvm,Boolean echue,Boolean detache,Boolean traiter,LocalDateTime datedebut,LocalDateTime datefin);
+    @Query(value = "select * from [Impressions].[FT_PrevisionnelRembourement_New](:idOpcvm,:echue,:detache,:traiter,:datedebut,:datefin)", nativeQuery = true)
+    Page<PrevisionnelRemboursementsProjection> previsionnelRemboursements(Long idOpcvm,Boolean echue,Boolean detache,Boolean traiter,LocalDateTime datedebut,LocalDateTime datefin,Pageable pageable);
+
+    @Query(value = "select * from [Impressions].[FT_SuiviEcheanceTitres] (:idOpcvm,:dateEstimation)", nativeQuery = true)
+    List<SuiviEcheanceTitreProjection> suiviEcheanceTitre(Long idOpcvm,LocalDateTime dateEstimation);
+    @Query(value = "select * from [Impressions].[FT_SuiviEcheanceTitres] (:idOpcvm,:dateEstimation)", nativeQuery = true)
+    Page<SuiviEcheanceTitreProjection> suiviEcheanceTitre(Long idOpcvm,LocalDateTime dateEstimation,Pageable pageable);
+
+    @Query(value = "select * from [Impressions].[FT_AvisTransfertPart](:idOperation,:idOpcvm,:dateDeb,:dateFin)", nativeQuery = true)
+    List<AvisTransfertPartProjection> avisTransfertPart(Long idOperation,Long idOpcvm,LocalDateTime dateDeb,LocalDateTime dateFin);
+    @Query(value = "select * from [Impressions].[FT_AvisTransfertPart](:idOperation,:idOpcvm,:dateDeb,:dateFin)", nativeQuery = true)
+    Page<AvisTransfertPartProjection> avisTransfertPart(Long idOperation,Long idOpcvm,LocalDateTime dateDeb,LocalDateTime dateFin,Pageable pageable);
 
     @Query(value = "select * from [Impressions].[FT_ReleveTitreFCP_New] (:idOpcvm,:dateDebut,:dateFin)" +
             " order by idTitre asc", nativeQuery = true)

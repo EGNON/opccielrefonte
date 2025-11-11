@@ -2718,6 +2718,480 @@ public class AppService {
 
     }
 
+    //DeclarationCommissionActif
+    public ResponseEntity<?> afficherDeclarationCommissionActif(DeclarationCommissionActifRequest request) {
+        var parameters = request.getDatatableParameters();
+        try {
+            Pageable pageable = PageRequest.of(parameters.getStart()/ parameters.getLength(), parameters.getLength());
+            Page<DeclarationCommissionActifProjection> declarationCommissionActifPage;
+            if(parameters.getSearch() != null && !parameters.getSearch().getValue().isEmpty()) {
+                declarationCommissionActifPage = new PageImpl<>(new ArrayList<>());
+            }
+            else {
+                declarationCommissionActifPage = libraryDao.declarationCommissionActif(
+                        request.getIdOpcvm(), request.getDateDebut(), request.getDateFin(), request.getTrimestre(),
+                        request.getAnneeExo(), request.getTaux(), pageable
+                );
+            }
+            List<DeclarationCommissionActifProjection> content = declarationCommissionActifPage.getContent().stream().toList();
+            DataTablesResponse<DeclarationCommissionActifProjection> dataTablesResponse = new DataTablesResponse<>();
+            dataTablesResponse.setDraw(parameters.getDraw());
+            dataTablesResponse.setRecordsFiltered((int)declarationCommissionActifPage.getTotalElements());
+            dataTablesResponse.setRecordsTotal((int)declarationCommissionActifPage.getTotalElements());
+            dataTablesResponse.setData(content);
+            return ResponseHandler.generateResponse(
+                    "Declaration-Comission sur Actif opcvm",
+                    HttpStatus.OK,
+                    dataTablesResponse);
+        }
+        catch(Exception e) {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e);
+        }
+    }
+    public ResponseEntity<Object> afficherDeclarationCommissionActif(DeclarationCommissionActifRequest request, HttpServletResponse response) throws JRException, IOException {
+
+        InputStream rapportStream = null;
+        InputStream subreportStream = null;
+//        try {
+        // Récupération des données
+        List<DeclarationCommissionActifProjection> declarationCommissionActifProjections = libraryDao.declarationCommissionActif(
+                request.getIdOpcvm(), request.getDateDebut(), request.getDateFin(), request.getTrimestre(),
+                request.getAnneeExo(), request.getTaux());
+
+        // Chargement des fichiers .jrxml depuis le classpath
+        rapportStream = getClass().getResourceAsStream("/Declaration_Commission_sur_Actif.jrxml");
+//        subreportStream = getClass().getResourceAsStream("/operationDetachement.jrxml");
+
+        if (rapportStream == null) {
+            throw new RuntimeException("Fichiers .jrxml introuvables dans le classpath !");
+        }
+
+        // Compiler les rapports à la volée
+        JasperReport rapportPrincipal = JasperCompileManager.compileReport(rapportStream);
+//        JasperReport subreport = JasperCompileManager.compileReport(subreportStream);
+
+        // Préparation des paramètres
+        Map<String, Object> parameters = new HashMap<>();
+        DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
+        String letterDate = dateFormatter.format(new Date());
+        parameters.put("letterDate", letterDate);
+        OpcvmDto opcvm = opcvmMapper.deOpcvm(opcvmDao.findById(request.getIdOpcvm()).orElseThrow());
+
+        // Remplissage du rapport
+        JasperPrint print = JasperFillManager.fillReport(
+                rapportPrincipal,
+                parameters,
+                new JRBeanCollectionDataSource(declarationCommissionActifProjections)
+        );
+        JasperExportManager.exportReportToPdfStream(print, response.getOutputStream());
+        return ResponseHandler.generateResponse(
+                "Ordre de bourse",
+                HttpStatus.OK,
+                declarationCommissionActifProjections);
+
+
+    }
+    public ResponseEntity<?> afficherDeclarationCommissionActifListe(DeclarationCommissionActifRequest request) {
+        try
+        {
+            List<DeclarationCommissionActifProjection> declarationCommissionActifProjections=libraryDao.declarationCommissionActif(
+                    request.getIdOpcvm(), request.getDateDebut(), request.getDateFin(), request.getTrimestre(),
+                    request.getAnneeExo(), request.getTaux()
+            );
+            return ResponseHandler.generateResponse(
+                    "Solde des Comptes Comptables opcvm",
+                    HttpStatus.OK,
+                    declarationCommissionActifProjections);
+        }
+        catch(Exception e) {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e);
+        }
+    }
+
+    //PointInvestissement
+    public ResponseEntity<?> afficherPointInvestissement(PointInvestissementRequest request) {
+        var parameters = request.getDatatableParameters();
+        try {
+            Pageable pageable = PageRequest.of(parameters.getStart()/ parameters.getLength(), parameters.getLength());
+            Page<PointInvestissementProjection> pointInvestissementPage;
+            if(parameters.getSearch() != null && !parameters.getSearch().getValue().isEmpty()) {
+                pointInvestissementPage = new PageImpl<>(new ArrayList<>());
+            }
+            else {
+                pointInvestissementPage = libraryDao.pointInvestissement(
+                        request.getDateDeb(), request.getDateFin(), request.getIdOpcvm(),request.getTypeOp(), pageable
+                );
+            }
+            List<PointInvestissementProjection> content = pointInvestissementPage.getContent().stream().toList();
+            DataTablesResponse<PointInvestissementProjection> dataTablesResponse = new DataTablesResponse<>();
+            dataTablesResponse.setDraw(parameters.getDraw());
+            dataTablesResponse.setRecordsFiltered((int)pointInvestissementPage.getTotalElements());
+            dataTablesResponse.setRecordsTotal((int)pointInvestissementPage.getTotalElements());
+            dataTablesResponse.setData(content);
+            return ResponseHandler.generateResponse(
+                    "Point des investissements / désinvestissements sur une période opcvm",
+                    HttpStatus.OK,
+                    dataTablesResponse);
+        }
+        catch(Exception e) {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e);
+        }
+    }
+    public ResponseEntity<Object> afficherPointInvestissement(PointInvestissementRequest request, HttpServletResponse response) throws JRException, IOException {
+
+        InputStream rapportStream = null;
+        InputStream subreportStream = null;
+//        try {
+        // Récupération des données
+        List<PointInvestissementProjection> pointInvestissementProjections = libraryDao.pointInvestissement(
+                request.getDateDeb(), request.getDateFin(), request.getIdOpcvm(),request.getTypeOp());
+
+        // Chargement des fichiers .jrxml depuis le classpath
+        rapportStream = getClass().getResourceAsStream("/Point_Investissement.jrxml");
+//        subreportStream = getClass().getResourceAsStream("/operationDetachement.jrxml");
+
+        if (rapportStream == null) {
+            throw new RuntimeException("Fichiers .jrxml introuvables dans le classpath !");
+        }
+
+        // Compiler les rapports à la volée
+        JasperReport rapportPrincipal = JasperCompileManager.compileReport(rapportStream);
+//        JasperReport subreport = JasperCompileManager.compileReport(subreportStream);
+
+        // Préparation des paramètres
+        Map<String, Object> parameters = new HashMap<>();
+        DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
+        String letterDate = dateFormatter.format(new Date());
+        parameters.put("letterDate", letterDate);
+        OpcvmDto opcvm = opcvmMapper.deOpcvm(opcvmDao.findById(request.getIdOpcvm()).orElseThrow());
+
+        // Remplissage du rapport
+        JasperPrint print = JasperFillManager.fillReport(
+                rapportPrincipal,
+                parameters,
+                new JRBeanCollectionDataSource(pointInvestissementProjections)
+        );
+        JasperExportManager.exportReportToPdfStream(print, response.getOutputStream());
+        return ResponseHandler.generateResponse(
+                "Ordre de bourse",
+                HttpStatus.OK,
+                pointInvestissementProjections);
+
+
+    }
+    public ResponseEntity<?> afficherPointInvestissementListe(PointInvestissementRequest request) {
+        try
+        {
+            List<PointInvestissementProjection> pointInvestissementProjections=libraryDao.pointInvestissement(
+                    request.getDateDeb(), request.getDateFin(), request.getIdOpcvm(),request.getTypeOp()
+            );
+            return ResponseHandler.generateResponse(
+                    "Point des investissements / désinvestissements sur une période opcvm",
+                    HttpStatus.OK,
+                    pointInvestissementProjections);
+        }
+        catch(Exception e) {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e);
+        }
+    }
+
+    //PrevisionnelRemboursements
+    public ResponseEntity<?> afficherPrevisionnelRemboursements(PointInvestissementRequest request) {
+        var parameters = request.getDatatableParameters();
+        try {
+            Pageable pageable = PageRequest.of(parameters.getStart()/ parameters.getLength(), parameters.getLength());
+            Page<PrevisionnelRemboursementsProjection> previsionnelRemboursementsPage;
+            if(parameters.getSearch() != null && !parameters.getSearch().getValue().isEmpty()) {
+                previsionnelRemboursementsPage = new PageImpl<>(new ArrayList<>());
+            }
+            else {
+                previsionnelRemboursementsPage = libraryDao.previsionnelRemboursements(
+                         request.getIdOpcvm(),request.getEchue(),request.getTraiter(),request.getDetache(),request.getDateDeb(), request.getDateFin(), pageable
+                );
+            }
+            List<PrevisionnelRemboursementsProjection> content = previsionnelRemboursementsPage.getContent().stream().toList();
+            DataTablesResponse<PrevisionnelRemboursementsProjection> dataTablesResponse = new DataTablesResponse<>();
+            dataTablesResponse.setDraw(parameters.getDraw());
+            dataTablesResponse.setRecordsFiltered((int)previsionnelRemboursementsPage.getTotalElements());
+            dataTablesResponse.setRecordsTotal((int)previsionnelRemboursementsPage.getTotalElements());
+            dataTablesResponse.setData(content);
+            return ResponseHandler.generateResponse(
+                    "Previsionnel des remboursements opcvm",
+                    HttpStatus.OK,
+                    dataTablesResponse);
+        }
+        catch(Exception e) {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e);
+        }
+    }
+    public ResponseEntity<Object> afficherPrevisionnelRemboursements(PointInvestissementRequest request, HttpServletResponse response) throws JRException, IOException {
+
+        InputStream rapportStream = null;
+        InputStream subreportStream = null;
+//        try {
+        // Récupération des données
+        List<PrevisionnelRemboursementsProjection> previsionnelRemboursementsProjections = libraryDao.previsionnelRemboursements(
+                request.getIdOpcvm(),request.getEchue(),request.getTraiter(),request.getDetache(),request.getDateDeb(), request.getDateFin());
+
+        // Chargement des fichiers .jrxml depuis le classpath
+        rapportStream = getClass().getResourceAsStream("/Previsionnel_des_Remboursements.jrxml");
+//        subreportStream = getClass().getResourceAsStream("/operationDetachement.jrxml");
+
+        if (rapportStream == null) {
+            throw new RuntimeException("Fichiers .jrxml introuvables dans le classpath !");
+        }
+
+        // Compiler les rapports à la volée
+        JasperReport rapportPrincipal = JasperCompileManager.compileReport(rapportStream);
+//        JasperReport subreport = JasperCompileManager.compileReport(subreportStream);
+
+        // Préparation des paramètres
+        Map<String, Object> parameters = new HashMap<>();
+        DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
+        String letterDate = dateFormatter.format(new Date());
+        parameters.put("letterDate", letterDate);
+        String denominationOpcvm = request.getDenominationOpcvm();
+        OpcvmDto opcvm = opcvmMapper.deOpcvm(opcvmDao.findById(request.getIdOpcvm()).orElseThrow());
+        parameters.put("denominationOpcvm",opcvm.getDenominationOpcvm());
+
+        // Remplissage du rapport
+        JasperPrint print = JasperFillManager.fillReport(
+                rapportPrincipal,
+                parameters,
+                new JRBeanCollectionDataSource(previsionnelRemboursementsProjections)
+        );
+        JasperExportManager.exportReportToPdfStream(print, response.getOutputStream());
+        return ResponseHandler.generateResponse(
+                "Ordre de bourse",
+                HttpStatus.OK,
+                previsionnelRemboursementsProjections);
+
+
+    }
+    public ResponseEntity<?> afficherPrevisionnelRemboursementsListe(PointInvestissementRequest request) {
+        try
+        {
+            List<PrevisionnelRemboursementsProjection> previsionnelRemboursementsProjections=libraryDao.previsionnelRemboursements(
+                    request.getIdOpcvm(),request.getEchue(),request.getTraiter(),request.getDetache(),request.getDateDeb(), request.getDateFin()
+            );
+            return ResponseHandler.generateResponse(
+                    "Previsionnel des Remboursements opcvm",
+                    HttpStatus.OK,
+                    previsionnelRemboursementsProjections);
+        }
+        catch(Exception e) {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e);
+        }
+    }
+
+    //SuiviEcheanceTitre
+    public ResponseEntity<?> afficherSuiviEcheanceTitre(PointInvestissementRequest request) {
+        var parameters = request.getDatatableParameters();
+        try {
+            Pageable pageable = PageRequest.of(parameters.getStart()/ parameters.getLength(), parameters.getLength());
+            Page<SuiviEcheanceTitreProjection> suiviEcheanceTitrePage;
+            if(parameters.getSearch() != null && !parameters.getSearch().getValue().isEmpty()) {
+                suiviEcheanceTitrePage = new PageImpl<>(new ArrayList<>());
+            }
+            else {
+                suiviEcheanceTitrePage = libraryDao.suiviEcheanceTitre(
+                        request.getIdOpcvm(),request.getDateEstimation(), pageable
+                );
+            }
+            List<SuiviEcheanceTitreProjection> content = suiviEcheanceTitrePage.getContent().stream().toList();
+            DataTablesResponse<SuiviEcheanceTitreProjection> dataTablesResponse = new DataTablesResponse<>();
+            dataTablesResponse.setDraw(parameters.getDraw());
+            dataTablesResponse.setRecordsFiltered((int)suiviEcheanceTitrePage.getTotalElements());
+            dataTablesResponse.setRecordsTotal((int)suiviEcheanceTitrePage.getTotalElements());
+            dataTablesResponse.setData(content);
+            return ResponseHandler.generateResponse(
+                    "Suivi echeance des titres opcvm",
+                    HttpStatus.OK,
+                    dataTablesResponse);
+        }
+        catch(Exception e) {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e);
+        }
+    }
+    public ResponseEntity<Object> afficherSuiviEcheanceTitre(PointInvestissementRequest request, HttpServletResponse response) throws JRException, IOException {
+
+        InputStream rapportStream = null;
+        InputStream subreportStream = null;
+//        try {
+        // Récupération des données
+        List<SuiviEcheanceTitreProjection> suiviEcheanceTitreProjections = libraryDao.suiviEcheanceTitre(
+                request.getIdOpcvm(),request.getDateEstimation());
+
+        // Chargement des fichiers .jrxml depuis le classpath
+        rapportStream = getClass().getResourceAsStream("/Suivi_Echeance_Titre.jrxml");
+//        subreportStream = getClass().getResourceAsStream("/operationDetachement.jrxml");
+
+        if (rapportStream == null) {
+            throw new RuntimeException("Fichiers .jrxml introuvables dans le classpath !");
+        }
+
+        // Compiler les rapports à la volée
+        JasperReport rapportPrincipal = JasperCompileManager.compileReport(rapportStream);
+//        JasperReport subreport = JasperCompileManager.compileReport(subreportStream);
+
+        // Préparation des paramètres
+        Map<String, Object> parameters = new HashMap<>();
+        DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
+        String letterDate = dateFormatter.format(new Date());
+        parameters.put("letterDate", letterDate);
+        LocalDateTime dateOuverture = request.getDateOuverture();
+        parameters.put("dateOuverture",dateOuverture);
+        String denominationOpcvm = request.getDenominationOpcvm();
+        OpcvmDto opcvm = opcvmMapper.deOpcvm(opcvmDao.findById(request.getIdOpcvm()).orElseThrow());
+        parameters.put("denominationOpcvm",opcvm.getDenominationOpcvm());
+
+        // Remplissage du rapport
+        JasperPrint print = JasperFillManager.fillReport(
+                rapportPrincipal,
+                parameters,
+                new JRBeanCollectionDataSource(suiviEcheanceTitreProjections)
+        );
+        JasperExportManager.exportReportToPdfStream(print, response.getOutputStream());
+        return ResponseHandler.generateResponse(
+                "Ordre de bourse",
+                HttpStatus.OK,
+                suiviEcheanceTitreProjections);
+
+
+    }
+    public ResponseEntity<?> afficherSuiviEcheanceTitreListe(PointInvestissementRequest request) {
+        try
+        {
+            List<SuiviEcheanceTitreProjection> suiviEcheanceTitreProjections=libraryDao.suiviEcheanceTitre(
+                    request.getIdOpcvm(), request.getDateEstimation()
+            );
+            return ResponseHandler.generateResponse(
+                    "Suivi echeance des titres opcvm",
+                    HttpStatus.OK,
+                    suiviEcheanceTitreProjections);
+        }
+        catch(Exception e) {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e);
+        }
+    }
+
+    //AvisTransfertPart
+    public ResponseEntity<?> afficherAvisTransfertPart(AvisTransfertPartRequest request) {
+        var parameters = request.getDatatableParameters();
+        try {
+            Pageable pageable = PageRequest.of(parameters.getStart()/ parameters.getLength(), parameters.getLength());
+            Page<AvisTransfertPartProjection> avisTransfertPartPage;
+            if(parameters.getSearch() != null && !parameters.getSearch().getValue().isEmpty()) {
+                avisTransfertPartPage = new PageImpl<>(new ArrayList<>());
+            }
+            else {
+                avisTransfertPartPage = libraryDao.avisTransfertPart(
+                        request.getIdOperation(),request.getIdOpcvm(),request.getDateDeb(),request.getDateFin(), pageable
+                );
+            }
+            List<AvisTransfertPartProjection> content = avisTransfertPartPage.getContent().stream().toList();
+            DataTablesResponse<AvisTransfertPartProjection> dataTablesResponse = new DataTablesResponse<>();
+            dataTablesResponse.setDraw(parameters.getDraw());
+            dataTablesResponse.setRecordsFiltered((int)avisTransfertPartPage.getTotalElements());
+            dataTablesResponse.setRecordsTotal((int)avisTransfertPartPage.getTotalElements());
+            dataTablesResponse.setData(content);
+            return ResponseHandler.generateResponse(
+                    "Avis de transfert de parts opcvm",
+                    HttpStatus.OK,
+                    dataTablesResponse);
+        }
+        catch(Exception e) {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e);
+        }
+    }
+    public ResponseEntity<Object> afficherAvisTransfertPart(AvisTransfertPartRequest request, HttpServletResponse response) throws JRException, IOException {
+
+        InputStream rapportStream = null;
+        InputStream subreportStream = null;
+//        try {
+        // Récupération des données
+        List<AvisTransfertPartProjection> avisTransfertPartProjections = libraryDao.avisTransfertPart(
+                request.getIdOperation(),request.getIdOpcvm(),request.getDateDeb(),request.getDateFin());
+
+        // Chargement des fichiers .jrxml depuis le classpath
+        rapportStream = getClass().getResourceAsStream("/Avis_Transfert_de_Part.jrxml");
+//        subreportStream = getClass().getResourceAsStream("/operationDetachement.jrxml");
+
+        if (rapportStream == null) {
+            throw new RuntimeException("Fichiers .jrxml introuvables dans le classpath !");
+        }
+
+        // Compiler les rapports à la volée
+        JasperReport rapportPrincipal = JasperCompileManager.compileReport(rapportStream);
+//        JasperReport subreport = JasperCompileManager.compileReport(subreportStream);
+
+        // Préparation des paramètres
+        Map<String, Object> parameters = new HashMap<>();
+        DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
+        String letterDate = dateFormatter.format(new Date());
+        parameters.put("letterDate", letterDate);
+        OpcvmDto opcvm = opcvmMapper.deOpcvm(opcvmDao.findById(request.getIdOpcvm()).orElseThrow());
+
+        // Remplissage du rapport
+        JasperPrint print = JasperFillManager.fillReport(
+                rapportPrincipal,
+                parameters,
+                new JRBeanCollectionDataSource(avisTransfertPartProjections)
+        );
+        JasperExportManager.exportReportToPdfStream(print, response.getOutputStream());
+        return ResponseHandler.generateResponse(
+                "Ordre de bourse",
+                HttpStatus.OK,
+                avisTransfertPartProjections);
+
+
+    }
+    public ResponseEntity<?> afficherAvisTransfertPartListe(AvisTransfertPartRequest request) {
+        try
+        {
+            List<AvisTransfertPartProjection> avisTransfertPartProjections=libraryDao.avisTransfertPart(
+                    request.getIdOperation(),request.getIdOpcvm(), request.getDateDeb(),request.getDateFin()
+            );
+            return ResponseHandler.generateResponse(
+                    "Avis de transfert de parts opcvm",
+                    HttpStatus.OK,
+                    avisTransfertPartProjections);
+        }
+        catch(Exception e) {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e);
+        }
+    }
+
     //etatSuiviActionnaire
     public ResponseEntity<?> etatSuiviActionnaire(ReleveTitreFCPRequest request) {
         var parameters = request.getDatatableParameters();
