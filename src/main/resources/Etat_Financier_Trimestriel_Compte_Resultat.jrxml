@@ -1,6 +1,7 @@
 <!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 7.0.1-573496633c2b4074e32f433154b543003f7d2498  -->
 <jasperReport name="Etat_Financier_Trimestriel_Compte_Resultat" language="java" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="06853a2e-6809-410b-bacc-8b81b9ad586b">
 	<parameter name="letterDate" class="java.lang.String"/>
+	<parameter name="periode" class="java.lang.String"/>
 	<field name="idOpcvm" class="java.lang.Long">
 		<property name="com.jaspersoft.studio.field.name" value="idOpcvm"/>
 		<property name="com.jaspersoft.studio.field.label" value="idOpcvm"/>
@@ -9,7 +10,7 @@
 		<property name="com.jaspersoft.studio.field.name" value="sigleOpcvm"/>
 		<property name="com.jaspersoft.studio.field.label" value="sigleOpcvm"/>
 	</field>
-	<field name="dateEstimation" class="java.sql.Date">
+	<field name="dateEstimation" class="java.time.LocalDateTime">
 		<property name="com.jaspersoft.studio.field.name" value="dateEstimation"/>
 		<property name="com.jaspersoft.studio.field.label" value="dateEstimation"/>
 	</field>
@@ -25,7 +26,7 @@
 		<property name="com.jaspersoft.studio.field.name" value="pays"/>
 		<property name="com.jaspersoft.studio.field.label" value="pays"/>
 	</field>
-	<field name="dateMois1" class="java.sql.Date">
+	<field name="dateMois1" class="java.time.LocalDateTime">
 		<property name="com.jaspersoft.studio.field.name" value="dateMois1"/>
 		<property name="com.jaspersoft.studio.field.label" value="dateMois1"/>
 	</field>
@@ -89,9 +90,9 @@
 		<property name="com.jaspersoft.studio.field.name" value="varPluOuMoinsValue1"/>
 		<property name="com.jaspersoft.studio.field.label" value="varPluOuMoinsValue1"/>
 	</field>
-	<field name="PluOuMoinsValueReal1" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.name" value="PluOuMoinsValueReal1"/>
-		<property name="com.jaspersoft.studio.field.label" value="PluOuMoinsValueReal1"/>
+	<field name="pluOuMoinsValueReal1" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="pluOuMoinsValueReal1"/>
+		<property name="com.jaspersoft.studio.field.label" value="pluOuMoinsValueReal1"/>
 	</field>
 	<field name="fraisNegoc1" class="java.math.BigDecimal">
 		<property name="com.jaspersoft.studio.field.name" value="fraisNegoc1"/>
@@ -149,21 +150,21 @@
 		<property name="com.jaspersoft.studio.field.name" value="regulExoEnCours1"/>
 		<property name="com.jaspersoft.studio.field.label" value="regulExoEnCours1"/>
 	</field>
-	<field name="dateMois2" class="java.sql.Date">
+	<field name="dateMois2" class="java.time.LocalDateTime">
 		<property name="com.jaspersoft.studio.field.name" value="dateMois2"/>
 		<property name="com.jaspersoft.studio.field.label" value="dateMois2"/>
 	</field>
-	<field name="RevPortefeuilleTitre2" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.name" value="RevPortefeuilleTitre2"/>
-		<property name="com.jaspersoft.studio.field.label" value="RevPortefeuilleTitre2"/>
+	<field name="revPortefeuilleTitre2" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="revPortefeuilleTitre2"/>
+		<property name="com.jaspersoft.studio.field.label" value="revPortefeuilleTitre2"/>
 	</field>
 	<field name="dividende2" class="java.math.BigDecimal">
 		<property name="com.jaspersoft.studio.field.name" value="dividende2"/>
 		<property name="com.jaspersoft.studio.field.label" value="dividende2"/>
 	</field>
-	<field name="RevObligationAssim2" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.name" value="RevObligationAssim2"/>
-		<property name="com.jaspersoft.studio.field.label" value="RevObligationAssim2"/>
+	<field name="revObligationAssim2" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="revObligationAssim2"/>
+		<property name="com.jaspersoft.studio.field.label" value="revObligationAssim2"/>
 	</field>
 	<field name="revAutresValeurs2" class="java.math.BigDecimal">
 		<property name="com.jaspersoft.studio.field.name" value="revAutresValeurs2"/>
@@ -213,9 +214,9 @@
 		<property name="com.jaspersoft.studio.field.name" value="varPluOuMoinsValue2"/>
 		<property name="com.jaspersoft.studio.field.label" value="varPluOuMoinsValue2"/>
 	</field>
-	<field name="PluOuMoinsValueReal2" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.name" value="PluOuMoinsValueReal2"/>
-		<property name="com.jaspersoft.studio.field.label" value="PluOuMoinsValueReal2"/>
+	<field name="pluOuMoinsValueReal2" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="pluOuMoinsValueReal2"/>
+		<property name="com.jaspersoft.studio.field.label" value="pluOuMoinsValueReal2"/>
 	</field>
 	<field name="fraisNegoc2" class="java.math.BigDecimal">
 		<property name="com.jaspersoft.studio.field.name" value="fraisNegoc2"/>
@@ -273,21 +274,21 @@
 		<property name="com.jaspersoft.studio.field.name" value="regulExoEnCours2"/>
 		<property name="com.jaspersoft.studio.field.label" value="regulExoEnCours2"/>
 	</field>
-	<field name="dateMois3" class="java.sql.Date">
+	<field name="dateMois3" class="java.time.LocalDateTime">
 		<property name="com.jaspersoft.studio.field.name" value="dateMois3"/>
 		<property name="com.jaspersoft.studio.field.label" value="dateMois3"/>
 	</field>
-	<field name="RevPortefeuilleTitre3" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.name" value="RevPortefeuilleTitre3"/>
-		<property name="com.jaspersoft.studio.field.label" value="RevPortefeuilleTitre3"/>
+	<field name="revPortefeuilleTitre3" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="revPortefeuilleTitre3"/>
+		<property name="com.jaspersoft.studio.field.label" value="revPortefeuilleTitre3"/>
 	</field>
 	<field name="dividende3" class="java.math.BigDecimal">
 		<property name="com.jaspersoft.studio.field.name" value="dividende3"/>
 		<property name="com.jaspersoft.studio.field.label" value="dividende3"/>
 	</field>
-	<field name="RevObligationAssim3" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.name" value="RevObligationAssim3"/>
-		<property name="com.jaspersoft.studio.field.label" value="RevObligationAssim3"/>
+	<field name="revObligationAssim3" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="revObligationAssim3"/>
+		<property name="com.jaspersoft.studio.field.label" value="revObligationAssim3"/>
 	</field>
 	<field name="revAutresValeurs3" class="java.math.BigDecimal">
 		<property name="com.jaspersoft.studio.field.name" value="revAutresValeurs3"/>
@@ -337,9 +338,9 @@
 		<property name="com.jaspersoft.studio.field.name" value="varPluOuMoinsValue3"/>
 		<property name="com.jaspersoft.studio.field.label" value="varPluOuMoinsValue3"/>
 	</field>
-	<field name="PluOuMoinsValueReal3" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.name" value="PluOuMoinsValueReal3"/>
-		<property name="com.jaspersoft.studio.field.label" value="PluOuMoinsValueReal3"/>
+	<field name="pluOuMoinsValueReal3" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="pluOuMoinsValueReal3"/>
+		<property name="com.jaspersoft.studio.field.label" value="pluOuMoinsValueReal3"/>
 	</field>
 	<field name="fraisNegoc3" class="java.math.BigDecimal">
 		<property name="com.jaspersoft.studio.field.name" value="fraisNegoc3"/>
@@ -415,7 +416,7 @@
 			<expression><![CDATA["PAYS : "+$F{pays}]]></expression>
 		</element>
 		<element kind="textField" uuid="6b2784fe-702b-4558-b55e-9d4bcccc1791" x="130" y="60" width="310" height="18" bold="true" hTextAlign="Center">
-			<expression><![CDATA["(du 01 Janvier 2017 au 31 Décembre 2017)"]]></expression>
+			<expression><![CDATA[$P{periode}]]></expression>
 		</element>
 		<element kind="staticText" uuid="1fdbd485-702b-4c58-b493-819cedb3eaec" x="130" y="76" width="310" height="14" hTextAlign="Center">
 			<text><![CDATA[(en Francs CFA)]]></text>
@@ -426,7 +427,7 @@
 	<detail>
 		<band height="450" splitType="Stretch">
 			<element kind="rectangle" uuid="6bebfedf-b263-4cd7-bf62-a49282e768c2" x="3" y="9" width="550" height="441"/>
-			<element kind="textField" uuid="af6d0067-da9a-4f61-9a48-f1783de5c307" x="479" y="13" width="70" height="13" bold="true" hTextAlign="Center">
+			<element kind="textField" uuid="af6d0067-da9a-4f61-9a48-f1783de5c307" x="479" y="13" width="70" height="13" textAdjust="StretchHeight" bold="true" hTextAlign="Center">
 				<expression><![CDATA[$F{dateMois3}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"))]]></expression>
 			</element>
 			<element kind="staticText" uuid="04bdd618-8864-43f2-bd50-5a742e83b41b" x="10" y="51" width="268" height="13" bold="false" hTextAlign="Left">
@@ -448,19 +449,19 @@
 				</box>
 			</element>
 			<element kind="textField" uuid="37dafbfc-8dcc-4c51-9ec5-a2f049802760" x="479" y="32" width="70" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true" bold="true">
-				<expression><![CDATA[$F{RevPortefeuilleTitre3}]]></expression>
+				<expression><![CDATA[$F{revPortefeuilleTitre3}]]></expression>
 			</element>
 			<element kind="textField" uuid="acb1eef2-9e72-4130-a505-b42e67706b2b" x="479" y="51" width="70" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
 				<expression><![CDATA[$F{dividende3}]]></expression>
 			</element>
 			<element kind="textField" uuid="a5ab35b8-a1ea-44ad-abd0-2ec411c46f4d" x="479" y="69" width="70" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true" bold="false">
-				<expression><![CDATA[$F{RevObligationAssim3}]]></expression>
+				<expression><![CDATA[$F{revObligationAssim3}]]></expression>
 			</element>
 			<element kind="textField" uuid="8092aa2f-174d-4e3f-a165-4fdf5052fa75" x="479" y="141" width="70" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
 				<expression><![CDATA[$F{revPlacementMonet3}]]></expression>
 			</element>
 			<element kind="textField" uuid="cc4a8cab-0684-417c-a93d-08d832b49c55" x="479" y="158" width="70" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true" bold="true">
-				<expression><![CDATA[SUM($F{RevPortefeuilleTitre3},$F{revPlacementMonet3} )]]></expression>
+				<expression><![CDATA[SUM($F{revPortefeuilleTitre3},$F{revPlacementMonet3} )]]></expression>
 			</element>
 			<element kind="textField" uuid="c9b22df1-61f2-464c-a8d0-c817ca5e54f5" x="479" y="176" width="70" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true" bold="true">
 				<expression><![CDATA[$F{chargGesPlac3}]]></expression>
@@ -519,23 +520,23 @@
 			<element kind="textField" uuid="12679291-8acc-4fea-83dc-8e669bcc5940" x="479" y="260" width="70" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true" bold="true">
 				<expression><![CDATA[$F{resExploitation3}]]></expression>
 			</element>
-			<element kind="textField" uuid="7b7e6146-83b6-44d7-b5f4-f070198176ad" x="415" y="13" width="52" height="13" bold="true" hTextAlign="Center">
+			<element kind="textField" uuid="7b7e6146-83b6-44d7-b5f4-f070198176ad" x="409" y="13" width="65" height="13" textAdjust="StretchHeight" bold="true" hTextAlign="Center">
 				<expression><![CDATA[$F{dateMois2}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"))]]></expression>
 			</element>
 			<element kind="textField" uuid="a14459eb-dc4c-49fc-8b42-43cac85ddc5f" x="414" y="32" width="53" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true" bold="true">
-				<expression><![CDATA[$F{RevPortefeuilleTitre2}]]></expression>
+				<expression><![CDATA[$F{revPortefeuilleTitre2}]]></expression>
 			</element>
 			<element kind="textField" uuid="e0f6de50-e465-4d5a-bca8-20f184b07ed5" x="414" y="51" width="53" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
 				<expression><![CDATA[$F{dividende2}]]></expression>
 			</element>
 			<element kind="textField" uuid="32b00d30-dd36-4ad6-b9b6-ee19e23ff48c" x="414" y="69" width="53" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true" bold="false">
-				<expression><![CDATA[$F{RevObligationAssim2}]]></expression>
+				<expression><![CDATA[$F{revObligationAssim2}]]></expression>
 			</element>
 			<element kind="textField" uuid="6725fe32-e778-4dc1-8b7a-fb769d9dc8b5" x="414" y="141" width="53" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
 				<expression><![CDATA[$F{revPlacementMonet2}]]></expression>
 			</element>
 			<element kind="textField" uuid="2b3b7de1-1e12-4151-a53e-85fd51689f4a" x="414" y="158" width="53" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true" bold="true">
-				<expression><![CDATA[SUM($F{RevPortefeuilleTitre2},$F{revPlacementMonet2} )]]></expression>
+				<expression><![CDATA[SUM($F{revPortefeuilleTitre2},$F{revPlacementMonet2} )]]></expression>
 			</element>
 			<element kind="textField" uuid="87ff687d-74b0-4431-96ae-96204a3b9fd2" x="414" y="176" width="53" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true" bold="true">
 				<expression><![CDATA[$F{chargGesPlac2}]]></expression>
@@ -552,7 +553,7 @@
 			<element kind="textField" uuid="295dbedb-5aa8-4155-8026-e283ea5a909c" x="414" y="260" width="53" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true" bold="true">
 				<expression><![CDATA[$F{resExploitation2}]]></expression>
 			</element>
-			<element kind="textField" uuid="7ec98cc0-d6d3-4fa1-b50c-16ff0ab1b237" x="332" y="13" width="69" height="13" bold="true" hTextAlign="Center">
+			<element kind="textField" uuid="7ec98cc0-d6d3-4fa1-b50c-16ff0ab1b237" x="332" y="13" width="69" height="13" textAdjust="StretchHeight" bold="true" hTextAlign="Center">
 				<expression><![CDATA[$F{dateMois1}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"))]]></expression>
 			</element>
 			<element kind="textField" uuid="6ada09af-d161-4b24-b860-c80c7fd2bfd3" x="332" y="32" width="70" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true" bold="true">
@@ -667,13 +668,13 @@
 				</box>
 			</element>
 			<element kind="textField" uuid="0435318e-5b5a-4071-a7a7-92246585ccb2" x="332" y="381" width="70" height="18" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
-				<expression><![CDATA[$F{PluOuMoinsValueReal1}]]></expression>
+				<expression><![CDATA[$F{pluOuMoinsValueReal1}]]></expression>
 			</element>
 			<element kind="textField" uuid="a33cf535-bf33-4f5d-97cd-0aae60aeeab5" x="414" y="381" width="53" height="18" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
-				<expression><![CDATA[$F{PluOuMoinsValueReal2}]]></expression>
+				<expression><![CDATA[$F{pluOuMoinsValueReal2}]]></expression>
 			</element>
 			<element kind="textField" uuid="30cec611-3a03-47ce-a467-edeb294ffe12" x="479" y="381" width="70" height="18" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
-				<expression><![CDATA[$F{PluOuMoinsValueReal3}]]></expression>
+				<expression><![CDATA[$F{pluOuMoinsValueReal3}]]></expression>
 			</element>
 			<element kind="textField" uuid="ae1d8389-9aff-40e4-8bdf-6ef538f4383b" x="479" y="345" width="70" height="30" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
 				<expression><![CDATA[$F{varPluOuMoinsValue3}]]></expression>

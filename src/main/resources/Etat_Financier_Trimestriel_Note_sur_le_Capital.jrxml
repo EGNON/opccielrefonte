@@ -3,7 +3,9 @@
 	<parameter name="letterDate" class="java.lang.String"/>
 	<parameter name="periodicite" class="java.lang.String"/>
 	<parameter name="denominationOpcvm" class="java.lang.String"/>
-	<parameter name="dateEstimation" class="java.sql.Date"/>
+	<parameter name="dateEstimation" class="java.time.LocalDateTime"/>
+	<parameter name="capital2" class="java.lang.String"/>
+	<parameter name="capital1" class="java.lang.String"/>
 	<field name="montant1" class="java.math.BigDecimal">
 		<property name="com.jaspersoft.studio.field.name" value="montant1"/>
 		<property name="com.jaspersoft.studio.field.label" value="montant1"/>
@@ -56,7 +58,7 @@
 		<property name="com.jaspersoft.studio.field.name" value="idOpcvm"/>
 		<property name="com.jaspersoft.studio.field.label" value="idOpcvm"/>
 	</field>
-	<field name="dateEstimation" class="java.sql.Date">
+	<field name="dateEstimation" class="java.time.LocalDateTime">
 		<property name="com.jaspersoft.studio.field.name" value="dateEstimation"/>
 		<property name="com.jaspersoft.studio.field.label" value="dateEstimation"/>
 	</field>
@@ -75,9 +77,7 @@
 			<expression><![CDATA[$P{denominationOpcvm}]]></expression>
 		</element>
 		<element kind="textField" uuid="305e68e3-d652-40d6-af38-42d132846b7c" x="390" y="59" width="162" height="14">
-			<expression><![CDATA[$P{periodicite}.trim().equals("Trimestre") || $P{periodicite}.trim().equals("Semestre") ? 
-    "(Du " +  new java.text.SimpleDateFormat("dd/MM/ yyyy").format(new java.sql.Date($P{dateEstimation}.toLocalDate().plusMonths($P{periodicite}=="Trimestre"?-2:-5).withDayOfMonth(1).atStartOfDay(java.time.ZoneId.systemDefault()).toInstant().toEpochMilli())) + " au " + new java.text.SimpleDateFormat("dd/MM/ yyyy").format($P{dateEstimation}) + ")" : 
-    "(Du "+new java.sql.Date($P{dateEstimation}.toLocalDate().plusMonths(-12).plusDays(1).atStartOfDay(java.time.ZoneId.systemDefault()).toInstant().toEpochMilli())+" au "+$P{dateEstimation}+")"]]></expression>
+			<expression><![CDATA[$P{periodicite}]]></expression>
 		</element>
 	</title>
 	<pageHeader splitType="Stretch"/>
@@ -85,12 +85,6 @@
 	<detail>
 		<band height="299" splitType="Stretch">
 			<element kind="rectangle" uuid="73d2f520-a339-48ad-b655-9bff2ac5a72d" x="3" y="3" width="550" height="296"/>
-			<element kind="staticText" uuid="6e9c11b7-28f1-4f92-b5d7-68b509b4133f" x="10" y="9" width="210" height="13" bold="true" hTextAlign="Left">
-				<text><![CDATA[Capital au ]]></text>
-				<box>
-					<pen lineWidth="1.0" lineColor="#3B88D1"/>
-				</box>
-			</element>
 			<element kind="staticText" uuid="613d2f53-b873-4d22-8146-1f9606071f46" x="10" y="27" width="240" height="13" bold="false" hTextAlign="Left">
 				<text><![CDATA[Montant]]></text>
 				<box>
@@ -184,12 +178,6 @@
 					<pen lineWidth="1.0" lineColor="#3B88D1"/>
 				</box>
 			</element>
-			<element kind="staticText" uuid="7630a10f-07ff-45f9-93f7-b0668589d71b" x="10" y="225" width="210" height="13" bold="true" hTextAlign="Left">
-				<text><![CDATA[Capital au ]]></text>
-				<box>
-					<pen lineWidth="1.0" lineColor="#3B88D1"/>
-				</box>
-			</element>
 			<element kind="staticText" uuid="5247b066-bb77-4984-a0f6-c05acdb14d37" x="10" y="243" width="210" height="13" bold="false" hTextAlign="Left">
 				<text><![CDATA[Montant]]></text>
 				<box>
@@ -216,6 +204,26 @@
 			</element>
 			<element kind="textField" uuid="48651a15-385b-4a87-bcae-f38707eaf0b4" x="449" y="279" width="100" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
 				<expression><![CDATA[$F{nombreActionnaire4}]]></expression>
+			</element>
+			<element kind="textField" uuid="ee124b08-c2a8-43d1-8061-5305ab16afda" x="10" y="6" width="240" height="17" bold="true">
+				<expression><![CDATA[$P{capital1}]]></expression>
+				<box>
+					<pen lineColor="#3B88D1"/>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#3B88D1"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#3B88D1"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#3B88D1"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#3B88D1"/>
+				</box>
+			</element>
+			<element kind="textField" uuid="6653c4db-b71e-4f7a-8f85-3cb6a84cdb5f" x="10" y="223" width="240" height="17" bold="true">
+				<expression><![CDATA[$P{capital2}]]></expression>
+				<box>
+					<pen lineColor="#3B88D1"/>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#3B88D1"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#3B88D1"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#3B88D1"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#3B88D1"/>
+				</box>
 			</element>
 		</band>
 	</detail>

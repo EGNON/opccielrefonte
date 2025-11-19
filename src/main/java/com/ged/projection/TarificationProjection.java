@@ -17,7 +17,7 @@ public interface TarificationProjection  {
 
     Place getPlace() ;
 
-    Depositaire getDepositaire();
+    Personne getDepositaire();
 
     Opcvm getOpcvm();
 

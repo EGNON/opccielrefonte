@@ -153,11 +153,11 @@ public interface LibraryDao extends JpaRepository<BaseEntity, Long> {
     @Query(value = "select * from [Impressions].[FT_NotesSurLesFraisDeGestionTrimestriel_New] (:idOpcvm,:dateEstimation)", nativeQuery = true)
     List<EtatFinancierAnnexesRemunerationGestionnaireDepositaireProjection> etatFinancierAnnexesRemunerationGestionnaireDepositaire(Long idOpcvm,LocalDateTime dateEstimation);
 
-    @Query(value = "select * from [Impressions].[FT_BilanTrimestriel_New](:idOpcvm,:dateEstimation,:denominationOpcvm,:annee)", nativeQuery = true)
-    List<EtatFinancierTrimestrielBilanTrimestrielProjection> etatFinancierTrimestrielBilanTrimestriel(Long idOpcvm,LocalDateTime dateEstimation, String denominationOpcvm, Integer annee);
+    @Query(value = "select * from [Impressions].[FT_BilanTrimestriel_New](:idOpcvm,:dateEstimation)", nativeQuery = true)
+    List<EtatFinancierTrimestrielBilanTrimestrielProjection> etatFinancierTrimestrielBilanTrimestriel(Long idOpcvm,LocalDateTime dateEstimation);
 
-    @Query(value = "select * from [Impressions].[FT_ResultatTrimestriel_New](:idOpcvm,:dateEstimation,:denominationOpcvm,:annee)", nativeQuery = true)
-    List<EtatFinancierTrimestrielCompteResultatProjection> etatFinancierTrimestrielCompteResultat(Long idOpcvm,LocalDateTime dateEstimation, String denominationOpcvm, Integer annee);
+    @Query(value = "select * from [Impressions].[FT_ResultatTrimestriel_New](:idOpcvm,:dateEstimation)", nativeQuery = true)
+    List<EtatFinancierTrimestrielCompteResultatProjection> etatFinancierTrimestrielCompteResultat(Long idOpcvm,LocalDateTime dateEstimation);
 
     @Query(value = "select * from [Impressions].[FT_VariationActifNetTrimestriel_New] (:idOpcvm,:dateEstimation)", nativeQuery = true)
     List<EtatFinancierTrimestrielVariationActifNetProjection> etatFinancierTrimestrielVariationActifNet(Long idOpcvm,LocalDateTime dateEstimation);

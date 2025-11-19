@@ -3,13 +3,13 @@
 	<parameter name="letterDate" class="java.lang.String"/>
 	<parameter name="denominationOpcvm" class="java.lang.String"/>
 	<parameter name="libellePays" class="java.lang.String"/>
-	<parameter name="dateEstimation" class="java.sql.Date"/>
+	<parameter name="dateEstimation" class="java.time.LocalDateTime"/>
 	<parameter name="periodicite" class="java.lang.String"/>
 	<field name="designationTitre" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.name" value="designationTitre"/>
 		<property name="com.jaspersoft.studio.field.label" value="designationTitre"/>
 	</field>
-	<field name="nombre" class="java.math.BigDecimal">
+	<field name="nombre" class="java.lang.Long">
 		<property name="com.jaspersoft.studio.field.name" value="nombre"/>
 		<property name="com.jaspersoft.studio.field.label" value="nombre"/>
 	</field>
@@ -33,7 +33,7 @@
 		<property name="com.jaspersoft.studio.field.name" value="idOpcvm"/>
 		<property name="com.jaspersoft.studio.field.label" value="idOpcvm"/>
 	</field>
-	<field name="dateEstimation" class="java.sql.Date">
+	<field name="dateEstimation" class="java.time.LocalDateTime">
 		<property name="com.jaspersoft.studio.field.name" value="dateEstimation"/>
 		<property name="com.jaspersoft.studio.field.label" value="dateEstimation"/>
 	</field>
@@ -52,21 +52,29 @@
 	<group name="Group1">
 		<expression><![CDATA[$F{idOpcvm}]]></expression>
 		<groupHeader>
-			<band height="28">
-				<element kind="rectangle" uuid="e556567d-b3e5-47a4-bf7c-3cc511254691" x="3" y="3" width="796" height="25" backcolor="#BDD7EE"/>
-				<element kind="line" uuid="278204e0-7f29-4d79-95fa-67fea7b65c56" x="711" y="3" width="1" height="24"/>
-				<element kind="line" uuid="4fbcce0c-e4d3-48e7-8b4a-321f055ff331" x="623" y="3" width="1" height="24"/>
-				<element kind="line" uuid="8711742f-503d-43b2-ba51-7a4015990f3e" x="501" y="3" width="1" height="24"/>
+			<band height="40">
+				<element kind="rectangle" uuid="e556567d-b3e5-47a4-bf7c-3cc511254691" x="3" y="3" width="796" height="37" backcolor="#BDD7EE"/>
+				<element kind="line" uuid="278204e0-7f29-4d79-95fa-67fea7b65c56" x="711" y="3" width="1" height="37">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</element>
+				<element kind="line" uuid="4fbcce0c-e4d3-48e7-8b4a-321f055ff331" x="623" y="3" width="1" height="37">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</element>
+				<element kind="line" uuid="8711742f-503d-43b2-ba51-7a4015990f3e" x="501" y="3" width="1" height="37">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</element>
 				<element kind="staticText" uuid="8ae8fbd2-5737-4ca6-83d9-bd2554ccc357" x="510" y="8" width="104" height="14" bold="true" hTextAlign="Center">
 					<text><![CDATA[Coût d'acquisition]]></text>
 				</element>
-				<element kind="staticText" uuid="0de61b5e-c165-40fc-a855-66cb11268c39" x="632" y="8" width="70" height="14" bold="true" hTextAlign="Center">
-					<text><![CDATA[Valeur au ]]></text>
+				<element kind="textField" uuid="3835d444-04d2-409d-8a5c-cbc1d581d8f0" x="625" y="8" width="84" height="29" textAdjust="StretchHeight" bold="true">
+					<expression><![CDATA["Valeur au "+$P{dateEstimation}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"))]]></expression>
 				</element>
 				<element kind="staticText" uuid="059b0470-5fac-4e4d-8fef-28d134781c30" x="720" y="8" width="70" height="14" bold="true" hTextAlign="Center">
 					<text><![CDATA[% actif net]]></text>
 				</element>
-				<element kind="line" uuid="915a8821-4f8d-4234-adcd-255e3a1ce4d5" x="389" y="3" width="1" height="24"/>
+				<element kind="line" uuid="915a8821-4f8d-4234-adcd-255e3a1ce4d5" x="389" y="3" width="1" height="37">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</element>
 				<element kind="staticText" uuid="6ebf803a-bb1c-4cbf-9d09-c8f91189f956" x="395" y="8" width="96" height="14" bold="true" hTextAlign="Center">
 					<text><![CDATA[Nombre de titres]]></text>
 				</element>
@@ -85,16 +93,16 @@
 				<element kind="staticText" uuid="c48efd3e-93f3-4f38-9af5-4cd7119214b7" stretchType="ContainerHeight" x="10" y="8" width="330" height="14" bold="true" hTextAlign="Left">
 					<text><![CDATA[TOTAL]]></text>
 				</element>
-				<element kind="textField" uuid="0e49f8a6-0c4f-40a0-bfb5-07ecb17686c2" x="393" y="8" width="108" height="14">
+				<element kind="textField" uuid="0e49f8a6-0c4f-40a0-bfb5-07ecb17686c2" x="393" y="8" width="108" height="14" pattern="#,##0.###;#,##0.###">
 					<expression><![CDATA[$V{nombre1}]]></expression>
 				</element>
-				<element kind="textField" uuid="7f681d5c-baa2-499a-9925-87383d51a2ce" x="505" y="8" width="118" height="14">
+				<element kind="textField" uuid="7f681d5c-baa2-499a-9925-87383d51a2ce" x="505" y="8" width="118" height="14" pattern="#,##0.###;#,##0.###">
 					<expression><![CDATA[$V{coutAcquisition1}]]></expression>
 				</element>
-				<element kind="textField" uuid="4ea3ebae-74ed-48d4-92df-fa9e3bc063fc" x="627" y="8" width="84" height="14">
+				<element kind="textField" uuid="4ea3ebae-74ed-48d4-92df-fa9e3bc063fc" x="627" y="8" width="84" height="14" pattern="#,##0.###;#,##0.###">
 					<expression><![CDATA[$V{valeur1}]]></expression>
 				</element>
-				<element kind="textField" uuid="c0ea7ac8-4dee-41b5-aa07-0490fccda3fb" x="716" y="8" width="81" height="14">
+				<element kind="textField" uuid="c0ea7ac8-4dee-41b5-aa07-0490fccda3fb" x="716" y="8" width="81" height="14" pattern="#,##0.###;#,##0.###">
 					<expression><![CDATA[$V{actifnetpourcent1}]]></expression>
 				</element>
 			</band>
@@ -122,9 +130,7 @@
 			<text><![CDATA[NOTE SUR LES PLACEMENTS MONETAIRES]]></text>
 		</element>
 		<element kind="textField" uuid="93f76dca-8f13-4b16-ae43-e2dc4d844eb3" x="58" y="66" width="676" height="14" hTextAlign="Center">
-			<expression><![CDATA[EQUALS($P{periodicite}.trim(), "Annuel") ? 
-    "(Du " +  new java.text.SimpleDateFormat("dd/MM/ yyyy").format(new java.sql.Date($P{dateEstimation}.toLocalDate().plusMonths($P{periodicite}=="Trimestre"?-2:-5).withDayOfMonth(1).atStartOfDay(java.time.ZoneId.systemDefault()).toInstant().toEpochMilli())) + " au " + new java.text.SimpleDateFormat("dd/MM/ yyyy").format($P{dateEstimation}) + ")" : 
-    "(Du "+new java.sql.Date($P{dateEstimation}.toLocalDate().plusMonths(-12).plusDays(1).atStartOfDay(java.time.ZoneId.systemDefault()).toInstant().toEpochMilli())+" au "+$P{dateEstimation}+")"]]></expression>
+			<expression><![CDATA[$P{periodicite}]]></expression>
 		</element>
 	</title>
 	<pageHeader splitType="Stretch"/>

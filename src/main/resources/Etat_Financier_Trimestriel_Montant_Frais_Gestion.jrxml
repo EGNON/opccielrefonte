@@ -1,0 +1,449 @@
+<!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 7.0.1-573496633c2b4074e32f433154b543003f7d2498  -->
+<jasperReport name="Etat_Financier_Trimestriel_Montant_Frais_Gestion" language="java" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9fd78890-f1a9-4ac5-bccc-1d22dd1fccf4">
+	<parameter name="letterDate" class="java.lang.String"/>
+	<parameter name="denominationOpcvm" class="java.lang.String"/>
+	<parameter name="raisonSocial" class="java.lang.String"/>
+	<parameter name="dateEstimation" class="java.time.LocalDateTime"/>
+	<parameter name="format" class="java.lang.String"/>
+	<field name="actifNet" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="actifNet"/>
+		<property name="com.jaspersoft.studio.field.label" value="actifNet"/>
+	</field>
+	<field name="montantProvisionGest" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="montantProvisionGest"/>
+		<property name="com.jaspersoft.studio.field.label" value="montantProvisionGest"/>
+	</field>
+	<field name="montantCumuleGest" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="montantCumuleGest"/>
+		<property name="com.jaspersoft.studio.field.label" value="montantCumuleGest"/>
+	</field>
+	<field name="montantProvisionTC" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="montantProvisionTC"/>
+		<property name="com.jaspersoft.studio.field.label" value="montantProvisionTC"/>
+	</field>
+	<field name="montantCumuleTC" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="montantCumuleTC"/>
+		<property name="com.jaspersoft.studio.field.label" value="montantCumuleTC"/>
+	</field>
+	<field name="montantProvisionTrans" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="montantProvisionTrans"/>
+		<property name="com.jaspersoft.studio.field.label" value="montantProvisionTrans"/>
+	</field>
+	<field name="montantCumuleTrans" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="montantCumuleTrans"/>
+		<property name="com.jaspersoft.studio.field.label" value="montantCumuleTrans"/>
+	</field>
+	<field name="montantProvisionAutre" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="montantProvisionAutre"/>
+		<property name="com.jaspersoft.studio.field.label" value="montantProvisionAutre"/>
+	</field>
+	<field name="montantCumuleAutre" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="montantCumuleAutre"/>
+		<property name="com.jaspersoft.studio.field.label" value="montantCumuleAutre"/>
+	</field>
+	<field name="montantProvisionCOC" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="montantProvisionCOC"/>
+		<property name="com.jaspersoft.studio.field.label" value="montantProvisionCOC"/>
+	</field>
+	<field name="montantCumuleCOC" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="montantCumuleCOC"/>
+		<property name="com.jaspersoft.studio.field.label" value="montantCumuleCOC"/>
+	</field>
+	<field name="montantProvisionCREPMF" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="montantProvisionCREPMF"/>
+		<property name="com.jaspersoft.studio.field.label" value="montantProvisionCREPMF"/>
+	</field>
+	<field name="montantCumuleCREPMF" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="montantCumuleCREPMF"/>
+		<property name="com.jaspersoft.studio.field.label" value="montantCumuleCREPMF"/>
+	</field>
+	<field name="montantProvisionAFG" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="montantProvisionAFG"/>
+		<property name="com.jaspersoft.studio.field.label" value="montantProvisionAFG"/>
+	</field>
+	<field name="montantCumuleAFG" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="montantCumuleAFG"/>
+		<property name="com.jaspersoft.studio.field.label" value="montantCumuleAFG"/>
+	</field>
+	<field name="montantProvisionDCBR" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="montantProvisionDCBR"/>
+		<property name="com.jaspersoft.studio.field.label" value="montantProvisionDCBR"/>
+	</field>
+	<field name="montantCumuleDCBR" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="montantCumuleDCBR"/>
+		<property name="com.jaspersoft.studio.field.label" value="montantCumuleDCBR"/>
+	</field>
+	<field name="actifNetGestPC" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="actifNetGestPC"/>
+		<property name="com.jaspersoft.studio.field.label" value="actifNetGestPC"/>
+	</field>
+	<field name="actifNemontantCumuleGestPC" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="actifNemontantCumuleGestPC"/>
+		<property name="com.jaspersoft.studio.field.label" value="actifNemontantCumuleGestPC"/>
+	</field>
+	<field name="actifNetDCBRPC" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="actifNetDCBRPC"/>
+		<property name="com.jaspersoft.studio.field.label" value="actifNetDCBRPC"/>
+	</field>
+	<field name="actifNemontantCumuleDCBRPC" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="actifNemontantCumuleDCBRPC"/>
+		<property name="com.jaspersoft.studio.field.label" value="actifNemontantCumuleDCBRPC"/>
+	</field>
+	<field name="actifNetTCPC" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="actifNetTCPC"/>
+		<property name="com.jaspersoft.studio.field.label" value="actifNetTCPC"/>
+	</field>
+	<field name="actifNemontantCumuleTCPC" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="actifNemontantCumuleTCPC"/>
+		<property name="com.jaspersoft.studio.field.label" value="actifNemontantCumuleTCPC"/>
+	</field>
+	<field name="actifNetTransPC" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="actifNetTransPC"/>
+		<property name="com.jaspersoft.studio.field.label" value="actifNetTransPC"/>
+	</field>
+	<field name="actifNemontantCumuleTransPC" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="actifNemontantCumuleTransPC"/>
+		<property name="com.jaspersoft.studio.field.label" value="actifNemontantCumuleTransPC"/>
+	</field>
+	<field name="actifNetAutrePC" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="actifNetAutrePC"/>
+		<property name="com.jaspersoft.studio.field.label" value="actifNetAutrePC"/>
+	</field>
+	<field name="actifNemontantCumuleAutrePC" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="actifNemontantCumuleAutrePC"/>
+		<property name="com.jaspersoft.studio.field.label" value="actifNemontantCumuleAutrePC"/>
+	</field>
+	<field name="actifNetCOCPC" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="actifNetCOCPC"/>
+		<property name="com.jaspersoft.studio.field.label" value="actifNetCOCPC"/>
+	</field>
+	<field name="actifNemontantCumuleCOCPC" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="actifNemontantCumuleCOCPC"/>
+		<property name="com.jaspersoft.studio.field.label" value="actifNemontantCumuleCOCPC"/>
+	</field>
+	<field name="actifNetCREPMFPC" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="actifNetCREPMFPC"/>
+		<property name="com.jaspersoft.studio.field.label" value="actifNetCREPMFPC"/>
+	</field>
+	<field name="actifNemontantCumuleCREPMFPC" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="actifNemontantCumuleCREPMFPC"/>
+		<property name="com.jaspersoft.studio.field.label" value="actifNemontantCumuleCREPMFPC"/>
+	</field>
+	<field name="actifNetAFGPC" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="actifNetAFGPC"/>
+		<property name="com.jaspersoft.studio.field.label" value="actifNetAFGPC"/>
+	</field>
+	<field name="actifNemontantCumuleAFGPC" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="actifNemontantCumuleAFGPC"/>
+		<property name="com.jaspersoft.studio.field.label" value="actifNemontantCumuleAFGPC"/>
+	</field>
+	<field name="idOpcvm" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="idOpcvm"/>
+		<property name="com.jaspersoft.studio.field.label" value="idOpcvm"/>
+	</field>
+	<field name="dateEstimation" class="java.time.LocalDateTime">
+		<property name="com.jaspersoft.studio.field.name" value="dateEstimation"/>
+		<property name="com.jaspersoft.studio.field.label" value="dateEstimation"/>
+	</field>
+	<background splitType="Stretch"/>
+	<title height="109" splitType="Stretch">
+		<element kind="textField" uuid="2f5f2981-1b79-40ce-b607-a4b340329a30" x="3" y="3" width="217" height="16">
+			<expression><![CDATA["Cotonou, le "+$P{letterDate}]]></expression>
+		</element>
+		<element kind="textField" uuid="d5629f87-e878-432d-9e18-f9fa3914812e" x="3" y="90" width="442" height="19">
+			<expression><![CDATA["GESTIONNAIRE: "+$P{raisonSocial}]]></expression>
+			<box>
+				<pen lineWidth="1.0" lineColor="#3B88D1"/>
+			</box>
+		</element>
+		<element kind="textField" uuid="aacb1ee9-f654-4ddd-b465-0e54116aa5b5" x="450" y="90" width="349" height="18">
+			<expression><![CDATA[$P{format} + ": " + $P{dateEstimation}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"))]]></expression>
+			<box>
+				<pen lineWidth="1.0" lineColor="#3B88D1"/>
+			</box>
+		</element>
+		<element kind="rectangle" uuid="e063b7b6-3301-4d81-8863-655f19daeaf5" x="3" y="27" width="796" height="33" backcolor="#BDD7EE"/>
+		<element kind="staticText" uuid="922cc334-391f-40fd-b3e0-5dccce20d101" x="230" y="35" width="342" height="17" fontSize="10.0" bold="true" hTextAlign="Center">
+			<text><![CDATA[MONTANT DES FRAIS DE GESTIONS DES OPCVM]]></text>
+		</element>
+		<element kind="textField" uuid="ecbc6570-f017-4777-b104-35d4dcbcbc10" x="3" y="66" width="731" height="14" hTextAlign="Left">
+			<expression><![CDATA["DESIGNATION DE L'ENTREPRISE : "+$P{denominationOpcvm}]]></expression>
+		</element>
+	</title>
+	<pageHeader splitType="Stretch"/>
+	<columnHeader splitType="Stretch"/>
+	<detail>
+		<band height="336" splitType="Stretch">
+			<element kind="rectangle" uuid="ec5d38fa-c6b8-4eb0-b03b-2dba8f69e2da" x="3" y="3" width="796" height="61" backcolor="#BDD7EE"/>
+			<element kind="line" uuid="f23e93d1-35df-4159-8465-47b543a5c4a3" x="711" y="3" width="1" height="60"/>
+			<element kind="line" uuid="36963ac3-15d8-42f0-a22b-ddd78b0569a5" x="623" y="3" width="1" height="60"/>
+			<element kind="line" uuid="82b8d902-a8cb-4519-bb7c-eb4a9b67fb81" x="501" y="3" width="1" height="60"/>
+			<element kind="staticText" uuid="56fe8ad6-a6d3-4689-bce0-b2789c6178ad" x="510" y="8" width="104" height="52" bold="true" hTextAlign="Center" vTextAlign="Middle">
+				<text><![CDATA[% de l'Actif Net]]></text>
+			</element>
+			<element kind="staticText" uuid="f2c4dfce-d131-4ffc-b35f-66c4a5975c6c" x="624" y="7" width="87" height="54" bold="true" hTextAlign="Center" vTextAlign="Middle">
+				<text><![CDATA[Montant débité Cumulé depuis le début d'année(en FCFA)]]></text>
+			</element>
+			<element kind="staticText" uuid="d19ee75d-b45f-4318-b485-88a9bdf3b8ff" x="720" y="8" width="70" height="52" bold="true" hTextAlign="Center" vTextAlign="Middle">
+				<text><![CDATA[% de l'Actif Net]]></text>
+			</element>
+			<element kind="line" uuid="1bb18c05-642c-4fbd-81b1-43242123ac67" x="389" y="3" width="1" height="60"/>
+			<element kind="staticText" uuid="5a95f69c-1dd8-4187-857c-de8cffbe2f83" x="393" y="8" width="105" height="52" bold="true" hTextAlign="Center" vTextAlign="Middle">
+				<text><![CDATA[Montant Provisionné (en FCFA)]]></text>
+			</element>
+			<element kind="staticText" uuid="451df12b-50f0-4a69-9651-734fd60f73b9" x="30" y="8" width="330" height="52" bold="true" hTextAlign="Center" vTextAlign="Middle">
+				<text><![CDATA[FRAIS DE GESTION]]></text>
+			</element>
+			<element kind="rectangle" uuid="83c17a41-5770-411c-a1b7-b97efd3720b5" x="3" y="64" width="796" height="272" backcolor="#FFFFFF"/>
+			<element kind="line" uuid="555ab404-9031-45a6-b7f3-5f83434efb8e" x="711" y="64" width="1" height="271"/>
+			<element kind="line" uuid="186b9796-0d5c-4e99-a036-44bf927205de" x="623" y="64" width="1" height="271"/>
+			<element kind="line" uuid="b2488662-8573-40db-a6aa-6f77a8812fe3" x="501" y="64" width="1" height="271"/>
+			<element kind="line" uuid="312f5d26-8d71-440d-9148-499342adfddf" x="389" y="64" width="1" height="271"/>
+			<element kind="textField" uuid="6261e3aa-6aee-4540-8d0b-86f7e7406d19" x="400" y="69" width="90" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true" bold="true">
+				<expression><![CDATA[$F{montantProvisionGest}]]></expression>
+			</element>
+			<element kind="textField" uuid="358f089c-8a49-4895-b3bd-efc9ec2c5e65" x="517" y="69" width="90" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true" bold="true">
+				<expression><![CDATA[$F{actifNetGestPC}+"%"]]></expression>
+			</element>
+			<element kind="textField" uuid="0d196b36-12a5-4216-9d6e-f62ef1a48705" x="635" y="69" width="65" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true" bold="true">
+				<expression><![CDATA[$F{montantCumuleGest}]]></expression>
+			</element>
+			<element kind="textField" uuid="38de80e4-fd25-4482-8cd5-1b5e592fe621" x="723" y="69" width="65" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true" bold="true">
+				<expression><![CDATA[$F{actifNemontantCumuleGestPC}+"%"]]></expression>
+			</element>
+			<element kind="textField" uuid="9837eded-79fa-48c8-b5c4-5065810f4c32" x="400" y="88" width="90" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{montantProvisionGest}]]></expression>
+			</element>
+			<element kind="textField" uuid="0700cff9-cbd2-4543-a643-59df26328c9e" x="517" y="88" width="90" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{actifNetGestPC}+"%"]]></expression>
+			</element>
+			<element kind="textField" uuid="12b925ed-e41c-4816-8900-f9fe4b79c01b" x="635" y="88" width="65" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{montantCumuleGest}]]></expression>
+			</element>
+			<element kind="textField" uuid="4400b50b-1e35-4298-ba06-56b5689d9e86" x="723" y="88" width="65" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{actifNemontantCumuleGestPC}+"%"]]></expression>
+			</element>
+			<element kind="textField" uuid="75bbf5e0-32ef-4931-a0c7-7f170e014ec4" x="400" y="107" width="90" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true" bold="true">
+				<expression><![CDATA[$F{montantProvisionDCBR}]]></expression>
+			</element>
+			<element kind="textField" uuid="5548239b-7c6b-4367-ab21-df4fd38afdb1" x="400" y="126" width="90" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{montantProvisionTC}]]></expression>
+			</element>
+			<element kind="textField" uuid="9767fdb3-89cb-4d25-938d-716ab7ba6fa4" x="517" y="126" width="90" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{actifNetTCPC}+"%"]]></expression>
+			</element>
+			<element kind="textField" uuid="1b47b3e2-ec60-4d14-8dfe-98f277a010b0" x="517" y="107" width="90" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true" bold="true">
+				<expression><![CDATA[$F{actifNetDCBRPC}+"%"]]></expression>
+			</element>
+			<element kind="textField" uuid="964dc78b-e55a-4f4b-ab51-707a13bc6a3c" x="635" y="107" width="65" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true" bold="true">
+				<expression><![CDATA[$F{montantCumuleDCBR}]]></expression>
+			</element>
+			<element kind="textField" uuid="a699296f-5852-4bed-bf15-a5bb35682f62" x="635" y="126" width="65" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{montantCumuleTC}]]></expression>
+			</element>
+			<element kind="textField" uuid="dd3e1070-1cb8-4aba-b9c0-8bc89227badb" x="723" y="126" width="65" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{actifNemontantCumuleTCPC}+"%"]]></expression>
+			</element>
+			<element kind="textField" uuid="0b331128-7daf-4cc0-bf98-94c279ce015a" x="723" y="107" width="65" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true" bold="true">
+				<expression><![CDATA[$F{actifNemontantCumuleDCBRPC}+"%"]]></expression>
+			</element>
+			<element kind="textField" uuid="80936e60-6af5-47d4-87bc-1582814dc7c1" x="400" y="145" width="90" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{montantProvisionTrans}]]></expression>
+			</element>
+			<element kind="textField" uuid="336b9a78-ef43-470f-8894-4502f912209c" x="400" y="164" width="90" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{actifNemontantCumuleTransPC}]]></expression>
+			</element>
+			<element kind="textField" uuid="4799a06d-479c-4903-9b4b-16f40657136a" x="517" y="164" width="90" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{actifNetAutrePC}+"%"]]></expression>
+			</element>
+			<element kind="textField" uuid="b6323d2f-2879-4336-adcf-cd9f3451180a" x="517" y="145" width="90" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{actifNetTransPC}+"%"]]></expression>
+			</element>
+			<element kind="textField" uuid="89269e59-9adb-4100-aa21-ed55285f071e" x="635" y="145" width="65" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{montantCumuleTrans}+"%"]]></expression>
+			</element>
+			<element kind="textField" uuid="20a84a8d-a881-44b3-a443-f616a9f00d1a" x="635" y="164" width="65" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{montantCumuleAutre}]]></expression>
+			</element>
+			<element kind="textField" uuid="6bec68ea-f805-45e2-b837-6206c14fc5d5" x="723" y="164" width="65" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{actifNemontantCumuleAutrePC}+"%"]]></expression>
+			</element>
+			<element kind="textField" uuid="c3220e08-518e-42fc-8415-491af31309a2" x="723" y="145" width="65" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{actifNemontantCumuleTransPC}+"%"]]></expression>
+			</element>
+			<element kind="textField" uuid="84dab264-8969-4998-9817-1d5faeb32795" x="400" y="183" width="90" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true" bold="true">
+				<expression><![CDATA[$F{montantProvisionCOC}]]></expression>
+			</element>
+			<element kind="textField" uuid="ed945ee0-1a37-47ee-8419-4caea3cd1c49" x="517" y="183" width="90" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true" bold="true">
+				<expression><![CDATA[$F{actifNetCOCPC}+"%"]]></expression>
+			</element>
+			<element kind="textField" uuid="831c0668-2358-48a1-bd32-b83e83b38bb0" x="635" y="183" width="65" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true" bold="true">
+				<expression><![CDATA[$F{montantCumuleCOC}]]></expression>
+			</element>
+			<element kind="textField" uuid="ce18c55f-2094-437a-949c-0969cbfee280" x="723" y="183" width="65" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true" bold="true">
+				<expression><![CDATA[$F{actifNemontantCumuleCOCPC}+"%"]]></expression>
+			</element>
+			<element kind="textField" uuid="d27db24f-ab09-443c-8e09-144ed01a6a00" x="400" y="202" width="90" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{montantProvisionCOC}]]></expression>
+			</element>
+			<element kind="textField" uuid="25aed38b-2b37-462d-8e56-4c9336ba0848" x="517" y="202" width="90" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{actifNetCOCPC}+"%"]]></expression>
+			</element>
+			<element kind="textField" uuid="e3014698-a15c-4ce8-9045-1f676be0106f" x="635" y="202" width="65" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{montantCumuleCOC}]]></expression>
+			</element>
+			<element kind="textField" uuid="cff5b119-8084-44f4-96dd-1fd1d498177e" x="723" y="202" width="65" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{actifNemontantCumuleCOCPC}+"%"]]></expression>
+			</element>
+			<element kind="textField" uuid="bf499b95-c58f-4ae5-807a-5afbed9ba164" x="400" y="221" width="90" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true" bold="true">
+				<expression><![CDATA[$F{montantProvisionCREPMF}]]></expression>
+			</element>
+			<element kind="textField" uuid="3b958f78-a488-40cb-b60d-29a48e3bcd51" x="400" y="240" width="90" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{montantProvisionCREPMF}]]></expression>
+			</element>
+			<element kind="textField" uuid="b8b44c90-790e-46f1-89dd-89ba51a3fa94" x="517" y="240" width="90" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{actifNetCREPMFPC}+"%"]]></expression>
+			</element>
+			<element kind="textField" uuid="16826047-e9e6-4003-90ff-c96d338c6fd5" x="517" y="221" width="90" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true" bold="true">
+				<expression><![CDATA[$F{actifNetCREPMFPC}+"%"]]></expression>
+			</element>
+			<element kind="textField" uuid="ac79f76a-a190-4814-965d-b2590f2e6ffb" x="635" y="221" width="65" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true" bold="true">
+				<expression><![CDATA[$F{montantCumuleCREPMF}]]></expression>
+			</element>
+			<element kind="textField" uuid="d26528fc-0dc1-4adc-a0f2-a3556949a305" x="635" y="240" width="65" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{montantCumuleCREPMF}]]></expression>
+			</element>
+			<element kind="textField" uuid="978c30bc-69f1-429e-aaf0-4937e8debd3d" x="723" y="240" width="65" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{actifNemontantCumuleCREPMFPC}+"%"]]></expression>
+			</element>
+			<element kind="textField" uuid="c7331eb6-3d97-4cba-baa6-14fdb29ffd1e" x="723" y="221" width="65" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true" bold="true">
+				<expression><![CDATA[$F{actifNemontantCumuleCREPMFPC}+"%"]]></expression>
+			</element>
+			<element kind="textField" uuid="62ead68e-646c-4703-aa7f-6e2feb4030e6" x="400" y="259" width="90" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true" bold="true">
+				<expression><![CDATA[$F{montantProvisionAFG}]]></expression>
+			</element>
+			<element kind="textField" uuid="e50c60df-7c37-4c9e-9c26-485c66146a41" x="400" y="278" width="90" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{montantProvisionAFG}]]></expression>
+			</element>
+			<element kind="textField" uuid="8cb5c64b-60eb-4414-ae48-6f05213862d9" x="517" y="278" width="90" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{actifNetAFGPC}+"%"]]></expression>
+			</element>
+			<element kind="textField" uuid="e27bd57d-19d1-449c-8e27-c175be3e97c0" x="517" y="259" width="90" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true" bold="true">
+				<expression><![CDATA[$F{actifNetAFGPC}+"%"]]></expression>
+			</element>
+			<element kind="textField" uuid="15a35a73-ab93-46fc-9da3-49c7f775c930" x="635" y="259" width="65" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true" bold="true">
+				<expression><![CDATA[$F{montantCumuleAFG}]]></expression>
+			</element>
+			<element kind="textField" uuid="25b39839-75e1-4001-a3bc-2a7d0ee05123" x="635" y="278" width="65" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{montantCumuleAFG}]]></expression>
+			</element>
+			<element kind="textField" uuid="fda86744-6af3-489e-b66d-17fc34c3f0d8" x="723" y="278" width="65" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{actifNemontantCumuleAFGPC}+"%"]]></expression>
+			</element>
+			<element kind="textField" uuid="11c63467-5757-4bab-b52c-89265fe46374" x="723" y="259" width="65" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true" bold="true">
+				<expression><![CDATA[$F{actifNemontantCumuleAFGPC}+"%"]]></expression>
+			</element>
+			<element kind="textField" uuid="354e376b-6810-43e4-bf51-c43db10f2083" x="400" y="314" width="90" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true" bold="true">
+				<expression><![CDATA[SUM($F{montantProvisionGest},$F{montantProvisionDCBR},$F{montantProvisionCOC},$F{montantProvisionCREPMF},$F{montantProvisionAFG} )]]></expression>
+			</element>
+			<element kind="textField" uuid="fef0eb94-55c6-4428-9efc-72afb01152de" x="517" y="314" width="90" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true" bold="true">
+				<expression><![CDATA[SUM( $F{actifNetGestPC},$F{actifNetDCBRPC},$F{actifNetCOCPC},$F{actifNetCREPMFPC},$F{actifNetAFGPC})]]></expression>
+			</element>
+			<element kind="textField" uuid="548ce0d0-0c87-4fb5-89a4-9a707f505bc1" x="635" y="314" width="65" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true" bold="true">
+				<expression><![CDATA[SUM($F{montantCumuleGest},$F{montantCumuleDCBR},$F{montantCumuleCOC},$F{montantCumuleCREPMF},$F{montantCumuleAFG} )]]></expression>
+			</element>
+			<element kind="textField" uuid="458d6cdc-91f8-4e3b-956e-251b66c22186" x="723" y="314" width="65" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true" bold="true">
+				<expression><![CDATA[SUM($F{actifNemontantCumuleGestPC},$F{actifNemontantCumuleDCBRPC},$F{actifNemontantCumuleCOCPC},$F{actifNemontantCumuleCREPMFPC},$F{actifNemontantCumuleAFGPC} )]]></expression>
+			</element>
+			<element kind="line" uuid="c055693a-04d2-4ec2-8221-e6a2fc50995e" x="3" y="305" width="795" height="1"/>
+			<element kind="staticText" uuid="193fc144-6eaa-470a-972c-d3a48dae4f81" x="11" y="69" width="210" height="14" bold="true" hTextAlign="Left">
+				<text><![CDATA[- REMUNERATION DU GESTIONNAIRE]]></text>
+				<box>
+					<pen lineWidth="1.0" lineColor="#3B88D1"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="787e35aa-3dfd-4bd3-8571-df680001cb98" x="11" y="88" width="210" height="14" bold="false" hTextAlign="Left">
+				<text><![CDATA[Rémunération du Gestionnaire]]></text>
+				<box>
+					<pen lineWidth="1.0" lineColor="#3B88D1"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="c839dfaf-7482-4ab7-9fcc-75b73fd2678a" x="11" y="126" width="210" height="14" bold="false" hTextAlign="Left">
+				<text><![CDATA[Rémunération de tenue des comptes]]></text>
+				<box>
+					<pen lineWidth="1.0" lineColor="#3B88D1"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="113775d3-78c1-4b05-a164-e1451276bb79" x="11" y="107" width="210" height="14" bold="true" hTextAlign="Left">
+				<text><![CDATA[- REMUNERATION DU DEPOSITAIRE]]></text>
+				<box>
+					<pen lineWidth="1.0" lineColor="#3B88D1"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="cc23e53c-4790-41db-9827-ff2590e0a4ca" x="11" y="164" width="210" height="14" bold="false" hTextAlign="Left">
+				<text><![CDATA[Autres]]></text>
+				<box>
+					<pen lineWidth="1.0" lineColor="#3B88D1"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="cbd43c03-2f39-4d99-9e83-d97d5e89ef1b" x="11" y="145" width="210" height="14" bold="false" hTextAlign="Left">
+				<text><![CDATA[Rémunération sur les transaction]]></text>
+				<box>
+					<pen lineWidth="1.0" lineColor="#3B88D1"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="1eea6f90-c5f2-454c-ad87-43df94b08cc9" x="11" y="202" width="229" height="14" bold="false" hTextAlign="Left">
+				<text><![CDATA[Rémunération du Commissaire aux comptes]]></text>
+				<box>
+					<pen lineWidth="1.0" lineColor="#3B88D1"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="a4049a26-876a-4ff7-a009-16b92ec5a708" x="11" y="183" width="259" height="14" bold="true" hTextAlign="Left">
+				<text><![CDATA[- REMUNERATION DU COMMISSAIRE AUX COMPTES]]></text>
+				<box>
+					<pen lineWidth="1.0" lineColor="#3B88D1"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="b5c644da-77fd-4af0-b7e7-a39b8bb97f13" x="10" y="240" width="210" height="14" bold="false" hTextAlign="Left">
+				<text><![CDATA[Rémunération due au CREPMF]]></text>
+				<box>
+					<pen lineWidth="1.0" lineColor="#3B88D1"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="69fc2bb9-07fe-422c-9465-fef5492c9016" x="10" y="221" width="210" height="14" bold="true" hTextAlign="Left">
+				<text><![CDATA[- COMMISSION DUE AU CREPMF]]></text>
+				<box>
+					<pen lineWidth="1.0" lineColor="#3B88D1"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="2037e9b5-489d-4e26-bf1a-5a0bdecc186f" x="10" y="278" width="210" height="14" bold="false" hTextAlign="Left">
+				<text><![CDATA[Autres frais de Gestion]]></text>
+				<box>
+					<pen lineWidth="1.0" lineColor="#3B88D1"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="606eb95d-e159-4b30-baae-719cefb326c8" x="10" y="259" width="210" height="14" bold="true" hTextAlign="Left">
+				<text><![CDATA[- AUTRES FRAIS DE GESTION]]></text>
+				<box>
+					<pen lineWidth="1.0" lineColor="#3B88D1"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="03b0ea83-dd9a-41bd-9c66-f0996a49ce4f" x="10" y="314" width="210" height="14" bold="true" hTextAlign="Left">
+				<text><![CDATA[TOTAL ]]></text>
+				<box>
+					<pen lineWidth="1.0" lineColor="#3B88D1"/>
+				</box>
+			</element>
+		</band>
+	</detail>
+	<columnFooter splitType="Stretch"/>
+	<pageFooter height="56" splitType="Stretch">
+		<element kind="staticText" uuid="e8fb04d0-bd04-482e-95e8-2dcf854be69a" x="5" y="21" width="126" height="13">
+			<text><![CDATA[Edité avec OPCCIEL 2.0]]></text>
+		</element>
+		<element kind="textField" uuid="25caca25-bd85-4986-9a6e-db8eb88cca06" x="700" y="23" width="100" height="17" hTextAlign="Right">
+			<expression><![CDATA[$V{PAGE_NUMBER}]]></expression>
+		</element>
+	</pageFooter>
+	<summary height="42" splitType="Stretch"/>
+</jasperReport>

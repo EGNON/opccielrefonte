@@ -1,6 +1,7 @@
 <!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 7.0.1-573496633c2b4074e32f433154b543003f7d2498  -->
 <jasperReport name="Etat_Financier_Trimestriel_Notes_Revenus_Placements_Monetaires" language="java" columnCount="1" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="601779fe-febd-4e16-b050-55d145878a5b">
 	<parameter name="letterDate" class="java.lang.String"/>
+	<parameter name="periode" class="java.lang.String"/>
 	<field name="idOpcvm" class="java.lang.Long">
 		<property name="com.jaspersoft.studio.field.name" value="idOpcvm"/>
 		<property name="com.jaspersoft.studio.field.label" value="idOpcvm"/>
@@ -17,11 +18,11 @@
 		<property name="com.jaspersoft.studio.field.name" value="pays"/>
 		<property name="com.jaspersoft.studio.field.label" value="pays"/>
 	</field>
-	<field name="dateEstimation" class="java.sql.Date">
+	<field name="dateEstimation" class="java.time.LocalDateTime">
 		<property name="com.jaspersoft.studio.field.name" value="dateEstimation"/>
 		<property name="com.jaspersoft.studio.field.label" value="dateEstimation"/>
 	</field>
-	<field name="dateMois1" class="java.sql.Date">
+	<field name="dateMois1" class="java.time.LocalDateTime">
 		<property name="com.jaspersoft.studio.field.name" value="dateMois1"/>
 		<property name="com.jaspersoft.studio.field.label" value="dateMois1"/>
 	</field>
@@ -45,7 +46,7 @@
 		<property name="com.jaspersoft.studio.field.name" value="total1"/>
 		<property name="com.jaspersoft.studio.field.label" value="total1"/>
 	</field>
-	<field name="dateMois2" class="java.sql.Date">
+	<field name="dateMois2" class="java.time.LocalDateTime">
 		<property name="com.jaspersoft.studio.field.name" value="dateMois2"/>
 		<property name="com.jaspersoft.studio.field.label" value="dateMois2"/>
 	</field>
@@ -96,7 +97,7 @@
 			<expression><![CDATA["PAYS : "+$F{pays}]]></expression>
 		</element>
 		<element kind="textField" uuid="49cf2f7a-ebcf-4d6c-b0e9-569623b4d7fe" x="130" y="61" width="310" height="13" bold="true" hTextAlign="Center">
-			<expression><![CDATA["(du 01 Janvier 2017 au 31 Décembre 2017)"]]></expression>
+			<expression><![CDATA[$P{periode}]]></expression>
 		</element>
 	</title>
 	<pageHeader splitType="Stretch"/>
@@ -211,7 +212,7 @@
 				<expression><![CDATA[$F{total2}]]></expression>
 			</element>
 			<element kind="textField" uuid="5cf48ccf-da60-4d39-a1b5-0a52f40b745a" x="356" y="8" width="70" height="13" bold="true" hTextAlign="Center">
-				<expression><![CDATA[$F{dateMois1.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"))}]]></expression>
+				<expression><![CDATA[$F{dateMois1}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"))]]></expression>
 			</element>
 			<element kind="textField" uuid="604a51f3-fcde-47ff-9401-8095f00bdc94" x="463" y="8" width="70" height="13" bold="true" hTextAlign="Center">
 				<expression><![CDATA[$F{dateMois2}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"))]]></expression>

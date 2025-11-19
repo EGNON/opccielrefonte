@@ -137,7 +137,7 @@ public class TarificationOrdinaireServiceImpl implements TarificationOrdinaireSe
 //                System.out.println("idOpcvm="+idOpcvm);
             opcvm=opcvmDao.findById(idOpcvm).orElseThrow();
             TarificationOrdinairePage = TarificationOrdinaireDao.findByPlaceIsNotNull(pageable);
-            var o = TarificationOrdinaireDao.findAll();
+            //var o = TarificationOrdinaireDao.findAll();
 //            }
             List<TarificationOrdinaireDto> content = TarificationOrdinairePage.getContent().stream().map(TarificationOrdinaireMapper::deTarificationOrdinaire).collect(Collectors.toList());
             DataTablesResponse<TarificationOrdinaireDto> dataTablesResponse = new DataTablesResponse<>();

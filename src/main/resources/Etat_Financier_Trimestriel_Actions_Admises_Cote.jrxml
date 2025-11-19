@@ -3,7 +3,7 @@
 	<parameter name="letterDate" class="java.lang.String"/>
 	<parameter name="denominationOpcvm" class="java.lang.String"/>
 	<parameter name="libellePays" class="java.lang.String"/>
-	<parameter name="dateEstimation" class="java.sql.Date"/>
+	<parameter name="dateEstimation" class="java.time.LocalDateTime"/>
 	<parameter name="periodicite" class="java.lang.String"/>
 	<field name="idTitre" class="java.lang.Long">
 		<property name="com.jaspersoft.studio.field.name" value="idTitre"/>
@@ -29,7 +29,7 @@
 		<property name="com.jaspersoft.studio.field.name" value="idOpcvm"/>
 		<property name="com.jaspersoft.studio.field.label" value="idOpcvm"/>
 	</field>
-	<field name="dateEstimation" class="java.sql.Date">
+	<field name="dateEstimation" class="java.time.LocalDateTime">
 		<property name="com.jaspersoft.studio.field.name" value="dateEstimation"/>
 		<property name="com.jaspersoft.studio.field.label" value="dateEstimation"/>
 	</field>
@@ -77,9 +77,7 @@
 			<text><![CDATA[PORTEFEUILLE ACTIONS ADMISE A LA COTE]]></text>
 		</element>
 		<element kind="textField" uuid="e1c33964-9fd2-43ac-8a7f-5d9e7ce0a278" x="58" y="66" width="676" height="14" hTextAlign="Center">
-			<expression><![CDATA[EQUALS($P{periodicite}.trim(), "Annuel") ? 
-    "(Du " +  new java.text.SimpleDateFormat("dd/MM/ yyyy").format(new java.sql.Date($P{dateEstimation}.toLocalDate().plusMonths($P{periodicite}=="Trimestre"?-2:-5).withDayOfMonth(1).atStartOfDay(java.time.ZoneId.systemDefault()).toInstant().toEpochMilli())) + " au " + new java.text.SimpleDateFormat("dd/MM/ yyyy").format($P{dateEstimation}) + ")" : 
-    "(du 01 Janvier "+YEAR( $P{dateEstimation})+" au 31 Décembre "+YEAR($P{dateEstimation} )+")"]]></expression>
+            <expression><![CDATA[$P{periodicite}]]></expression>
 		</element>
 	</title>
 	<pageHeader splitType="Stretch"/>

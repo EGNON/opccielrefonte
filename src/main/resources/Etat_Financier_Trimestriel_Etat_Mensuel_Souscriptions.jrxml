@@ -4,7 +4,8 @@
 	<parameter name="denominationOpcvm" class="java.lang.String"/>
 	<parameter name="raisonSocial" class="java.lang.String"/>
 	<parameter name="format" class="java.lang.String"/>
-	<parameter name="dateEstimation" class="java.sql.Date"/>
+	<parameter name="dateEstimation" class="java.time.LocalDateTime"/>
+	<parameter name="periodicite" class="java.lang.String"/>
 	<field name="idOpcvm" class="java.lang.Long">
 		<property name="com.jaspersoft.studio.field.name" value="idOpcvm"/>
 		<property name="com.jaspersoft.studio.field.label" value="idOpcvm"/>
@@ -45,11 +46,11 @@
 		<property name="com.jaspersoft.studio.field.name" value="volumeTotalDetenuPP"/>
 		<property name="com.jaspersoft.studio.field.label" value="volumeTotalDetenuPP"/>
 	</field>
-	<field name="dateDebut" class="java.sql.Date">
+	<field name="dateDebut" class="java.time.LocalDateTime">
 		<property name="com.jaspersoft.studio.field.name" value="dateDebut"/>
 		<property name="com.jaspersoft.studio.field.label" value="dateDebut"/>
 	</field>
-	<field name="dateFin" class="java.sql.Date">
+	<field name="dateFin" class="java.time.LocalDateTime">
 		<property name="com.jaspersoft.studio.field.name" value="dateFin"/>
 		<property name="com.jaspersoft.studio.field.label" value="dateFin"/>
 	</field>
@@ -274,14 +275,14 @@
 					<pen lineWidth="1.0" lineColor="#3B88D1"/>
 				</box>
 			</element>
-			<element kind="textField" uuid="ad2c8727-8a47-47cf-a814-8a0c99c8b626" x="30" y="60" width="268" height="15">
+			<element kind="textField" uuid="ad2c8727-8a47-47cf-a814-8a0c99c8b626" x="19" y="60" width="301" height="15">
 				<expression><![CDATA["OPCVM : " +$P{denominationOpcvm}]]></expression>
 			</element>
-			<element kind="textField" uuid="fd7bc5ed-fd31-46f1-b1ea-cc5a69317b1e" x="30" y="80" width="268" height="15">
+			<element kind="textField" uuid="fd7bc5ed-fd31-46f1-b1ea-cc5a69317b1e" x="19" y="80" width="301" height="15">
 				<expression><![CDATA["Gestionnaire : " +$P{raisonSocial}]]></expression>
 			</element>
 			<element kind="textField" uuid="443a9e5d-82f2-46e5-a47d-047a3ac0df97" x="353" y="80" width="196" height="15">
-				<expression><![CDATA[EQUALS($P{format}.trim(), "Trimestre")? "(Du " +  new java.text.SimpleDateFormat("dd/MM/ yyyy").format(new java.sql.Date($P{dateEstimation}.toLocalDate().plusMonths($P{format}=="Trimestre"?-2:-5).withDayOfMonth(1).atStartOfDay(java.time.ZoneId.systemDefault()).toInstant().toEpochMilli())):" Mois : Du "+new java.sql.Date($P{dateEstimation}.toLocalDate().plusMonths(-1).plusDays(1).atStartOfDay(java.time.ZoneId.systemDefault()).toInstant().toEpochMilli())+" au "+$P{dateEstimation}+""]]></expression>
+				<expression><![CDATA[$P{periodicite}]]></expression>
 			</element>
 			<element kind="rectangle" uuid="5ac76d4c-f8ac-47d8-8386-aa4295e41d4d" x="4" y="188" width="547" height="392"/>
 			<element kind="line" uuid="e3090f33-9230-4cbf-a806-1daab75e5e93" x="502" y="188" width="1" height="392"/>

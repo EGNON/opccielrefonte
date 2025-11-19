@@ -10,8 +10,8 @@ public interface EtatFinancierTrimestrielEtatMensuelSouscriptionsProjection {
 
     Long getIdOpcvm();
     String getDesignationOpcvm();
-    BigDecimal geTnbreSousPP();
-    BigDecimal geTnbrePartSousPP();
+    BigDecimal getNbreSousPP();
+    BigDecimal getNbrePartSousPP();
     BigDecimal getVolumeSousPP();
     BigDecimal getNbreRachatPP();
     BigDecimal getNbrePartRachatPP();

@@ -21,5 +21,5 @@ public interface EtatFinancierTrimestrielNoteCapitalProjection {
     BigDecimal getNombreTitres4();
     BigDecimal getNombreActionnaire4();
     Long getIdOpcvm();
-    LocalDateTime dateEstimation();
+    LocalDateTime getDateEstimation();
 }

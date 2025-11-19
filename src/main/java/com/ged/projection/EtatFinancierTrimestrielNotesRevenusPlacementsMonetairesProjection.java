@@ -18,7 +18,7 @@ public interface EtatFinancierTrimestrielNotesRevenusPlacementsMonetairesProject
     BigDecimal getRevenusBonTreso1();
     BigDecimal getRevenusBilletsTreso1();
     BigDecimal getRevenusCertifcatDepo1();
-    BigDecimal getRvenusDat1();
+    BigDecimal getRevenusDat1();
     BigDecimal getTotal1();
 
 

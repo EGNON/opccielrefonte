@@ -1,0 +1,101 @@
+<!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 7.0.1-573496633c2b4074e32f433154b543003f7d2498  -->
+<jasperReport name="Etat_Financier_Trimestriel_Note_Etats_Fianciers" language="java" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a0adb4ed-4b43-483e-8ed7-fc83646d2602">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="db_opcciel_data_adapter"/>
+	<parameter name="denominationOpcvm" class="java.lang.String"/>
+	<parameter name="dateEstimation" class="java.sql.Date"/>
+	<parameter name="letterDate" class="java.lang.String"/>
+	<query language="SQL"><![CDATA[]]></query>
+	<background splitType="Stretch"/>
+	<title height="698" splitType="Stretch">
+		<element kind="rectangle" uuid="4e6d734b-0b6d-4dbe-9784-0b833226c5d1" x="2" y="26" width="550" height="88">
+			<pen lineColor="#3B88D1"/>
+		</element>
+		<element kind="staticText" uuid="9d762d2a-7638-428b-a899-79a6394fac28" x="119" y="33" width="317" height="14" hTextAlign="Center">
+			<text><![CDATA[Notes aux états trimestriels OPCVM]]></text>
+			<box>
+				<pen lineWidth="1.0" lineColor="#3B88D1"/>
+			</box>
+		</element>
+		<element kind="textField" uuid="61fde1ec-8f17-43ef-889b-5800eaf18f3d" x="3" y="3" width="217" height="16">
+			<expression><![CDATA["Cotonou, le "+$P{letterDate}]]></expression>
+		</element>
+		<element kind="textField" uuid="c5dc4223-7bee-460a-88bb-6ffe185dfe79" x="157" y="50" width="240" height="14" hTextAlign="Center">
+			<expression><![CDATA["(Du "+new java.sql.Date($P{dateEstimation}.toLocalDate().plusMonths(-12).plusDays(1).atStartOfDay(java.time.ZoneId.systemDefault()).toInstant().toEpochMilli())+" au "+$P{dateEstimation}+")"]]></expression>
+			<box>
+				<pen lineWidth="1.0" lineColor="#3B88D1"/>
+			</box>
+		</element>
+		<element kind="textField" uuid="4a54c8bf-d260-47b6-8262-2f3c0985ca32" x="157" y="68" width="240" height="14" hTextAlign="Center">
+			<expression><![CDATA["(en francs CFA)"]]></expression>
+			<box>
+				<pen lineWidth="1.0" lineColor="#3B88D1"/>
+			</box>
+		</element>
+		<element kind="textField" uuid="089ed5e1-5231-4d6b-b57d-2d9cb761baf0" x="10" y="94" width="330" height="15">
+			<expression><![CDATA["DESIGNATION DE L'ENTREPRISE : "+$P{denominationOpcvm}]]></expression>
+		</element>
+		<element kind="rectangle" uuid="fafc7b04-bf58-45c8-85d4-9110a5d6e5d6" x="2" y="123" width="550" height="575">
+			<pen lineColor="#3B88D1"/>
+		</element>
+		<element kind="staticText" uuid="5eb0b328-6a54-420d-87cc-3461e625519e" x="10" y="128" width="360" height="15">
+			<text><![CDATA[1. Référentiel d'élaboration des états financiers]]></text>
+		</element>
+		<element kind="textField" uuid="d25f43bf-0124-4729-bd6e-08caa5b92ed2" x="10" y="143" width="530" height="45">
+			<expression><![CDATA["Les états trimestriels arrêtés au " + new java.text.SimpleDateFormat("dd/MM/yyyy").format($P{dateEstimation}) + " sont établis conformément aux principes comptables généralement admis dans l’espace UMOA et en particulier aux règles comptables spécifiques applicables aux intervenants agréés."]]></expression>
+		</element>
+		<element kind="staticText" uuid="3375faf9-2a07-4acc-b856-6631da35846d" x="10" y="189" width="360" height="15">
+			<text><![CDATA[2. Principes comptables appliqués]]></text>
+		</element>
+		<element kind="staticText" uuid="3ce0529e-4862-40f3-8ad8-54918bbb3e6c" x="10" y="205" width="530" height="33">
+			<text><![CDATA[ sont établis conformément aux principes comptables généralement admis dans l’espace UMOA et en particulier aux règles comptables spécifiques applicables aux intervenants agréés.]]></text>
+		</element>
+		<element kind="staticText" uuid="ad0991b2-002b-4d4f-b546-1495cedd170d" x="10" y="239" width="360" height="15">
+			<text><![CDATA[2.1. Prise en compte des placements et des revenus y afférents]]></text>
+		</element>
+		<element kind="staticText" uuid="fb9977ac-e807-4d4b-8701-2cffc7db66b6" x="10" y="255" width="530" height="93">
+			<text><![CDATA[Les placements en portefeuille titres et les placements monétaires sont comptabilisés au moment du transfert de propriété pour leur prix d'achat. Les frais encourus à l'occasion de l'achat sont imputés en capital. 
+Les dividendes relatifs aux actions et valeurs assimilées sont pris en compte en résultat à la date de détachement du coupon pour les titres admis à la cote et au moment où le droit au dividende est établi pour les titres non admis à la cote.
+Les intérêts sur les placements en obligations et sur les placements monétaires sont pris en compte en résultat à mesure qu'ils sont courus.]]></text>
+		</element>
+		<element kind="staticText" uuid="e3c1048d-91fd-40d5-8a77-9fa7ac5a9f7e" x="10" y="349" width="360" height="15">
+			<text><![CDATA[2.2. Evaluation des placements en actions et valeurs assimilées]]></text>
+		</element>
+		<element kind="textField" uuid="01b03245-dec5-4e2d-b7ef-a5e37cc67b5a" x="10" y="365" width="530" height="133">
+			<expression><![CDATA["Les placements en actions et valeurs assimilées sont évalués, en date d'arrêté, à leur valeur de" +" marché pour les titres admis à la cote et à la juste valeur pour les titres non admis à la cote. La différence" + " par rapport au prix d'achat ou par rapport à la clôture précédente constitue, selon le cas, une plus ou moins-value " + "potentielle enregistrée en produits ou en charges de l’exercice. En cas de plus-value, cette somme ne pourra toutefois" + " être distribuée et cela jusqu’à la sortie de l’actif du portefeuille."+
+ "La valeur de marché, applicable pour l’évaluation des titres admis à la cote, correspond au cours en bourse" +" à la date du " +DAY( $P{dateEstimation})+" "+new java.text.SimpleDateFormat("MMMM", java.util.Locale.FRENCH).format($P{dateEstimation}) + " ou à la date antérieure la" + " plus récente." +
+ "Pour les titres admis à la cote n’ayant pas fait l’objet d’offre ou de demande pendant les 10 dernières " +"séances de bourse précédant la date de clôture, une décote peut être appliquée sur le cours boursier le plus " + "récent. L’identification et la valeur des titres ainsi évalués sont présentées dans la note sur le " + "portefeuille titres." +
+"La juste valeur, applicable pour l’évaluation des titres non admis à la cote, correspond à la valeur " +"mathématique des titres de la société émettrice."]]></expression>
+		</element>
+		<element kind="staticText" uuid="468de94b-7298-4916-b8e6-aae5de9b8d53" x="10" y="499" width="360" height="15">
+			<text><![CDATA[2.3. Evaluation des autres placements]]></text>
+		</element>
+		<element kind="textField" uuid="7eae1894-8263-43dc-b037-a418808cc6b2" x="10" y="515" width="530" height="103">
+			<expression><![CDATA["Les placements en obligations et valeurs similaires admis à la cote sont évalués, " +"en date d’arrêté, à leur valeur de marché soit le cours moyen pondéré à la date du " +DAY( $P{dateEstimation})+" "+new java.text.SimpleDateFormat("MMMM", java.util.Locale.FRENCH).format($P{dateEstimation}) + " ou à la date" + " antérieure la plus récente. La différence par rapport au prix d’achat ou par rapport à la clôture précédente" +" constitue, selon le cas, une plus ou moins-value potentielle enregistrée en produits ou en charges de " +"l’exercice. En cas de plus-value, cette somme ne pourra toutefois être distribuée et cela jusqu’à la sortie " + "de l’actif du portefeuille." +
+"Les placements en obligations et valeurs similaires non admis à la cote demeurent évalués à leur " + "prix d’acquisition.\n" +
+"Les placements monétaires sont évalués à leur prix d’acquisition."]]></expression>
+		</element>
+		<element kind="staticText" uuid="d978a7f2-e389-4e7c-aaff-07845a92039d" x="10" y="619" width="360" height="15">
+			<text><![CDATA[2.4. Cession des placements]]></text>
+		</element>
+		<element kind="staticText" uuid="a77a1ad5-567d-4631-838c-4ce71a42416d" x="10" y="635" width="530" height="53">
+			<text><![CDATA[La cession des placements donne lieu à l’annulation des placements à hauteur de leur valeur comptable. La différence entre la valeur de cession et la valeur comptable du titre cédé constitue, selon le cas, une plus ou moins-value réalisée enregistrée en produits ou en charges de l’exercice.
+Le prix d’achat des placements est déterminé par la méthode du coût moyen pondéré.]]></text>
+		</element>
+	</title>
+	<pageHeader splitType="Stretch"/>
+	<columnHeader splitType="Stretch"/>
+	<detail>
+		<band height="29" splitType="Stretch"/>
+	</detail>
+	<columnFooter splitType="Stretch"/>
+	<pageFooter height="44" splitType="Stretch">
+		<element kind="staticText" uuid="f4f16736-10a7-4cce-b064-3cdee8c985bd" x="5" y="12" width="126" height="13">
+			<text><![CDATA[Edité avec OPCCIEL 2.0]]></text>
+		</element>
+		<element kind="textField" uuid="33b036a5-0bb1-40e3-9bff-6bedebd13592" x="452" y="12" width="100" height="18" hTextAlign="Right">
+			<expression><![CDATA[$V{PAGE_NUMBER}]]></expression>
+		</element>
+	</pageFooter>
+	<summary height="42" splitType="Stretch"/>
+</jasperReport>

@@ -2467,7 +2467,7 @@ public class AppService {
 //        try {
         // Récupération des données
         List<EtatFinancierTrimestrielBilanTrimestrielProjection> etatFinancierTrimestrielBilanTrimestrielProjections = libraryDao.etatFinancierTrimestrielBilanTrimestriel(
-                request.getIdOpcvm(), request.getDateEstimation(), request.getDenominationOpcvm(), request.getAnnee());
+                request.getIdOpcvm(), request.getDateEstimation());
 
         // Chargement des fichiers .jrxml depuis le classpath
         rapportStream = getClass().getResourceAsStream("/Etat_Financier_Trimestriel_Bilan_Trimestriel.jrxml");
@@ -2486,6 +2486,16 @@ public class AppService {
         DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
         String letterDate = dateFormatter.format(new Date());
         parameters.put("letterDate", letterDate);
+
+        LocalDateTime dateEstimation = request.getDateEstimation();
+        String periodicite=request.getPeriodicite();
+
+        DateTimeFormatter fmtLong = DateTimeFormatter.ofPattern("dd-MM-yyyy", Locale.FRENCH);
+        int mois=periodicite.equals("Trimestriel")?dateEstimation.getMonth().getValue() - 2:dateEstimation.getMonth().getValue() - 5;
+        String periode = "(Du 01-" + (mois<10?"0"+mois:mois)+"-"+dateEstimation.getYear()
+                + " au " + dateEstimation.format(fmtLong) + ")";
+        parameters.put("periode", periode);
+
         OpcvmDto opcvm = opcvmMapper.deOpcvm(opcvmDao.findById(request.getIdOpcvm()).orElseThrow());
 
         // Remplissage du rapport
@@ -2511,7 +2521,7 @@ public class AppService {
 //        try {
         // Récupération des données
         List<EtatFinancierTrimestrielCompteResultatProjection> etatFinancierTrimestrielCompteResultatProjections = libraryDao.etatFinancierTrimestrielCompteResultat(
-                request.getIdOpcvm(), request.getDateEstimation(), request.getDenominationOpcvm(), request.getAnnee());
+                request.getIdOpcvm(), request.getDateEstimation());
 
         // Chargement des fichiers .jrxml depuis le classpath
         rapportStream = getClass().getResourceAsStream("/Etat_Financier_Trimestriel_Compte_Resultat.jrxml");
@@ -2530,6 +2540,14 @@ public class AppService {
         DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
         String letterDate = dateFormatter.format(new Date());
         parameters.put("letterDate", letterDate);
+        LocalDateTime dateEstimation = request.getDateEstimation();
+        String periodicite=request.getPeriodicite();
+
+        DateTimeFormatter fmtLong = DateTimeFormatter.ofPattern("dd-MM-yyyy", Locale.FRENCH);
+        int mois=periodicite.equals("Trimestriel")?dateEstimation.getMonth().getValue() - 2:dateEstimation.getMonth().getValue() - 5;
+        String periode = "(Du 01-" + (mois<10?"0"+mois:mois)+"-"+dateEstimation.getYear()
+                + " au " + dateEstimation.format(fmtLong) + ")";
+        parameters.put("periode", periode);
         OpcvmDto opcvm = opcvmMapper.deOpcvm(opcvmDao.findById(request.getIdOpcvm()).orElseThrow());
 
         // Remplissage du rapport
@@ -2574,6 +2592,14 @@ public class AppService {
         DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
         String letterDate = dateFormatter.format(new Date());
         parameters.put("letterDate", letterDate);
+        LocalDateTime dateEstimation = request.getDateEstimation();
+        String periodicite=request.getPeriodicite();
+
+        DateTimeFormatter fmtLong = DateTimeFormatter.ofPattern("dd-MM-yyyy", Locale.FRENCH);
+        int mois=periodicite.equals("Trimestriel")?dateEstimation.getMonth().getValue() - 2:dateEstimation.getMonth().getValue() - 5;
+        String periode = "(Du 01-" + (mois<10?"0"+mois:mois)+"-"+dateEstimation.getYear()
+                + " au " + dateEstimation.format(fmtLong) + ")";
+        parameters.put("periode", periode);
         OpcvmDto opcvm = opcvmMapper.deOpcvm(opcvmDao.findById(request.getIdOpcvm()).orElseThrow());
 
         // Remplissage du rapport
@@ -2618,6 +2644,14 @@ public class AppService {
         DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
         String letterDate = dateFormatter.format(new Date());
         parameters.put("letterDate", letterDate);
+        LocalDateTime dateEstimation = request.getDateEstimation();
+        String periodicite=request.getPeriodicite();
+
+        DateTimeFormatter fmtLong = DateTimeFormatter.ofPattern("dd-MM-yyyy", Locale.FRENCH);
+        int mois=periodicite.equals("Trimestriel")?dateEstimation.getMonth().getValue() - 2:dateEstimation.getMonth().getValue() - 5;
+        String periode = "(Du 01-" + (mois<10?"0"+mois:mois)+"-"+dateEstimation.getYear()
+                + " au " + dateEstimation.format(fmtLong) + ")";
+        parameters.put("periode", periode);
         OpcvmDto opcvm = opcvmMapper.deOpcvm(opcvmDao.findById(request.getIdOpcvm()).orElseThrow());
 
         // Remplissage du rapport
@@ -2662,6 +2696,14 @@ public class AppService {
         DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
         String letterDate = dateFormatter.format(new Date());
         parameters.put("letterDate", letterDate);
+        LocalDateTime dateEstimation = request.getDateEstimation();
+        String periodicite=request.getPeriodicite();
+
+        DateTimeFormatter fmtLong = DateTimeFormatter.ofPattern("dd-MM-yyyy", Locale.FRENCH);
+        int mois=periodicite.equals("Trimestriel")?dateEstimation.getMonth().getValue() - 2:dateEstimation.getMonth().getValue() - 5;
+        String periode = "(Du 01-" + (mois<10?"0"+mois:mois)+"-"+dateEstimation.getYear()
+                + " au " + dateEstimation.format(fmtLong) + ")";
+        parameters.put("periode", periode);
         OpcvmDto opcvm = opcvmMapper.deOpcvm(opcvmDao.findById(request.getIdOpcvm()).orElseThrow());
 
         // Remplissage du rapport
@@ -2706,13 +2748,14 @@ public class AppService {
         DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
         String letterDate = dateFormatter.format(new Date());
         parameters.put("letterDate", letterDate);
-        String raisonSocial = request.getRaisonSocial();
+        List<SocieteDeGestionDto>  societeDeGestionDtoList=societeDeGestionDao.findAll().stream().map(societeDeGestionMapper::deSocieteDeGestion).toList();
+        String raisonSocial = societeDeGestionDtoList.get(0).getRaisonSociale();
         parameters.put("raisonSocial",raisonSocial);
         LocalDateTime dateEstimation = request.getDateEstimation();
         parameters.put("dateEstimation",dateEstimation);
         String format = request.getFormat();
         parameters.put("format",format);
-        String denominationOpcvm = request.getDenominationOpcvm();
+        //String denominationOpcvm = request.getDenominationOpcvm();
         OpcvmDto opcvm = opcvmMapper.deOpcvm(opcvmDao.findById(request.getIdOpcvm()).orElseThrow());
         parameters.put("denominationOpcvm",opcvm.getDenominationOpcvm());
 
@@ -2758,16 +2801,20 @@ public class AppService {
         DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
         String letterDate = dateFormatter.format(new Date());
         parameters.put("letterDate", letterDate);
-        String libellePays = request.getLibellePays();
-        parameters.put("libellePays",libellePays);
+
         LocalDateTime dateEstimation = request.getDateEstimation();
-        parameters.put("dateEstimation",dateEstimation);
-        String periodicite = request.getPeriodicite();
-        parameters.put("periodicite",periodicite);
+        String periodicite=request.getPeriodicite();
+
+        DateTimeFormatter fmtLong = DateTimeFormatter.ofPattern("dd-MM-yyyy", Locale.FRENCH);
+        int mois=periodicite.equals("Trimestriel")?dateEstimation.getMonth().getValue() - 2:dateEstimation.getMonth().getValue() - 5;
+        String periode = "(Du 01-" + (mois<10?"0"+mois:mois)+"-"+dateEstimation.getYear()
+                + " au " + dateEstimation.format(fmtLong) + ")";
+        parameters.put("periodicite", periode);
         String denominationOpcvm = request.getDenominationOpcvm();
         OpcvmDto opcvm = opcvmMapper.deOpcvm(opcvmDao.findById(request.getIdOpcvm()).orElseThrow());
         parameters.put("denominationOpcvm",opcvm.getDenominationOpcvm());
-
+        String libellePays = opcvm.getPays().getLibelleFr();
+        parameters.put("libellePays",libellePays);
         // Remplissage du rapport
         JasperPrint print = JasperFillManager.fillReport(
                 rapportPrincipal,
@@ -2810,15 +2857,19 @@ public class AppService {
         DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
         String letterDate = dateFormatter.format(new Date());
         parameters.put("letterDate", letterDate);
-        String libellePays = request.getLibellePays();
-        parameters.put("libellePays",libellePays);
         LocalDateTime dateEstimation = request.getDateEstimation();
-        parameters.put("dateEstimation",dateEstimation);
-        String periodicite = request.getPeriodicite();
-        parameters.put("periodicite",periodicite);
+        String periodicite=request.getPeriodicite();
+        parameters.put("dateEstimation", dateEstimation);
+        DateTimeFormatter fmtLong = DateTimeFormatter.ofPattern("dd-MM-yyyy", Locale.FRENCH);
+        int mois=periodicite.equals("Trimestriel")?dateEstimation.getMonth().getValue() - 2:dateEstimation.getMonth().getValue() - 5;
+        String periode = "(Du 01-" + (mois<10?"0"+mois:mois)+"-"+dateEstimation.getYear()
+                + " au " + dateEstimation.format(fmtLong) + ")";
+        parameters.put("periodicite", periode);
         String denominationOpcvm = request.getDenominationOpcvm();
         OpcvmDto opcvm = opcvmMapper.deOpcvm(opcvmDao.findById(request.getIdOpcvm()).orElseThrow());
         parameters.put("denominationOpcvm",opcvm.getDenominationOpcvm());
+        String libellePays = opcvm.getPays().getLibelleFr();
+        parameters.put("libellePays",libellePays);
 
         // Remplissage du rapport
         JasperPrint print = JasperFillManager.fillReport(
@@ -2862,15 +2913,19 @@ public class AppService {
         DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
         String letterDate = dateFormatter.format(new Date());
         parameters.put("letterDate", letterDate);
-        String libellePays = request.getLibellePays();
-        parameters.put("libellePays",libellePays);
         LocalDateTime dateEstimation = request.getDateEstimation();
-        parameters.put("dateEstimation",dateEstimation);
-        String periodicite = request.getPeriodicite();
-        parameters.put("periodicite",periodicite);
+        String periodicite=request.getPeriodicite();
+
+        DateTimeFormatter fmtLong = DateTimeFormatter.ofPattern("dd-MM-yyyy", Locale.FRENCH);
+        int mois=periodicite.equals("Trimestriel")?dateEstimation.getMonth().getValue() - 2:dateEstimation.getMonth().getValue() - 5;
+        String periode = "(Du 01-" + (mois<10?"0"+mois:mois)+"-"+dateEstimation.getYear()
+                + " au " + dateEstimation.format(fmtLong) + ")";
+        parameters.put("periodicite", periode);
         String denominationOpcvm = request.getDenominationOpcvm();
         OpcvmDto opcvm = opcvmMapper.deOpcvm(opcvmDao.findById(request.getIdOpcvm()).orElseThrow());
         parameters.put("denominationOpcvm",opcvm.getDenominationOpcvm());
+        String libellePays = opcvm.getPays().getLibelleFr();
+        parameters.put("libellePays",libellePays);
 
         // Remplissage du rapport
         JasperPrint print = JasperFillManager.fillReport(
@@ -2915,12 +2970,20 @@ public class AppService {
         String letterDate = dateFormatter.format(new Date());
         parameters.put("letterDate", letterDate);
         LocalDateTime dateEstimation = request.getDateEstimation();
-        parameters.put("dateEstimation",dateEstimation);
-        String periodicite = request.getPeriodicite();
-        parameters.put("periodicite",periodicite);
+        String periodicite=request.getPeriodicite();
+
+        DateTimeFormatter fmtLong = DateTimeFormatter.ofPattern("dd-MM-yyyy", Locale.FRENCH);
+        int mois=periodicite.equals("Trimestriel")?dateEstimation.getMonth().getValue() - 2:dateEstimation.getMonth().getValue() - 5;
+        String periode = "(Du 01-" + (mois<10?"0"+mois:mois)+"-"+dateEstimation.getYear()
+                + " au " + dateEstimation.format(fmtLong) + ")";
+        parameters.put("periodicite", periode);
         String denominationOpcvm = request.getDenominationOpcvm();
         OpcvmDto opcvm = opcvmMapper.deOpcvm(opcvmDao.findById(request.getIdOpcvm()).orElseThrow());
         parameters.put("denominationOpcvm",opcvm.getDenominationOpcvm());
+        String libellePays = opcvm.getPays().getLibelleFr();
+        parameters.put("libellePays",libellePays);
+        parameters.put("capital1","Capital au 31/12/"+(dateEstimation.getYear()-1));
+        parameters.put("capital2","Capital au "+(dateEstimation.format(fmtLong)));
 
         // Remplissage du rapport
         JasperPrint print = JasperFillManager.fillReport(
@@ -2944,8 +3007,11 @@ public class AppService {
         InputStream subreportStream = null;
 //        try {
         // Récupération des données
+       LocalDateTime dateEstimation = request.getDateEstimation();
+        LocalDateTime dateDebut=request.getFormat().equals("Semestriel")?dateEstimation.plusMonths(-5):
+                dateEstimation.plusMonths(-1).plusDays(1);
         List<EtatFinancierTrimestrielEtatMensuelSouscriptionsProjection> etatFinancierTrimestrielEtatMensuelSouscriptionsProjections = libraryDao.etatFinancierTrimestrielEtatMensuelSouscriptions(
-                request.getIdOpcvm(), request.getDateDebut(), request.getDateFin());
+                request.getIdOpcvm(), dateDebut, request.getDateEstimation());
 
         // Chargement des fichiers .jrxml depuis le classpath
         rapportStream = getClass().getResourceAsStream("/Etat_Financier_Trimestriel_Etat_Mensuel_Souscriptions.jrxml");
@@ -2964,16 +3030,20 @@ public class AppService {
         DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
         String letterDate = dateFormatter.format(new Date());
         parameters.put("letterDate", letterDate);
-        LocalDateTime dateEstimation = request.getDateEstimation();
+
         parameters.put("dateEstimation",dateEstimation);
-        String raisonSocial = request.getRaisonSocial();
+        List<SocieteDeGestionDto>  societeDeGestionDtoList=societeDeGestionDao.findAll().stream().map(societeDeGestionMapper::deSocieteDeGestion).toList();
+        String raisonSocial = societeDeGestionDtoList.get(0).getRaisonSociale();
         parameters.put("raisonSocial",raisonSocial);
         String format = request.getFormat();
         parameters.put("format",format);
         String denominationOpcvm = request.getDenominationOpcvm();
         OpcvmDto opcvm = opcvmMapper.deOpcvm(opcvmDao.findById(request.getIdOpcvm()).orElseThrow());
         parameters.put("denominationOpcvm",opcvm.getDenominationOpcvm());
-
+        DateTimeFormatter fmtLong = DateTimeFormatter.ofPattern("dd-MM-yyyy", Locale.FRENCH);
+        parameters.put("periodicite",format.equals("Semestriel") ? " Semestre : Du " + dateEstimation.plusMonths(-5) :
+        (" Mois : Du " + dateEstimation.plusMonths(-1).plusDays(1).format(fmtLong))
+                + " au " + dateEstimation.format(fmtLong) + "");
         // Remplissage du rapport
         JasperPrint print = JasperFillManager.fillReport(
                 rapportPrincipal,

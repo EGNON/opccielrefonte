@@ -3,7 +3,7 @@
 	<parameter name="letterDate" class="java.lang.String"/>
 	<parameter name="denominationOpcvm" class="java.lang.String"/>
 	<parameter name="raisonSocial" class="java.lang.String"/>
-	<parameter name="dateEstimation" class="java.sql.Date"/>
+	<parameter name="dateEstimation" class="java.time.LocalDateTime"/>
 	<parameter name="format" class="java.lang.String"/>
 	<field name="designation" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.name" value="designation"/>
@@ -14,14 +14,14 @@
 		<property name="com.jaspersoft.studio.field.label" value="montantExoN"/>
 	</field>
 	<field name="montantExoN2" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.name" value="montantExoN-"/>
-		<property name="com.jaspersoft.studio.field.label" value="montantExoN-"/>
+		<property name="com.jaspersoft.studio.field.name" value="montantExoN2"/>
+		<property name="com.jaspersoft.studio.field.label" value="montantExoN2"/>
 	</field>
 	<field name="idOpcvm" class="java.lang.Long">
 		<property name="com.jaspersoft.studio.field.name" value="idOpcvm"/>
 		<property name="com.jaspersoft.studio.field.label" value="idOpcvm"/>
 	</field>
-	<field name="dateEstimation" class="java.sql.Date">
+	<field name="dateEstimation" class="java.time.LocalDateTime">
 		<property name="com.jaspersoft.studio.field.name" value="dateEstimation"/>
 		<property name="com.jaspersoft.studio.field.label" value="dateEstimation"/>
 	</field>
@@ -76,7 +76,7 @@ FCFA]]></text>
 			</box>
 		</element>
 		<element kind="textField" uuid="17443aef-68e6-44fd-a28b-bb92c8cdbab9" x="450" y="90" width="349" height="18">
-			<expression><![CDATA[$P{format} + ": " + new java.text.SimpleDateFormat("dd/MM/yyyy").format($P{dateEstimation})]]></expression>
+			<expression><![CDATA[$P{format} + ": " + $P{dateEstimation}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"))]]></expression>
 			<box>
 				<pen lineWidth="1.0" lineColor="#3B88D1"/>
 			</box>
@@ -105,13 +105,13 @@ FCFA]]></text>
 				<expression><![CDATA[$F{montantExoN}]]></expression>
 			</element>
 			<element kind="textField" uuid="c4b62f17-3860-4c50-ac32-7bea434e2e37" x="637" y="8" width="76" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
-				<expression><![CDATA[$F{montantExoN}.subtract($F{montantExoN-}).compareTo(java.math.BigDecimal.ZERO) > 0 ? "*" : ""]]></expression>
+				<expression><![CDATA[$F{montantExoN}.subtract($F{montantExoN2}).compareTo(java.math.BigDecimal.ZERO) > 0 ? "*" : ""]]></expression>
 			</element>
 			<element kind="textField" uuid="6515ab01-73af-4bab-b435-8105cb7b49df" x="449" y="8" width="182" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
-				<expression><![CDATA[$F{montantExoN-}]]></expression>
+				<expression><![CDATA[$F{montantExoN2}]]></expression>
 			</element>
 			<element kind="textField" uuid="890a0a8d-7d04-4b9b-9814-6e481bbf0619" x="720" y="8" width="76" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
-				<expression><![CDATA[$F{montantExoN}.subtract($F{montantExoN-}).compareTo(java.math.BigDecimal.ZERO) < 0 ? "*" : ""]]></expression>
+				<expression><![CDATA[$F{montantExoN}.subtract($F{montantExoN2}).compareTo(java.math.BigDecimal.ZERO) < 0 ? "*" : ""]]></expression>
 			</element>
 		</band>
 	</detail>

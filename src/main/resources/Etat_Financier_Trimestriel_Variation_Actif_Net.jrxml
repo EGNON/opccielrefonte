@@ -1,6 +1,7 @@
 <!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 7.0.1-573496633c2b4074e32f433154b543003f7d2498  -->
 <jasperReport name="Etat_Financier_Trimestriel_Variation_Actif_Net" language="java" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b1623333-4e42-47e6-8a00-0072000e94f5">
 	<parameter name="letterDate" class="java.lang.String"/>
+	<parameter name="periode" class="java.lang.String"/>
 	<field name="idOpcvm" class="java.lang.Long">
 		<property name="com.jaspersoft.studio.field.name" value="idOpcvm"/>
 		<property name="com.jaspersoft.studio.field.label" value="idOpcvm"/>
@@ -17,11 +18,11 @@
 		<property name="com.jaspersoft.studio.field.name" value="pays"/>
 		<property name="com.jaspersoft.studio.field.label" value="pays"/>
 	</field>
-	<field name="dateEstimation" class="java.sql.Date">
+	<field name="dateEstimation" class="java.time.LocalDateTime">
 		<property name="com.jaspersoft.studio.field.name" value="dateEstimation"/>
 		<property name="com.jaspersoft.studio.field.label" value="dateEstimation"/>
 	</field>
-	<field name="dateMois1" class="java.sql.Date">
+	<field name="dateMois1" class="java.time.LocalDateTime">
 		<property name="com.jaspersoft.studio.field.name" value="dateMois1"/>
 		<property name="com.jaspersoft.studio.field.label" value="dateMois1"/>
 	</field>
@@ -37,9 +38,9 @@
 		<property name="com.jaspersoft.studio.field.name" value="varPluOuMoinsValue1"/>
 		<property name="com.jaspersoft.studio.field.label" value="varPluOuMoinsValue1"/>
 	</field>
-	<field name="PluOuMoinsValueReal1" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.name" value="PluOuMoinsValueReal1"/>
-		<property name="com.jaspersoft.studio.field.label" value="PluOuMoinsValueReal1"/>
+	<field name="pluOuMoinsValueReal1" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="pluOuMoinsValueReal1"/>
+		<property name="com.jaspersoft.studio.field.label" value="pluOuMoinsValueReal1"/>
 	</field>
 	<field name="fraisNegoc1" class="java.math.BigDecimal">
 		<property name="com.jaspersoft.studio.field.name" value="fraisNegoc1"/>
@@ -129,7 +130,7 @@
 		<property name="com.jaspersoft.studio.field.name" value="valeurLiquidative1"/>
 		<property name="com.jaspersoft.studio.field.label" value="valeurLiquidative1"/>
 	</field>
-	<field name="dateMois2" class="java.sql.Date">
+	<field name="dateMois2" class="java.time.LocalDateTime">
 		<property name="com.jaspersoft.studio.field.name" value="dateMois2"/>
 		<property name="com.jaspersoft.studio.field.label" value="dateMois2"/>
 	</field>
@@ -145,9 +146,9 @@
 		<property name="com.jaspersoft.studio.field.name" value="varPluOuMoinsValue2"/>
 		<property name="com.jaspersoft.studio.field.label" value="varPluOuMoinsValue2"/>
 	</field>
-	<field name="PluOuMoinsValueReal2" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.name" value="PluOuMoinsValueReal2"/>
-		<property name="com.jaspersoft.studio.field.label" value="PluOuMoinsValueReal2"/>
+	<field name="pluOuMoinsValueReal2" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="pluOuMoinsValueReal2"/>
+		<property name="com.jaspersoft.studio.field.label" value="pluOuMoinsValueReal2"/>
 	</field>
 	<field name="fraisNegoc2" class="java.math.BigDecimal">
 		<property name="com.jaspersoft.studio.field.name" value="fraisNegoc2"/>
@@ -237,7 +238,7 @@
 		<property name="com.jaspersoft.studio.field.name" value="valeurLiquidative2"/>
 		<property name="com.jaspersoft.studio.field.label" value="valeurLiquidative2"/>
 	</field>
-	<field name="dateMois3" class="java.sql.Date">
+	<field name="dateMois3" class="java.time.LocalDateTime">
 		<property name="com.jaspersoft.studio.field.name" value="dateMois3"/>
 		<property name="com.jaspersoft.studio.field.label" value="dateMois3"/>
 	</field>
@@ -253,9 +254,9 @@
 		<property name="com.jaspersoft.studio.field.name" value="varPluOuMoinsValue3"/>
 		<property name="com.jaspersoft.studio.field.label" value="varPluOuMoinsValue3"/>
 	</field>
-	<field name="PluOuMoinsValueReal3" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.name" value="PluOuMoinsValueReal3"/>
-		<property name="com.jaspersoft.studio.field.label" value="PluOuMoinsValueReal3"/>
+	<field name="pluOuMoinsValueReal3" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="pluOuMoinsValueReal3"/>
+		<property name="com.jaspersoft.studio.field.label" value="pluOuMoinsValueReal3"/>
 	</field>
 	<field name="fraisNegoc3" class="java.math.BigDecimal">
 		<property name="com.jaspersoft.studio.field.name" value="fraisNegoc3"/>
@@ -354,7 +355,7 @@
 			<pen lineColor="#3B88D1"/>
 		</element>
 		<element kind="staticText" uuid="0e8bf227-bce2-46c2-a519-d33401a652ae" x="152" y="33" width="249" height="17" fontSize="10.0" bold="true" hTextAlign="Center">
-			<text><![CDATA[Compte de résultat OPCVM]]></text>
+			<text><![CDATA[ETAT DE VARIATION DE L'ACTIF NET]]></text>
 		</element>
 		<element kind="textField" uuid="0fd8696f-9a7f-4394-90c4-78fb100a841b" x="15" y="87" width="414" height="17" bold="true">
 			<expression><![CDATA["DESIGNATION DE L'ENTREPRISE : "+$F{denominationOpcvm}]]></expression>
@@ -363,7 +364,7 @@
 			<expression><![CDATA["PAYS : "+$F{pays}]]></expression>
 		</element>
 		<element kind="textField" uuid="24b931dc-ec33-429b-89a7-f973c87368d0" x="130" y="60" width="310" height="18" bold="true" hTextAlign="Center">
-			<expression><![CDATA["(du 01 Janvier 2017 au 31 Décembre 2017)"]]></expression>
+			<expression><![CDATA[$P{periode}]]></expression>
 		</element>
 	</title>
 	<pageHeader splitType="Stretch"/>
@@ -446,7 +447,7 @@
 			<element kind="textField" uuid="0b02fe76-09d9-4e6c-97a0-17d6a62d595e" x="479" y="241" width="70" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true" bold="false">
 				<expression><![CDATA[$F{regulSommeDistribuableSous3}]]></expression>
 			</element>
-			<element kind="textField" uuid="17cae8e5-f0d0-475e-bf76-44c817da2abd" x="415" y="13" width="52" height="13" bold="true" hTextAlign="Center">
+			<element kind="textField" uuid="17cae8e5-f0d0-475e-bf76-44c817da2abd" x="409" y="13" width="65" height="13" textAdjust="StretchHeight" bold="true" hTextAlign="Center">
 				<expression><![CDATA[$F{dateMois2}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"))]]></expression>
 			</element>
 			<element kind="textField" uuid="6d3328e8-6015-4b12-a65f-65fc59ac498e" x="414" y="32" width="53" height="29" pattern="#,##0.###;#,##0.###" blankWhenNull="true" bold="true">
@@ -522,13 +523,13 @@
 				</box>
 			</element>
 			<element kind="textField" uuid="30a14e91-bd95-4757-98f3-04bbfc505f78" x="332" y="102" width="70" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
-				<expression><![CDATA[$F{PluOuMoinsValueReal1}]]></expression>
+				<expression><![CDATA[$F{pluOuMoinsValueReal1}]]></expression>
 			</element>
 			<element kind="textField" uuid="11ca81ad-18ca-4160-a0b7-0e8ba92917e9" x="414" y="102" width="53" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
-				<expression><![CDATA[$F{PluOuMoinsValueReal2}]]></expression>
+				<expression><![CDATA[$F{pluOuMoinsValueReal2}]]></expression>
 			</element>
 			<element kind="textField" uuid="227fda5b-e8ec-44d1-8b6b-dd0b92c2e87c" x="479" y="102" width="70" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
-				<expression><![CDATA[$F{PluOuMoinsValueReal3}]]></expression>
+				<expression><![CDATA[$F{pluOuMoinsValueReal3}]]></expression>
 			</element>
 			<element kind="staticText" uuid="997bbcaa-061f-4e10-83b6-f5b8e44eec70" x="10" y="119" width="250" height="13" bold="false" hTextAlign="Left">
 				<text><![CDATA[- Frais de négociation de titres]]></text>

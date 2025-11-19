@@ -3,9 +3,9 @@
 	<parameter name="letterDate" class="java.lang.String"/>
 	<parameter name="denominationOpcvm" class="java.lang.String"/>
 	<parameter name="libellePays" class="java.lang.String"/>
-	<parameter name="dateEstimation" class="java.sql.Date"/>
+	<parameter name="dateEstimation" class="java.time.LocalDateTime"/>
 	<parameter name="periodicite" class="java.lang.String"/>
-	<field name="idTitre" class="java.math.BigDecimal">
+	<field name="idTitre" class="java.lang.Long">
 		<property name="com.jaspersoft.studio.field.name" value="idTitre"/>
 		<property name="com.jaspersoft.studio.field.label" value="idTitre"/>
 	</field>
@@ -25,7 +25,7 @@
 		<property name="com.jaspersoft.studio.field.name" value="designationTitre"/>
 		<property name="com.jaspersoft.studio.field.label" value="designationTitre"/>
 	</field>
-	<field name="nombreTitres" class="java.math.BigDecimal">
+	<field name="nombreTitres" class="java.lang.Long">
 		<property name="com.jaspersoft.studio.field.name" value="nombreTitres"/>
 		<property name="com.jaspersoft.studio.field.label" value="nombreTitres"/>
 	</field>
@@ -42,14 +42,14 @@
 		<property name="com.jaspersoft.studio.field.label" value="actifNet"/>
 	</field>
 	<field name="actifnetpourcent" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.name" value="%actifnet"/>
-		<property name="com.jaspersoft.studio.field.label" value="%actifnet"/>
+		<property name="com.jaspersoft.studio.field.name" value="actifnetpourcent"/>
+		<property name="com.jaspersoft.studio.field.label" value="actifnetpourcent"/>
 	</field>
 	<field name="idOpcvm" class="java.lang.Long">
 		<property name="com.jaspersoft.studio.field.name" value="idOpcvm"/>
 		<property name="com.jaspersoft.studio.field.label" value="idOpcvm"/>
 	</field>
-	<field name="dateEstimation" class="java.sql.Date">
+	<field name="dateEstimation" class="java.time.LocalDateTime">
 		<property name="com.jaspersoft.studio.field.name" value="dateEstimation"/>
 		<property name="com.jaspersoft.studio.field.label" value="dateEstimation"/>
 	</field>
@@ -62,32 +62,38 @@
 	<variable name="valeur1" resetType="Group" calculation="Sum" resetGroup="Group1" class="java.math.BigDecimal">
 		<expression><![CDATA[$F{valeur}]]></expression>
 	</variable>
-	<variable name="%actifnet1" resetType="Group" calculation="Sum" resetGroup="Group1" class="java.math.BigDecimal">
-		<expression><![CDATA[$F{%actifnet}]]></expression>
+	<variable name="actifnetpourcent1" resetType="Group" calculation="Sum" resetGroup="Group1" class="java.math.BigDecimal">
+		<expression><![CDATA[$F{actifnetpourcent}]]></expression>
 	</variable>
 	<group name="Group1">
 		<expression><![CDATA[$F{idOpcvm}]]></expression>
 		<groupHeader>
-			<band height="28">
-				<element kind="rectangle" uuid="5963ac78-28a8-48e2-837b-6f24df031065" x="3" y="3" width="796" height="25" backcolor="#BDD7EE"/>
-				<element kind="line" uuid="ec98ee6d-c63b-4cb3-a173-f0c0d5c1bdeb" x="711" y="3" width="1" height="24"/>
-				<element kind="line" uuid="765416b7-f40f-4c4d-9012-c6ab7123d6de" x="623" y="3" width="1" height="24"/>
-				<element kind="line" uuid="87e25eac-3cd3-487c-b8bb-feb1b2b008d7" x="501" y="3" width="1" height="24"/>
+			<band height="37">
+				<element kind="rectangle" uuid="5963ac78-28a8-48e2-837b-6f24df031065" x="3" y="3" width="796" height="34" backcolor="#BDD7EE"/>
+				<element kind="line" uuid="ec98ee6d-c63b-4cb3-a173-f0c0d5c1bdeb" x="711" y="3" width="1" height="34">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</element>
+				<element kind="line" uuid="765416b7-f40f-4c4d-9012-c6ab7123d6de" x="623" y="3" width="1" height="34">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</element>
+				<element kind="line" uuid="87e25eac-3cd3-487c-b8bb-feb1b2b008d7" x="501" y="3" width="1" height="34">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</element>
 				<element kind="staticText" uuid="fccd6a37-fad4-4390-ac8c-0904e8c23a1b" x="510" y="8" width="104" height="14" bold="true" hTextAlign="Center">
 					<text><![CDATA[Coût d'acquisition]]></text>
-				</element>
-				<element kind="staticText" uuid="caba65d4-5ce1-4a3d-8baa-f60bac0dc40d" x="632" y="8" width="70" height="14" bold="true" hTextAlign="Center">
-					<text><![CDATA[Valeur au ]]></text>
 				</element>
 				<element kind="staticText" uuid="08023137-69e9-46a4-b8df-f3cd2f85b9f2" x="720" y="8" width="70" height="14" bold="true" hTextAlign="Center">
 					<text><![CDATA[% actif net]]></text>
 				</element>
-				<element kind="line" uuid="5fb13f2f-6fdc-4fc4-82cb-fb50327db3b2" x="389" y="3" width="1" height="24"/>
+				<element kind="line" uuid="5fb13f2f-6fdc-4fc4-82cb-fb50327db3b2" x="389" y="3" width="1" height="34"/>
 				<element kind="staticText" uuid="180d1e6a-4927-48da-ba57-a2c2e30ba0e9" x="395" y="8" width="96" height="14" bold="true" hTextAlign="Center">
 					<text><![CDATA[Nombre de titres]]></text>
 				</element>
 				<element kind="staticText" uuid="51658f84-0986-4731-8cf0-f295de8cb00e" x="10" y="8" width="330" height="14" bold="true" hTextAlign="Center">
 					<text><![CDATA[Désignation]]></text>
+				</element>
+				<element kind="textField" uuid="3835d444-04d2-409d-8a5c-cbc1d581d8f0" x="625" y="8" width="84" height="29" textAdjust="StretchHeight" bold="true">
+					<expression><![CDATA["Valeur au "+$F{dateEstimation}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"))]]></expression>
 				</element>
 			</band>
 		</groupHeader>
@@ -111,7 +117,7 @@
 					<expression><![CDATA[$V{valeur1}]]></expression>
 				</element>
 				<element kind="textField" uuid="84e18794-1ec4-447c-a6f9-5497953bafed" stretchType="ContainerHeight" x="715" y="8" width="82" height="14" textAdjust="StretchHeight">
-					<expression><![CDATA[$V{%actifnet1}]]></expression>
+					<expression><![CDATA[$V{actifnetpourcent1}]]></expression>
 				</element>
 			</band>
 		</groupFooter>
@@ -192,9 +198,7 @@
 			<text><![CDATA[NOTE SUR LE PORTEFEUILLE TITRE]]></text>
 		</element>
 		<element kind="textField" uuid="f185dd36-1c3c-4a2e-862f-467201403d23" x="58" y="66" width="676" height="14" hTextAlign="Center">
-			<expression><![CDATA[EQUALS($P{periodicite}.trim(), "Annuel") ? 
-    "(Du " +  new java.text.SimpleDateFormat("dd/MM/ yyyy").format(new java.sql.Date($P{dateEstimation}.toLocalDate().plusMonths($P{periodicite}=="Trimestre"?-2:-5).withDayOfMonth(1).atStartOfDay(java.time.ZoneId.systemDefault()).toInstant().toEpochMilli())) + " au " + new java.text.SimpleDateFormat("dd/MM/ yyyy").format($P{dateEstimation}) + ")" : 
-    "(Du "+new java.sql.Date($P{dateEstimation}.toLocalDate().plusMonths(-12).plusDays(1).atStartOfDay(java.time.ZoneId.systemDefault()).toInstant().toEpochMilli())+" au "+$P{dateEstimation}+")"]]></expression>
+			<expression><![CDATA[$P{periodicite}]]></expression>
 		</element>
 	</title>
 	<pageHeader splitType="Stretch"/>
@@ -219,7 +223,7 @@
 				<expression><![CDATA[$F{valeur}]]></expression>
 			</element>
 			<element kind="textField" uuid="28ad43a6-0a34-4a62-b882-5c67370a89e7" stretchType="ContainerHeight" x="723" y="6" width="65" height="14" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
-				<expression><![CDATA[$F{%actifnet}]]></expression>
+				<expression><![CDATA[$F{actifnetpourcent}]]></expression>
 			</element>
 		</band>
 	</detail>

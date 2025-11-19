@@ -42,12 +42,12 @@ public class TarificationOrdinaireMapper {
         if(TarificationOrdinaire.getClasseTitre()!=null) {
             TarificationOrdinaireDto.setClasseTitre(classeTitreMapper.deClasseTitre(TarificationOrdinaire.getClasseTitre()));
         }
-        /*if(TarificationOrdinaire.getDepositaire()!=null) {
+        if(TarificationOrdinaire.getDepositaire()!=null) {
             TarificationOrdinaireDto.setDepositaire(personneMapper.dePersonne(TarificationOrdinaire.getDepositaire()));
         }
         if(TarificationOrdinaire.getRegistraire()!=null) {
             TarificationOrdinaireDto.setRegistraire(personneMapper.dePersonne(TarificationOrdinaire.getRegistraire()));
-        }*/
+        }
         if(TarificationOrdinaire.getDepositaire()!=null) {
             TarificationOrdinaireDto.setDepositaire(personneMapper.dePersonne(TarificationOrdinaire.getDepositaire()));
         }
@@ -83,11 +83,11 @@ public class TarificationOrdinaireMapper {
             tarificationOrdinaireDto.setClasseTitre(classeTitreMapper.deClasseTitre(tarificationProjection.getClasseTitre()));
         }
         if(tarificationProjection.getDepositaire()!=null) {
-//            tarificationOrdinaireDto.setDepositaire(personneMapper.dePersonne(tarificationProjection.getDepositaire()));
+           tarificationOrdinaireDto.setDepositaire(personneMapper.dePersonne(tarificationProjection.getDepositaire()));
         }
-        if(tarificationProjection.getRegistraire()!=null) {
+//        if(tarificationProjection.getRegistraire()!=null) {
 //            tarificationOrdinaireDto.setRegistraire(personneMapper.dePersonne(tarificationProjection.getRegistraire()));
-        }
+//        }
         if(tarificationProjection.getOpcvm()!=null) {
             tarificationOrdinaireDto.setOpcvm(opcvmMapper.deOpcvm(tarificationProjection.getOpcvm()));
         }
