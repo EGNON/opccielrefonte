@@ -783,6 +783,20 @@ public class LibraryController {
          service.afficherEtatFinancierTrimestrielNoteCapital(request,response);
     }
 
+    //etatfinanciertrimestrielmontantfraisgestion
+    @PostMapping("/opcvm/etats/etatfinanciertrimestrielmontantfraisgestion")
+    public void etatfinanciertrimestrielmontantfraisgestion(@RequestBody @Valid EtatFinancierTrimestrielMontantFraisGestionRequest request, HttpServletResponse response) throws JRException, IOException {
+        response.setContentType("application/pdf");
+        DateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy:hh:mm:ss");
+        String currentDateTime = dateFormatter.format(new Date());
+
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=Etat financier trimestriel montant des frais de gestion" + currentDateTime + ".pdf";
+        response.setHeader(headerKey, headerValue);
+
+        service.afficherEtatFinancierTrimestrielMontantFraisGestion(request,response);
+    }
+
     //etatfinanciertrimestrieletatmensuelsouscriptions
     @PostMapping("/opcvm/etats/etatfinanciertrimestrieletatmensuelsouscriptions")
     public void etatfinanciertrimestrieletatmensuelsouscriptions(@RequestBody @Valid EtatFinancierTrimestrielBilanTrimestrielRequest request, HttpServletResponse response) throws JRException, IOException {

@@ -3000,6 +3000,59 @@ public class AppService {
 
     }
 
+    //EtatFinancierTrimestrielMontantFraisGestion
+    public ResponseEntity<Object> afficherEtatFinancierTrimestrielMontantFraisGestion(EtatFinancierTrimestrielMontantFraisGestionRequest request, HttpServletResponse response) throws JRException, IOException {
+
+        InputStream rapportStream = null;
+        InputStream subreportStream = null;
+//        try {
+        // Récupération des données
+        List<EtatFinancierTrimestrielMontantFraisGestionProjection> etatFinancierTrimestrielMontantFraisGestionProjections = libraryDao.etatFinancierTrimestrielMontantFraisGestion(
+                request.getIdOpcvm(), request.getDateEstimation());
+
+        // Chargement des fichiers .jrxml depuis le classpath
+        rapportStream = getClass().getResourceAsStream("/Etat_Financier_Trimestriel_Montant_Frais_Gestion.jrxml");
+//        subreportStream = getClass().getResourceAsStream("/operationDetachement.jrxml");
+
+        if (rapportStream == null) {
+            throw new RuntimeException("Fichiers .jrxml introuvables dans le classpath !");
+        }
+
+        // Compiler les rapports à la volée
+        JasperReport rapportPrincipal = JasperCompileManager.compileReport(rapportStream);
+//        JasperReport subreport = JasperCompileManager.compileReport(subreportStream);
+
+        // Préparation des paramètres
+        Map<String, Object> parameters = new HashMap<>();
+        DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
+        String letterDate = dateFormatter.format(new Date());
+        parameters.put("letterDate", letterDate);
+        //DateTimeFormatter fmtLong = DateTimeFormatter.ofPattern("dd-MM-yyyy", Locale.FRENCH);
+        String denominationOpcvm = request.getDenominationOpcvm();
+        OpcvmDto opcvm = opcvmMapper.deOpcvm(opcvmDao.findById(request.getIdOpcvm()).orElseThrow());
+        parameters.put("denominationOpcvm",opcvm.getDenominationOpcvm());
+        String raisonSocial = request.getRaisonSocial();
+        parameters.put("raisonSocial",raisonSocial);
+        LocalDateTime dateEstimation = request.getDateEstimation();
+        parameters.put("dateEstimation",dateEstimation);
+        String format = request.getFormat();
+        parameters.put("format",format);
+
+        // Remplissage du rapport
+        JasperPrint print = JasperFillManager.fillReport(
+                rapportPrincipal,
+                parameters,
+                new JRBeanCollectionDataSource(etatFinancierTrimestrielMontantFraisGestionProjections)
+        );
+        JasperExportManager.exportReportToPdfStream(print, response.getOutputStream());
+        return ResponseHandler.generateResponse(
+                "Ordre de bourse",
+                HttpStatus.OK,
+                etatFinancierTrimestrielMontantFraisGestionProjections);
+
+
+    }
+
     //EtatFinancierTrimestrielEtatMensuelSouscriptions
     public ResponseEntity<Object> afficherEtatFinancierTrimestrielEtatMensuelSouscriptions(EtatFinancierTrimestrielBilanTrimestrielRequest request, HttpServletResponse response) throws JRException, IOException {
 

@@ -156,6 +156,9 @@ public interface LibraryDao extends JpaRepository<BaseEntity, Long> {
     @Query(value = "select * from [Impressions].[FT_BilanTrimestriel_New](:idOpcvm,:dateEstimation)", nativeQuery = true)
     List<EtatFinancierTrimestrielBilanTrimestrielProjection> etatFinancierTrimestrielBilanTrimestriel(Long idOpcvm,LocalDateTime dateEstimation);
 
+    @Query(value = "select * from [Impressions].[FT_NotesSurLesFraisDeGestionTrimestriel_New] (:idOpcvm,:dateEstimation)", nativeQuery = true)
+    List<EtatFinancierTrimestrielMontantFraisGestionProjection> etatFinancierTrimestrielMontantFraisGestion(Long idOpcvm,LocalDateTime dateEstimation);
+
     @Query(value = "select * from [Impressions].[FT_ResultatTrimestriel_New](:idOpcvm,:dateEstimation)", nativeQuery = true)
     List<EtatFinancierTrimestrielCompteResultatProjection> etatFinancierTrimestrielCompteResultat(Long idOpcvm,LocalDateTime dateEstimation);
 
