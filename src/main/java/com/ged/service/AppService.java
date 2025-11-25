@@ -3112,6 +3112,379 @@ public class AppService {
 
     }
 
+    //DocumentSeanceListeVerificationCharge
+    public ResponseEntity<Object> afficherDocumentSeanceListeVerificationCharge(DocumentSeanceListeVerificationChargeRequest request, HttpServletResponse response) throws JRException, IOException {
+
+        InputStream rapportStream = null;
+        InputStream subreportStream = null;
+//        try {
+        // Récupération des données
+        List<DocumentSeanceListeVerificationChargeProjection> documentSeanceListeVerificationChargeProjections = libraryDao.documentSeanceListeVerificationCharge(
+                request.getIdSeance(), request.getIdOpcvm(), request.getSupprimer(), request.getEstVerifie1(), request.getEstVerifie2());
+
+        // Chargement des fichiers .jrxml depuis le classpath
+        rapportStream = getClass().getResourceAsStream("/Document_Seance_Liste_Verification_Charge.jrxml");
+//        subreportStream = getClass().getResourceAsStream("/operationDetachement.jrxml");
+
+        if (rapportStream == null) {
+            throw new RuntimeException("Fichiers .jrxml introuvables dans le classpath !");
+        }
+
+        // Compiler les rapports à la volée
+        JasperReport rapportPrincipal = JasperCompileManager.compileReport(rapportStream);
+//        JasperReport subreport = JasperCompileManager.compileReport(subreportStream);
+
+        // Préparation des paramètres
+        Map<String, Object> parameters = new HashMap<>();
+        DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
+        String letterDate = dateFormatter.format(new Date());
+        parameters.put("letterDate", letterDate);
+        //DateTimeFormatter fmtLong = DateTimeFormatter.ofPattern("dd-MM-yyyy", Locale.FRENCH);
+        //String denominationOpcvm = request.getDenominationOpcvm();
+        OpcvmDto opcvm = opcvmMapper.deOpcvm(opcvmDao.findById(request.getIdOpcvm()).orElseThrow());
+        parameters.put("denominationOpcvm",opcvm.getDenominationOpcvm());
+        LocalDateTime dateOuv = request.getDateOuv();
+        parameters.put("dateOuv",dateOuv);
+        LocalDateTime dateFerm = request.getDateFerm();
+        parameters.put("dateFerm",dateFerm);
+
+        // Remplissage du rapport
+        JasperPrint print = JasperFillManager.fillReport(
+                rapportPrincipal,
+                parameters,
+                new JRBeanCollectionDataSource(documentSeanceListeVerificationChargeProjections)
+        );
+        JasperExportManager.exportReportToPdfStream(print, response.getOutputStream());
+        return ResponseHandler.generateResponse(
+                "Ordre de bourse",
+                HttpStatus.OK,
+                documentSeanceListeVerificationChargeProjections);
+
+
+    }
+
+    //DocumentSeanceListeVerificationCodePoste
+    public ResponseEntity<Object> afficherDocumentSeanceListeVerificationCodePoste(DocumentSeanceListeVerificationCodePosteRequest request, HttpServletResponse response) throws IOException, JRException {
+
+        InputStream rapportStream = null;
+        InputStream subreportStream = null;
+//        try {
+        // Récupération des données
+        List<DocumentSeanceListeVerificationCodePosteProjection> documentSeanceListeVerificationCodePosteProjections = libraryDao.documentSeanceListeVerificationCodePoste(
+                request.getIdSeance(), request.getIdOpcvm(), request.getEstVerifie1(), request.getEstVerifie2());
+
+        // Chargement des fichiers .jrxml depuis le classpath
+        rapportStream = getClass().getResourceAsStream("/Document_Seance_Liste_Verification_Code_Poste.jrxml");
+//        subreportStream = getClass().getResourceAsStream("/operationDetachement.jrxml");
+
+        if (rapportStream == null) {
+            throw new RuntimeException("Fichiers .jrxml introuvables dans le classpath !");
+        }
+
+        // Compiler les rapports à la volée
+        JasperReport rapportPrincipal = JasperCompileManager.compileReport(rapportStream);
+//        JasperReport subreport = JasperCompileManager.compileReport(subreportStream);
+
+        // Préparation des paramètres
+        Map<String, Object> parameters = new HashMap<>();
+        DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
+        String letterDate = dateFormatter.format(new Date());
+        parameters.put("letterDate", letterDate);
+        //DateTimeFormatter fmtLong = DateTimeFormatter.ofPattern("dd-MM-yyyy", Locale.FRENCH);
+        //String denominationOpcvm = request.getDenominationOpcvm();
+        OpcvmDto opcvm = opcvmMapper.deOpcvm(opcvmDao.findById(request.getIdOpcvm()).orElseThrow());
+        parameters.put("denominationOpcvm",opcvm.getDenominationOpcvm());
+        LocalDateTime dateOuverture = request.getDateOuverture();
+        parameters.put("dateOuverture",dateOuverture);
+        LocalDateTime dateFermeture = request.getDateFermeture();
+        parameters.put("dateFermeture",dateFermeture);
+
+        // Remplissage du rapport
+        JasperPrint print = JasperFillManager.fillReport(
+                rapportPrincipal,
+                parameters,
+                new JRBeanCollectionDataSource(documentSeanceListeVerificationCodePosteProjections)
+        );
+        JasperExportManager.exportReportToPdfStream(print, response.getOutputStream());
+        return ResponseHandler.generateResponse(
+                "Ordre de bourse",
+                HttpStatus.OK,
+                documentSeanceListeVerificationCodePosteProjections);
+    }
+
+    //DocumentSeanceListeVerificationEcritureCharge
+    public ResponseEntity<Object> afficherDocumentSeanceListeVerificationEcritureCharge(DocumentSeanceListeVerificationEcritureChargeRequest request, HttpServletResponse response) throws IOException, JRException {
+
+        InputStream rapportStream = null;
+        InputStream subreportStream = null;
+//        try {
+        // Récupération des données
+        List<DocumentSeanceListeVerificationEcritureChargeProjection> documentSeanceListeVerificationEcritureChargeProjections = libraryDao.documentSeanceListeVerificationEcritureCharge(
+                request.getIdOpcvm(), request.getCodeTypeOperation(), request.getDateDebut(),request.getDateFin(), request.getEstVerifie1(), request.getEstVerifie2(), request.getIdOperation());
+
+        // Chargement des fichiers .jrxml depuis le classpath
+        rapportStream = getClass().getResourceAsStream("/Document_Seance_Liste_Verification_Ecriture_Charge.jrxml");
+//        subreportStream = getClass().getResourceAsStream("/operationDetachement.jrxml");
+
+        if (rapportStream == null) {
+            throw new RuntimeException("Fichiers .jrxml introuvables dans le classpath !");
+        }
+
+        // Compiler les rapports à la volée
+        JasperReport rapportPrincipal = JasperCompileManager.compileReport(rapportStream);
+//        JasperReport subreport = JasperCompileManager.compileReport(subreportStream);
+
+        // Préparation des paramètres
+        Map<String, Object> parameters = new HashMap<>();
+        DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
+        String letterDate = dateFormatter.format(new Date());
+        parameters.put("letterDate", letterDate);
+        //DateTimeFormatter fmtLong = DateTimeFormatter.ofPattern("dd-MM-yyyy", Locale.FRENCH);
+        //String denominationOpcvm = request.getDenominationOpcvm();
+        OpcvmDto opcvm = opcvmMapper.deOpcvm(opcvmDao.findById(request.getIdOpcvm()).orElseThrow());
+
+        // Remplissage du rapport
+        JasperPrint print = JasperFillManager.fillReport(
+                rapportPrincipal,
+                parameters,
+                new JRBeanCollectionDataSource(documentSeanceListeVerificationEcritureChargeProjections)
+        );
+        JasperExportManager.exportReportToPdfStream(print, response.getOutputStream());
+        return ResponseHandler.generateResponse(
+                "Ordre de bourse",
+                HttpStatus.OK,
+                documentSeanceListeVerificationEcritureChargeProjections);
+    }
+
+    //DocumentSeanceListeVerificationEcritureVde
+    public ResponseEntity<Object> afficherDocumentSeanceListeVerificationEcritureVde(DocumentSeanceListeVerificationEcritureChargeRequest request, HttpServletResponse response) throws IOException, JRException {
+
+        InputStream rapportStream = null;
+        InputStream subreportStream = null;
+//        try {
+        // Récupération des données
+        List<DocumentSeanceListeVerificationEcritureVdeProjection> documentSeanceListeVerificationEcritureVdeProjections = libraryDao.documentSeanceListeVerificationEcritureVde(
+                request.getIdOpcvm(), request.getCodeTypeOperation(), request.getDateDebut(),request.getDateFin(), request.getEstVerifie1(), request.getEstVerifie2(), request.getIdOperation());
+
+        // Chargement des fichiers .jrxml depuis le classpath
+        rapportStream = getClass().getResourceAsStream("/Document_Seance_Liste_Verification_Ecriture_VDE.jrxml");
+//        subreportStream = getClass().getResourceAsStream("/operationDetachement.jrxml");
+
+        if (rapportStream == null) {
+            throw new RuntimeException("Fichiers .jrxml introuvables dans le classpath !");
+        }
+
+        // Compiler les rapports à la volée
+        JasperReport rapportPrincipal = JasperCompileManager.compileReport(rapportStream);
+//        JasperReport subreport = JasperCompileManager.compileReport(subreportStream);
+
+        // Préparation des paramètres
+        Map<String, Object> parameters = new HashMap<>();
+        DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
+        String letterDate = dateFormatter.format(new Date());
+        parameters.put("letterDate", letterDate);
+        //DateTimeFormatter fmtLong = DateTimeFormatter.ofPattern("dd-MM-yyyy", Locale.FRENCH);
+        //String denominationOpcvm = request.getDenominationOpcvm();
+        OpcvmDto opcvm = opcvmMapper.deOpcvm(opcvmDao.findById(request.getIdOpcvm()).orElseThrow());
+
+        // Remplissage du rapport
+        JasperPrint print = JasperFillManager.fillReport(
+                rapportPrincipal,
+                parameters,
+                new JRBeanCollectionDataSource(documentSeanceListeVerificationEcritureVdeProjections)
+        );
+        JasperExportManager.exportReportToPdfStream(print, response.getOutputStream());
+        return ResponseHandler.generateResponse(
+                "Ordre de bourse",
+                HttpStatus.OK,
+                documentSeanceListeVerificationEcritureVdeProjections);
+    }
+
+    //DocumentSeanceListeVerificationEcriture
+    public ResponseEntity<Object> afficherDocumentSeanceListeVerificationEcriture(DocumentSeanceListeVerificationEcritureChargeRequest request, HttpServletResponse response) throws JRException, IOException {
+
+        InputStream rapportStream = null;
+        InputStream subreportStream = null;
+//        try {
+            // Récupération des données
+        List<DocumentSeanceListeVerificationEcritureProjection> documentSeanceListeVerificationEcritureProjections = libraryDao.documentSeanceListeVerificationEcriture(
+                request.getIdOpcvm(), request.getCodeTypeOperation(), request.getDateDebut(), request.getDateFin(), request.getEstVerifie1(), request.getEstVerifie2(), request.getIdOperation()
+        );
+        // Chargement des fichiers .jrxml depuis le classpath
+        rapportStream = getClass().getResourceAsStream("/Document_Seance_Liste_Verification_Ecriture.jrxml");
+//        subreportStream = getClass().getResourceAsStream("/operationDetachement.jrxml");
+
+        if (rapportStream == null) {
+            throw new RuntimeException("fichiers .jrxml introuvables dans le classpath!");
+        }
+
+        // Compiler les rapports à la volée
+        JasperReport rapportPrincipal = JasperCompileManager.compileReport(rapportStream);
+//        JasperReport subreport = JasperCompileManager.compileReport(subreportStream);
+
+        // Préparation des paramètres
+        Map<String, Object> parameters = new HashMap<>();
+        DateFormat dateFormatter = new SimpleDateFormat("dd MM yyyy");
+        String letterDate = dateFormatter.format(new Date());
+        parameters.put("letterDate",letterDate);
+        OpcvmDto opcvm = opcvmMapper.deOpcvm(opcvmDao.findById(request.getIdOpcvm()).orElseThrow());
+
+        // Remplissage du rapport
+        JasperPrint print = JasperFillManager.fillReport(
+                rapportPrincipal,
+                parameters,
+                new JRBeanCollectionDataSource(documentSeanceListeVerificationEcritureProjections)
+        );
+        return ResponseHandler.generateResponse(
+                "ordre de bourse",
+                HttpStatus.OK,
+                documentSeanceListeVerificationEcritureProjections
+        );
+
+
+
+    }
+
+    //DocumentSeanceListeVerificationRachats
+    public ResponseEntity<Object> afficherDocumentSeanceListeVerificationRachats(DocumentSeanceListeVerificationRachatsRequest request, HttpServletResponse response) throws JRException, IOException {
+
+        InputStream rapportStream = null;
+        InputStream subreportStream = null;
+
+//        try {
+        // Récupération des données
+        List<DocumentSeanceListeVerificationRachatsProjection> documentSeanceListeVerificationRachatsProjections = libraryDao.documentSeanceListeVerificationRachats(
+                request.getIdSeance(), request.getIdPersonne(), request.getIdOpcvm(), request.getCodeNatureOperation(), request.getNiveau1(), request.getNiveau2()
+        );
+
+        // Chargement des fichiers .jrxml depuis le classpath
+        rapportStream = getClass().getResourceAsStream("/Document_Seance_Liste_Verification_Rachats.jrxml");
+//        subreportStream = getClass().getResourceAsStream("/operationDetachement.jrxml");
+
+        if (rapportStream == null) {
+            throw new RuntimeException("Fichiers .jrxml introuvable dans le classpath! ");
+        }
+
+        // Compiler les rapports à la volée
+        JasperReport rapportPrincipal = JasperCompileManager.compileReport(rapportStream);
+//        JasperReport subreport = JasperCompileManager.compileReport(subreportStream);
+
+        //Preparation des parametres
+        Map<String, Object> parameters = new HashMap<>();
+        DateFormat dateFormatter = new SimpleDateFormat("dd MM yyyy");
+        String letterDate = dateFormatter.format(new Date());
+        parameters.put("letterDate", letterDate);
+
+        //Remplissage du rapport
+        JasperPrint print = JasperFillManager.fillReport(
+                rapportPrincipal,
+                parameters,
+                new JRBeanCollectionDataSource(documentSeanceListeVerificationRachatsProjections)
+        );
+        return ResponseHandler.generateResponse(
+                "ordre de bourse",
+                HttpStatus.OK,
+                documentSeanceListeVerificationRachatsProjections
+        );
+
+
+    }
+
+    //DocumentSeanceListeVerificationSouscription
+    public ResponseEntity<Object> afficherDocumentSeanceListeVerificationSouscription(DocumentSeanceListeVerificationRachatsRequest request, HttpServletResponse response) throws JRException, IOException {
+
+        InputStream rapportStream = null;
+        InputStream subreportStream = null;
+
+//        try {
+        // Récupération des données
+        List<DocumentSeanceListeVerificationSouscriptionProjection> documentSeanceListeVerificationSouscriptionProjections = libraryDao.documentSeanceListeVerificationSouscription(
+                request.getIdSeance(), request.getIdPersonne(), request.getIdPersonne(), request.getCodeNatureOperation(), request.getNiveau1(), request.getNiveau2()
+        );
+
+        // Chargement des fichiers .jrxml depuis le classpath
+        rapportStream = getClass().getResourceAsStream("/Document_Seance_Liste_Verification_Souscriptions.jrxml");
+//        subreportStream = getClass().getResourceAsStream("/operationDetachement.jrxml");
+
+        if (rapportStream == null){
+            throw new RuntimeException("Fichiers .jrxml introuvables dans le classpath !");
+        }
+
+        // Compiler les rapports à la volée
+        JasperReport rapportPrincipal = JasperCompileManager.compileReport(rapportStream);
+//        JasperReport subreport = JasperCompileManager.compileReport(subreportStream);
+
+        //Preparation des parametres
+        Map<String, Object> parameters = new HashMap<>();
+        DateFormat dateFormatter = new SimpleDateFormat("dd MM yyyy");
+        String letterDate = dateFormatter.format(new Date());
+        parameters.put("letterDate", letterDate);
+
+        //Remplissage du rapport
+        JasperPrint print = JasperFillManager.fillReport(
+                rapportPrincipal,
+                parameters,
+                new JRBeanCollectionDataSource(documentSeanceListeVerificationSouscriptionProjections)
+        );
+        return ResponseHandler.generateResponse(
+                "ordre de bourse",
+                HttpStatus.OK,
+                documentSeanceListeVerificationSouscriptionProjections
+        );
+
+    }
+
+    //DocumentSeanceListeVerificationVde
+    public ResponseEntity<Object> afficherDocumentSeanceListeVerificationVde(DocumentSeanceListeVerificationVdeRequest request, HttpServletResponse response) throws JRException, IOException {
+
+        InputStream rapportStream = null;
+        InputStream subreportStream = null;
+
+//      try{
+        //Récuperation des données
+        List<DocumentSeanceListeVerificationVdeProjection> documentSeanceListeVerificationVdeProjections = libraryDao.documentSeanceListeVerificationVde(
+                request.getIdSeance(), request.getIdOpcvm(), request.getEstVerifie1(), request.getEstVerifie2(), request.getSupprimer()
+        );
+
+        //Chargement des fichiers .jrxml depuis le classpath
+        rapportStream = getClass().getResourceAsStream("/Document_Seance_Liste_Verification_VDE.jrxml");
+//        subreportStream = getClass().getResourceAsStream("/operationDetachement.jrxml");
+
+        if (rapportStream == null) {
+            throw new RuntimeException("fichiers .jrxml introuvables dans le classpath");
+        }
+
+        //Compiler les rapports à la volée
+        JasperReport rapportPrincipal = JasperCompileManager.compileReport(rapportStream);
+//        JasperReport subreport = JasperCompileManager.compileReport(subreportStream);
+
+        //Preparation des paramètres
+        Map<String, Object> parameters = new HashMap<>();
+        DateFormat dateFormatter = new SimpleDateFormat("dd MM yyyy");
+        String letterDate = dateFormatter.format(new Date());
+        parameters.put("letterDate",letterDate);
+        OpcvmDto opcvm = opcvmMapper.deOpcvm(opcvmDao.findById(request.getIdOpcvm()).orElseThrow());
+        parameters.put("denominationOpcvm",opcvm.getDenominationOpcvm());
+        LocalDateTime dateOuverture = request.getDateOuverture();
+        parameters.put("dateOuverture",dateOuverture);
+        LocalDateTime dateFermeture = request.getDateFermeture();
+        parameters.put("dateFermeture",dateFermeture);
+
+        //Remplissage du rapport
+        JasperPrint print = JasperFillManager.fillReport(
+                rapportPrincipal,
+                parameters,
+                new JRBeanCollectionDataSource(documentSeanceListeVerificationVdeProjections)
+        );
+        return ResponseHandler.generateResponse(
+                "ordre de bourse",
+                HttpStatus.OK,
+                documentSeanceListeVerificationVdeProjections
+        );
+
+
+    }
+
     //DeclarationCommissionActif
     public ResponseEntity<?> afficherDeclarationCommissionActif(DeclarationCommissionActifRequest request) {
         var parameters = request.getDatatableParameters();

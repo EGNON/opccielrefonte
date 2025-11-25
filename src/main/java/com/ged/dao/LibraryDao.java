@@ -159,6 +159,30 @@ public interface LibraryDao extends JpaRepository<BaseEntity, Long> {
     @Query(value = "select * from [Impressions].[FT_NotesSurLesFraisDeGestionTrimestriel_New] (:idOpcvm,:dateEstimation)", nativeQuery = true)
     List<EtatFinancierTrimestrielMontantFraisGestionProjection> etatFinancierTrimestrielMontantFraisGestion(Long idOpcvm,LocalDateTime dateEstimation);
 
+    @Query(value = "select * from [Operation].[FT_OperationChargeAEtaler](:idSeance,:idOpcvm,:supprimer,:estVerifie1,:estVerifie2)", nativeQuery = true)
+    List<DocumentSeanceListeVerificationChargeProjection> documentSeanceListeVerificationCharge(Long idSeance,Long idOpcvm, Boolean supprimer, Boolean estVerifie1, Boolean estVerifie2);
+
+    @Query(value = "select * from [Comptabilite].[FT_PosteComptableSeanceOpcvm](:idOpcvm,:idSeance,:estVerifie1,:estVerifie2)", nativeQuery = true)
+    List<DocumentSeanceListeVerificationCodePosteProjection> documentSeanceListeVerificationCodePoste(Long idOpcvm,Long idSeance,Boolean estVerifie1,Boolean estVerifie2);
+
+    @Query(value = "select * from [Comptabilite].[FT_ListeVerificationEcriture_Jasper](:idOpcvm,:codeTypeOperation,:dateDebut,:dateFin,:estVerifie1,:estVerifie2,:idOperation)", nativeQuery = true)
+    List<DocumentSeanceListeVerificationEcritureChargeProjection> documentSeanceListeVerificationEcritureCharge(Long idOpcvm, String codeTypeOperation, LocalDateTime dateDebut, LocalDateTime dateFin, Boolean estVerifie1, Boolean estVerifie2, String idOperation);
+
+    @Query(value = "select * from [Comptabilite].[FT_ListeVerificationEcriture_Jasper](:idOpcvm,:codeTypeOperation,:dateDebut,:dateFin,:estVerifie1,:estVerifie2,:idOperation)", nativeQuery = true)
+    List<DocumentSeanceListeVerificationEcritureVdeProjection> documentSeanceListeVerificationEcritureVde(Long idOpcvm, String codeTypeOperation, LocalDateTime dateDebut, LocalDateTime dateFin, Boolean estVerifie1, Boolean estVerifie2, String idOperation);
+
+    @Query(value = "select * from [Comptabilite].[FT_ListeVerificationEcriture_Jasper](:idOpcvm,:codeTypeOperation,:dateDebut,:dateFin,:estVerifie1,:estVerifie2,:idOperation)", nativeQuery = true)
+    List<DocumentSeanceListeVerificationEcritureProjection> documentSeanceListeVerificationEcriture(Long idOpcvm, String codeTypeOperation, LocalDateTime dateDebut, LocalDateTime dateFin, Boolean estVerifie1, Boolean estVerifie2, String idOperation);
+
+    @Query(value = "select * from [Parametre].[FT_DepotRachat_New](:idSeance,:idPersonne,:idOpcvm,:codeNatureOperation,:niveau1,:niveau2)", nativeQuery = true)
+    List<DocumentSeanceListeVerificationRachatsProjection> documentSeanceListeVerificationRachats(Long idSeance,Long idPersonne,Long idOpcvm,String codeNatureOperation,Boolean niveau1,Boolean niveau2);
+
+    @Query(value = "select * from [Parametre].[FT_DepotRachat_New] (:idSeance,:idPersonne,:idOpcvm,:codeNatureOperation,:niveau1,:niveau2)", nativeQuery = true)
+    List<DocumentSeanceListeVerificationSouscriptionProjection> documentSeanceListeVerificationSouscription(Long idSeance, Long idPersonne, Long idOpcvm, String codeNatureOperation, Boolean niveau1, Boolean niveau2);
+
+    @Query(value = "select * from [Operation].[FT_OperationDifferenceEstimation_New](:idSeance,:idOpcvm,:estVerifie1,:estVerifie2,:supprimer)", nativeQuery = true)
+    List<DocumentSeanceListeVerificationVdeProjection> documentSeanceListeVerificationVde(Long idSeance, Long idOpcvm, Boolean estVerifie1, Boolean estVerifie2, Boolean supprimer);
+
     @Query(value = "select * from [Impressions].[FT_ResultatTrimestriel_New](:idOpcvm,:dateEstimation)", nativeQuery = true)
     List<EtatFinancierTrimestrielCompteResultatProjection> etatFinancierTrimestrielCompteResultat(Long idOpcvm,LocalDateTime dateEstimation);
 

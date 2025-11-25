@@ -797,6 +797,118 @@ public class LibraryController {
         service.afficherEtatFinancierTrimestrielMontantFraisGestion(request,response);
     }
 
+    //documentseancelisteverificationcharge
+    @PostMapping("/opcvm/etats/documentseancelisteverificationcharge")
+    public void documentseancelisteverificationcharge(@RequestBody @Valid DocumentSeanceListeVerificationChargeRequest request, HttpServletResponse response) throws JRException, IOException {
+        response.setContentType("application/pdf");
+        DateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy:hh:mm:ss");
+        String currentDateTime = dateFormatter.format(new Date());
+
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=Document seance liste de verification des charges" + currentDateTime + ".pdf";
+        response.setHeader(headerKey, headerValue);
+
+        service.afficherDocumentSeanceListeVerificationCharge(request,response);
+    }
+
+    //documentseancelisteverificationecriturecharge
+    @PostMapping("/opcvm/etats/documentseancelisteverificationecriturecharge")
+    public void documentseancelisteverificationecriturecharge(@RequestBody @Valid DocumentSeanceListeVerificationEcritureChargeRequest request, HttpServletResponse response) throws JRException, IOException {
+        response.setContentType("application/pdf");
+        DateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy:hh:mm:ss");
+        String currentDateTime = dateFormatter.format(new Date());
+
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=Document seance liste de verification des ecritures des charges" + currentDateTime + ".pdf";
+        response.setHeader(headerKey, headerValue);
+
+        service.afficherDocumentSeanceListeVerificationEcritureCharge(request, response);
+    }
+
+    //documentseancelisteverificationecriturevde
+    @PostMapping("/opcvm/etats/documentseancelisteverificationecriturevde")
+    public void documentseancelisteverificationecriturevde(@RequestBody @Valid DocumentSeanceListeVerificationEcritureChargeRequest request, HttpServletResponse response) throws JRException, IOException{
+        response.setContentType("application/pdf");
+        DateFormat dateFormatter = new SimpleDateFormat("ddMMYYYY:hh:mm:ss");
+        String currentDateTime = dateFormatter.format(new Date());
+
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachement; filename=Document seance liste de verifications des ecritures de VDE"+currentDateTime+ ".pdf";
+        response.setHeader(headerKey,headerValue);
+
+        service.afficherDocumentSeanceListeVerificationEcritureVde(request, response);
+    }
+
+    //documentseancelisteverificationecriture
+    @PostMapping("/opcvm/etats/documentseancelisteverificationecriture")
+    public void documentseancelisteverificationecriture(@RequestBody @Valid DocumentSeanceListeVerificationEcritureChargeRequest request, HttpServletResponse response) throws JRException,IOException{
+        response.setContentType("application/pdf");
+        DateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy:hh:mm:ss");
+        String currentDateTime = dateFormatter.format(new Date());
+
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachement; filename=Document seance liste de verification des écritures"+currentDateTime+".pdf";
+        response.setHeader(headerKey,headerValue);
+
+        service.afficherDocumentSeanceListeVerificationEcriture(request,response);
+    }
+
+    //documentseancelisteverificationrachats
+    @PostMapping("/opcvm/etats/documentseancelisteverificationrachats")
+    public void documentseancelisteverificationrachats(@RequestBody @Valid DocumentSeanceListeVerificationRachatsRequest request, HttpServletResponse response) throws JRException, IOException {
+        response.setContentType("application/pdf");
+        DateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy:hh:mm:ss");
+        String currentDateTime = dateFormatter.format(new Date());
+
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachement; filename=Document seance liste de verification des rachats";
+        response.setHeader(headerKey,headerValue);
+
+        service.afficherDocumentSeanceListeVerificationRachats(request,response);
+    }
+
+    //documentseancelisteverificationsouscription
+    @PostMapping("/opcvm/etats/documentseancelisteverificationsouscription")
+    public void documentseancelisteverificationsouscription(@RequestBody @Valid DocumentSeanceListeVerificationRachatsRequest request, HttpServletResponse response) throws JRException, IOException {
+        response.setContentType("application/pdf");
+        DateFormat dateFormattter = new SimpleDateFormat();
+        String currentDateTime = dateFormattter.format(new Date());
+
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachement; filename=Document seance liste de verification des souscriptions"+currentDateTime+".pdf";
+        response.setHeader(headerKey,headerValue);
+
+        service.afficherDocumentSeanceListeVerificationSouscription(request,response);
+    }
+
+    //documentseancelisteverificationvde
+    @PostMapping("/opcvm/etats/documentseancelisteverificationvde")
+    public void documentseancelisteverification(@RequestBody @Valid DocumentSeanceListeVerificationVdeRequest request, HttpServletResponse response) throws JRException, IOException {
+        response.setContentType("application/pdf");
+        DateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy:hh:mm:ss");
+        String currentDateTime = dateFormatter.format(new Date());
+
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachement; filename=Document seance liste de verification des VDE"+currentDateTime+".pdf";
+        response.setHeader(headerKey,headerValue);
+
+        service.afficherDocumentSeanceListeVerificationVde(request,response);
+    }
+
+    //documentseancelisteverificationcodeposte
+    @PostMapping("/opcvm/etats/documentseancelisteverificationcodeposte")
+    public void documentseancelisteverificationcodeposte(@RequestBody @Valid DocumentSeanceListeVerificationCodePosteRequest request, HttpServletResponse response) throws JRException, IOException {
+        response.setContentType("application/pdf");
+        DateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy:hh:mm:ss");
+        String currentDateTime = dateFormatter.format(new Date());
+
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=Document seance liste de verification des codes poste" + currentDateTime + ".pdf";
+        response.setHeader(headerKey, headerValue);
+
+        service.afficherDocumentSeanceListeVerificationCodePoste(request,response);
+    }
+
     //etatfinanciertrimestrieletatmensuelsouscriptions
     @PostMapping("/opcvm/etats/etatfinanciertrimestrieletatmensuelsouscriptions")
     public void etatfinanciertrimestrieletatmensuelsouscriptions(@RequestBody @Valid EtatFinancierTrimestrielBilanTrimestrielRequest request, HttpServletResponse response) throws JRException, IOException {
