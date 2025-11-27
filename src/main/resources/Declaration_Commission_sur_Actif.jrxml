@@ -1,7 +1,7 @@
 <!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 7.0.1-573496633c2b4074e32f433154b543003f7d2498  -->
 <jasperReport name="Declaration_Commission_sur_Actif" language="java" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="6c3887b0-e947-4cc7-b37a-efc48a6223d3">
 	<parameter name="letterDate" class="java.lang.String"/>
-	<field name="anneeExo" class="java.math.BigDecimal">
+	<field name="anneeExo" class="java.lang.Long">
 		<property name="com.jaspersoft.studio.field.name" value="anneeExo"/>
 		<property name="com.jaspersoft.studio.field.label" value="anneeExo"/>
 	</field>
@@ -9,15 +9,19 @@
 		<property name="com.jaspersoft.studio.field.name" value="taux"/>
 		<property name="com.jaspersoft.studio.field.label" value="taux"/>
 	</field>
+    <field name="num" class="java.lang.Long">
+        <property name="com.jaspersoft.studio.field.name" value="num"/>
+        <property name="com.jaspersoft.studio.field.label" value="num"/>
+    </field>
 	<field name="usance" class="java.math.BigDecimal">
 		<property name="com.jaspersoft.studio.field.name" value="usance"/>
 		<property name="com.jaspersoft.studio.field.label" value="usance"/>
 	</field>
-	<field name="dateDebut" class="java.sql.Date">
+	<field name="dateDebut" class="java.time.LocalDateTime">
 		<property name="com.jaspersoft.studio.field.name" value="dateDebut"/>
 		<property name="com.jaspersoft.studio.field.label" value="dateDebut"/>
 	</field>
-	<field name="dateFin" class="java.sql.Date">
+	<field name="dateFin" class="java.time.LocalDateTime">
 		<property name="com.jaspersoft.studio.field.name" value="dateFin"/>
 		<property name="com.jaspersoft.studio.field.label" value="dateFin"/>
 	</field>
@@ -41,15 +45,15 @@
 		<property name="com.jaspersoft.studio.field.name" value="depositaire"/>
 		<property name="com.jaspersoft.studio.field.label" value="depositaire"/>
 	</field>
-	<field name="AgrementDEPOSITAIRE" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.name" value="AgrementDEPOSITAIRE"/>
-		<property name="com.jaspersoft.studio.field.label" value="AgrementDEPOSITAIRE"/>
+	<field name="agrementDEPOSITAIRE" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="agrementDEPOSITAIRE"/>
+		<property name="com.jaspersoft.studio.field.label" value="agrementDEPOSITAIRE"/>
 	</field>
 	<field name="trimestre" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.name" value="trimestre"/>
 		<property name="com.jaspersoft.studio.field.label" value="trimestre"/>
 	</field>
-	<field name="dateEstimation" class="java.sql.Date">
+	<field name="dateEstimation" class="java.time.LocalDateTime">
 		<property name="com.jaspersoft.studio.field.name" value="dateEstimation"/>
 		<property name="com.jaspersoft.studio.field.label" value="dateEstimation"/>
 	</field>
@@ -80,10 +84,6 @@
 	<field name="commission" class="java.math.BigDecimal">
 		<property name="com.jaspersoft.studio.field.name" value="commission"/>
 		<property name="com.jaspersoft.studio.field.label" value="commission"/>
-	</field>
-	<field name="num" class="java.lang.Integer">
-		<property name="com.jaspersoft.studio.field.name" value="num"/>
-		<property name="com.jaspersoft.studio.field.label" value="num"/>
 	</field>
 	<field name="idOpcvm" class="java.lang.Long">
 		<property name="com.jaspersoft.studio.field.name" value="idOpcvm"/>
@@ -196,7 +196,8 @@
 			<text><![CDATA[Année/Trimestre :]]></text>
 		</element>
 		<element kind="textField" uuid="817b8129-8481-43fb-ad07-de02a198b650" x="100" y="65" width="230" height="15">
-			<expression><![CDATA["DU"+$F{dateDebut}+" au "+$F{dateFin}]]></expression>
+			<expression><![CDATA["DU"+$F{dateDebut}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"))
+			+" au "+$F{dateFin}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"))]]></expression>
 		</element>
 		<element kind="textField" uuid="f91b5963-e39e-4dca-be0f-bd1622c58643" x="100" y="82" width="230" height="15">
 			<expression><![CDATA[$F{sgo}]]></expression>
@@ -226,7 +227,7 @@
 			<expression><![CDATA[$F{agremenrOPC}]]></expression>
 		</element>
 		<element kind="textField" uuid="b17e4d5e-91d4-47c5-b8e4-7acc60f5359e" x="498" y="116" width="192" height="15">
-			<expression><![CDATA[$F{AgrementDEPOSITAIRE}]]></expression>
+			<expression><![CDATA[$F{agrementDEPOSITAIRE}]]></expression>
 		</element>
 	</title>
 	<pageHeader splitType="Stretch"/>
@@ -264,7 +265,7 @@
 				<expression><![CDATA[$F{num}]]></expression>
 			</element>
 			<element kind="textField" uuid="1b2ea3aa-1ae8-4e4b-812a-45cadf642f99" x="45" y="6" width="51" height="15" textAdjust="StretchHeight" pattern="EE dd/MM/yyyy" blankWhenNull="true">
-				<expression><![CDATA[$F{dateEstimation}]]></expression>
+				<expression><![CDATA[$F{dateEstimation}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"))]]></expression>
 			</element>
 			<element kind="textField" uuid="1d71f7f5-b587-4fa8-aaa2-901cbd7b3c81" x="105" y="6" width="70" height="15" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
 				<expression><![CDATA[$F{actions}]]></expression>

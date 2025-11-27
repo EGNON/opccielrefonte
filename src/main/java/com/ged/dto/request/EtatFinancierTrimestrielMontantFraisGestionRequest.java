@@ -18,6 +18,7 @@ public class EtatFinancierTrimestrielMontantFraisGestionRequest {
     private LocalDateTime dateEstimation;
     private DatatableParameters datatableParameters;
     private String letterDate;
+    private String periodicite;
     private String denominationOpcvm;
     private String raisonSocial;
     private String format;

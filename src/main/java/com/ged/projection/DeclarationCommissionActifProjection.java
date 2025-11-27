@@ -27,6 +27,7 @@ public interface DeclarationCommissionActifProjection {
     BigDecimal getAutres();
     BigDecimal getTotalHorsPartOPC();
     BigDecimal getTotalGeneral();
-    BigDecimal getTCommission();
+    BigDecimal getCommission();
     Long getIdOpcvm();
+    Long getNum();
 }

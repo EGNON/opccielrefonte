@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 public interface PrevisionnelRemboursementsProjection {
 
     Long getIdTitre();
+    Long getIdOpcvm();
     String getSymbolTitre();
     String getDesignationTitre();
     String getClasseTitre();

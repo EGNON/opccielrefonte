@@ -1,14 +1,11 @@
 <!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 7.0.1-573496633c2b4074e32f433154b543003f7d2498  -->
 <jasperReport name="Point_Investissement" language="java" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="53e627b6-c0b1-4c1a-9a90-fff3cf94ea78">
 	<parameter name="letterDate" class="java.lang.String"/>
-	<field name="num" class="java.lang.Integer">
-		<property name="com.jaspersoft.studio.field.name" value="num"/>
-		<property name="com.jaspersoft.studio.field.label" value="num"/>
-	</field>
-	<field name="IdOperation" class="java.lang.Long">
-		<property name="com.jaspersoft.studio.field.name" value="IdOperation"/>
-		<property name="com.jaspersoft.studio.field.label" value="IdOperation"/>
-	</field>
+	<parameter name="periode" class="java.lang.String"/>
+<!--	<field name="num" class="java.lang.Integer">-->
+<!--		<property name="com.jaspersoft.studio.field.name" value="num"/>-->
+<!--		<property name="com.jaspersoft.studio.field.label" value="num"/>-->
+<!--	</field>-->
 	<field name="codeNatureOperation" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.name" value="codeNatureOperation"/>
 		<property name="com.jaspersoft.studio.field.label" value="codeNatureOperation"/>
@@ -17,7 +14,7 @@
 		<property name="com.jaspersoft.studio.field.name" value="designationTitre"/>
 		<property name="com.jaspersoft.studio.field.label" value="designationTitre"/>
 	</field>
-	<field name="dateOperation" class="java.sql.Date">
+	<field name="dateOperation" class="java.time.LocalDateTime">
 		<property name="com.jaspersoft.studio.field.name" value="dateOperation"/>
 		<property name="com.jaspersoft.studio.field.label" value="dateOperation"/>
 	</field>
@@ -49,14 +46,6 @@
 		<property name="com.jaspersoft.studio.field.name" value="commissionSGI"/>
 		<property name="com.jaspersoft.studio.field.label" value="commissionSGI"/>
 	</field>
-	<field name="TAF" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.name" value="TAF"/>
-		<property name="com.jaspersoft.studio.field.label" value="TAF"/>
-	</field>
-	<field name="IRVM" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.name" value="IRVM"/>
-		<property name="com.jaspersoft.studio.field.label" value="IRVM"/>
-	</field>
 	<field name="interet" class="java.math.BigDecimal">
 		<property name="com.jaspersoft.studio.field.name" value="interet"/>
 		<property name="com.jaspersoft.studio.field.label" value="interet"/>
@@ -73,11 +62,11 @@
 		<property name="com.jaspersoft.studio.field.name" value="denominationOpcvm"/>
 		<property name="com.jaspersoft.studio.field.label" value="denominationOpcvm"/>
 	</field>
-	<field name="dateDeb" class="java.sql.Date">
+	<field name="dateDeb" class="java.time.LocalDateTime">
 		<property name="com.jaspersoft.studio.field.name" value="dateDeb"/>
 		<property name="com.jaspersoft.studio.field.label" value="dateDeb"/>
 	</field>
-	<field name="dateFin" class="java.sql.Date">
+	<field name="dateFin" class="java.time.LocalDateTime">
 		<property name="com.jaspersoft.studio.field.name" value="dateFin"/>
 		<property name="com.jaspersoft.studio.field.label" value="dateFin"/>
 	</field>
@@ -312,7 +301,7 @@
 			<text><![CDATA[OPCVM :]]></text>
 		</element>
 		<element kind="textField" uuid="87a08ab3-7031-4fa7-9714-1184d83fe966" x="40" y="31" width="640" height="14" hTextAlign="Center">
-			<expression><![CDATA["POINT DES "+$F{typeOp}+" PERIODIQUES DU "+$F{dateDeb}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"))+ " AU " + $F{dateFin}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"))]]></expression>
+			<expression><![CDATA[$P{periode}]]></expression>
 		</element>
 	</title>
 	<pageHeader splitType="Stretch"/>
@@ -350,7 +339,7 @@
 				<pen lineColor="#3B88D1"/>
 			</element>
 			<element kind="textField" uuid="9cbd00e9-684b-49e9-a222-b845afe592ff" x="7" y="6" width="52" height="14" textAdjust="StretchHeight" pattern="EE dd/MM/yyyy" blankWhenNull="true">
-				<expression><![CDATA[$F{dateOperation}]]></expression>
+				<expression><![CDATA[$F{dateOperation}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"))]]></expression>
 			</element>
 			<element kind="textField" uuid="5d9f55b8-cdd1-4188-a66d-4118b74cdfb4" x="66" y="6" width="276" height="14" textAdjust="StretchHeight">
 				<expression><![CDATA[$F{libelleOperation}]]></expression>
