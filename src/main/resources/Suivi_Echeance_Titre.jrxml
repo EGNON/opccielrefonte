@@ -2,7 +2,6 @@
 <jasperReport name="Suivi_Echeance_Titre" language="java" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a96a39ac-3e3f-42aa-b027-89360ca283b0">
 	<parameter name="letterDate" class="java.lang.String"/>
 	<parameter name="denominationOpcvm" class="java.lang.String"/>
-	<parameter name="dateOuverture" class="java.sql.Date"/>
 	<field name="idTitre" class="java.lang.Long">
 		<property name="com.jaspersoft.studio.field.name" value="idTitre"/>
 		<property name="com.jaspersoft.studio.field.label" value="idTitre"/>
@@ -15,11 +14,11 @@
 		<property name="com.jaspersoft.studio.field.name" value="designationTitre"/>
 		<property name="com.jaspersoft.studio.field.label" value="designationTitre"/>
 	</field>
-	<field name="maturite" class="java.math.BigDecimal">
+	<field name="maturite" class="java.lang.Long">
 		<property name="com.jaspersoft.studio.field.name" value="maturite"/>
 		<property name="com.jaspersoft.studio.field.label" value="maturite"/>
 	</field>
-	<field name="nbreJoursCourus" class="java.math.BigDecimal">
+	<field name="nbreJoursCourus" class="java.lang.Long">
 		<property name="com.jaspersoft.studio.field.name" value="nbreJoursCourus"/>
 		<property name="com.jaspersoft.studio.field.label" value="nbreJoursCourus"/>
 	</field>
@@ -31,12 +30,12 @@
 		<property name="com.jaspersoft.studio.field.name" value="idOpcvm"/>
 		<property name="com.jaspersoft.studio.field.label" value="idOpcvm"/>
 	</field>
-	<field name="dateEstimation" class="java.sql.Date">
+	<field name="dateEstimation" class="java.time.LocalDateTime">
 		<property name="com.jaspersoft.studio.field.name" value="dateEstimation"/>
 		<property name="com.jaspersoft.studio.field.label" value="dateEstimation"/>
 	</field>
 	<group name="Group1">
-		<expression><![CDATA[$F{idTitre}]]></expression>
+		<expression><![CDATA[$F{idOpcvm}]]></expression>
 		<groupHeader>
 			<band height="38">
 				<element kind="rectangle" uuid="25974835-fcac-430b-b707-bc76a43dfb6a" stretchType="ContainerHeight" x="2" y="8" width="797" height="30" backcolor="#BDD7EE">

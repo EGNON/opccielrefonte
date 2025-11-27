@@ -18,7 +18,7 @@
 		<property name="com.jaspersoft.studio.field.name" value="classeTitre"/>
 		<property name="com.jaspersoft.studio.field.label" value="classeTitre"/>
 	</field>
-	<field name="dateEcheance" class="java.sql.Date">
+	<field name="dateEcheance" class="java.time.LocalDateTime">
 		<property name="com.jaspersoft.studio.field.name" value="dateEcheance"/>
 		<property name="com.jaspersoft.studio.field.label" value="dateEcheance"/>
 	</field>
@@ -38,9 +38,9 @@
 		<property name="com.jaspersoft.studio.field.name" value="interet"/>
 		<property name="com.jaspersoft.studio.field.label" value="interet"/>
 	</field>
-	<field name="Amortissement" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.name" value="Amortissement"/>
-		<property name="com.jaspersoft.studio.field.label" value="Amortissement"/>
+	<field name="amortissement" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="amortissement"/>
+		<property name="com.jaspersoft.studio.field.label" value="amortissement"/>
 	</field>
 	<field name="modeAmortissement" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.name" value="modeAmortissement"/>
@@ -66,11 +66,11 @@
 		<property name="com.jaspersoft.studio.field.name" value="solde"/>
 		<property name="com.jaspersoft.studio.field.label" value="solde"/>
 	</field>
-	<field name="datedebut" class="java.util.Date">
+	<field name="datedebut" class="java.time.LocalDateTime">
 		<property name="com.jaspersoft.studio.field.name" value="datedebut"/>
 		<property name="com.jaspersoft.studio.field.label" value="datedebut"/>
 	</field>
-	<field name="datefin" class="java.sql.Date">
+	<field name="datefin" class="java.time.LocalDateTime">
 		<property name="com.jaspersoft.studio.field.name" value="datefin"/>
 		<property name="com.jaspersoft.studio.field.label" value="datefin"/>
 	</field>
@@ -81,8 +81,8 @@
 	<variable name="interet1" resetType="Group" calculation="Sum" resetGroup="Group3" class="java.math.BigDecimal">
 		<expression><![CDATA[$F{interet}]]></expression>
 	</variable>
-	<variable name="Amortissement1" resetType="Group" calculation="Sum" resetGroup="Group3" class="java.math.BigDecimal">
-		<expression><![CDATA[$F{Amortissement}]]></expression>
+	<variable name="amortissement1" resetType="Group" calculation="Sum" resetGroup="Group3" class="java.math.BigDecimal">
+		<expression><![CDATA[$F{amortissement}]]></expression>
 	</variable>
 	<variable name="total1" resetType="Group" calculation="Sum" resetGroup="Group3" class="java.math.BigDecimal">
 		<expression><![CDATA[$F{total}]]></expression>
@@ -90,8 +90,8 @@
 	<variable name="interet2" resetType="Group" calculation="Sum" resetGroup="Group2" class="java.math.BigDecimal">
 		<expression><![CDATA[$F{interet}]]></expression>
 	</variable>
-	<variable name="Amortissement2" resetType="Group" calculation="Sum" resetGroup="Group2" class="java.math.BigDecimal">
-		<expression><![CDATA[$F{Amortissement}]]></expression>
+	<variable name="amortissement2" resetType="Group" calculation="Sum" resetGroup="Group2" class="java.math.BigDecimal">
+		<expression><![CDATA[$F{amortissement}]]></expression>
 	</variable>
 	<variable name="total2" resetType="Group" calculation="Sum" resetGroup="Group2" class="java.math.BigDecimal">
 		<expression><![CDATA[$F{total}]]></expression>
@@ -99,14 +99,14 @@
 	<variable name="interet3" resetType="Group" calculation="Sum" resetGroup="Group1" class="java.math.BigDecimal">
 		<expression><![CDATA[$F{interet}]]></expression>
 	</variable>
-	<variable name="Amortissement3" resetType="Group" calculation="Sum" resetGroup="Group1" class="java.math.BigDecimal">
-		<expression><![CDATA[$F{Amortissement}]]></expression>
+	<variable name="amortissement3" resetType="Group" calculation="Sum" resetGroup="Group1" class="java.math.BigDecimal">
+		<expression><![CDATA[$F{amortissement}]]></expression>
 	</variable>
 	<variable name="total3" resetType="Group" calculation="Sum" resetGroup="Group1" class="java.math.BigDecimal">
 		<expression><![CDATA[$F{total}]]></expression>
 	</variable>
 	<group name="Group1">
-		<expression><![CDATA[$F{idTitre}]]></expression>
+		<expression><![CDATA[$F{idOpcvm}]]></expression>
 		<groupHeader>
 			<band height="42">
 				<element kind="rectangle" uuid="a7b4f361-a20c-4436-ba38-e1427948b3aa" stretchType="ContainerHeight" x="2" y="7" width="797" height="30" backcolor="#BDD7EE">
@@ -207,7 +207,7 @@
 					<expression><![CDATA[$V{interet3}]]></expression>
 				</element>
 				<element kind="textField" uuid="33bb3e6e-6fe4-4583-986d-6e26d10e6470" x="516" y="9" width="58" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
-					<expression><![CDATA[$V{Amortissement3}]]></expression>
+					<expression><![CDATA[$V{amortissement3}]]></expression>
 				</element>
 				<element kind="textField" uuid="dde4bbd8-49dd-47b5-9a56-9c5f928349e3" x="580" y="9" width="50" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
 					<expression><![CDATA[$V{total3}]]></expression>
@@ -257,7 +257,7 @@
 					<expression><![CDATA[$V{interet2}]]></expression>
 				</element>
 				<element kind="textField" uuid="52ad7449-5ab8-420f-a02d-d7be63eb382b" x="516" y="8" width="58" height="16" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
-					<expression><![CDATA[$V{Amortissement2}]]></expression>
+					<expression><![CDATA[$V{amortissement2}]]></expression>
 				</element>
 				<element kind="textField" uuid="f25b345a-ec8a-4bbe-8e11-c6459a9b31f5" x="580" y="8" width="50" height="16" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
 					<expression><![CDATA[$V{total2}]]></expression>
@@ -307,7 +307,7 @@
 					<expression><![CDATA[$V{interet1}]]></expression>
 				</element>
 				<element kind="textField" uuid="57bc96a8-2882-4044-ac8d-f95f971b2f32" x="516" y="8" width="58" height="16" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
-					<expression><![CDATA[$V{Amortissement1}]]></expression>
+					<expression><![CDATA[$V{amortissement1}]]></expression>
 				</element>
 				<element kind="textField" uuid="e9ebeab2-053e-493a-9a78-1d2716f23620" x="580" y="8" width="50" height="16" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
 					<expression><![CDATA[$V{total1}]]></expression>
@@ -326,7 +326,7 @@
 		<element kind="staticText" uuid="ce3fc3bd-5af1-4dea-869b-9c7cf775377c" x="152" y="33" width="496" height="17" fontSize="10.0" bold="true" hTextAlign="Center">
 			<text><![CDATA[ETAT PREVISIONNEL DES REMBOURSEMENTS]]></text>
 		</element>
-		<element kind="textField" uuid="f7e2388e-79f8-42f2-b44f-fc54d9cbac59" x="65" y="58" width="215" height="15">
+		<element kind="textField" uuid="f7e2388e-79f8-42f2-b44f-fc54d9cbac59" x="65" y="58" width="265" height="15">
 			<expression><![CDATA[$P{denominationOpcvm}]]></expression>
 		</element>
 		<element kind="staticText" uuid="1b5de28c-72c8-4f82-a046-dd9d0b2a85ec" x="2" y="58" width="58" height="15">
@@ -383,7 +383,7 @@
 				<expression><![CDATA[$F{modeAmortissement}]]></expression>
 			</element>
 			<element kind="textField" uuid="adf0a1f0-78a9-436c-9f2a-0088c184a7ec" x="280" y="9" width="60" height="14" textAdjust="StretchHeight" pattern="EE dd/MM/yyyy" blankWhenNull="true">
-				<expression><![CDATA[$F{dateEcheance}]]></expression>
+				<expression><![CDATA[$F{dateEcheance}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"))]]></expression>
 			</element>
 			<element kind="textField" uuid="5fcaca3c-2fbe-4c2b-920d-1f3ce9de0e1b" x="348" y="9" width="42" height="14" textAdjust="StretchHeight">
 				<expression><![CDATA[$F{numEcheance}]]></expression>
@@ -395,10 +395,19 @@
 				<expression><![CDATA[$F{interet}]]></expression>
 			</element>
 			<element kind="textField" uuid="1b3e3499-22a9-4fe5-8b5e-88f15932fd99" x="516" y="9" width="58" height="14" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
-				<expression><![CDATA[$F{Amortissement}]]></expression>
+				<expression><![CDATA[$F{amortissement}]]></expression>
 			</element>
 			<element kind="textField" uuid="ca9982dd-45d8-4338-bd6b-fe42877e9fb5" x="580" y="9" width="50" height="14" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
 				<expression><![CDATA[$F{total}]]></expression>
+			</element>
+			<element kind="textField" uuid="454e3f04-c1e5-4e1d-9d60-03132aca2621" x="637" y="9" width="44" height="14">
+				<expression><![CDATA[$F{echue}==true?"OUI":"NON"]]></expression>
+			</element>
+			<element kind="textField" uuid="b2337748-333a-45cb-8b86-7970d3ed6a34" x="695" y="10" width="44" height="14">
+				<expression><![CDATA[$F{detache}==true?"OUI":"NON"]]></expression>
+			</element>
+			<element kind="textField" uuid="c5566673-26bf-4fc1-b75b-c7dd11cdcbad" x="751" y="10" width="44" height="14">
+				<expression><![CDATA[$F{traiter}==true?"OUI":"NON"]]></expression>
 			</element>
 		</band>
 	</detail>

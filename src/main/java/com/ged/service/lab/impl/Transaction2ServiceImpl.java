@@ -23,12 +23,12 @@ import java.util.stream.Collectors;
 public class Transaction2ServiceImpl implements TransactionService {
     private int page;
     private int size;
-    /*@Autowired
+    @Autowired
     @Qualifier("refonteEntityManagerFactory")
-    private EntityManager emOpcciel;*/
+    private EntityManager emOpcciel;
     @Override
     public ResponseEntity<Object> afficherTous(DatatableParameters parameters,long critere) {
-        /*try {
+        try {
 //            System.out.println("pass");
             List<Object[]>  transaction;
             List<TransactionDto>  transactionDto=new ArrayList<>();
@@ -167,9 +167,9 @@ public class Transaction2ServiceImpl implements TransactionService {
                     e.getMessage(),
                     HttpStatus.MULTI_STATUS,
                     e);
-        }*/
+        }
 
-        return  null;
+        //return  null;
     }
 
     @Override

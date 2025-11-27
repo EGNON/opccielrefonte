@@ -41,6 +41,22 @@ public interface EtatFinancierTrimestrielMontantFraisGestionProjection {
     BigDecimal getActifNemontantCumuleCREPMF();
     BigDecimal getActifNetAFG();
     BigDecimal getActifNemontantCumuleAFG();
+    BigDecimal getActifNetGestPC();
+    BigDecimal getActifNemontantCumuleGestPC();
+    BigDecimal getActifNetDCBRPC();
+    BigDecimal getActifNemontantCumuleDCBRPC();
+    BigDecimal getActifNetTCPC();
+    BigDecimal getActifNemontantCumuleTCPC();
+    BigDecimal getActifNetTransPC();
+    BigDecimal getActifNemontantCumuleTransPC();
+    BigDecimal getActifNetAutrePC();
+    BigDecimal getActifNemontantCumuleAutrePC();
+    BigDecimal getActifNetCOCPC();
+    BigDecimal getActifNemontantCumuleCOCPC();
+    BigDecimal getActifNetCREPMFPC();
+    BigDecimal getActifNemontantCumuleCREPMFPC();
+    BigDecimal getActifNetAFGPC();
+    BigDecimal getActifNemontantCumuleAFGPC();
     Long getIdOpcvm();
     LocalDateTime getDateEstimation();
 }

@@ -33,7 +33,7 @@
 		<property name="com.jaspersoft.studio.field.name" value="numCompteDepositaireBeneficiaire"/>
 		<property name="com.jaspersoft.studio.field.label" value="numCompteDepositaireBeneficiaire"/>
 	</field>
-	<field name="dateOperation" class="java.sql.Date">
+	<field name="dateOperation" class="java.time.LocalDateTime">
 		<property name="com.jaspersoft.studio.field.name" value="dateOperation"/>
 		<property name="com.jaspersoft.studio.field.label" value="dateOperation"/>
 	</field>
@@ -53,11 +53,11 @@
 		<property name="com.jaspersoft.studio.field.name" value="idOpcvm"/>
 		<property name="com.jaspersoft.studio.field.label" value="idOpcvm"/>
 	</field>
-	<field name="dateDeb" class="java.sql.Date">
+	<field name="dateDeb" class="java.time.LocalDateTime">
 		<property name="com.jaspersoft.studio.field.name" value="dateDeb"/>
 		<property name="com.jaspersoft.studio.field.label" value="dateDeb"/>
 	</field>
-	<field name="dateFin" class="java.sql.Date">
+	<field name="dateFin" class="java.time.LocalDateTime">
 		<property name="com.jaspersoft.studio.field.name" value="dateFin"/>
 		<property name="com.jaspersoft.studio.field.label" value="dateFin"/>
 	</field>

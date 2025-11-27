@@ -19,8 +19,8 @@ public interface PointInvestissementProjection {
     BigDecimal getCommissionPlace();
     BigDecimal getCommissionDepositaire();
     BigDecimal getCommissionSGI();
-    BigDecimal getTAF();
-    BigDecimal getIRVM();
+    BigDecimal getTaf();
+    BigDecimal getIrvm();
     BigDecimal getInteret();
     BigDecimal getPlusOuMoinsValue();
     BigDecimal getMontant();

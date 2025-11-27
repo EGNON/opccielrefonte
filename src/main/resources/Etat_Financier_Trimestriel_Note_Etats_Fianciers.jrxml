@@ -3,8 +3,10 @@
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="db_opcciel_data_adapter"/>
 	<parameter name="denominationOpcvm" class="java.lang.String"/>
-	<parameter name="dateEstimation" class="java.sql.Date"/>
+	<parameter name="dateEstimation" class="java.time.LocalDateTime"/>
 	<parameter name="letterDate" class="java.lang.String"/>
+	<parameter name="periode1" class="java.lang.String"/>
+	<parameter name="periode2" class="java.lang.String"/>
 	<query language="SQL"><![CDATA[]]></query>
 	<background splitType="Stretch"/>
 	<title height="698" splitType="Stretch">
@@ -21,7 +23,7 @@
 			<expression><![CDATA["Cotonou, le "+$P{letterDate}]]></expression>
 		</element>
 		<element kind="textField" uuid="c5dc4223-7bee-460a-88bb-6ffe185dfe79" x="157" y="50" width="240" height="14" hTextAlign="Center">
-			<expression><![CDATA["(Du "+new java.sql.Date($P{dateEstimation}.toLocalDate().plusMonths(-12).plusDays(1).atStartOfDay(java.time.ZoneId.systemDefault()).toInstant().toEpochMilli())+" au "+$P{dateEstimation}+")"]]></expression>
+			<expression><![CDATA[$P{periode1}]]></expression>
 			<box>
 				<pen lineWidth="1.0" lineColor="#3B88D1"/>
 			</box>
@@ -42,7 +44,9 @@
 			<text><![CDATA[1. Référentiel d'élaboration des états financiers]]></text>
 		</element>
 		<element kind="textField" uuid="d25f43bf-0124-4729-bd6e-08caa5b92ed2" x="10" y="143" width="530" height="45">
-			<expression><![CDATA["Les états trimestriels arrêtés au " + new java.text.SimpleDateFormat("dd/MM/yyyy").format($P{dateEstimation}) + " sont établis conformément aux principes comptables généralement admis dans l’espace UMOA et en particulier aux règles comptables spécifiques applicables aux intervenants agréés."]]></expression>
+			<expression><![CDATA["Les états trimestriels arrêtés au " +
+            $P{dateEstimation}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy")) +
+            " sont établis conformément aux principes comptables généralement admis dans l’espace UMOA et en particulier aux règles comptables spécifiques applicables aux intervenants agréés."]]></expression>
 		</element>
 		<element kind="staticText" uuid="3375faf9-2a07-4acc-b856-6631da35846d" x="10" y="189" width="360" height="15">
 			<text><![CDATA[2. Principes comptables appliqués]]></text>
@@ -54,7 +58,7 @@
 			<text><![CDATA[2.1. Prise en compte des placements et des revenus y afférents]]></text>
 		</element>
 		<element kind="staticText" uuid="fb9977ac-e807-4d4b-8701-2cffc7db66b6" x="10" y="255" width="530" height="93">
-			<text><![CDATA[Les placements en portefeuille titres et les placements monétaires sont comptabilisés au moment du transfert de propriété pour leur prix d'achat. Les frais encourus à l'occasion de l'achat sont imputés en capital. 
+			<text><![CDATA[Les placements en portefeuille titres et les placements monétaires sont comptabilisés au moment du transfert de propriété pour leur prix d'achat. Les frais encourus à l'occasion de l'achat sont imputés en capital.
 Les dividendes relatifs aux actions et valeurs assimilées sont pris en compte en résultat à la date de détachement du coupon pour les titres admis à la cote et au moment où le droit au dividende est établi pour les titres non admis à la cote.
 Les intérêts sur les placements en obligations et sur les placements monétaires sont pris en compte en résultat à mesure qu'ils sont courus.]]></text>
 		</element>
@@ -63,15 +67,15 @@ Les intérêts sur les placements en obligations et sur les placements monétair
 		</element>
 		<element kind="textField" uuid="01b03245-dec5-4e2d-b7ef-a5e37cc67b5a" x="10" y="365" width="530" height="133">
 			<expression><![CDATA["Les placements en actions et valeurs assimilées sont évalués, en date d'arrêté, à leur valeur de" +" marché pour les titres admis à la cote et à la juste valeur pour les titres non admis à la cote. La différence" + " par rapport au prix d'achat ou par rapport à la clôture précédente constitue, selon le cas, une plus ou moins-value " + "potentielle enregistrée en produits ou en charges de l’exercice. En cas de plus-value, cette somme ne pourra toutefois" + " être distribuée et cela jusqu’à la sortie de l’actif du portefeuille."+
- "La valeur de marché, applicable pour l’évaluation des titres admis à la cote, correspond au cours en bourse" +" à la date du " +DAY( $P{dateEstimation})+" "+new java.text.SimpleDateFormat("MMMM", java.util.Locale.FRENCH).format($P{dateEstimation}) + " ou à la date antérieure la" + " plus récente." +
+ "La valeur de marché, applicable pour l’évaluation des titres admis à la cote, correspond au cours en bourse" +" à la date du " +$P{periode2}+ " ou à la date antérieure la" + " plus récente." +
  "Pour les titres admis à la cote n’ayant pas fait l’objet d’offre ou de demande pendant les 10 dernières " +"séances de bourse précédant la date de clôture, une décote peut être appliquée sur le cours boursier le plus " + "récent. L’identification et la valeur des titres ainsi évalués sont présentées dans la note sur le " + "portefeuille titres." +
-"La juste valeur, applicable pour l’évaluation des titres non admis à la cote, correspond à la valeur " +"mathématique des titres de la société émettrice."]]></expression>
+ "La juste valeur, applicable pour l’évaluation des titres non admis à la cote, correspond à la valeur " +"mathématique des titres de la société émettrice."]]></expression>
 		</element>
 		<element kind="staticText" uuid="468de94b-7298-4916-b8e6-aae5de9b8d53" x="10" y="499" width="360" height="15">
 			<text><![CDATA[2.3. Evaluation des autres placements]]></text>
 		</element>
 		<element kind="textField" uuid="7eae1894-8263-43dc-b037-a418808cc6b2" x="10" y="515" width="530" height="103">
-			<expression><![CDATA["Les placements en obligations et valeurs similaires admis à la cote sont évalués, " +"en date d’arrêté, à leur valeur de marché soit le cours moyen pondéré à la date du " +DAY( $P{dateEstimation})+" "+new java.text.SimpleDateFormat("MMMM", java.util.Locale.FRENCH).format($P{dateEstimation}) + " ou à la date" + " antérieure la plus récente. La différence par rapport au prix d’achat ou par rapport à la clôture précédente" +" constitue, selon le cas, une plus ou moins-value potentielle enregistrée en produits ou en charges de " +"l’exercice. En cas de plus-value, cette somme ne pourra toutefois être distribuée et cela jusqu’à la sortie " + "de l’actif du portefeuille." +
+			<expression><![CDATA["Les placements en obligations et valeurs similaires admis à la cote sont évalués, " +"en date d’arrêté, à leur valeur de marché soit le cours moyen pondéré à la date du " +$P{periode2} + " ou à la date" + " antérieure la plus récente. La différence par rapport au prix d’achat ou par rapport à la clôture précédente" +" constitue, selon le cas, une plus ou moins-value potentielle enregistrée en produits ou en charges de " +"l’exercice. En cas de plus-value, cette somme ne pourra toutefois être distribuée et cela jusqu’à la sortie " + "de l’actif du portefeuille." +
 "Les placements en obligations et valeurs similaires non admis à la cote demeurent évalués à leur " + "prix d’acquisition.\n" +
 "Les placements monétaires sont évalués à leur prix d’acquisition."]]></expression>
 		</element>
