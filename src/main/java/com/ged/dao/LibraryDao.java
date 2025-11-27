@@ -249,7 +249,7 @@ public interface LibraryDao extends JpaRepository<BaseEntity, Long> {
     @Query(value = "select * from [Impressions].[FT_AvisTransfertPart](:idOperation,:idOpcvm,:dateDeb,:dateFin)", nativeQuery = true)
     List<AvisTransfertPartProjection> avisTransfertPart(Long idOperation,Long idOpcvm,LocalDateTime dateDeb,LocalDateTime dateFin);
     @Query(value = "select * from [Operation].[FT_OperationTransfertDePart_New](:idOpcvm, :dateOuverture, :dateFermeture)", nativeQuery = true)
-    Page<AvisTransfertPartProjection> operationTransfertPart(Long idOpcvm,LocalDateTime dateOuverture,LocalDateTime dateFermeture,Pageable pageable);
+    Page<OperationTransfertDePartProjection> operationTransfertPart(Long idOpcvm,LocalDateTime dateOuverture,LocalDateTime dateFermeture,Pageable pageable);
 
     @Query(value = "select * from [Impressions].[FT_ReleveTitreFCP_New] (:idOpcvm,:dateDebut,:dateFin)" +
             " order by idTitre asc", nativeQuery = true)

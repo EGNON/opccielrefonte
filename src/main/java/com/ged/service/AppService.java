@@ -4028,20 +4028,20 @@ public class AppService {
         var parameters = request.getDatatableParameters();
         try {
             Pageable pageable = PageRequest.of(parameters.getStart()/ parameters.getLength(), parameters.getLength());
-            Page<AvisTransfertPartProjection> avisTransfertPartPage;
+            Page<OperationTransfertDePartProjection> operationTransfertDePartPage;
             if(parameters.getSearch() != null && !parameters.getSearch().getValue().isEmpty()) {
-                avisTransfertPartPage = new PageImpl<>(new ArrayList<>());
+                operationTransfertDePartPage = new PageImpl<>(new ArrayList<>());
             }
             else {
-                avisTransfertPartPage = libraryDao.operationTransfertPart(
+                operationTransfertDePartPage = libraryDao.operationTransfertPart(
                        request.getIdOpcvm(),request.getDateOuverture(),request.getDateFermeture(), pageable
                 );
             }
-            List<AvisTransfertPartProjection> content = avisTransfertPartPage.getContent().stream().toList();
-            DataTablesResponse<AvisTransfertPartProjection> dataTablesResponse = new DataTablesResponse<>();
+            List<OperationTransfertDePartProjection> content = operationTransfertDePartPage.getContent().stream().toList();
+            DataTablesResponse<OperationTransfertDePartProjection> dataTablesResponse = new DataTablesResponse<>();
             dataTablesResponse.setDraw(parameters.getDraw());
-            dataTablesResponse.setRecordsFiltered((int)avisTransfertPartPage.getTotalElements());
-            dataTablesResponse.setRecordsTotal((int)avisTransfertPartPage.getTotalElements());
+            dataTablesResponse.setRecordsFiltered((int)operationTransfertDePartPage.getTotalElements());
+            dataTablesResponse.setRecordsTotal((int)operationTransfertDePartPage.getTotalElements());
             dataTablesResponse.setData(content);
             return ResponseHandler.generateResponse(
                     "Avis de transfert de parts opcvm",
