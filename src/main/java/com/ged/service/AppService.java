@@ -5623,6 +5623,50 @@ public class AppService {
 
     }
 
+    //CompositionDetailleActif
+    public void afficherCompositionDetailleActif(CompositionDetailleActifRequest request, HttpServletResponse response) throws JRException, IOException {
+
+        InputStream rapportStream = null;
+        InputStream subreportStream = null;
+
+        List<CompositionDetailleActifProjection> compositionDetailleActifProjections = libraryDao.compositionDetailleActif(
+                request.getIdOpcvm(), request.getDateEstimation()
+        );
+
+        rapportStream = getClass().getResourceAsStream("/Composition_Detaillee_Actif.jrxml");
+        subreportStream = getClass().getResourceAsStream("/operationDetachement.jrxml");
+
+        if (rapportStream == null || subreportStream == null) {
+            throw new RuntimeException("fichiers .jrxml introuvables dans le classpath");
+        }
+
+        JasperReport rapportPrincipal = JasperCompileManager.compileReport(rapportStream);
+        JasperReport subreport = JasperCompileManager.compileReport(subreportStream);
+
+        LocalDateTime dateTime = request.getDateOperation();
+        Instant i = dateTime.atZone(ZoneId.systemDefault()).toInstant();
+        Date date = Date.from(i);
+        List<OperationDetachementProjection> operationDetachementProjections = libraryDao.operationDetachementListe(
+                request.getIdOpcvm(), date
+        );
+
+        Map<String, Object> parameters = new HashMap<>();
+        DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
+        String letterDate = dateFormatter.format(new Date());
+        parameters.put("letterDate", letterDate);
+        parameters.put("ALL_LIGNES", new JRBeanCollectionDataSource(operationDetachementProjections));
+        parameters.put("SUBREPORT_REF", subreport);
+
+        JasperPrint print = JasperFillManager.fillReport(
+                rapportPrincipal,
+                parameters,
+                new JRBeanCollectionDataSource(compositionDetailleActifProjections)
+        );
+        JasperExportManager.exportReportToPdfStream(print, response.getOutputStream());
+
+
+    }
+
     //Récupération séance en cours
     public SeanceOpcvm currentSeance(Long idOpcvm) {
         return libraryDao.currentSeance(idOpcvm);

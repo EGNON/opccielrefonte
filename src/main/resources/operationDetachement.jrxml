@@ -1,6 +1,5 @@
 <!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 7.0.1-573496633c2b4074e32f433154b543003f7d2498  -->
 <jasperReport name="operationDetachement" language="java" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f2c718be-4a0f-4e67-b1f6-a9c98741a369">
-	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<field name="idSeance" class="java.lang.Long">
 		<property name="com.jaspersoft.studio.field.name" value="idSeance"/>
 		<property name="com.jaspersoft.studio.field.label" value="idSeance"/>

@@ -909,6 +909,20 @@ public class LibraryController {
         service.afficherDocumentSeanceListeVerificationVde(request,response);
     }
 
+    //compositiondetailleactif
+    @PostMapping("/opcvm/etats/compositiondetailleactif")
+    public void compositiondetailleactif(@RequestBody @Valid CompositionDetailleActifRequest request, HttpServletResponse response) throws JRException, IOException {
+        response.setContentType("application/pdf");
+        DateFormat dateFormatter = new SimpleDateFormat("dd/MMMM/yyyy:hh:mm:ss");
+        String currentDateTime = dateFormatter.format(new Date());
+
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachement; filename=Composition detaillee de l'Actif"+currentDateTime+".pdf";
+        response.setHeader(headerKey,headerValue);
+
+        service.afficherCompositionDetailleActif(request,response);
+    }
+
     //pointperiodiquetafa
     @PostMapping("/opcvm/etats/pointperiodiquetafa")
     public void pointperiodiquetafa(@RequestBody @Valid PointPeriodiqueTAFARequest request, HttpServletResponse response) throws JRException, IOException {
