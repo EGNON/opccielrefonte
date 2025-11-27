@@ -4033,7 +4033,7 @@ public class AppService {
                 avisTransfertPartPage = new PageImpl<>(new ArrayList<>());
             }
             else {
-                avisTransfertPartPage = libraryDao.avisTransfertPart(
+                avisTransfertPartPage = libraryDao.operationTransfertPart(
                        request.getIdOpcvm(),request.getDateOuverture(),request.getDateFermeture(), pageable
                 );
             }
