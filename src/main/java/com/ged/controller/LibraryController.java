@@ -895,6 +895,28 @@ public class LibraryController {
         service.afficherDocumentSeanceListeVerificationVde(request,response);
     }
 
+    //pointperiodiquetafa
+    @PostMapping("/opcvm/etats/pointperiodiquetafa")
+    public void pointperiodiquetafa(@RequestBody @Valid PointPeriodiqueTAFARequest request, HttpServletResponse response) throws JRException, IOException {
+        response.setContentType("application/pdf");
+        DateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy:hh:mm:ss");
+        String currentDateTime = dateFormatter.format(new Date());
+
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachement; filename=Point periodique de la TAFA"+currentDateTime+".pdf";
+        response.setHeader(headerKey,headerValue);
+
+        service.afficherPointPeriodiqueTAFA(request,response);
+    }
+    @PostMapping("/opcvm/pointperiodiquetafa")
+    public ResponseEntity<?> pointperiodiquetafa(@RequestBody @Valid PointPeriodiqueTAFARequest request) {
+        return service.afficherPointPeriodiqueTAFA(request);
+    }
+    @PostMapping("/opcvm/pointperiodique/liste")
+    public ResponseEntity<?> pointperiodiquetafaListe(@RequestBody @Valid PointPeriodiqueTAFARequest request) {
+        return service.afficherPointPeriodiqueTAFAListe(request);
+    }
+
     //documentseancelisteverificationcodeposte
     @PostMapping("/opcvm/etats/documentseancelisteverificationcodeposte")
     public void documentseancelisteverificationcodeposte(@RequestBody @Valid DocumentSeanceListeVerificationCodePosteRequest request, HttpServletResponse response) throws JRException, IOException {
@@ -1025,12 +1047,12 @@ public class LibraryController {
         return service.afficherAvisTransfertPart(request,response);
     }
     @PostMapping("/opcvm/avistransfertpart")
-    public ResponseEntity<?> avistransfertpart(@RequestBody @Valid AvisTransfertPartRequest request) {
+    public ResponseEntity<?> avistransfertpart(@RequestBody @Valid OperationTransfertDePartRequest request) {
         return service.afficherAvisTransfertPart(request);
     }
     @PostMapping("/opcvm/avistransfertpart/liste")
     public ResponseEntity<?> avistransfertpartListe(@RequestBody @Valid AvisTransfertPartRequest request) {
-        return service.afficherAvisTransfertPart(request);
+        return service.afficherAvisTransfertPartListe(request);
     }
 
     @PostMapping("/etats/pointtresorerie")

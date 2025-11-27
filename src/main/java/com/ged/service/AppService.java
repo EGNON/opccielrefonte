@@ -3335,6 +3335,7 @@ public class AppService {
                 parameters,
                 new JRBeanCollectionDataSource(documentSeanceListeVerificationEcritureProjections)
         );
+        JasperExportManager.exportReportToPdfStream(print, response.getOutputStream());
         return ResponseHandler.generateResponse(
                 "ordre de bourse",
                 HttpStatus.OK,
@@ -3381,6 +3382,7 @@ public class AppService {
                 parameters,
                 new JRBeanCollectionDataSource(documentSeanceListeVerificationRachatsProjections)
         );
+        JasperExportManager.exportReportToPdfStream(print, response.getOutputStream());
         return ResponseHandler.generateResponse(
                 "ordre de bourse",
                 HttpStatus.OK,
@@ -3426,6 +3428,7 @@ public class AppService {
                 parameters,
                 new JRBeanCollectionDataSource(documentSeanceListeVerificationSouscriptionProjections)
         );
+        JasperExportManager.exportReportToPdfStream(print, response.getOutputStream());
         return ResponseHandler.generateResponse(
                 "ordre de bourse",
                 HttpStatus.OK,
@@ -3476,6 +3479,7 @@ public class AppService {
                 parameters,
                 new JRBeanCollectionDataSource(documentSeanceListeVerificationVdeProjections)
         );
+        JasperExportManager.exportReportToPdfStream(print, response.getOutputStream());
         return ResponseHandler.generateResponse(
                 "ordre de bourse",
                 HttpStatus.OK,
@@ -3483,6 +3487,104 @@ public class AppService {
         );
 
 
+    }
+
+    //PointPeriodiqueTAFA
+    public ResponseEntity<?> afficherPointPeriodiqueTAFA(PointPeriodiqueTAFARequest request) {
+        var parameters = request.getDatatableParameters();
+        try {
+            Pageable pageable = PageRequest.of(parameters.getStart()/parameters.getLength(),parameters.getLength());
+            Page<PointPeriodiqueTAFAProjection> pointPeriodiqueTAFAPage;
+            if (parameters.getSearch() != null && !parameters.getSearch().getValue().isEmpty()) {
+                pointPeriodiqueTAFAPage = new PageImpl<>(new ArrayList<>());
+            }
+            else {
+                pointPeriodiqueTAFAPage = libraryDao.pointPeriodiqueTAFA(
+                        request.getIdOpcvm(), request.getDateOuverture(), request.getDateFermeture(), pageable
+                );
+            }
+            List<PointPeriodiqueTAFAProjection> content = pointPeriodiqueTAFAPage.getContent().stream().toList();
+            DataTablesResponse<PointPeriodiqueTAFAProjection> dataTablesResponse = new DataTablesResponse<>();
+            dataTablesResponse.setDraw(parameters.getDraw());
+            dataTablesResponse.setRecordsFiltered((int)pointPeriodiqueTAFAPage.getTotalElements());
+            dataTablesResponse.setRecordsTotal((int)pointPeriodiqueTAFAPage.getTotalElements());
+            dataTablesResponse.setData(content);
+            return ResponseHandler.generateResponse(
+                    "Point periodique de la TAFA",
+                    HttpStatus.OK,
+                    dataTablesResponse
+            );
+        }
+        catch (Exception e) {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e);
+        }
+
+    }
+    public ResponseEntity<Object> afficherPointPeriodiqueTAFA(PointPeriodiqueTAFARequest request, HttpServletResponse response) throws JRException, IOException {
+
+        InputStream rapportStream = null;
+        InputStream subreportStream = null;
+
+//      try{
+        //Récuperation des données
+        List<PointPeriodiqueTAFAProjection> pointPeriodiqueTAFAProjections = libraryDao.pointPeriodiqueTAFA(
+                request.getIdOpcvm(), request.getDateOuverture(), request.getDateFermeture()
+        );
+
+        //Chargement des fichiers .jrxml depuis le classpath
+        rapportStream = getClass().getResourceAsStream("/Point_Periodique_TAFA.jrxml");
+//        subreportStream = getClass().getResourceAsStream("/operationDetachement.jrxml");
+
+        if (rapportStream == null) {
+            throw new RuntimeException("fichiers .jrxml introuvable dans le classpath");
+        }
+
+        //Compiler les rapports à la volée
+        JasperReport rapportPrincipal = JasperCompileManager.compileReport(rapportStream);
+//        JasperReport subreport = JasperCompileManager.compileReport(subreportStream);
+
+        //Preparation des paramètres
+        Map<String, Object> parameters = new HashMap<>();
+        DateFormat dateFormatter = new SimpleDateFormat("dd MM yyyy");
+        String letterDate = dateFormatter.format(new Date());
+        parameters.put("letterDate", letterDate);
+        OpcvmDto opcvm = opcvmMapper.deOpcvm(opcvmDao.findById(request.getIdOpcvm()).orElseThrow());
+        parameters.put("denominationOpcvm",opcvm.getDenominationOpcvm());
+
+        //Remplissage du rapport
+        JasperPrint print = JasperFillManager.fillReport(
+                rapportPrincipal,
+                parameters,
+                new JRBeanCollectionDataSource(pointPeriodiqueTAFAProjections)
+        );
+        JasperExportManager.exportReportToPdfStream(print, response.getOutputStream());
+        return ResponseHandler.generateResponse(
+                "Point periodique de la TAFA",
+                HttpStatus.OK,
+                pointPeriodiqueTAFAProjections
+        );
+    }
+    public ResponseEntity<?> afficherPointPeriodiqueTAFAListe(PointPeriodiqueTAFARequest request) {
+
+        try {
+            List<PointPeriodiqueTAFAProjection> pointPeriodiqueTAFAProjections = libraryDao.pointPeriodiqueTAFA(
+                    request.getIdOpcvm(), request.getDateOuverture(), request.getDateFermeture()
+            );
+            return ResponseHandler.generateResponse(
+                    "Point periodique de la TAFA",
+                    HttpStatus.OK,
+                    pointPeriodiqueTAFAProjections
+            );
+        }
+        catch (Exception e) {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e);
+        }
     }
 
     //DeclarationCommissionActif
@@ -3867,7 +3969,7 @@ public class AppService {
     }
 
     //AvisTransfertPart
-    public ResponseEntity<?> afficherAvisTransfertPart(AvisTransfertPartRequest request) {
+    public ResponseEntity<?> afficherAvisTransfertPart(OperationTransfertDePartRequest request) {
         var parameters = request.getDatatableParameters();
         try {
             Pageable pageable = PageRequest.of(parameters.getStart()/ parameters.getLength(), parameters.getLength());
@@ -3877,7 +3979,7 @@ public class AppService {
             }
             else {
                 avisTransfertPartPage = libraryDao.avisTransfertPart(
-                        request.getIdOperation(),request.getIdOpcvm(),request.getDateDeb(),request.getDateFin(), pageable
+                       request.getIdOpcvm(),request.getDateOuverture(),request.getDateFermeture(), pageable
                 );
             }
             List<AvisTransfertPartProjection> content = avisTransfertPartPage.getContent().stream().toList();
@@ -5403,6 +5505,7 @@ public class AppService {
             Date date = Date.from(i);
             List<OperationDetachementProjection> operationDetachementListe = libraryDao.operationDetachementListe(
                     request.getIdOpcvm(),  date);
+
 
             // Vérification des données
 //            if (portefeuille == null || portefeuille.isEmpty()) {

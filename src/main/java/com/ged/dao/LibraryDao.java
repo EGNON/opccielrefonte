@@ -183,6 +183,11 @@ public interface LibraryDao extends JpaRepository<BaseEntity, Long> {
     @Query(value = "select * from [Operation].[FT_OperationDifferenceEstimation_New](:idSeance,:idOpcvm,:estVerifie1,:estVerifie2,:supprimer)", nativeQuery = true)
     List<DocumentSeanceListeVerificationVdeProjection> documentSeanceListeVerificationVde(Long idSeance, Long idOpcvm, Boolean estVerifie1, Boolean estVerifie2, Boolean supprimer);
 
+    @Query(value = "select * from [Operation].[FT_OperationSouscriptionRachat_New](:idOpcvm,:dateOuverture,:dateFermeture)", nativeQuery = true)
+    List<PointPeriodiqueTAFAProjection> pointPeriodiqueTAFA(Long idOpcvm,LocalDateTime dateOuverture,LocalDateTime dateFermeture);
+    @Query(value = "select * from [Operation].[FT_OperationSouscriptionRachat_New](:idOpcvm,:dateOuverture,:dateFermeture)", nativeQuery = true)
+    Page<PointPeriodiqueTAFAProjection> pointPeriodiqueTAFA(Long idOpcvm, LocalDateTime dateOuverture, LocalDateTime dateFermeture, Pageable pageable);
+
     @Query(value = "select * from [Impressions].[FT_ResultatTrimestriel_New](:idOpcvm,:dateEstimation)", nativeQuery = true)
     List<EtatFinancierTrimestrielCompteResultatProjection> etatFinancierTrimestrielCompteResultat(Long idOpcvm,LocalDateTime dateEstimation);
 
@@ -240,8 +245,8 @@ public interface LibraryDao extends JpaRepository<BaseEntity, Long> {
 
     @Query(value = "select * from [Impressions].[FT_AvisTransfertPart](:idOperation,:idOpcvm,:dateDeb,:dateFin)", nativeQuery = true)
     List<AvisTransfertPartProjection> avisTransfertPart(Long idOperation,Long idOpcvm,LocalDateTime dateDeb,LocalDateTime dateFin);
-    @Query(value = "select * from [Impressions].[FT_AvisTransfertPart](:idOperation,:idOpcvm,:dateDeb,:dateFin)", nativeQuery = true)
-    Page<AvisTransfertPartProjection> avisTransfertPart(Long idOperation,Long idOpcvm,LocalDateTime dateDeb,LocalDateTime dateFin,Pageable pageable);
+    @Query(value = "select * from [Operation].[FT_OperationTransfertDePart_New](:idOpcvm, :dateOuverture, :dateFermeture)", nativeQuery = true)
+    Page<AvisTransfertPartProjection> avisTransfertPart(Long idOpcvm,LocalDateTime dateOuverture,LocalDateTime dateFermeture,Pageable pageable);
 
     @Query(value = "select * from [Impressions].[FT_ReleveTitreFCP_New] (:idOpcvm,:dateDebut,:dateFin)" +
             " order by idTitre asc", nativeQuery = true)

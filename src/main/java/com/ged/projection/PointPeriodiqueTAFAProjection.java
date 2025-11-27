@@ -1,0 +1,62 @@
+package com.ged.projection;
+
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+
+public interface PointPeriodiqueTAFAProjection {
+
+    Long getIdOperation();
+    Long getIdTransaction();
+    Long getIdSeance();
+    Long getIdActionnaire();
+    String getNumCompteSgi();
+    String getNomSigle();
+    String getPrenomRaison();
+    String getMail();
+    String getPhone();
+    Long getIdOpcvm();
+    String getDenominationOpcvm();
+    Long getIdPersonne();
+    String getCodeNatureOperation();
+    LocalDateTime getDateOperation();
+    String getLibelleOperation();
+    LocalDateTime getDateSaisie();
+    LocalDateTime getDatePiece();
+    LocalDateTime getDateValeur();
+    String getReferencePiece();
+    BigDecimal getMontantSousALiquider();
+    BigDecimal getSousRachatPart();
+    BigDecimal getCommisiionSousRachat();
+    BigDecimal getTAFCommissionSousRachat();
+    BigDecimal getRetrocessionSousRachat();
+    BigDecimal getTAFRetrocessionSousRachat();
+    BigDecimal getCommissionSousRachatRetrocedee();
+    String getModeValeurLiquidative();
+    BigDecimal getValeurLiquidative();
+    BigDecimal getNombrePartSousRachat();
+    BigDecimal getRegulResultatExoEnCours();
+    BigDecimal getRegulSommeNonDistribuable();
+    BigDecimal getRegulReportANouveau();
+    BigDecimal getRegulautreResultatBeneficiaire();
+    BigDecimal getRegulautreResultatDeficitaire();
+    BigDecimal getRegulResultatEnInstanceBeneficiaire();
+    BigDecimal getRegulResultatEnInstanceDeficitaire();
+    BigDecimal getRegulExoDistribution();
+    BigDecimal getFraisSouscriptionRachat();
+    BigDecimal getReste();
+    Long getQuantiteSouhaite();
+    BigDecimal getMontantDepose();
+    BigDecimal getMontantConvertiEnPart();
+    Boolean getEstRetrocede();
+    Boolean getResteRembourse();
+    Boolean getRachatPaye();
+    String getEcriture();
+    String getNumLigne();
+    LocalDateTime getDateCreationServeur();
+    LocalDateTime getDateDernModifServeur();
+    LocalDateTime getDateDernModifClient();
+    String getUserLogin();
+    Boolean getSupprimer();
+    LocalDateTime getDateOuverture();
+    LocalDateTime getDateFermeture();
+}
