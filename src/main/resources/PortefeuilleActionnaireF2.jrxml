@@ -1,0 +1,609 @@
+<!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 7.0.1-573496633c2b4074e32f433154b543003f7d2498  -->
+<jasperReport name="PortefeuilleActionnaire" language="java" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="0e1d41a9-1de1-49a5-b703-ab6a3e013655">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="db_opcciel_data_adapter"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<style name="Table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+			<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+			<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+			<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+		</box>
+	</style>
+	<dataset name="Dataset1" uuid="5d1d37ab-5f13-44bc-9565-225efb41fd67">
+		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="db_opcciel_data_adapter"/>
+		<parameter name="idActionnaire" class="java.lang.String"/>
+		<parameter name="dateEstimation" class="java.sql.Timestamp"/>
+		<parameter name="dateDebutEstimation" class="java.sql.Timestamp"/>
+		<parameter name="idActionnaireList" class="java.lang.String"/>
+		<query language="SQL"><![CDATA[SELECT *
+        FROM [Impressions].[FT_PortefeuilleActionnaire_New_JAVA](null, $P{idActionnaireList}, $P{dateDebutEstimation}, $P{dateEstimation}) AS f
+        WHERE f.idActionnaire = $P{idActionnaire}]]></query>
+		<field name="idOpcvm" class="java.lang.Long">
+			<property name="com.jaspersoft.studio.field.name" value="idOpcvm"/>
+			<property name="com.jaspersoft.studio.field.label" value="idOpcvm"/>
+		</field>
+		<field name="sigleOpcvm" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.name" value="sigleOpcvm"/>
+			<property name="com.jaspersoft.studio.field.label" value="sigleOpcvm"/>
+		</field>
+		<field name="denominationOpcvm" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.name" value="denominationOpcvm"/>
+			<property name="com.jaspersoft.studio.field.label" value="denominationOpcvm"/>
+		</field>
+		<field name="idActionnaire" class="java.lang.Long">
+			<property name="com.jaspersoft.studio.field.name" value="idActionnaire"/>
+			<property name="com.jaspersoft.studio.field.label" value="idActionnaire"/>
+		</field>
+		<field name="nomSigle" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.name" value="nomSigle"/>
+			<property name="com.jaspersoft.studio.field.label" value="nomSigle"/>
+		</field>
+		<field name="prenomRaison" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.name" value="prenomRaison"/>
+			<property name="com.jaspersoft.studio.field.label" value="prenomRaison"/>
+		</field>
+		<field name="inttule" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.name" value="inttule"/>
+			<property name="com.jaspersoft.studio.field.label" value="inttule"/>
+		</field>
+		<field name="numCompteSgi" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.name" value="numCompteSgi"/>
+			<property name="com.jaspersoft.studio.field.label" value="numCompteSgi"/>
+		</field>
+		<field name="telephoneFixe" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.name" value="telephoneFixe"/>
+			<property name="com.jaspersoft.studio.field.label" value="telephoneFixe"/>
+		</field>
+		<field name="telephoneMobile1" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.name" value="telephoneMobile1"/>
+			<property name="com.jaspersoft.studio.field.label" value="telephoneMobile1"/>
+		</field>
+		<field name="telephoneMobile2" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.name" value="telephoneMobile2"/>
+			<property name="com.jaspersoft.studio.field.label" value="telephoneMobile2"/>
+		</field>
+		<field name="email" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.name" value="email"/>
+			<property name="com.jaspersoft.studio.field.label" value="email"/>
+		</field>
+		<field name="boitePostale" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.name" value="boitePostale"/>
+			<property name="com.jaspersoft.studio.field.label" value="boitePostale"/>
+		</field>
+		<field name="adresseComplete" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.name" value="adresseComplete"/>
+			<property name="com.jaspersoft.studio.field.label" value="adresseComplete"/>
+		</field>
+		<field name="dateDebutEstimation" class="java.sql.Timestamp">
+			<property name="com.jaspersoft.studio.field.name" value="dateDebutEstimation"/>
+			<property name="com.jaspersoft.studio.field.label" value="dateDebutEstimation"/>
+		</field>
+		<field name="dateEstimation" class="java.sql.Timestamp">
+			<property name="com.jaspersoft.studio.field.name" value="dateEstimation"/>
+			<property name="com.jaspersoft.studio.field.label" value="dateEstimation"/>
+		</field>
+		<field name="nombrePartDebut" class="java.math.BigDecimal">
+			<property name="com.jaspersoft.studio.field.name" value="nombrePartDebut"/>
+			<property name="com.jaspersoft.studio.field.label" value="nombrePartDebut"/>
+		</field>
+		<field name="nombrePartActuel" class="java.math.BigDecimal">
+			<property name="com.jaspersoft.studio.field.name" value="nombrePartActuel"/>
+			<property name="com.jaspersoft.studio.field.label" value="nombrePartActuel"/>
+		</field>
+		<field name="nombrePartNanti" class="java.math.BigDecimal">
+			<property name="com.jaspersoft.studio.field.name" value="nombrePartNanti"/>
+			<property name="com.jaspersoft.studio.field.label" value="nombrePartNanti"/>
+		</field>
+		<field name="valeurLiquidativeActuelle" class="java.math.BigDecimal">
+			<property name="com.jaspersoft.studio.field.name" value="valeurLiquidativeActuelle"/>
+			<property name="com.jaspersoft.studio.field.label" value="valeurLiquidativeActuelle"/>
+		</field>
+		<field name="valorisation" class="java.math.BigDecimal">
+			<property name="com.jaspersoft.studio.field.name" value="valorisation"/>
+			<property name="com.jaspersoft.studio.field.label" value="valorisation"/>
+		</field>
+		<field name="dividendeReçu" class="java.math.BigDecimal">
+			<property name="com.jaspersoft.studio.field.name" value="dividendeReçu"/>
+			<property name="com.jaspersoft.studio.field.label" value="dividendeReçu"/>
+		</field>
+		<field name="soldeEspece" class="java.math.BigDecimal">
+			<property name="com.jaspersoft.studio.field.name" value="soldeEspece"/>
+			<property name="com.jaspersoft.studio.field.label" value="soldeEspece"/>
+		</field>
+		<field name="cump" class="java.math.BigDecimal">
+			<property name="com.jaspersoft.studio.field.name" value="cump"/>
+			<property name="com.jaspersoft.studio.field.label" value="cump"/>
+		</field>
+		<field name="valoInitial" class="java.math.BigDecimal">
+			<property name="com.jaspersoft.studio.field.name" value="valoInitial"/>
+			<property name="com.jaspersoft.studio.field.label" value="valoInitial"/>
+		</field>
+		<field name="totalSouscription" class="java.math.BigDecimal">
+			<property name="com.jaspersoft.studio.field.name" value="totalSouscription"/>
+			<property name="com.jaspersoft.studio.field.label" value="totalSouscription"/>
+		</field>
+		<field name="totalRachat" class="java.math.BigDecimal">
+			<property name="com.jaspersoft.studio.field.name" value="totalRachat"/>
+			<property name="com.jaspersoft.studio.field.label" value="totalRachat"/>
+		</field>
+		<field name="couponPaye" class="java.math.BigDecimal">
+			<property name="com.jaspersoft.studio.field.name" value="couponPaye"/>
+			<property name="com.jaspersoft.studio.field.label" value="couponPaye"/>
+		</field>
+		<field name="plusValue" class="java.math.BigDecimal">
+			<property name="com.jaspersoft.studio.field.name" value="plusValue"/>
+			<property name="com.jaspersoft.studio.field.label" value="plusValue"/>
+		</field>
+	</dataset>
+	<parameter name="letterDate" class="java.lang.String"/>
+	<parameter name="dateEstimation" class="java.sql.Timestamp"/>
+	<parameter name="idActionnaire" class="java.lang.String"/>
+	<parameter name="dateDebutEstimation" class="java.sql.Timestamp"/>
+	<parameter name="TABLE_DATASOURCE" class="net.sf.jasperreports.engine.JRDataSource"/>
+	<parameter name="idActionnaireList" class="java.lang.String"/>
+	<query language="sql"><![CDATA[select * from [Impressions].[FT_PortefeuilleActionnaire_New](null,'1072','06/04/2021','06/04/2023')]]></query>
+	<field name="idOpcvm" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="idOpcvm"/>
+		<property name="com.jaspersoft.studio.field.label" value="idOpcvm"/>
+	</field>
+	<field name="sigleOpcvm" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="sigleOpcvm"/>
+		<property name="com.jaspersoft.studio.field.label" value="sigleOpcvm"/>
+	</field>
+	<field name="denominationOpcvm" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="denominationOpcvm"/>
+		<property name="com.jaspersoft.studio.field.label" value="denominationOpcvm"/>
+	</field>
+	<field name="idActionnaire" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="idActionnaire"/>
+		<property name="com.jaspersoft.studio.field.label" value="idActionnaire"/>
+	</field>
+	<field name="nomSigle" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="nomSigle"/>
+		<property name="com.jaspersoft.studio.field.label" value="nomSigle"/>
+	</field>
+	<field name="prenomRaison" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="prenomRaison"/>
+		<property name="com.jaspersoft.studio.field.label" value="prenomRaison"/>
+	</field>
+	<field name="inttule" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="inttule"/>
+		<property name="com.jaspersoft.studio.field.label" value="inttule"/>
+	</field>
+	<field name="numCompteSgi" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="numCompteSgi"/>
+		<property name="com.jaspersoft.studio.field.label" value="numCompteSgi"/>
+	</field>
+	<field name="telephoneFixe" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="telephoneFixe"/>
+		<property name="com.jaspersoft.studio.field.label" value="telephoneFixe"/>
+	</field>
+	<field name="telephoneMobile1" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="telephoneMobile1"/>
+		<property name="com.jaspersoft.studio.field.label" value="telephoneMobile1"/>
+	</field>
+	<field name="telephoneMobile2" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="telephoneMobile2"/>
+		<property name="com.jaspersoft.studio.field.label" value="telephoneMobile2"/>
+	</field>
+	<field name="email" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="email"/>
+		<property name="com.jaspersoft.studio.field.label" value="email"/>
+	</field>
+	<field name="boitePostale" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="boitePostale"/>
+		<property name="com.jaspersoft.studio.field.label" value="boitePostale"/>
+	</field>
+	<field name="adresseComplete" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="adresseComplete"/>
+		<property name="com.jaspersoft.studio.field.label" value="adresseComplete"/>
+	</field>
+	<field name="dateDebutEstimation" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="dateDebutEstimation"/>
+		<property name="com.jaspersoft.studio.field.label" value="dateDebutEstimation"/>
+	</field>
+	<field name="dateEstimation" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="dateEstimation"/>
+		<property name="com.jaspersoft.studio.field.label" value="dateEstimation"/>
+	</field>
+	<field name="nombrePartDebut" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="nombrePartDebut"/>
+		<property name="com.jaspersoft.studio.field.label" value="nombrePartDebut"/>
+	</field>
+	<field name="nombrePartActuel" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="nombrePartActuel"/>
+		<property name="com.jaspersoft.studio.field.label" value="nombrePartActuel"/>
+	</field>
+	<field name="nombrePartNanti" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="nombrePartNanti"/>
+		<property name="com.jaspersoft.studio.field.label" value="nombrePartNanti"/>
+	</field>
+	<field name="valeurLiquidativeActuelle" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="valeurLiquidativeActuelle"/>
+		<property name="com.jaspersoft.studio.field.label" value="valeurLiquidativeActuelle"/>
+	</field>
+	<field name="valorisation" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="valorisation"/>
+		<property name="com.jaspersoft.studio.field.label" value="valorisation"/>
+	</field>
+	<field name="dividendeReçu" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="dividendeReçu"/>
+		<property name="com.jaspersoft.studio.field.label" value="dividendeReçu"/>
+	</field>
+	<field name="soldeEspece" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="soldeEspece"/>
+		<property name="com.jaspersoft.studio.field.label" value="soldeEspece"/>
+	</field>
+	<field name="cump" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="cump"/>
+		<property name="com.jaspersoft.studio.field.label" value="cump"/>
+	</field>
+	<field name="valoInitial" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="valoInitial"/>
+		<property name="com.jaspersoft.studio.field.label" value="valoInitial"/>
+	</field>
+	<field name="totalSouscription" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="totalSouscription"/>
+		<property name="com.jaspersoft.studio.field.label" value="totalSouscription"/>
+	</field>
+	<field name="totalRachat" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="totalRachat"/>
+		<property name="com.jaspersoft.studio.field.label" value="totalRachat"/>
+	</field>
+	<field name="couponPaye" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="couponPaye"/>
+		<property name="com.jaspersoft.studio.field.label" value="couponPaye"/>
+	</field>
+	<field name="plusValue" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="plusValue"/>
+		<property name="com.jaspersoft.studio.field.label" value="plusValue"/>
+	</field>
+	<variable name="valorisation1" resetType="Group" calculation="Sum" resetGroup="Group1" class="java.math.BigDecimal">
+		<expression><![CDATA[$F{valorisation}]]></expression>
+	</variable>
+	<variable name="plusValue1" resetType="Group" calculation="Sum" resetGroup="Group1" class="java.math.BigDecimal">
+		<expression><![CDATA[$F{plusValue}]]></expression>
+	</variable>
+	<variable name="valorisation2" resetType="Group" calculation="Sum" resetGroup="Group1" class="java.math.BigDecimal">
+		<expression><![CDATA[$F{valorisation}]]></expression>
+	</variable>
+	<variable name="soldeEspece1" resetType="Group" calculation="Sum" resetGroup="Group1" class="java.math.BigDecimal">
+		<expression><![CDATA[$F{soldeEspece}]]></expression>
+	</variable>
+	<variable name="valorisation3" resetType="Group" calculation="Sum" resetGroup="Group1" class="java.math.BigDecimal">
+		<expression><![CDATA[$F{valorisation}]]></expression>
+	</variable>
+	<group name="Group1" startNewPage="true">
+		<expression><![CDATA[$F{idActionnaire}]]></expression>
+		<groupHeader>
+			<band height="225">
+				<element kind="textField" uuid="ec39a7d3-b7a5-41c8-903d-187b3f9441e9" mode="Opaque" x="3" y="39" width="545" height="25" backcolor="#BDD7EE" fontName="Segoe UI" bold="true" hTextAlign="Center" vTextAlign="Middle">
+					<expression><![CDATA["PORTEFEUILLE DU  "+ $F{dateDebutEstimation}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy")+ " AU " +$F{dateEstimation}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy")]]></expression>
+					<box>
+						<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+				</element>
+				<element kind="textField" uuid="74f0206c-974d-48ef-a594-8f39c08ee7f2" x="5" y="6" width="230" height="20" fontName="Segoe UI">
+					<expression><![CDATA["Cotonou le, " + $P{letterDate}]]></expression>
+				</element>
+				<element kind="rectangle" uuid="86a9e140-a990-4066-ab5b-588ec8ba180b" stretchType="ContainerHeight" x="3" y="72" width="307" height="102"/>
+				<element kind="textField" uuid="00470804-a1b8-4a7d-a513-8e8b9e580c03" x="5" y="73" width="305" height="20" hTextAlign="Center">
+					<expression><![CDATA[$F{numCompteSgi}]]></expression>
+					<box>
+						<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+				</element>
+				<element kind="textField" uuid="1bc87e17-1628-4b52-8b7d-e158da2f0264" x="5" y="93" width="305" height="20" textAdjust="StretchHeight" hTextAlign="Center">
+					<expression><![CDATA[$F{inttule}]]></expression>
+					<box>
+						<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+				</element>
+				<element kind="textField" uuid="a114243d-31a5-4b10-b0f2-7ccd4e13062e" x="5" y="114" width="305" height="20" textAdjust="StretchHeight" hTextAlign="Center">
+					<expression><![CDATA[$F{telephoneMobile1}+"/"+$F{telephoneFixe}]]></expression>
+					<box>
+						<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+				</element>
+				<element kind="textField" uuid="ec8ab8e3-b3e6-492d-87e3-554524acf0a1" x="4" y="134" width="305" height="20" textAdjust="StretchHeight" hTextAlign="Center">
+					<expression><![CDATA[$F{boitePostale}]]></expression>
+					<box>
+						<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+				</element>
+				<element kind="textField" uuid="f8dbbc99-e76f-40b3-bd34-48a4cd73f0b5" x="5" y="154" width="305" height="20" fontName="Segoe UI" hTextAlign="Center">
+					<expression><![CDATA[$F{email}]]></expression>
+				</element>
+				<element kind="rectangle" uuid="544faf9b-61db-4a87-a7cd-d46fa3957d01" mode="Opaque" x="4" y="185" width="550" height="40" backcolor="#BDD7EE">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</element>
+				<element kind="staticText" uuid="e463436b-03a6-449e-bed4-0bf091b32c7e" x="6" y="188" width="174" height="31" bold="true" hTextAlign="Center">
+					<text><![CDATA[Désignation]]></text>
+				</element>
+				<element kind="line" uuid="b9f9aaa5-8801-48fc-a82e-fec6aaa1ec8e" x="184" y="185" width="1" height="39"/>
+				<element kind="staticText" uuid="fcaae5bc-d5cb-4775-ac76-5a9417992a37" x="187" y="188" width="83" height="31" bold="true" hTextAlign="Center">
+					<text><![CDATA[Quantité]]></text>
+				</element>
+				<element kind="line" uuid="3ae7fb98-1faa-4437-a790-f4e3294032c3" x="274" y="185" width="1" height="39"/>
+				<element kind="staticText" uuid="261af19a-aee3-49c3-a6ad-2001950bfc81" x="281" y="189" width="75" height="27" bold="true" hTextAlign="Center">
+					<text><![CDATA[Cours VL]]></text>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</element>
+				<element kind="line" uuid="79b79949-b1c4-4c83-86e3-5c10b691a26c" x="362" y="186" width="1" height="39"/>
+				<element kind="staticText" uuid="6500649b-b61f-4ffb-a9a0-519eb45fdf64" x="367" y="189" width="84" height="27" bold="true" hTextAlign="Center">
+					<text><![CDATA[Valorisat°]]></text>
+				</element>
+				<element kind="line" uuid="860f7668-47e6-4fab-b7f6-2dbbf5827821" x="456" y="186" width="1" height="39"/>
+				<element kind="staticText" uuid="186e4f2b-8a08-4c6d-a19b-bad644dbd80c" x="460" y="189" width="93" height="27" bold="true" hTextAlign="Center">
+					<text><![CDATA[Valorisat°]]></text>
+				</element>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="393">
+				<element kind="rectangle" uuid="70f72a09-8234-43b0-bf2a-f904fc2f23fb" stretchType="ContainerHeight" x="4" y="0" width="550" height="80"/>
+				<element kind="textField" uuid="242481a6-66a2-43f4-846c-b7558d8be324" x="5" y="4" width="125" height="20" bold="true" hTextAlign="Left">
+					<expression><![CDATA["Total portefeuille titre"]]></expression>
+					<box>
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+				</element>
+				<element kind="textField" uuid="5e7446f2-113c-4b8e-bdd4-a5d114b831ca" x="5" y="29" width="125" height="20" bold="true" hTextAlign="Left">
+					<expression><![CDATA["Solde espèce"]]></expression>
+					<box>
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+				</element>
+				<element kind="textField" uuid="4e0de5b5-18ec-4cad-9766-00cde2e8f7f5" x="5" y="54" width="125" height="20" bold="true" hTextAlign="Left">
+					<expression><![CDATA["Total portefeuille"]]></expression>
+					<box>
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+				</element>
+				<element kind="line" uuid="c726d981-3543-4c32-ab74-74b1a821e7f6" stretchType="ContainerHeight" x="135" y="1" width="1" height="79"/>
+				<element kind="line" uuid="9df15d5a-7cfb-47c3-b7af-43e29f3f7e49" stretchType="ContainerHeight" x="456" y="1" width="1" height="79"/>
+				<element kind="staticText" uuid="6ff4fc10-fc4f-4bc2-bfa3-f7c97f1e73b0" x="3" y="214" width="551" height="60" fontSize="20.0" hTextAlign="Center">
+					<text><![CDATA[SAPHIR ASSET MANAGEMENT et toute son équipe vous remercient pour la confiance]]></text>
+					<box>
+						<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+				</element>
+				<element kind="staticText" uuid="362c188b-4d81-4135-8635-da4ba2cb0625" x="2" y="304" width="551" height="20" fontSize="14.0" hTextAlign="Center">
+					<text><![CDATA[Pour plus d'informations, veuillez vous référer aux coordonnées ci-après:]]></text>
+					<box>
+						<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+				</element>
+				<element kind="staticText" uuid="91f59979-2239-4941-b681-5b94eb4578f5" x="2" y="324" width="551" height="60" fontSize="14.0" hTextAlign="Center">
+					<text><![CDATA[			                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               Tél : (229) 21 31 15 41/ 66 18 01 74        www.saphiram.com        contact@saphiram.com
+]]></text>
+					<box>
+						<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+				</element>
+				<element kind="component" uuid="078b0d36-f2d8-4bf1-a3a4-b2d7a5e487c4" x="3" y="90" width="551" height="60" style="Table_TD">
+					<component kind="table">
+						<datasetRun uuid="3e50758b-0f28-4da3-8bc8-b18bc16a6285" subDataset="Dataset1">
+							<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+							<parameter name="idActionnaire">
+								<expression><![CDATA[$F{idActionnaire}]]></expression>
+							</parameter>
+							<parameter name="dateDebutEstimation">
+								<expression><![CDATA[$P{dateDebutEstimation}]]></expression>
+							</parameter>
+							<parameter name="dateEstimation">
+								<expression><![CDATA[$P{dateEstimation}]]></expression>
+							</parameter>
+							<parameter name="idActionnaireList">
+								<expression><![CDATA[$P{idActionnaireList}]]></expression>
+							</parameter>
+						</datasetRun>
+						<column kind="single" uuid="39a396d1-c7d7-4bc3-aa11-93de5f4de0e7" width="177">
+							<tableHeader height="2" rowSpan="1" style="Table_TH">
+								<box style="Table_TH">
+									<pen lineWidth="0.0"/>
+								</box>
+							</tableHeader>
+							<tableFooter height="2" rowSpan="1" style="Table_TH"/>
+							<columnHeader height="30" rowSpan="1" style="Table_CH">
+								<element kind="staticText" uuid="f3731f52-6426-44d2-8f78-3c95222aa058" x="0" y="0" width="177" height="30" bold="true" hTextAlign="Center">
+									<text><![CDATA[Désignation]]></text>
+									<box>
+										<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+										<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+										<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+										<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+									</box>
+								</element>
+							</columnHeader>
+							<columnFooter height="2" rowSpan="1" style="Table_CH"/>
+							<detailCell height="28" style="Table_TD">
+								<element kind="textField" uuid="b33b5ced-e1d0-4b98-af68-7cc826823853" x="0" y="0" width="177" height="28" hTextAlign="Center">
+									<expression><![CDATA[$F{denominationOpcvm}]]></expression>
+									<box>
+										<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+										<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+										<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+										<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+									</box>
+								</element>
+							</detailCell>
+							<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column1"/>
+						</column>
+						<column kind="single" uuid="80476bbb-d05d-4bf5-9b0c-573557e9ddd5" width="135">
+							<tableHeader height="2" rowSpan="1" style="Table_TH">
+								<box style="Table_TH">
+									<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+									<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+									<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+									<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+								</box>
+							</tableHeader>
+							<tableFooter height="2" rowSpan="1" style="Table_TH"/>
+							<columnHeader height="30" rowSpan="1" style="Table_CH">
+								<element kind="staticText" uuid="551bde6f-569a-46aa-9479-7eed296753cf" x="0" y="0" width="135" height="30" bold="true" hTextAlign="Center">
+									<text><![CDATA[Total souscription]]></text>
+								</element>
+							</columnHeader>
+							<columnFooter height="2" rowSpan="1" style="Table_CH"/>
+							<detailCell height="28" style="Table_TD">
+								<element kind="textField" uuid="809f80ab-4d89-481d-a9b0-8393fb730c7e" x="0" y="0" width="135" height="28" pattern="#,##0.###;#,##0.###" blankWhenNull="true" hTextAlign="Center">
+									<expression><![CDATA[$F{totalSouscription}]]></expression>
+								</element>
+							</detailCell>
+							<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column2"/>
+						</column>
+						<column kind="single" uuid="1fc5a5cc-52ab-4e81-bd63-e224bd39394a" width="118">
+							<tableHeader height="2" rowSpan="1" style="Table_TH">
+								<box style="Table_TH">
+									<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+									<leftPen lineStyle="Solid"/>
+									<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+									<rightPen lineStyle="Solid"/>
+								</box>
+							</tableHeader>
+							<tableFooter height="2" rowSpan="1" style="Table_TH"/>
+							<columnHeader height="30" rowSpan="1" style="Table_CH">
+								<element kind="staticText" uuid="7bf7610d-2c7b-4360-9e91-59f5a72bb4c4" x="0" y="0" width="118" height="30" bold="true" hTextAlign="Center">
+									<text><![CDATA[Total rachat]]></text>
+								</element>
+							</columnHeader>
+							<columnFooter height="2" rowSpan="1" style="Table_CH"/>
+							<detailCell height="28" style="Table_TD">
+								<element kind="textField" uuid="1065b60c-10ec-4020-9bd9-6314cd84a150" x="0" y="0" width="118" height="28" pattern="#,##0.###;#,##0.###" blankWhenNull="true" hTextAlign="Center">
+									<expression><![CDATA[$F{totalRachat}]]></expression>
+								</element>
+							</detailCell>
+							<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column3"/>
+						</column>
+						<column kind="single" uuid="486e6747-6967-4a03-a4ce-72c068ea32d2" width="121">
+							<tableHeader height="2" rowSpan="1" style="Table_TH"/>
+							<tableFooter height="2" rowSpan="1" style="Table_TH"/>
+							<columnHeader height="30" rowSpan="1" style="Table_CH">
+								<element kind="staticText" uuid="9f171c94-bde9-4de7-8c35-cfa8ac975784" x="0" y="0" width="121" height="30" bold="true" hTextAlign="Center">
+									<text><![CDATA[Coupon payé]]></text>
+								</element>
+							</columnHeader>
+							<columnFooter height="2" rowSpan="1" style="Table_CH"/>
+							<detailCell height="28" style="Table_TD">
+								<element kind="textField" uuid="927d7e07-dfc3-4d49-b726-220f3d21ec98" x="0" y="0" width="121" height="28" pattern="#,##0.###;#,##0.###" blankWhenNull="true" hTextAlign="Center">
+									<expression><![CDATA[$F{couponPaye}]]></expression>
+								</element>
+							</detailCell>
+							<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column4"/>
+						</column>
+					</component>
+					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
+					<property name="com.jaspersoft.studio.table.style.table_header" value="Table_TH"/>
+					<property name="com.jaspersoft.studio.table.style.column_header" value="Table_CH"/>
+					<property name="com.jaspersoft.studio.table.style.detail" value="Table_TD"/>
+					<property name="com.jaspersoft.studio.components.autoresize.proportional" value="true"/>
+					<property name="com.jaspersoft.studio.components.autoresize.next" value="true"/>
+				</element>
+				<element kind="textField" uuid="223fc998-8282-4ac2-b5ee-7db77c5be87b" x="460" y="4" width="88" height="19" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+					<expression><![CDATA[$V{valorisation2}]]></expression>
+				</element>
+				<element kind="textField" uuid="6951c4ce-5144-4c53-8a96-e692b1de3773" x="460" y="29" width="88" height="19" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+					<expression><![CDATA[$V{soldeEspece1}]]></expression>
+				</element>
+				<element kind="textField" uuid="eded76e3-4f3b-48d7-9258-e4ba4757f2cd" x="460" y="54" width="88" height="19" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+					<expression><![CDATA[SUM($V{valorisation3},$F{soldeEspece} )]]></expression>
+				</element>
+			</band>
+		</groupFooter>
+	</group>
+	<background splitType="Stretch"/>
+	<title splitType="Stretch"/>
+	<pageHeader splitType="Stretch"/>
+	<columnHeader splitType="Stretch"/>
+	<detail>
+		<band height="41" splitType="Stretch">
+			<element kind="rectangle" uuid="e3223f5b-2c20-4a62-878e-e04ec6894e8b" stretchType="ContainerHeight" mode="Opaque" x="4" y="1" width="550" height="40" backcolor="#FFFFFF">
+				<property name="com.jaspersoft.studio.unit.width" value="px"/>
+			</element>
+			<element kind="line" uuid="8d815da3-fe0a-4899-8d71-0a6aef4a671a" x="184" y="1" width="1" height="39"/>
+			<element kind="line" uuid="5286f5cf-c5a4-4d44-ae92-1786f5ad53a6" x="274" y="1" width="1" height="39"/>
+			<element kind="line" uuid="f4390efb-cef1-45aa-9a1b-544bad587f0c" x="362" y="2" width="1" height="39"/>
+			<element kind="line" uuid="d9728eba-5676-49d5-93d7-c9d5a68bd8ab" x="456" y="2" width="1" height="39"/>
+			<element kind="textField" uuid="7eeae10b-1899-4f51-a11d-ff000502476d" x="10" y="5" width="165" height="30" textAdjust="StretchHeight">
+				<expression><![CDATA[$F{denominationOpcvm}]]></expression>
+			</element>
+			<element kind="textField" uuid="21a28ea9-36ca-4a17-a371-76e87276d8f0" x="190" y="6" width="80" height="30" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{nombrePartActuel}]]></expression>
+			</element>
+			<element kind="textField" uuid="a16c4b54-916a-4814-8ee6-24af35711ca6" x="281" y="5" width="77" height="30" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{valeurLiquidativeActuelle}]]></expression>
+			</element>
+			<element kind="textField" uuid="aa7c5ad9-9f64-4136-90b3-1e09411587ab" x="366" y="6" width="86" height="30" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{valoInitial}]]></expression>
+			</element>
+			<element kind="textField" uuid="f4a5c7cd-4f1e-4f92-8c7c-171094a71cb3" x="460" y="6" width="94" height="30" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{valorisation}]]></expression>
+			</element>
+		</band>
+	</detail>
+	<columnFooter splitType="Stretch"/>
+	<pageFooter height="54" splitType="Stretch">
+		<element kind="staticText" uuid="a400aeca-618d-41bf-9f14-dea54447a62e" x="3" y="8" width="120" height="26" fontName="Segoe UI">
+			<text><![CDATA[Edité avec OPCCIEL 2.0]]></text>
+		</element>
+		<element kind="textField" uuid="991920b9-20e3-48d3-88b8-44931dec188c" x="448" y="8" width="100" height="25" hTextAlign="Right">
+			<expression><![CDATA[$V{PAGE_NUMBER}]]></expression>
+		</element>
+	</pageFooter>
+	<summary height="42" splitType="Stretch"/>
+</jasperReport>

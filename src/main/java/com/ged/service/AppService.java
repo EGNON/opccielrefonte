@@ -3544,6 +3544,41 @@ public class AppService {
 
     }
 
+    //HistoriqueVL
+    public ResponseEntity<?> afficherHistoriqueVL(HistoriqueVLRequest request) {
+        var parameters = request.getDatatableParameters();
+        try {
+            Pageable pageable = PageRequest.of(parameters.getStart()/parameters.getLength(),parameters.getLength());
+            Page<HistoriqueVLProjection> historiqueVLPage;
+            if (parameters.getSearch() !=null && !parameters.getSearch().getValue().isEmpty()) {
+                historiqueVLPage = new PageImpl<>(new ArrayList<>());
+            }
+            else {
+                historiqueVLPage = libraryDao.historiqueVL(
+                        request.getIdOpcvm(), request.getDateDebut(), request.getDateFin(), pageable
+                );
+            }
+            List<HistoriqueVLProjection> content = historiqueVLPage.getContent().stream().toList();
+            DataTablesResponse<HistoriqueVLProjection> dataTablesResponse = new DataTablesResponse<>();
+            dataTablesResponse.setDraw(parameters.getDraw());
+            dataTablesResponse.setRecordsFiltered((int)historiqueVLPage.getTotalElements());
+            dataTablesResponse.setRecordsTotal((int)historiqueVLPage.getTotalElements());
+            dataTablesResponse.setData(content);
+            return ResponseHandler.generateResponse(
+                    "Historique VL",
+                    HttpStatus.OK,
+                    historiqueVLPage
+            );
+        }
+        catch (Exception e) {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e
+            );
+        }
+    }
+
     //PointPeriodiqueTAFA
     public ResponseEntity<?> afficherPointPeriodiqueTAFA(PointPeriodiqueTAFARequest request) {
         var parameters = request.getDatatableParameters();
@@ -4722,6 +4757,124 @@ public class AppService {
                 HttpStatus.OK,
                 portefeuilleActionnaireProjections);
 
+    }
+
+    //PortefeuilleActionnaireF2
+    public void afficherPortefeuilleActionnaireF2(PortefeuilleActionnaireRequest request, HttpServletResponse response) throws JRException,IOException, SQLException {
+
+        InputStream rapportStream = null;
+        InputStream subreportStream = null;
+
+        List<PortefeuilleActionnaireProjection> portefeuilleActionnaireProjections = libraryDao.portefeuilleActionnaire(
+                request.getIdOpcvm(), request.getIdActionnaire(),request.getDateDebutEstimation(), request.getDateEstimation()
+        );
+
+        rapportStream = getClass().getResourceAsStream("/PortefeuilleActionnaireF2.jrxml");
+
+        JasperReport rapportPrincipal = JasperCompileManager.compileReport(rapportStream);
+
+        Map<String, Object> parameters = new HashMap<>();
+        DateFormat dateFormatter = new SimpleDateFormat("dd MM yyyy");
+        String letterDate = dateFormatter.format(new Date());
+        parameters.put("letterDate", letterDate);
+        LocalDateTime dateDebut = request.getDateDebutEstimation();
+        parameters.put("dateDebutEstimation", dateDebut);
+        LocalDateTime dateFin = request.getDateEstimation();
+        parameters.put("dateEstimation", dateFin);
+        parameters.put("idActionnaireList", request.getIdActionnaire());
+        parameters.put("idActionnaire", request.getIdActionnaire());
+
+        Connection connection = null;
+
+        try {
+            connection = dataSource.getConnection();
+            JasperPrint print = JasperFillManager.fillReport(
+                    rapportPrincipal,
+                    parameters,
+                    connection
+            );
+            JasperExportManager.exportReportToPdfStream(print, response.getOutputStream());
+        } finally {
+            if (connection != null) connection.close();
+        }
+    }
+
+    public ResponseEntity<?> afficherPortefeuilleActionnaireF2(PortefeuilleActionnaireRequest request) {
+        try {
+            List<PortefeuilleActionnaireProjection> portefeuilleActionnaireProjections = libraryDao.portefeuilleActionnaire(
+                    request.getIdOpcvm(), request.getIdActionnaire(), request.getDateDebutEstimation(), request.getDateEstimation()
+            );
+            return ResponseHandler.generateResponse(
+                    "Portefeuille actionnaire format 2",
+                    HttpStatus.OK,
+                    portefeuilleActionnaireProjections
+            );
+        }
+        catch (Exception e) {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e
+            );
+        }
+
+
+    }
+
+    //PortefeuilleActionnaireFinAnnee
+    public void afficherPortefeuilleActionnaireFinAnnee(PortefeuilleActionnaireRequest request, HttpServletResponse response) throws JRException,IOException {
+
+        InputStream rapportStream = null;
+        InputStream subreportStream = null;
+
+        List<PortefeuilleActionnaireProjection> portefeuilleActionnaireProjections = libraryDao.portefeuilleActionnaire(
+                request.getIdOpcvm(), request.getIdActionnaire(), request.getDateDebutEstimation(), request.getDateEstimation()
+        );
+
+        rapportStream = getClass().getResourceAsStream("/PortefeuilleActionnaireFinAnnee.jrxml");
+
+        JasperReport rapportPrincipal = JasperCompileManager.compileReport(rapportStream);
+
+        Map<String, Object> parameters = new HashMap<>();
+        DateFormat dateFormatter = new SimpleDateFormat("dd MM yyyy");
+        String letterDate = dateFormatter.format(new Date());
+        parameters.put("letterDate", letterDate);
+        LocalDateTime dateDebut = request.getDateDebutEstimation();
+        parameters.put("dateDebutEstimation", dateDebut);
+        LocalDateTime dateFin = request.getDateEstimation();
+        parameters.put("dateEstimation", dateFin);
+        parameters.put("idActionnaireList", request.getIdActionnaire());
+        parameters.put("idActionnaire", request.getIdActionnaire());
+
+        JasperPrint print = JasperFillManager.fillReport(
+                rapportPrincipal,
+                parameters,
+                new JRBeanCollectionDataSource(portefeuilleActionnaireProjections)
+        );
+        JasperExportManager.exportReportToPdfStream(print,response.getOutputStream());
+
+
+    }
+
+    public ResponseEntity<?> afficherPortefeuilleActionnaireFinAnnee(PortefeuilleActionnaireRequest request) {
+
+        try {
+            List<PortefeuilleActionnaireProjection> portefeuilleActionnaireProjections = libraryDao.portefeuilleActionnaire(
+                    request.getIdOpcvm(), request.getIdActionnaire(), request.getDateDebutEstimation(), request.getDateEstimation()
+            );
+            return ResponseHandler.generateResponse(
+                    "Portefeuille actionnaire fin d'annee",
+                    HttpStatus.OK,
+                    portefeuilleActionnaireProjections
+            );
+        }
+        catch (Exception e) {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e
+            );
+        }
     }
 
     //point repartition portefeuille
