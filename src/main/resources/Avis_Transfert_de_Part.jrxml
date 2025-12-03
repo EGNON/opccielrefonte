@@ -61,18 +61,21 @@
 		<property name="com.jaspersoft.studio.field.name" value="dateFin"/>
 		<property name="com.jaspersoft.studio.field.label" value="dateFin"/>
 	</field>
-	<group name="Group1">
+	<group name="Group1" startNewPage="true">
 		<expression><![CDATA[$F{idOperationDepart}]]></expression>
 		<groupHeader>
-			<band height="54">
-				<element kind="rectangle" uuid="21a5446b-fffb-4ab3-96d5-6e14e7b4c04a" x="3" y="7" width="797" height="25" backcolor="#BDD7EE">
+			<band height="74">
+				<element kind="rectangle" uuid="21a5446b-fffb-4ab3-96d5-6e14e7b4c04a" x="3" y="24" width="797" height="25" backcolor="#BDD7EE">
 					<pen lineColor="#3B88D1"/>
 				</element>
-				<element kind="staticText" uuid="52564ade-9fe0-441b-94b6-18543829a60e" x="153" y="14" width="496" height="17" fontSize="10.0" bold="true" hTextAlign="Center">
+				<element kind="staticText" uuid="52564ade-9fe0-441b-94b6-18543829a60e" x="153" y="31" width="496" height="17" fontSize="10.0" bold="true" hTextAlign="Center">
 					<text><![CDATA[AVIS DE TRANSFERT DE PARTS]]></text>
 				</element>
-				<element kind="staticText" uuid="8970e219-a4d5-4f63-924c-1425e6b92808" x="3" y="39" width="537" height="15">
+				<element kind="staticText" uuid="8970e219-a4d5-4f63-924c-1425e6b92808" x="3" y="56" width="537" height="15">
 					<text><![CDATA[Nous avons exécuté pour les comptes titres suivants ce qui suit :]]></text>
+				</element>
+				<element kind="textField" uuid="f199b24c-e3bd-460d-9088-47d27df864d7" x="5" y="2" width="217" height="16">
+					<expression><![CDATA["Cotonou, le "+$P{letterDate}]]></expression>
 				</element>
 			</band>
 		</groupHeader>
@@ -81,11 +84,7 @@
 		</groupFooter>
 	</group>
 	<background splitType="Stretch"/>
-	<title height="19" splitType="Stretch">
-		<element kind="textField" uuid="f199b24c-e3bd-460d-9088-47d27df864d7" x="3" y="3" width="217" height="16">
-			<expression><![CDATA["Cotonou, le "+$P{letterDate}]]></expression>
-		</element>
-	</title>
+	<title height="7" splitType="Stretch"/>
 	<pageHeader splitType="Stretch"/>
 	<columnHeader splitType="Stretch"/>
 	<detail>
@@ -235,16 +234,16 @@
 				<expression><![CDATA[$F{idOperationArrivée}]]></expression>
 			</element>
 			<element kind="textField" uuid="d9cff8f3-2cad-4dfc-85dc-9958fb694434" x="270" y="138" width="99" height="15" pattern="EE dd/MM/yyyy" blankWhenNull="true">
-				<expression><![CDATA[$F{dateOperation}]]></expression>
+				<expression><![CDATA[$F{dateOperation}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"))]]></expression>
 			</element>
 			<element kind="textField" uuid="8f88b07b-e69e-4e2c-95fa-e1c9d1b777a9" x="270" y="164" width="99" height="15" pattern="EE dd/MM/yyyy" blankWhenNull="true">
-				<expression><![CDATA[$F{dateOperation}]]></expression>
+				<expression><![CDATA[$F{dateOperation}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"))]]></expression>
 			</element>
 			<element kind="textField" uuid="38c31935-b509-424c-ab23-a3653be99507" x="375" y="138" width="96" height="15" pattern="EE dd/MM/yyyy" blankWhenNull="true">
-				<expression><![CDATA[$F{dateOperation}]]></expression>
+				<expression><![CDATA[$F{dateOperation}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"))]]></expression>
 			</element>
 			<element kind="textField" uuid="b3286f03-4e60-4d4f-9334-611d1bdcb567" x="375" y="164" width="96" height="15" pattern="EE dd/MM/yyyy" blankWhenNull="true">
-				<expression><![CDATA[$F{dateOperation}]]></expression>
+				<expression><![CDATA[$F{dateOperation}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"))]]></expression>
 			</element>
 			<element kind="textField" uuid="1184c7e3-97b6-4d44-9e27-5545d8a01016" x="476" y="138" width="221" height="15">
 				<expression><![CDATA[$F{typeFCP}]]></expression>

@@ -15,6 +15,7 @@ public interface CompteComptableService {
     ResponseEntity<Object> afficherSelonPlanEtEstMvt(String codePlan,boolean estMvt);
     CompteComptable afficherSelonId(CleCompteComptable idCompteComptable);
     ResponseEntity<Object> afficher(CleCompteComptable idCompteComptable);
+    ResponseEntity<Object> afficherTousCompte();
     ResponseEntity<Object> creer(CompteComptableDto compteComptableDto);
     ResponseEntity<Object> modifier(CompteComptableDto compteComptableDto);
     ResponseEntity<Object> supprimer(CleCompteComptable idCompteComptable);

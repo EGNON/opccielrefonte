@@ -200,6 +200,23 @@ public class CompteComptableServiceImpl implements CompteComptableService {
     }
 
     @Override
+    public ResponseEntity<Object> afficherTousCompte() {
+        try {
+            return ResponseHandler.generateResponse(
+                    "Compte Comptable",
+                    HttpStatus.OK,
+                    compteComptableDao.afficherCompteComptable());
+        }
+        catch (Exception e)
+        {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e);
+        }
+    }
+
+    @Override
     public ResponseEntity<Object> creer(CompteComptableDto compteComptableDto) {
         try {
             CompteComptable compteComptable = compteComptableMapper.deCompteComptableDto(compteComptableDto);

@@ -3,6 +3,7 @@ package com.ged.dao.opcciel.comptabilite;
 import com.ged.entity.opcciel.comptabilite.CleCompteComptable;
 import com.ged.entity.opcciel.comptabilite.CompteComptable;
 import com.ged.entity.opcciel.comptabilite.Plan;
+import com.ged.projection.CompteComptableProjection;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -25,4 +26,9 @@ public interface CompteComptableDao extends JpaRepository<CompteComptable, CleCo
             "or c.plan.libellePlan like %:valeur%) " +
             "and c.supprimer=false")
     Page<CompteComptable> rechercher(String valeur,Pageable pageable);
+
+    @Query(value = "select c.numCompteComptable as numCompteComptable," +
+            "concat(c.numCompteComptable,'-',c.libelleCompteComptable) as libelleCompteComptable from CompteComptable c " +
+            "where c.supprimer=false")
+    List<CompteComptableProjection> afficherCompteComptable();
 }

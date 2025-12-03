@@ -18,7 +18,7 @@ public interface AvisTransfertPartProjection {
     String getNumCompteDepositaireBeneficiaire();
     LocalDateTime getDateOperation();
     String getTypeFCP();
-    BigDecimal qteTransfert();
+    BigDecimal getQteTransfert();
     Long getIdOperation();
     Long getIdOpcvm();
     LocalDateTime getDateDeb();
