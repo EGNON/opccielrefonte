@@ -1031,6 +1031,50 @@ public class LibraryController {
         service.afficherDocumentSeanceListeVerificationCodePoste(request,response);
     }
 
+    //historiquevl
+    @PostMapping("/opcvm/historiquevl")
+    public ResponseEntity<?> afficherhistoriquevl(@RequestBody @Valid HistoriqueVLRequest request){
+        return service.afficherHistoriqueVL(request);
+    }
+
+    //portefeuilleactionnaireformat2
+    @PostMapping("/opcvm/etats/portefeuilleactionnaireformat2")
+    public void afficherportefeuilleactionnaire (@RequestBody @Valid PortefeuilleActionnaireRequest request, HttpServletResponse response) throws JRException, IOException, SQLException {
+
+        response.setContentType("application/pdf");
+        DateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy:hh:mm:ss");
+        String currentDateTime = dateFormatter.format(new Date());
+
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachement; filename=Portefeuille actionnaire format 2"+currentDateTime+".pdf";
+        response.setHeader(headerKey,headerValue);
+
+        service.afficherPortefeuilleActionnaireF2(request,response);
+    }
+    @PostMapping("/opcvm/portefeuilleactionnaireformat2/list")
+    public ResponseEntity<?> afficherportefeuilleactionnaireformat2(@RequestBody @Valid PortefeuilleActionnaireRequest request) {
+        return service.afficherPortefeuilleActionnaireF2(request);
+    }
+
+    //portefeuilleactionnairefinannee
+    @PostMapping("/opcvm/etats/portefeuilleactionnairefinannee")
+    public void portefeuilleactionnairefinannee(@RequestBody @Valid PortefeuilleActionnaireRequest request, HttpServletResponse response) throws JRException,IOException {
+
+        response.setContentType("application/pdf");
+        DateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy:hh:mm:ss");
+        String currentDateTime = dateFormatter.format(new Date());
+
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachement; filename=Portefeuille actionnaire fin annee"+currentDateTime+".pdf";
+        response.setHeader(headerKey,headerValue);
+
+        service.afficherPortefeuilleActionnaireFinAnnee(request,response);
+    }
+    @PostMapping("/opcvm/portefeuilleactionnairefinannee/list")
+    public ResponseEntity<?> portefeuilleactionnairefinannee(@RequestBody @Valid PortefeuilleActionnaireRequest request) {
+        return service.afficherPortefeuilleActionnaireFinAnnee(request);
+    }
+
     //etatfinanciertrimestrieletatmensuelsouscriptions
     @PostMapping("/opcvm/etats/etatfinanciertrimestrieletatmensuelsouscriptions")
     public void etatfinanciertrimestrieletatmensuelsouscriptions(@RequestBody @Valid EtatFinancierTrimestrielBilanTrimestrielRequest request, HttpServletResponse response) throws JRException, IOException {

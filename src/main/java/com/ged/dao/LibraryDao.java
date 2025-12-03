@@ -183,6 +183,9 @@ public interface LibraryDao extends JpaRepository<BaseEntity, Long> {
     @Query(value = "select * from [Operation].[FT_OperationDifferenceEstimation_New](:idSeance,:idOpcvm,:estVerifie1,:estVerifie2,:supprimer)", nativeQuery = true)
     List<DocumentSeanceListeVerificationVdeProjection> documentSeanceListeVerificationVde(Long idSeance, Long idOpcvm, Boolean estVerifie1, Boolean estVerifie2, Boolean supprimer);
 
+    @Query(value = "select * from [Parametre].[FT_HistoriqueVL_New] (:idOpcvm,:dateDebut,:dateFin)", nativeQuery = true)
+    Page<HistoriqueVLProjection> historiqueVL(Long idOpcvm, LocalDateTime dateDebut, LocalDateTime dateFin, Pageable pageable);
+
     @Query(value = "select * from [Impressions].[FT_CompositionDetailleActif_New] (:idOpcvm,:dateEstimation)", nativeQuery = true)
     List<CompositionDetailleActifProjection> compositionDetailleActif(Long idOpcvm, LocalDateTime dateEstimation);
 
