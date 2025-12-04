@@ -1032,9 +1032,13 @@ public class LibraryController {
     }
 
     //historiquevl
-    @PostMapping("/opcvm/historiquevl")
-    public ResponseEntity<?> afficherhistoriquevl(@RequestBody @Valid HistoriqueVLRequest request){
-        return service.afficherHistoriqueVL(request);
+//    @PostMapping("/opcvm/historiquevl")
+//    public ResponseEntity<?> afficherhistoriquevl(@RequestBody @Valid HistoriqueVLRequest request){
+//        return service.afficherHistoriqueVL(request);
+//    }
+    @PostMapping("/opcvm/historiquevl/liste")
+    public ResponseEntity<?> afficherhistoriquevlliste(@RequestBody @Valid HistoriqueVLRequest request){
+        return service.afficherHistoriqueVLListe(request);
     }
 
     //portefeuilleactionnaireformat2

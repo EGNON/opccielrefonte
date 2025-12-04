@@ -13,9 +13,9 @@
 		<property name="com.jaspersoft.studio.field.name" value="idTitre"/>
 		<property name="com.jaspersoft.studio.field.label" value="idTitre"/>
 	</field>
-	<field name="IdTransaction" class="java.lang.Long">
-		<property name="com.jaspersoft.studio.field.name" value="IdTransaction"/>
-		<property name="com.jaspersoft.studio.field.label" value="IdTransaction"/>
+	<field name="idTransaction" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="idTransaction"/>
+		<property name="com.jaspersoft.studio.field.label" value="idTransaction"/>
 	</field>
 	<field name="idSeance" class="java.lang.Long">
 		<property name="com.jaspersoft.studio.field.name" value="idSeance"/>
@@ -25,7 +25,7 @@
 		<property name="com.jaspersoft.studio.field.name" value="codeNatureOperation"/>
 		<property name="com.jaspersoft.studio.field.label" value="codeNatureOperation"/>
 	</field>
-	<field name="dateOperation" class="java.sql.Date">
+	<field name="dateOperation" class="java.time.LocalDateTime">
 		<property name="com.jaspersoft.studio.field.name" value="dateOperation"/>
 		<property name="com.jaspersoft.studio.field.label" value="dateOperation"/>
 	</field>
@@ -33,15 +33,15 @@
 		<property name="com.jaspersoft.studio.field.name" value="libelleOperation"/>
 		<property name="com.jaspersoft.studio.field.label" value="libelleOperation"/>
 	</field>
-	<field name="dateSaisie" class="java.sql.Date">
+	<field name="dateSaisie" class="java.time.LocalDateTime">
 		<property name="com.jaspersoft.studio.field.name" value="dateSaisie"/>
 		<property name="com.jaspersoft.studio.field.label" value="dateSaisie"/>
 	</field>
-	<field name="datePiece" class="java.sql.Date">
+	<field name="datePiece" class="java.time.LocalDateTime">
 		<property name="com.jaspersoft.studio.field.name" value="datePiece"/>
 		<property name="com.jaspersoft.studio.field.label" value="datePiece"/>
 	</field>
-	<field name="dateValeur" class="java.sql.Date">
+	<field name="dateValeur" class="java.time.LocalDateTime">
 		<property name="com.jaspersoft.studio.field.name" value="dateValeur"/>
 		<property name="com.jaspersoft.studio.field.label" value="dateValeur"/>
 	</field>
@@ -77,19 +77,7 @@
 		<property name="com.jaspersoft.studio.field.name" value="estExtournee"/>
 		<property name="com.jaspersoft.studio.field.label" value="estExtournee"/>
 	</field>
-	<field name="estOpExtournee" class="java.lang.Boolean">
-		<property name="com.jaspersoft.studio.field.name" value="estOpExtournee"/>
-		<property name="com.jaspersoft.studio.field.label" value="estOpExtournee"/>
-	</field>
-	<field name="idOpExtournee" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.name" value="idOpExtournee"/>
-		<property name="com.jaspersoft.studio.field.label" value="idOpExtournee"/>
-	</field>
-	<field name="estVerifie1" class="java.lang.Boolean">
-		<property name="com.jaspersoft.studio.field.name" value="estVerifie1"/>
-		<property name="com.jaspersoft.studio.field.label" value="estVerifie1"/>
-	</field>
-	<field name="dateVerification1" class="java.sql.Date">
+	<field name="dateVerification1" class="java.time.LocalDateTime">
 		<property name="com.jaspersoft.studio.field.name" value="dateVerification1"/>
 		<property name="com.jaspersoft.studio.field.label" value="dateVerification1"/>
 	</field>
@@ -97,11 +85,7 @@
 		<property name="com.jaspersoft.studio.field.name" value="userLoginVerificateur1"/>
 		<property name="com.jaspersoft.studio.field.label" value="userLoginVerificateur1"/>
 	</field>
-	<field name="estVerifie2" class="java.lang.Boolean">
-		<property name="com.jaspersoft.studio.field.name" value="estVerifie2"/>
-		<property name="com.jaspersoft.studio.field.label" value="estVerifie2"/>
-	</field>
-	<field name="dateVerification2" class="java.sql.Date">
+	<field name="dateVerification2" class="java.time.LocalDateTime">
 		<property name="com.jaspersoft.studio.field.name" value="dateVerification2"/>
 		<property name="com.jaspersoft.studio.field.label" value="dateVerification2"/>
 	</field>
@@ -109,33 +93,9 @@
 		<property name="com.jaspersoft.studio.field.name" value="userLoginVerificateur2"/>
 		<property name="com.jaspersoft.studio.field.label" value="userLoginVerificateur2"/>
 	</field>
-	<field name="idMvt" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.name" value="idMvt"/>
-		<property name="com.jaspersoft.studio.field.label" value="idMvt"/>
-	</field>
-	<field name="codePlan" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.name" value="codePlan"/>
-		<property name="com.jaspersoft.studio.field.label" value="codePlan"/>
-	</field>
-	<field name="numeroOdreModele" class="java.lang.Integer">
-		<property name="com.jaspersoft.studio.field.name" value="numeroOdreModele"/>
-		<property name="com.jaspersoft.studio.field.label" value="numeroOdreModele"/>
-	</field>
-	<field name="codeModeleEcriture" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.name" value="codeModeleEcriture"/>
-		<property name="com.jaspersoft.studio.field.label" value="codeModeleEcriture"/>
-	</field>
-	<field name="numeroOdreLigneMvt" class="java.lang.Integer">
-		<property name="com.jaspersoft.studio.field.name" value="numeroOdreLigneMvt"/>
-		<property name="com.jaspersoft.studio.field.label" value="numeroOdreLigneMvt"/>
-	</field>
 	<field name="numCompteComptable" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.name" value="numCompteComptable"/>
 		<property name="com.jaspersoft.studio.field.label" value="numCompteComptable"/>
-	</field>
-	<field name="sensMvt" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.name" value="sensMvt"/>
-		<property name="com.jaspersoft.studio.field.label" value="sensMvt"/>
 	</field>
 	<field name="valeur" class="java.math.BigDecimal">
 		<property name="com.jaspersoft.studio.field.name" value="valeur"/>
@@ -148,10 +108,6 @@
 	<field name="credit" class="java.math.BigDecimal">
 		<property name="com.jaspersoft.studio.field.name" value="credit"/>
 		<property name="com.jaspersoft.studio.field.label" value="credit"/>
-	</field>
-	<field name="typeValeur" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.name" value="typeValeur"/>
-		<property name="com.jaspersoft.studio.field.label" value="typeValeur"/>
 	</field>
 	<field name="iB" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.name" value="iB"/>
@@ -169,11 +125,11 @@
 		<property name="com.jaspersoft.studio.field.name" value="libelleCompteComptable"/>
 		<property name="com.jaspersoft.studio.field.label" value="libelleCompteComptable"/>
 	</field>
-	<field name="dateDebut" class="java.sql.Date">
+	<field name="dateDebut" class="java.time.LocalDateTime">
 		<property name="com.jaspersoft.studio.field.name" value="dateDebut"/>
 		<property name="com.jaspersoft.studio.field.label" value="dateDebut"/>
 	</field>
-	<field name="dateFin" class="java.sql.Date">
+	<field name="dateFin" class="java.time.LocalDateTime">
 		<property name="com.jaspersoft.studio.field.name" value="dateFin"/>
 		<property name="com.jaspersoft.studio.field.label" value="dateFin"/>
 	</field>
@@ -231,7 +187,7 @@
 					<expression><![CDATA[$F{idOperation}]]></expression>
 				</element>
 				<element kind="textField" uuid="c8223aea-a8a4-46ba-83dd-100d7602e1be" x="137" y="39" width="358" height="14" blankWhenNull="false">
-					<expression><![CDATA[$F{IdTransaction}]]></expression>
+					<expression><![CDATA[$F{idTransaction}]]></expression>
 				</element>
 				<element kind="textField" uuid="c6aa7419-023b-4076-bcb0-ee5ba3f6a7a3" x="510" y="39" width="138" height="14" pattern="EE dd/MM/yyyy" blankWhenNull="true">
 					<expression><![CDATA[$F{dateOperation}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"))]]></expression>
@@ -278,7 +234,7 @@
 			</band>
 		</groupHeader>
 		<groupFooter>
-			<band height="145">
+			<band height="39">
 				<element kind="rectangle" uuid="55d89c47-105f-450b-9681-a9105bc10b61" x="394" y="1" width="405" height="25" backcolor="#FFFFFF">
 					<pen lineColor="#3B88D1"/>
 				</element>
@@ -290,66 +246,6 @@
 				</element>
 				<element kind="line" uuid="dc4b1f09-de79-407b-aefa-8297903b79b8" x="505" y="1" width="1" height="25">
 					<pen lineColor="#3B88D1"/>
-				</element>
-				<element kind="rectangle" uuid="13301fa5-f91c-41de-9aa2-20ad46739219" x="64" y="62" width="222" height="25" backcolor="#FFFFFF">
-					<pen lineColor="#3B88D1"/>
-				</element>
-				<element kind="staticText" uuid="55fa9f12-df7b-45ba-966a-807a8dc673e6" x="83" y="67" width="182" height="17" fontSize="10.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
-					<text><![CDATA[VERIFICATION N1]]></text>
-				</element>
-				<element kind="rectangle" uuid="9b47bb44-33ba-4ee3-ba45-f153bc5f25a7" x="3" y="94" width="340" height="25" backcolor="#BDD7EE">
-					<pen lineColor="#3B88D1"/>
-				</element>
-				<element kind="staticText" uuid="4b12b9e3-4a54-4fe0-9675-8c334a01eeee" x="11" y="99" width="159" height="17" fontSize="10.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
-					<text><![CDATA[DATE VERIFICATION]]></text>
-				</element>
-				<element kind="line" uuid="29e821d6-5046-4e62-96e3-81cb17a1e3ba" stretchType="ContainerHeight" x="179" y="94" width="1" height="25">
-					<pen lineColor="#3B88D1"/>
-				</element>
-				<element kind="staticText" uuid="1396246e-1160-4e9c-b5eb-72c5981ad054" x="188" y="99" width="147" height="17" fontSize="10.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
-					<text><![CDATA[VERIFICATEUR]]></text>
-				</element>
-				<element kind="rectangle" uuid="9aca09d1-03eb-42bd-afe9-6327e0ab7635" x="3" y="120" width="340" height="25" backcolor="#FFFFFF">
-					<pen lineColor="#3B88D1"/>
-				</element>
-				<element kind="line" uuid="b80e3ec5-8a8e-4ddf-a19a-86d134bff628" stretchType="ContainerHeight" x="179" y="120" width="1" height="25">
-					<pen lineColor="#3B88D1"/>
-				</element>
-				<element kind="rectangle" uuid="352d6a0e-b44b-4cc5-bc9a-7a7df87a1248" x="520" y="62" width="222" height="25" backcolor="#FFFFFF">
-					<pen lineColor="#3B88D1"/>
-				</element>
-				<element kind="staticText" uuid="359d7a51-d398-40b8-b3ee-ecf7ad42ddce" x="539" y="67" width="182" height="17" fontSize="10.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
-					<text><![CDATA[VERIFICATION N2]]></text>
-				</element>
-				<element kind="rectangle" uuid="7d99a472-be2c-4bf4-a7a7-10c92ea64079" x="459" y="94" width="340" height="25" backcolor="#BDD7EE">
-					<pen lineColor="#3B88D1"/>
-				</element>
-				<element kind="staticText" uuid="0ec077b9-8176-47de-ae47-ed77ca7f77fb" x="467" y="99" width="163" height="17" fontSize="10.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
-					<text><![CDATA[DATE VERIFICATION]]></text>
-				</element>
-				<element kind="line" uuid="96e043cb-7dff-492f-90d6-18f0ab770f27" stretchType="ContainerHeight" x="635" y="94" width="1" height="25">
-					<pen lineColor="#3B88D1"/>
-				</element>
-				<element kind="staticText" uuid="2cb7bed5-4fc2-4d2f-9d56-ddcccb4d2893" x="640" y="99" width="154" height="17" fontSize="10.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
-					<text><![CDATA[VERIFICATEUR]]></text>
-				</element>
-				<element kind="rectangle" uuid="a898932e-387d-40ea-9e06-95a5a6b8c633" x="459" y="120" width="340" height="25" backcolor="#FFFFFF">
-					<pen lineColor="#3B88D1"/>
-				</element>
-				<element kind="line" uuid="2570e0a5-c0c0-4fce-a89f-265a6b911069" stretchType="ContainerHeight" x="635" y="120" width="1" height="25">
-					<pen lineColor="#3B88D1"/>
-				</element>
-				<element kind="textField" uuid="befe25e0-292f-416b-809b-960e3b3bfb2d" x="11" y="125" width="159" height="14" pattern="EE dd/MM/yyyy" blankWhenNull="true" hTextAlign="Center">
-					<expression><![CDATA[$F{dateVerification1}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"))]]></expression>
-				</element>
-				<element kind="textField" uuid="ab267198-67bf-42e2-b224-dff038691414" x="188" y="125" width="147" height="14" hTextAlign="Center">
-					<expression><![CDATA[$F{userLoginVerificateur1}]]></expression>
-				</element>
-				<element kind="textField" uuid="05bdc2b1-4eb4-42e2-b662-95921c435678" x="467" y="125" width="163" height="14" pattern="EE dd/MM/yyyy" blankWhenNull="true" hTextAlign="Center">
-					<expression><![CDATA[$F{dateVerification2}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"))]]></expression>
-				</element>
-				<element kind="textField" uuid="fdc4b043-2e86-4960-ac71-616e8f3997b4" x="640" y="125" width="154" height="14" hTextAlign="Center">
-					<expression><![CDATA[$F{userLoginVerificateur2}]]></expression>
 				</element>
 				<element kind="textField" uuid="4b1633a3-60ca-42e6-9ee4-7ca05f767eb7" x="510" y="6" width="138" height="15" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
 					<expression><![CDATA[$V{debit1}]]></expression>
@@ -369,7 +265,7 @@
 			<pen lineColor="#3B88D1"/>
 		</element>
 		<element kind="textField" uuid="65befee7-c545-4362-a447-f21f57fb01ca" x="152" y="33" width="504" height="16">
-			<expression><![CDATA["LISTE DE VERIFICATION DES ECRITURES NIVEAU "+"(2) "+"DU "+$F{dateDebut}+" AU "+$F{dateFin}]]></expression>
+			<expression><![CDATA["LISTE DE VERIFICATION DES ECRITURES NIVEAU "+"(2) "+"DU "+$F{dateDebut}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"))+" AU "+$F{dateFin}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"))]]></expression>
 		</element>
 	</title>
 	<pageHeader splitType="Stretch"/>
@@ -411,5 +307,66 @@
 			<expression><![CDATA[$V{PAGE_NUMBER}]]></expression>
 		</element>
 	</pageFooter>
-	<summary height="42" splitType="Stretch"/>
+	<summary height="106" splitType="Stretch">
+		<element kind="rectangle" uuid="13301fa5-f91c-41de-9aa2-20ad46739219" x="61" y="6" width="222" height="25" backcolor="#FFFFFF">
+			<pen lineColor="#3B88D1"/>
+		</element>
+		<element kind="staticText" uuid="55fa9f12-df7b-45ba-966a-807a8dc673e6" x="80" y="11" width="182" height="17" fontSize="10.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[VERIFICATION N1]]></text>
+		</element>
+		<element kind="rectangle" uuid="9b47bb44-33ba-4ee3-ba45-f153bc5f25a7" x="0" y="38" width="340" height="25" backcolor="#BDD7EE">
+			<pen lineColor="#3B88D1"/>
+		</element>
+		<element kind="staticText" uuid="4b12b9e3-4a54-4fe0-9675-8c334a01eeee" x="8" y="43" width="159" height="17" fontSize="10.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[DATE VERIFICATION]]></text>
+		</element>
+		<element kind="line" uuid="29e821d6-5046-4e62-96e3-81cb17a1e3ba" stretchType="ContainerHeight" x="176" y="38" width="1" height="25">
+			<pen lineColor="#3B88D1"/>
+		</element>
+		<element kind="staticText" uuid="1396246e-1160-4e9c-b5eb-72c5981ad054" x="185" y="43" width="147" height="17" fontSize="10.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[VERIFICATEUR]]></text>
+		</element>
+		<element kind="rectangle" uuid="9aca09d1-03eb-42bd-afe9-6327e0ab7635" x="0" y="64" width="340" height="25" backcolor="#FFFFFF">
+			<pen lineColor="#3B88D1"/>
+		</element>
+		<element kind="line" uuid="b80e3ec5-8a8e-4ddf-a19a-86d134bff628" stretchType="ContainerHeight" x="176" y="64" width="1" height="25">
+			<pen lineColor="#3B88D1"/>
+		</element>
+		<element kind="rectangle" uuid="352d6a0e-b44b-4cc5-bc9a-7a7df87a1248" x="517" y="6" width="222" height="25" backcolor="#FFFFFF">
+			<pen lineColor="#3B88D1"/>
+		</element>
+		<element kind="staticText" uuid="359d7a51-d398-40b8-b3ee-ecf7ad42ddce" x="536" y="11" width="182" height="17" fontSize="10.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[VERIFICATION N2]]></text>
+		</element>
+		<element kind="rectangle" uuid="7d99a472-be2c-4bf4-a7a7-10c92ea64079" x="456" y="38" width="340" height="25" backcolor="#BDD7EE">
+			<pen lineColor="#3B88D1"/>
+		</element>
+		<element kind="staticText" uuid="0ec077b9-8176-47de-ae47-ed77ca7f77fb" x="464" y="43" width="163" height="17" fontSize="10.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[DATE VERIFICATION]]></text>
+		</element>
+		<element kind="line" uuid="96e043cb-7dff-492f-90d6-18f0ab770f27" stretchType="ContainerHeight" x="632" y="38" width="1" height="25">
+			<pen lineColor="#3B88D1"/>
+		</element>
+		<element kind="staticText" uuid="2cb7bed5-4fc2-4d2f-9d56-ddcccb4d2893" x="637" y="43" width="154" height="17" fontSize="10.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[VERIFICATEUR]]></text>
+		</element>
+		<element kind="rectangle" uuid="a898932e-387d-40ea-9e06-95a5a6b8c633" x="456" y="64" width="340" height="25" backcolor="#FFFFFF">
+			<pen lineColor="#3B88D1"/>
+		</element>
+		<element kind="line" uuid="2570e0a5-c0c0-4fce-a89f-265a6b911069" stretchType="ContainerHeight" x="632" y="64" width="1" height="25">
+			<pen lineColor="#3B88D1"/>
+		</element>
+		<element kind="textField" uuid="befe25e0-292f-416b-809b-960e3b3bfb2d" x="8" y="69" width="159" height="14" pattern="EE dd/MM/yyyy" blankWhenNull="true" hTextAlign="Center">
+			<expression><![CDATA[$F{dateVerification1}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"))]]></expression>
+		</element>
+		<element kind="textField" uuid="ab267198-67bf-42e2-b224-dff038691414" x="185" y="69" width="147" height="14" hTextAlign="Center">
+			<expression><![CDATA[$F{userLoginVerificateur1}]]></expression>
+		</element>
+		<element kind="textField" uuid="05bdc2b1-4eb4-42e2-b662-95921c435678" x="464" y="69" width="163" height="14" pattern="EE dd/MM/yyyy" blankWhenNull="true" hTextAlign="Center">
+			<expression><![CDATA[$F{dateVerification2}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"))]]></expression>
+		</element>
+		<element kind="textField" uuid="fdc4b043-2e86-4960-ac71-616e8f3997b4" x="637" y="69" width="154" height="14" hTextAlign="Center">
+			<expression><![CDATA[$F{userLoginVerificateur2}]]></expression>
+		</element>
+	</summary>
 </jasperReport>

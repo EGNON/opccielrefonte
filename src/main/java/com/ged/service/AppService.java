@@ -3588,38 +3588,51 @@ public class AppService {
     }
 
     //HistoriqueVL
-    public ResponseEntity<?> afficherHistoriqueVL(HistoriqueVLRequest request) {
-        var parameters = request.getDatatableParameters();
-        try {
-            Pageable pageable = PageRequest.of(parameters.getStart()/parameters.getLength(),parameters.getLength());
-            Page<HistoriqueVLProjection> historiqueVLPage;
-            if (parameters.getSearch() !=null && !parameters.getSearch().getValue().isEmpty()) {
-                historiqueVLPage = new PageImpl<>(new ArrayList<>());
-            }
-            else {
-                historiqueVLPage = libraryDao.historiqueVL(
-                        request.getIdOpcvm(), request.getDateDebut(), request.getDateFin(), pageable
-                );
-            }
-            List<HistoriqueVLProjection> content = historiqueVLPage.getContent().stream().toList();
-            DataTablesResponse<HistoriqueVLProjection> dataTablesResponse = new DataTablesResponse<>();
-            dataTablesResponse.setDraw(parameters.getDraw());
-            dataTablesResponse.setRecordsFiltered((int)historiqueVLPage.getTotalElements());
-            dataTablesResponse.setRecordsTotal((int)historiqueVLPage.getTotalElements());
-            dataTablesResponse.setData(content);
+//    public ResponseEntity<?> afficherHistoriqueVL(HistoriqueVLRequest request) {
+//        var parameters = request.getDatatableParameters();
+//        try {
+//            Pageable pageable = PageRequest.of(parameters.getStart()/parameters.getLength(),parameters.getLength());
+//            Page<HistoriqueVLProjection> historiqueVLPage;
+//            if (parameters.getSearch() !=null && !parameters.getSearch().getValue().isEmpty()) {
+//                historiqueVLPage = new PageImpl<>(new ArrayList<>());
+//            }
+//            else {
+//                historiqueVLPage = libraryDao.historiqueVL(
+//                        request.getIdOpcvm(), request.getDateDebut(), request.getDateFin(), pageable
+//                );
+//            }
+//            List<HistoriqueVLProjection> content = historiqueVLPage.getContent().stream().toList();
+//            DataTablesResponse<HistoriqueVLProjection> dataTablesResponse = new DataTablesResponse<>();
+//            dataTablesResponse.setDraw(parameters.getDraw());
+//            dataTablesResponse.setRecordsFiltered((int)historiqueVLPage.getTotalElements());
+//            dataTablesResponse.setRecordsTotal((int)historiqueVLPage.getTotalElements());
+//            dataTablesResponse.setData(content);
+//            return ResponseHandler.generateResponse(
+//                    "Historique VL",
+//                    HttpStatus.OK,
+//                    historiqueVLPage
+//            );
+//        }
+//        catch (Exception e) {
+//            return ResponseHandler.generateResponse(
+//                    e.getMessage(),
+//                    HttpStatus.MULTI_STATUS,
+//                    e
+//            );
+//        }
+//    }
+    public ResponseEntity<?> afficherHistoriqueVLListe(HistoriqueVLRequest request) {
+
+            List<HistoriqueVLProjection> historiqueVLProjections= libraryDao.historiqueVL(
+                    request.getIdOpcvm(), request.getDateDebut(), request.getDateFin()
+            );
+
             return ResponseHandler.generateResponse(
                     "Historique VL",
                     HttpStatus.OK,
-                    historiqueVLPage
+                    historiqueVLProjections
             );
-        }
-        catch (Exception e) {
-            return ResponseHandler.generateResponse(
-                    e.getMessage(),
-                    HttpStatus.MULTI_STATUS,
-                    e
-            );
-        }
+
     }
 
     //PointPeriodiqueTAFA
