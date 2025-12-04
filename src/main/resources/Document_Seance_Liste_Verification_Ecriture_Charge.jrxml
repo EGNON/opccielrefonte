@@ -234,10 +234,10 @@
 					<expression><![CDATA[$F{IdTransaction}]]></expression>
 				</element>
 				<element kind="textField" uuid="9c3e6aa0-077f-4f8d-8cfb-0a76a1a8220f" x="510" y="39" width="138" height="14" pattern="EE dd/MM/yyyy" blankWhenNull="true">
-					<expression><![CDATA[$F{dateOperation}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"))]]></expression>
+					<expression><![CDATA[$F{dateOperation}.format(java.time.format.DateTimeFormatter.ofPatterne("dd/MM/yyyy")]]></expression>
 				</element>
 				<element kind="textField" uuid="e9ec9781-a587-41ce-ba6a-6881b852b8bf" x="656" y="39" width="135" height="14" pattern="EE dd/MM/yyyy" blankWhenNull="true">
-					<expression><![CDATA[$F{dateValeur}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"))]]></expression>
+					<expression><![CDATA[$F{dateValeur}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy")]]></expression>
 				</element>
 				<element kind="rectangle" uuid="cdb31d02-fc59-47d9-960b-363239d93cdf" x="2" y="59" width="797" height="25" backcolor="#FFFFFF">
 					<pen lineColor="#3B88D1"/>
@@ -278,7 +278,7 @@
 			</band>
 		</groupHeader>
 		<groupFooter>
-			<band height="145">
+			<band height="26">
 				<element kind="rectangle" uuid="bec041b4-1d9b-433b-a196-153703316c7c" x="394" y="1" width="405" height="25" backcolor="#FFFFFF">
 					<pen lineColor="#3B88D1"/>
 				</element>
@@ -290,66 +290,6 @@
 				</element>
 				<element kind="line" uuid="d433ffd9-a8dd-46c5-8560-aea45cd65543" x="505" y="1" width="1" height="25">
 					<pen lineColor="#3B88D1"/>
-				</element>
-				<element kind="rectangle" uuid="ef6a497b-e87b-4448-a25a-ab2243224cdb" x="64" y="62" width="222" height="25" backcolor="#FFFFFF">
-					<pen lineColor="#3B88D1"/>
-				</element>
-				<element kind="staticText" uuid="f8e4464c-e460-466b-984e-ba06c91d9665" x="83" y="67" width="182" height="17" fontSize="10.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
-					<text><![CDATA[VERIFICATION N1]]></text>
-				</element>
-				<element kind="rectangle" uuid="ab00120d-93b0-4dad-9d7c-55752b37a953" x="3" y="94" width="340" height="25" backcolor="#BDD7EE">
-					<pen lineColor="#3B88D1"/>
-				</element>
-				<element kind="staticText" uuid="94085b77-ff72-4daf-8e99-43c862d45a40" x="11" y="99" width="159" height="17" fontSize="10.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
-					<text><![CDATA[DATE VERIFICATION]]></text>
-				</element>
-				<element kind="line" uuid="e6ef5987-61f5-4e85-a7bd-b2d262f3d1e0" stretchType="ContainerHeight" x="179" y="94" width="1" height="25">
-					<pen lineColor="#3B88D1"/>
-				</element>
-				<element kind="staticText" uuid="a7de0a70-7c1d-40cd-803e-cb070317074d" x="188" y="99" width="147" height="17" fontSize="10.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
-					<text><![CDATA[VERIFICATEUR]]></text>
-				</element>
-				<element kind="rectangle" uuid="86715070-8a55-4546-a119-1d8c40d3cd53" x="3" y="120" width="340" height="25" backcolor="#FFFFFF">
-					<pen lineColor="#3B88D1"/>
-				</element>
-				<element kind="line" uuid="3d67b397-dccb-4a53-b4b0-7bcfe17c3ad9" stretchType="ContainerHeight" x="179" y="120" width="1" height="25">
-					<pen lineColor="#3B88D1"/>
-				</element>
-				<element kind="rectangle" uuid="f7c94fbb-594e-45b7-ac83-1084c62f3c0a" x="520" y="62" width="222" height="25" backcolor="#FFFFFF">
-					<pen lineColor="#3B88D1"/>
-				</element>
-				<element kind="staticText" uuid="92f629b1-fa3a-4387-baf5-173d45407e06" x="539" y="67" width="182" height="17" fontSize="10.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
-					<text><![CDATA[VERIFICATION N2]]></text>
-				</element>
-				<element kind="rectangle" uuid="146d8e5b-939a-461a-a680-f2148b4d1649" x="459" y="94" width="340" height="25" backcolor="#BDD7EE">
-					<pen lineColor="#3B88D1"/>
-				</element>
-				<element kind="staticText" uuid="70ad3d3f-8233-4483-a669-ba9599b20a2d" x="467" y="99" width="163" height="17" fontSize="10.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
-					<text><![CDATA[DATE VERIFICATION]]></text>
-				</element>
-				<element kind="line" uuid="a8997456-caff-40ab-ac39-69c83250946b" stretchType="ContainerHeight" x="635" y="94" width="1" height="25">
-					<pen lineColor="#3B88D1"/>
-				</element>
-				<element kind="staticText" uuid="77ac74c1-cc83-4165-b4fe-40f355bd0605" x="640" y="99" width="154" height="17" fontSize="10.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
-					<text><![CDATA[VERIFICATEUR]]></text>
-				</element>
-				<element kind="rectangle" uuid="a3171dac-b596-4e32-beb3-bdf349a8387e" x="459" y="120" width="340" height="25" backcolor="#FFFFFF">
-					<pen lineColor="#3B88D1"/>
-				</element>
-				<element kind="line" uuid="784511e0-9e2a-47dd-a805-a39d17f074fb" stretchType="ContainerHeight" x="635" y="120" width="1" height="25">
-					<pen lineColor="#3B88D1"/>
-				</element>
-				<element kind="textField" uuid="61562dbc-570a-4327-9be9-0db9e58a93c7" x="11" y="125" width="159" height="14" pattern="EE dd/MM/yyyy" blankWhenNull="true" hTextAlign="Center">
-					<expression><![CDATA[$F{dateVerification1}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"))]]></expression>
-				</element>
-				<element kind="textField" uuid="24f77832-4470-402b-a44e-4bdc4ae64097" x="188" y="125" width="147" height="14" hTextAlign="Center">
-					<expression><![CDATA[$F{userLoginVerificateur1}]]></expression>
-				</element>
-				<element kind="textField" uuid="2eeff26d-9a2e-40b6-90f5-1bb43df947c8" x="467" y="125" width="163" height="14" pattern="EE dd/MM/yyyy" blankWhenNull="true" hTextAlign="Center">
-					<expression><![CDATA[$F{dateVerification2}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"))]]></expression>
-				</element>
-				<element kind="textField" uuid="83ed807f-5f4f-4287-8ba5-bce3ddd64b2d" x="640" y="125" width="154" height="14" hTextAlign="Center">
-					<expression><![CDATA[$F{userLoginVerificateur2}]]></expression>
 				</element>
 				<element kind="textField" uuid="8401ffff-6b23-4990-a883-e032b5f7343a" x="510" y="6" width="138" height="15" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
 					<expression><![CDATA[$V{debit1}]]></expression>
@@ -411,5 +351,66 @@
 			<text><![CDATA[Edité avec OPCCIEL 2.0]]></text>
 		</element>
 	</pageFooter>
-	<summary height="42" splitType="Stretch"/>
+	<summary height="88" splitType="Stretch">
+		<element kind="rectangle" uuid="d5056728-ca1f-4a94-a4a9-c40de051ffc6" x="69" y="5" width="222" height="25" backcolor="#FFFFFF">
+			<pen lineColor="#3B88D1"/>
+		</element>
+		<element kind="staticText" uuid="81e9a444-fcc1-491b-a64d-2affc4727c2f" x="88" y="10" width="182" height="17" fontSize="10.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[VERIFICATION N1]]></text>
+		</element>
+		<element kind="rectangle" uuid="f01e9817-eacc-4804-ad61-7b8b7e60ce9c" x="8" y="37" width="340" height="25" backcolor="#BDD7EE">
+			<pen lineColor="#3B88D1"/>
+		</element>
+		<element kind="staticText" uuid="1b740378-b5b5-4949-b0dd-6fb639963c65" x="16" y="42" width="159" height="17" fontSize="10.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[DATE VERIFICATION]]></text>
+		</element>
+		<element kind="line" uuid="bb4dab75-6202-4ba6-aa66-101e9ee15d8c" stretchType="ContainerHeight" x="184" y="37" width="1" height="25">
+			<pen lineColor="#3B88D1"/>
+		</element>
+		<element kind="staticText" uuid="6608df8b-cba9-4556-b5ea-b72ccdfac97a" x="193" y="42" width="147" height="17" fontSize="10.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[VERIFICATEUR]]></text>
+		</element>
+		<element kind="rectangle" uuid="b02a0323-b4ed-4434-b85a-b460a6fb3d32" x="8" y="63" width="340" height="25" backcolor="#FFFFFF">
+			<pen lineColor="#3B88D1"/>
+		</element>
+		<element kind="line" uuid="89f99026-7a0b-4024-8ee7-8ad50519849b" stretchType="ContainerHeight" x="184" y="63" width="1" height="25">
+			<pen lineColor="#3B88D1"/>
+		</element>
+		<element kind="rectangle" uuid="94d3d1c9-a47d-4eaa-a64e-8f55d35fa37c" x="525" y="5" width="222" height="25" backcolor="#FFFFFF">
+			<pen lineColor="#3B88D1"/>
+		</element>
+		<element kind="staticText" uuid="eb8e6338-e4c6-442e-a22b-8a0364ed1584" x="544" y="10" width="182" height="17" fontSize="10.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[VERIFICATION N2]]></text>
+		</element>
+		<element kind="rectangle" uuid="ec20914c-f1ba-456d-bc32-5698bc7d1e8f" x="464" y="37" width="340" height="25" backcolor="#BDD7EE">
+			<pen lineColor="#3B88D1"/>
+		</element>
+		<element kind="staticText" uuid="88e497a4-58e2-49ca-a7a3-7125209b5313" x="472" y="42" width="163" height="17" fontSize="10.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[DATE VERIFICATION]]></text>
+		</element>
+		<element kind="line" uuid="4196bf26-c32a-4fe0-aaef-eaaa00409e17" stretchType="ContainerHeight" x="640" y="37" width="1" height="25">
+			<pen lineColor="#3B88D1"/>
+		</element>
+		<element kind="staticText" uuid="de0ed610-6356-43bd-90a3-f507990e94b7" x="645" y="42" width="154" height="17" fontSize="10.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[VERIFICATEUR]]></text>
+		</element>
+		<element kind="rectangle" uuid="7ec3ab49-5cf0-418f-a318-9f092d4f8d02" x="464" y="63" width="340" height="25" backcolor="#FFFFFF">
+			<pen lineColor="#3B88D1"/>
+		</element>
+		<element kind="line" uuid="7e7bd718-8a6c-4846-845c-7366b860ec0c" stretchType="ContainerHeight" x="640" y="63" width="1" height="25">
+			<pen lineColor="#3B88D1"/>
+		</element>
+		<element kind="textField" uuid="b48d05c4-1812-4cd0-a6a9-2de17ea6078d" x="16" y="68" width="159" height="14" pattern="EE dd/MM/yyyy" blankWhenNull="true" hTextAlign="Center">
+			<expression><![CDATA[$F{dateVerification1}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy")]]></expression>
+		</element>
+		<element kind="textField" uuid="961195a7-6c07-493e-8cd7-867ba11b6c3d" x="193" y="68" width="147" height="14" hTextAlign="Center">
+			<expression><![CDATA[$F{userLoginVerificateur1}]]></expression>
+		</element>
+		<element kind="textField" uuid="0067a9c4-443a-454b-bba3-16cbcc0604b9" x="472" y="68" width="163" height="14" pattern="EE dd/MM/yyyy" blankWhenNull="true" hTextAlign="Center">
+			<expression><![CDATA[$F{dateVerification2}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy")]]></expression>
+		</element>
+		<element kind="textField" uuid="ece57026-7cb1-49c2-af1d-cba5407c195f" x="645" y="68" width="154" height="14" hTextAlign="Center">
+			<expression><![CDATA[$F{userLoginVerificateur2}]]></expression>
+		</element>
+	</summary>
 </jasperReport>
