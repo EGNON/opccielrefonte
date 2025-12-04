@@ -61,6 +61,12 @@ public class CompteComptableController {
         idCompteComptable.setCodePlan(codePlan);
         return compteComptableService.afficher(idCompteComptable);
     }
+    @GetMapping("/touscompte")
+    //@PreAuthorize("hasAuthority('ROLE_CompteComptable')")
+    public ResponseEntity<Object> afficher()
+    {
+        return compteComptableService.afficherTousCompte();
+    }
 
     @PostMapping("/datatable/list")
     //@PreAuthorize("hasAuthority('ROLE_CompteComptable')")

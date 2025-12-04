@@ -31,6 +31,10 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.transaction.Transactional;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.export.ooxml.JRXlsxExporter;
+import net.sf.jasperreports.export.SimpleExporterInput;
+import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
+import net.sf.jasperreports.export.SimpleXlsxReportConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -720,6 +724,45 @@ public class AppService {
                     e);
         }
     }
+    public byte[] exportExcelGrandLivre(GrandLivreRequest request, HttpServletResponse response) throws IOException, JRException {
+        List<GrandLivreProjection> grandLivreProjections = libraryDao.grandLivre(
+                request.getIdOpcvm(), request.getCodePlan(), request.getNumCompteComptable(), request.getCodeAnalytique(), request.getTypeAnalytique(), request.getDateDebut(), request.getDateFin());
+        InputStream reportStream = getClass().getResourceAsStream("/Grand_Livre.jrxml");
+        JasperReport jasperReport = JasperCompileManager.compileReport(reportStream);
+
+        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(grandLivreProjections);
+        Map<String, Object> parameters = new HashMap<>();
+        DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
+//        DateFormat dateFormatter2 = new SimpleDateFormat("dd/MM/yyyy");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+//        String dateFormatee = date.format(formatter);
+        String letterDate = dateFormatter.format(new Date());
+        //SeanceOpcvmDto seanceOpcvmDto=seanceOpcvmMapper.deSeanceOpcvm(seanceOpcvmDao.afficherSeance(idOpcvm,idSeance));
+        parameters.put("letterDate", letterDate);
+        OpcvmDto opcvm = opcvmMapper.deOpcvm(opcvmDao.findById(request.getIdOpcvm()).orElseThrow());
+        parameters.put("description", opcvm.getDenominationOpcvm());
+
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
+
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+
+        JRXlsxExporter exporter = new JRXlsxExporter();
+        exporter.setExporterInput(new SimpleExporterInput(jasperPrint));
+        exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(out));
+
+        SimpleXlsxReportConfiguration configuration = new SimpleXlsxReportConfiguration();
+        configuration.setOnePagePerSheet(false);  // toutes les données sur une seule feuille
+        configuration.setDetectCellType(true);   // détecte automatiquement les types de données
+        configuration.setCollapseRowSpan(false);
+
+        exporter.setConfiguration(configuration);
+        exporter.exportReport();
+
+        // Récupération en bytes
+        byte[] excelBytes = out.toByteArray();
+
+        return excelBytes;
+    }
     public ResponseEntity<Object> afficherGrandLivre(GrandLivreRequest request, HttpServletResponse response) throws JRException, IOException {
 
         InputStream rapportStream = null;
@@ -748,7 +791,7 @@ public class AppService {
         parameters.put("letterDate", letterDate);
         String Descrip = request.getDescrip();
         OpcvmDto opcvm = opcvmMapper.deOpcvm(opcvmDao.findById(request.getIdOpcvm()).orElseThrow());
-        parameters.put("Descrip", opcvm.getDenominationOpcvm());
+        parameters.put("description", opcvm.getDenominationOpcvm());
 
         // Remplissage du rapport
         JasperPrint print = JasperFillManager.fillReport(
@@ -3456,7 +3499,7 @@ public class AppService {
 //        try {
         // Récupération des données
         List<DocumentSeanceListeVerificationSouscriptionProjection> documentSeanceListeVerificationSouscriptionProjections = libraryDao.documentSeanceListeVerificationSouscription(
-                request.getIdSeance(), request.getIdPersonne(), request.getIdPersonne(), request.getCodeNatureOperation(), request.getNiveau1(), request.getNiveau2()
+                request.getIdSeance(), null, request.getIdOpcvm(), request.getCodeNatureOperation(), request.getNiveau1(), request.getNiveau2()
         );
 
         // Chargement des fichiers .jrxml depuis le classpath
@@ -3545,38 +3588,51 @@ public class AppService {
     }
 
     //HistoriqueVL
-    public ResponseEntity<?> afficherHistoriqueVL(HistoriqueVLRequest request) {
-        var parameters = request.getDatatableParameters();
-        try {
-            Pageable pageable = PageRequest.of(parameters.getStart()/parameters.getLength(),parameters.getLength());
-            Page<HistoriqueVLProjection> historiqueVLPage;
-            if (parameters.getSearch() !=null && !parameters.getSearch().getValue().isEmpty()) {
-                historiqueVLPage = new PageImpl<>(new ArrayList<>());
-            }
-            else {
-                historiqueVLPage = libraryDao.historiqueVL(
-                        request.getIdOpcvm(), request.getDateDebut(), request.getDateFin(), pageable
-                );
-            }
-            List<HistoriqueVLProjection> content = historiqueVLPage.getContent().stream().toList();
-            DataTablesResponse<HistoriqueVLProjection> dataTablesResponse = new DataTablesResponse<>();
-            dataTablesResponse.setDraw(parameters.getDraw());
-            dataTablesResponse.setRecordsFiltered((int)historiqueVLPage.getTotalElements());
-            dataTablesResponse.setRecordsTotal((int)historiqueVLPage.getTotalElements());
-            dataTablesResponse.setData(content);
+//    public ResponseEntity<?> afficherHistoriqueVL(HistoriqueVLRequest request) {
+//        var parameters = request.getDatatableParameters();
+//        try {
+//            Pageable pageable = PageRequest.of(parameters.getStart()/parameters.getLength(),parameters.getLength());
+//            Page<HistoriqueVLProjection> historiqueVLPage;
+//            if (parameters.getSearch() !=null && !parameters.getSearch().getValue().isEmpty()) {
+//                historiqueVLPage = new PageImpl<>(new ArrayList<>());
+//            }
+//            else {
+//                historiqueVLPage = libraryDao.historiqueVL(
+//                        request.getIdOpcvm(), request.getDateDebut(), request.getDateFin(), pageable
+//                );
+//            }
+//            List<HistoriqueVLProjection> content = historiqueVLPage.getContent().stream().toList();
+//            DataTablesResponse<HistoriqueVLProjection> dataTablesResponse = new DataTablesResponse<>();
+//            dataTablesResponse.setDraw(parameters.getDraw());
+//            dataTablesResponse.setRecordsFiltered((int)historiqueVLPage.getTotalElements());
+//            dataTablesResponse.setRecordsTotal((int)historiqueVLPage.getTotalElements());
+//            dataTablesResponse.setData(content);
+//            return ResponseHandler.generateResponse(
+//                    "Historique VL",
+//                    HttpStatus.OK,
+//                    historiqueVLPage
+//            );
+//        }
+//        catch (Exception e) {
+//            return ResponseHandler.generateResponse(
+//                    e.getMessage(),
+//                    HttpStatus.MULTI_STATUS,
+//                    e
+//            );
+//        }
+//    }
+    public ResponseEntity<?> afficherHistoriqueVLListe(HistoriqueVLRequest request) {
+
+            List<HistoriqueVLProjection> historiqueVLProjections= libraryDao.historiqueVL(
+                    request.getIdOpcvm(), request.getDateDebut(), request.getDateFin()
+            );
+
             return ResponseHandler.generateResponse(
                     "Historique VL",
                     HttpStatus.OK,
-                    historiqueVLPage
+                    historiqueVLProjections
             );
-        }
-        catch (Exception e) {
-            return ResponseHandler.generateResponse(
-                    e.getMessage(),
-                    HttpStatus.MULTI_STATUS,
-                    e
-            );
-        }
+
     }
 
     //PointPeriodiqueTAFA
@@ -4059,7 +4115,7 @@ public class AppService {
     }
 
     //AvisTransfertPart
-    public ResponseEntity<?> afficherAvisTransfertPart(OperationTransfertDePartRequest request) {
+    public ResponseEntity<?> afficherOperationTransfertPart(OperationTransfertDePartRequest request) {
         var parameters = request.getDatatableParameters();
         try {
             Pageable pageable = PageRequest.of(parameters.getStart()/ parameters.getLength(), parameters.getLength());
@@ -4090,14 +4146,32 @@ public class AppService {
                     e);
         }
     }
+    public ResponseEntity<?> afficherOperationTransfertPartListe(OperationTransfertDePartRequest request){
+        List<OperationTransfertDePartProjection> operationTransfertDePartProjections=libraryDao.operationTransfertPart(
+                request.getIdOpcvm(),request.getDateOuverture(),request.getDateFermeture()
+        );
+        return ResponseHandler.generateResponse("operation transfert de part",
+                HttpStatus.OK,
+                operationTransfertDePartProjections);
+    }
     public ResponseEntity<Object> afficherAvisTransfertPart(AvisTransfertPartRequest request, HttpServletResponse response) throws JRException, IOException {
 
         InputStream rapportStream = null;
         InputStream subreportStream = null;
 //        try {
+                StringBuilder id= new StringBuilder();
+        for(int i=0;i<request.getIdOp().length;i++){
+            if(i==0){
+                id = new StringBuilder(request.getIdOp()[i]);
+            }
+            else
+            {
+                id.append(",").append(request.getIdOp()[i]);
+            }
+        }
         // Récupération des données
         List<AvisTransfertPartProjection> avisTransfertPartProjections = libraryDao.avisTransfertPart(
-                request.getIdOperation(),request.getIdOpcvm(),request.getDateDeb(),request.getDateFin());
+                id.toString(),request.getIdOpcvm(),request.getDateDeb(),request.getDateFin());
 
         // Chargement des fichiers .jrxml depuis le classpath
         rapportStream = getClass().getResourceAsStream("/Avis_Transfert_de_Part.jrxml");
@@ -4132,16 +4206,15 @@ public class AppService {
 
 
     }
-    public ResponseEntity<?> afficherAvisTransfertPartListe(AvisTransfertPartRequest request) {
+    public ResponseEntity<?> afficherAvisTransfertPartListe(OperationTransfertDePartRequest request) {
         try
         {
-            List<AvisTransfertPartProjection> avisTransfertPartProjections=libraryDao.avisTransfertPart(
-                    request.getIdOperation(),request.getIdOpcvm(), request.getDateDeb(),request.getDateFin()
+            List<OperationTransfertDePartProjection> operationTransfertDePartProjections=libraryDao.operationTransfertPart(
+                    request.getIdOpcvm(),request.getDateOuverture(),request.getDateFermeture()
             );
-            return ResponseHandler.generateResponse(
-                    "Avis de transfert de parts opcvm",
+            return ResponseHandler.generateResponse("operation transfert de part",
                     HttpStatus.OK,
-                    avisTransfertPartProjections);
+                    operationTransfertDePartProjections);
         }
         catch(Exception e) {
             return ResponseHandler.generateResponse(

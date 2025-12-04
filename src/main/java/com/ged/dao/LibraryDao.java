@@ -186,6 +186,9 @@ public interface LibraryDao extends JpaRepository<BaseEntity, Long> {
     @Query(value = "select * from [Parametre].[FT_HistoriqueVL_New] (:idOpcvm,:dateDebut,:dateFin)", nativeQuery = true)
     Page<HistoriqueVLProjection> historiqueVL(Long idOpcvm, LocalDateTime dateDebut, LocalDateTime dateFin, Pageable pageable);
 
+    @Query(value = "select * from [Parametre].[FT_HistoriqueVL_New] (:idOpcvm,:dateDebut,:dateFin)", nativeQuery = true)
+    List<HistoriqueVLProjection> historiqueVL(Long idOpcvm, LocalDateTime dateDebut, LocalDateTime dateFin);
+
     @Query(value = "select * from [Impressions].[FT_CompositionDetailleActif_New] (:idOpcvm,:dateEstimation)", nativeQuery = true)
     List<CompositionDetailleActifProjection> compositionDetailleActif(Long idOpcvm, LocalDateTime dateEstimation);
 
@@ -250,10 +253,13 @@ public interface LibraryDao extends JpaRepository<BaseEntity, Long> {
     Page<SuiviEcheanceTitreProjection> suiviEcheanceTitre(Long idOpcvm,LocalDateTime dateEstimation,Pageable pageable);
 
     @Query(value = "select * from [Impressions].[FT_AvisTransfertPart](:idOperation,:idOpcvm,:dateDeb,:dateFin)", nativeQuery = true)
-    List<AvisTransfertPartProjection> avisTransfertPart(Long idOperation,Long idOpcvm,LocalDateTime dateDeb,LocalDateTime dateFin);
+    List<AvisTransfertPartProjection> avisTransfertPart(String idOperation,Long idOpcvm,LocalDateTime dateDeb,LocalDateTime dateFin);
+
     @Query(value = "select * from [Operation].[FT_OperationTransfertDePart_New](:idOpcvm, :dateOuverture, :dateFermeture)", nativeQuery = true)
     Page<OperationTransfertDePartProjection> operationTransfertPart(Long idOpcvm,LocalDateTime dateOuverture,LocalDateTime dateFermeture,Pageable pageable);
 
+    @Query(value = "select * from [Operation].[FT_OperationTransfertDePart_New](:idOpcvm, :dateOuverture, :dateFermeture)", nativeQuery = true)
+    List<OperationTransfertDePartProjection> operationTransfertPart(Long idOpcvm,LocalDateTime dateOuverture,LocalDateTime dateFermeture);
     @Query(value = "select * from [Impressions].[FT_ReleveTitreFCP_New] (:idOpcvm,:dateDebut,:dateFin)" +
             " order by idTitre asc", nativeQuery = true)
     Page<ReleveTitreFCPProjection> releveTitreFCP(Long idOpcvm,LocalDateTime dateDebut,LocalDateTime dateFin,Pageable pageable);

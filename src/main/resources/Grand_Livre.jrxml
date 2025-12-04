@@ -2,7 +2,7 @@
 <jasperReport name="Grand_Livre" language="java" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="5f1ac56a-4d6e-4004-9c01-6ebf3c38d8ae">
 	<parameter name="letterDate" class="java.lang.String"/>
 	<parameter name="description" class="java.lang.String"/>
-	<field name="dateOp" class="java.sql.Timestamp">
+	<field name="dateOp" class="java.time.LocalDateTime">
 		<property name="com.jaspersoft.studio.field.name" value="dateOp"/>
 		<property name="com.jaspersoft.studio.field.label" value="dateOp"/>
 	</field>
@@ -54,19 +54,19 @@
 		<property name="com.jaspersoft.studio.field.name" value="numClassement"/>
 		<property name="com.jaspersoft.studio.field.label" value="numClassement"/>
 	</field>
-	<field name="num" class="java.lang.Integer">
-		<property name="com.jaspersoft.studio.field.name" value="num"/>
-		<property name="com.jaspersoft.studio.field.label" value="num"/>
-	</field>
-	<field name="idOpcvm" class="java.math.BigDecimal">
+<!--	<field name="num" class="java.lang.Integer">-->
+<!--		<property name="com.jaspersoft.studio.field.name" value="num"/>-->
+<!--		<property name="com.jaspersoft.studio.field.label" value="num"/>-->
+<!--	</field>-->
+	<field name="idOpcvm" class="java.lang.Long">
 		<property name="com.jaspersoft.studio.field.name" value="idOpcvm"/>
 		<property name="com.jaspersoft.studio.field.label" value="idOpcvm"/>
 	</field>
-	<field name="dateDebut" class="java.sql.Timestamp">
+	<field name="dateDebut" class="java.time.LocalDateTime">
 		<property name="com.jaspersoft.studio.field.name" value="dateDebut"/>
 		<property name="com.jaspersoft.studio.field.label" value="dateDebut"/>
 	</field>
-	<field name="dateFin" class="java.sql.Timestamp">
+	<field name="dateFin" class="java.time.LocalDateTime">
 		<property name="com.jaspersoft.studio.field.name" value="dateFin"/>
 		<property name="com.jaspersoft.studio.field.label" value="dateFin"/>
 	</field>

@@ -1,15 +1,12 @@
 <!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 7.0.1-573496633c2b4074e32f433154b543003f7d2498  -->
 <jasperReport name="Document_Seance_Liste_Verification_Souscriptions" language="java" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="142ab80b-6c60-403a-bfe1-7749810c2759">
 	<parameter name="letterDate" class="java.lang.String"/>
-	<field name="IdOperation" class="java.lang.Long">
-		<property name="com.jaspersoft.studio.field.name" value="IdOperation"/>
-		<property name="com.jaspersoft.studio.field.label" value="IdOperation"/>
-	</field>
+	
 	<field name="referencePiece" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.name" value="referencePiece"/>
 		<property name="com.jaspersoft.studio.field.label" value="referencePiece"/>
 	</field>
-	<field name="dateOperation" class="java.sql.Date">
+	<field name="dateOperation" class="java.time.LocalDateTime">
 		<property name="com.jaspersoft.studio.field.name" value="dateOperation"/>
 		<property name="com.jaspersoft.studio.field.label" value="dateOperation"/>
 	</field>
@@ -29,11 +26,11 @@
 		<property name="com.jaspersoft.studio.field.name" value="montantSouscrit"/>
 		<property name="com.jaspersoft.studio.field.label" value="montantSouscrit"/>
 	</field>
-	<field name="QtePart" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.name" value="QtePart"/>
-		<property name="com.jaspersoft.studio.field.label" value="QtePart"/>
+	<field name="qtePart" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="qtePart"/>
+		<property name="com.jaspersoft.studio.field.label" value="qtePart"/>
 	</field>
-	<field name="idSeance" class="java.lang.Integer">
+	<field name="idSeance" class="java.lang.Long">
 		<property name="com.jaspersoft.studio.field.name" value="idSeance"/>
 		<property name="com.jaspersoft.studio.field.label" value="idSeance"/>
 	</field>
@@ -49,11 +46,11 @@
 		<property name="com.jaspersoft.studio.field.name" value="denominationOpcvm"/>
 		<property name="com.jaspersoft.studio.field.label" value="denominationOpcvm"/>
 	</field>
-	<field name="dateOuv" class="java.sql.Date">
+	<field name="dateOuv" class="java.time.LocalDateTime">
 		<property name="com.jaspersoft.studio.field.name" value="dateOuv"/>
 		<property name="com.jaspersoft.studio.field.label" value="dateOuv"/>
 	</field>
-	<field name="dateFerm" class="java.sql.Date">
+	<field name="dateFerm" class="java.time.LocalDateTime">
 		<property name="com.jaspersoft.studio.field.name" value="dateFerm"/>
 		<property name="com.jaspersoft.studio.field.label" value="dateFerm"/>
 	</field>
@@ -69,7 +66,7 @@
 		<property name="com.jaspersoft.studio.field.name" value="estVerifie1"/>
 		<property name="com.jaspersoft.studio.field.label" value="estVerifie1"/>
 	</field>
-	<field name="dateVerification1" class="java.sql.Date">
+	<field name="dateVerification1" class="java.time.LocalDateTime">
 		<property name="com.jaspersoft.studio.field.name" value="dateVerification1"/>
 		<property name="com.jaspersoft.studio.field.label" value="dateVerification1"/>
 	</field>
@@ -81,7 +78,7 @@
 		<property name="com.jaspersoft.studio.field.name" value="estVerifie2"/>
 		<property name="com.jaspersoft.studio.field.label" value="estVerifie2"/>
 	</field>
-	<field name="dateVerification2" class="java.sql.Date">
+	<field name="dateVerification2" class="java.time.LocalDateTime">
 		<property name="com.jaspersoft.studio.field.name" value="dateVerification2"/>
 		<property name="com.jaspersoft.studio.field.label" value="dateVerification2"/>
 	</field>
@@ -328,7 +325,7 @@
 				<expression><![CDATA[$F{referencePiece}]]></expression>
 			</element>
 			<element kind="textField" uuid="81917a81-40f1-46d7-a380-3b8fef5d665c" x="134" y="7" width="130" height="14" pattern="EE dd/MM/yyyy" blankWhenNull="true">
-				<expression><![CDATA[$F{dateOperation}]]></expression>
+				<expression><![CDATA[$F{dateOperation}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"))]]></expression>
 			</element>
 			<element kind="textField" uuid="b536a6f8-2e52-4acb-8adb-1ed42dd96a4c" x="271" y="7" width="100" height="14">
 				<expression><![CDATA[$F{nomSigle}]]></expression>

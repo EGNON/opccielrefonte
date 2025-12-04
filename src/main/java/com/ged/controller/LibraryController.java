@@ -1,25 +1,44 @@
 package com.ged.controller;
 
 import com.ged.dao.LibraryDao;
+import com.ged.dao.opcciel.OpcvmDao;
 import com.ged.dto.lab.reportings.BeginEndDateParameter;
+import com.ged.dto.opcciel.OpcvmDto;
 import com.ged.dto.opcciel.OperationSouscriptionRachatDto;
+import com.ged.dto.opcciel.SeanceOpcvmDto;
 import com.ged.dto.request.*;
 import com.ged.entity.opcciel.SeanceOpcvm;
+import com.ged.mapper.opcciel.OpcvmMapper;
+import com.ged.projection.GrandLivreProjection;
+import com.ged.projection.OperationExtourneVDEProjection;
 import com.ged.service.AppService;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
-import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.export.ooxml.JRXlsxExporter;
+import net.sf.jasperreports.export.SimpleExporterInput;
+import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
+import net.sf.jasperreports.export.SimpleXlsxReportConfiguration;
 import org.springframework.core.annotation.Order;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -27,10 +46,13 @@ import java.util.List;
 public class LibraryController {
     private final LibraryDao libraryDao;
     private final AppService service;
-
-    public LibraryController(LibraryDao libraryDao, AppService service) {
+    private final OpcvmMapper opcvmMapper;
+    private final OpcvmDao opcvmDao;
+    public LibraryController(LibraryDao libraryDao, AppService service, OpcvmMapper opcvmMapper, OpcvmDao opcvmDao) {
         this.libraryDao = libraryDao;
         this.service = service;
+        this.opcvmMapper = opcvmMapper;
+        this.opcvmDao = opcvmDao;
     }
 
     @PostMapping("/{idActionnaire}/{idOpcvm}")
@@ -203,13 +225,63 @@ public class LibraryController {
 
          service.afficherGrandLivre(request,response);
     }
+    @PostMapping("/opcvm/etats/excel/grandlivre")
+    public ResponseEntity<byte[]> excelVDE(@RequestBody @Valid GrandLivreRequest request,
+                                           HttpServletResponse response) throws JRException, IOException {
+        List<GrandLivreProjection> grandLivreProjections = libraryDao.grandLivre(
+                request.getIdOpcvm(), request.getCodePlan(), request.getNumCompteComptable(), request.getCodeAnalytique(), request.getTypeAnalytique(), request.getDateDebut(), request.getDateFin());
+        InputStream reportStream = getClass().getResourceAsStream("/Grand_Livre.jrxml");
+        JasperReport jasperReport = JasperCompileManager.compileReport(reportStream);
+
+        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(grandLivreProjections);
+        Map<String, Object> parameters = new HashMap<>();
+        DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
+//        DateFormat dateFormatter2 = new SimpleDateFormat("dd/MM/yyyy");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+//        String dateFormatee = date.format(formatter);
+        String letterDate = dateFormatter.format(new Date());
+        //SeanceOpcvmDto seanceOpcvmDto=seanceOpcvmMapper.deSeanceOpcvm(seanceOpcvmDao.afficherSeance(idOpcvm,idSeance));
+        parameters.put("letterDate", letterDate);
+        OpcvmDto opcvm = opcvmMapper.deOpcvm(opcvmDao.findById(request.getIdOpcvm()).orElseThrow());
+        parameters.put("description", opcvm.getDenominationOpcvm());
+
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
+
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+
+        JRXlsxExporter exporter = new JRXlsxExporter();
+        exporter.setExporterInput(new SimpleExporterInput(jasperPrint));
+        exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(out));
+
+        SimpleXlsxReportConfiguration configuration = new SimpleXlsxReportConfiguration();
+        configuration.setOnePagePerSheet(false);  // toutes les données sur une seule feuille
+        configuration.setDetectCellType(true);   // détecte automatiquement les types de données
+        configuration.setCollapseRowSpan(false);
+
+        exporter.setConfiguration(configuration);
+        exporter.exportReport();
+
+        // Récupération en bytes
+        byte[] excelBytes = out.toByteArray();
+
+        response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+        HttpHeaders headers = new HttpHeaders();
+//        headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+        headers.setContentType(MediaType.parseMediaType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"));
+        DateFormat dateFormatter2 = new SimpleDateFormat("ddMMyyyy:hh:mm:ss");
+        String currentDateTime = dateFormatter2.format(new Date());
+        headers.set(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=grand_livre"+"_" + currentDateTime +".xlsx");
+//        byte[] excelBytes=operationExtourneVDEService.exportExcelVDE(idSeance,idOpcvm,estVerifie,estVerifie1,estVerifie2,niveau,response);
+        headers.setContentLength(excelBytes.length);
+        return new ResponseEntity<>(excelBytes, headers, HttpStatus.OK);
+    }
     @PostMapping("/opcvm/grandlivre")
     public ResponseEntity<?> grandlivre(@RequestBody @Valid GrandLivreRequest request) {
         return service.afficherGrandLivre(request);
     }
     @PostMapping("/opcvm/grandlivre/liste")
     public ResponseEntity<?> grandlivreListe(@RequestBody @Valid GrandLivreRequest request) {
-        return service.afficherGrandLivre(request);
+        return service.afficherGrandLivreListe(request);
     }
 
     //soldedescomptescomptable
@@ -960,9 +1032,13 @@ public class LibraryController {
     }
 
     //historiquevl
-    @PostMapping("/opcvm/historiquevl")
-    public ResponseEntity<?> afficherhistoriquevl(@RequestBody @Valid HistoriqueVLRequest request){
-        return service.afficherHistoriqueVL(request);
+//    @PostMapping("/opcvm/historiquevl")
+//    public ResponseEntity<?> afficherhistoriquevl(@RequestBody @Valid HistoriqueVLRequest request){
+//        return service.afficherHistoriqueVL(request);
+//    }
+    @PostMapping("/opcvm/historiquevl/liste")
+    public ResponseEntity<?> afficherhistoriquevlliste(@RequestBody @Valid HistoriqueVLRequest request){
+        return service.afficherHistoriqueVLListe(request);
     }
 
     //portefeuilleactionnaireformat2
@@ -1107,7 +1183,7 @@ public class LibraryController {
 
     //avistransfertpart
     @PostMapping("/opcvm/etats/avistransfertpart")
-    public ResponseEntity<Object> avistransfertpart(@RequestBody @Valid AvisTransfertPartRequest request, HttpServletResponse response) throws JRException, IOException {
+    public void avistransfertpart(@RequestBody @Valid AvisTransfertPartRequest request, HttpServletResponse response) throws JRException, IOException {
         response.setContentType("application/pdf");
         DateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy:hh:mm:ss");
         String currentDateTime = dateFormatter.format(new Date());
@@ -1116,14 +1192,14 @@ public class LibraryController {
         String headerValue = "attachment; filename=Avis de transfert de parts" + currentDateTime + ".pdf";
         response.setHeader(headerKey, headerValue);
 
-        return service.afficherAvisTransfertPart(request,response);
+         service.afficherAvisTransfertPart(request,response);
     }
-    @PostMapping("/opcvm/avistransfertpart")
+    @PostMapping("/opcvm/operationtransfertpart")
     public ResponseEntity<?> avistransfertpart(@RequestBody @Valid OperationTransfertDePartRequest request) {
-        return service.afficherAvisTransfertPart(request);
+        return service.afficherOperationTransfertPartListe(request);
     }
     @PostMapping("/opcvm/avistransfertpart/liste")
-    public ResponseEntity<?> avistransfertpartListe(@RequestBody @Valid AvisTransfertPartRequest request) {
+    public ResponseEntity<?> avistransfertpartListe(@RequestBody @Valid OperationTransfertDePartRequest request) {
         return service.afficherAvisTransfertPartListe(request);
     }
 

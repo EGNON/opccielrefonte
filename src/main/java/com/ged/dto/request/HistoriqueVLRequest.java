@@ -16,5 +16,5 @@ public class HistoriqueVLRequest {
     private Long idOpcvm;
     private LocalDateTime dateDebut;
     private LocalDateTime dateFin;
-    private DatatableParameters datatableParameters;
+    //private DatatableParameters datatableParameters;
 }

@@ -1,15 +1,12 @@
 <!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 7.0.1-573496633c2b4074e32f433154b543003f7d2498  -->
 <jasperReport name="Document_Seance_Liste_Verification_Rachats" language="java" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b5425456-71d6-48b5-8458-778b2f8375b5">
 	<parameter name="letterDate" class="java.lang.String"/>
-	<field name="IdOperation" class="java.lang.Long">
-		<property name="com.jaspersoft.studio.field.name" value="IdOperation"/>
-		<property name="com.jaspersoft.studio.field.label" value="IdOperation"/>
-	</field>
+	
 	<field name="referencePiece" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.name" value="referencePiece"/>
 		<property name="com.jaspersoft.studio.field.label" value="referencePiece"/>
 	</field>
-	<field name="dateOperation" class="java.sql.Date">
+	<field name="dateOperation" class="java.time.LocalDateTime">
 		<property name="com.jaspersoft.studio.field.name" value="dateOperation"/>
 		<property name="com.jaspersoft.studio.field.label" value="dateOperation"/>
 	</field>
@@ -29,11 +26,11 @@
 		<property name="com.jaspersoft.studio.field.name" value="montantSouscrit"/>
 		<property name="com.jaspersoft.studio.field.label" value="montantSouscrit"/>
 	</field>
-	<field name="QtePart" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.name" value="QtePart"/>
-		<property name="com.jaspersoft.studio.field.label" value="QtePart"/>
+	<field name="qtePart" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="qtePart"/>
+		<property name="com.jaspersoft.studio.field.label" value="qtePart"/>
 	</field>
-	<field name="idSeance" class="java.lang.Integer">
+	<field name="idSeance" class="java.lang.Long">
 		<property name="com.jaspersoft.studio.field.name" value="idSeance"/>
 		<property name="com.jaspersoft.studio.field.label" value="idSeance"/>
 	</field>
@@ -49,11 +46,11 @@
 		<property name="com.jaspersoft.studio.field.name" value="denominationOpcvm"/>
 		<property name="com.jaspersoft.studio.field.label" value="denominationOpcvm"/>
 	</field>
-	<field name="dateOuv" class="java.sql.Date">
+	<field name="dateOuv" class="java.time.LocalDateTime">
 		<property name="com.jaspersoft.studio.field.name" value="dateOuv"/>
 		<property name="com.jaspersoft.studio.field.label" value="dateOuv"/>
 	</field>
-	<field name="dateFerm" class="java.sql.Date">
+	<field name="dateFerm" class="java.time.LocalDateTime">
 		<property name="com.jaspersoft.studio.field.name" value="dateFerm"/>
 		<property name="com.jaspersoft.studio.field.label" value="dateFerm"/>
 	</field>
@@ -69,7 +66,7 @@
 		<property name="com.jaspersoft.studio.field.name" value="estVerifie1"/>
 		<property name="com.jaspersoft.studio.field.label" value="estVerifie1"/>
 	</field>
-	<field name="dateVerification1" class="java.sql.Date">
+	<field name="dateVerification1" class="java.time.LocalDateTime">
 		<property name="com.jaspersoft.studio.field.name" value="dateVerification1"/>
 		<property name="com.jaspersoft.studio.field.label" value="dateVerification1"/>
 	</field>
@@ -81,7 +78,7 @@
 		<property name="com.jaspersoft.studio.field.name" value="estVerifie2"/>
 		<property name="com.jaspersoft.studio.field.label" value="estVerifie2"/>
 	</field>
-	<field name="dateVerification2" class="java.sql.Date">
+	<field name="dateVerification2" class="java.time.LocalDateTime">
 		<property name="com.jaspersoft.studio.field.name" value="dateVerification2"/>
 		<property name="com.jaspersoft.studio.field.label" value="dateVerification2"/>
 	</field>
@@ -129,8 +126,8 @@
 		<property name="com.jaspersoft.studio.field.name" value="niveau2"/>
 		<property name="com.jaspersoft.studio.field.label" value="niveau2"/>
 	</field>
-	<variable name="QtePart1" resetType="Group" calculation="Sum" resetGroup="Group1" class="java.math.BigDecimal">
-		<expression><![CDATA[$F{QtePart}]]></expression>
+	<variable name="qtePart1" resetType="Group" calculation="Sum" resetGroup="Group1" class="java.math.BigDecimal">
+		<expression><![CDATA[$F{qtePart}]]></expression>
 	</variable>
 	<group name="Group1">
 		<expression><![CDATA[$F{distributeur}]]></expression>
@@ -246,7 +243,7 @@
 					<text><![CDATA[TOTAL]]></text>
 				</element>
 				<element kind="textField" uuid="4492e35a-0fe5-4e56-88a3-dd9e9842916d" x="656" y="6" width="135" height="15" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
-					<expression><![CDATA[$V{QtePart1}]]></expression>
+					<expression><![CDATA[$V{qtePart1}]]></expression>
 				</element>
 			</band>
 		</groupFooter>
@@ -319,7 +316,7 @@
 				<expression><![CDATA[$F{prenomRaison}]]></expression>
 			</element>
 			<element kind="textField" uuid="398de414-aed9-414d-b980-63ecb5bc829d" x="656" y="7" width="135" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
-				<expression><![CDATA[$F{QtePart}]]></expression>
+				<expression><![CDATA[$F{qtePart}]]></expression>
 			</element>
 		</band>
 	</detail>

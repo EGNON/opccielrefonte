@@ -43,7 +43,7 @@ public interface DocumentSeanceListeVerificationEcritureProjection {
     BigDecimal getDebit();
     BigDecimal getCredit();
     String getTypeValeur();
-    String getIB();
+    String getiB();
     String getRubrique();
     String getPosition();
     String getLibelleCompteComptable();
