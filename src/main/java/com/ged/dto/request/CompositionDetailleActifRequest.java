@@ -18,4 +18,7 @@ public class CompositionDetailleActifRequest {
     private LocalDateTime dateOperation;
     private DatatableParameters datatableParameters;
     private String letterDate;
+    private String frequence;
+    private String sigleOpcvm;
+    private String denominationOpcvm;
 }

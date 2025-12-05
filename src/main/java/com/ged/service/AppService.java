@@ -5889,6 +5889,14 @@ public class AppService {
         DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
         String letterDate = dateFormatter.format(new Date());
         parameters.put("letterDate", letterDate);
+        String frequence = request.getFrequence();
+        parameters.put("frequence", frequence);
+        String sigleOpcvm = request.getSigleOpcvm();
+        parameters.put("sigleOpcvm", sigleOpcvm);
+        OpcvmDto opcvm = opcvmMapper.deOpcvm(opcvmDao.findById(request.getIdOpcvm()).orElseThrow());
+        parameters.put("denominationOpcvm", opcvm.getDenominationOpcvm());
+        LocalDateTime dateEstimation = request.getDateEstimation();
+        parameters.put("dateEstimation", dateEstimation);
         parameters.put("ALL_LIGNES", new JRBeanCollectionDataSource(operationDetachementProjections));
         parameters.put("SUBREPORT_REF", subreport);
 

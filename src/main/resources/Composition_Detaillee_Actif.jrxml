@@ -1,8 +1,12 @@
 <!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 7.0.1-573496633c2b4074e32f433154b543003f7d2498  -->
 <jasperReport name="Composition_Detaillee_Actif" language="java" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="6c55a2a4-7b6a-4f63-854a-0e3d69a0883c">
 	<parameter name="letterDate" class="java.lang.String"/>
-    <parameter name="ALL_LIGNES" class="net.sf.jasperreports.engine.JRDataSource"/>
+	<parameter name="frequence" class="java.lang.String"/>
+	<parameter name="sigleOpcvm" class="java.lang.String"/>
+	<parameter name="denominationOpcvm" class="java.lang.String"/>
+	<parameter name="dateEstimation" class="java.sql.Date"/>
     <parameter name="SUBREPORT_REF" class="net.sf.jasperreports.engine.JasperReport"/>
+    <parameter name="SUBREPORT_NAME" class="java.lang.String"/>
 	<field name="categorie" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.name" value="categorie"/>
 		<property name="com.jaspersoft.studio.field.label" value="categorie"/>
@@ -47,7 +51,7 @@
 		<property name="com.jaspersoft.studio.field.name" value="idOpcvm"/>
 		<property name="com.jaspersoft.studio.field.label" value="idOpcvm"/>
 	</field>
-	<field name="dateEstimation" class="java.time.LocalDateTime">
+	<field name="dateEstimation" class="java.sql.Date">
 		<property name="com.jaspersoft.studio.field.name" value="dateEstimation"/>
 		<property name="com.jaspersoft.studio.field.label" value="dateEstimation"/>
 	</field>
@@ -61,45 +65,40 @@
 		<expression><![CDATA[$F{idOpcvm}]]></expression>
 		<groupHeader>
 			<band height="33">
-				<element kind="rectangle" uuid="05ced1f5-5c43-49a1-8350-eaf501a22e31" x="2" y="8" width="797" height="25" backcolor="#BDD7EE">
+				<element kind="rectangle" uuid="05ced1f5-5c43-49a1-8350-eaf501a22e31" stretchType="ContainerHeight" x="2" y="8" width="797" height="25" backcolor="#BDD7EE">
 					<pen lineColor="#3B88D1"/>
 				</element>
-				<element kind="line" uuid="b031a50d-9dd1-4423-8fdf-5ab526edb5fe" x="291" y="8" width="1" height="25">
+				<element kind="line" uuid="b031a50d-9dd1-4423-8fdf-5ab526edb5fe" stretchType="ContainerHeight" x="291" y="8" width="1" height="25">
 					<pen lineColor="#3B88D1"/>
 				</element>
-				<element kind="line" uuid="41f097d4-8cf2-4446-86be-8361773833e3" x="429" y="8" width="1" height="25">
+				<element kind="line" uuid="41f097d4-8cf2-4446-86be-8361773833e3" stretchType="ContainerHeight" x="400" y="8" width="1" height="25">
 					<pen lineColor="#3B88D1"/>
 				</element>
-				<element kind="line" uuid="a7d78e5f-2cfa-4e3d-b5b3-d9c42091bf89" x="652" y="8" width="1" height="25">
+				<element kind="line" uuid="a7d78e5f-2cfa-4e3d-b5b3-d9c42091bf89" stretchType="ContainerHeight" x="652" y="8" width="1" height="25">
 					<pen lineColor="#3B88D1"/>
 				</element>
 				<element kind="staticText" uuid="91d3e449-ab07-4de4-8250-66f810b406e6" x="11" y="13" width="269" height="15" hTextAlign="Center">
 					<text><![CDATA[Eléments d'actifs et libellé des valeurs]]></text>
 				</element>
-				<element kind="staticText" uuid="a268b68b-c452-4678-b528-f74989523351" x="302" y="13" width="118" height="15" hTextAlign="Center">
+				<element kind="staticText" uuid="a268b68b-c452-4678-b528-f74989523351" x="302" y="13" width="87" height="15" hTextAlign="Center">
 					<text><![CDATA[Quantité]]></text>
-				</element>
-				<element kind="staticText" uuid="ca96358b-e8f8-46aa-92bd-bdeda1c80b08" x="436" y="13" width="90" height="15" hTextAlign="Center">
-					<text><![CDATA[Cours]]></text>
-				</element>
-				<element kind="staticText" uuid="ca12ee6c-f477-47f9-a352-e78a58e817dd" x="540" y="13" width="107" height="15" hTextAlign="Center">
-					<text><![CDATA[Valeur]]></text>
 				</element>
 				<element kind="staticText" uuid="3ffbcb57-727c-4933-abba-241089c6a8ba" x="656" y="13" width="135" height="15" hTextAlign="Center">
 					<text><![CDATA[% arrondi de l'actif]]></text>
 				</element>
-				<element kind="line" uuid="6c477c92-e3c2-430b-a8f9-33504be05550" x="533" y="8" width="1" height="25">
+				<element kind="line" uuid="6c477c92-e3c2-430b-a8f9-33504be05550" stretchType="ContainerHeight" x="533" y="8" width="1" height="25">
 					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="textField" uuid="f22c8cc8-6016-4d2f-9cd0-365e6cc72f52" x="410" y="13" width="113" height="14" textAdjust="StretchHeight">
+					<expression><![CDATA["Cours au "+$P{dateEstimation}]]></expression>
+				</element>
+				<element kind="textField" uuid="4d4f9b82-9d3a-4278-9a5e-61816b772a3b" x="540" y="13" width="105" height="13" textAdjust="StretchHeight">
+					<expression><![CDATA["Valeur au "+$P{dateEstimation}]]></expression>
 				</element>
 			</band>
 		</groupHeader>
 		<groupFooter>
-			<band height="207">
-				<element kind="subreport" uuid="6156ecd2-b721-4c14-8a7e-6a959154e25b" x="3" y="7" width="796" height="200">
-                    <dataSourceExpression><![CDATA[$P{ALL_LIGNES}]]></dataSourceExpression>
-                    <expression><![CDATA[$P{SUBREPORT_REF}]]></expression>
-				</element>
-			</band>
+			<band/>
 		</groupFooter>
 	</group>
 	<group name="Group2">
@@ -145,8 +144,8 @@
 		<element kind="rectangle" uuid="96d29d6f-a876-48f7-a37a-d1ea5416d66f" x="2" y="26" width="797" height="25" backcolor="#BDD7EE">
 			<pen lineColor="#3B88D1"/>
 		</element>
-		<element kind="staticText" uuid="599561b4-2f6e-43e4-b310-c4732488f11a" x="152" y="33" width="496" height="17" fontSize="10.0" bold="true" hTextAlign="Center">
-			<text><![CDATA[COMPOSITION DETAILLEE DE L'ACTIF]]></text>
+		<element kind="textField" uuid="fbbf17fe-e7be-4dbe-8d47-a5402998e29d" x="110" y="30" width="578" height="15" hTextAlign="Center">
+			<expression><![CDATA["COMPOSITION DETAILLEE "+$P{frequence}+"DE L'ACTIF DE "+$P{sigleOpcvm}+" "+$P{denominationOpcvm}]]></expression>
 		</element>
 	</title>
 	<pageHeader splitType="Stretch"/>
@@ -159,7 +158,7 @@
 			<element kind="line" uuid="87f68873-dd0e-4f64-95f6-5cd69570bf42" x="291" y="1" width="1" height="25">
 				<pen lineColor="#3B88D1"/>
 			</element>
-			<element kind="line" uuid="8cae4d2a-7298-4844-9881-c58ffcd9d656" x="429" y="1" width="1" height="25">
+			<element kind="line" uuid="8cae4d2a-7298-4844-9881-c58ffcd9d656" x="400" y="1" width="1" height="25">
 				<pen lineColor="#3B88D1"/>
 			</element>
 			<element kind="line" uuid="4af566fc-fafc-4443-b8d2-aaf244b12879" x="652" y="1" width="1" height="25">
@@ -171,10 +170,10 @@
 			<element kind="textField" uuid="fdf0af0a-8bcc-4c3c-a353-ae1171878551" x="11" y="5" width="269" height="15">
 				<expression><![CDATA[$F{libelle}]]></expression>
 			</element>
-			<element kind="textField" uuid="b7a52da6-02cb-4f8c-a139-016cdd3a35cc" x="302" y="5" width="118" height="15">
+			<element kind="textField" uuid="b7a52da6-02cb-4f8c-a139-016cdd3a35cc" x="302" y="5" width="87" height="15">
 				<expression><![CDATA[$F{quantite}]]></expression>
 			</element>
-			<element kind="textField" uuid="32e0a080-0fee-4c6c-bac0-4b5d76f7721c" x="436" y="5" width="90" height="15" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+			<element kind="textField" uuid="32e0a080-0fee-4c6c-bac0-4b5d76f7721c" x="410" y="5" width="114" height="15" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
 				<expression><![CDATA[$F{cours}]]></expression>
 			</element>
 			<element kind="textField" uuid="1622e67b-ab58-4c4f-9ce5-cdde5f5a2e2a" x="540" y="5" width="107" height="15" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
@@ -186,13 +185,18 @@
 		</band>
 	</detail>
 	<columnFooter splitType="Stretch"/>
-	<pageFooter height="54" splitType="Stretch">
-		<element kind="staticText" uuid="002042d6-dee0-4bdd-810c-8a44a5ae0e63" x="5" y="22" width="126" height="13">
+	<pageFooter height="38" splitType="Stretch">
+		<element kind="staticText" uuid="002042d6-dee0-4bdd-810c-8a44a5ae0e63" x="5" y="14" width="126" height="13">
 			<text><![CDATA[Edité avec OPCCIEL 2.0]]></text>
 		</element>
-		<element kind="textField" uuid="7f89eb0e-3252-46d5-9fc7-c434abf30418" x="699" y="20" width="100" height="19" hTextAlign="Right">
+		<element kind="textField" uuid="7f89eb0e-3252-46d5-9fc7-c434abf30418" x="699" y="12" width="100" height="19" hTextAlign="Right">
 			<expression><![CDATA[$V{PAGE_NUMBER}]]></expression>
 		</element>
 	</pageFooter>
-	<summary height="42" splitType="Stretch"/>
+	<summary height="212" splitType="Stretch">
+		<element kind="subreport" uuid="769fc6d5-ec06-46b8-a805-3a23372fd7da" x="4" y="12" width="796" height="200">
+            <dataSourceExpression><![CDATA[$P{ALL_LIGNES}]]></dataSourceExpression>
+            <expression><![CDATA[$P{SUBREPORT_REF}]]></expression>
+		</element>
+	</summary>
 </jasperReport>
