@@ -13,9 +13,9 @@
 		<property name="com.jaspersoft.studio.field.name" value="idTitre"/>
 		<property name="com.jaspersoft.studio.field.label" value="idTitre"/>
 	</field>
-	<field name="IdTransaction" class="java.lang.Long">
-		<property name="com.jaspersoft.studio.field.name" value="IdTransaction"/>
-		<property name="com.jaspersoft.studio.field.label" value="IdTransaction"/>
+	<field name="idTransaction" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="idTransaction"/>
+		<property name="com.jaspersoft.studio.field.label" value="idTransaction"/>
 	</field>
 	<field name="idSeance" class="java.lang.Long">
 		<property name="com.jaspersoft.studio.field.name" value="idSeance"/>
@@ -25,7 +25,7 @@
 		<property name="com.jaspersoft.studio.field.name" value="codeNatureOperation"/>
 		<property name="com.jaspersoft.studio.field.label" value="codeNatureOperation"/>
 	</field>
-	<field name="dateOperation" class="java.sql.Date">
+	<field name="dateOperation" class="java.time.LocalDateTime">
 		<property name="com.jaspersoft.studio.field.name" value="dateOperation"/>
 		<property name="com.jaspersoft.studio.field.label" value="dateOperation"/>
 	</field>
@@ -33,15 +33,15 @@
 		<property name="com.jaspersoft.studio.field.name" value="libelleOperation"/>
 		<property name="com.jaspersoft.studio.field.label" value="libelleOperation"/>
 	</field>
-	<field name="dateSaisie" class="java.sql.Date">
+	<field name="dateSaisie" class="java.time.LocalDateTime">
 		<property name="com.jaspersoft.studio.field.name" value="dateSaisie"/>
 		<property name="com.jaspersoft.studio.field.label" value="dateSaisie"/>
 	</field>
-	<field name="datePiece" class="java.sql.Date">
+	<field name="datePiece" class="java.time.LocalDateTime">
 		<property name="com.jaspersoft.studio.field.name" value="datePiece"/>
 		<property name="com.jaspersoft.studio.field.label" value="datePiece"/>
 	</field>
-	<field name="dateValeur" class="java.sql.Date">
+	<field name="dateValeur" class="java.time.LocalDateTime">
 		<property name="com.jaspersoft.studio.field.name" value="dateValeur"/>
 		<property name="com.jaspersoft.studio.field.label" value="dateValeur"/>
 	</field>
@@ -57,10 +57,10 @@
 		<property name="com.jaspersoft.studio.field.name" value="ecriture"/>
 		<property name="com.jaspersoft.studio.field.label" value="ecriture"/>
 	</field>
-	<field name="estOD" class="java.lang.Boolean">
-		<property name="com.jaspersoft.studio.field.name" value="estOD"/>
-		<property name="com.jaspersoft.studio.field.label" value="estOD"/>
-	</field>
+<!--	<field name="estOD" class="java.lang.Boolean">-->
+<!--		<property name="com.jaspersoft.studio.field.name" value="estOD"/>-->
+<!--		<property name="com.jaspersoft.studio.field.label" value="estOD"/>-->
+<!--	</field>-->
 	<field name="type" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.name" value="type"/>
 		<property name="com.jaspersoft.studio.field.label" value="type"/>
@@ -73,23 +73,8 @@
 		<property name="com.jaspersoft.studio.field.name" value="valeurCodeAnalytique"/>
 		<property name="com.jaspersoft.studio.field.label" value="valeurCodeAnalytique"/>
 	</field>
-	<field name="estExtournee" class="java.lang.Boolean">
-		<property name="com.jaspersoft.studio.field.name" value="estExtournee"/>
-		<property name="com.jaspersoft.studio.field.label" value="estExtournee"/>
-	</field>
-	<field name="estOpExtournee" class="java.lang.Boolean">
-		<property name="com.jaspersoft.studio.field.name" value="estOpExtournee"/>
-		<property name="com.jaspersoft.studio.field.label" value="estOpExtournee"/>
-	</field>
-	<field name="idOpExtournee" class="java.lang.Long">
-		<property name="com.jaspersoft.studio.field.name" value="idOpExtournee"/>
-		<property name="com.jaspersoft.studio.field.label" value="idOpExtournee"/>
-	</field>
-	<field name="estVerifie1" class="java.lang.Boolean">
-		<property name="com.jaspersoft.studio.field.name" value="estVerifie1"/>
-		<property name="com.jaspersoft.studio.field.label" value="estVerifie1"/>
-	</field>
-	<field name="dateVerification1" class="java.sql.Date">
+
+	<field name="dateVerification1" class="java.time.LocalDateTime">
 		<property name="com.jaspersoft.studio.field.name" value="dateVerification1"/>
 		<property name="com.jaspersoft.studio.field.label" value="dateVerification1"/>
 	</field>
@@ -97,11 +82,7 @@
 		<property name="com.jaspersoft.studio.field.name" value="userLoginVerificateur1"/>
 		<property name="com.jaspersoft.studio.field.label" value="userLoginVerificateur1"/>
 	</field>
-	<field name="estVerifie2" class="java.lang.Boolean">
-		<property name="com.jaspersoft.studio.field.name" value="estVerifie2"/>
-		<property name="com.jaspersoft.studio.field.label" value="estVerifie2"/>
-	</field>
-	<field name="dateVerification2" class="java.sql.Date">
+	<field name="dateVerification2" class="java.time.LocalDateTime">
 		<property name="com.jaspersoft.studio.field.name" value="dateVerification2"/>
 		<property name="com.jaspersoft.studio.field.label" value="dateVerification2"/>
 	</field>
@@ -169,11 +150,11 @@
 		<property name="com.jaspersoft.studio.field.name" value="libelleCompteComptable"/>
 		<property name="com.jaspersoft.studio.field.label" value="libelleCompteComptable"/>
 	</field>
-	<field name="dateDebut" class="java.sql.Date">
+	<field name="dateDebut" class="java.time.LocalDateTime">
 		<property name="com.jaspersoft.studio.field.name" value="dateDebut"/>
 		<property name="com.jaspersoft.studio.field.label" value="dateDebut"/>
 	</field>
-	<field name="dateFin" class="java.sql.Date">
+	<field name="dateFin" class="java.time.LocalDateTime">
 		<property name="com.jaspersoft.studio.field.name" value="dateFin"/>
 		<property name="com.jaspersoft.studio.field.label" value="dateFin"/>
 	</field>
@@ -231,13 +212,13 @@
 					<expression><![CDATA[$F{idOperation}]]></expression>
 				</element>
 				<element kind="textField" uuid="4b6eb499-5df7-4214-80e9-c47768a765e8" x="137" y="39" width="358" height="14" blankWhenNull="false">
-					<expression><![CDATA[$F{IdTransaction}]]></expression>
+					<expression><![CDATA[$F{idTransaction}]]></expression>
 				</element>
 				<element kind="textField" uuid="9c3e6aa0-077f-4f8d-8cfb-0a76a1a8220f" x="510" y="39" width="138" height="14" pattern="EE dd/MM/yyyy" blankWhenNull="true">
-					<expression><![CDATA[$F{dateOperation}.format(java.time.format.DateTimeFormatter.ofPatterne("dd/MM/yyyy")]]></expression>
+					<expression><![CDATA[$F{dateOperation}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"))]]></expression>
 				</element>
 				<element kind="textField" uuid="e9ec9781-a587-41ce-ba6a-6881b852b8bf" x="656" y="39" width="135" height="14" pattern="EE dd/MM/yyyy" blankWhenNull="true">
-					<expression><![CDATA[$F{dateValeur}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy")]]></expression>
+					<expression><![CDATA[$F{dateValeur}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"))]]></expression>
 				</element>
 				<element kind="rectangle" uuid="cdb31d02-fc59-47d9-960b-363239d93cdf" x="2" y="59" width="797" height="25" backcolor="#FFFFFF">
 					<pen lineColor="#3B88D1"/>
@@ -401,13 +382,13 @@
 			<pen lineColor="#3B88D1"/>
 		</element>
 		<element kind="textField" uuid="b48d05c4-1812-4cd0-a6a9-2de17ea6078d" x="16" y="68" width="159" height="14" pattern="EE dd/MM/yyyy" blankWhenNull="true" hTextAlign="Center">
-			<expression><![CDATA[$F{dateVerification1}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy")]]></expression>
+			<expression><![CDATA[$F{dateVerification1}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"))]]></expression>
 		</element>
 		<element kind="textField" uuid="961195a7-6c07-493e-8cd7-867ba11b6c3d" x="193" y="68" width="147" height="14" hTextAlign="Center">
 			<expression><![CDATA[$F{userLoginVerificateur1}]]></expression>
 		</element>
 		<element kind="textField" uuid="0067a9c4-443a-454b-bba3-16cbcc0604b9" x="472" y="68" width="163" height="14" pattern="EE dd/MM/yyyy" blankWhenNull="true" hTextAlign="Center">
-			<expression><![CDATA[$F{dateVerification2}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy")]]></expression>
+			<expression><![CDATA[$F{dateVerification2}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"))]]></expression>
 		</element>
 		<element kind="textField" uuid="ece57026-7cb1-49c2-af1d-cba5407c195f" x="645" y="68" width="154" height="14" hTextAlign="Center">
 			<expression><![CDATA[$F{userLoginVerificateur2}]]></expression>

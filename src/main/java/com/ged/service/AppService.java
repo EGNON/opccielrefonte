@@ -2,6 +2,7 @@ package com.ged.service;
 
 import com.ged.dao.LibraryDao;
 import com.ged.dao.opcciel.OpcvmDao;
+import com.ged.dao.opcciel.SeanceOpcvmDao;
 import com.ged.dao.opcciel.SocieteDeGestionDao;
 import com.ged.dao.opcciel.comptabilite.*;
 import com.ged.dao.security.UtilisateurDao;
@@ -78,6 +79,8 @@ public class AppService {
     private final MouvementDao mouvementDao;
     private final OpcvmMapper opcvmMapper;
     private final OpcvmDao opcvmDao;
+    private final SeanceOpcvmMapper seanceOpcvmMapper;
+    private final SeanceOpcvmDao seanceOpcvmDao;
     private final SocieteDeGestionMapper societeDeGestionMapper;
     private final SocieteDeGestionDao societeDeGestionDao;
     private final NatureOperationMapper natureOperationMapper;
@@ -96,7 +99,7 @@ public class AppService {
     private final OperationConstatationChargeMapper constatationChargeMapper;
     private final OperationCommissionMapper commissionMapper;
 
-    public AppService(UtilisateurDao utilisateurDao, LibraryDao libraryDao, ExerciceDao exerciceDao, ExerciceMapper exerciceMapper, PlanService planService, OpcvmService opcvmService, IbService ibService, MouvementDao mouvementDao, OpcvmMapper opcvmMapper, OpcvmDao opcvmDao, SocieteDeGestionMapper societeDeGestionMapper, SocieteDeGestionDao societeDeGestionDao, NatureOperationMapper natureOperationMapper, TransactionDao transactionDao, OperationMapper operationMapper, FormuleDao formuleDao, OperationFormuleDao operationFormuleDao, OperationCodeAnalytiqueDao operationCodeAnalytiqueDao, NatureOperationDao natureOperationDao, JournalDao journalDao, OperationJournalDao operationJournalDao, PersonneDao personneDao, OperationSouscriptionRachatMapper souscriptionRachatMapper, OperationRestitutionReliquatMapper operationRestitutionReliquatMapper, OperationTransfertPartMapper transfertPartMapper, OperationConstatationChargeMapper constatationChargeMapper, OperationCommissionMapper commissionMapper) {
+    public AppService(UtilisateurDao utilisateurDao, LibraryDao libraryDao, ExerciceDao exerciceDao, ExerciceMapper exerciceMapper, PlanService planService, OpcvmService opcvmService, IbService ibService, MouvementDao mouvementDao, OpcvmMapper opcvmMapper, OpcvmDao opcvmDao, SeanceOpcvmMapper seanceOpcvmMapper, SeanceOpcvmDao seanceOpcvmDao, SocieteDeGestionMapper societeDeGestionMapper, SocieteDeGestionDao societeDeGestionDao, NatureOperationMapper natureOperationMapper, TransactionDao transactionDao, OperationMapper operationMapper, FormuleDao formuleDao, OperationFormuleDao operationFormuleDao, OperationCodeAnalytiqueDao operationCodeAnalytiqueDao, NatureOperationDao natureOperationDao, JournalDao journalDao, OperationJournalDao operationJournalDao, PersonneDao personneDao, OperationSouscriptionRachatMapper souscriptionRachatMapper, OperationRestitutionReliquatMapper operationRestitutionReliquatMapper, OperationTransfertPartMapper transfertPartMapper, OperationConstatationChargeMapper constatationChargeMapper, OperationCommissionMapper commissionMapper) {
         this.utilisateurDao = utilisateurDao;
         this.libraryDao = libraryDao;
         this.exerciceDao = exerciceDao;
@@ -107,6 +110,8 @@ public class AppService {
         this.mouvementDao = mouvementDao;
         this.opcvmMapper = opcvmMapper;
         this.opcvmDao = opcvmDao;
+        this.seanceOpcvmMapper = seanceOpcvmMapper;
+        this.seanceOpcvmDao = seanceOpcvmDao;
         this.societeDeGestionMapper = societeDeGestionMapper;
         this.societeDeGestionDao = societeDeGestionDao;
         this.natureOperationMapper = natureOperationMapper;
@@ -3241,10 +3246,11 @@ public class AppService {
         //String denominationOpcvm = request.getDenominationOpcvm();
         OpcvmDto opcvm = opcvmMapper.deOpcvm(opcvmDao.findById(request.getIdOpcvm()).orElseThrow());
         parameters.put("denominationOpcvm",opcvm.getDenominationOpcvm());
-        LocalDateTime dateOuv = request.getDateOuv();
-        parameters.put("dateOuv",dateOuv);
-        LocalDateTime dateFerm = request.getDateFerm();
-        parameters.put("dateFerm",dateFerm);
+        SeanceOpcvmDto seanceOpcvmDto=seanceOpcvmMapper.deSeanceOpcvm(seanceOpcvmDao.afficherSeance(request.getIdOpcvm(),request.getIdSeance()));
+        LocalDateTime dateOuverture = seanceOpcvmDto.getDateOuverture();
+        parameters.put("dateOuv",dateOuverture);
+        LocalDateTime dateFermeture = seanceOpcvmDto.getDateFermeture();
+        parameters.put("dateFerm",dateFermeture);
 
         // Remplissage du rapport
         JasperPrint print = JasperFillManager.fillReport(
@@ -3269,7 +3275,7 @@ public class AppService {
 //        try {
         // Récupération des données
         List<DocumentSeanceListeVerificationCodePosteProjection> documentSeanceListeVerificationCodePosteProjections = libraryDao.documentSeanceListeVerificationCodePoste(
-                request.getIdSeance(), request.getIdOpcvm(), request.getEstVerifie1(), request.getEstVerifie2());
+                request.getIdOpcvm(), request.getIdSeance(), request.getEstVerifie1(), request.getEstVerifie2());
 
         // Chargement des fichiers .jrxml depuis le classpath
         rapportStream = getClass().getResourceAsStream("/Document_Seance_Liste_Verification_Code_Poste.jrxml");
@@ -3292,9 +3298,10 @@ public class AppService {
         //String denominationOpcvm = request.getDenominationOpcvm();
         OpcvmDto opcvm = opcvmMapper.deOpcvm(opcvmDao.findById(request.getIdOpcvm()).orElseThrow());
         parameters.put("denominationOpcvm",opcvm.getDenominationOpcvm());
-        LocalDateTime dateOuverture = request.getDateOuverture();
+        SeanceOpcvmDto seanceOpcvmDto=seanceOpcvmMapper.deSeanceOpcvm(seanceOpcvmDao.afficherSeance(request.getIdOpcvm(),request.getIdSeance()));
+        LocalDateTime dateOuverture = seanceOpcvmDto.getDateOuverture();
         parameters.put("dateOuverture",dateOuverture);
-        LocalDateTime dateFermeture = request.getDateFermeture();
+        LocalDateTime dateFermeture = seanceOpcvmDto.getDateFermeture();
         parameters.put("dateFermeture",dateFermeture);
 
         // Remplissage du rapport
@@ -3566,10 +3573,12 @@ public class AppService {
         parameters.put("letterDate",letterDate);
         OpcvmDto opcvm = opcvmMapper.deOpcvm(opcvmDao.findById(request.getIdOpcvm()).orElseThrow());
         parameters.put("denominationOpcvm",opcvm.getDenominationOpcvm());
-        LocalDateTime dateOuverture = request.getDateOuverture();
+        SeanceOpcvmDto seanceOpcvmDto=seanceOpcvmMapper.deSeanceOpcvm(seanceOpcvmDao.afficherSeance(request.getIdOpcvm(),request.getIdSeance()));
+        LocalDateTime dateOuverture = seanceOpcvmDto.getDateOuverture();
         parameters.put("dateOuverture",dateOuverture);
-        LocalDateTime dateFermeture = request.getDateFermeture();
+        LocalDateTime dateFermeture = seanceOpcvmDto.getDateFermeture();
         parameters.put("dateFermeture",dateFermeture);
+        parameters.put("vl",seanceOpcvmDto.getValeurLiquidative());
 
         //Remplissage du rapport
         JasperPrint print = JasperFillManager.fillReport(

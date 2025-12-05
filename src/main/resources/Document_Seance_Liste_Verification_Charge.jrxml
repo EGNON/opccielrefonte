@@ -2,12 +2,12 @@
 <jasperReport name="Document_Seance_Liste_Verification_Charge" language="java" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="bdfdbfa7-5fc4-43c9-afb9-7e71204670ea">
 	<parameter name="letterDate" class="java.lang.String"/>
 	<parameter name="denominationOpcvm" class="java.lang.String"/>
-	<parameter name="dateOuv" class="java.sql.Date"/>
-	<parameter name="dateFerm" class="java.sql.Date"/>
-	<field name="num" class="java.lang.Integer">
-		<property name="com.jaspersoft.studio.field.name" value="num"/>
-		<property name="com.jaspersoft.studio.field.label" value="num"/>
-	</field>
+	<parameter name="dateOuv" class="java.time.LocalDateTime"/>
+	<parameter name="dateFerm" class="java.time.LocalDateTime"/>
+<!--	<field name="num" class="java.lang.Integer">-->
+<!--		<property name="com.jaspersoft.studio.field.name" value="num"/>-->
+<!--		<property name="com.jaspersoft.studio.field.label" value="num"/>-->
+<!--	</field>-->
 	<field name="idOperation" class="java.lang.Long">
 		<property name="com.jaspersoft.studio.field.name" value="idOperation"/>
 		<property name="com.jaspersoft.studio.field.label" value="idOperation"/>
@@ -36,7 +36,7 @@
 		<property name="com.jaspersoft.studio.field.name" value="libelleNatureOperation"/>
 		<property name="com.jaspersoft.studio.field.label" value="libelleNatureOperation"/>
 	</field>
-	<field name="dateOperation" class="java.sql.Date">
+	<field name="dateOperation" class="java.time.LocalDateTime">
 		<property name="com.jaspersoft.studio.field.name" value="dateOperation"/>
 		<property name="com.jaspersoft.studio.field.label" value="dateOperation"/>
 	</field>
@@ -44,15 +44,15 @@
 		<property name="com.jaspersoft.studio.field.name" value="libelleOperation"/>
 		<property name="com.jaspersoft.studio.field.label" value="libelleOperation"/>
 	</field>
-	<field name="dateSaisie" class="java.sql.Date">
+	<field name="dateSaisie" class="java.time.LocalDateTime">
 		<property name="com.jaspersoft.studio.field.name" value="dateSaisie"/>
 		<property name="com.jaspersoft.studio.field.label" value="dateSaisie"/>
 	</field>
-	<field name="datePiece" class="java.sql.Date">
+	<field name="datePiece" class="java.time.LocalDateTime">
 		<property name="com.jaspersoft.studio.field.name" value="datePiece"/>
 		<property name="com.jaspersoft.studio.field.label" value="datePiece"/>
 	</field>
-	<field name="dateValeur" class="java.sql.Date">
+	<field name="dateValeur" class="java.time.LocalDateTime">
 		<property name="com.jaspersoft.studio.field.name" value="dateValeur"/>
 		<property name="com.jaspersoft.studio.field.label" value="dateValeur"/>
 	</field>
@@ -100,7 +100,7 @@
 		<property name="com.jaspersoft.studio.field.name" value="estVerifie1"/>
 		<property name="com.jaspersoft.studio.field.label" value="estVerifie1"/>
 	</field>
-	<field name="dateVerification1" class="java.sql.Date">
+	<field name="dateVerification1" class="java.time.LocalDateTime">
 		<property name="com.jaspersoft.studio.field.name" value="dateVerification1"/>
 		<property name="com.jaspersoft.studio.field.label" value="dateVerification1"/>
 	</field>
@@ -112,7 +112,7 @@
 		<property name="com.jaspersoft.studio.field.name" value="estVerifie2"/>
 		<property name="com.jaspersoft.studio.field.label" value="estVerifie2"/>
 	</field>
-	<field name="dateVerification2" class="java.sql.Date">
+	<field name="dateVerification2" class="java.time.LocalDateTime">
 		<property name="com.jaspersoft.studio.field.name" value="dateVerification2"/>
 		<property name="com.jaspersoft.studio.field.label" value="dateVerification2"/>
 	</field>
@@ -146,13 +146,13 @@
 					<text><![CDATA[SEANCE :]]></text>
 				</element>
 				<element kind="textField" uuid="a3ff06e3-cefd-4ba5-a661-9e9dec636883" x="257" y="77" width="160" height="15" textAdjust="StretchHeight" pattern="EE dd/MM/yyyy" blankWhenNull="true">
-					<expression><![CDATA[$P{dateOuv}]]></expression>
+					<expression><![CDATA[$P{dateOuv}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"))]]></expression>
 				</element>
 				<element kind="staticText" uuid="421e69be-44d3-472c-b15b-4c2f91e216a7" x="133" y="77" width="124" height="15">
 					<text><![CDATA[DATE OUVERTURE :]]></text>
 				</element>
 				<element kind="textField" uuid="b4ba5adc-a90b-4464-adac-ffff8ff1fc1e" x="599" y="77" width="160" height="15" textAdjust="StretchHeight" pattern="EE dd/MM/yyyy" blankWhenNull="true">
-					<expression><![CDATA[$P{dateFerm}]]></expression>
+					<expression><![CDATA[$P{dateFerm}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"))]]></expression>
 				</element>
 				<element kind="staticText" uuid="41fa1232-b72b-4620-91c2-444f641ec760" x="475" y="77" width="124" height="15">
 					<text><![CDATA[DATE FERM. :]]></text>
@@ -319,13 +319,13 @@
 			<pen lineColor="#3B88D1"/>
 		</element>
 		<element kind="textField" uuid="0074264a-ea42-4f14-821a-fa2831706337" x="16" y="73" width="159" height="14" pattern="EE dd/MM/yyyy" blankWhenNull="true" hTextAlign="Center">
-			<expression><![CDATA[$F{dateVerification1}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy")]]></expression>
+			<expression><![CDATA[$F{dateVerification1}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"))]]></expression>
 		</element>
 		<element kind="textField" uuid="ff19b87f-643d-4582-8263-36757ec08265" x="193" y="73" width="147" height="14" hTextAlign="Center">
 			<expression><![CDATA[$F{userLoginVerificateur1}]]></expression>
 		</element>
 		<element kind="textField" uuid="87014d27-478d-42d6-b5db-2c9d038670fb" x="472" y="73" width="163" height="14" pattern="EE dd/MM/yyyy" blankWhenNull="true" hTextAlign="Center">
-			<expression><![CDATA[$F{dateVerification2}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy")]]></expression>
+			<expression><![CDATA[$F{dateVerification2}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"))]]></expression>
 		</element>
 		<element kind="textField" uuid="7e640118-3a54-42ba-82b0-5bd6b6b0e619" x="645" y="73" width="154" height="14" hTextAlign="Center">
 			<expression><![CDATA[$F{userLoginVerificateur2}]]></expression>

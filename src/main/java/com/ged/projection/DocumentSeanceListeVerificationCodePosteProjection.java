@@ -13,9 +13,9 @@ public interface DocumentSeanceListeVerificationCodePosteProjection {
     String getCodePlan();
     Long getIdOpcvm();
     Long getIdSeance();
-    String getfFormuleSysteme();
+    String getFormuleSysteme();
     LocalDateTime getDateValeur();
-    BigDecimal valeur();
+    BigDecimal getValeur();
     Boolean getEstVerifie1();
     LocalDateTime getDateVerification1();
     String getUserLoginVerificateur1();
