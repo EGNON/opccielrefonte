@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class CompositionDetailleActifRequest {
-    private Long idOpcvm;;
+    private Long idOpcvm;
     private LocalDateTime dateEstimation;
     private LocalDateTime dateOperation;
     private DatatableParameters datatableParameters;
