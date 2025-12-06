@@ -6,8 +6,8 @@
 		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="db_opcciel_data_adapter"/>
 		<parameter name="idActionnaire" class="java.lang.String"/>
-		<parameter name="dateEstimation" class="java.sql.Timestamp"/>
-		<parameter name="dateDebutEstimation" class="java.sql.Timestamp"/>
+		<parameter name="dateEstimation" class="java.time.LocalDateTime"/>
+		<parameter name="dateDebutEstimation" class="java.time.LocalDateTime"/>
 		<parameter name="idActionnaireList" class="java.lang.String"/>
 		<query language="SQL"><![CDATA[SELECT *
         FROM [Impressions].[FT_PortefeuilleActionnaire_New_JAVA](null, $P{idActionnaireList}, $P{dateDebutEstimation}, $P{dateEstimation}) AS f
@@ -130,12 +130,15 @@
 		</field>
 	</dataset>
 	<parameter name="letterDate" class="java.lang.String"/>
-	<parameter name="dateEstimation" class="java.sql.Timestamp"/>
+	<parameter name="dateEstimation" class="java.time.LocalDateTime"/>
 	<parameter name="idActionnaire" class="java.lang.String"/>
-	<parameter name="dateDebutEstimation" class="java.sql.Timestamp"/>
+	<parameter name="dateDebutEstimation" class="java.time.LocalDateTime"/>
 	<parameter name="TABLE_DATASOURCE" class="net.sf.jasperreports.engine.JRDataSource"/>
 	<parameter name="idActionnaireList" class="java.lang.String"/>
-	<query language="sql"><![CDATA[select * from [Impressions].[FT_PortefeuilleActionnaire_New](null,'1072','06/04/2021','06/04/2023')]]></query>
+    <query language="sql"><![CDATA[SELECT *
+        FROM [Impressions].[FT_PortefeuilleActionnaire_New_JAVA](null, $P{idActionnaireList}, $P{dateDebutEstimation}, $P{dateEstimation}) AS f
+        order by f.idActionnaire asc
+        ]]></query>
 	<field name="idOpcvm" class="java.lang.Long">
 		<property name="com.jaspersoft.studio.field.name" value="idOpcvm"/>
 		<property name="com.jaspersoft.studio.field.label" value="idOpcvm"/>

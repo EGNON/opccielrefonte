@@ -4847,9 +4847,9 @@ public class AppService {
         InputStream rapportStream = null;
         InputStream subreportStream = null;
 
-        List<PortefeuilleActionnaireProjection> portefeuilleActionnaireProjections = libraryDao.portefeuilleActionnaire(
-                request.getIdOpcvm(), request.getIdActionnaire(),request.getDateDebutEstimation(), request.getDateEstimation()
-        );
+//        List<PortefeuilleActionnaireProjection> portefeuilleActionnaireProjections = libraryDao.portefeuilleActionnaire(
+//                request.getIdOpcvm(), request.getIdActionnaire(),request.getDateDebutEstimation(), request.getDateEstimation()
+//        );
 
         rapportStream = getClass().getResourceAsStream("/PortefeuilleActionnaireF2.jrxml");
 
