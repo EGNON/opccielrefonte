@@ -3,11 +3,12 @@ package com.ged.dto.opcciel.comptabilite;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.ged.dto.opcciel.OpcvmDto;
 import com.ged.dto.opcciel.PlanDto;
+import com.ged.dto.standard.BaseDto;
 import com.ged.entity.opcciel.comptabilite.CleExercice;
 
 import java.time.LocalDateTime;
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ExerciceDto {
+public class ExerciceDto extends BaseDto {
     private String codeExercice;
     private OpcvmDto opcvm;
     private CleExercice idExercie;
@@ -21,7 +22,7 @@ public class ExerciceDto {
     private Float tauxBenefice;
     private Double montantMinimum;
     private String declassement;
-
+    private  String userLogin;
     public ExerciceDto() {
     }
 
@@ -31,6 +32,14 @@ public class ExerciceDto {
 
     public void setIdExercie(CleExercice idExercie) {
         this.idExercie = idExercie;
+    }
+
+    public String getUserLogin() {
+        return userLogin;
+    }
+
+    public void setUserLogin(String userLogin) {
+        this.userLogin = userLogin;
     }
 
     public OpcvmDto getOpcvm() {
