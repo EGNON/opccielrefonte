@@ -189,8 +189,8 @@ public interface LibraryDao extends JpaRepository<BaseEntity, Long> {
     @Query(value = "select * from [Parametre].[FT_HistoriqueVL_New] (:idOpcvm,:dateDebut,:dateFin)", nativeQuery = true)
     List<HistoriqueVLProjection> historiqueVL(Long idOpcvm, LocalDateTime dateDebut, LocalDateTime dateFin);
 
-    @Query(value = "select * from [Impressions].[FT_CompositionDetailleActif_New] (:idOpcvm,:dateEstimation)", nativeQuery = true)
-    List<CompositionDetailleActifProjection> compositionDetailleActif(Long idOpcvm, LocalDateTime dateEstimation);
+    @Query(value = "select * from Impressions.FT_CompositionDetailleActif_New (:idOpcvm,:dateEstimation)", nativeQuery = true)
+    List<CompositionDetailleActifProjection> compositionDetailleActif(@Param("idOpcvm") Long idOpcvm, @Param("dateEstimation") LocalDateTime dateEstimation);
 
     @Query(value = "select * from [Operation].[FT_OperationSouscriptionRachat_New](:idOpcvm,:dateOuverture,:dateFermeture)", nativeQuery = true)
     List<PointPeriodiqueTAFAProjection> pointPeriodiqueTAFA(Long idOpcvm,LocalDateTime dateOuverture,LocalDateTime dateFermeture);

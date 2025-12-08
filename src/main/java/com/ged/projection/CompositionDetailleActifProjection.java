@@ -9,12 +9,12 @@ import java.time.LocalDateTime;
 public interface CompositionDetailleActifProjection {
 
     String getCategorie();
-    String getlibelle();
+    String getLibelle();
     Long getQuantite();
     BigDecimal getCours();
     BigDecimal getValeur();
 	BigDecimal getActifNet();
-    BigDecimal getpPart();
+    BigDecimal getPart();
     BigDecimal getVl();
     BigDecimal getTotalpercentActifNet();
     BigDecimal getArrondiActifNet();

@@ -1042,7 +1042,7 @@ public class LibraryController {
     }
 
     //portefeuilleactionnaireformat2
-    @PostMapping("/opcvm/etats/portefeuilleactionnaireformat2")
+    @PostMapping("/etats/portefeuilleactionnaireformat2")
     public void afficherportefeuilleactionnaire (@RequestBody @Valid PortefeuilleActionnaireRequest request, HttpServletResponse response) throws JRException, IOException, SQLException {
 
         response.setContentType("application/pdf");
@@ -1055,13 +1055,13 @@ public class LibraryController {
 
         service.afficherPortefeuilleActionnaireF2(request,response);
     }
-    @PostMapping("/opcvm/portefeuilleactionnaireformat2/list")
+    @PostMapping("/portefeuilleactionnaireformat2/list")
     public ResponseEntity<?> afficherportefeuilleactionnaireformat2(@RequestBody @Valid PortefeuilleActionnaireRequest request) {
         return service.afficherPortefeuilleActionnaireF2(request);
     }
 
     //portefeuilleactionnairefinannee
-    @PostMapping("/opcvm/etats/portefeuilleactionnairefinannee")
+    @PostMapping("/etats/portefeuilleactionnairefinannee")
     public void portefeuilleactionnairefinannee(@RequestBody @Valid PortefeuilleActionnaireRequest request, HttpServletResponse response) throws JRException,IOException {
 
         response.setContentType("application/pdf");
@@ -1074,7 +1074,7 @@ public class LibraryController {
 
         service.afficherPortefeuilleActionnaireFinAnnee(request,response);
     }
-    @PostMapping("/opcvm/portefeuilleactionnairefinannee/list")
+    @PostMapping("/portefeuilleactionnairefinannee/list")
     public ResponseEntity<?> portefeuilleactionnairefinannee(@RequestBody @Valid PortefeuilleActionnaireRequest request) {
         return service.afficherPortefeuilleActionnaireFinAnnee(request);
     }
