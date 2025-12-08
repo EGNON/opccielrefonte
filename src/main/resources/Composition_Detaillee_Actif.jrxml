@@ -4,7 +4,7 @@
 	<parameter name="frequence" class="java.lang.String"/>
 	<parameter name="sigleOpcvm" class="java.lang.String"/>
 	<parameter name="denominationOpcvm" class="java.lang.String"/>
-	<parameter name="dateEstimation" class="java.sql.Date"/>
+	<parameter name="dateEstimation" class="java.time.LocalDateTime"/>
     <parameter name="SUBREPORT_REF" class="net.sf.jasperreports.engine.JasperReport"/>
     <parameter name="SUBREPORT_NAME" class="java.lang.String"/>
 	<field name="categorie" class="java.lang.String">
@@ -51,7 +51,7 @@
 		<property name="com.jaspersoft.studio.field.name" value="idOpcvm"/>
 		<property name="com.jaspersoft.studio.field.label" value="idOpcvm"/>
 	</field>
-	<field name="dateEstimation" class="java.sql.Date">
+	<field name="dateEstimation" class="java.time.LocalDateTime">
 		<property name="com.jaspersoft.studio.field.name" value="dateEstimation"/>
 		<property name="com.jaspersoft.studio.field.label" value="dateEstimation"/>
 	</field>
@@ -90,10 +90,10 @@
 					<pen lineColor="#3B88D1"/>
 				</element>
 				<element kind="textField" uuid="f22c8cc8-6016-4d2f-9cd0-365e6cc72f52" x="410" y="13" width="113" height="14" textAdjust="StretchHeight">
-					<expression><![CDATA["Cours au "+$P{dateEstimation}]]></expression>
+					<expression><![CDATA["Cours au "+$P{dateEstimation}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"))]]></expression>
 				</element>
 				<element kind="textField" uuid="4d4f9b82-9d3a-4278-9a5e-61816b772a3b" x="540" y="13" width="105" height="13" textAdjust="StretchHeight">
-					<expression><![CDATA["Valeur au "+$P{dateEstimation}]]></expression>
+					<expression><![CDATA["Valeur au "+$P{dateEstimation}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"))]]></expression>
 				</element>
 			</band>
 		</groupHeader>
