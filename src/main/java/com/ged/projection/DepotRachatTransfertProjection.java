@@ -1,14 +1,12 @@
 package com.ged.projection;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-public interface FT_DepotRachatProjection {
+public interface DepotRachatTransfertProjection {
     Long getIdOperation() ;
     Long getIdDepotRachat() ;
     String getReferencePiece();
-    String getLibelleOperation();
     LocalDateTime getDateOperation();
     String getNomSigle();
     String getPrenomRaison();
@@ -23,19 +21,38 @@ public interface FT_DepotRachatProjection {
     LocalDateTime getDateFerm();
     String getIdPersonne();
     String getDistributeur();
-    Boolean getEstVerifie1();
-    Boolean getEstVerifier();
+    boolean isEstVerifie1();
+    boolean isEstVerifier();
     LocalDateTime getDateVerification1();
     String getUserLoginVerificateur1();
-    Boolean getEstVerifie2();
+    boolean isEstVerifie2();
     LocalDateTime getDateVerification2();
     String getUserLoginVerificateur2();
     Long getIdTitre();
     BigDecimal getQte();
     BigDecimal getCours();
-    BigDecimal getMontant();
     BigDecimal getCommission();
     BigDecimal getInteretCouru();
     BigDecimal getInteretPrecompte();
     String getSymbolTitre();
+    Long getIdTransaction();
+    String getCodeNatureOperation();
+    String getLibelleNatureOperation();
+    String getLibelleOperation();
+    LocalDateTime getDateSaisie();
+    LocalDateTime getDatePiece();
+    LocalDateTime getDateValeur();
+    BigDecimal getMontant();
+    BigDecimal getQuantite();
+    String getEcriture();
+    Boolean getEstOD();
+    String getType();
+    String getModeVL();
+    boolean isEstGenere();
+    String getNomVerificateur();
+    LocalDateTime getDateVerification();
+    String getUserLogin();
+    Boolean getSupprimer();
+    String getDesignationTitre();
+	String getPersonne();
 }

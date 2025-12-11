@@ -27,6 +27,7 @@ import java.util.List;
 
 public interface DepotRachatService {
     ResponseEntity<Object> afficherTousLesDepots(DatatableParameters parameters, Long idOpcvm, Long idSeance);
+    ResponseEntity<Object> afficherDepotRachatTransfert(DatatableParameters parameters, Long idOpcvm, Long idSeance);
 
     ResponseEntity<Object> listeDepotAVerifier(VerificationListeDepotRequest verificationListeDepotRequest);
     ResponseEntity<Object> importDepotPH(List<PhForm> phForm);
@@ -44,14 +45,18 @@ public interface DepotRachatService {
     List<NbrePartProjection> afficherNbrePart(Long idOpcvm, Long idActionnaire);
     List<PrecalculRachatProjection> afficherPrecalculRachat(Long idSeance,Long idOpcvm, Long idPersonne);
     List<FT_DepotRachatProjection> afficherFT_DepotRachat(Long IdOpcvm,boolean niveau1,boolean niveau2);
+    List<FT_DepotRachatProjection> afficherDepotRachatTransfert(Long IdOpcvm,boolean niveau1,boolean niveau2);
     List<FT_DepotRachatProjection> verifIntentionRachat(Long IdOpcvm,boolean niveau1,boolean niveau2, HttpServletResponse response) throws IOException, JRException;
+    List<FT_DepotRachatProjection> verifSouscriptionTRansfertTitre(Long IdOpcvm,boolean niveau1,boolean niveau2, HttpServletResponse response) throws IOException, JRException;
     List<FT_DepotRachatProjection> verifIntentionRachatN1N2(Long IdOpcvm,boolean niveau1,boolean niveau2, HttpServletResponse response) throws IOException, JRException;
     DepotRachat afficherSelonId(Long IdOperation);
     ResponseEntity<Object> afficher(Long IdOperation);
+    ResponseEntity<Object> calculer(DepotRachatDto depotRachatDto);
 
     ResponseEntity<Object> creer(DepotRachatDto DepotRachatDto, String type);
 
     ResponseEntity<Object> creer(DepotRachatDto depotRachatDto);
+    ResponseEntity<Object> creerDepotRachatTransfert(DepotRachatDto depotRachatDto);
     ResponseEntity<Object> modifier(VerifDepSouscriptionIntRachatDto verifDepSouscriptionIntRachatDto);
     ResponseEntity<Object> creer(Long[] ids,String userLogin);
 

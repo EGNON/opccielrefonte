@@ -27,6 +27,7 @@ public class DepotRachatDto extends Base {
     private LocalDateTime dateValeur;
     private String referencePiece;
     private BigDecimal montant;
+    private BigDecimal montantBrut;
     private BigDecimal quantite;
     private String ecriture;
     private Boolean estOD;
@@ -57,8 +58,25 @@ public class DepotRachatDto extends Base {
     /**************************************************************************/
     private String valeurFormule;
     private String valeurCodeAnalytique;
+    private String userLogin;
 
     public DepotRachatDto() {
+    }
+
+    public BigDecimal getMontantBrut() {
+        return montantBrut;
+    }
+
+    public void setMontantBrut(BigDecimal montantBrut) {
+        this.montantBrut = montantBrut;
+    }
+
+    public String getUserLogin() {
+        return userLogin;
+    }
+
+    public void setUserLogin(String userLogin) {
+        this.userLogin = userLogin;
     }
 
     public Long getIdTransaction() {

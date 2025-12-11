@@ -10,6 +10,8 @@ import com.ged.dao.opcciel.SeanceOpcvmDao;
 import com.ged.dao.opcciel.comptabilite.NatureOperationDao;
 import com.ged.dao.opcciel.comptabilite.OperationDao;
 import com.ged.dao.standard.*;
+import com.ged.dao.titresciel.TcnDao;
+import com.ged.dao.titresciel.TitreDao;
 import com.ged.datatable.DataTablesResponse;
 import com.ged.datatable.DatatableParameters;
 import com.ged.dto.opcciel.DepotRachatDto;
@@ -21,6 +23,8 @@ import com.ged.dto.request.VerificationListeDepotRequest;
 import com.ged.dto.standard.PaysDto;
 import com.ged.dto.standard.PhForm;
 import com.ged.dto.standard.PmForm;
+import com.ged.dto.titresciel.TcnDto;
+import com.ged.dto.titresciel.TitreDto;
 import com.ged.entity.lab.GelDegel;
 import com.ged.entity.opcciel.DepotRachat;
 import com.ged.entity.opcciel.Opcvm;
@@ -28,13 +32,16 @@ import com.ged.entity.opcciel.OperationSouscriptionRachat;
 import com.ged.entity.opcciel.SeanceOpcvm;
 import com.ged.entity.opcciel.comptabilite.NatureOperation;
 import com.ged.entity.standard.*;
+import com.ged.entity.titresciel.Registraire;
+import com.ged.entity.titresciel.Tcn;
+import com.ged.entity.titresciel.Titre;
 import com.ged.mapper.opcciel.DepotRachatMapper;
 import com.ged.mapper.opcciel.OperationMapper;
 import com.ged.mapper.opcciel.OperationSouscriptionRachatMapper;
 import com.ged.mapper.standard.PaysMapper;
-import com.ged.projection.FT_DepotRachatProjection;
-import com.ged.projection.NbrePartProjection;
-import com.ged.projection.PrecalculRachatProjection;
+import com.ged.mapper.titresciel.TcnMapper;
+import com.ged.mapper.titresciel.TitreMapper;
+import com.ged.projection.*;
 import com.ged.response.ResponseHandler;
 import com.ged.service.AppService;
 import com.ged.service.opcciel.DepotRachatService;
@@ -59,9 +66,12 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -95,8 +105,10 @@ public class DepotRachatImpl implements DepotRachatService {
     private final AppService appService;
     private final OperationSouscriptionRachatMapper souscriptionRachatMapper;
     private final OperationSouscriptionRachatDao souscriptionRachatDao;
-    private final OperationDao operationDao;
-    private final OperationMapper operationMapper;
+    private final TitreDao titreDao;
+    private final TitreMapper titreMapper;
+    private final TcnDao tcnDao;
+    private final TcnMapper tcnMapper;
 
     private static ThreadLocal<String> newClient = new ThreadLocal<>();
 //    @PersistenceContext
@@ -109,7 +121,7 @@ public class DepotRachatImpl implements DepotRachatService {
             DepotRachatMapper DepotRachatMapper,
             PersonneDao personneDao, PersonnePhysiqueDao personnePhysiqueDao, PersonneMoraleDao personneMoraleDao, PaysDao paysDao, ActionnaireOpcvmDao actionnaireOpcvmDao, ActionnaireCommissionDao actionnaireCommissionDao, ProfessionDao professionDao, ProfilCommissionSousRachDao profilCommissionSousRachDao, PaysMapper paysMapper,
             LibraryDao libraryDao, SeanceOpcvmDao seanceOpcvmDao, QualiteDao qualiteDao, StatutPersonneDao statutPersonneDao,
-            SeanceOpcvmService seanceOpcvmService, AppService appService, OperationSouscriptionRachatMapper souscriptionRachatMapper, OperationSouscriptionRachatDao souscriptionRachatDao, OperationDao operationDao, OperationMapper operationMapper) {
+            SeanceOpcvmService seanceOpcvmService, AppService appService, OperationSouscriptionRachatMapper souscriptionRachatMapper, OperationSouscriptionRachatDao souscriptionRachatDao, OperationDao operationDao, OperationMapper operationMapper, TitreDao titreDao, TitreMapper titreMapper, TcnDao tcnDao, TcnMapper tcnMapper) {
         this.depotRachatDao = DepotRachatDao;
         this.opcvmDao = opcvmDao;
         this.gelDegelDao = gelDegelDao;
@@ -133,8 +145,10 @@ public class DepotRachatImpl implements DepotRachatService {
         this.appService = appService;
         this.souscriptionRachatMapper = souscriptionRachatMapper;
         this.souscriptionRachatDao = souscriptionRachatDao;
-        this.operationDao = operationDao;
-        this.operationMapper = operationMapper;
+        this.titreDao = titreDao;
+        this.titreMapper = titreMapper;
+        this.tcnDao = tcnDao;
+        this.tcnMapper = tcnMapper;
     }
 
     @Override
@@ -148,6 +162,35 @@ public class DepotRachatImpl implements DepotRachatService {
             DepotRachatPage = depotRachatDao.listeDesDepotSeance(idOpcvm, idSeance, pageable);
             List<DepotRachatDto> content = DepotRachatPage.getContent().stream().map(depotRachatMapper::deDepotRachat).collect(Collectors.toList());
             DataTablesResponse<DepotRachatDto> dataTablesResponse = new DataTablesResponse<>();
+            dataTablesResponse.setDraw(parameters.getDraw());
+            dataTablesResponse.setRecordsFiltered((int)DepotRachatPage.getTotalElements());
+            dataTablesResponse.setRecordsTotal((int)DepotRachatPage.getTotalElements());
+            dataTablesResponse.setData(content);
+            return ResponseHandler.generateResponse(
+                    "Liste des dépôts rachats par page datatable",
+                    HttpStatus.OK,
+                    dataTablesResponse);
+        }
+        catch(Exception e)
+        {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e);
+        }
+    }
+
+    @Override
+    public ResponseEntity<Object> afficherDepotRachatTransfert(DatatableParameters parameters, Long idOpcvm, Long idSeance) {
+        try {
+//            System.out.println(idOpcvm + ";" + idSeance);
+//            Opcvm opcvm = opcvmDao.findById(idOpcvm).orElseThrow();
+            Pageable pageable = PageRequest.of(
+                    parameters.getStart() / parameters.getLength(), parameters.getLength());
+            Page<DepotRachatTransfertProjection> DepotRachatPage;
+            DepotRachatPage = depotRachatDao.depotRachatTransfert(idSeance, idOpcvm,null,null, pageable);
+            List<DepotRachatTransfertProjection> content = DepotRachatPage.getContent().stream().toList();
+            DataTablesResponse<DepotRachatTransfertProjection> dataTablesResponse = new DataTablesResponse<>();
             dataTablesResponse.setDraw(parameters.getDraw());
             dataTablesResponse.setRecordsFiltered((int)DepotRachatPage.getTotalElements());
             dataTablesResponse.setRecordsTotal((int)DepotRachatPage.getTotalElements());
@@ -917,21 +960,53 @@ public class DepotRachatImpl implements DepotRachatService {
     }
 
     @Override
+    public List<FT_DepotRachatProjection> afficherDepotRachatTransfert(Long IdOpcvm, boolean niveau1, boolean niveau2) {
+        SeanceOpcvm seanceOpcvm = seanceOpcvmService.afficherSeanceEnCours(IdOpcvm);
+        Long idSeance = seanceOpcvm.getIdSeanceOpcvm().getIdSeance();
+        List<FT_DepotRachatProjection> list = libraryDao.afficherFT_DepotRachat(idSeance,
+                null, IdOpcvm,
+                "TRANS_TIT_ACT;TRANS_TIT_OBLC;TRANS_TIT_OBLNC;TRANS_TIT_TCN;TRANS_TIT_FCP",
+                niveau1, niveau2);
+
+        return list;
+    }
+
+    @Override
     public List<FT_DepotRachatProjection> verifIntentionRachat(Long IdOpcvm, boolean niveau1, boolean niveau2, HttpServletResponse response) throws IOException, JRException {
         SeanceOpcvm seanceOpcvm = seanceOpcvmService.afficherSeanceEnCours(IdOpcvm);
         Long idSeance = seanceOpcvm.getIdSeanceOpcvm().getIdSeance();
         List<FT_DepotRachatProjection> list = libraryDao.afficherFT_DepotRachat(idSeance,
                 null, IdOpcvm, "INT_RACH",
                 niveau1, niveau2);
-//        Map<String, Object> parameters = new HashMap<>();
-//        DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
-//        String letterDate = dateFormatter.format(new Date());
-//        parameters.put("letterDate", letterDate);
-//        File file = ResourceUtils.getFile("classpath:verificationIntentionRachat.jrxml");
-//        JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
-//        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(list);
-//        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport,parameters, dataSource);
-//        JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());
+
+        Map<String, Object> parameters = new HashMap<>();
+        DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
+        String letterDate = dateFormatter.format(new Date());
+        parameters.put("letterDate", letterDate);
+
+        // Utilisation d'un InputStream pour accéder à la ressource dans le .jar
+        InputStream inputStream = getClass().getResourceAsStream("/verificationIntentionRachat.jrxml");
+        if (inputStream == null) {
+            throw new FileNotFoundException("Fichier JRXML introuvable dans le classpath");
+        }
+
+        JasperReport jasperReport = JasperCompileManager.compileReport(inputStream);
+        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(list);
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
+
+        // Export vers le flux de sortie HTTP
+        JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());
+        return list;
+    }
+
+    @Override
+    public List<FT_DepotRachatProjection> verifSouscriptionTRansfertTitre(Long IdOpcvm, boolean niveau1, boolean niveau2, HttpServletResponse response) throws IOException, JRException {
+        SeanceOpcvm seanceOpcvm = seanceOpcvmService.afficherSeanceEnCours(IdOpcvm);
+        Long idSeance = seanceOpcvm.getIdSeanceOpcvm().getIdSeance();
+        List<FT_DepotRachatProjection> list = libraryDao.afficherFT_DepotRachat(idSeance,
+                null, IdOpcvm, "TRANS_TIT_ACT;TRANS_TIT_OBLC;TRANS_TIT_OBLNC;TRANS_TIT_TCN;TRANS_TIT_FCP",
+                niveau1, niveau2);
+
         Map<String, Object> parameters = new HashMap<>();
         DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
         String letterDate = dateFormatter.format(new Date());
@@ -996,6 +1071,80 @@ public class DepotRachatImpl implements DepotRachatService {
                     e);
         }
 
+    }
+
+    @Override
+    public ResponseEntity<Object> calculer(DepotRachatDto depotRachatDto) {
+        String sortie="";
+        String codeTypeTitre="";
+        String codeClasseTitre="";
+        BigDecimal montantBrut =BigDecimal.valueOf(0);
+        BigDecimal interetCourru = BigDecimal.valueOf(0);
+        String codeRole = "";
+        BigDecimal commissionSGI = BigDecimal.valueOf(0);
+        BigDecimal irvm = BigDecimal.valueOf(0);
+        BigDecimal tafCommissionSGI = BigDecimal.valueOf(0);
+        BigDecimal montantNet = BigDecimal.valueOf(0);
+        BigDecimal plusOuMoinsValue = BigDecimal.valueOf(0);
+        BigDecimal quantiteDisponible=BigDecimal.valueOf(10000000);
+        BigDecimal interetPrecompte = BigDecimal.ZERO;
+        TitreDto titreDto=titreMapper.deTitre(titreDao.findById(depotRachatDto.getTitre().getIdTitre()).orElseThrow());
+        String t=titreDto.getTypeTitre().getCodeTypeTitre().trim();
+
+
+        codeClasseTitre = titreDto.getTypeTitre().getClasseTitre().getCodeClasseTitre().trim();
+        codeTypeTitre =titreDto.getTypeTitre().getCodeTypeTitre().trim();
+
+        BigDecimal cours=BigDecimal.ZERO;
+        BigDecimal quantite=BigDecimal.ZERO;
+        if(depotRachatDto.getCours()!=null){
+            cours=depotRachatDto.getCours();
+        }
+        if(depotRachatDto.getQuantite()!=null){
+            quantite=depotRachatDto.getQuantite();
+        }
+        montantBrut = cours.multiply(quantite);
+        montantBrut = new BigDecimal(montantBrut.doubleValue()).setScale(0,RoundingMode.HALF_UP);
+        if (codeClasseTitre.trim().equalsIgnoreCase("OBLIGATION") ||
+                codeClasseTitre.trim().equalsIgnoreCase("TCN"))
+        {
+            LocalDateTime dateTime=LocalDateTime.parse(depotRachatDto.getDateOperation().toString().substring(0,10)+"T00:00:00");;
+            Instant i = dateTime.atZone(ZoneId.systemDefault()).toInstant();
+            Date date = Date.from(i);
+            interetCourru = new BigDecimal(Double.valueOf(libraryDao.interetCouru(titreDto.getIdTitre(),date, false,null).toString()) *
+                    Double.valueOf(depotRachatDto.getQuantite().toString())).setScale(0,RoundingMode.HALF_UP);
+
+            if (codeClasseTitre.trim().equalsIgnoreCase("TCN"))
+            {
+                TcnDto otcn = new TcnDto();
+                otcn =tcnMapper.deTcn(tcnDao.findById(titreDto.getIdTitre()).orElseThrow());
+                dateTime=LocalDateTime.parse(otcn.getDateDernierPaiement().toString().substring(0,10)+"T00:00:00");;
+                i = dateTime.atZone(ZoneId.systemDefault()).toInstant();
+                date = Date.from(i);
+
+                BigDecimal toto = (libraryDao.interetCouru((titreDto.getIdTitre()),
+                        date, false,null).multiply(
+                        quantite)
+                ).setScale(0,RoundingMode.HALF_UP);
+
+                interetPrecompte = toto;
+            }
+        }
+
+
+        montantNet = montantBrut.add(interetCourru).subtract(
+                ((codeClasseTitre.trim().equalsIgnoreCase("TCN")) ? interetPrecompte : BigDecimal.ZERO));
+
+        depotRachatDto.setMontantBrut(montantBrut);
+        depotRachatDto.setMontant(montantNet);
+        depotRachatDto.setInteretCouru(interetCourru);
+        depotRachatDto.setInteretPrecompte(interetPrecompte);
+
+
+        return ResponseHandler.generateResponse(
+                "Liste !",
+                HttpStatus.OK,
+                depotRachatDto);
     }
 
     @Override
@@ -1067,6 +1216,154 @@ public class DepotRachatImpl implements DepotRachatService {
                     "Enregistrement effectué avec succès !",
                     HttpStatus.OK,
                     depotRachatMapper.deDepotRachat(DepotRachat));
+        } catch (Exception e) {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e);
+        }
+    }
+
+    @Override
+    public ResponseEntity<Object> creerDepotRachatTransfert(DepotRachatDto depotRachatDto) {
+        try {
+            String sortie="";
+            StoredProcedureQuery q = em.createStoredProcedureQuery("[Parametre].[PS_DepotRachat_IP_New]");
+            q.registerStoredProcedureParameter("IdOperation", Long.class, ParameterMode.IN);
+            q.registerStoredProcedureParameter("IdTransaction", Long.class, ParameterMode.IN);
+            q.registerStoredProcedureParameter("codeNatureOperation", String.class, ParameterMode.IN);
+            q.registerStoredProcedureParameter("dateOperation", LocalDateTime.class, ParameterMode.IN);
+            q.registerStoredProcedureParameter("libelleOperation", String.class, ParameterMode.IN);
+            q.registerStoredProcedureParameter("dateSaisie", LocalDateTime.class, ParameterMode.IN);
+            q.registerStoredProcedureParameter("datePiece", LocalDateTime.class, ParameterMode.IN);
+            q.registerStoredProcedureParameter("dateValeur", LocalDateTime.class, ParameterMode.IN);
+            q.registerStoredProcedureParameter("referencePiece", String.class, ParameterMode.IN);
+            q.registerStoredProcedureParameter("montant", BigDecimal.class, ParameterMode.IN);
+            q.registerStoredProcedureParameter("montantSouscrit", BigDecimal.class, ParameterMode.IN);
+            q.registerStoredProcedureParameter("quantite", BigDecimal.class, ParameterMode.IN);
+            q.registerStoredProcedureParameter("ecriture", String.class, ParameterMode.IN);
+            q.registerStoredProcedureParameter("estOD", Boolean.class, ParameterMode.IN);
+            q.registerStoredProcedureParameter("type", String.class, ParameterMode.IN);
+            q.registerStoredProcedureParameter("IdActionnaire", Long.class, ParameterMode.IN);
+            q.registerStoredProcedureParameter("IdSeance", Long.class, ParameterMode.IN);
+            q.registerStoredProcedureParameter("IdPersonne", Long.class, ParameterMode.IN);
+            q.registerStoredProcedureParameter("IdOpcvm", Long.class, ParameterMode.IN);
+            q.registerStoredProcedureParameter("modeVL", String.class, ParameterMode.IN);
+            q.registerStoredProcedureParameter("estGenere", Boolean.class, ParameterMode.IN);
+            q.registerStoredProcedureParameter("estVerifier", Boolean.class, ParameterMode.IN);
+            q.registerStoredProcedureParameter("nomVerificateur", String.class, ParameterMode.IN);
+            q.registerStoredProcedureParameter("dateVerification", LocalDateTime.class, ParameterMode.IN);
+            q.registerStoredProcedureParameter("idTitre", Long.class, ParameterMode.IN);
+            q.registerStoredProcedureParameter("qte", BigDecimal.class, ParameterMode.IN);
+            q.registerStoredProcedureParameter("cours", BigDecimal.class, ParameterMode.IN);
+            q.registerStoredProcedureParameter("commission", BigDecimal.class, ParameterMode.IN);
+            q.registerStoredProcedureParameter("interetCouru", BigDecimal.class, ParameterMode.IN);
+            q.registerStoredProcedureParameter("interetPrecompte", BigDecimal.class, ParameterMode.IN);
+            q.registerStoredProcedureParameter("valeurFormule", String.class, ParameterMode.IN);
+            q.registerStoredProcedureParameter("valeurCodeAnalytique", String.class, ParameterMode.IN);
+            q.registerStoredProcedureParameter("userLogin", String.class, ParameterMode.IN);
+            q.registerStoredProcedureParameter("dateDernModifClient", LocalDateTime.class, ParameterMode.IN);
+            q.registerStoredProcedureParameter("CodeLangue", String.class, ParameterMode.IN);
+            q.registerStoredProcedureParameter("Sortie", String.class, ParameterMode.OUT);
+
+            SeanceOpcvm seanceOpcvm = seanceOpcvmService.afficherSeanceEnCours(depotRachatDto.getOpcvm().getIdOpcvm());
+            LocalDateTime dateEstimation = seanceOpcvm.getDateFermeture();
+            String codeNAtureOperation="";
+            String valeurFormule="";
+            String codeClasseTitre="";
+            String codeTypeTitre="";
+            TitreDto titreDto=titreMapper.deTitre(titreDao.findById(depotRachatDto.getTitre().getIdTitre()).orElseThrow());
+            codeClasseTitre=titreDto.getTypeTitre().getClasseTitre().getCodeClasseTitre();
+            codeTypeTitre=titreDto.getTypeTitre().getCodeTypeTitre();
+            if (codeClasseTitre.trim().equalsIgnoreCase("ACTION"))
+            {
+               codeNAtureOperation = "TRANS_TIT_ACT";
+
+                valeurFormule = "2:" + (depotRachatDto.getQte().multiply(depotRachatDto.getCours()).toString().replace(',', '.') +
+                        ";9:" + (depotRachatDto.getCommission()).toString().replace(',', '.') +
+                        ";55:" + depotRachatDto.getQte().toString().replace(',', '.')) ;
+            }
+            else if (codeClasseTitre.trim().equalsIgnoreCase("TCN"))
+            {
+                codeNAtureOperation = "TRANS_TIT_TCN";
+                valeurFormule = "2:" + (depotRachatDto.getQte().multiply(depotRachatDto.getCours())).toString().replace(',', '.') +
+                        ";9:" + (depotRachatDto.getCommission()).toString().replace(',', '.') +
+                        ";30:" + depotRachatDto.getInteretPrecompte().toString().replace(',', '.') +
+                        ";28:" + depotRachatDto.getInteretCouru().toString().replace(',', '.') +
+                        ";55:" + depotRachatDto.getQte().toString().replace(',', '.') +
+                        ";4:" + ((depotRachatDto.getMontant())).toString().replace(',', '.');
+            }
+            else if (codeClasseTitre.trim().equalsIgnoreCase("PART FCP"))
+            {
+                codeNAtureOperation = "TRANS_TIT_FCP";
+                valeurFormule = "2:" + ((depotRachatDto.getQte().multiply(depotRachatDto.getCours()).toString().replace(',', '.') +
+                        ";55:" + depotRachatDto.getQte().toString().replace(',', '.') +
+                        ";9:" + (depotRachatDto.getCommission()).toString().replace(',', '.') +
+                        ";4:" + (depotRachatDto.getQte().multiply(depotRachatDto.getCours()).toString().replace(',', '.'))));
+            }
+            else if (codeClasseTitre.trim().equalsIgnoreCase("OBLIGATION"))
+            {
+                codeNAtureOperation = codeTypeTitre.trim().equalsIgnoreCase("OBLIGATN") ? "TRANS_TIT_OBLNC" : "TRANS_TIT_OBLC";
+                valeurFormule = "2:" + ((depotRachatDto.getQte().multiply(depotRachatDto.getCours()).toString().replace(',', '.') +
+                        ";9:" + depotRachatDto.getCommission().toString().replace(',', '.') +
+                        ";55:" + depotRachatDto.getQte().toString().replace(',', '.') +
+                        ";4:" + ((depotRachatDto.getMontant())).toString().replace(',', '.') +
+                        ";28:" + depotRachatDto.getInteretCouru().toString().replace(',', '.')));
+            }
+
+            q.setParameter("IdOperation", 0);
+            q.setParameter("IdTransaction",0);
+            q.setParameter("codeNatureOperation", codeNAtureOperation);
+            q.setParameter("dateOperation", depotRachatDto.getDateOperation());
+            q.setParameter("libelleOperation", depotRachatDto.getLibelleOperation());
+            q.setParameter("dateSaisie", depotRachatDto.getDateSaisie());
+            q.setParameter("datePiece", depotRachatDto.getDateOperation());
+            q.setParameter("dateValeur", depotRachatDto.getDateOperation());
+            q.setParameter("referencePiece",depotRachatDto.getReferencePiece());
+            q.setParameter("montant", depotRachatDto.getMontant());
+            q.setParameter("montantSouscrit", depotRachatDto.getMontant());
+            q.setParameter("quantite", depotRachatDto.getQuantite());
+            q.setParameter("ecriture", "A");
+            q.setParameter("estOD", false);
+            q.setParameter("type", "S");
+            q.setParameter("IdActionnaire", depotRachatDto.getActionnaire().getIdPersonne());
+            q.setParameter("IdSeance", seanceOpcvm.getIdSeanceOpcvm().getIdSeance());
+            q.setParameter("IdPersonne", depotRachatDto.getPersonne().getIdPersonne());
+            q.setParameter("IdOpcvm", depotRachatDto.getOpcvm().getIdOpcvm());
+            q.setParameter("modeVL", depotRachatDto.getModeVL());
+            q.setParameter("estGenere", false);
+            q.setParameter("estVerifier",false);
+            q.setParameter("nomVerificateur", "");
+            q.setParameter("dateVerification", LocalDateTime.parse("2014-12-20T00:00:00"));
+            q.setParameter("idTitre", depotRachatDto.getTitre().getIdTitre());
+            q.setParameter("qte",depotRachatDto.getQte());
+            q.setParameter("cours", depotRachatDto.getCours());
+            q.setParameter("commission", depotRachatDto.getCommission());
+            q.setParameter("interetCouru", depotRachatDto.getInteretCouru());
+            q.setParameter("interetPrecompte", depotRachatDto.getInteretPrecompte());
+            q.setParameter("valeurFormule", valeurFormule);
+            q.setParameter("valeurCodeAnalytique", "TIT:" + depotRachatDto.getTitre().getIdTitre().toString() +
+                    ";ACT:" + depotRachatDto.getActionnaire().getIdPersonne().toString() +
+                    ";OPC:" + depotRachatDto.getOpcvm().getIdOpcvm().toString());
+            q.setParameter("userLogin",depotRachatDto.getUserLogin());
+            q.setParameter("dateDernModifClient", LocalDateTime.now());
+            q.setParameter("CodeLangue", "fr-FR");
+            q.setParameter("Sortie", sortie);
+
+            try {
+                // Execute query
+                q.execute();
+            } finally {
+                try {
+
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
+            }
+            return ResponseHandler.generateResponse(
+                    "Enregistrement effectué avec succès !",
+                    HttpStatus.OK,
+                    null);
         } catch (Exception e) {
             return ResponseHandler.generateResponse(
                     e.getMessage(),
@@ -1250,6 +1547,7 @@ public class DepotRachatImpl implements DepotRachatService {
                 DepotRachat.setNatureOperation(natureOperation);
             }
 
+
             DepotRachat = depotRachatDao.save(DepotRachat);
             return ResponseHandler.generateResponse(
                     "Modification effectuée avec succès !",
@@ -1284,13 +1582,18 @@ public class DepotRachatImpl implements DepotRachatService {
             if(depotRachatDto.getOpcvm()!=null)
             {
                 Opcvm opcvm=opcvmDao.findById(depotRachatDto.getOpcvm().getIdOpcvm()).orElseThrow();
-                if(opcvm!=null)
+
                     DepotRachat.setOpcvm(opcvm);
             }
-            NatureOperation natureOperation=natureOperationDao.findById(depotRachatDto.getNatureOperation().getCodeNatureOperation()).orElseThrow();
-            if(natureOperation!=null)
-                DepotRachat.setNatureOperation(natureOperation);
+            if(depotRachatDto.getNatureOperation()!=null) {
+                NatureOperation natureOperation = natureOperationDao.findById(depotRachatDto.getNatureOperation().getCodeNatureOperation()).orElseThrow();
 
+                DepotRachat.setNatureOperation(natureOperation);
+            }
+            if(depotRachatDto.getTitre() != null) {
+                Titre titre=titreDao.findById(depotRachatDto.getTitre().getIdTitre()).orElseThrow();
+                DepotRachat.setTitre(titre);
+            }
             DepotRachat = depotRachatDao.save(DepotRachat);
             return ResponseHandler.generateResponse(
                     "Modification effectuée avec succès !",

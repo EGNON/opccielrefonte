@@ -437,7 +437,7 @@ public interface LibraryDao extends JpaRepository<BaseEntity, Long> {
                                               Boolean estVerifie1,
                                               Boolean  estVerifie2
                                           );
-    @Query(value = "SELECT * FROM [Parametre].[FT_DepotRachat2](:IdSeance," +
+    @Query(value = "SELECT * FROM [Parametre].[FT_DepotRachat_New](:IdSeance," +
             ":IdPersonne,:IdOpcvm,:codeNatureOperation,:niveau1" +
             ",:niveau2)",nativeQuery = true)
     List<FT_DepotRachatProjection> afficherFT_DepotRachat(@Param("IdSeance") Long IdSeance,

@@ -7,6 +7,7 @@ import com.ged.datatable.DatatableParameters;
 import com.ged.dto.opcciel.DepotRachatDto;
 import com.ged.dto.opcciel.ImportationDepotDto;
 import com.ged.dto.opcciel.OperationSouscriptionRachatDto;
+import com.ged.dto.opcciel.OrdreDto;
 import com.ged.dto.opcciel.comptabilite.Operation2Dto;
 import com.ged.dto.opcciel.comptabilite.VerifDepSouscriptionIntRachatDto;
 import com.ged.dto.request.DownloadRequest;
@@ -84,6 +85,20 @@ public class DepotRachatController {
     {
         return depotRachatService.afficherTousLesDepots(params, idOpcvm, idSeance);
     }
+    @PostMapping("/calculer")
+//    @PreAuthorize("hasAuthority('ROLE_DEGRE')")
+    public ResponseEntity<Object> calculer(@RequestBody DepotRachatDto depotRachatDto)
+    {
+        return depotRachatService.calculer(depotRachatDto);
+    }
+
+    @PostMapping("transfert/datatable/list/{idOpcvm}/{idSeance}")
+    public ResponseEntity<Object> afficherDepotRachatTransfert(@RequestBody DatatableParameters params,
+                                                        @PathVariable("idOpcvm") Long idOpcvm,
+                                                        @PathVariable("idSeance") Long idSeance)
+    {
+        return depotRachatService.afficherDepotRachatTransfert(params, idOpcvm, idSeance);
+    }
 
     @GetMapping("/{id}")
     public ResponseEntity<Object> afficher(@PathVariable(name = "id") Long id)
@@ -129,6 +144,28 @@ public class DepotRachatController {
         response.setHeader(headerKey, headerValue);
          depotRachatService.verifIntentionRachat(idOpcvm,niveau1,niveau2,response);
     }
+    @GetMapping("depotrachattransfert/{idOpcvm}/{niveau1}/{niveau2}")
+    public List<FT_DepotRachatProjection> afficherFT_DepotRachatTransfert(
+                                                           @PathVariable Long idOpcvm,
+                                                           @PathVariable boolean niveau1,
+                                                           @PathVariable boolean niveau2) {
+        return depotRachatService.afficherDepotRachatTransfert(idOpcvm,niveau1,niveau2);
+    }
+
+    @GetMapping("/verifsoustransferttitre/{idOpcvm}/{niveau1}/{niveau2}")
+    public void verifSousTransfertTitre( @PathVariable Long idOpcvm,
+                                       @PathVariable boolean niveau1,
+                                       @PathVariable boolean niveau2,
+                                      HttpServletResponse response) throws JRException, IOException {
+        response.setContentType("application/pdf");
+        DateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy:hh:mm:ss");
+        String currentDateTime = dateFormatter.format(new Date());
+
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=verification_souscription_transfert_titre" + currentDateTime + ".pdf";
+        response.setHeader(headerKey, headerValue);
+         depotRachatService.verifSouscriptionTRansfertTitre(idOpcvm,niveau1,niveau2,response);
+    }
     @GetMapping("/verifintrachN1/{idOpcvm}/{niveau1}/{niveau2}")
     public void verifIntRachN1N2( @PathVariable Long idOpcvm,
                                                            @PathVariable boolean niveau1,
@@ -164,6 +201,11 @@ public class DepotRachatController {
     public ResponseEntity<Object> ajouter(@Valid @RequestBody DepotRachatDto DepotRachatDto)
     {
         return depotRachatService.creer(DepotRachatDto);
+    }
+    @PostMapping("/transfert")
+    public ResponseEntity<Object> creerDepotRachatTransfert(@Valid @RequestBody DepotRachatDto DepotRachatDto)
+    {
+        return depotRachatService.creerDepotRachatTransfert(DepotRachatDto);
     }
     @PostMapping("/importdepotph")
     public ResponseEntity<Object> importDepotPH(@Valid @RequestBody List<PhForm> phForm)

@@ -3,12 +3,15 @@ package com.ged.dao.opcciel;
 import com.ged.entity.opcciel.DepotRachat;
 import com.ged.entity.opcciel.Opcvm;
 import com.ged.entity.opcciel.comptabilite.NatureOperation;
+import com.ged.projection.DepotRachatTransfertProjection;
+import com.ged.projection.DocumentSeanceListeVerificationChargeProjection;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public interface DepotRachatDao extends JpaRepository<DepotRachat,Long> {
@@ -63,5 +66,9 @@ public interface DepotRachatDao extends JpaRepository<DepotRachat,Long> {
             @Param("idPersonne") Long idPersonne,
             List<String> codeNatureOpList
     );
+
+    @Query(value = "select * from [Parametre].[FT_LIsteTranfert_New](:idSeance,:idOpcvm,:dateDebut,:dateFin)", nativeQuery = true)
+    Page<DepotRachatTransfertProjection> depotRachatTransfert(Long idSeance, Long idOpcvm, LocalDateTime dateDebut,LocalDateTime dateFin,Pageable pageable);
+
 
 }

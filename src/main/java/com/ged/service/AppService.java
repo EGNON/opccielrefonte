@@ -5878,7 +5878,7 @@ public class AppService {
         JasperReport rapportPrincipal = JasperCompileManager.compileReport(rapportStream);
         JasperReport subreport = JasperCompileManager.compileReport(subreportStream);
 
-        LocalDateTime dateTime = request.getDateOperation();
+        LocalDateTime dateTime = request.getDateEstimation();
         Instant i = dateTime.atZone(ZoneId.systemDefault()).toInstant();
         Date date = Date.from(i);
         List<OperationDetachementProjection> operationDetachementProjections = libraryDao.operationDetachementListe(
