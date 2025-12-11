@@ -11,9 +11,11 @@ public interface FT_DepotRachatProjection {
     String getLibelleOperation();
     LocalDateTime getDateOperation();
     String getNomSigle();
+    String getCodeNatureOperation();
     String getPrenomRaison();
     BigDecimal getMontantDepose();
     BigDecimal getMontantSouscrit();
+    BigDecimal getMontantBrut();
     BigDecimal getQtePart();
     Long getIdSeance();
     String getIdActionnaire();
