@@ -995,6 +995,38 @@ public class LibraryController {
         service.afficherCompositionDetailleActif(request,response);
     }
 
+    //pointactifnetpartvl
+    @PostMapping("/opcvm/pointactifnetpartvl/liste")
+    public ResponseEntity<?> pointactifnetpartvlListe(@RequestBody @Valid PointActifNetPartVlRequest request) {
+        return service.afficherPointActifNetPartVlListe(request);
+    }
+
+    //pointremboursementeffectueperiode
+    @PostMapping("/opcvm/etats/pointremboursementeffectueperiode")
+    public void pointremboursementeffectueperiode (@RequestBody @Valid PointRemboursementEffectuePeriodeRequest request, HttpServletResponse response) throws JRException, IOException {
+
+        response.setContentType("application/pdf");
+        DateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy:hh:mm:ss");
+        String currentDateTime = dateFormatter.format(new Date());
+
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachement;filename=Point des remboursements effectues sur une periode"+currentDateTime+".pdf";
+        response.setHeader(headerKey,headerValue);
+
+        service.afficherPointRemboursementEffectuePeriode(request, response);
+    }
+    @PostMapping("/opcvm/pointremboursementeffectueperiode")
+    public ResponseEntity<?> pointremboursementeffectueperiode(@RequestBody @Valid PointRemboursementEffectuePeriodeRequest request) {
+
+       return service.afficherPointRemboursementEffectuePeriode(request);
+    }
+    @PostMapping("/opcvm/pointremboursementeffectueperiode/liste")
+    public ResponseEntity<?> pointremboursementeffectueperiodeListe(@RequestBody @Valid PointRemboursementEffectuePeriodeRequest request) {
+
+        return service.afficherPointRemboursementEffectuePeriodeListe(request);
+    }
+
+
     //pointperiodiquetafa
     @PostMapping("/opcvm/etats/pointperiodiquetafa")
     public void pointperiodiquetafa(@RequestBody @Valid PointPeriodiqueTAFARequest request, HttpServletResponse response) throws JRException, IOException {
@@ -1012,7 +1044,7 @@ public class LibraryController {
     public ResponseEntity<?> pointperiodiquetafa(@RequestBody @Valid PointPeriodiqueTAFARequest request) {
         return service.afficherPointPeriodiqueTAFA(request);
     }
-    @PostMapping("/opcvm/pointperiodique/liste")
+    @PostMapping("/opcvm/pointperiodiquetafa/liste")
     public ResponseEntity<?> pointperiodiquetafaListe(@RequestBody @Valid PointPeriodiqueTAFARequest request) {
         return service.afficherPointPeriodiqueTAFAListe(request);
     }

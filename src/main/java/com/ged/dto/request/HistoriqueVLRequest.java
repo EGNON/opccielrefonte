@@ -17,4 +17,29 @@ public class HistoriqueVLRequest {
     private LocalDateTime dateDebut;
     private LocalDateTime dateFin;
     //private DatatableParameters datatableParameters;
+
+
+    public Long getIdOpcvm() {
+        return idOpcvm;
+    }
+
+    public void setIdOpcvm(Long idOpcvm) {
+        this.idOpcvm = idOpcvm;
+    }
+
+    public LocalDateTime getDateDebut() {
+        return dateDebut;
+    }
+
+    public void setDateDebut(LocalDateTime dateDebut) {
+        this.dateDebut = dateDebut;
+    }
+
+    public LocalDateTime getDateFin() {
+        return dateFin;
+    }
+
+    public void setDateFin(LocalDateTime dateFin) {
+        this.dateFin = dateFin;
+    }
 }

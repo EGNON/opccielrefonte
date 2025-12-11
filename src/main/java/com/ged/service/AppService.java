@@ -314,7 +314,7 @@ public class AppService {
         Map<String, Object> parameters = new HashMap<>();
         DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
         String letterDate = dateFormatter.format(new Date());
-        String Descrip = request.getDescrip();
+        //String Descrip = request.getDescrip();
         parameters.put("letterDate", letterDate);
         OpcvmDto opcvm = opcvmMapper.deOpcvm(opcvmDao.findById(request.getIdOpcvm()).orElseThrow());
         parameters.put("Descrip", opcvm.getDenominationOpcvm());
@@ -410,7 +410,7 @@ public class AppService {
         Map<String, Object> parameters = new HashMap<>();
         DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
         String letterDate = dateFormatter.format(new Date());
-        String Descrip = request.getDescrip();
+        //String Descrip = request.getDescrip();
         parameters.put("letterDate", letterDate);
         OpcvmDto opcvm = opcvmMapper.deOpcvm(opcvmDao.findById(request.getIdOpcvm()).orElseThrow());
         parameters.put("Descrip", opcvm.getDenominationOpcvm());
@@ -5060,6 +5060,95 @@ public class AppService {
                     e);
         }
     }
+
+    //PointRemboursementEffectuePeriode
+    public ResponseEntity<?> afficherPointRemboursementEffectuePeriode(PointRemboursementEffectuePeriodeRequest request) {
+        var parameters = request.getDatatableParameters();
+        try {
+            Pageable pageable = PageRequest.of(parameters.getStart()/ parameters.getLength(), parameters.getLength());
+            Page<PointRemboursementEffectuePeriodeProjection> pointRemboursementEffectuePeriodeProjections;
+            if(parameters.getSearch() != null && !parameters.getSearch().getValue().isEmpty()) {
+                pointRemboursementEffectuePeriodeProjections = new PageImpl<>(new ArrayList<>());
+            }
+            else {
+                pointRemboursementEffectuePeriodeProjections = libraryDao.pointRemboursementEffectuePeriode(
+                        request.getIdOpcvm(), request.getDateDebut(), request.getDateFin(), pageable
+                );
+            }
+            List<PointRemboursementEffectuePeriodeProjection> content = pointRemboursementEffectuePeriodeProjections.getContent().stream().toList();
+            DataTablesResponse<PointRemboursementEffectuePeriodeProjection> dataTablesResponse = new DataTablesResponse<>();
+            dataTablesResponse.setDraw(parameters.getDraw());
+            dataTablesResponse.setRecordsFiltered((int)pointRemboursementEffectuePeriodeProjections.getTotalElements());
+            dataTablesResponse.setRecordsTotal((int)pointRemboursementEffectuePeriodeProjections.getTotalElements());
+            dataTablesResponse.setData(content);
+            return ResponseHandler.generateResponse(
+                    "Point des remboursements effectues sur une periode",
+                    HttpStatus.OK,
+                    dataTablesResponse);
+        }
+        catch(Exception e) {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e);
+        }
+    }
+    public void afficherPointRemboursementEffectuePeriode(PointRemboursementEffectuePeriodeRequest request, HttpServletResponse response) throws JRException, IOException {
+
+        InputStream rapportStream = null;
+
+        List<PointRemboursementEffectuePeriodeProjection> pointRemboursementEffectuePeriodeProjections = libraryDao.pointRemboursementEffectuePeriode(
+                request.getIdOpcvm(), request.getDateDebut(), request.getDateFin()
+        );
+
+        rapportStream = getClass().getResourceAsStream("/Point_Remboursements_Effectues_Sur_Période.jrxml");
+
+        JasperReport rapportPrincipal = JasperCompileManager.compileReport(rapportStream);
+
+        Map<String, Object> paramaters = new HashMap<>();
+        DateFormat dateFormatter = new SimpleDateFormat("dd MM yyyy");
+        String letterDate = dateFormatter.format(new Date());
+        paramaters.put("letterDate", letterDate);
+        OpcvmDto opcvm = opcvmMapper.deOpcvm(opcvmDao.findById(request.getIdOpcvm()).orElseThrow());
+        paramaters.put("denominationOpcvm", opcvm.getDenominationOpcvm());
+        LocalDateTime dateDebut = request.getDateDebut();
+        paramaters.put("dateDebut", dateDebut);
+        LocalDateTime dateFin = request.getDateFin();
+        paramaters.put("dateFin", dateFin);
+
+        JasperPrint print = JasperFillManager.fillReport(
+                rapportPrincipal,
+                paramaters,
+                new JRBeanCollectionDataSource(pointRemboursementEffectuePeriodeProjections)
+        );
+        JasperExportManager.exportReportToPdfStream(print, response.getOutputStream());
+    }
+
+    public ResponseEntity<?> afficherPointRemboursementEffectuePeriodeListe(PointRemboursementEffectuePeriodeRequest request) {
+
+        try {
+            List<PointRemboursementEffectuePeriodeProjection> pointRemboursementEffectuePeriodeProjections = libraryDao.pointRemboursementEffectuePeriode(
+                    request.getIdOpcvm(), request.getDateDebut(), request.getDateFin()
+            );
+            return ResponseHandler.generateResponse(
+                    "Point des remboursements effectues sur une periode",
+                    HttpStatus.OK,
+                    pointRemboursementEffectuePeriodeProjections
+            );
+        }
+        catch (Exception e) {
+
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e
+            );
+        }
+
+    }
+
+
+
     //point repartition portefeuille
     public ResponseEntity<?> evolutionActifNet(ReleveTitreFCPRequest request) {
         var parameters = request.getDatatableParameters();
@@ -5908,6 +5997,31 @@ public class AppService {
         JasperExportManager.exportReportToPdfStream(print, response.getOutputStream());
 
 
+    }
+
+    //PointActifNetPartVl
+    public ResponseEntity<?> afficherPointActifNetPartVlListe(PointActifNetPartVlRequest request) {
+
+        try {
+
+            List<PointActifNetPartVlProjection> pointActifNetPartVlProjections = libraryDao.pointActifNetPartVl(
+                    request.getIdOpcvm()
+            );
+            return ResponseHandler.generateResponse(
+                    "Point Actif net Part VL",
+                    HttpStatus.OK,
+                    pointActifNetPartVlProjections
+            );
+        }
+        catch (Exception e) {
+
+            return ResponseHandler.generateResponse(
+
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e
+            );
+        }
     }
 
     //Récupération séance en cours

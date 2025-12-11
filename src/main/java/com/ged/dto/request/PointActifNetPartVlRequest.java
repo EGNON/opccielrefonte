@@ -12,10 +12,8 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class EvolutionVLRequest {
+public class PointActifNetPartVlRequest {
     private Long idOpcvm;
-    private String mois1;
-    private String mois2;
     private DatatableParameters datatableParameters;
 
     public Long getIdOpcvm() {
@@ -24,22 +22,6 @@ public class EvolutionVLRequest {
 
     public void setIdOpcvm(Long idOpcvm) {
         this.idOpcvm = idOpcvm;
-    }
-
-    public String getMois1() {
-        return mois1;
-    }
-
-    public void setMois1(String mois1) {
-        this.mois1 = mois1;
-    }
-
-    public String getMois2() {
-        return mois2;
-    }
-
-    public void setMois2(String mois2) {
-        this.mois2 = mois2;
     }
 
     public DatatableParameters getDatatableParameters() {

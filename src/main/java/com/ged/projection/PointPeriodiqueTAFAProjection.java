@@ -27,9 +27,9 @@ public interface PointPeriodiqueTAFAProjection {
     BigDecimal getMontantSousALiquider();
     BigDecimal getSousRachatPart();
     BigDecimal getCommisiionSousRachat();
-    BigDecimal getTAFCommissionSousRachat();
+    BigDecimal getTafCommissionSousRachat();
     BigDecimal getRetrocessionSousRachat();
-    BigDecimal getTAFRetrocessionSousRachat();
+    BigDecimal getTafRetrocessionSousRachat();
     BigDecimal getCommissionSousRachatRetrocedee();
     String getModeValeurLiquidative();
     BigDecimal getValeurLiquidative();

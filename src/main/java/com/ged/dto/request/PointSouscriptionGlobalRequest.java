@@ -21,4 +21,60 @@ public class PointSouscriptionGlobalRequest {
     private LocalDateTime dateFin;
     private DatatableParameters datatableParameters;
     private String Descrip;
+
+    public Long getIdOpcvm() {
+        return idOpcvm;
+    }
+
+    public void setIdOpcvm(Long idOpcvm) {
+        this.idOpcvm = idOpcvm;
+    }
+
+    public Long getIdSeance() {
+        return idSeance;
+    }
+
+    public void setIdSeance(Long idSeance) {
+        this.idSeance = idSeance;
+    }
+
+    public Long getIdPersonne() {
+        return idPersonne;
+    }
+
+    public void setIdPersonne(Long idPersonne) {
+        this.idPersonne = idPersonne;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public LocalDateTime getDateDebut() {
+        return dateDebut;
+    }
+
+    public void setDateDebut(LocalDateTime dateDebut) {
+        this.dateDebut = dateDebut;
+    }
+
+    public LocalDateTime getDateFin() {
+        return dateFin;
+    }
+
+    public void setDateFin(LocalDateTime dateFin) {
+        this.dateFin = dateFin;
+    }
+
+    public DatatableParameters getDatatableParameters() {
+        return datatableParameters;
+    }
+
+    public void setDatatableParameters(DatatableParameters datatableParameters) {
+        this.datatableParameters = datatableParameters;
+    }
 }
