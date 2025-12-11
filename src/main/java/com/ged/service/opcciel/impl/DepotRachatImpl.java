@@ -1028,6 +1028,65 @@ public class DepotRachatImpl implements DepotRachatService {
     }
 
     @Override
+    public List<FT_DepotRachatProjection> verifSouscriptionTRansfertTitreVerifNiv1(Long IdOpcvm, boolean niveau1, boolean niveau2, HttpServletResponse response) throws IOException, JRException {
+        SeanceOpcvm seanceOpcvm = seanceOpcvmService.afficherSeanceEnCours(IdOpcvm);
+        Long idSeance = seanceOpcvm.getIdSeanceOpcvm().getIdSeance();
+        List<FT_DepotRachatProjection> list = libraryDao.afficherFT_DepotRachat(idSeance,
+                null, IdOpcvm, "TRANS_TIT_ACT;TRANS_TIT_OBLC;TRANS_TIT_OBLNC;TRANS_TIT_TCN;TRANS_TIT_FCP" ,niveau1, niveau2);
+
+        Map<String, Object> parameters = new HashMap<>();
+        DateFormat dateFormatter = new SimpleDateFormat("dd MM yyyy");
+        String letterDate = dateFormatter.format(new Date());
+        parameters.put("letterDate", letterDate);
+
+        InputStream inputStream = getClass().getResourceAsStream("/Liste_Verification_Souscription_Transfert_Titre.jrxml");
+
+        if (inputStream == null) {
+            throw new FileNotFoundException("Fichier JRXML introuvable dans le classpath");
+        }
+        JasperReport jasperReport = JasperCompileManager.compileReport(inputStream);
+        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(list);
+        JasperPrint print = JasperFillManager.fillReport(
+                jasperReport,
+                parameters,
+                dataSource
+        );
+        JasperExportManager.exportReportToPdfStream(print, response.getOutputStream());
+        return list;
+
+
+    }
+
+    @Override
+    public List<FT_DepotRachatProjection> verifSouscriptionTRansfertTitreVerifNiv2(Long IdOpcvm, boolean niveau1, boolean niveau2, HttpServletResponse response) throws IOException, JRException {
+        SeanceOpcvm seanceOpcvm = seanceOpcvmService.afficherSeanceEnCours(IdOpcvm);
+        Long idSeance = seanceOpcvm.getIdSeanceOpcvm().getIdSeance();
+
+        List<FT_DepotRachatProjection> list = libraryDao.afficherFT_DepotRachat(idSeance,
+                null, IdOpcvm,"TRANS_TIT_ACT;TRANS_TIT_OBLC;TRANS_TIT_OBLNC;TRANS_TIT_TCN;TRANS_TIT_FCP", niveau1, niveau2);
+
+        Map<String, Object> parameters = new HashMap<>();
+        DateFormat dateFormatter = new SimpleDateFormat("dd MM yyyy");
+        String letterDate = dateFormatter.format(new Date());
+
+        InputStream inputStream = getClass().getResourceAsStream("/Liste_Verification_Souscription_Transfert_Titre.jrxml");
+
+        if (inputStream == null) {
+            throw new FileNotFoundException("Fichier JRXML introuvable");
+        }
+
+        JasperReport jasperReport = JasperCompileManager.compileReport(inputStream);
+        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(list);
+        JasperPrint jasperPrint = JasperFillManager.fillReport(
+                jasperReport,
+                parameters,
+                dataSource
+        );
+        JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());
+        return list;
+    }
+
+    @Override
     public List<FT_DepotRachatProjection> verifIntentionRachatN1N2(Long IdOpcvm, boolean niveau1, boolean niveau2, HttpServletResponse response) throws IOException, JRException {
         SeanceOpcvm seanceOpcvm = seanceOpcvmService.afficherSeanceEnCours(IdOpcvm);
         Long idSeance = seanceOpcvm.getIdSeanceOpcvm().getIdSeance();

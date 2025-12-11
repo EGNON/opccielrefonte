@@ -47,9 +47,11 @@ public interface DepotRachatService {
     List<FT_DepotRachatProjection> afficherFT_DepotRachat(Long IdOpcvm,boolean niveau1,boolean niveau2);
     List<FT_DepotRachatProjection> afficherDepotRachatTransfert(Long IdOpcvm,boolean niveau1,boolean niveau2);
     List<FT_DepotRachatProjection> verifIntentionRachat(Long IdOpcvm,boolean niveau1,boolean niveau2, HttpServletResponse response) throws IOException, JRException;
-    List<FT_DepotRachatProjection> verifSouscriptionTRansfertTitre(Long IdOpcvm,boolean niveau1,boolean niveau2, HttpServletResponse response) throws IOException, JRException;
     List<FT_DepotRachatProjection> verifIntentionRachatN1N2(Long IdOpcvm,boolean niveau1,boolean niveau2, HttpServletResponse response) throws IOException, JRException;
     DepotRachat afficherSelonId(Long IdOperation);
+    List<FT_DepotRachatProjection> verifSouscriptionTRansfertTitre(Long IdOpcvm,boolean niveau1,boolean niveau2, HttpServletResponse response) throws IOException, JRException;
+    List<FT_DepotRachatProjection> verifSouscriptionTRansfertTitreVerifNiv1(Long IdOpcvm,boolean niveau1,boolean niveau2, HttpServletResponse response) throws IOException, JRException;
+    List<FT_DepotRachatProjection> verifSouscriptionTRansfertTitreVerifNiv2(Long IdOpcvm,boolean niveau1,boolean niveau2, HttpServletResponse response) throws IOException, JRException;
     ResponseEntity<Object> afficher(Long IdOperation);
     ResponseEntity<Object> calculer(DepotRachatDto depotRachatDto);
 
