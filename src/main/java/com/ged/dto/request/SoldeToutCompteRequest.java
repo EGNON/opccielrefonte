@@ -21,4 +21,44 @@ public class SoldeToutCompteRequest {
     private String code;
     private String numCompteComptable;
     private LocalDateTime dateEstimation;
+
+    public Long getIdSeance() {
+        return idSeance;
+    }
+
+    public void setIdSeance(Long idSeance) {
+        this.idSeance = idSeance;
+    }
+
+    public Long getIdOpcvm() {
+        return idOpcvm;
+    }
+
+    public void setIdOpcvm(Long idOpcvm) {
+        this.idOpcvm = idOpcvm;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public String getNumCompteComptable() {
+        return numCompteComptable;
+    }
+
+    public void setNumCompteComptable(String numCompteComptable) {
+        this.numCompteComptable = numCompteComptable;
+    }
+
+    public LocalDateTime getDateEstimation() {
+        return dateEstimation;
+    }
+
+    public void setDateEstimation(LocalDateTime dateEstimation) {
+        this.dateEstimation = dateEstimation;
+    }
 }

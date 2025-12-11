@@ -12,16 +12,13 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class PointRachatDetailleRequest {
+public class PointRemboursementEffectuePeriodeRequest {
     private Long idOpcvm;
-    private Long idSeance;
-    private Long idActionnaire;
-    private Long idPersonne;
-    private String type;
     private LocalDateTime dateDebut;
     private LocalDateTime dateFin;
     private DatatableParameters datatableParameters;
-    private String Descrip;
+    private String letterDate;
+    private String denominationOpcvm;
 
     public Long getIdOpcvm() {
         return idOpcvm;
@@ -29,38 +26,6 @@ public class PointRachatDetailleRequest {
 
     public void setIdOpcvm(Long idOpcvm) {
         this.idOpcvm = idOpcvm;
-    }
-
-    public Long getIdSeance() {
-        return idSeance;
-    }
-
-    public void setIdSeance(Long idSeance) {
-        this.idSeance = idSeance;
-    }
-
-    public Long getIdActionnaire() {
-        return idActionnaire;
-    }
-
-    public void setIdActionnaire(Long idActionnaire) {
-        this.idActionnaire = idActionnaire;
-    }
-
-    public Long getIdPersonne() {
-        return idPersonne;
-    }
-
-    public void setIdPersonne(Long idPersonne) {
-        this.idPersonne = idPersonne;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
     }
 
     public LocalDateTime getDateDebut() {
@@ -86,4 +51,21 @@ public class PointRachatDetailleRequest {
     public void setDatatableParameters(DatatableParameters datatableParameters) {
         this.datatableParameters = datatableParameters;
     }
+
+    public String getLetterDate() {
+        return letterDate;
+    }
+
+    public void setLetterDate(String letterDate) {
+        this.letterDate = letterDate;
+    }
+
+    public String getDenominationOpcvm() {
+        return denominationOpcvm;
+    }
+
+    public void setDenominationOpcvm(String denominationOpcvm) {
+        this.denominationOpcvm = denominationOpcvm;
+    }
+
 }

@@ -197,6 +197,16 @@ public interface LibraryDao extends JpaRepository<BaseEntity, Long> {
     @Query(value = "select * from [Operation].[FT_OperationSouscriptionRachat_New](:idOpcvm,:dateOuverture,:dateFermeture)", nativeQuery = true)
     Page<PointPeriodiqueTAFAProjection> pointPeriodiqueTAFA(Long idOpcvm, LocalDateTime dateOuverture, LocalDateTime dateFermeture, Pageable pageable);
 
+    @Query(value = "select * from [Impressions].[FT_ActifVlPart_New] (:idOpcvm)", nativeQuery = true)
+    List<PointActifNetPartVlProjection> pointActifNetPartVl(@Param("idOpcvm") Long idOpcvm);
+    @Query(value = "select * from [Impressions].[FT_ActifVlPart_New] (:idOpcvm)", nativeQuery = true)
+    Page<PointActifNetPartVlProjection> pointActifNetPartVl(@Param("idOpcvm") Long idOpcvm, Pageable pageable);
+
+    @Query(value = "select * from [EvenementSurValeur].[FT_OperationEvenementSurValeur](:idOpcvm, :dateDebut, :dateFin)", nativeQuery = true)
+    List<PointRemboursementEffectuePeriodeProjection> pointRemboursementEffectuePeriode(@Param("idOpcvm") Long idOpcvm, @Param("dateDebut") LocalDateTime dateDebut, @Param("dateFin") LocalDateTime dateFin);
+    @Query(value = "select * from [EvenementSurValeur].[FT_OperationEvenementSurValeur](:idOpcvm, :dateDebut, :dateFin)", nativeQuery = true)
+    Page<PointRemboursementEffectuePeriodeProjection> pointRemboursementEffectuePeriode(@Param("idOpcvm") Long idOpcvm, @Param("dateDebut") LocalDateTime dateDebut, @Param("dateFin") LocalDateTime dateFin, Pageable pageable);
+
     @Query(value = "select * from [Impressions].[FT_ResultatTrimestriel_New](:idOpcvm,:dateEstimation)", nativeQuery = true)
     List<EtatFinancierTrimestrielCompteResultatProjection> etatFinancierTrimestrielCompteResultat(Long idOpcvm,LocalDateTime dateEstimation);
 

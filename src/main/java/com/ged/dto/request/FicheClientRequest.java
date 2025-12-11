@@ -15,4 +15,20 @@ import lombok.NoArgsConstructor;
 public class FicheClientRequest {
     private String idActionnaire;
     private Boolean estPH;
+
+    public String getIdActionnaire() {
+        return idActionnaire;
+    }
+
+    public void setIdActionnaire(String idActionnaire) {
+        this.idActionnaire = idActionnaire;
+    }
+
+    public Boolean getEstPH() {
+        return estPH;
+    }
+
+    public void setEstPH(Boolean estPH) {
+        this.estPH = estPH;
+    }
 }

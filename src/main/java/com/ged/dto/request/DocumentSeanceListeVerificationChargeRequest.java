@@ -23,4 +23,84 @@ public class DocumentSeanceListeVerificationChargeRequest {
     private String denominationOpcvm;
     private LocalDateTime dateOuv;
     private LocalDateTime dateFerm;
+
+    public Long getIdSeance() {
+        return idSeance;
+    }
+
+    public void setIdSeance(Long idSeance) {
+        this.idSeance = idSeance;
+    }
+
+    public Long getIdOpcvm() {
+        return idOpcvm;
+    }
+
+    public void setIdOpcvm(Long idOpcvm) {
+        this.idOpcvm = idOpcvm;
+    }
+
+    public Boolean getSupprimer() {
+        return supprimer;
+    }
+
+    public void setSupprimer(Boolean supprimer) {
+        this.supprimer = supprimer;
+    }
+
+    public Boolean getEstVerifie1() {
+        return estVerifie1;
+    }
+
+    public void setEstVerifie1(Boolean estVerifie1) {
+        this.estVerifie1 = estVerifie1;
+    }
+
+    public Boolean getEstVerifie2() {
+        return estVerifie2;
+    }
+
+    public void setEstVerifie2(Boolean estVerifie2) {
+        this.estVerifie2 = estVerifie2;
+    }
+
+    public DatatableParameters getDatatableParameters() {
+        return datatableParameters;
+    }
+
+    public void setDatatableParameters(DatatableParameters datatableParameters) {
+        this.datatableParameters = datatableParameters;
+    }
+
+    public String getLetterDate() {
+        return letterDate;
+    }
+
+    public void setLetterDate(String letterDate) {
+        this.letterDate = letterDate;
+    }
+
+    public String getDenominationOpcvm() {
+        return denominationOpcvm;
+    }
+
+    public void setDenominationOpcvm(String denominationOpcvm) {
+        this.denominationOpcvm = denominationOpcvm;
+    }
+
+    public LocalDateTime getDateOuv() {
+        return dateOuv;
+    }
+
+    public void setDateOuv(LocalDateTime dateOuv) {
+        this.dateOuv = dateOuv;
+    }
+
+    public LocalDateTime getDateFerm() {
+        return dateFerm;
+    }
+
+    public void setDateFerm(LocalDateTime dateFerm) {
+        this.dateFerm = dateFerm;
+    }
 }

@@ -54,7 +54,7 @@
 		<property name="com.jaspersoft.studio.field.name" value="codeNatureOperation"/>
 		<property name="com.jaspersoft.studio.field.label" value="codeNatureOperation"/>
 	</field>
-	<field name="dateOperation" class="java.sql.Date">
+	<field name="dateOperation" class="java.time.LocalDateTime">
 		<property name="com.jaspersoft.studio.field.name" value="dateOperation"/>
 		<property name="com.jaspersoft.studio.field.label" value="dateOperation"/>
 	</field>
@@ -62,15 +62,15 @@
 		<property name="com.jaspersoft.studio.field.name" value="libelleOperation"/>
 		<property name="com.jaspersoft.studio.field.label" value="libelleOperation"/>
 	</field>
-	<field name="dateSaisie" class="java.sql.Date">
+	<field name="dateSaisie" class="java.time.LocalDateTime">
 		<property name="com.jaspersoft.studio.field.name" value="dateSaisie"/>
 		<property name="com.jaspersoft.studio.field.label" value="dateSaisie"/>
 	</field>
-	<field name="datePiece" class="java.sql.Date">
+	<field name="datePiece" class="java.time.LocalDateTime">
 		<property name="com.jaspersoft.studio.field.name" value="datePiece"/>
 		<property name="com.jaspersoft.studio.field.label" value="datePiece"/>
 	</field>
-	<field name="dateValeur" class="java.sql.Date">
+	<field name="dateValeur" class="java.time.LocalDateTime">
 		<property name="com.jaspersoft.studio.field.name" value="dateValeur"/>
 		<property name="com.jaspersoft.studio.field.label" value="dateValeur"/>
 	</field>
@@ -82,25 +82,25 @@
 		<property name="com.jaspersoft.studio.field.name" value="montantSousALiquider"/>
 		<property name="com.jaspersoft.studio.field.label" value="montantSousALiquider"/>
 	</field>
-	<field name="SousRachatPart" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.name" value="SousRachatPart"/>
-		<property name="com.jaspersoft.studio.field.label" value="SousRachatPart"/>
+	<field name="sousRachatPart" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="sousRachatPart"/>
+		<property name="com.jaspersoft.studio.field.label" value="sousRachatPart"/>
 	</field>
 	<field name="commisiionSousRachat" class="java.math.BigDecimal">
 		<property name="com.jaspersoft.studio.field.name" value="commisiionSousRachat"/>
 		<property name="com.jaspersoft.studio.field.label" value="commisiionSousRachat"/>
 	</field>
-	<field name="TAFCommissionSousRachat" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.name" value="TAFCommissionSousRachat"/>
-		<property name="com.jaspersoft.studio.field.label" value="TAFCommissionSousRachat"/>
+	<field name="tafCommissionSousRachat" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="tafCommissionSousRachat"/>
+		<property name="com.jaspersoft.studio.field.label" value="tafCommissionSousRachat"/>
 	</field>
 	<field name="retrocessionSousRachat" class="java.math.BigDecimal">
 		<property name="com.jaspersoft.studio.field.name" value="retrocessionSousRachat"/>
 		<property name="com.jaspersoft.studio.field.label" value="retrocessionSousRachat"/>
 	</field>
-	<field name="TAFRetrocessionSousRachat" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.name" value="TAFRetrocessionSousRachat"/>
-		<property name="com.jaspersoft.studio.field.label" value="TAFRetrocessionSousRachat"/>
+	<field name="tafRetrocessionSousRachat" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="tafRetrocessionSousRachat"/>
+		<property name="com.jaspersoft.studio.field.label" value="tafRetrocessionSousRachat"/>
 	</field>
 	<field name="commissionSousRachatRetrocedee" class="java.math.BigDecimal">
 		<property name="com.jaspersoft.studio.field.name" value="commissionSousRachatRetrocedee"/>
@@ -190,15 +190,15 @@
 		<property name="com.jaspersoft.studio.field.name" value="numLigne"/>
 		<property name="com.jaspersoft.studio.field.label" value="numLigne"/>
 	</field>
-	<field name="dateCreationServeur" class="java.sql.Date">
+	<field name="dateCreationServeur" class="java.time.LocalDateTime">
 		<property name="com.jaspersoft.studio.field.name" value="dateCreationServeur"/>
 		<property name="com.jaspersoft.studio.field.label" value="dateCreationServeur"/>
 	</field>
-	<field name="dateDernModifServeur" class="java.sql.Date">
+	<field name="dateDernModifServeur" class="java.time.LocalDateTime">
 		<property name="com.jaspersoft.studio.field.name" value="dateDernModifServeur"/>
 		<property name="com.jaspersoft.studio.field.label" value="dateDernModifServeur"/>
 	</field>
-	<field name="dateDernModifClient" class="java.sql.Date">
+	<field name="dateDernModifClient" class="java.time.LocalDateTime">
 		<property name="com.jaspersoft.studio.field.name" value="dateDernModifClient"/>
 		<property name="com.jaspersoft.studio.field.label" value="dateDernModifClient"/>
 	</field>
@@ -210,11 +210,11 @@
 		<property name="com.jaspersoft.studio.field.name" value="supprimer"/>
 		<property name="com.jaspersoft.studio.field.label" value="supprimer"/>
 	</field>
-	<field name="dateOuverture" class="java.sql.Date">
+	<field name="dateOuverture" class="java.time.LocalDateTime">
 		<property name="com.jaspersoft.studio.field.name" value="dateOuverture"/>
 		<property name="com.jaspersoft.studio.field.label" value="dateOuverture"/>
 	</field>
-	<field name="dateFermeture" class="java.sql.Date">
+	<field name="dateFermeture" class="java.time.LocalDateTime">
 		<property name="com.jaspersoft.studio.field.name" value="dateFermeture"/>
 		<property name="com.jaspersoft.studio.field.label" value="dateFermeture"/>
 	</field>
@@ -227,8 +227,8 @@
 	<variable name="commisiionSousRachat1" resetType="Group" calculation="Sum" resetGroup="Group1" class="java.math.BigDecimal">
 		<expression><![CDATA[$F{commisiionSousRachat}]]></expression>
 	</variable>
-	<variable name="TAFCommissionSousRachat1" resetType="Group" calculation="Sum" resetGroup="Group1" class="java.math.BigDecimal">
-		<expression><![CDATA[$F{TAFCommissionSousRachat}]]></expression>
+	<variable name="tafCommissionSousRachat1" resetType="Group" calculation="Sum" resetGroup="Group1" class="java.math.BigDecimal">
+		<expression><![CDATA[$F{tafCommissionSousRachat}]]></expression>
 	</variable>
 	<variable name="montantDepose2" resetType="Group" calculation="Sum" resetGroup="Group1" class="java.math.BigDecimal">
 		<expression><![CDATA[$F{montantDepose}]]></expression>
@@ -239,9 +239,15 @@
 	<variable name="commisiionSousRachat2" resetType="Group" calculation="Sum" resetGroup="Group1" class="java.math.BigDecimal">
 		<expression><![CDATA[$F{commisiionSousRachat}]]></expression>
 	</variable>
-	<variable name="TAFCommissionSousRachat2" resetType="Group" calculation="Sum" resetGroup="Group1" class="java.math.BigDecimal">
-		<expression><![CDATA[$F{TAFCommissionSousRachat}]]></expression>
+	<variable name="tafCommissionSousRachat2" resetType="Group" calculation="Sum" resetGroup="Group1" class="java.math.BigDecimal">
+		<expression><![CDATA[$F{tafCommissionSousRachat}]]></expression>
 	</variable>
+	<!--<variable name="tafCommissionSousRachat1" resetType="Group" calculation="Sum" resetGroup="Group1" class="java.math.BigDecimal">
+		<expression><![CDATA[$F{tafCommissionSousRachat}]]></expression>
+	</variable>
+	<variable name="tafCommissionSousRachat2" resetType="Group" calculation="Sum" resetGroup="Group1" class="java.math.BigDecimal">
+		<expression><![CDATA[$F{tafCommissionSousRachat}]]></expression>
+	</variable>-->
 	<group name="Group1">
 		<expression><![CDATA[TRIM($F{codeNatureOperation}) == "SOUS_PART" ? "SOUSCRIPTION" : "RACHAT"]]></expression>
 		<groupHeader>
@@ -322,23 +328,23 @@
 				<element kind="textField" uuid="8ac84ecc-f794-45bd-908a-7621ee23fd2c" x="597" y="7" width="94" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
 					<expression><![CDATA[$V{commisiionSousRachat1}]]></expression>
 				</element>
-				<element kind="textField" uuid="57ad73cc-06a6-4737-8bbc-dd9844f05928" x="703" y="7" width="92" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
-					<expression><![CDATA[$V{TAFCommissionSousRachat1}]]></expression>
-				</element>
 				<element kind="textField" uuid="a2f4df7e-f0f5-4869-8d85-dd0004239ad5" x="490" y="37" width="90" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
 					<expression><![CDATA[EQUALS($F{codeNatureOperation}.trim(), "SOUS_PART")?$V{montantDepose2}:$V{montantSousALiquider2}]]></expression>
 				</element>
 				<element kind="textField" uuid="fe88c200-04bb-4d14-8809-75889632ae59" x="597" y="37" width="94" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
 					<expression><![CDATA[$V{commisiionSousRachat2}]]></expression>
 				</element>
-				<element kind="textField" uuid="509fe0a1-847c-42dd-b119-75b1cd65e273" x="703" y="37" width="92" height="14" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
-					<expression><![CDATA[$V{TAFCommissionSousRachat2}]]></expression>
-				</element>
 				<element kind="textField" uuid="d9ef6c8f-5dd2-4a11-b8e9-ab4db2e73814" x="10" y="7" width="458" height="14">
 					<expression><![CDATA["TOTAL "+(TRIM($F{codeNatureOperation} )=="SOUS_PART" ? "SOUSCRIPTION" : "RACHAT")]]></expression>
 				</element>
 				<element kind="staticText" uuid="8d781abc-9956-4b5d-ae16-ab881162f9a8" x="11" y="38" width="456" height="15" hTextAlign="Left">
 					<text><![CDATA[TOTAL GENERAL]]></text>
+				</element>
+				<element kind="textField" uuid="441a471a-dd4f-4d62-896b-6e56a14fe1d0" x="703" y="7" width="92" height="14">
+					<expression><![CDATA[$V{tafCommissionSousRachat1}]]></expression>
+				</element>
+				<element kind="textField" uuid="c6d08c1d-cf61-411e-ac1e-5733515c0947" x="703" y="37" width="92" height="14">
+					<expression><![CDATA[$V{tafCommissionSousRachat2}]]></expression>
 				</element>
 			</band>
 		</groupFooter>
@@ -358,7 +364,7 @@
 			<text><![CDATA[OPCVM :]]></text>
 		</element>
 		<element kind="textField" uuid="e47da18c-e40d-4384-82d8-e0c3e4a126d4" x="120" y="30" width="560" height="16" hTextAlign="Center">
-			<expression><![CDATA["POINT DE LA TAFA DU " +$F{dateOuverture}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy")+" AU "+$F{dateFermeture}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy.0000.")]]></expression>
+			<expression><![CDATA["POINT DE LA TAFA DU " +$F{dateOuverture}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"))+" AU "+$F{dateFermeture}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"))]]></expression>
 		</element>
 	</title>
 	<pageHeader splitType="Stretch"/>
@@ -384,7 +390,7 @@
 				<pen lineColor="#3B88D1"/>
 			</element>
 			<element kind="textField" uuid="2d26d750-be66-49c1-bfa5-b2a74035cd46" x="11" y="6" width="108" height="15">
-				<expression><![CDATA[$F{dateOperation}.format(java.time.format.DateTimeFormatter.ofPatterne("dd/MM/yyyy")]]></expression>
+				<expression><![CDATA[$F{dateOperation}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"))]]></expression>
 			</element>
 			<element kind="textField" uuid="d9f8dbee-ee36-4f2b-ab31-c0bebab8f75a" x="136" y="6" width="123" height="15">
 				<expression><![CDATA[$F{nomSigle}]]></expression>
@@ -399,7 +405,7 @@
 				<expression><![CDATA[$F{commisiionSousRachat}]]></expression>
 			</element>
 			<element kind="textField" uuid="c975de55-999f-4d67-bd24-63cdc9a33585" x="703" y="6" width="92" height="15" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
-				<expression><![CDATA[$F{TAFCommissionSousRachat}]]></expression>
+				<expression><![CDATA[$F{tafCommissionSousRachat}]]></expression>
 			</element>
 		</band>
 	</detail>
