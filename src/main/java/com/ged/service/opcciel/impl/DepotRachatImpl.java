@@ -1013,7 +1013,7 @@ public class DepotRachatImpl implements DepotRachatService {
         parameters.put("letterDate", letterDate);
 
         // Utilisation d'un InputStream pour accéder à la ressource dans le .jar
-        InputStream inputStream = getClass().getResourceAsStream("/verificationIntentionRachat.jrxml");
+        InputStream inputStream = getClass().getResourceAsStream("Liste_Verification_Souscription_Transfert_Titre.jrxml");
         if (inputStream == null) {
             throw new FileNotFoundException("Fichier JRXML introuvable dans le classpath");
         }
