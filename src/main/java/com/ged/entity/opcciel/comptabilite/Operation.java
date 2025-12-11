@@ -89,12 +89,12 @@ public class Operation extends Base implements Persistable<Long> {
         this.typeOp = typeOp;
     }
 
-    @Override
+
     public Long getIdOcc() {
         return idOcc;
     }
 
-    @Override
+
     public void setIdOcc(Long idOcc) {
         this.idOcc = idOcc;
     }
