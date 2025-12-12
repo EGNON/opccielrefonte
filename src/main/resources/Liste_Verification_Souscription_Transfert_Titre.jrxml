@@ -121,14 +121,14 @@
 		<property name="com.jaspersoft.studio.field.name" value="codeNatureOperation"/>
 		<property name="com.jaspersoft.studio.field.label" value="codeNatureOperation"/>
 	</field>
-	<field name="niveau1" class="java.lang.Boolean">
-		<property name="com.jaspersoft.studio.field.name" value="niveau1"/>
-		<property name="com.jaspersoft.studio.field.label" value="niveau1"/>
-	</field>
-	<field name="niveau2" class="java.lang.Boolean">
-		<property name="com.jaspersoft.studio.field.name" value="niveau2"/>
-		<property name="com.jaspersoft.studio.field.label" value="niveau2"/>
-	</field>
+<!--	<field name="niveau1" class="java.lang.Boolean">-->
+<!--		<property name="com.jaspersoft.studio.field.name" value="niveau1"/>-->
+<!--		<property name="com.jaspersoft.studio.field.label" value="niveau1"/>-->
+<!--	</field>-->
+<!--	<field name="niveau2" class="java.lang.Boolean">-->
+<!--		<property name="com.jaspersoft.studio.field.name" value="niveau2"/>-->
+<!--		<property name="com.jaspersoft.studio.field.label" value="niveau2"/>-->
+<!--	</field>-->
 	<field name="libelleOperation" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.name" value="libelleOperation"/>
 		<property name="com.jaspersoft.studio.field.label" value="libelleOperation"/>
