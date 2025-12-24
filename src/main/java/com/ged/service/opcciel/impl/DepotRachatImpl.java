@@ -1028,6 +1028,16 @@ public class DepotRachatImpl implements DepotRachatService {
     }
 
     @Override
+    public List<FT_DepotRachatProjection> verifSouscriptionTRansfertTitre(Long IdOpcvm, boolean niveau1, boolean niveau2, boolean estVerifier) {
+        SeanceOpcvm seanceOpcvm = seanceOpcvmService.afficherSeanceEnCours(IdOpcvm);
+        Long idSeance = seanceOpcvm.getIdSeanceOpcvm().getIdSeance();
+        List<FT_DepotRachatProjection> list = libraryDao.afficherFT_DepotRachat(idSeance,
+                null, IdOpcvm, "TRANS_TIT_ACT;TRANS_TIT_OBLC;TRANS_TIT_OBLNC;TRANS_TIT_TCN;TRANS_TIT_FCP",
+                niveau1, niveau2,estVerifier);
+        return list;
+    }
+
+    @Override
     public List<FT_DepotRachatProjection> verifSouscriptionTRansfertTitreVerifNiv1(Long IdOpcvm, boolean niveau1, boolean niveau2, HttpServletResponse response) throws IOException, JRException {
         SeanceOpcvm seanceOpcvm = seanceOpcvmService.afficherSeanceEnCours(IdOpcvm);
         Long idSeance = seanceOpcvm.getIdSeanceOpcvm().getIdSeance();
@@ -1039,7 +1049,7 @@ public class DepotRachatImpl implements DepotRachatService {
         String letterDate = dateFormatter.format(new Date());
         parameters.put("letterDate", letterDate);
 
-        InputStream inputStream = getClass().getResourceAsStream("/Liste_Verification_Souscription_Transfert_Titre.jrxml");
+        InputStream inputStream = getClass().getResourceAsStream("/Liste_Verification_Souscription_Transfert_Titre_Verif_Niv1.jrxml");
 
         if (inputStream == null) {
             throw new FileNotFoundException("Fichier JRXML introuvable dans le classpath");
@@ -1541,6 +1551,153 @@ public class DepotRachatImpl implements DepotRachatService {
                     q.setParameter("valeurCodeAnalytique", "OPC:" + depotRachat.getOpcvm().getIdOpcvm().toString() +
                             ";ACT:" + depotRachat.getActionnaire().getIdPersonne().toString());
                 }
+                q.setParameter("userLogin", userLogin);
+                q.setParameter("dateDernModifClient",LocalDateTime.now());
+                q.setParameter("CodeLangue", "fr-FR");
+                q.setParameter("Sortie",sortie);
+
+                try {
+                    // Execute query
+                    q.execute();
+                    String result=(String) q.getOutputParameterValue("Sortie");
+                    String[] s=result.split("#");
+
+                    depotRachat.setIdDepotRachat(o);
+                    depotRachat.setIdOperation(Long.valueOf(s[s.length-1]));
+                    depotRachat.setEstVerifie2(true);
+                    depotRachat.setDateVerification2(LocalDateTime.now());
+                    depotRachat.setUserLoginVerificateur2(userLogin);
+                    depotRachatDao.save(depotRachat);
+                    //System.out.println("idOperation="+s[s.length-1]);
+                } finally {
+                    try {
+
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage());
+                    }
+                }
+            }
+
+            return ResponseHandler.generateResponse(
+                    "Enregistrement effectué avec succès !",
+                    HttpStatus.OK,
+                    null);
+        } catch (Exception e) {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e);
+        }
+    }
+
+    @Override
+    public ResponseEntity<Object> creerSouscriptionTransfertTitre(Long[] ids, String userLogin) {
+        try {
+            String sortie="";
+            for(Long o:ids)
+            {
+                var q = em.createStoredProcedureQuery("[Comptabilite].[PS_Operation_IP_New]");
+                q.registerStoredProcedureParameter("IdOperation", Long.class, ParameterMode.IN);
+                q.registerStoredProcedureParameter("idOpcvm", Long.class, ParameterMode.IN);
+                q.registerStoredProcedureParameter("idActionnaire", Long.class, ParameterMode.IN);
+                q.registerStoredProcedureParameter("idTitre", Long.class, ParameterMode.IN);
+                q.registerStoredProcedureParameter("IdTransaction", Long.class, ParameterMode.IN);
+                q.registerStoredProcedureParameter("idSeance", Long.class, ParameterMode.IN);
+                q.registerStoredProcedureParameter("codeNatureOperation", String.class, ParameterMode.IN);
+                q.registerStoredProcedureParameter("dateOperation", LocalDateTime.class, ParameterMode.IN);
+                q.registerStoredProcedureParameter("libelleOperation", String.class, ParameterMode.IN);
+                q.registerStoredProcedureParameter("dateSaisie", LocalDateTime.class, ParameterMode.IN);
+                q.registerStoredProcedureParameter("datePiece", LocalDateTime.class, ParameterMode.IN);
+                q.registerStoredProcedureParameter("dateValeur", LocalDateTime.class, ParameterMode.IN);
+                q.registerStoredProcedureParameter("referencePiece", String.class, ParameterMode.IN);
+                q.registerStoredProcedureParameter("montant", BigDecimal.class, ParameterMode.IN);
+                q.registerStoredProcedureParameter("ecriture", String.class, ParameterMode.IN);
+                q.registerStoredProcedureParameter("estOD", Boolean.class, ParameterMode.IN);
+                q.registerStoredProcedureParameter("type", String.class, ParameterMode.IN);
+                q.registerStoredProcedureParameter("valeurFormule", String.class, ParameterMode.IN);
+                q.registerStoredProcedureParameter("valeurCodeAnalytique", String.class, ParameterMode.IN);
+                q.registerStoredProcedureParameter("userLogin", String.class, ParameterMode.IN);
+                q.registerStoredProcedureParameter("dateDernModifClient", LocalDateTime.class, ParameterMode.IN);
+                q.registerStoredProcedureParameter("CodeLangue", String.class, ParameterMode.IN);
+                q.registerStoredProcedureParameter("Sortie", String.class, ParameterMode.OUT);
+
+                DepotRachat depotRachat=depotRachatDao.findById(o).orElseThrow();
+//                SeanceOpcvm seanceOpcvm = seanceOpcvmService.afficherSeanceEnCours(depotRachat.getIdSeance());
+//
+//                LocalDateTime dateEstimation = seanceOpcvm.getDateFermeture();
+                q.setParameter("IdOperation", 0);
+                q.setParameter("idOpcvm", depotRachat.getOpcvm().getIdOpcvm());
+                if(depotRachat.getActionnaire() != null && depotRachat.getActionnaire().getIdPersonne() != null) {
+                    q.setParameter("idActionnaire", depotRachat.getActionnaire().getIdPersonne());
+                }
+                String codeNAtureOperation=depotRachat.getNatureOperation().getCodeNatureOperation();
+                String valeurFormule="";
+                String valeurCodeAnalytique="";
+                valeurCodeAnalytique = "TIT:" + depotRachat.getTitre().getIdTitre().toString() +
+                        ";ACT:" + depotRachat.getActionnaire().getIdPersonne().toString() +
+                        ";OPC:" + depotRachat.getOpcvm().getIdOpcvm().toString();
+
+
+                if (codeNAtureOperation.trim().equalsIgnoreCase("TRANS_TIT_ACT"))
+                {
+
+
+                    valeurFormule = "2:" + ((depotRachat.getQte().multiply(depotRachat.getCours())).toString().
+                            replace(',', '.') +
+                            ";9:" + (depotRachat.getCommission()).toString().replace(',', '.') +
+                            ";55:" + depotRachat.getQte().toString().replace(',', '.'));
+                }
+                else if (codeNAtureOperation.trim().equalsIgnoreCase("TRANS_TIT_TCN"))
+                {
+
+                    valeurFormule = "2:" + ((depotRachat.getQte().multiply(depotRachat.getCours())).toString().replace(',', '.') +
+                            ";9:" + (depotRachat.getCommission()).toString().replace(',', '.') +
+                            ";30:" + depotRachat.getInteretPrecompte().toString().replace(',', '.') +
+                            ";28:" + depotRachat.getInteretCouru().toString().replace(',', '.') +
+                            ";55:" + depotRachat.getQte().toString().replace(',', '.') +
+                            ";4:" + ((depotRachat.getMontant())).toString().replace(',', '.'));
+                }
+                else if (codeNAtureOperation.trim().equalsIgnoreCase("TRANS_TIT_FCP"))
+                {
+
+                    valeurFormule = "2:" + ((depotRachat.getQte().multiply(depotRachat.getCours())).toString().replace(',', '.') +
+                            ";55:" + depotRachat.getQte().toString().replace(',', '.') +
+                            ";9:" + (depotRachat.getCommission()).toString().replace(',', '.') +
+                            ";4:" + ((depotRachat.getQte().multiply(depotRachat.getCours())).toString().replace(',', '.')));
+                }
+                else if (codeNAtureOperation.trim().equalsIgnoreCase("TRANS_TIT_OBLNC") || codeNAtureOperation.trim().equalsIgnoreCase("TRANS_TIT_OBLC"))
+                {
+
+                    valeurFormule = "2:" + ((depotRachat.getQte().multiply(depotRachat.getCours())).
+                            toString().replace(',', '.') +
+                            ";9:" + depotRachat.getCommission().toString().replace(',', '.') +
+                            ";55:" + depotRachat.getQte().toString().replace(',', '.') +
+                            ";4:" + ((depotRachat.getMontant())).toString().replace(',', '.') +
+                            ";28:" + depotRachat.getInteretCouru().toString().replace(',', '.'));
+                }
+
+                q.setParameter("idTitre",depotRachat.getTitre().getIdTitre());
+                q.setParameter("IdTransaction",0);
+                q.setParameter("idSeance",depotRachat.getIdSeance());
+                q.setParameter("codeNatureOperation",depotRachat.getNatureOperation().getCodeNatureOperation());
+                q.setParameter("dateOperation",depotRachat.getDateOperation());
+                q.setParameter("libelleOperation",depotRachat.getLibelleOperation());
+                q.setParameter("dateSaisie", depotRachat.getDateSaisie());
+                q.setParameter("datePiece", depotRachat.getDatePiece());
+                q.setParameter("dateValeur", depotRachat.getDateValeur());
+                q.setParameter("referencePiece", depotRachat.getReferencePiece());
+                q.setParameter("montant", depotRachat.getMontant());
+                if(depotRachat.getEcriture()!=null && depotRachat!=null)
+                    q.setParameter("ecriture",depotRachat.getEcriture());
+                else
+                    q.setParameter("ecriture","A");
+
+                q.setParameter("estOD",false);
+                q.setParameter("type", "R");
+                q.setParameter("valeurFormule", valeurFormule);
+                //if(depotRachat.getActionnaire() != null && depotRachat.getActionnaire().getIdPersonne() != null) {
+                q.setParameter("valeurCodeAnalytique", valeurCodeAnalytique);
+              //  }
                 q.setParameter("userLogin", userLogin);
                 q.setParameter("dateDernModifClient",LocalDateTime.now());
                 q.setParameter("CodeLangue", "fr-FR");

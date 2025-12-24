@@ -154,7 +154,7 @@ public class DepotRachatController {
         return depotRachatService.afficherDepotRachatTransfert(idOpcvm,niveau1,niveau2);
     }
 
-    @GetMapping("/verifSouscriptionTRansfertTitre/{idOpcvm}/{niveau1}/{niveau2}")
+    @GetMapping("/verifsoustransferttitre/{idOpcvm}/{niveau1}/{niveau2}")
     public void verifSouscriptionTRansfertTitre(@PathVariable Long idOpcvm, @PathVariable Boolean niveau1, @PathVariable Boolean niveau2, HttpServletResponse response) throws JRException, IOException {
 
         response.setContentType("application/pdf");
@@ -167,9 +167,19 @@ public class DepotRachatController {
 
         depotRachatService.verifSouscriptionTRansfertTitre(idOpcvm, niveau1, niveau2, response);
     }
+    @GetMapping("/verifsoustransferttitre/{idOpcvm}/{niveau1}/{niveau2}/{estVerifier}")
+    public void verifSouscriptionTRansfertTitre2(@PathVariable Long idOpcvm,
+                                                 @PathVariable Boolean niveau1,
+                                                 @PathVariable Boolean niveau2,
+                                                 @PathVariable Boolean estVerifier) {
+
+        depotRachatService.verifSouscriptionTRansfertTitre(idOpcvm, niveau1, niveau2, estVerifier);
+    }
 
     @GetMapping("/verifSouscriptionTRansfertTitreVerifN1N2/{idOpcvm}/{niveau1}/{niveau2}")
-    public void verifSouscriptionTRansfertTitreVerifNiv2(Long idOpcvm, Boolean niveau1, Boolean niveau2, HttpServletResponse response) throws JRException, IOException {
+    public void verifSouscriptionTRansfertTitreVerifNiv2(@PathVariable Long idOpcvm,
+                                                         @PathVariable Boolean niveau1,
+                                                         @PathVariable Boolean niveau2, HttpServletResponse response) throws JRException, IOException {
 
         response.setContentType("application/pdf");
         DateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy:hh:mm:ss");
@@ -179,7 +189,7 @@ public class DepotRachatController {
         String headerValue = "attachement;filename=Verification souscription transfert titre niveau 2";
         response.setHeader(headerKey, headerValue);
 
-        depotRachatService.verifSouscriptionTRansfertTitreVerifNiv2(idOpcvm, niveau1, niveau2,response);
+        depotRachatService.verifSouscriptionTRansfertTitreVerifNiv1(idOpcvm, niveau1, niveau2,response);
     }
 
     @GetMapping("/verifintrachN1/{idOpcvm}/{niveau1}/{niveau2}")
@@ -261,6 +271,12 @@ public class DepotRachatController {
                                         @PathVariable String userLogin)
     {
         return depotRachatService.creer(id,userLogin);
+    }
+    @PostMapping("/creersouscriptiontransferttitre/{id}/{userLogin}")
+    public ResponseEntity<Object> creerSouscriptionTRansfertTitre(@PathVariable Long[] id,
+                                        @PathVariable String userLogin)
+    {
+        return depotRachatService.creerSouscriptionTransfertTitre(id,userLogin);
     }
 
     @PostMapping("/importation/depot")

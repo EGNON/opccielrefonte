@@ -4,6 +4,7 @@ import com.ged.entity.Base;
 import com.ged.entity.opcciel.Opcvm;
 import jakarta.persistence.*;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
@@ -26,8 +27,8 @@ public class Exercice extends Base {
     private boolean estFerme;
     private boolean estBloque;
     private LocalDateTime dateCloture;
-    private Float tauxBenefice;
-    private Double montantMinimum;
+    private BigDecimal tauxBenefice;
+    private BigDecimal montantMinimum;
     private String declassement;
 
     public Exercice() {
@@ -113,19 +114,19 @@ public class Exercice extends Base {
         this.dateCloture = dateCloture;
     }
 
-    public Float getTauxBenefice() {
+    public BigDecimal getTauxBenefice() {
         return tauxBenefice;
     }
 
-    public void setTauxBenefice(Float tauxBenefice) {
+    public void setTauxBenefice(BigDecimal tauxBenefice) {
         this.tauxBenefice = tauxBenefice;
     }
 
-    public Double getMontantMinimum() {
+    public BigDecimal getMontantMinimum() {
         return montantMinimum;
     }
 
-    public void setMontantMinimum(Double montantMinimum) {
+    public void setMontantMinimum(BigDecimal montantMinimum) {
         this.montantMinimum = montantMinimum;
     }
 

@@ -50,6 +50,7 @@ public interface DepotRachatService {
     List<FT_DepotRachatProjection> verifIntentionRachatN1N2(Long IdOpcvm,boolean niveau1,boolean niveau2, HttpServletResponse response) throws IOException, JRException;
     DepotRachat afficherSelonId(Long IdOperation);
     List<FT_DepotRachatProjection> verifSouscriptionTRansfertTitre(Long IdOpcvm,boolean niveau1,boolean niveau2, HttpServletResponse response) throws IOException, JRException;
+    List<FT_DepotRachatProjection> verifSouscriptionTRansfertTitre(Long IdOpcvm,boolean niveau1,boolean niveau2,boolean estVerifier);
     List<FT_DepotRachatProjection> verifSouscriptionTRansfertTitreVerifNiv1(Long IdOpcvm,boolean niveau1,boolean niveau2, HttpServletResponse response) throws IOException, JRException;
     List<FT_DepotRachatProjection> verifSouscriptionTRansfertTitreVerifNiv2(Long IdOpcvm,boolean niveau1,boolean niveau2, HttpServletResponse response) throws IOException, JRException;
     ResponseEntity<Object> afficher(Long IdOperation);
@@ -61,6 +62,7 @@ public interface DepotRachatService {
     ResponseEntity<Object> creerDepotRachatTransfert(DepotRachatDto depotRachatDto);
     ResponseEntity<Object> modifier(VerifDepSouscriptionIntRachatDto verifDepSouscriptionIntRachatDto);
     ResponseEntity<Object> creer(Long[] ids,String userLogin);
+    ResponseEntity<Object> creerSouscriptionTransfertTitre(Long[] ids,String userLogin);
 
     ResponseEntity<Object> modifier(DepotRachatDto depotRachatDto, String type, Long id);
 

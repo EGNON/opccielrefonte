@@ -29,10 +29,6 @@
 		<property name="com.jaspersoft.studio.field.name" value="montantSouscrit"/>
 		<property name="com.jaspersoft.studio.field.label" value="montantSouscrit"/>
 	</field>
-	<field name="qtePart" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.name" value="qtePart"/>
-		<property name="com.jaspersoft.studio.field.label" value="qtePart"/>
-	</field>
 	<field name="idSeance" class="java.lang.Long">
 		<property name="com.jaspersoft.studio.field.name" value="idSeance"/>
 		<property name="com.jaspersoft.studio.field.label" value="idSeance"/>
@@ -121,14 +117,7 @@
 		<property name="com.jaspersoft.studio.field.name" value="codeNatureOperation"/>
 		<property name="com.jaspersoft.studio.field.label" value="codeNatureOperation"/>
 	</field>
-	<field name="niveau1" class="java.lang.Boolean">
-		<property name="com.jaspersoft.studio.field.name" value="niveau1"/>
-		<property name="com.jaspersoft.studio.field.label" value="niveau1"/>
-	</field>
-	<field name="niveau2" class="java.lang.Boolean">
-		<property name="com.jaspersoft.studio.field.name" value="niveau2"/>
-		<property name="com.jaspersoft.studio.field.label" value="niveau2"/>
-	</field>
+
 	<field name="libelleOperation" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.name" value="libelleOperation"/>
 		<property name="com.jaspersoft.studio.field.label" value="libelleOperation"/>
@@ -305,7 +294,7 @@
 			<pen lineColor="#3B88D1"/>
 		</element>
 		<element kind="staticText" uuid="22e26d69-d69b-43af-ad1b-a1ac5fad522c" x="152" y="33" width="496" height="17" fontSize="10.0" bold="true" hTextAlign="Center">
-			<text><![CDATA[DECLARATION DE LA COMMISSION SUR ACTIFS EN CONSERVATION]]></text>
+			<text><![CDATA[LISTE DE VERIFICATION DES SOUSCRIPTIONS PAR TRANSFERT DE TITRE]]></text>
 		</element>
 		<element kind="textField" uuid="9105f4a5-70df-4b30-9fc6-20214fd5b7a8" x="60" y="58" width="340" height="15">
 			<expression><![CDATA[$F{denominationOpcvm}]]></expression>

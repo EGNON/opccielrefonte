@@ -457,6 +457,17 @@ public interface LibraryDao extends JpaRepository<BaseEntity, Long> {
                                                     @Param("niveau1") boolean niveau1,
                                                     @Param("niveau2") boolean niveau2
                                           );
+    @Query(value = "SELECT * FROM [Parametre].[FT_DepotRachat_New_Sous_Trans_Titre](:IdSeance," +
+            ":IdPersonne,:IdOpcvm,:codeNatureOperation,:niveau1" +
+            ",:niveau2,:estVerifier)",nativeQuery = true)
+    List<FT_DepotRachatProjection> afficherFT_DepotRachat(@Param("IdSeance") Long IdSeance,
+                                                    @Param("IdPersonne") Long IdPersonne,
+                                                    @Param("IdOpcvm") Long IdOpcvm,
+                                                    @Param("codeNatureOperation") String codeNatureOperation,
+                                                    @Param("niveau1") boolean niveau1,
+                                                    @Param("niveau2") boolean niveau2,
+                                                    boolean estVerifier
+                                          );
     @Query(value = "select s from SeanceOpcvm s join s.opcvm o where s.opcvm.idOpcvm = :idOpcvm and s.estEnCours = true")
     SeanceOpcvm currentSeance(@Param("idOpcvm") Long idOpcvm);
 
@@ -612,14 +623,14 @@ public interface LibraryDao extends JpaRepository<BaseEntity, Long> {
             String valeur,
             Pageable pageable
     );
-    @Query(value = "select * from [EvenementSurValeur].[FT_OperationEvenementSurValeur](:idOpcvm) order by dateOperation desc",
+    @Query(value = "select * from [EvenementSurValeur].[FT_OperationEvenementSurValeur_New](:idOpcvm) order by dateOperation desc",
                 nativeQuery = true
         )
     Page<OperationEvenementSurValeurProjection> operationEvenementSurValeurListe(
                 Long idOpcvm,
                 Pageable pageable
         );
-    @Query(value = "select * from [EvenementSurValeur].[FT_OperationEvenementSurValeur](:idOpcvm)" +
+    @Query(value = "select * from [EvenementSurValeur].[FT_OperationEvenementSurValeur_New](:idOpcvm)" +
             " where concat(dateOperation,symboleTitre,libelleOperation) like %:valeur%" +
                 " order by dateOperation desc",
                 nativeQuery = true

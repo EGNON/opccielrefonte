@@ -66,7 +66,7 @@ public class CoursTitreController {
         return librairieService.coursTitre(tableRequest);
     }
     @PostMapping("/verificationcours")
-    public ResponseEntity<Object> verificationCours(@RequestBody @Valid CoursTitreRequest request, HttpServletResponse response) throws JRException, IOException {
+    public void verificationCours(@RequestBody @Valid CoursTitreRequest request, HttpServletResponse response) throws JRException, IOException {
         response.setContentType("application/pdf");
         DateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy:hh:mm:ss");
         String currentDateTime = dateFormatter.format(new Date());
@@ -75,7 +75,7 @@ public class CoursTitreController {
         String headerValue = "attachment; filename=verificationCoursNiveau_"+request.getNiveau()+"_" + currentDateTime + ".pdf";
         response.setHeader(headerKey, headerValue);
 
-        return librairieService.coursTitre(request,response);
+         librairieService.coursTitre(request,response);
     }
     @PostMapping("/validationverificationcours")
     public ResponseEntity<?> validerCours(@RequestBody @Valid CoursTitreRequest request) throws JRException, IOException {

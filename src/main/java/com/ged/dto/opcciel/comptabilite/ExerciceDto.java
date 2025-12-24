@@ -6,6 +6,7 @@ import com.ged.dto.opcciel.PlanDto;
 import com.ged.dto.standard.BaseDto;
 import com.ged.entity.opcciel.comptabilite.CleExercice;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ExerciceDto extends BaseDto {
@@ -19,8 +20,8 @@ public class ExerciceDto extends BaseDto {
     private boolean estFerme;
     private boolean estBloque;
     private LocalDateTime dateCloture;
-    private Float tauxBenefice;
-    private Double montantMinimum;
+    private BigDecimal tauxBenefice;
+    private BigDecimal montantMinimum;
     private String declassement;
     private  String userLogin;
     public ExerciceDto() {
@@ -115,19 +116,19 @@ public class ExerciceDto extends BaseDto {
         this.dateCloture = dateCloture;
     }
 
-    public Float getTauxBenefice() {
+    public BigDecimal getTauxBenefice() {
         return tauxBenefice;
     }
 
-    public void setTauxBenefice(Float tauxBenefice) {
+    public void setTauxBenefice(BigDecimal tauxBenefice) {
         this.tauxBenefice = tauxBenefice;
     }
 
-    public Double getMontantMinimum() {
+    public BigDecimal getMontantMinimum() {
         return montantMinimum;
     }
 
-    public void setMontantMinimum(Double montantMinimum) {
+    public void setMontantMinimum(BigDecimal montantMinimum) {
         this.montantMinimum = montantMinimum;
     }
 

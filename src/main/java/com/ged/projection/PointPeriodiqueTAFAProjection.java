@@ -47,6 +47,7 @@ public interface PointPeriodiqueTAFAProjection {
     Long getQuantiteSouhaite();
     BigDecimal getMontantDepose();
     BigDecimal getMontantConvertiEnPart();
+    BigDecimal getMontantOperation();
     Boolean getEstRetrocede();
     Boolean getResteRembourse();
     Boolean getRachatPaye();

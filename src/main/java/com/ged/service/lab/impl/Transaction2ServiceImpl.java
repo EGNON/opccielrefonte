@@ -39,7 +39,7 @@ public class Transaction2ServiceImpl implements TransactionService {
 //                System.out.println("pass");
 //            }
 
-            StoredProcedureQuery query = emOpcciel.createStoredProcedureQuery("[Parametre].[PS_Transaction_SP]");
+            StoredProcedureQuery query = emOpcciel.createStoredProcedureQuery("[Parametre].[PS_Transaction2]");
             //Déclarer les différents paramètres
             query.registerStoredProcedureParameter("IdCritereAlerte", Long.class, ParameterMode.IN);
 
