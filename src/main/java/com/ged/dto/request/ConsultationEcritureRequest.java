@@ -12,12 +12,21 @@ public class ConsultationEcritureRequest {
     private Long idOpcvm;
     private Long idOperation;
     private Long idTransaction;
+    private Long codeExercice;
     private NatureOperationDto natureOperation;
     private LocalDateTime dateDebut;
     private LocalDateTime dateFin;
     private String dateDeb;
     private String dateFn;
     private DatatableParameters datatableParameters;
+
+    public Long getCodeExercice() {
+        return codeExercice;
+    }
+
+    public void setCodeExercice(Long codeExercice) {
+        this.codeExercice = codeExercice;
+    }
 
     public String getDateDeb() {
         return dateDeb;

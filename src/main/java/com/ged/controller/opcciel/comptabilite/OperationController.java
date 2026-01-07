@@ -36,6 +36,10 @@ public class OperationController {
     public ResponseEntity<Object> afficherListeOperations(@RequestBody ConsultationEcritureRequest request) {
         return operationService.afficherTous(request);
     }
+    @PostMapping("/resultat")
+    public ResponseEntity<Object> afficherListeOperationsResultat(@RequestBody ConsultationEcritureRequest request) {
+        return operationService.afficherOperationResultat(request);
+    }
     @PostMapping("/commissioninvestissement/liste")
     public ResponseEntity<Object> afficherListeComSurInvestissement(@RequestBody ConsultationEcritureRequest request) {
         return operationService.afficherPaiementCommissionInvestissement(request);

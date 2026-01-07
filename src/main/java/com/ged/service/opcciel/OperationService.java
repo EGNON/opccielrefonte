@@ -15,6 +15,7 @@ import java.util.List;
 
 public interface OperationService {
     ResponseEntity<Object> afficherTous(ConsultationEcritureRequest request);
+    ResponseEntity<Object> afficherOperationResultat(ConsultationEcritureRequest request);
     ResponseEntity<Object> afficherPaiementCommissionInvestissement(ConsultationEcritureRequest request);
     ResponseEntity<Object> creer(OperationRequest request);
     String verifierEtape(Long niveau,Long idOpcvm) ;

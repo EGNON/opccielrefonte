@@ -111,13 +111,46 @@ public class OperationComptableServiceImpl implements OperationService {
                     pageable
                 );
 
-//                operationPage = operationDao.listeOperationsFiltree(
-//                    request.getIdOpcvm() == 0L ? null : request.getIdOpcvm(),
-//                    request.getIdOperation() == 0L ? null : request.getIdOperation(),
-//                    request.getIdTransaction() == 0L ? null :  request.getIdTransaction(),
-//                    request.getNatureOperation() != null ? request.getNatureOperation().getCodeNatureOperation().trim() : null,
-//                    pageable
-//                );
+            }
+            List<ConsultationEcritureProjection> content = operationPage.getContent().stream().toList();
+            DataTablesResponse<ConsultationEcritureProjection> dataTablesResponse = new DataTablesResponse<>();
+            dataTablesResponse.setDraw(parameters.getDraw());
+            dataTablesResponse.setRecordsFiltered((int)operationPage.getTotalElements());
+            dataTablesResponse.setRecordsTotal((int)operationPage.getTotalElements());
+            dataTablesResponse.setData(content);
+            return ResponseHandler.generateResponse(
+                    "Liste des opérations",
+                    HttpStatus.OK,
+                    dataTablesResponse);
+        }
+        catch(Exception e) {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e);
+        }
+    }
+
+    @Override
+    public ResponseEntity<Object> afficherOperationResultat(ConsultationEcritureRequest request) {
+        try {
+            DatatableParameters parameters = request.getDatatableParameters();
+            Pageable pageable = PageRequest.of(
+                    parameters.getStart()/ parameters.getLength(), parameters.getLength());
+            Page<ConsultationEcritureProjection> operationPage;
+            if(parameters.getSearch() != null && !parameters.getSearch().getValue().isEmpty()) {
+                operationPage = new PageImpl<>(new ArrayList<>());
+            }
+            else {
+                System.out.println("datefin="+request.getDateFin());
+                System.out.println("datedebut="+request.getDateDebut());
+                operationPage = libraryDao.listeOperationsResultat(
+                        request.getIdOpcvm() == 0L ? null : request.getIdOpcvm(),
+                        request.getNatureOperation() != null ? request.getNatureOperation().getCodeNatureOperation().trim() : null,
+                        request.getCodeExercice(),
+                        pageable
+                );
+
             }
             List<ConsultationEcritureProjection> content = operationPage.getContent().stream().toList();
             DataTablesResponse<ConsultationEcritureProjection> dataTablesResponse = new DataTablesResponse<>();

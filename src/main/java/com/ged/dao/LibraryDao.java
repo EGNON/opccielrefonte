@@ -604,6 +604,25 @@ public interface LibraryDao extends JpaRepository<BaseEntity, Long> {
             Boolean estPaye,
             String typeEvenement
     );
+    @Query(value = "select * from comptabilite.FT_GenererLigneMvtClotureExercice_New(:idOpcvm,:dateCloture,:ran) " +
+            " where etape=:etape order by etape , numeroOrdeEtape",
+            nativeQuery = true
+    )
+    List<LigneMvtClotureExerciceProjection> ligneMvtClotureExercice(
+            Long idOpcvm,
+            LocalDateTime dateCloture,
+            BigDecimal ran,
+            Long etape
+    );
+    @Query(value = "select * from comptabilite.FT_GenererLigneMvtClotureExercice_New(:idOpcvm,:dateCloture,:ran) " +
+            " order by etape , numeroOrdeEtape",
+            nativeQuery = true
+    )
+    List<LigneMvtClotureExerciceProjection> ligneMvtClotureExercice(
+            Long idOpcvm,
+            LocalDateTime dateCloture,
+            BigDecimal ran
+    );
     @Query(value = "select * from [EvenementSurValeur].[FT_OperationDetachement_Attente_Reglement](:idOpcvm" +
             ",:dateOperation) order by dateOperation asc",
             nativeQuery = true
@@ -658,6 +677,14 @@ public interface LibraryDao extends JpaRepository<BaseEntity, Long> {
             @Param("code") String code,
             @Param("dateDebut") String dateDebut,
             @Param("dateFin") String dateFin,
+            Pageable pageable
+    );
+    @Query(value = "select * from [Comptabilite].[FT_Operation_Ecriture_Resultat](:idOpcvm," +
+            ":codeNatureOperation,:codeExercice) o order by o.idOperation desc ",nativeQuery = true)
+    Page<ConsultationEcritureProjection> listeOperationsResultat(
+            @Param("idOpcvm") Long idOpcvm,
+            @Param("codeNatureOperation") String codeNatureOperation,
+            @Param("codeExercice") Long codeExercice,
             Pageable pageable
     );
     @Query(value = "select * from [Operation].[FT_OperationTransfertDePart](:idOpcvm,:supprimer)" +

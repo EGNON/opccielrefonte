@@ -1212,6 +1212,16 @@ public class LibraryController {
     public ResponseEntity<?> suiviecheancetitreListe(@RequestBody @Valid PointInvestissementRequest request) {
         return service.afficherSuiviEcheanceTitreListe(request);
     }
+    //ClotureExercice
+    @PostMapping("/opcvm/lignemvtclotureexercice")
+    public ResponseEntity<?> ligneMvtClotureExercice(@RequestBody @Valid LigneMvtClotureExerciceRequest request) {
+        return service.afficherLigneMvtClotureExercice(request);
+    }
+    @PostMapping("/opcvm/clotureexercice/{userLogin}")
+    public ResponseEntity<?> clotureExercice(@RequestBody @Valid LigneMvtClotureExerciceRequest request,
+                                             @PathVariable String userLogin) {
+        return service.cloturerExercice(request,userLogin);
+    }
 
     //avistransfertpart
     @PostMapping("/opcvm/etats/avistransfertpart")

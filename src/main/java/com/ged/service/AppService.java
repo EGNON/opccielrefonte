@@ -6023,6 +6023,114 @@ public class AppService {
             );
         }
     }
+    //cloture exercice
+    public ResponseEntity<?> afficherLigneMvtClotureExercice(LigneMvtClotureExerciceRequest request) {
+
+        try {
+
+            List<LigneMvtClotureExerciceProjection> ligneMvtClotureExerciceProjections
+                    = libraryDao.ligneMvtClotureExercice(
+                    request.getIdOpcvm(),request.getDateCloture(),request.getRan(),request.getEtape()
+            );
+            return ResponseHandler.generateResponse(
+                    "Ligne mvt cloture exercice",
+                    HttpStatus.OK,
+                    ligneMvtClotureExerciceProjections
+            );
+        }
+        catch (Exception e) {
+
+            return ResponseHandler.generateResponse(
+
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e
+            );
+        }
+    }
+    public ResponseEntity<?> cloturerExercice(LigneMvtClotureExerciceRequest request,String userLogin){
+        try {
+            String sortie = "";
+
+            List<LigneMvtClotureExerciceProjection> ligneMvtClotureExerciceProjections
+                    = libraryDao.ligneMvtClotureExercice(
+                    request.getIdOpcvm(), request.getDateCloture(), request.getRan()
+            );
+            for (LigneMvtClotureExerciceProjection o : ligneMvtClotureExerciceProjections) {
+                var k = em.createStoredProcedureQuery("[Comptabilite].[PS_LigneMvtClotureExo_IP]");
+                k.registerStoredProcedureParameter("idOpcvm", Long.class, ParameterMode.IN);
+                k.registerStoredProcedureParameter("codeExercice", String.class, ParameterMode.IN);
+                k.registerStoredProcedureParameter("etape", Long.class, ParameterMode.IN);
+                k.registerStoredProcedureParameter("codeNatureOperation", String.class, ParameterMode.IN);
+                k.registerStoredProcedureParameter("codeModele", String.class, ParameterMode.IN);
+                k.registerStoredProcedureParameter("numeroOrdeEtape", Long.class, ParameterMode.IN);
+                k.registerStoredProcedureParameter("numeroCompteComptable", String.class, ParameterMode.IN);
+                k.registerStoredProcedureParameter("codePlan", String.class, ParameterMode.IN);
+                k.registerStoredProcedureParameter("Sens", String.class, ParameterMode.IN);
+                k.registerStoredProcedureParameter("idFormule", Long.class, ParameterMode.IN);
+                k.registerStoredProcedureParameter("valeur", BigDecimal.class, ParameterMode.IN);
+                k.registerStoredProcedureParameter("codeTypeFormule", String.class, ParameterMode.IN);
+                k.registerStoredProcedureParameter("codeIb", String.class, ParameterMode.IN);
+                k.registerStoredProcedureParameter("codeRubrique", String.class, ParameterMode.IN);
+                k.registerStoredProcedureParameter("codePosition", String.class, ParameterMode.IN);
+                k.registerStoredProcedureParameter("userLogin", String.class, ParameterMode.IN);
+                k.registerStoredProcedureParameter("dateDernModifClient", LocalDateTime.class, ParameterMode.IN);
+                k.registerStoredProcedureParameter("CodeLangue", String.class, ParameterMode.IN);
+                k.registerStoredProcedureParameter("Sortie", String.class, ParameterMode.IN);
+
+
+                k.setParameter("idOpcvm", o.getIdOpcvm());
+                k.setParameter("codeExercice", o.getCodeExercice());
+                k.setParameter("etape", o.getEtape());
+                k.setParameter("codeNatureOperation", o.getCodeNatureOperation());
+                k.setParameter("codeModele", o.getCodeModele());
+                k.setParameter("numeroOrdeEtape", o.getNumeroOrdeEtape());
+                k.setParameter("numeroCompteComptable", o.getNumeroCompteComptable());
+                k.setParameter("codePlan", o.getCodePlan());
+                k.setParameter("Sens", o.getDebit().doubleValue() > 0 ? "D" : "C");
+                k.setParameter("idFormule", o.getIdFormule());
+                k.setParameter("valeur", o.getDebit().doubleValue() > 0 ? o.getDebit() : o.getCredit());
+                k.setParameter("codeTypeFormule", o.getCodeTypeFormule());
+                k.setParameter("codeIb", o.getCodeIb());
+                k.setParameter("codeRubrique", o.getCodeRubrique());
+                k.setParameter("codePosition", o.getCodePosition());
+                k.setParameter("userLogin", userLogin);
+                k.setParameter("dateDernModifClient", LocalDateTime.now());
+                k.setParameter("CodeLangue", "FR-fr");
+                k.setParameter("Sortie", sortie);
+                k.execute();
+            }
+            var k = em.createStoredProcedureQuery("[Comptabilite].[PS_Exercice_Cloture]");
+            k.registerStoredProcedureParameter("codeExercice", String.class, ParameterMode.IN);
+            k.registerStoredProcedureParameter("idOpcvm", Long.class, ParameterMode.IN);
+            k.registerStoredProcedureParameter("dateCloture", LocalDateTime.class, ParameterMode.IN);
+            k.registerStoredProcedureParameter("userLogin", String.class, ParameterMode.IN);
+            k.registerStoredProcedureParameter("dateDernModifClient", LocalDateTime.class, ParameterMode.IN);
+            k.registerStoredProcedureParameter("CodeLangue", String.class, ParameterMode.IN);
+            k.registerStoredProcedureParameter("Sortie", String.class, ParameterMode.IN);
+
+            k.setParameter("codeExercice", ligneMvtClotureExerciceProjections.get(0).getCodeExercice());
+            k.setParameter("idOpcvm", ligneMvtClotureExerciceProjections.get(0).getIdOpcvm());
+            k.setParameter("dateCloture", request.getDateCloture());
+            k.setParameter("userLogin", userLogin);
+            k.setParameter("dateDernModifClient", LocalDateTime.now());
+            k.setParameter("CodeLangue", "FR-fr");
+            k.setParameter("Sortie", sortie);
+            k.execute();
+
+            return ResponseHandler.generateResponse(
+                    "Ligne mvt cloture exercice",
+                    HttpStatus.OK,
+                    "Clôture effectuée avec succès."
+            );
+        } catch (Exception e) {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e
+            );
+        }
+    }
 
     //Récupération séance en cours
     public SeanceOpcvm currentSeance(Long idOpcvm) {
