@@ -120,6 +120,11 @@ public class ExerciceImpl implements ExerciceService {
     }
 
     @Override
+    public List<ExerciceDto> afficherExerciceClos(Long idOpcvm) throws SQLException {
+        return exerciceDao.exerciceClos(idOpcvm).stream().map(exerciceMapper::deExercice).collect(Collectors.toList());
+    }
+
+    @Override
     public ResponseEntity<Object> exerciceCourant(Long idOpcvm) {
         try {
             ExerciceDto exercice = exerciceMapper.deExercice(exerciceDao.exerciceCourant(idOpcvm));

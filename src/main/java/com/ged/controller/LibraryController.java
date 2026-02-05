@@ -2,11 +2,12 @@ package com.ged.controller;
 
 import com.ged.dao.LibraryDao;
 import com.ged.dao.opcciel.OpcvmDao;
+import com.ged.datatable.DatatableParameters;
 import com.ged.dto.lab.reportings.BeginEndDateParameter;
-import com.ged.dto.opcciel.OpcvmDto;
-import com.ged.dto.opcciel.OperationSouscriptionRachatDto;
-import com.ged.dto.opcciel.SeanceOpcvmDto;
+import com.ged.dto.opcciel.*;
+import com.ged.dto.opcciel.comptabilite.MiseEnAffectationDto;
 import com.ged.dto.request.*;
+import com.ged.dto.standard.ParametreJourFerieDto;
 import com.ged.entity.opcciel.SeanceOpcvm;
 import com.ged.mapper.opcciel.OpcvmMapper;
 import com.ged.projection.GrandLivreProjection;
@@ -70,6 +71,10 @@ public class LibraryController {
     @PostMapping("/opcvm/solde/tout/compte")
     public ResponseEntity<?> soldeToutCompte(@RequestBody @Valid SoldeToutCompteRequest request) {
         return service.soldeToutCompte(request);
+    }
+    @PostMapping("/opcvm/soldetoutcompte")
+    public ResponseEntity<?> soldeToutCompte2(@RequestBody @Valid SoldeToutCompteRequest request) {
+        return service.soldeToutCompte2(request);
     }
 //    @PostMapping("/opcvm/etats/portefeuille")
     @PostMapping("/opcvm/etats/portefeuille")
@@ -1212,6 +1217,117 @@ public class LibraryController {
     public ResponseEntity<?> suiviecheancetitreListe(@RequestBody @Valid PointInvestissementRequest request) {
         return service.afficherSuiviEcheanceTitreListe(request);
     }
+    //Mise en affectation
+    @PostMapping("/miseenaffectation/precalcul")
+    public ResponseEntity<?> precalculMiseEnAffectation(@RequestBody @Valid SoldeToutCompteRequest request) {
+        return service.precalculMiseEnAffectation(request);
+    }
+    @PostMapping("/miseenaffectation/creer")
+    public ResponseEntity<?> creerMiseEnAffectation(@RequestBody @Valid MiseEnAffectationDto request) {
+        return service.enregistrerMiseEnAffectation(request);
+    }
+    @PostMapping("/miseenaffectation/afficher")
+    public ResponseEntity<?> afficherMiseEnAffectation(@RequestBody @Valid MiseEnAffectationDto request) {
+        return service.afficherMiseEnAffectation(request);
+    }
+    @GetMapping("/verificationmiseenaffectation/{id}")
+    public ResponseEntity<?> verificationMiseEnAffectation(@PathVariable Long id) {
+        return service.verificationMiseEnAffectation(id);
+    }
+    @GetMapping("objet/verificationmiseenaffectation/{id}")
+    public ResponseEntity<?> verificationMiseEnAffectationObjet(@PathVariable Long id) {
+        return service.verificationMiseEnAffectationObjet(id);
+    }
+
+    //Decision distribution
+    @PostMapping("/decisiondistribution/datatable/list/{idOpcvm}")
+    public ResponseEntity<?> afficherDecisionDistribution(@RequestBody DatatableParameters params,
+                                                          @PathVariable Long idOpcvm) {
+        return service.afficherDecisionDistribution(params, idOpcvm);
+    }
+    @PostMapping("/decisiondistribution/enregistrer")
+    public ResponseEntity<?> creerDecisisonDistribution(@RequestBody @Valid DecisionDistributionDto request) {
+        return service.enregistrerDecisionDistrbution(request);
+    }
+    @GetMapping("/decisiondistribution/{id}")
+    public ResponseEntity<?> afficherDecisionDistribution(@PathVariable Long id) {
+        return service.afficherDecisionDistributionParID(id);
+    }
+    //Phase de detachement
+    @PostMapping("/opcvm/etats/phasedetachement")
+    public void phaseDetachement(@RequestBody @Valid PhaseDetachementRequest request, HttpServletResponse response) throws JRException, IOException {
+        response.setContentType("application/pdf");
+        DateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy:hh:mm:ss");
+        String currentDateTime = dateFormatter.format(new Date());
+
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=phase_detachement" + currentDateTime + ".pdf";
+        response.setHeader(headerKey, headerValue);
+
+        service.phaseDetachement(request,response);
+    }
+    @PostMapping("/precalculphasedetachement")
+    public ResponseEntity<?> precalculPhaseDetachement(@RequestBody PhaseDetachementRequest request) {
+        return service.precalculPhaseDetachement(request);
+    }
+    @PostMapping("/phasedetachement/enregistrer/{userLogin}")
+    public ResponseEntity<?> creerPhaseDetachement(@RequestBody @Valid PhaseDetachementRequest request,
+                                                   @PathVariable String userLogin) {
+        return service.enregistrerPhaseDetachement(request,userLogin);
+    }
+    //Detachement coupon
+    @GetMapping("/detachementcoupon/{codeExercice}/{idOpcvm}")
+    public ResponseEntity<?> afficherDetachementCoupon(@PathVariable String codeExercice,
+                                                       @PathVariable Long idOpcvm) {
+        return service.afficherDetachementCoupon(codeExercice, idOpcvm);
+    }
+    @GetMapping("/dividendeactionnaire/{codeExercice}/{idOpcvm}")
+    public ResponseEntity<?> afficherDividendeActionnaire( @PathVariable String codeExercice,
+                                                           @PathVariable Long idOpcvm) {
+        return service.afficherDividendeActionnaire(codeExercice, idOpcvm);
+    }
+    @PostMapping("/operationpaiementdividende/{codeExercice}/{idOpcvm}/{userLogin}")
+    public ResponseEntity<?> enregistrerOperationPaiementDividende( @PathVariable String codeExercice,
+                                                    @PathVariable Long idOpcvm,
+                                                    @PathVariable String userLogin) {
+        return service.enregistrerOperationPaiementDividende(codeExercice, idOpcvm,userLogin);
+    }
+    @GetMapping("/operationpaiementdividendeliste/{codeExercice}/{idOpcvm}")
+    public ResponseEntity<?> afficherOperationPaiementDividende( @PathVariable String codeExercice,
+                                                                 @PathVariable Long idOpcvm) {
+        return service.afficherOperationPaiementDividende(codeExercice, idOpcvm);
+    }
+    @GetMapping("/phasepaiement/{codeExercice}/{idOpcvm}")
+    public ResponseEntity<?> afficherPhasePaiement( @PathVariable String codeExercice,
+                                                    @PathVariable Long idOpcvm) {
+        return service.afficherPhasePaiement(codeExercice, idOpcvm);
+    }
+    @GetMapping("/opcvm/etats/phasepaiement/{codeExercice}/{idOpcvm}")
+    public void phasePaiement(@PathVariable String codeExercice,
+                              @PathVariable Long idOpcvm, HttpServletResponse response) throws JRException, IOException {
+        response.setContentType("application/pdf");
+        DateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy:hh:mm:ss");
+        String currentDateTime = dateFormatter.format(new Date());
+
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=phase_paiement" + currentDateTime + ".pdf";
+        response.setHeader(headerKey, headerValue);
+
+        service.phasePaiement(codeExercice,idOpcvm,response);
+    }
+    @GetMapping("/jasperpdf/avispaiement/{idOperation}")
+    public void avisPaiement(@PathVariable String idOperation,
+                              HttpServletResponse response) throws JRException, IOException {
+        response.setContentType("application/pdf");
+        DateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy:hh:mm:ss");
+        String currentDateTime = dateFormatter.format(new Date());
+
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=avis_Paiement" + currentDateTime + ".pdf";
+        response.setHeader(headerKey, headerValue);
+
+        service.avisPaiement(idOperation,response);
+    }
     //ClotureExercice
     @PostMapping("/opcvm/lignemvtclotureexercice")
     public ResponseEntity<?> ligneMvtClotureExercice(@RequestBody @Valid LigneMvtClotureExerciceRequest request) {
@@ -1221,6 +1337,24 @@ public class LibraryController {
     public ResponseEntity<?> clotureExercice(@RequestBody @Valid LigneMvtClotureExerciceRequest request,
                                              @PathVariable String userLogin) {
         return service.cloturerExercice(request,userLogin);
+    }
+    //Jours fériés
+    @PostMapping("/joursferies")
+    public ResponseEntity<?> afficherJoursFeries(@RequestBody @Valid DatatableParameters request) {
+        return service.afficherJoursFeries(request);
+    }
+    @PostMapping("/joursferies/enregistrer")
+    public ResponseEntity<?> enregistrerJoursFeries(@RequestBody @Valid ParametreJourFerieDto request) {
+        return service.enregistrerJoursFeries(request);
+    }
+    @PutMapping("/joursferies/modifier")
+    public ResponseEntity<?> modifierJoursFeries(@RequestBody @Valid ParametreJourFerieDto request) {
+        return service.modifierJoursFeries(request);
+    }
+    @GetMapping("/joursferies/{numLigne}")
+    public ResponseEntity<?> afficherJoursFeries(
+                                             @PathVariable Long numLigne) {
+        return service.afficherJoursFeries(numLigne);
     }
 
     //avistransfertpart

@@ -3,10 +3,10 @@ package com.ged.dto.opcciel.comptabilite;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.ged.dto.opcciel.OpcvmDto;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
+
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class MiseEnAffectationDto {
+public class MiseEnAffectationCADto {
 
     private Long idMiseEnAffectation;
     private Long idOcc;
@@ -14,22 +14,13 @@ public class MiseEnAffectationDto {
 	private Long idSeance;
 	private LocalDateTime dateMiseEnAffectation;
     private String codeExercice;
-    private String userLogin;
-    private BigDecimal resultat;
-    private BigDecimal regBeneInstAffectation;
-    private BigDecimal beneInstAffectation;
-    private BigDecimal nbrePartEnCirculation;
-    private BigDecimal coupDivUnitaire;
+    private Double resultat;
+    private Double regBeneInstAffectation;
+    private Double BeneInstAffectation;
+    private Double nbrePartEnCirculation;
+    private Double coupDivUnitaire;
 
-    public MiseEnAffectationDto() {
-    }
-
-    public String getUserLogin() {
-        return userLogin;
-    }
-
-    public void setUserLogin(String userLogin) {
-        this.userLogin = userLogin;
+    public MiseEnAffectationCADto() {
     }
 
     public Long getIdMiseEnAffectation() {
@@ -80,43 +71,43 @@ public class MiseEnAffectationDto {
         this.codeExercice = codeExercice;
     }
 
-    public BigDecimal getResultat() {
+    public Double getResultat() {
         return resultat;
     }
 
-    public void setResultat(BigDecimal resultat) {
+    public void setResultat(Double resultat) {
         this.resultat = resultat;
     }
 
-    public BigDecimal getRegBeneInstAffectation() {
+    public Double getRegBeneInstAffectation() {
         return regBeneInstAffectation;
     }
 
-    public void setRegBeneInstAffectation(BigDecimal regBeneInstAffectation) {
+    public void setRegBeneInstAffectation(Double regBeneInstAffectation) {
         this.regBeneInstAffectation = regBeneInstAffectation;
     }
 
-    public BigDecimal getBeneInstAffectation() {
-        return beneInstAffectation;
+    public Double getBeneInstAffectation() {
+        return BeneInstAffectation;
     }
 
-    public void setBeneInstAffectation(BigDecimal beneInstAffectation) {
-        this.beneInstAffectation = beneInstAffectation;
+    public void setBeneInstAffectation(Double beneInstAffectation) {
+        BeneInstAffectation = beneInstAffectation;
     }
 
-    public BigDecimal getNbrePartEnCirculation() {
+    public Double getNbrePartEnCirculation() {
         return nbrePartEnCirculation;
     }
 
-    public void setNbrePartEnCirculation(BigDecimal nbrePartEnCirculation) {
+    public void setNbrePartEnCirculation(Double nbrePartEnCirculation) {
         this.nbrePartEnCirculation = nbrePartEnCirculation;
     }
 
-    public BigDecimal getCoupDivUnitaire() {
+    public Double getCoupDivUnitaire() {
         return coupDivUnitaire;
     }
 
-    public void setCoupDivUnitaire(BigDecimal coupDivUnitaire) {
+    public void setCoupDivUnitaire(Double coupDivUnitaire) {
         this.coupDivUnitaire = coupDivUnitaire;
     }
 }

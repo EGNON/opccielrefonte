@@ -40,10 +40,12 @@ public interface PersonnePhysiqueDao extends JpaRepository<PersonnePhysique, Lon
     List<PersonnePhysique> afficherPersonnePhysiqueSelonQualiteLab(@Param("qualite") String qualite);
 
     @Query(value = "select ph.nom as nom," +
-            "ph.prenom as prenom,ph.Sexe as sexe,ph.mobile1 as mobile1 " +
+            "ph.prenom as prenom,ph.Sexe as sexe,ph.mobile1 as mobile1,p.numeroCpteDeposit " +
             "from PersonnePhysique as ph inner join StatutPersonne as sp " +
             "on sp.idStatutPersonne.idPersonne = ph.idPersonne inner join Qualite as q " +
-            "on q.idQualite = sp.idStatutPersonne.idQualite where q.libelleQualite = :qualite " +
+            "on q.idQualite = sp.idStatutPersonne.idQualite " +
+            "inner join Personne as p on p.idPersonne=ph.idPersonne " +
+            "where q.libelleQualite = :qualite " +
             "order by ph.nom asc,ph.prenom asc")
     List<PersonnePhysiqueProjection> afficherPersonnePhysiqueSelonQualiteEtat(@Param("qualite") String qualite);
 

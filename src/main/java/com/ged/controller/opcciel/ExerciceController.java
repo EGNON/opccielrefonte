@@ -31,6 +31,10 @@ public class ExerciceController {
     public List<ExerciceDto> afficherParOpcvm(@PathVariable Long idOpcvm) throws SQLException {
         return exerciceService.afficherParOPcvm(idOpcvm);
     }
+    @GetMapping("clos/{idOpcvm}")
+    public List<ExerciceDto> afficherExerciceClos(@PathVariable Long idOpcvm) throws SQLException {
+        return exerciceService.afficherExerciceClos(idOpcvm);
+    }
     @GetMapping("/courant/{idOpcvm}")
     public ResponseEntity<Object> exerciceEnCours(@PathVariable("idOpcvm") Long idOpcvm) {
         return exerciceService.exerciceEnCours(idOpcvm);

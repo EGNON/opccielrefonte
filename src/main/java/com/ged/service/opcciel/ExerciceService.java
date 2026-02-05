@@ -14,6 +14,7 @@ public interface ExerciceService {
     ResponseEntity<Object> afficherTous(Long idOpcvm,DatatableParameters parameters);
     List<ExerciceDto> afficherTous() throws SQLException;
     List<ExerciceDto> afficherParOPcvm(Long idOpcvm) throws SQLException;
+    List<ExerciceDto> afficherExerciceClos(Long idOpcvm) throws SQLException;
 
     ResponseEntity<Object> exerciceCourant(Long idOpcvm);
     ResponseEntity<Object> exerciceParOpcvmEtCode(Long idOpcvm,String code);

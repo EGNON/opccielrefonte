@@ -5,5 +5,5 @@ public interface PersonnePhysiqueProjection {
     String getPrenom();
     String getSexe();
     String getMobile1();
-
+    String getNumeroCpteDeposit();
 }

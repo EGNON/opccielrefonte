@@ -502,6 +502,9 @@ public interface LibraryDao extends JpaRepository<BaseEntity, Long> {
     @Query(value = "SELECT * FROM [Operation].[FT_AvisOpere](:idOperation)",nativeQuery = true)
     List<AvisOperationProjection> avisOper(@Param("idOperation") String idOperation);
 
+    @Query(value = "SELECT * FROM [Operation].[FT_AvisOpereDiv_New](:idOperation)",nativeQuery = true)
+    List<AvisPaiementProjection> avisPaiement(@Param("idOperation") String idOperation);
+
     @Query(value = "select * from [Parametre].[PrecalculSouscription](:idSeance, :idOpcvm, :idPersonne)", nativeQuery = true)
     Page<PrecalculSouscriptionProjection> precalculSouscription(@Param("idSeance") Long idSeance,
                                                                 @Param("idOpcvm") Long idOpcvm,
@@ -533,6 +536,16 @@ public interface LibraryDao extends JpaRepository<BaseEntity, Long> {
       LocalDateTime dateDebut,LocalDateTime dateFin,Boolean estVerifie1,
       Boolean estVerifie2,String idOperation
     );
+    //parametrage jour ferié
+    @Query(value = "SELECT * FROM [Parametre].[FT_ParametreJourFerie](:numLigne)",nativeQuery = true)
+    Page<ParametreJourFerieProjection> afficherJourFerie(Long numLigne,Pageable pageable);
+
+     @Query(value = "SELECT * FROM [Parametre].[FT_ParametreJourFerie](:numLigne) " +
+             "where description like %:valeur%",nativeQuery = true)
+    Page<ParametreJourFerieProjection> afficherJourFerie(Long numLigne,String valeur,Pageable pageable);
+
+    @Query(value = "SELECT * FROM [Parametre].[FT_ParametreJourFerie](:numLigne)",nativeQuery = true)
+    ParametreJourFerieProjection afficherJourFerie(Long numLigne);
 
     @Query(value = """
                 select * 
@@ -719,6 +732,10 @@ public interface LibraryDao extends JpaRepository<BaseEntity, Long> {
     );
     @Query(value = "select [Titre].[FS_qteAmortie_new](:idTitre,:date,:qteDetenue)", nativeQuery = true)
     BigDecimal qteAmortie(Long idTitre,LocalDateTime date,Long qteDetenue);
+
+    @Query(value = "select [dbo].[FS_NombrePartCirculation](:idOpcvm,:date)", nativeQuery = true)
+    BigDecimal nbrePartEnCirculation(Long idOpcvm,LocalDateTime date);
+
     @Query(value = "select [Titre].[FS_NominalRembourse_new](:idTitre,:date)", nativeQuery = true)
     BigDecimal nominalRembourse(Long idTitre,Date date);
     @Query(value = "select [Comptabilite].[FS_FormuleDunCodePoste](:codePoste)", nativeQuery = true)
@@ -731,10 +748,50 @@ public interface LibraryDao extends JpaRepository<BaseEntity, Long> {
         @Param("numCompteComptable") String numCompteComptable,
         @Param("dateEstimation") LocalDateTime dateEstimation
     );
+    @Query(value = "select * from [Comptabilite].[FT_MiseEnAffectation](:idOpcvm,:codeExercice,:supprimer)", nativeQuery = true)
+    List<MiseEnAffectationProjection> afficherMiseEnAffectation(
+        @Param("idOpcvm") Long idOpcvm,
+        @Param("codeExercice") String codeExercice,
+        @Param("supprimer") Boolean supprimer
+    );
+    @Query(value = "select * from [Comptabilite].[VerificationMiseAffectationEnAttente](:idOpcvm)", nativeQuery = true)
+    MiseEnAffectationProjection verificationMiseEnAffectation(
+        @Param("idOpcvm") Long idOpcvm
+    );
     @Query(value = "select * from [Operation].[FT_OperationChargeAEtaler](:idSeance,:idOpcvm,:supprimer," +
             ":estVerifie1,:estVerifie2)", nativeQuery = true)
     Page<FT_GenererChargeProjection> afficherChargeAEtaler(
         Long idSeance,Long idOpcvm, Boolean supprimer,Boolean estVerifie1,Boolean estVerifie2,Pageable pageable
+    );
+    @Query(value = "select * from [Dividende].[FT_DecisionDistribution](:idOpcvm,:supprimer,:idDecision)", nativeQuery = true)
+    Page<DecisionDistributionProjection> afficherDecisionDistribution(
+        Long idOpcvm, Boolean supprimer,Long idDecision,Pageable pageable
+    );
+    @Query(value = "select * from [Dividende].[FT_DecisionDistribution](:idOpcvm,:supprimer,:idDecision)", nativeQuery = true)
+    DecisionDistributionProjection afficherDecisionDistribution(
+        Long idOpcvm, Boolean supprimer,Long idDecision
+    );
+    @Query(value = "select * from [Dividende].[FT_DecisionDistribution](:idOpcvm,:supprimer,:idDecision)" +
+            " where estApplique=:estApplique", nativeQuery = true)
+    List<DecisionDistributionProjection>  afficherDecisionDistribution(
+        Long idOpcvm, Boolean supprimer,Long idDecision,Boolean estApplique
+    );
+    @Query(value = "select * from [Dividende].[FT_AfficherInfosDetachement](:idOpcvm,:codeExercice,:dateSeance,"+
+    ":regul,:typeArrondi)", nativeQuery = true)
+    List<PhaseDetachementProjection>  precalculPhaseDetachement(
+        Long idOpcvm, String codeExercice,LocalDateTime dateSeance,BigDecimal regul,String typeArrondi
+    );
+    @Query(value = "select * from [Dividende].[FT_DividendeActionnaire](:codeExercice,:idDetachement,:idOpcvm)", nativeQuery = true)
+    List<DividendeActionnaireProjection>  dividendeActionnaire(
+        String codeExercice,Long idDetachement,Long idOpcvm
+    );
+    @Query(value = "select * from [Dividende].[FT_DetachementCoupon](:codeExercice,:idOpcvm)", nativeQuery = true)
+    List<DetachementCouponProjection>  detachementCoupon(
+        String codeExercice, Long idOpcvm
+    );
+    @Query(value = "select * from [Dividende].[FT_OperationPaiementDividende](:codeExercice,:idOpcvm)", nativeQuery = true)
+    List<PhasePaiementProjection>  phasePaiement(
+        String codeExercice, Long idOpcvm
     );
     @Query(value = "select * from [Operation].[FT_OperationChargeAEtaler](:idSeance,:idOpcvm,:supprimer," +
             ":estVerifie1,:estVerifie2)", nativeQuery = true)

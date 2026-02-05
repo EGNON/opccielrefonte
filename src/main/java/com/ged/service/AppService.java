@@ -8,13 +8,16 @@ import com.ged.dao.opcciel.comptabilite.*;
 import com.ged.dao.security.UtilisateurDao;
 import com.ged.dao.standard.PersonneDao;
 import com.ged.datatable.DataTablesResponse;
+import com.ged.datatable.DatatableParameters;
 import com.ged.dto.etats.PointRachatGlobalDto;
 import com.ged.dto.opcciel.comptabilite.ExerciceDto;
+import com.ged.dto.opcciel.comptabilite.MiseEnAffectationDto;
 import com.ged.dto.request.SoldeDesComptesComptablesRequest;
 import com.ged.dto.lab.reportings.BeginEndDateParameter;
 import com.ged.dto.opcciel.*;
 import com.ged.dto.opcciel.comptabilite.OperationDto;
 import com.ged.dto.request.*;
+import com.ged.dto.standard.ParametreJourFerieDto;
 import com.ged.entity.opcciel.*;
 import com.ged.entity.opcciel.comptabilite.*;
 import com.ged.entity.security.Utilisateur;
@@ -25,6 +28,7 @@ import com.ged.response.ResponseHandler;
 import com.ged.service.opcciel.IbService;
 import com.ged.service.opcciel.OpcvmService;
 import com.ged.service.opcciel.PlanService;
+import jakarta.persistence.Convert;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.ParameterMode;
 import jakarta.persistence.PersistenceContext;
@@ -37,10 +41,7 @@ import net.sf.jasperreports.export.SimpleExporterInput;
 import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
 import net.sf.jasperreports.export.SimpleXlsxReportConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -60,6 +61,7 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.format.TextStyle;
 import java.util.*;
+import java.util.stream.Collectors;
 
 //@RequiredArgsConstructor
 @Service
@@ -5794,6 +5796,1016 @@ public class AppService {
                 HttpStatus.OK,
                 list);
     }
+
+    //decision distribution
+    public ResponseEntity<?> afficherDecisionDistribution(DatatableParameters parameters,Long idOpcvm) {
+        try {
+//            Sort sort = Sort.by(Sort.Direction.ASC,"libellePlan");
+            Pageable pageable = PageRequest.of(
+                    parameters.getStart()/ parameters.getLength(), parameters.getLength());
+            Page<DecisionDistributionProjection> decisionDistributionProjections;
+            decisionDistributionProjections = libraryDao.afficherDecisionDistribution
+                    (idOpcvm,false,null,pageable);
+
+            List<DecisionDistributionProjection> content = decisionDistributionProjections.getContent().stream().collect(Collectors.toList());
+            DataTablesResponse<DecisionDistributionProjection> dataTablesResponse = new DataTablesResponse<>();
+            dataTablesResponse.setDraw(parameters.getDraw());
+            dataTablesResponse.setRecordsFiltered((int)decisionDistributionProjections.getTotalElements());
+            dataTablesResponse.setRecordsTotal((int)decisionDistributionProjections.getTotalElements());
+            dataTablesResponse.setData(content);
+            return ResponseHandler.generateResponse(
+                    "Liste des décisions distributions par page datatable",
+                    HttpStatus.OK,
+                    dataTablesResponse);
+        }
+        catch(Exception e)
+        {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e);
+        }
+    }
+    public ResponseEntity<?> afficherDecisionDistributionParID(Long id) {
+        try
+        {
+            DecisionDistributionProjection decisionDistributionProjection=libraryDao.afficherDecisionDistribution(
+                   null,false,id
+            );
+            return ResponseHandler.generateResponse(
+                    "Decision distribution par id",
+                    HttpStatus.OK,
+                    decisionDistributionProjection);
+        }
+        catch(Exception e) {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e);
+        }
+    }
+    public ResponseEntity<?> enregistrerDecisionDistrbution(DecisionDistributionDto request) {
+        try
+        {   String sortie="";
+
+            var k=em.createStoredProcedureQuery("[Dividende].[PS_DecisionDistribution_IP]");
+            k.registerStoredProcedureParameter("idDecision",Long.class,ParameterMode.IN);
+            k.registerStoredProcedureParameter("idMiseEnAffectation",Long.class,ParameterMode.IN);
+            k.registerStoredProcedureParameter("idOpcvm",Long.class,ParameterMode.IN);
+            k.registerStoredProcedureParameter("idOperation",Long.class,ParameterMode.IN);
+            k.registerStoredProcedureParameter("dateDecision",LocalDateTime.class,ParameterMode.IN);
+            k.registerStoredProcedureParameter("dateDetachement",LocalDateTime.class,ParameterMode.IN);
+            k.registerStoredProcedureParameter("resultat",BigDecimal.class,ParameterMode.IN);
+            k.registerStoredProcedureParameter("ADistribueEnPourcentage",BigDecimal.class,ParameterMode.IN);
+            k.registerStoredProcedureParameter("montantDistribue",BigDecimal.class,ParameterMode.IN);
+            k.registerStoredProcedureParameter("montantNonDistribue",BigDecimal.class,ParameterMode.IN);
+            k.registerStoredProcedureParameter("estApplique",Boolean.class,ParameterMode.IN);
+            k.registerStoredProcedureParameter("idSeance",Long.class,ParameterMode.IN);
+            k.registerStoredProcedureParameter("IdTransaction",Long.class,ParameterMode.IN);
+            k.registerStoredProcedureParameter("codeExercice",String.class,ParameterMode.IN);
+            k.registerStoredProcedureParameter("idTitre",Long.class,ParameterMode.IN);
+            k.registerStoredProcedureParameter("codeNatureOperation",String.class,ParameterMode.IN);
+            k.registerStoredProcedureParameter("libelleOperation",String.class,ParameterMode.IN);
+            k.registerStoredProcedureParameter("dateSaisie",LocalDateTime.class,ParameterMode.IN);
+            k.registerStoredProcedureParameter("dateValeur",LocalDateTime.class,ParameterMode.IN);
+            k.registerStoredProcedureParameter("datePiece",LocalDateTime.class,ParameterMode.IN);
+            k.registerStoredProcedureParameter("referencePiece",String.class,ParameterMode.IN);
+            k.registerStoredProcedureParameter("montant",BigDecimal.class,ParameterMode.IN);
+            k.registerStoredProcedureParameter("valeurFormule",String.class,ParameterMode.IN);
+            k.registerStoredProcedureParameter("valeurCodeAnalytique",String.class,ParameterMode.IN);
+            k.registerStoredProcedureParameter("nbrePartEnCirculation",BigDecimal.class,ParameterMode.IN);
+            k.registerStoredProcedureParameter("coupUnitaireADistribuer",BigDecimal.class,ParameterMode.IN);
+            k.registerStoredProcedureParameter("statutMontNonDistribue",String.class,ParameterMode.IN);
+            k.registerStoredProcedureParameter("userLogin",String.class,ParameterMode.IN);
+            k.registerStoredProcedureParameter("dateDernModifClient",LocalDateTime.class,ParameterMode.IN);
+            k.registerStoredProcedureParameter("CodeLangue",String.class,ParameterMode.IN);
+            k.registerStoredProcedureParameter("Sortie",String.class,ParameterMode.OUT);
+
+            String valeurFormule="";
+            k.setParameter("idDecision",0);
+            MiseEnAffectationProjection miseEnAffectationProjection=libraryDao.verificationMiseEnAffectation(request.getIdOpcvm());
+            k.setParameter("idMiseEnAffectation",miseEnAffectationProjection.getIdMiseEnAffectation());
+            k.setParameter("idOpcvm",request.getIdOpcvm());
+            k.setParameter("idOperation",0);
+            k.setParameter("dateDecision",request.getDateDecision());
+            k.setParameter("dateDetachement",request.getDateDetachement());
+            k.setParameter("resultat",request.getResultat());
+            k.setParameter("ADistribueEnPourcentage",request.getaDistribueEnpourcentage());
+            k.setParameter("montantDistribue",request.getMontantDistribue());
+            k.setParameter("montantNonDistribue",request.getMontantNonDistribue());
+            k.setParameter("estApplique", Objects.equals(request.getaDistribueEnpourcentage(), BigDecimal.ZERO));
+            k.setParameter("idSeance",request.getIdSeance());
+            k.setParameter("IdTransaction",0);
+            ExerciceDto exerciceDto=exerciceMapper.deExercice(exerciceDao.exerciceCourant(request.getIdOpcvm()));
+            k.setParameter("codeExercice",exerciceDto.getCodeExercice());
+            k.setParameter("idTitre",0);
+            k.setParameter("codeNatureOperation","AFFECT_RES_OPCVM");
+            k.setParameter("libelleOperation","AFFECTATION DU RESULTAT DE L'OPCVM");
+            k.setParameter("dateSaisie",LocalDateTime.now());
+            k.setParameter("dateValeur",request.getDateDecision());
+            k.setParameter("datePiece",request.getDateDecision());
+            k.setParameter("referencePiece","");
+            k.setParameter("montant",request.getMontantDistribue());
+
+            List<SoldeToutCompteProjection> compte1Projections = libraryDao.soldeToutCompte("PCIA",request.getIdOpcvm(),"5531110",miseEnAffectationProjection.getDateMiseEnAffectation());
+            BigDecimal compte1=BigDecimal.ZERO;
+            if (!compte1Projections.isEmpty())
+            {
+                compte1 = compte1Projections.get(0).getSoldeReel();
+                if (compte1.doubleValue() < 0)
+                {
+                    compte1 = compte1.multiply(new BigDecimal("-1"));
+                };
+            }
+            else
+            {
+                compte1 =BigDecimal.ZERO;
+            }
+
+            //compte2
+            List<SoldeToutCompteProjection> compte2Projections = libraryDao.soldeToutCompte("PCIA",request.getIdOpcvm(),"5531202",miseEnAffectationProjection.getDateMiseEnAffectation());
+            BigDecimal compte2=BigDecimal.ZERO;
+            if (!compte2Projections.isEmpty())
+            {
+                compte2 = compte2Projections.get(0).getSoldeReel();
+                if (compte2.doubleValue() < 0)
+                {
+                    compte2 = compte2.multiply(new BigDecimal("-1"));
+                };
+            }
+            else
+            {
+                compte2 =BigDecimal.ZERO;
+            }
+            //compte3
+            List<SoldeToutCompteProjection> compte3Projections = libraryDao.soldeToutCompte("PCIA",request.getIdOpcvm(),"5531111",miseEnAffectationProjection.getDateMiseEnAffectation());
+            BigDecimal compte3=BigDecimal.ZERO;
+            if (!compte3Projections.isEmpty())
+            {
+                compte3 = compte3Projections.get(0).getSoldeReel();
+                if (compte3.doubleValue() < 0)
+                {
+                    compte3 = compte3.multiply(new BigDecimal("-1"));
+                };
+            }
+            else
+            {
+                compte3 =BigDecimal.ZERO;
+            }
+            //compte3
+            List<SoldeToutCompteProjection> compte4Projections = libraryDao.soldeToutCompte("PCIA",request.getIdOpcvm(),"5531201",miseEnAffectationProjection.getDateMiseEnAffectation());
+            BigDecimal compte4=BigDecimal.ZERO;
+            if (!compte4Projections.isEmpty())
+            {
+                compte4 = compte4Projections.get(0).getSoldeReel();
+                if (compte4.doubleValue() < 0)
+                {
+                    compte4 = compte4.multiply(new BigDecimal("-1"));
+                };
+            }
+            else
+            {
+                compte4 =BigDecimal.ZERO;
+            }
+
+
+            if(request.getResultat().doubleValue()<0)
+            {
+
+                if (request.getStatutMontNonDistribue().equalsIgnoreCase("REPORT A NOUVEAU"))
+                {
+                    try
+                    {
+                        valeurFormule = "24:" + BigDecimal.ZERO.toString().replace(',', '.') +
+                                ";110:" + miseEnAffectationProjection.getResultat().toString().replace(',', '.') +
+                                ";109:" + BigDecimal.ZERO.toString().replace(',', '.') +
+                                ";98:" + BigDecimal.ZERO.toString().replace(',', '.') +
+                                ";111:" + compte1.toString().replace(',', '.') +
+                                ";114:" + compte2.toString().replace(',', '.') +
+                                ";112:" + compte3.toString().replace(',', '.') +
+                                ";113:" + compte4.toString().replace(',', '.') +
+                                ";121:" + BigDecimal.ZERO.toString().replace(',', '.')+
+                                ";122:" + BigDecimal.ZERO.toString().replace(',', '.');
+                    }
+                    catch (Exception ex)
+                    {
+                    }
+                }
+                else
+                {
+                    try
+                    {
+                        valeurFormule = "24:" + BigDecimal.ZERO.toString().replace(',', '.') +
+                                ";110:" + BigDecimal.ZERO.toString().replace(',', '.') +
+                                ";109:" + BigDecimal.ZERO.toString().replace(',', '.') +
+                                ";98:" + BigDecimal.ZERO.toString().replace(',', '.') +
+                                ";111:" + compte1.toString().replace(',', '.') +
+                                ";114:" + compte2.toString().replace(',', '.') +
+                                ";112:" + compte3.toString().replace(',', '.') +
+                                ";113:" + compte4.toString().replace(',', '.') +
+                                ";121:" + BigDecimal.ZERO.toString().replace(',', '.') +
+                                ";122:" + (request.getMontantNonDistribue()).toString().replace(',', '.');
+                    }
+                    catch (Exception ex)
+                    {
+
+
+                    }
+                }
+
+            }
+            else
+            {
+                if (request.getStatutMontNonDistribue().equalsIgnoreCase("REPORT A NOUVEAU"))
+                {
+                    try
+                    {
+
+                        valeurFormule = "24:" + (request.getMontantNonDistribue()).toString().replace(',', '.') +
+                                ";110:" + BigDecimal.ZERO.toString().replace(',', '.') +
+                                ";109:" + (miseEnAffectationProjection.getResultat()).toString().replace(',', '.') +
+                                ";98:" + (request.getMontantDistribue()).toString().replace(',', '.') +
+                                ";111:" + compte1.toString().replace(',', '.') +
+                                ";114:" + compte2.toString().replace(',', '.') +
+                                ";112:" + compte3.toString().replace(',', '.') +
+                                ";113:" + compte4.toString().replace(',', '.') +
+                                ";121:" + BigDecimal.ZERO.toString().replace(',', '.') +
+                                ";122:" + BigDecimal.ZERO.toString().replace(',', '.');
+                    }
+                    catch (Exception ex)
+                    {
+
+
+                    }
+                }
+                else
+                {
+                    try
+                    {
+
+                        valeurFormule = "24:" + BigDecimal.ZERO.toString().replace(',', '.') +
+                                ";110:" + BigDecimal.ZERO.toString().replace(',', '.') +
+                                ";109:" + (miseEnAffectationProjection.getResultat()).toString().replace(',', '.') +
+                                ";98:" + (request.getMontantDistribue()).toString().replace(',', '.') +
+                                ";111:" + (compte1).toString().replace(',', '.') +
+                                ";114:" + (compte2).toString().replace(',', '.') +
+                                ";112:" + (compte3).toString().replace(',', '.') +
+                                ";113:" + (compte4).toString().replace(',', '.') +
+                                ";121:" + (request.getMontantNonDistribue()).toString().replace(',', '.') +
+                                ";122:" + BigDecimal.ZERO.toString().replace(',', '.');
+                    }
+                    catch (Exception ex)
+                    {
+
+
+                    }
+                }
+
+            }
+            k.setParameter("valeurFormule",valeurFormule);
+            k.setParameter("valeurCodeAnalytique","OPC:" + request.getIdOpcvm().toString());
+            k.setParameter("nbrePartEnCirculation",request.getNbrePartEnCirculation());
+            k.setParameter("coupUnitaireADistribuer",request.getCoupUnitaireADistribuer());
+            k.setParameter("statutMontNonDistribue",request.getStatutMontNonDistribue());
+            k.setParameter("userLogin",request.getUserLogin());
+            k.setParameter("dateDernModifClient",LocalDateTime.now());
+            k.setParameter("CodeLangue","fr-FR");
+            k.setParameter("Sortie",sortie);
+
+            k.execute();
+            return ResponseHandler.generateResponse(
+                    "Decision distribution par id",
+                    HttpStatus.OK,
+                    "Enregistrement effectué avec succès");
+        }
+        catch(Exception e) {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e);
+        }
+    }
+    //phase detachement
+    public void phaseDetachement(PhaseDetachementRequest request,HttpServletResponse response) throws IOException, JRException {
+
+        List<DecisionDistributionProjection> decisionDistributionProjections = libraryDao.afficherDecisionDistribution(request.getIdOpcvm(),false,null,false);
+        List<PhaseDetachementProjection> list=new ArrayList<>();
+        List<DividendeActionnaireProjection> list2=new ArrayList<>();
+        if (!decisionDistributionProjections.isEmpty())
+        {
+            if(request.getTypeForm().equalsIgnoreCase("det")){
+
+                SeanceOpcvmDto seanceOpcvmDto=seanceOpcvmMapper.deSeanceOpcvm(seanceOpcvmDao.afficherSeanceEnCours(request.getIdOpcvm()));
+                list= libraryDao.precalculPhaseDetachement(
+                        request.getIdOpcvm(),request.getCodeExercice(),seanceOpcvmDto.getDateFermeture(),request.getRegul(),request.getTypeArrondi()
+                );
+
+
+            }
+
+            else
+            {
+                List<DetachementCouponProjection>  detachementCouponProjections=
+                        libraryDao.detachementCoupon(request.getCodeExercice(),request.getIdOpcvm());
+                list2= libraryDao.dividendeActionnaire(
+                        request.getCodeExercice(),detachementCouponProjections.get(0).getIdDetachement()
+                        ,request.getIdOpcvm()
+                );
+            }
+        }
+
+        Map<String, Object> parameters = new HashMap<>();
+        DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
+        String letterDate = dateFormatter.format(new Date());
+
+        parameters.put("letterDate", letterDate);
+        parameters.put("couponUnitaire", request.getCouponUnitaire());
+        parameters.put("nbrePartEnCirculation", request.getNbrePartEnCirculation());
+        parameters.put("totalAdistribuer", request.getTotalADistribuer());
+        parameters.put("codeExercice", request.getCodeExercice());
+        OpcvmDto opcvmDto=opcvmMapper.deOpcvm(opcvmDao.findById(request.getIdOpcvm()).orElseThrow());
+        parameters.put("designationOpcvm", opcvmDto.getDenominationOpcvm());
+
+        InputStream inputStream = getClass().getResourceAsStream("/detachementCoupon.jrxml");
+        if (inputStream == null) {
+            throw new FileNotFoundException("Fichier JRXML introuvable dans le classpath");
+        }
+
+        JasperReport jasperReport = JasperCompileManager.compileReport(inputStream);
+        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(!list.isEmpty()?list:list2);
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
+
+        // Export vers le flux de sortie HTTP
+        JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());
+
+    }
+    public ResponseEntity<?> precalculPhaseDetachement(PhaseDetachementRequest request) {
+        try
+        {
+            List<DecisionDistributionProjection> decisionDistributionProjections = libraryDao.afficherDecisionDistribution(request.getIdOpcvm(),false,null,false);
+            PhaseDetachementDto phaseDetachementDto=new PhaseDetachementDto();
+            List<PhaseDetachementProjection> phaseDetachementProjections=new ArrayList<>();
+            if (!decisionDistributionProjections.isEmpty())
+            {
+                if (decisionDistributionProjections.get(0).getEstApplique() == false)
+                {
+//                    var dateFermeture = DateTime.Parse("31/12/2023");
+                    SeanceOpcvmDto seanceOpcvmDto=seanceOpcvmMapper.deSeanceOpcvm(seanceOpcvmDao.afficherSeanceEnCours(request.getIdOpcvm()));
+//                    List<SoldeToutCompteProjection> soldeToutCompteProjections= libraryDao.soldeToutCompte( "PCIA",request.getIdOpcvm(), "553",
+//                            seanceOpcvmDto.getDateFermeture());
+//                    BigDecimal regul = soldeToutCompteProjections != null ? soldeToutCompteProjections.get(0).getSoldeReel() : BigDecimal.ZERO;
+                     phaseDetachementProjections= libraryDao.precalculPhaseDetachement(
+                            request.getIdOpcvm(),request.getCodeExercice(),seanceOpcvmDto.getDateFermeture(),request.getRegul(),request.getTypeArrondi()
+                    );
+
+//                    phaseDetachementDto.setMontantDistribue(phaseDetachementProjections.get(0).getMontantDistribue());
+//                    phaseDetachementDto.setRegul(regul);
+//                    phaseDetachementDto.setTotalADistribuer(phaseDetachementDto.getMontantDistribue().add(regul));
+//                    phaseDetachementDto.setNombrePartEnCirculaion(phaseDetachementProjections.get(0).getNombrePartEnCirculaion());
+//                    phaseDetachementDto.setCouponUnitaire(phaseDetachementProjections.get(0).getCouponUnitaire());
+//
+//                    BigDecimal meb_TotalDistribuer = BigDecimal.ZERO;
+//                    for(PhaseDetachementProjection o:phaseDetachementProjections){
+//                        meb_TotalDistribuer=meb_TotalDistribuer.add(o.getMontantARecevoir());
+//                    }
+//                    phaseDetachementDto.setTotalDistribuer(meb_TotalDistribuer);
+//                    BigDecimal meb_Reste = BigDecimal.ZERO;
+//                    meb_Reste = phaseDetachementDto.getTotalADistribuer().subtract(phaseDetachementDto.getTotalDistribuer());
+//                    phaseDetachementDto.setReste(meb_Reste);
+//                    phaseDetachementDto.setBtn_Enregistrer(false);
+//                    if ((phaseDetachementProjections.get(0).getMontantDistribue().doubleValue()) > 0)
+//                        phaseDetachementDto.setBtn_Enregistrer(true);
+                }
+            }
+            else
+            {
+//                phaseDetachementDto.setMontantDistribue(BigDecimal.ZERO);
+//                phaseDetachementDto.setRegul(BigDecimal.ZERO);
+//                phaseDetachementDto.setTotalADistribuer(BigDecimal.ZERO);
+//                phaseDetachementDto.setNombrePartEnCirculaion(BigDecimal.ZERO);
+//                phaseDetachementDto.setCouponUnitaire(BigDecimal.ZERO);
+//                phaseDetachementDto.setTotalDistribuer(BigDecimal.ZERO);
+//                phaseDetachementDto.setReste(BigDecimal.ZERO);
+//                phaseDetachementDto.setBtn_Enregistrer(false);
+            }
+            return ResponseHandler.generateResponse(
+                    "Phase de detachement",
+                    HttpStatus.OK,
+                    phaseDetachementProjections);
+        }
+        catch(Exception e) {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e);
+        }
+    }
+    public ResponseEntity<?> enregistrerPhaseDetachement(PhaseDetachementRequest request,String userLogin) {
+        try
+        {
+            var k=em.createStoredProcedureQuery("[Dividende].[PS_DetachementCoupon_IP]");
+            k.registerStoredProcedureParameter("idDetachement",Long.class,ParameterMode.IN);
+            k.registerStoredProcedureParameter("idDecision",Long.class,ParameterMode.IN);
+            k.registerStoredProcedureParameter("idOpcvm",Long.class,ParameterMode.IN);
+            k.registerStoredProcedureParameter("montantDistribue",BigDecimal.class,ParameterMode.IN);
+            k.registerStoredProcedureParameter("nombrePartEnCirculaion",BigDecimal.class,ParameterMode.IN);
+            k.registerStoredProcedureParameter("couponUnitaire",BigDecimal.class,ParameterMode.IN);
+            k.registerStoredProcedureParameter("totalDistribue",BigDecimal.class,ParameterMode.IN);
+            k.registerStoredProcedureParameter("Reste",BigDecimal.class,ParameterMode.IN);
+            k.registerStoredProcedureParameter("idSeance",Long.class,ParameterMode.IN);
+            k.registerStoredProcedureParameter("regBeneficeEnInstanceAffectation",BigDecimal.class,ParameterMode.IN);
+            k.registerStoredProcedureParameter("totalADistribuer",BigDecimal.class,ParameterMode.IN);
+            k.registerStoredProcedureParameter("typeArrondi",String.class,ParameterMode.IN);
+            k.registerStoredProcedureParameter("userLogin",String.class,ParameterMode.IN);
+            k.registerStoredProcedureParameter("dateDernModifClient",LocalDateTime.class,ParameterMode.IN);
+            k.registerStoredProcedureParameter("CodeLangue",String.class,ParameterMode.IN);
+            k.registerStoredProcedureParameter("Sortie",String.class,ParameterMode.OUT);
+
+
+            PhaseDetachementDto phaseDetachementDto=new PhaseDetachementDto();
+            SeanceOpcvmDto seanceOpcvmDto=seanceOpcvmMapper.deSeanceOpcvm(seanceOpcvmDao.afficherSeanceEnCours(request.getIdOpcvm()));
+            List<SoldeToutCompteProjection> soldeToutCompteProjections= libraryDao.soldeToutCompte( "PCIA",request.getIdOpcvm(), "553",
+                    seanceOpcvmDto.getDateFermeture());
+            BigDecimal regul = !soldeToutCompteProjections.isEmpty()  ? soldeToutCompteProjections.get(0).getSoldeReel() : BigDecimal.ZERO;
+            List<PhaseDetachementProjection> phaseDetachementProjections= libraryDao.precalculPhaseDetachement(
+                    request.getIdOpcvm(),request.getCodeExercice(),seanceOpcvmDto.getDateFermeture(),request.getRegul(),request.getTypeArrondi()
+            );
+            System.out.println("dist="+phaseDetachementProjections.get(0).getMontantDistribue());
+            phaseDetachementDto.setMontantDistribue(phaseDetachementProjections.get(0).getMontantDistribue());
+            List<DecisionDistributionProjection> decisionDistributionProjections = libraryDao.afficherDecisionDistribution(request.getIdOpcvm(),false,null,false);
+            phaseDetachementDto.setTotalADistribuer(phaseDetachementDto.getMontantDistribue().add(regul));
+
+            BigDecimal meb_TotalDistribuer = BigDecimal.ZERO;
+            for(PhaseDetachementProjection o:phaseDetachementProjections){
+                meb_TotalDistribuer=meb_TotalDistribuer.add(o.getMontantARecevoir());
+            }
+            phaseDetachementDto.setTotalDistribuer(meb_TotalDistribuer);
+            BigDecimal meb_Reste = phaseDetachementDto.getTotalADistribuer().subtract(phaseDetachementDto.getTotalDistribuer());
+            phaseDetachementDto.setReste(meb_Reste);
+            String sortie="";
+            k.setParameter("idDetachement",0);
+            k.setParameter("idDecision",decisionDistributionProjections.get(0).getIdDecision());
+            k.setParameter("idOpcvm",request.getIdOpcvm());
+            k.setParameter("montantDistribue",phaseDetachementProjections.get(0).getMontantDistribue());
+            k.setParameter("nombrePartEnCirculaion",phaseDetachementProjections.get(0).getNombrePartEnCirculaion());
+            k.setParameter("couponUnitaire",phaseDetachementProjections.get(0).getCouponUnitaire());
+            k.setParameter("totalDistribue",phaseDetachementDto.getTotalDistribuer());
+            k.setParameter("Reste",phaseDetachementDto.getReste());
+            k.setParameter("idSeance",seanceOpcvmDto.getIdSeanceOpcvm().getIdSeance());
+            k.setParameter("regBeneficeEnInstanceAffectation",regul);
+            k.setParameter("totalADistribuer",phaseDetachementDto.getTotalADistribuer());
+            k.setParameter("typeArrondi",request.getTypeArrondi());
+            k.setParameter("userLogin",userLogin);
+            k.setParameter("dateDernModifClient",LocalDateTime.now());
+            k.setParameter("CodeLangue","fr-FR");
+            k.setParameter("Sortie",sortie);
+            String[] s=new String[20];
+            try
+            {
+                k.execute();
+                String result=(String) k.getOutputParameterValue("Sortie");
+                s=result.split("#");
+                String[] s2=new String[20];
+
+                String valeurFormule="";
+
+                    List<SoldeToutCompteProjection> soldeToutCompteProjections2=libraryDao.soldeToutCompte(
+                            "PCIA",request.getIdOpcvm(),"5532101",seanceOpcvmDto.getDateFermeture()
+                    );
+                    BigDecimal compte1=BigDecimal.ZERO;
+                    BigDecimal compte2=BigDecimal.ZERO;
+                    if (!soldeToutCompteProjections2.isEmpty())
+                    {
+                        compte1 = soldeToutCompteProjections2.get(0).getSoldeReel();
+                        if (compte1.doubleValue() < 0)
+                        {
+                            compte1 = compte1.multiply(new BigDecimal(-1));
+                        };
+                    }
+                    else
+                    {
+                        compte1 = BigDecimal.ZERO;
+                    }
+
+                    List<SoldeToutCompteProjection> soldeToutCompteProjections3=libraryDao.soldeToutCompte(
+                            "PCIA",request.getIdOpcvm(),"5532102",seanceOpcvmDto.getDateFermeture()
+                    );
+
+                    if (!soldeToutCompteProjections3.isEmpty())
+                    {
+                        compte2 = soldeToutCompteProjections3.get(0).getSoldeReel();
+                        if (compte2.doubleValue() < 0)
+                        {
+                            compte2 = compte2.multiply(new BigDecimal(-1));
+                        };
+                    }
+                    else
+                    {
+                        compte2 = BigDecimal.ZERO;
+                    }
+
+                    if(Long.parseLong(s[s.length-1])>0L){
+                    for(PhaseDetachementProjection o:phaseDetachementProjections){
+                        var q=em.createStoredProcedureQuery("[Dividende].[PS_DividendeActionnaire_IP]");
+                        q.registerStoredProcedureParameter("idDetachement",Long.class,ParameterMode.IN);
+                        q.registerStoredProcedureParameter("idOperation",Long.class,ParameterMode.IN);
+                        q.registerStoredProcedureParameter("dateOp",LocalDateTime.class,ParameterMode.IN);
+                        q.registerStoredProcedureParameter("idOpcvm",Long.class,ParameterMode.IN);
+                        q.registerStoredProcedureParameter("idActionnaire",Long.class,ParameterMode.IN);
+                        q.registerStoredProcedureParameter("montantARecevoir",BigDecimal.class,ParameterMode.IN);
+                        q.registerStoredProcedureParameter("nombrePart",BigDecimal.class,ParameterMode.IN);
+                        q.registerStoredProcedureParameter("idSeance",Long.class,ParameterMode.IN);
+                        q.registerStoredProcedureParameter("IdTransaction",Long.class,ParameterMode.IN);
+                        q.registerStoredProcedureParameter("idTitre",Long.class,ParameterMode.IN);
+                        q.registerStoredProcedureParameter("codeNatureOperation",String.class,ParameterMode.IN);
+                        q.registerStoredProcedureParameter("libelleOperation",String.class,ParameterMode.IN);
+                        q.registerStoredProcedureParameter("dateSaisie",LocalDateTime.class,ParameterMode.IN);
+                        q.registerStoredProcedureParameter("dateValeur",LocalDateTime.class,ParameterMode.IN);
+                        q.registerStoredProcedureParameter("datePiece",LocalDateTime.class,ParameterMode.IN);
+                        q.registerStoredProcedureParameter("referencePiece",String.class,ParameterMode.IN);
+                        q.registerStoredProcedureParameter("montant",BigDecimal.class,ParameterMode.IN);
+                        q.registerStoredProcedureParameter("valeurFormule",String.class,ParameterMode.IN);
+                        q.registerStoredProcedureParameter("valeurCodeAnalytique",String.class,ParameterMode.IN);
+                        q.registerStoredProcedureParameter("userLogin",String.class,ParameterMode.IN);
+                        q.registerStoredProcedureParameter("dateDernModifClient",LocalDateTime.class,ParameterMode.IN);
+                        q.registerStoredProcedureParameter("CodeLangue",String.class,ParameterMode.IN);
+                        q.registerStoredProcedureParameter("Sortie",String.class,ParameterMode.OUT);
+
+                        q.setParameter("idDetachement",Long.parseLong(s[s.length-1]));
+                        q.setParameter("idOperation",0);
+                        q.setParameter("dateOp",seanceOpcvmDto.getDateFermeture());
+                        q.setParameter("idOpcvm",request.getIdOpcvm());
+                        q.setParameter("idActionnaire",o.getIdActionnaire());
+                        q.setParameter("montantARecevoir",o.getMontantARecevoir());
+                        q.setParameter("nombrePart",o.getNombrePart());
+                        q.setParameter("idSeance",seanceOpcvmDto.getIdSeanceOpcvm().getIdSeance());
+                        q.setParameter("IdTransaction",0);
+                        q.setParameter("idTitre",0);
+                        q.setParameter("codeNatureOperation","DET_COUPON_OPCVM");
+                        q.setParameter("libelleOperation","DETACHEMENT DE COUPON DE L'OPCVM");
+                        q.setParameter("dateSaisie",LocalDateTime.now());
+                        q.setParameter("dateValeur",seanceOpcvmDto.getDateFermeture());
+                        q.setParameter("datePiece",seanceOpcvmDto.getDateFermeture());
+                        q.setParameter("referencePiece","");
+                        q.setParameter("montant",o.getMontantARecevoir());
+
+                            valeurFormule = "2:" + (o.getMontantARecevoir()).toString().replace(',', '.') +
+                                    ";115:" + (compte1).toString().replace(',', '.') +
+                                    ";116:" + (compte2).toString().replace(',', '.');
+
+                        q.setParameter("valeurFormule",valeurFormule);
+                        q.setParameter("valeurCodeAnalytique","OPC:" + request.getIdOpcvm().toString() + ";ACT:" +
+                                o.getIdActionnaire().toString());
+                        q.setParameter("userLogin",userLogin);
+                        q.setParameter("dateDernModifClient",LocalDateTime.now());
+                        q.setParameter("CodeLangue","fr-FR");
+                        q.setParameter("Sortie",sortie);
+
+
+                            q.execute();
+                            String result2=(String) q.getOutputParameterValue("Sortie");
+                            s2=result2.split("#");
+                    }
+                            if(Long.parseLong(s2[s2.length-1])>0L) {
+                                var z=em.createStoredProcedureQuery("[Dividende].[PS_DecisionDistribution_UP_APPLIQUE]");
+                                z.registerStoredProcedureParameter("idDecision",Long.class,ParameterMode.IN);
+                                z.registerStoredProcedureParameter("userLogin",String.class,ParameterMode.IN);
+                                z.execute();
+
+                                var f=em.createStoredProcedureQuery("[Comptabilite].[PS_Operation_IP]");
+                                f.registerStoredProcedureParameter("IdOperation",Long.class,ParameterMode.IN);
+                                f.registerStoredProcedureParameter("idOpcvm",Long.class,ParameterMode.IN);
+                                f.registerStoredProcedureParameter("idActionnaire",Long.class,ParameterMode.IN);
+                                f.registerStoredProcedureParameter("idTitre",Long.class,ParameterMode.IN);
+                                f.registerStoredProcedureParameter("IdTransaction",Long.class,ParameterMode.IN);
+                                f.registerStoredProcedureParameter("idSeance",Long.class,ParameterMode.IN);
+                                f.registerStoredProcedureParameter("codeNatureOperation",String.class,ParameterMode.IN);
+                                f.registerStoredProcedureParameter("dateOperation",LocalDateTime.class,ParameterMode.IN);
+                                f.registerStoredProcedureParameter("libelleOperation",String.class,ParameterMode.IN);
+                                f.registerStoredProcedureParameter("dateSaisie",LocalDateTime.class,ParameterMode.IN);
+                                f.registerStoredProcedureParameter("datePiece",LocalDateTime.class,ParameterMode.IN);
+                                f.registerStoredProcedureParameter("dateValeur",LocalDateTime.class,ParameterMode.IN);
+                                f.registerStoredProcedureParameter("referencePiece",String.class,ParameterMode.IN);
+                                f.registerStoredProcedureParameter("montant",BigDecimal.class,ParameterMode.IN);
+                                f.registerStoredProcedureParameter("ecriture",String.class,ParameterMode.IN);
+                                f.registerStoredProcedureParameter("estOD",Boolean.class,ParameterMode.IN);
+                                f.registerStoredProcedureParameter("type",String.class,ParameterMode.IN);
+                                f.registerStoredProcedureParameter("valeurFormule",String.class,ParameterMode.IN);
+                                f.registerStoredProcedureParameter("valeurCodeAnalytique",String.class,ParameterMode.IN);
+                                f.registerStoredProcedureParameter("userLogin",String.class,ParameterMode.IN);
+                                f.registerStoredProcedureParameter("dateDernModifClient",LocalDateTime.class,ParameterMode.IN);
+                                f.registerStoredProcedureParameter("CodeLangue",String.class,ParameterMode.IN);
+                                f.registerStoredProcedureParameter("Sortie",String.class,ParameterMode.IN);
+
+
+                                f.setParameter("IdOperation",0);
+                                f.setParameter("idOpcvm",request.getIdOpcvm());
+                                f.setParameter("idActionnaire",0);
+                                f.setParameter("idTitre",0);
+                                f.setParameter("IdTransaction",0);
+                                f.setParameter("idSeance",seanceOpcvmDto.getIdSeanceOpcvm().getIdSeance());
+                                f.setParameter("codeNatureOperation","ARRONDIS_COUPON");
+                                f.setParameter("dateOperation",seanceOpcvmDto.getDateFermeture());
+                                f.setParameter("libelleOperation","ARRONDIS SUR DETACHEMENT DE COUPON DE L'OPCVM");
+                                f.setParameter("dateSaisie",LocalDateTime.now());
+                                f.setParameter("datePiece",seanceOpcvmDto.getDateFermeture());
+                                f.setParameter("dateValeur",seanceOpcvmDto.getDateFermeture());
+                                f.setParameter("referencePiece","");
+                                f.setParameter("montant",meb_Reste);
+                                f.setParameter("ecriture","A");
+                                f.setParameter("estOD",false);
+                                f.setParameter("type","AC");
+                                f.setParameter("valeurFormule","24:" + meb_Reste.toString().replace(',', '.'));
+                                f.setParameter("valeurCodeAnalytique","OPC:" + request.getIdOpcvm().toString());
+                                f.setParameter("userLogin",userLogin);
+                                f.setParameter("dateDernModifClient",LocalDateTime.now());
+                                f.setParameter("CodeLangue","fr-FR");
+                                f.setParameter("Sortie",sortie);
+
+                                f.execute();
+
+                            }
+                    }
+            }
+            catch(Exception e){
+
+            }
+            return ResponseHandler.generateResponse(
+                    "Portefeuille opcvm",
+                    HttpStatus.OK,
+                    "Enregistrement effectué avec succès");
+        }
+        catch(Exception e) {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e);
+        }
+    }
+
+    public ResponseEntity<?> afficherDetachementCoupon(String codeExercice,Long idOpcvm) {
+
+        try {
+
+          List<DetachementCouponProjection> detachementCouponProjections=libraryDao.detachementCoupon(codeExercice, idOpcvm);
+            return ResponseHandler.generateResponse(
+                    "Portefeuille opcvm",
+                    HttpStatus.OK,
+                    detachementCouponProjections);
+        }
+        catch(Exception e) {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e);
+        }
+    }
+
+    public ResponseEntity<?> afficherDividendeActionnaire(String codeExercice,Long idOpcvm) {
+
+        try {
+            List<DetachementCouponProjection> detachementCouponProjections=libraryDao.detachementCoupon(codeExercice, idOpcvm);
+            List<DividendeActionnaireProjection> dividendeActionnaireProjections=new ArrayList<>();
+            if(!detachementCouponProjections.isEmpty()) {
+                dividendeActionnaireProjections = libraryDao.dividendeActionnaire(
+                        codeExercice, detachementCouponProjections.get(0).getIdDetachement(), idOpcvm);
+            }
+            return ResponseHandler.generateResponse(
+                    "Portefeuille opcvm",
+                    HttpStatus.OK,
+                    dividendeActionnaireProjections);
+        }
+        catch(Exception e) {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e);
+        }
+    }
+    public void phasePaiement(String codeExercice,Long idOpcvm,HttpServletResponse response) throws IOException, JRException {
+
+        List<DetachementCouponProjection> detachementCouponProjections=libraryDao.detachementCoupon(codeExercice, idOpcvm);
+        List<DividendeActionnaireProjection> list=new ArrayList<>();
+        List<PhasePaiementProjection> list2=new ArrayList<>();
+        if(!detachementCouponProjections.isEmpty()) {
+            if(!detachementCouponProjections.get(0).getEstPaye()){
+                list = libraryDao.dividendeActionnaire(
+                        codeExercice, detachementCouponProjections.get(0).getIdDetachement(), idOpcvm);
+            }
+            else
+            {
+                list2=libraryDao.phasePaiement(codeExercice, idOpcvm);
+            }
+
+        }
+        Map<String, Object> parameters = new HashMap<>();
+        DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
+        String letterDate = dateFormatter.format(new Date());
+
+        parameters.put("letterDate", letterDate);
+        parameters.put("codeExercice", codeExercice);
+        OpcvmDto opcvmDto=opcvmMapper.deOpcvm(opcvmDao.findById(idOpcvm).orElseThrow());
+        parameters.put("designationOpcvm", opcvmDto.getDenominationOpcvm());
+
+        InputStream inputStream = getClass().getResourceAsStream("/paiementDividende.jrxml");
+        if (inputStream == null) {
+            throw new FileNotFoundException("Fichier JRXML introuvable dans le classpath");
+        }
+
+        JasperReport jasperReport = JasperCompileManager.compileReport(inputStream);
+        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(!list.isEmpty()?list:list2);
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
+
+        // Export vers le flux de sortie HTTP
+        JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());
+
+    }
+    public ResponseEntity<?> afficherPhasePaiement(String codeExercice,Long idOpcvm) {
+
+        try {
+            List<DetachementCouponProjection> detachementCouponProjections=libraryDao.detachementCoupon(codeExercice, idOpcvm);
+            List<DividendeActionnaireProjection> dividendeActionnaireProjections=new ArrayList<>();
+            List<PhasePaiementProjection> phasePaiementProjections=new ArrayList<>();
+            if(!detachementCouponProjections.isEmpty()) {
+                if(!detachementCouponProjections.get(0).getEstPaye()){
+                    dividendeActionnaireProjections = libraryDao.dividendeActionnaire(
+                            codeExercice, detachementCouponProjections.get(0).getIdDetachement(), idOpcvm);
+                }
+                else
+                {
+                    phasePaiementProjections=libraryDao.phasePaiement(codeExercice, idOpcvm);
+                }
+
+            }
+            return ResponseHandler.generateResponse(
+                    "Portefeuille opcvm",
+                    HttpStatus.OK,
+                    !detachementCouponProjections.isEmpty()?
+                            !detachementCouponProjections.get(0).getEstPaye()?
+                                    dividendeActionnaireProjections:phasePaiementProjections:dividendeActionnaireProjections);
+        }
+        catch(Exception e) {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e);
+        }
+    }
+    public ResponseEntity<?> afficherOperationPaiementDividende(String codeExercice,Long idOpcvm) {
+
+        try {
+
+            List<PhasePaiementProjection> phasePaiementProjections=new ArrayList<>();
+
+            phasePaiementProjections=libraryDao.phasePaiement(codeExercice, idOpcvm);
+
+
+            return ResponseHandler.generateResponse(
+                    "Portefeuille opcvm",
+                    HttpStatus.OK,
+                    phasePaiementProjections);
+        }
+        catch(Exception e) {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e);
+        }
+    }
+    public ResponseEntity<?> enregistrerOperationPaiementDividende(String codeExercice,Long idOpcvm,String userLogin) {
+
+        try {
+            List<DetachementCouponProjection> detachementCouponProjections=libraryDao.detachementCoupon(codeExercice, idOpcvm);
+            List<DividendeActionnaireProjection> dividendeActionnaireProjections=new ArrayList<>();
+            List<PhasePaiementProjection> phasePaiementProjections=new ArrayList<>();
+            String sortie="";
+            String[] s2=new String[20];
+            if(!detachementCouponProjections.isEmpty()) {
+                if(!detachementCouponProjections.get(0).getEstPaye()){
+                    dividendeActionnaireProjections = libraryDao.dividendeActionnaire(
+                            codeExercice, detachementCouponProjections.get(0).getIdDetachement(), idOpcvm);
+                    SeanceOpcvmDto  seanceOpcvmDto=seanceOpcvmMapper.deSeanceOpcvm(seanceOpcvmDao.afficherSeanceEnCours(idOpcvm));
+                    for(DividendeActionnaireProjection o:dividendeActionnaireProjections){
+                        var k=em.createStoredProcedureQuery("[Dividende].[PS_OperationPaiementDividende_IP]");
+                        k.registerStoredProcedureParameter("idDividende", Long.class,ParameterMode.IN);
+                        k.registerStoredProcedureParameter("idOperationPaiement", Long.class,ParameterMode.IN);
+                        k.registerStoredProcedureParameter("dateOp", LocalDateTime.class,ParameterMode.IN);
+                        k.registerStoredProcedureParameter("idOpcvm", Long.class,ParameterMode.IN);
+                        k.registerStoredProcedureParameter("idActionnaire", Long.class,ParameterMode.IN);
+                        k.registerStoredProcedureParameter("montantPayer", BigDecimal.class,ParameterMode.IN);
+                        k.registerStoredProcedureParameter("idSeance", Long.class,ParameterMode.IN);
+                        k.registerStoredProcedureParameter("IdTransaction", Long.class,ParameterMode.IN);
+                        k.registerStoredProcedureParameter("idTitre", Long.class,ParameterMode.IN);
+                        k.registerStoredProcedureParameter("codeNatureOperation", String.class,ParameterMode.IN);
+                        k.registerStoredProcedureParameter("libelleOperation", String.class,ParameterMode.IN);
+                        k.registerStoredProcedureParameter("dateSaisie", LocalDateTime.class,ParameterMode.IN);
+                        k.registerStoredProcedureParameter("dateValeur", LocalDateTime.class,ParameterMode.IN);
+                        k.registerStoredProcedureParameter("datePiece", LocalDateTime.class,ParameterMode.IN);
+                        k.registerStoredProcedureParameter("referencePiece", String.class,ParameterMode.IN);
+                        k.registerStoredProcedureParameter("montant", BigDecimal.class,ParameterMode.IN);
+                        k.registerStoredProcedureParameter("valeurFormule", String.class,ParameterMode.IN);
+                        k.registerStoredProcedureParameter("valeurCodeAnalytique", String.class,ParameterMode.IN);
+                        k.registerStoredProcedureParameter("userLogin", String.class,ParameterMode.IN);
+                        k.registerStoredProcedureParameter("dateDernModifClient", LocalDateTime.class,ParameterMode.IN);
+                        k.registerStoredProcedureParameter("CodeLangue", String.class,ParameterMode.IN);
+                        k.registerStoredProcedureParameter("Sortie", String.class,ParameterMode.OUT);
+
+                        k.setParameter("idDividende", o.getIdOperation());
+                        k.setParameter("idOperationPaiement", 0);
+                        k.setParameter("dateOp", seanceOpcvmDto.getDateFermeture());
+                        k.setParameter("idOpcvm", idOpcvm);
+                        k.setParameter("idActionnaire", o.getIdActionnaire());
+                        k.setParameter("montantPayer",o.getReste());
+                        k.setParameter("idSeance", seanceOpcvmDto.getIdSeanceOpcvm().getIdSeance());
+                        k.setParameter("IdTransaction", 0);
+                        k.setParameter("idTitre", 0);
+                        k.setParameter("codeNatureOperation", "PAI_COUPON_OPCVM");
+                        k.setParameter("libelleOperation", "PAIEMENT DES COUPONS DE L'OPCVM ");
+                        k.setParameter("dateSaisie", LocalDateTime.now());
+                        k.setParameter("dateValeur", seanceOpcvmDto.getDateFermeture());
+                        k.setParameter("datePiece", seanceOpcvmDto.getDateFermeture());
+                        k.setParameter("referencePiece", "");
+                        k.setParameter("montant", o.getReste());
+                        k.setParameter("valeurFormule", "2:" + (o.getReste()).toString().replace(',', '.'));
+                        k.setParameter("valeurCodeAnalytique", "OPC:" + idOpcvm.toString() + ";ACT:" +
+                                        o.getIdActionnaire().toString());
+                        k.setParameter("userLogin", userLogin);
+                        k.setParameter("dateDernModifClient", LocalDateTime.now());
+                        k.setParameter("CodeLangue", "fr-FR");
+                        k.setParameter("Sortie", sortie);
+
+                        k.execute();
+                        String result2=(String) k.getOutputParameterValue("Sortie");
+                        s2=result2.split("#");
+                        System.out.println(s2[s2.length-1]);
+                    }
+                    var q=em.createStoredProcedureQuery("[Dividende].[PS_DetachementCoupon_UP_PAYER]");
+                    q.registerStoredProcedureParameter("idDetachement",Long.class,ParameterMode.IN);
+                    q.registerStoredProcedureParameter("userLogin",String.class,ParameterMode.IN);
+
+                    q.setParameter("idDetachement",detachementCouponProjections.get(0).getIdDetachement());
+                    q.setParameter("userLogin",userLogin);
+                    q.execute();
+
+                }
+
+            }
+            return ResponseHandler.generateResponse(
+                    "Enregistrement operation paiement dividende",
+                    HttpStatus.OK,
+                    "Enregistrement effectué avec succès");
+        }
+        catch(Exception e) {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e);
+        }
+    }
+    public void avisPaiement(String idOperation, HttpServletResponse response) throws IOException, JRException {
+
+            List<AvisPaiementProjection> list=libraryDao.avisPaiement(idOperation);
+            Map<String, Object> parameters = new HashMap<>();
+            DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
+            String letterDate = dateFormatter.format(new Date());
+
+            parameters.put("letterDate", letterDate);
+            InputStream inputStream = getClass().getResourceAsStream("/avisPaiement.jrxml");
+            if (inputStream == null) {
+                throw new FileNotFoundException("Fichier JRXML introuvable dans le classpath");
+            }
+
+            JasperReport jasperReport = JasperCompileManager.compileReport(inputStream);
+            JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(list);
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
+
+            // Export vers le flux de sortie HTTP
+            JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());
+
+    }
+    //jours fériés
+    public ResponseEntity<Object> afficherJoursFeries(DatatableParameters parameters) {
+        try {
+
+            Pageable pageable = PageRequest.of(
+                    parameters.getStart()/ parameters.getLength(), parameters.getLength());
+            Page<ParametreJourFerieProjection> parametreJourFerieProjections;
+            if(parameters.getSearch() != null && !StringUtils.isEmpty(parameters.getSearch().getValue()))
+            {
+                parametreJourFerieProjections = libraryDao.afficherJourFerie(null,parameters.getSearch().getValue(), pageable);
+            }
+            else {
+                parametreJourFerieProjections = libraryDao.afficherJourFerie(null, pageable);
+            }
+            List<ParametreJourFerieProjection> content = parametreJourFerieProjections
+                    .getContent().stream().collect(Collectors.toList());
+            DataTablesResponse<ParametreJourFerieProjection> dataTablesResponse = new DataTablesResponse<>();
+            dataTablesResponse.setDraw(parameters.getDraw());
+            dataTablesResponse.setRecordsFiltered((int)parametreJourFerieProjections.getTotalElements());
+            dataTablesResponse.setRecordsTotal((int)parametreJourFerieProjections.getTotalElements());
+            dataTablesResponse.setData(content);
+            return ResponseHandler.generateResponse(
+                    "Liste des jours fériés par page datatable",
+                    HttpStatus.OK,
+                    dataTablesResponse);
+        }
+        catch(Exception e)
+        {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e);
+        }
+    }
+    public ResponseEntity<Object> afficherJoursFeries(Long numLigne) {
+        try {
+
+
+            ParametreJourFerieProjection parametreJourFerieProjections;
+
+            parametreJourFerieProjections = libraryDao.afficherJourFerie(numLigne);
+            return ResponseHandler.generateResponse(
+                    "Liste des jours fériés par page datatable",
+                    HttpStatus.OK,
+                    parametreJourFerieProjections);
+        }
+        catch(Exception e)
+        {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e);
+        }
+    }
+    public ResponseEntity<Object> enregistrerJoursFeries(ParametreJourFerieDto request) {
+        try {
+            String sortie="";
+            var k=em.createStoredProcedureQuery("[Parametre].[PS_ParametreJourFerie_IP]");
+            k.registerStoredProcedureParameter("Date",LocalDateTime.class,ParameterMode.IN);
+            k.registerStoredProcedureParameter("Description",String.class,ParameterMode.IN);
+            k.registerStoredProcedureParameter("estAnnuel",Boolean.class,ParameterMode.IN);
+            k.registerStoredProcedureParameter("userLogin",String.class,ParameterMode.IN);
+            k.registerStoredProcedureParameter("dateDernModifClient",LocalDateTime.class,ParameterMode.IN);
+            k.registerStoredProcedureParameter("CodeLangue",String.class,ParameterMode.IN);
+            k.registerStoredProcedureParameter("Sortie",String.class,ParameterMode.OUT);
+
+            k.setParameter("Date",request.getDate());
+            k.setParameter("Description",request.getDescription());
+            k.setParameter("estAnnuel",request.getEstAnnuel());
+            k.setParameter("userLogin",request.getUserLogin());
+            k.setParameter("dateDernModifClient",LocalDateTime.now());
+            k.setParameter("CodeLangue","fr-FR");
+            k.setParameter("Sortie",sortie);
+            k.execute();
+
+            return ResponseHandler.generateResponse(
+                    "Enregsitrement jours fériés",
+                    HttpStatus.OK,
+                    "Enregistrement effectué avec succès");
+        }
+        catch(Exception e)
+        {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e);
+        }
+    }
+    public ResponseEntity<Object> modifierJoursFeries(ParametreJourFerieDto request) {
+        try {
+            String sortie="";
+            var k=em.createStoredProcedureQuery("[Parametre].[PS_ParametreJourFerie_IP]");
+            k.registerStoredProcedureParameter("Date",LocalDateTime.class,ParameterMode.IN);
+            k.registerStoredProcedureParameter("Description",String.class,ParameterMode.IN);
+            k.registerStoredProcedureParameter("estAnnuel",Boolean.class,ParameterMode.IN);
+            k.registerStoredProcedureParameter("NumLigne",Long.class,ParameterMode.IN);
+            k.registerStoredProcedureParameter("userLogin",String.class,ParameterMode.IN);
+            k.registerStoredProcedureParameter("CodeLangue",String.class,ParameterMode.IN);
+            k.registerStoredProcedureParameter("Sortie",String.class,ParameterMode.OUT);
+
+
+            k.setParameter("Date",request.getDate());
+            k.setParameter("Description",request.getDescription());
+            k.setParameter("estAnnuel",request.getEstAnnuel());
+            k.setParameter("NumLigne",request.getNumLigne());
+            k.setParameter("userLogin",request.getUserLogin());
+            k.setParameter("CodeLangue","fr-FR");
+            k.setParameter("Sortie",sortie);
+            k.executeUpdate();
+
+            return ResponseHandler.generateResponse(
+                    "Enregsitrement jours fériés",
+                    HttpStatus.OK,
+                    "Enregistrement effectué avec succès");
+        }
+        catch(Exception e)
+        {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e);
+        }
+    }
     //portefeuille
     public ResponseEntity<?> afficherPortefeuille(ConstatationChargeListeRequest request) {
         var parameters = request.getDatatableParameters();
@@ -6023,6 +7035,154 @@ public class AppService {
             );
         }
     }
+    // mise en affectation
+    public ResponseEntity<?> afficherMiseEnAffectation(MiseEnAffectationDto request){
+        try
+        {
+            List<MiseEnAffectationProjection> miseEnAffectationProjections=libraryDao.afficherMiseEnAffectation(
+                    request.getOpcvm().getIdOpcvm(),request.getCodeExercice(),false
+            );
+
+            return ResponseHandler.generateResponse(
+                    "afficher mise en affectation",
+                    HttpStatus.OK,
+                    miseEnAffectationProjections
+            );
+        } catch (Exception e) {
+            return ResponseHandler.generateResponse(
+
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e
+            );
+        }
+    }
+    public ResponseEntity<?> verificationMiseEnAffectation(Long idOpcvm){
+        try
+        {
+            Boolean resultat=false;
+            MiseEnAffectationProjection miseEnAffectationProjections=libraryDao.verificationMiseEnAffectation(
+                    idOpcvm
+            );
+            if(miseEnAffectationProjections!=null)
+            {
+                resultat=true;
+            }
+            return ResponseHandler.generateResponse(
+                    "afficher mise en affectation",
+                    HttpStatus.OK,
+                    resultat
+            );
+        } catch (Exception e) {
+            return ResponseHandler.generateResponse(
+
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e
+            );
+        }
+    }
+    public ResponseEntity<?> verificationMiseEnAffectationObjet(Long idOpcvm){
+        try
+        {
+//            Boolean resultat=false;
+            MiseEnAffectationProjection miseEnAffectationProjections=libraryDao.verificationMiseEnAffectation(
+                    idOpcvm
+            );
+            return ResponseHandler.generateResponse(
+                    "afficher mise en affectation",
+                    HttpStatus.OK,
+                    miseEnAffectationProjections
+            );
+        } catch (Exception e) {
+            return ResponseHandler.generateResponse(
+
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e
+            );
+        }
+    }
+    public ResponseEntity<?> precalculMiseEnAffectation(SoldeToutCompteRequest request){
+        try
+        {
+            List<SoldeToutCompteProjection> soldeToutCompteProjections=libraryDao.soldeToutCompte(
+                    "PCIA",request.getIdOpcvm(),"591",request.getDateEstimation()
+            );
+            MiseEnAffectationDto miseEnAffectationDto=new MiseEnAffectationDto();
+            miseEnAffectationDto.setResultat(soldeToutCompteProjections.isEmpty()?BigDecimal.ZERO:soldeToutCompteProjections.get(0).getSoldeReel());
+
+            List<SoldeToutCompteProjection> soldeToutCompteProjections2=libraryDao.soldeToutCompte(
+                    "PCIA",request.getIdOpcvm(),"553",request.getDateEstimation()
+            );
+            miseEnAffectationDto.setRegBeneInstAffectation(soldeToutCompteProjections2.isEmpty()?BigDecimal.ZERO:soldeToutCompteProjections2.get(0).getSoldeReel());
+            miseEnAffectationDto.setBeneInstAffectation(miseEnAffectationDto.getRegBeneInstAffectation().add(miseEnAffectationDto.getResultat()));
+            miseEnAffectationDto.setNbrePartEnCirculation(libraryDao.nbrePartEnCirculation(request.getIdOpcvm(),request.getDateEstimation()));
+            miseEnAffectationDto.setCoupDivUnitaire(miseEnAffectationDto.getBeneInstAffectation().divide(miseEnAffectationDto.getNbrePartEnCirculation()));
+
+            return ResponseHandler.generateResponse(
+                    "Précalcul mise en affectation",
+                    HttpStatus.OK,
+                    miseEnAffectationDto
+            );
+        } catch (Exception e) {
+            return ResponseHandler.generateResponse(
+
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e
+            );
+        }
+    }
+    public ResponseEntity<?> enregistrerMiseEnAffectation(MiseEnAffectationDto request){
+        try {
+            String sortie = "";
+            var k = em.createStoredProcedureQuery("[Comptabilite].[PS_MiseEnAffectation_IP]");
+            k.registerStoredProcedureParameter("idMiseEnAffectation", Long.class, ParameterMode.IN);
+            k.registerStoredProcedureParameter("idOpcvm", Long.class, ParameterMode.IN);
+            k.registerStoredProcedureParameter("idSeance", Long.class, ParameterMode.IN);
+            k.registerStoredProcedureParameter("dateMiseEnAffectation", LocalDateTime.class, ParameterMode.IN);
+            k.registerStoredProcedureParameter("codeExercice", String.class, ParameterMode.IN);
+            k.registerStoredProcedureParameter("resultat", BigDecimal.class, ParameterMode.IN);
+            k.registerStoredProcedureParameter("regBeneInstAffectation", BigDecimal.class, ParameterMode.IN);
+            k.registerStoredProcedureParameter("BeneInstAffectation", BigDecimal.class, ParameterMode.IN);
+            k.registerStoredProcedureParameter("nbrePartEnCirculation", BigDecimal.class, ParameterMode.IN);
+            k.registerStoredProcedureParameter("coupDivUnitaire", BigDecimal.class, ParameterMode.IN);
+            k.registerStoredProcedureParameter("userLogin", String.class, ParameterMode.IN);
+            k.registerStoredProcedureParameter("dateDernModifClient", LocalDateTime.class, ParameterMode.IN);
+            k.registerStoredProcedureParameter("CodeLangue", String.class, ParameterMode.IN);
+            k.registerStoredProcedureParameter("Sortie", String.class, ParameterMode.OUT);
+
+            k.setParameter("idMiseEnAffectation", 0);
+            k.setParameter("idOpcvm", request.getOpcvm().getIdOpcvm());
+            k.setParameter("idSeance", request.getIdSeance());
+            k.setParameter("dateMiseEnAffectation", request.getDateMiseEnAffectation());
+            k.setParameter("codeExercice", request.getCodeExercice());
+            k.setParameter("resultat", request.getResultat());
+            k.setParameter("regBeneInstAffectation", request.getRegBeneInstAffectation());
+            k.setParameter("BeneInstAffectation", request.getBeneInstAffectation());
+            k.setParameter("nbrePartEnCirculation", request.getNbrePartEnCirculation());
+            k.setParameter("coupDivUnitaire", request.getCoupDivUnitaire());
+            k.setParameter("userLogin", request.getUserLogin());
+            k.setParameter("dateDernModifClient", LocalDateTime.now());
+            k.setParameter("CodeLangue", "fr-FR");
+            k.setParameter("Sortie", sortie);
+            k.execute();
+
+            return ResponseHandler.generateResponse(
+                    "Précalcul mise en affectation",
+                    HttpStatus.OK,
+                    "Enregistrement effectué avec succès"
+            );
+        } catch (Exception e) {
+            return ResponseHandler.generateResponse(
+
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e
+            );
+        }
+    }
     //cloture exercice
     public ResponseEntity<?> afficherLigneMvtClotureExercice(LigneMvtClotureExerciceRequest request) {
 
@@ -6179,6 +7339,30 @@ public class AppService {
 
             return ResponseHandler.generateResponse(
                 "Solde du compte " + numCompteComptable,
+                HttpStatus.OK,
+                soldeToutCompte
+            );
+        }
+        catch (Exception e) {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e);
+        }
+    }
+    public ResponseEntity<?> soldeToutCompte2(SoldeToutCompteRequest request) {
+        try {
+            String codePlan = "PCIA";
+
+            var soldeToutCompte = libraryDao.soldeToutCompte(
+                    codePlan,
+                    request.getIdOpcvm(),
+                    request.getNumCompteComptable(),
+                    request.getDateEstimation()
+            );
+
+            return ResponseHandler.generateResponse(
+                "Solde tout compte ",
                 HttpStatus.OK,
                 soldeToutCompte
             );
