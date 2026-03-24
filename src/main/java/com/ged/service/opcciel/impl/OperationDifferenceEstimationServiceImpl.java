@@ -203,318 +203,281 @@ public class OperationDifferenceEstimationServiceImpl implements OperationDiffer
         }
     }
     @Override
-    public ResponseEntity<Object> genrerDifferenceEstimation(Long idOpcvm, Boolean estEnCloture) {
+    @Transactional
+    public String genrerDifferenceEstimation(Long idOpcvm, Boolean estEnCloture) {
             try {
-                String message="";
-                Boolean estFinie=false;
-                ExerciceDto exerciceDto=exerciceMapper.deExercice(exerciceDao.exerciceCourant(idOpcvm));
-                if(exerciceDto==null){
-                    message="Veuillez définir l'exercice courant";
+                String message = "";
+                Boolean estFinie = false;
+                ExerciceDto exerciceDto = exerciceMapper.deExercice(exerciceDao.exerciceCourant(idOpcvm));
+                if (exerciceDto == null) {
+                    message = "Veuillez définir l'exercice courant";
                 }
-                else
-                {
-                   List<VerificationMiseEnAffectationEnAttenteProjection> list=libraryDao.verificationMiseEnAffectationEnAttente(
-                           idOpcvm
-                   ) ;
-                   if(list.size()!=0){
-                       message="Veuillez éffectuer l'enrégistrement de la décision du conseil avant de continuer.";
-                   }
-                   else {
-                       SeanceOpcvm seanceOpcvm=seanceOpcvmDao.afficherSeanceEnCours(idOpcvm);
-                       if(seanceOpcvm.getEstEnCloture()==false){
-                          //controler si les extournes des VDE de la séance passée ont été faites
-                           List<OperationDifferenceEstimationDto> lstOperationDifferenceEstimation=operationDifferenceEstimationDao.afficherListe(idOpcvm,
-                                   seanceOpcvm.getIdSeanceOpcvm().getIdSeance()-1).stream().map(operationDifferenceEstimationMapper::deOperationDifferenceEstimation).collect(Collectors.toList());
 
-                            List<OperationExtourneVDEDto> lstOperationExtourneVDE=operationExtourneVDEDao.afficherListe(idOpcvm,seanceOpcvm.getIdSeanceOpcvm().getIdSeance())
-                                    .stream().map(operationExtourneVDEMapper::deOperationExtourneVDE).collect(Collectors.toList());
+                List<VerificationMiseEnAffectationEnAttenteProjection> list = libraryDao.verificationMiseEnAffectationEnAttente(
+                        idOpcvm
+                );
+                if (list.size() != 0) {
+                    message = "Veuillez éffectuer l'enrégistrement de la décision du conseil avant de continuer.";
+
+                } else {
+                    SeanceOpcvm seanceOpcvm = seanceOpcvmDao.afficherSeanceEnCours(idOpcvm);
+                    if (seanceOpcvm.getEstEnCloture() == false) {
+                        //controler si les extournes des VDE de la séance passée ont été faites
+                        List<OperationDifferenceEstimationDto> lstOperationDifferenceEstimation = operationDifferenceEstimationDao.afficherListe(idOpcvm,
+                                seanceOpcvm.getIdSeanceOpcvm().getIdSeance() - 1).stream().map(operationDifferenceEstimationMapper::deOperationDifferenceEstimation).collect(Collectors.toList());
+
+                        List<OperationExtourneVDEDto> lstOperationExtourneVDE = operationExtourneVDEDao.afficherListe(idOpcvm, seanceOpcvm.getIdSeanceOpcvm().getIdSeance())
+                                .stream().map(operationExtourneVDEMapper::deOperationExtourneVDE).collect(Collectors.toList());
 
 
-                           if (lstOperationExtourneVDE.size() != lstOperationDifferenceEstimation.size())
-                           {
-                               message= "Les différentes d'estimation de la séance précédente n'ont pas encore été extournées.";
+                        if (lstOperationExtourneVDE.size() != lstOperationDifferenceEstimation.size()) {
+                            System.out.println(lstOperationExtourneVDE.size() + ";" + lstOperationDifferenceEstimation.size());
+                            message = "Les différentes d'estimation de la séance précédente n'ont pas encore été extournées.";
 
-                           }
-                           else
-                           {
-                               // controler si les extournes de VDE ont été vérifiées Niveau 1
-                               if (libraryDao.verifOpExtourneN1N2("VERIFEXTOURNE",seanceOpcvm.getIdSeanceOpcvm().getIdSeance(),
-                                       idOpcvm,false, false))
-                               {
+                        }
 
-                                   message= "Vous avez des extournes de VDE en attente de vérification Niveau 1";
-                               }
-                               // controler si les extournes de VDE ont été vérifiées Niveau 2
-                               else
-                                   if (libraryDao.verifOpExtourneN1N2("VERIFEXTOURNE",seanceOpcvm.getIdSeanceOpcvm().getIdSeance(),
-                                           idOpcvm, true, false)) {
+                        {
+                            // controler si les extournes de VDE ont été vérifiées Niveau 1
+                            if (libraryDao.verifOpExtourneN1N2("VERIFEXTOURNE", seanceOpcvm.getIdSeanceOpcvm().getIdSeance(),
+                                    idOpcvm, false, false)) {
 
-                                       message= "Vous avez des extournes de VDE en attente de vérification Niveau 2";
-                                   }
-                                   // controler si les extournes de VDE ont été vérifiées Niveau 2
-                                   else
-                                       //controler si les écritures des extournes de VDE ont été vérifiées Niveau 1
-                                       if (libraryDao.verifOpExtourneN1N2("ECRITURES",seanceOpcvm.getIdSeanceOpcvm().getIdSeance(),
-                                               idOpcvm, false, false)) {
+                                message = "Vous avez des extournes de VDE en attente de vérification Niveau 1";
 
-                                           message = "Vous avez des jeux d'écritures d' extournes de VDE en attente de vérification Niveau 1";
-                                       }
-                                       else
-                                           //controler si les écritures des extournes de VDE ont été vérifiées Niveau 1
-                                           if (libraryDao.verifOpExtourneN1N2("ECRITURES",seanceOpcvm.getIdSeanceOpcvm().getIdSeance(),
-                                                   idOpcvm, true, false)) {
+                            }
+                            // controler si les extournes de VDE ont été vérifiées Niveau 2
 
-                                               message = "Vous avez des jeux d'écritures d' extournes de VDE en attente de vérification Niveau 2";
-                                           }
-                                           else
-                                                // controler si la mise a jour des cours des titres a été faites pour la séance en cours
-                                               if (libraryDao.coursTitre("BRVM", seanceOpcvm.getDateFermeture()
-                                                       , null, null).size() == 0)
-                                               {
-                                                   message="Veuillez Mettre à jour le cours des titres pour la date de séance en cours.";
+                            if (libraryDao.verifOpExtourneN1N2("VERIFEXTOURNE", seanceOpcvm.getIdSeanceOpcvm().getIdSeance(),
+                                    idOpcvm, true, false)) {
 
-                                               }
-                                               else
-                                               if (libraryDao.coursTitre("BRVM", seanceOpcvm.getDateFermeture(),
-                                                       true, null).size() == 0)
-                                               {
-                                                  message="Veuillez effectuer la vérification Niveau 1 de la liste des cours des titres.";
+                                message = "Vous avez des extournes de VDE en attente de vérification Niveau 2";
 
-                                               }
-                                               else
-                                               if (libraryDao.coursTitre("BRVM", seanceOpcvm.getDateFermeture(),
-                                                       true, true).size() == 0)
-                                               {
-                                                   message="Veuillez effectuer la vérification Niveau 2 de la liste des cours des titres.";
-                                               }
-                                               else {
-                                                   // Vérification des règlements livraison
-                                                   List<AvisOperationBourseDto> avisOperationBourseDtos=avisOperationBourseDao.verifierReglementAttente(
-                                                           idOpcvm,seanceOpcvm.getDateFermeture()
-                                                   ).stream().map(avisOperationBourseMapper::deAvisOperationBourse).collect(Collectors.toList());
-                                                   if (avisOperationBourseDtos.size() != 0) {
-                                                       message="Veuillez effectuer les règlements livraison en attente avant la cloture";
-                                                   }
-                                                   else
-                                                   {
-                                                       // Vérification des écritures
-                                                       if (libraryDao.listeVerificationEcriture(seanceOpcvm.getIdSeanceOpcvm().getIdOpcvm(),
-                                                               null, seanceOpcvm.getDateOuverture()
-                                                               , seanceOpcvm.getDateFermeture(), false, false,null).size() != 0)
-                                                       {
-                                                          message="vérification Niveau 1 des écritures en attente";
+                            }
+                            // controler si les extournes de VDE ont été vérifiées Niveau 2
 
-                                                       }
-                                                       else
-                                                       if (libraryDao.listeVerificationEcriture(seanceOpcvm.getIdSeanceOpcvm().getIdOpcvm(),
-                                                               null, seanceOpcvm.getDateOuverture()
-                                                               , seanceOpcvm.getDateFermeture(), true, false,null).size() != 0)
-                                                       {
-                                                           message="vérification Niveau 2 des écritures en attente";
-                                                       }
-                                                       else
-                                                       {
-                                                           // Souscription
+                            //controler si les écritures des extournes de VDE ont été vérifiées Niveau 1
+                            if (libraryDao.verifOpExtourneN1N2("ECRITURES", seanceOpcvm.getIdSeanceOpcvm().getIdSeance(),
+                                    idOpcvm, false, false)) {
 
-                                                           List<DepotRachatDto> depotRachatDtos = depotRachatDao.tousLesDepotsSouscription(
-                                                                   idOpcvm, seanceOpcvm.getIdSeanceOpcvm().getIdSeance(), null, null
-                                                                           , null).stream().map(depotRachatMapper::deDepotRachat).collect(Collectors.toList());
+                                message = "Vous avez des jeux d'écritures d' extournes de VDE en attente de vérification Niveau 1";
 
-                                                           if (depotRachatDtos.size() != 0)
-                                                           {
-                                                               if (depotRachatDao.tousLesDepotsSouscription(
-                                                                       idOpcvm, seanceOpcvm.getIdSeanceOpcvm().getIdSeance(), false, null
-                                                                       , null).stream().map(depotRachatMapper::deDepotRachat).collect(Collectors.toList()).size() != 0)
-                                                               {
-                                                                   message="vérification des dépots pour souscription en attente";
-                                                               }
-                                                               else
-                                                               if (
-                                                                       depotRachatDao.tousLesDepotsSouscription(
-                                                                               idOpcvm, seanceOpcvm.getIdSeanceOpcvm().getIdSeance(), true, false
-                                                                               , null).stream().map(depotRachatMapper::deDepotRachat).collect(Collectors.toList()).size() != 0)
-                                                               {
-                                                                 message="vérification des dépots pour souscription Niveau 1 en attente";
-                                                               }
-                                                               else
-                                                               if (
-                                                                       depotRachatDao.tousLesDepotsSouscription(
-                                                                               idOpcvm, seanceOpcvm.getIdSeanceOpcvm().getIdSeance(), true, true
-                                                                               , false).stream().map(depotRachatMapper::deDepotRachat).collect(Collectors.toList()).size() != 0)
-                                                               {
-                                                                   message="vérification des dépots pour souscription Niveau 2 en attente";
-                                                               }
-                                                                else
-                                                               if (
-                                                                       libraryDao.controlGenerationSousRach(idOpcvm, seanceOpcvm.getIdSeanceOpcvm().getIdSeance(), "SOUSCRIPTION") == false)
-                                                               {
-                                                                  message="Les souscriptions n'ont pas encore été générées";
-                                                               }
-                                                               else
-                                                               {
-                                                                   var q=em.createStoredProcedureQuery("[Operation].[PS_PrecalculRestitutionReliquat_new]");
-                                                                   q.registerStoredProcedureParameter("idOpcvm",Long.class,ParameterMode.IN);
-                                                                   q.registerStoredProcedureParameter("idSeance",Long.class,ParameterMode.IN);
+                            }
 
-                                                                   q.setParameter("idOpcvm",idOpcvm);
-                                                                   q.setParameter("idSeance",seanceOpcvm.getIdSeanceOpcvm().getIdSeance());
-                                                                   List<Object[]> objects=q.getResultList();
+                            //controler si les écritures des extournes de VDE ont été vérifiées Niveau 1
+                            if (libraryDao.verifOpExtourneN1N2("ECRITURES", seanceOpcvm.getIdSeanceOpcvm().getIdSeance(),
+                                    idOpcvm, true, false)) {
 
-                                                                   var q2=em.createStoredProcedureQuery("[Operation].[PS_OperationRestitutionReliquat_SP_New2]");
-                                                                   q2.registerStoredProcedureParameter("idSeance",Long.class,ParameterMode.IN);
-                                                                   q2.registerStoredProcedureParameter("idOpcvm",Long.class,ParameterMode.IN);
-                                                                   q2.registerStoredProcedureParameter("codeNatureOperation",String.class,ParameterMode.IN);
-                                                                   q2.registerStoredProcedureParameter("supprimer",Boolean.class,ParameterMode.IN);
+                                message = "Vous avez des jeux d'écritures d' extournes de VDE en attente de vérification Niveau 2";
 
-                                                                   q2.setParameter("idSeance",seanceOpcvm.getIdSeanceOpcvm().getIdSeance());
-                                                                   q2.setParameter("idOpcvm",idOpcvm);
-                                                                   q2.setParameter("codeNatureOperation","REST_RELIQUATS");
-                                                                   q2.setParameter("supprimer",false);
+                            }
 
-                                                                   List<Object[]> objects2=q.getResultList();
-                                                                   if (objects.size() != 0
-                                                                           && objects2.size() == 0)
-                                                                   {
-                                                                       message= "Vous avez des restitutions de reliquats en attente";
-                                                                   }
-                                                                   else
-                                                                   {
-                                                                       // Rachat
-                                                                       List<DepotRachatDto> rachats = depotRachatDao.tousLesRachats(
-                                                                               idOpcvm, seanceOpcvm.getIdSeanceOpcvm().getIdSeance(), null, null
-                                                                               , null).stream().map(depotRachatMapper::deDepotRachat).collect(Collectors.toList());
+                            // controler si la mise a jour des cours des titres a été faites pour la séance en cours
+                            if (libraryDao.coursTitre("BRVM", seanceOpcvm.getDateFermeture()
+                                    , null, null).isEmpty()) {
+                                message = "Veuillez Mettre à jour le cours des titres pour la date de séance en cours.";
 
-                                                                       if (depotRachatDtos.size() != 0)
-                                                                       {
-                                                                           if (depotRachatDao.tousLesRachats(
-                                                                                   idOpcvm, seanceOpcvm.getIdSeanceOpcvm().getIdSeance(), false, null
-                                                                                   , null).stream().map(depotRachatMapper::deDepotRachat).collect(Collectors.toList()).size() != 0)
-                                                                           {
-                                                                               message="vérification des intentions de rachat en attente";
-                                                                           }
-                                                                           else
-                                                                           if (
-                                                                                   depotRachatDao.tousLesRachats(
-                                                                                           idOpcvm, seanceOpcvm.getIdSeanceOpcvm().getIdSeance(), true, false
-                                                                                           , null).stream().map(depotRachatMapper::deDepotRachat).collect(Collectors.toList()).size() != 0)
-                                                                           {
-                                                                               message="vérification des intentions de rachat Niveau 1 en attente";
-                                                                           }
-                                                                           else
-                                                                           if (
-                                                                                   depotRachatDao.tousLesRachats(
-                                                                                           idOpcvm, seanceOpcvm.getIdSeanceOpcvm().getIdSeance(), true, true
-                                                                                           , false).stream().map(depotRachatMapper::deDepotRachat).collect(Collectors.toList()).size() != 0)
-                                                                           {
-                                                                               message="vérification des intentions de rachat Niveau 2 en attente";
-                                                                           }
-                                                                           else
-                                                                           if (
-                                                                                   libraryDao.controlGenerationSousRach(idOpcvm, seanceOpcvm.getIdSeanceOpcvm().getIdSeance(), "RACHAT") == false)
-                                                                           {
-                                                                               message="Les rachats n'ont pas encore été générées";
-                                                                           }
-                                                                           else
-                                                                           {
-                                                                               q=em.createStoredProcedureQuery("[Operation].[PS_OperationPaiementRachat_SP_New]");
-                                                                               q.registerStoredProcedureParameter("idSeance",Long.class,ParameterMode.IN);
-                                                                               q.registerStoredProcedureParameter("idOpcvm",Long.class,ParameterMode.IN);
-                                                                               q.registerStoredProcedureParameter("codeNatureOperation",String.class,ParameterMode.IN);
-                                                                               q.registerStoredProcedureParameter("supprimer",Boolean.class,ParameterMode.IN);
+                            }
 
-                                                                               q.setParameter("idSeance",seanceOpcvm.getIdSeanceOpcvm().getIdSeance());
-                                                                               q.setParameter("idOpcvm",idOpcvm);
-                                                                               q.setParameter("codeNatureOperation","PAI_RACH");
-                                                                               q.setParameter("supprimer",false);
-                                                                               List<Object[]> objects3=q.getResultList();
+                            if (libraryDao.coursTitre("BRVM", seanceOpcvm.getDateFermeture(),
+                                    true, null).isEmpty()) {
+                                message = "Veuillez effectuer la vérification Niveau 1 de la liste des cours des titres.";
 
-                                                                               if (objects3.size() == 0)
-                                                                               {
-                                                                                   message= "Vous n'avez pas encore éffectués les paiments de rachat en attente";
-                                                                               }
-                                                                               else
-                                                                               {
-                                                                                   //controler si il y a des ESV en attente de détachement
-                                                                                   List<Object[]> objects1=new ArrayList<>();
-                                                                                   try
-                                                                                   {
-                                                                                       objects1= libraryDao.previsionnelRemboursement(idOpcvm, true, false, false, LocalDateTime.parse("1900/01/01"), seanceOpcvm.getDateFermeture());
+                            }
 
-                                                                                   }
-                                                                                   catch (Exception ex)
-                                                                                   {
+                            if (libraryDao.coursTitre("BRVM", seanceOpcvm.getDateFermeture(),
+                                    true, true).isEmpty()) {
+                                message = "Veuillez effectuer la vérification Niveau 2 de la liste des cours des titres.";
 
-                                                                                       message= ex.toString() ;
-                                                                                   }
+                            }
 
-                                                                                   if (objects1.size() > 0)
-                                                                                   {
-                                                                                       message= "Vous avez des titres à échéance échus. Veuillez procéder à un détachement";
-                                                                                   }
-                                                                                   else
-                                                                                   {
-                                                                                       q=em.createStoredProcedureQuery("[Dividende].[PS_DecisionDistribution_SP_New]");
-                                                                                       q.registerStoredProcedureParameter("idOpcvm", Long.class,ParameterMode.IN);
-                                                                                       q.registerStoredProcedureParameter("dateDetachement", LocalDateTime.class,ParameterMode.IN);
-                                                                                       q.registerStoredProcedureParameter("supprimer", Boolean.class,ParameterMode.IN);
+                            // Vérification des règlements livraison
+                            List<AvisOperationBourseDto> avisOperationBourseDtos = avisOperationBourseDao.verifierReglementAttente(
+                                    idOpcvm, seanceOpcvm.getDateFermeture()
+                            ).stream().map(avisOperationBourseMapper::deAvisOperationBourse).collect(Collectors.toList());
+                            if (!avisOperationBourseDtos.isEmpty()) {
+                                message = "Veuillez effectuer les règlements livraison en attente avant la cloture";
 
-                                                                                       q.setParameter("idOpcvm",idOpcvm);
-                                                                                       q.setParameter("dateDetachement",seanceOpcvm.getDateFermeture());
-                                                                                       q.setParameter("supprimer",false);
+                            }
 
-                                                                                       List<Object[]> lstDecisionDistribution=q.getResultList();
+                            // Vérification des écritures
+                            if (!libraryDao.listeVerificationEcriture(seanceOpcvm.getIdSeanceOpcvm().getIdOpcvm(),
+                                    null, seanceOpcvm.getDateOuverture()
+                                    , seanceOpcvm.getDateFermeture(), false, false, null).isEmpty()) {
+                                message = "vérification Niveau 1 des écritures en attente";
 
-                                                                                       if (lstDecisionDistribution.size() != 0)
-                                                                                       {
-                                                                                           message="Vous avez " + lstDecisionDistribution.size() + " détachement(s) en attente.";
+                            }
 
-                                                                                       }
-                                                                                       else
-                                                                                       {
-                                                                                           message="Lors de la cloture de séance,aucune autre opération ne pourra etre éffectuée.";
+                            if (!libraryDao.listeVerificationEcriture(seanceOpcvm.getIdSeanceOpcvm().getIdOpcvm(),
+                                    null, seanceOpcvm.getDateOuverture()
+                                    , seanceOpcvm.getDateFermeture(), true, false, null).isEmpty()) {
+                                message = "vérification Niveau 2 des écritures en attente";
 
-                                                                                               /*Marquer le champ estEnCloture de la table TJ_SeanceOpcvm à true*/
-                                                                                           if(estEnCloture){
-                                                                                                seanceOpcvmDao.modifier(idOpcvm,seanceOpcvm.getIdSeanceOpcvm().getIdSeance(),true);
-                                                                                                estFinie=true;
-                                                                                           }
-                                                                                       }
-                                                                                   }
+                            }
 
-                                                                               }
-                                                                           }
+                            // Souscription
 
-                                                                       }
-                                                                   }
-                                                               }
+                            List<DepotRachatDto> depotRachatDtos = depotRachatDao.tousLesDepotsSouscription2(
+                                    idOpcvm, seanceOpcvm.getIdSeanceOpcvm().getIdSeance(), null, null
+                                    , null).stream().map(depotRachatMapper::deDepotRachat).collect(Collectors.toList());
 
-                                                           }
+                            if (!depotRachatDtos.isEmpty()) {
+                                if (!depotRachatDao.tousLesDepotsSouscription(
+                                        idOpcvm, seanceOpcvm.getIdSeanceOpcvm().getIdSeance(), false, null
+                                        , null).stream().map(depotRachatMapper::deDepotRachat).collect(Collectors.toList()).isEmpty()) {
+                                    message = "vérification des dépots pour souscription en attente";
 
-                                                       }
-                                                   }
-                                               }
+                                }
 
-                           }
-                       }
-                   }
-                }
-                if(!estFinie)
-                    return ResponseHandler.generateResponse(
-                            "PortefeuilleOPCVM  ",
-                            HttpStatus.OK,
-                            message);
-                else
-                    return ResponseHandler.generateResponse(
-                            "PortefeuilleOPCVM  ",
-                            HttpStatus.OK,
-                            estFinie);
+                                if (
+                                        !depotRachatDao.tousLesDepotsSouscription(
+                                                idOpcvm, seanceOpcvm.getIdSeanceOpcvm().getIdSeance(), true, false
+                                                , null).stream().map(depotRachatMapper::deDepotRachat).collect(Collectors.toList()).isEmpty()) {
+                                    message = "vérification des dépots pour souscription Niveau 1 en attente";
+
+                                }
+
+                                if (
+                                        !depotRachatDao.tousLesDepotsSouscription(
+                                                idOpcvm, seanceOpcvm.getIdSeanceOpcvm().getIdSeance(), true, true
+                                                , false).stream().map(depotRachatMapper::deDepotRachat).collect(Collectors.toList()).isEmpty()) {
+                                    message = "vérification des dépots pour souscription Niveau 2 en attente";
+
+                                }
+
+                                if (
+                                        libraryDao.controlGenerationSousRach(idOpcvm, seanceOpcvm.getIdSeanceOpcvm().getIdSeance(), "SOUSCRIPTION") == false) {
+                                    message = "Les souscriptions n'ont pas encore été générées";
+
+                                }
+                            }
+
+                                var q = em.createStoredProcedureQuery("[Operation].[PS_PrecalculRestitutionReliquat_new]");
+                                q.registerStoredProcedureParameter("idOpcvm", Long.class, ParameterMode.IN);
+                                q.registerStoredProcedureParameter("idSeance", Long.class, ParameterMode.IN);
+
+                                q.setParameter("idOpcvm", idOpcvm);
+                                q.setParameter("idSeance", seanceOpcvm.getIdSeanceOpcvm().getIdSeance());
+                                List<Object[]> objects = q.getResultList();
+
+                                var q2 = em.createStoredProcedureQuery("[Operation].[PS_OperationRestitutionReliquat_SP_New2]");
+                                q2.registerStoredProcedureParameter("idSeance", Long.class, ParameterMode.IN);
+                                q2.registerStoredProcedureParameter("idOpcvm", Long.class, ParameterMode.IN);
+                                q2.registerStoredProcedureParameter("codeNatureOperation", String.class, ParameterMode.IN);
+                                q2.registerStoredProcedureParameter("supprimer", Boolean.class, ParameterMode.IN);
+
+                                q2.setParameter("idSeance", seanceOpcvm.getIdSeanceOpcvm().getIdSeance());
+                                q2.setParameter("idOpcvm", idOpcvm);
+                                q2.setParameter("codeNatureOperation", "REST_RELIQUATS");
+                                q2.setParameter("supprimer", false);
+
+                                List<Object[]> objects2 = q.getResultList();
+                                if (!objects.isEmpty()
+                                        && objects2.isEmpty()) {
+                                    message = "Vous avez des restitutions de reliquats en attente";
+
+                                }
+
+                                // Rachat
+                                List<DepotRachatDto> rachats = depotRachatDao.tousLesRachats(
+                                        idOpcvm, seanceOpcvm.getIdSeanceOpcvm().getIdSeance(), null, null
+                                        , null).stream().map(depotRachatMapper::deDepotRachat).collect(Collectors.toList());
+
+                                if (depotRachatDtos.size() != 0) {
+                                    if (!depotRachatDao.tousLesRachats(
+                                            idOpcvm, seanceOpcvm.getIdSeanceOpcvm().getIdSeance(), false, null
+                                            , null).stream().map(depotRachatMapper::deDepotRachat).collect(Collectors.toList()).isEmpty()) {
+                                        message = "vérification des intentions de rachat en attente";
+
+                                    }
+
+                                    if (
+                                            !depotRachatDao.tousLesRachats(
+                                                    idOpcvm, seanceOpcvm.getIdSeanceOpcvm().getIdSeance(), true, false
+                                                    , null).stream().map(depotRachatMapper::deDepotRachat).collect(Collectors.toList()).isEmpty()) {
+                                        message = "vérification des intentions de rachat Niveau 1 en attente";
+
+                                    }
+
+                                    if (
+                                            !depotRachatDao.tousLesRachats(
+                                                    idOpcvm, seanceOpcvm.getIdSeanceOpcvm().getIdSeance(), true, true
+                                                    , false).stream().map(depotRachatMapper::deDepotRachat).collect(Collectors.toList()).isEmpty()) {
+                                        message = "vérification des intentions de rachat Niveau 2 en attente";
+
+                                    }
+
+                                    if (
+                                            libraryDao.controlGenerationSousRach(idOpcvm, seanceOpcvm.getIdSeanceOpcvm().getIdSeance(), "RACHAT") == false) {
+                                        message = "Les rachats n'ont pas encore été générées";
+
+                                    }
+                                }
+                                    q = em.createStoredProcedureQuery("[Operation].[PS_OperationPaiementRachat_SP_New]");
+                                    q.registerStoredProcedureParameter("idSeance", Long.class, ParameterMode.IN);
+                                    q.registerStoredProcedureParameter("idOpcvm", Long.class, ParameterMode.IN);
+                                    q.registerStoredProcedureParameter("codeNatureOperation", String.class, ParameterMode.IN);
+                                    q.registerStoredProcedureParameter("supprimer", Boolean.class, ParameterMode.IN);
+
+                                    q.setParameter("idSeance", seanceOpcvm.getIdSeanceOpcvm().getIdSeance());
+                                    q.setParameter("idOpcvm", idOpcvm);
+                                    q.setParameter("codeNatureOperation", "PAI_RACH");
+                                    q.setParameter("supprimer", false);
+                                    List<Object[]> objects3 = q.getResultList();
+
+                                    if (objects3.size() == 0) {
+                                        message = "Vous n'avez pas encore éffectués les paiments de rachat en attente";
+
+                                    }
+                                        //controler si il y a des ESV en attente de détachement
+                                        List<Object[]> objects1 = new ArrayList<>();
+                                        try {
+                                            objects1 = libraryDao.previsionnelRemboursement(idOpcvm, true, false, false, LocalDateTime.parse("1900-01-01T00:00:00"), seanceOpcvm.getDateFermeture());
+
+                                        } catch (Exception ex) {
+
+                                            message = ex.toString();
+                                        }
+
+                                        if (objects1.size() > 0) {
+                                            message = "Vous avez des titres à échéance échus. Veuillez procéder à un détachement";
+
+                                        }
+
+                                        q = em.createStoredProcedureQuery("[Dividende].[PS_DecisionDistribution_SP_New]");
+                                        q.registerStoredProcedureParameter("idOpcvm", Long.class, ParameterMode.IN);
+                                        q.registerStoredProcedureParameter("dateDetachement", LocalDateTime.class, ParameterMode.IN);
+                                        q.registerStoredProcedureParameter("supprimer", Boolean.class, ParameterMode.IN);
+
+                                        q.setParameter("idOpcvm", idOpcvm);
+                                        q.setParameter("dateDetachement", seanceOpcvm.getDateFermeture());
+                                        q.setParameter("supprimer", false);
+
+                                        List<Object[]> lstDecisionDistribution = q.getResultList();
+
+                                        if (lstDecisionDistribution.size() != 0) {
+                                            message = "Vous avez " + lstDecisionDistribution.size() + " détachement(s) en attente.";
+
+
+                                        } else {
+                                            message = "Lors de la cloture de séance,aucune autre opération ne pourra etre éffectuée.";
+                                            System.out.println(message + ";" + estEnCloture
+                                            );
+                                            /*Marquer le champ estEnCloture de la table TJ_SeanceOpcvm à true*/
+                                            if (estEnCloture) {
+                                                seanceOpcvmDao.modifier(idOpcvm, seanceOpcvm.getIdSeanceOpcvm().getIdSeance(), Boolean.TRUE);
+                                                estFinie = true;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+
+
+
+                    return message;
             }
             catch (Exception e)
             {
-                return ResponseHandler.generateResponse(
-                        e.getMessage(),
-                        HttpStatus.MULTI_STATUS,
-                        e);
+                return "erreur";
             }
         }
 
@@ -578,6 +541,54 @@ public class OperationDifferenceEstimationServiceImpl implements OperationDiffer
 
 
 
+
+        } catch (Exception e) {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e);
+        }
+    }
+
+
+    public ResponseEntity<Object> precalculDifferenceEstimationList(DifferenceEstimationRequest differenceEstimationRequest) {
+        try {
+            SeanceOpcvm seanceOpcvm=seanceOpcvmDao.afficherSeance(differenceEstimationRequest.getIdOpcvm(),differenceEstimationRequest.getIdSeance());
+            if (seanceOpcvm != null )
+            {
+                if(seanceOpcvm.getEstEnCours()) {
+                    LocalDateTime mDate = differenceEstimationRequest.getDateSeance();
+                    if (((mDate.getMonthValue() == 12 && mDate.getDayOfMonth()==29) ||
+                            (mDate.getMonthValue() == 12 && mDate.getDayOfMonth()==30) ) &
+                            mDate.getDayOfWeek()== DayOfWeek.FRIDAY)
+                    {
+                        mDate = LocalDateTime.parse( mDate.getYear()+"/12/31");
+                    }
+
+                    List<DifferenceEstimationProjection> operationDifferenceEstimationPage = libraryDao.precalculDifferenceEstimation(
+                            differenceEstimationRequest.getIdSeance()
+                            ,differenceEstimationRequest.getIdOpcvm(),differenceEstimationRequest.getDateSeance());
+
+                    return ResponseHandler.generateResponse(
+                            "Liste des VDE par page datatable",
+                            HttpStatus.OK,
+                            operationDifferenceEstimationPage);
+                }
+                else
+                {
+                    return ResponseHandler.generateResponse(
+                            "Enregistrement effectué avec succès !",
+                            HttpStatus.OK,
+                            "Veuillez sélectionner la séance encours pour la valorisation.");
+                }
+            }
+            else
+            {
+                return ResponseHandler.generateResponse(
+                        "Enregistrement effectué avec succès !",
+                        HttpStatus.OK,
+                        "Veuillez sélectionner la séance encours pour la valorisation.");
+            }
 
         } catch (Exception e) {
             return ResponseHandler.generateResponse(
@@ -700,6 +711,7 @@ public class OperationDifferenceEstimationServiceImpl implements OperationDiffer
                 "dateoper="+dateOperation;
     }
     @Override
+    @Transactional
     public ResponseEntity<Object> enregistrerDifferenceEstimation(DifferenceEstimationRequest  request) {
         var q=em.createStoredProcedureQuery("[Operation].[PS_OperationDifferenceEstimation_IP_New]");
         try {
@@ -739,7 +751,9 @@ public class OperationDifferenceEstimationServiceImpl implements OperationDiffer
                     //pour les cours
                     String valeurCodeAnalytique = "OPC:" + obj.getIdOpcvm().toString() +
                             ";TIT:" + obj.getIdTitre().toString();
-                    String valeurFormule = "2:" + Math.abs(obj.getValeurVDECours().doubleValue()) ;
+                    String valeurFormule = "2:" + obj.getValeurVDECours()
+                            .abs()
+                            .toPlainString(); ;
                     valeurFormule=valeurFormule.toString().replace(',', '.');
                     String codeNatureOp="";
                     if (obj.getValeurVDECours().doubleValue() < 0)

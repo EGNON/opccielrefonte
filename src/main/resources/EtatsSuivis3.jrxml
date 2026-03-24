@@ -1,0 +1,1044 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport name="EtatsSuivis" language="java" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="56db8ee7-9c4f-4ecb-886c-f8b8283daf5f">
+    <property name="net.sf.jasperreports.default.locale" value="fr_FR"/>
+    <parameter name="letterDate" class="java.lang.String"/>
+    <parameter name="ALL_LIGNES" class="net.sf.jasperreports.engine.JRDataSource"/>
+    <parameter name="SUBREPORT_REF" class="net.sf.jasperreports.engine.JasperReport"/>
+    <parameter name="idOpcvm" class="java.lang.Long"/>
+    <parameter name="idActionnaire" class="java.lang.Long"/>
+    <parameter name="dateDebutEstimation" class="java.time.LocalDateTime"/>
+    <parameter name="dateEstimation" class="java.time.LocalDateTime"/>
+
+    <field name="dateEddition" class="java.time.LocalDateTime"/>
+    <field name="idOpcvm" class="java.lang.Long"/>
+    <field name="denominationOpcvm" class="java.lang.String"/>
+    <field name="idActionnaire" class="java.lang.Long"/>
+    <field name="personne" class="java.lang.String"/>
+    <field name="dateOperation" class="java.time.LocalDateTime"/>
+    <field name="montant" class="java.math.BigDecimal"/>
+    <field name="part" class="java.math.BigDecimal"/>
+    <field name="valeurLiquidative" class="java.math.BigDecimal"/>
+    <field name="partACtuel" class="java.math.BigDecimal"/>
+    <field name="cump" class="java.math.BigDecimal"/>
+    <field name="coursVL" class="java.math.BigDecimal"/>
+    <field name="prixSouscription" class="java.math.BigDecimal"/>
+    <field name="titre" class="java.lang.String"/>
+    <field name="valorisation" class="java.math.BigDecimal"/>
+    <field name="plusOuMoinsValue" class="java.math.BigDecimal"/>
+    <field name="beneficiaireDonateur" class="java.lang.String"/>
+
+    <variable name="montant1" resetType="Group" calculation="Sum" resetGroup="Group3" class="java.math.BigDecimal">
+        <expression><![CDATA[$F{montant}]]></expression>
+    </variable>
+    <variable name="part1" resetType="Group" calculation="Sum" resetGroup="Group3" class="java.math.BigDecimal">
+        <expression><![CDATA[$F{part}]]></expression>
+    </variable>
+
+    <group name="Group1" startNewPage="true">
+        <expression><![CDATA[$F{idActionnaire}]]></expression>
+        <groupHeader>
+            <band height="88">
+                <element mode="Opaque" x="2" y="32" width="550" height="24" forecolor="#000000" backcolor="#BDD7EE" uuid="e5054658-1f6d-47c5-8371-2b21c6572378">
+                    <textField>
+                        <reportElement x="0" y="0" width="550" height="24" forecolor="#000000" backcolor="#BDD7EE"/>
+                        <textFieldExpression><![CDATA["ETAT DE SUIVI DU CLIENT " + $F{personne}]]></textFieldExpression>
+                    </textField>
+                </element>
+                <element x="80" y="62" width="80" height="20" uuid="bf8e9d44-0f27-42d5-b042-03bbbc8de7e7">
+                    <staticText>
+                        <reportElement x="0" y="0" width="80" height="20" underline="true"/>
+                        <text><![CDATA[DATE EDITION:]]></text>
+                    </staticText>
+                </element>
+                <element x="160" y="62" width="180" height="20" uuid="03a0ab7e-7b23-4829-be61-9580e63f1ce9">
+                    <textField textAdjust="StretchHeight" blankWhenNull="true">
+                        <reportElement x="0" y="0" width="180" height="20"/>
+                        <textFieldExpression><![CDATA[$F{dateEddition}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"))]]></textFieldExpression>
+                        <patternExpression><![CDATA["EE dd/MM/yyyy"]]></patternExpression>
+                    </textField>
+                </element>
+                <element x="0" y="4" width="230" height="20" uuid="48140988-acaa-4d4b-ab4b-bcadb9ae1ed5">
+                    <textField>
+                        <reportElement x="0" y="0" width="230" height="20" fontName="Segoe UI"/>
+                        <textFieldExpression><![CDATA["Cotonou le, " + $P{letterDate}]]></textFieldExpression>
+                    </textField>
+                </element>
+            </band>
+        </groupHeader>
+        <groupFooter>
+            <band height="173">
+                <element positionType="Float" stretchType="ContainerHeight" x="1" y="4" width="552" height="156" uuid="b87a14fd-827d-40f8-8af0-5c0a71fa2821">
+                    <property name="com.jaspersoft.layout.grid.x" value="1"/>
+                    <subreport>
+                        <reportElement x="0" y="0" width="552" height="156"/>
+                        <connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+                        <subreportParameter name="idOpcvm">
+                            <subreportParameterExpression><![CDATA[$F{idOpcvm}]]></subreportParameterExpression>
+                        </subreportParameter>
+                        <subreportParameter name="idActionnaire">
+                            <subreportParameterExpression><![CDATA[$F{idActionnaire}]]></subreportParameterExpression>
+                        </subreportParameter>
+                        <subreportParameter name="dateDebutEstimation">
+                            <subreportParameterExpression><![CDATA[$P{dateDebutEstimation}]]></subreportParameterExpression>
+                        </subreportParameter>
+                        <subreportParameter name="dateEstimation">
+                            <subreportParameterExpression><![CDATA[$P{dateEstimation}]]></subreportParameterExpression>
+                        </subreportParameter>
+                        <dataSourceExpression><![CDATA[$P{ALL_LIGNES}]]></dataSourceExpression>
+                        <subreportExpression><![CDATA[$P{SUBREPORT_REF}]]></subreportExpression>
+                    </subreport>
+                </element>
+            </band>
+        </groupFooter>
+    </group>
+
+    <group name="Group2">
+        <expression><![CDATA[$F{idOpcvm}]]></expression>
+        <groupHeader>
+            <band height="40">
+                <element x="0" y="5" width="220" height="35" uuid="f954bca6-4c96-4fbc-ad6e-46c0f739bbf7">
+                    <rectangle>
+                        <reportElement x="0" y="0" width="220" height="35"/>
+                        <pen lineColor="#3970E6"/>
+                    </rectangle>
+                </element>
+                <element x="4" y="10" width="210" height="23" uuid="25c952d6-82e4-4c27-955b-743e4ece76d9">
+                    <textField textAdjust="StretchHeight">
+                        <reportElement x="0" y="0" width="210" height="23"/>
+                        <textFieldExpression><![CDATA[$F{denominationOpcvm}]]></textFieldExpression>
+                    </textField>
+                </element>
+            </band>
+        </groupHeader>
+        <groupFooter>
+            <band height="10">
+                <property name="com.jaspersoft.studio.unit.height" value="px"/>
+            </band>
+        </groupFooter>
+    </group>
+
+    <group name="Group3">
+        <expression><![CDATA[$F{titre}]]></expression>
+        <groupHeader>
+            <band height="60">
+                <element x="0" y="1" width="552" height="29" uuid="a835a09c-9a54-47e6-85b4-285c7ca0c4d8">
+                    <rectangle>
+                        <reportElement x="0" y="0" width="552" height="29"/>
+                        <pen lineColor="#3970E6"/>
+                    </rectangle>
+                </element>
+                <element x="2" y="5" width="510" height="20" uuid="8cc8b7d4-dcb0-48e9-9428-dfd052791827">
+                    <textField textAdjust="StretchHeight">
+                        <reportElement x="0" y="0" width="510" height="20"/>
+                        <textFieldExpression><![CDATA[$F{titre}]]></textFieldExpression>
+                    </textField>
+                </element>
+                <element stretchType="ContainerHeight" mode="Opaque" x="0" y="30" width="552" height="29" backcolor="#B9D7EE" uuid="f56ebffc-538d-42d8-b88c-b068827e28c4">
+                    <rectangle>
+                        <reportElement x="0" y="0" width="552" height="29" backcolor="#B9D7EE"/>
+                        <pen lineColor="#3970E6"/>
+                    </rectangle>
+                </element>
+                <element x="4" y="37" width="76" height="15" uuid="2abeee5a-f8d7-4dd4-a135-a83723961bc2">
+                    <staticText>
+                        <reportElement x="0" y="0" width="76" height="15"/>
+                        <text><![CDATA[DATE OP.]]></text>
+                    </staticText>
+                </element>
+                <element stretchType="ContainerHeight" x="84" y="30" width="1" height="29" uuid="cc749ac8-7864-4a5d-9cb4-b5db8bfd54d6">
+                    <line>
+                        <reportElement x="0" y="0" width="1" height="29"/>
+                        <pen lineColor="#3970E6"/>
+                    </line>
+                </element>
+                <element x="90" y="37" width="130" height="15" uuid="63b4f83d-61bf-436c-a22b-93d5a58ec55a">
+                    <textField textAdjust="StretchHeight">
+                        <reportElement x="0" y="0" width="130" height="15"/>
+                        <textFieldExpression><![CDATA["POINT DES SOUSCRIPTIONS".equals($F{titre}) ? "MONTANT DEPOSE" :
+"POINT DES RACHATS".equals($F{titre}) ? "MONTANT RACHAT" :
+"POINT DES DIVIDENDES".equals($F{titre}) ? "MONTANT PERCU" :
+"POINT DES TRANSFERTS DEPART".equals($F{titre}) ? "BENEFICIAIRE" : "DONATEUR"]]></textFieldExpression>
+                    </textField>
+                </element>
+                <element stretchType="ContainerHeight" x="222" y="30" width="1" height="29" uuid="f6e1cd7e-2c0e-407b-81b6-56180c59fb06">
+                    <line>
+                        <reportElement x="0" y="0" width="1" height="29"/>
+                        <pen lineColor="#3970E6"/>
+                    </line>
+                </element>
+                <element x="228" y="37" width="130" height="15" uuid="b84d2377-3f35-4090-9af5-877e5c3ff77e">
+                    <textField textAdjust="StretchHeight">
+                        <reportElement x="0" y="0" width="130" height="15"/>
+                        <textFieldExpression><![CDATA["POINT DES SOUSCRIPTIONS".equals($F{titre}) ? "PARTS ATTRIBUEES" :
+"POINT DES RACHATS".equals($F{titre}) ? "PARTS RACHETEES" :
+"POINT DES DIVIDENDES".equals($F{titre}) ? "PARTS DETENUES" : "PARTS"]]></textFieldExpression>
+                    </textField>
+                </element>
+                <element stretchType="ContainerHeight" x="361" y="30" width="1" height="29" uuid="2c6675a4-dc2b-4507-b496-c67997c65aec">
+                    <line>
+                        <reportElement x="0" y="0" width="1" height="29"/>
+                        <pen lineColor="#3970E6"/>
+                    </line>
+                </element>
+                <element x="364" y="37" width="96" height="15" uuid="fb1d03d2-da6d-4e48-b994-7cc18963670c">
+                    <textField textAdjust="StretchHeight">
+                        <reportElement x="0" y="0" width="96" height="15"/>
+                        <textFieldExpression><![CDATA["POINT DES DIVIDENDES".equals($F{titre}) ? "COUPON UNITAIRE" : "VL"]]></textFieldExpression>
+                    </textField>
+                </element>
+                <element stretchType="ContainerHeight" x="460" y="30" width="1" height="29" uuid="2e345bc1-f174-48d5-8aee-ea386e28e14a">
+                    <line>
+                        <reportElement x="0" y="0" width="1" height="29"/>
+                        <pen lineColor="#3970E6"/>
+                    </line>
+                </element>
+                <element x="461" y="37" width="91" height="15" uuid="72221b31-a5ac-45dc-a6b0-3a04c4b61094">
+                    <textField textAdjust="StretchHeight">
+                        <reportElement x="0" y="0" width="91" height="15"/>
+                        <textFieldExpression><![CDATA["POINT DES SOUSCRIPTIONS".equals($F{titre}) ? "PRIX DE SOUSCRIPTION" :
+"POINT DES RACHATS".equals($F{titre}) ? "PRIX DE RACHAT" :
+"POINT DES DIVIDENDES".equals($F{titre}) ? "" :
+"POINT DES TRANSFERTS ARRIVE".equals($F{titre}) ? "CUMP" : ""]]></textFieldExpression>
+                    </textField>
+                </element>
+            </band>
+        </groupHeader>
+        <groupFooter>
+            <band height="39">
+                <element x="0" y="0" width="552" height="29" backcolor="#B9D7EE" uuid="b027d343-5715-4c54-ac53-0d272fd81c9e">
+                    <rectangle>
+                        <reportElement x="0" y="0" width="552" height="29" backcolor="#B9D7EE"/>
+                        <pen lineColor="#3970E6"/>
+                    </rectangle>
+                </element>
+                <element stretchType="ContainerHeight" x="84" y="0" width="1" height="29" uuid="cb38811b-eebd-4a70-a8df-c7c646989903">
+                    <line>
+                        <reportElement x="0" y="0" width="1" height="29"/>
+                        <pen lineColor="#3970E6"/>
+                    </line>
+                </element>
+                <element stretchType="ContainerHeight" x="222" y="0" width="1" height="29" uuid="6fbae5fc-350c-4a28-9855-4db89aa2494e">
+                    <line>
+                        <reportElement x="0" y="0" width="1" height="29"/>
+                        <pen lineColor="#3970E6"/>
+                    </line>
+                </element>
+                <element stretchType="ContainerHeight" x="361" y="0" width="1" height="29" uuid="9ce24300-52c7-48e1-b943-674443961c33">
+                    <line>
+                        <reportElement x="0" y="0" width="1" height="29"/>
+                        <pen lineColor="#3970E6"/>
+                    </line>
+                </element>
+                <element x="4" y="7" width="76" height="15" uuid="fa30c7ed-efcf-41a0-8b9c-b21a9bcc6a81">
+                    <staticText>
+                        <reportElement x="0" y="0" width="76" height="15"/>
+                        <text><![CDATA[TOTAL]]></text>
+                    </staticText>
+                </element>
+                <element x="90" y="7" width="130" height="15" uuid="1881a320-b844-43fe-9e1c-a1e45cd5b06f">
+                    <textField pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+                        <reportElement x="0" y="0" width="130" height="15"/>
+                        <textFieldExpression><![CDATA["POINT DES TRANSFERTS DEPART".equals($F{titre}) ? 0 :
+"POINT DES TRANSFERTS ARRIVE".equals($F{titre}) ? 0 : $V{montant1}]]></textFieldExpression>
+                    </textField>
+                </element>
+                <element x="226" y="7" width="132" height="15" uuid="18fed46d-8d02-4b30-9e1a-b924df117bae">
+                    <textField pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+                        <reportElement x="0" y="0" width="132" height="15"/>
+                        <textFieldExpression><![CDATA[$V{part1}]]></textFieldExpression>
+                    </textField>
+                </element>
+            </band>
+        </groupFooter>
+    </group>
+
+    <detail>
+        <band height="30" splitType="Stretch">
+            <element stretchType="ContainerHeight" x="0" y="0" width="552" height="29" uuid="e81be481-ca80-43fb-8259-64fbec88865f">
+                <rectangle>
+                    <reportElement x="0" y="0" width="552" height="29"/>
+                    <pen lineColor="#3970E6"/>
+                </rectangle>
+            </element>
+            <element stretchType="ContainerHeight" x="84" y="0" width="1" height="29" uuid="1e96910a-28af-4255-8b78-dafd2b029beb">
+                <line>
+                    <reportElement x="0" y="0" width="1" height="29"/>
+                    <pen lineColor="#3970E6"/>
+                </line>
+            </element>
+            <element x="90" y="7" width="130" height="15" uuid="f5857403-309d-4e53-bb70-01c6e86e4b28">
+                <textField textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+                    <reportElement x="0" y="0" width="130" height="15"/>
+                    <textFieldExpression><![CDATA["POINT DES TRANSFERTS DEPART".equals($F{titre}) ? $F{beneficiaireDonateur} :
+"POINT DES TRANSFERTS ARRIVE".equals($F{titre}) ? $F{beneficiaireDonateur} : $F{montant}]]></textFieldExpression>
+                </textField>
+            </element>
+            <element stretchType="ContainerHeight" x="222" y="0" width="1" height="29" uuid="9df70a72-b236-4726-9aad-d920c5322a7f">
+                <line>
+                    <reportElement x="0" y="0" width="1" height="29"/>
+                    <pen lineColor="#3970E6"/>
+                </line>
+            </element>
+            <element x="228" y="7" width="130" height="15" uuid="137d62ba-ece2-4fbe-ba71-a23e315cb397">
+                <textField textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+                    <reportElement x="0" y="0" width="130" height="15"/>
+                    <textFieldExpression><![CDATA[$F{part}]]></textFieldExpression>
+                </textField>
+            </element>
+            <element stretchType="ContainerHeight" x="361" y="0" width="1" height="29" uuid="a7cc3ebc-bd78-43b2-b630-d4b9a6700e3d">
+                <line>
+                    <reportElement x="0" y="0" width="1" height="29"/>
+                    <pen lineColor="#3970E6"/>
+                </line>
+            </element>
+            <element x="364" y="7" width="96" height="15" uuid="a6abe11b-bee8-4965-8579-f89085957214">
+                <textField textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+                    <reportElement x="0" y="0" width="96" height="15"/>
+                    <textFieldExpression><![CDATA[$F{valeurLiquidative}]]></textFieldExpression>
+                </textField>
+            </element>
+            <element stretchType="ContainerHeight" x="460" y="0" width="1" height="29" uuid="8266420b-e34d-4d83-ab7d-e68a151921f1">
+                <line>
+                    <reportElement x="0" y="0" width="1" height="29"/>
+                    <pen lineColor="#3970E6"/>
+                </line>
+            </element>
+            <element x="461" y="7" width="91" height="15" uuid="97cb6aae-bdc5-4ca0-8039-120ac2fb5841">
+                <textField textAdjust="StretchHeight" pattern="#,##0.####" blankWhenNull="true">
+                    <reportElement x="0" y="0" width="91" height="15"/>
+                    <textFieldExpression><![CDATA[$F{prixSouscription}]]></textFieldExpression>
+                </textField>
+            </element>
+            <element x="4" y="7" width="76" height="15" uuid="a37efc42-f636-484e-8bf2-47cb0c90e23d">
+                <textField textAdjust="StretchHeight" blankWhenNull="true">
+                    <reportElement x="0" y="0" width="76" height="15"/>
+                    <textFieldExpression><![CDATA[$F{dateOperation}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"))]]></textFieldExpression>
+                    <patternExpression><![CDATA["EE dd/MM/yyyy"]]></patternExpression>
+                </textField>
+            </element>
+        </band>
+    </detail>
+
+    <pageFooter height="39" splitType="Stretch">
+        <element x="450" y="4" width="100" height="25" uuid="bfed89db-1057-4eee-9246-a486e83325a4">
+            <textField hTextAlign="Right">
+                <reportElement x="0" y="0" width="100" height="25"/>
+                <textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+            </textField>
+        </element>
+        <element x="0" y="6" width="120" height="26" uuid="199a29a0-f559-48ed-99a9-c4fffffed24b">
+            <staticText>
+                <reportElement x="0" y="0" width="120" height="26" fontName="Segoe UI"/>
+                <text><![CDATA[Edité avec OPCCIEL 2.0]]></text>
+            </staticText>
+        </element>
+    </pageFooter>
+
+    <background splitType="Stretch"/>
+    <title splitType="Stretch"/>
+    <pageHeader splitType="Stretch"/>
+    <columnHeader splitType="Stretch"/>
+    <columnFooter splitType="Stretch"/>
+    <summary splitType="Stretch"/>
+</jasperReport>
+<!--<?xml version="1.0" encoding="UTF-8"?>-->
+<!--<jasperReport name="EtatsSuivis" language="java" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="56db8ee7-9c4f-4ecb-886c-f8b8283daf5f">-->
+<!--    <property name="net.sf.jasperreports.default.locale" value="fr_FR"/>-->
+<!--    <parameter name="letterDate" class="java.lang.String"/>-->
+<!--    <parameter name="ALL_LIGNES" class="net.sf.jasperreports.engine.JRDataSource"/>-->
+<!--    <parameter name="SUBREPORT_REF" class="net.sf.jasperreports.engine.JasperReport"/>-->
+<!--    <parameter name="idOpcvm" class="java.lang.Long"/>-->
+<!--    <parameter name="idActionnaire" class="java.lang.Long"/>-->
+<!--    <parameter name="dateDebutEstimation" class="java.time.LocalDateTime"/>-->
+<!--    <parameter name="dateEstimation" class="java.time.LocalDateTime"/>-->
+
+<!--    <field name="dateEddition" class="java.time.LocalDateTime">-->
+<!--        <property name="com.jaspersoft.studio.field.name" value="dateEddition"/>-->
+<!--        <property name="com.jaspersoft.studio.field.label" value="dateEddition"/>-->
+<!--    </field>-->
+<!--    <field name="idOpcvm" class="java.lang.Long">-->
+<!--        <property name="com.jaspersoft.studio.field.name" value="idOpcvm"/>-->
+<!--        <property name="com.jaspersoft.studio.field.label" value="idOpcvm"/>-->
+<!--    </field>-->
+<!--    <field name="denominationOpcvm" class="java.lang.String">-->
+<!--        <property name="com.jaspersoft.studio.field.name" value="denominationOpcvm"/>-->
+<!--        <property name="com.jaspersoft.studio.field.label" value="denominationOpcvm"/>-->
+<!--    </field>-->
+<!--    <field name="idActionnaire" class="java.lang.Long">-->
+<!--        <property name="com.jaspersoft.studio.field.name" value="idActionnaire"/>-->
+<!--        <property name="com.jaspersoft.studio.field.label" value="idActionnaire"/>-->
+<!--    </field>-->
+<!--    <field name="personne" class="java.lang.String">-->
+<!--        <property name="com.jaspersoft.studio.field.name" value="personne"/>-->
+<!--        <property name="com.jaspersoft.studio.field.label" value="personne"/>-->
+<!--    </field>-->
+<!--    <field name="dateOperation" class="java.time.LocalDateTime">-->
+<!--        <property name="com.jaspersoft.studio.field.name" value="dateOperation"/>-->
+<!--        <property name="com.jaspersoft.studio.field.label" value="dateOperation"/>-->
+<!--    </field>-->
+<!--    <field name="montant" class="java.math.BigDecimal">-->
+<!--        <property name="com.jaspersoft.studio.field.name" value="montant"/>-->
+<!--        <property name="com.jaspersoft.studio.field.label" value="montant"/>-->
+<!--    </field>-->
+<!--    <field name="part" class="java.math.BigDecimal">-->
+<!--        <property name="com.jaspersoft.studio.field.name" value="part"/>-->
+<!--        <property name="com.jaspersoft.studio.field.label" value="part"/>-->
+<!--    </field>-->
+<!--    <field name="valeurLiquidative" class="java.math.BigDecimal">-->
+<!--        <property name="com.jaspersoft.studio.field.name" value="valeurLiquidative"/>-->
+<!--        <property name="com.jaspersoft.studio.field.label" value="valeurLiquidative"/>-->
+<!--    </field>-->
+<!--    <field name="partACtuel" class="java.math.BigDecimal">-->
+<!--        <property name="com.jaspersoft.studio.field.name" value="partACtuel"/>-->
+<!--        <property name="com.jaspersoft.studio.field.label" value="partACtuel"/>-->
+<!--    </field>-->
+<!--    <field name="cump" class="java.math.BigDecimal">-->
+<!--        <property name="com.jaspersoft.studio.field.name" value="cump"/>-->
+<!--        <property name="com.jaspersoft.studio.field.label" value="cump"/>-->
+<!--    </field>-->
+<!--    <field name="coursVL" class="java.math.BigDecimal">-->
+<!--        <property name="com.jaspersoft.studio.field.name" value="coursVL"/>-->
+<!--        <property name="com.jaspersoft.studio.field.label" value="coursVL"/>-->
+<!--    </field>-->
+<!--    <field name="prixSouscription" class="java.math.BigDecimal">-->
+<!--        <property name="com.jaspersoft.studio.field.name" value="prixSouscription"/>-->
+<!--        <property name="com.jaspersoft.studio.field.label" value="prixSouscription"/>-->
+<!--    </field>-->
+<!--    <field name="titre" class="java.lang.String">-->
+<!--        <property name="com.jaspersoft.studio.field.name" value="titre"/>-->
+<!--        <property name="com.jaspersoft.studio.field.label" value="titre"/>-->
+<!--    </field>-->
+<!--    <field name="valorisation" class="java.math.BigDecimal">-->
+<!--        <property name="com.jaspersoft.studio.field.name" value="valorisation"/>-->
+<!--        <property name="com.jaspersoft.studio.field.label" value="valorisation"/>-->
+<!--    </field>-->
+<!--    <field name="plusOuMoinsValue" class="java.math.BigDecimal">-->
+<!--        <property name="com.jaspersoft.studio.field.name" value="plusOuMoinsValue"/>-->
+<!--        <property name="com.jaspersoft.studio.field.label" value="plusOuMoinsValue"/>-->
+<!--    </field>-->
+<!--    <field name="beneficiaireDonateur" class="java.lang.String">-->
+<!--        <property name="com.jaspersoft.studio.field.name" value="beneficiaireDonateur"/>-->
+<!--        <property name="com.jaspersoft.studio.field.label" value="beneficiaireDonateur"/>-->
+<!--    </field>-->
+
+<!--    <variable name="montant1" resetType="Group" calculation="Sum" resetGroup="Group3" class="java.math.BigDecimal">-->
+<!--        <expression><![CDATA[$F{montant}]]></expression>-->
+<!--    </variable>-->
+<!--    <variable name="part1" resetType="Group" calculation="Sum" resetGroup="Group3" class="java.math.BigDecimal">-->
+<!--        <expression><![CDATA[$F{part}]]></expression>-->
+<!--    </variable>-->
+
+<!--    <group name="Group1" startNewPage="true">-->
+<!--        <expression><![CDATA[$F{idActionnaire}]]></expression>-->
+<!--        <groupHeader>-->
+<!--            <band height="88">-->
+<!--                <element mode="Opaque" x="2" y="32" width="550" height="24" forecolor="#000000" backcolor="#BDD7EE" uuid="e5054658-1f6d-47c5-8371-2b21c6572378">-->
+<!--                    <textField>-->
+<!--                        <reportElement x="0" y="0" width="550" height="24" forecolor="#000000" backcolor="#BDD7EE">-->
+<!--                            <property name="com.jaspersoft.studio.unit.width" value="pixel"/>-->
+<!--                            <property name="com.jaspersoft.studio.unit.height" value="pixel"/>-->
+<!--                        </reportElement>-->
+<!--                        <textFieldExpression><![CDATA["ETAT DE SUIVI DU CLIENT "+$F{personne}]]></textFieldExpression>-->
+<!--                    </textField>-->
+<!--                </element>-->
+<!--                <element x="80" y="62" width="80" height="20" uuid="bf8e9d44-0f27-42d5-b042-03bbbc8de7e7">-->
+<!--                    <staticText>-->
+<!--                        <reportElement x="0" y="0" width="80" height="20" underline="true"/>-->
+<!--                        <text><![CDATA[DATE EDITION:]]></text>-->
+<!--                    </staticText>-->
+<!--                </element>-->
+<!--                <element x="160" y="62" width="180" height="20" uuid="03a0ab7e-7b23-4829-be61-9580e63f1ce9">-->
+<!--                    <textField textAdjust="StretchHeight" blankWhenNull="true">-->
+<!--                        <reportElement x="0" y="0" width="180" height="20"/>-->
+<!--                        <textFieldExpression><![CDATA[$F{dateEddition}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"))]]></textFieldExpression>-->
+<!--                        <patternExpression><![CDATA["EE dd/MM/yyyy"]]></patternExpression>-->
+<!--                    </textField>-->
+<!--                </element>-->
+<!--                <element x="0" y="4" width="230" height="20" uuid="48140988-acaa-4d4b-ab4b-bcadb9ae1ed5">-->
+<!--                    <textField>-->
+<!--                        <reportElement x="0" y="0" width="230" height="20" fontName="Segoe UI"/>-->
+<!--                        <textFieldExpression><![CDATA["Cotonou le, " + $P{letterDate}]]></textFieldExpression>-->
+<!--                    </textField>-->
+<!--                </element>-->
+<!--            </band>-->
+<!--        </groupHeader>-->
+<!--        <groupFooter>-->
+<!--            <band height="173">-->
+<!--                <element positionType="Float" stretchType="ContainerHeight" x="1" y="4" width="552" height="156" uuid="b87a14fd-827d-40f8-8af0-5c0a71fa2821">-->
+<!--                    <property name="com.jaspersoft.layout.grid.x" value="1"/>-->
+<!--                    <subreport>-->
+<!--                        <reportElement x="0" y="0" width="552" height="156"/>-->
+<!--                        <connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>-->
+<!--                        <subreportParameter name="idOpcvm">-->
+<!--                            <subreportParameterExpression><![CDATA[$F{idOpcvm}]]></subreportParameterExpression>-->
+<!--                        </subreportParameter>-->
+<!--                        <subreportParameter name="idActionnaire">-->
+<!--                            <subreportParameterExpression><![CDATA[$F{idActionnaire}]]></subreportParameterExpression>-->
+<!--                        </subreportParameter>-->
+<!--                        <subreportParameter name="dateDebutEstimation">-->
+<!--                            <subreportParameterExpression><![CDATA[$P{dateDebutEstimation}]]></subreportParameterExpression>-->
+<!--                        </subreportParameter>-->
+<!--                        <subreportParameter name="dateEstimation">-->
+<!--                            <subreportParameterExpression><![CDATA[$P{dateEstimation}]]></subreportParameterExpression>-->
+<!--                        </subreportParameter>-->
+<!--                        <dataSourceExpression><![CDATA[$P{ALL_LIGNES}]]></dataSourceExpression>-->
+<!--                        <subreportExpression><![CDATA[$P{SUBREPORT_REF}]]></subreportExpression>-->
+<!--                    </subreport>-->
+<!--                </element>-->
+<!--            </band>-->
+<!--        </groupFooter>-->
+<!--    </group>-->
+
+<!--    <group name="Group2">-->
+<!--        <expression><![CDATA[$F{idOpcvm}]]></expression>-->
+<!--        <groupHeader>-->
+<!--            <band height="40">-->
+<!--                <element x="0" y="5" width="220" height="35" uuid="f954bca6-4c96-4fbc-ad6e-46c0f739bbf7">-->
+<!--                    <rectangle>-->
+<!--                        <reportElement x="0" y="0" width="220" height="35"/>-->
+<!--                        <pen lineColor="#3970E6"/>-->
+<!--                    </rectangle>-->
+<!--                </element>-->
+<!--                <element x="4" y="10" width="210" height="23" uuid="25c952d6-82e4-4c27-955b-743e4ece76d9">-->
+<!--                    <textField textAdjust="StretchHeight">-->
+<!--                        <reportElement x="0" y="0" width="210" height="23"/>-->
+<!--                        <textFieldExpression><![CDATA[$F{denominationOpcvm}]]></textFieldExpression>-->
+<!--                    </textField>-->
+<!--                </element>-->
+<!--            </band>-->
+<!--        </groupHeader>-->
+<!--        <groupFooter>-->
+<!--            <band height="10">-->
+<!--                <property name="com.jaspersoft.studio.unit.height" value="px"/>-->
+<!--            </band>-->
+<!--        </groupFooter>-->
+<!--    </group>-->
+
+<!--    <group name="Group3">-->
+<!--        <expression><![CDATA[$F{titre}]]></expression>-->
+<!--        <groupHeader>-->
+<!--            <band height="60">-->
+<!--                <element x="0" y="1" width="552" height="29" uuid="a835a09c-9a54-47e6-85b4-285c7ca0c4d8">-->
+<!--                    <rectangle>-->
+<!--                        <reportElement x="0" y="0" width="552" height="29"/>-->
+<!--                        <pen lineColor="#3970E6"/>-->
+<!--                    </rectangle>-->
+<!--                </element>-->
+<!--                <element x="2" y="5" width="510" height="20" uuid="8cc8b7d4-dcb0-48e9-9428-dfd052791827">-->
+<!--                    <textField textAdjust="StretchHeight">-->
+<!--                        <reportElement x="0" y="0" width="510" height="20"/>-->
+<!--                        <textFieldExpression><![CDATA[$F{titre}]]></textFieldExpression>-->
+<!--                    </textField>-->
+<!--                </element>-->
+<!--                <element stretchType="ContainerHeight" mode="Opaque" x="0" y="30" width="552" height="29" backcolor="#B9D7EE" uuid="f56ebffc-538d-42d8-b88c-b068827e28c4">-->
+<!--                    <rectangle>-->
+<!--                        <reportElement x="0" y="0" width="552" height="29" backcolor="#B9D7EE"/>-->
+<!--                        <pen lineColor="#3970E6"/>-->
+<!--                    </rectangle>-->
+<!--                </element>-->
+<!--                <element x="4" y="37" width="76" height="15" uuid="2abeee5a-f8d7-4dd4-a135-a83723961bc2">-->
+<!--                    <staticText>-->
+<!--                        <reportElement x="0" y="0" width="76" height="15"/>-->
+<!--                        <text><![CDATA[DATE OP.]]></text>-->
+<!--                    </staticText>-->
+<!--                </element>-->
+<!--                <element stretchType="ContainerHeight" x="84" y="30" width="1" height="29" uuid="cc749ac8-7864-4a5d-9cb4-b5db8bfd54d6">-->
+<!--                    <line>-->
+<!--                        <reportElement x="0" y="0" width="1" height="29"/>-->
+<!--                        <pen lineColor="#3970E6"/>-->
+<!--                    </line>-->
+<!--                </element>-->
+<!--                <element x="90" y="37" width="130" height="15" uuid="63b4f83d-61bf-436c-a22b-93d5a58ec55a">-->
+<!--                    <textField textAdjust="StretchHeight">-->
+<!--                        <reportElement x="0" y="0" width="130" height="15"/>-->
+<!--                        <textFieldExpression><![CDATA["POINT DES SOUSCRIPTIONS".equals($F{titre}) ? "MONTANT DEPOSE" :-->
+<!--"POINT DES RACHATS".equals($F{titre}) ? "MONTANT RACHAT" :-->
+<!--"POINT DES DIVIDENDES".equals($F{titre}) ? "MONTANT PERCU" :-->
+<!--"POINT DES TRANSFERTS DEPART".equals($F{titre}) ? "BENEFICIAIRE" :-->
+<!--"DONATEUR"]]></textFieldExpression>-->
+<!--                    </textField>-->
+<!--                </element>-->
+<!--                <element stretchType="ContainerHeight" x="222" y="30" width="1" height="29" uuid="f6e1cd7e-2c0e-407b-81b6-56180c59fb06">-->
+<!--                    <line>-->
+<!--                        <reportElement x="0" y="0" width="1" height="29"/>-->
+<!--                        <pen lineColor="#3970E6"/>-->
+<!--                    </line>-->
+<!--                </element>-->
+<!--                <element x="228" y="37" width="130" height="15" uuid="b84d2377-3f35-4090-9af5-877e5c3ff77e">-->
+<!--                    <textField textAdjust="StretchHeight">-->
+<!--                        <reportElement x="0" y="0" width="130" height="15"/>-->
+<!--                        <textFieldExpression><![CDATA["POINT DES SOUSCRIPTIONS".equals($F{titre}) ? "PARTS ATTRIBUEES" :-->
+<!--"POINT DES RACHATS".equals($F{titre}) ? "PARTS RACHETEES" :-->
+<!--"POINT DES DIVIDENDES".equals($F{titre}) ? "PARTS DETENUES" :-->
+<!--"PARTS"]]></textFieldExpression>-->
+<!--                    </textField>-->
+<!--                </element>-->
+<!--                <element stretchType="ContainerHeight" x="361" y="30" width="1" height="29" uuid="2c6675a4-dc2b-4507-b496-c67997c65aec">-->
+<!--                    <line>-->
+<!--                        <reportElement x="0" y="0" width="1" height="29"/>-->
+<!--                        <pen lineColor="#3970E6"/>-->
+<!--                    </line>-->
+<!--                </element>-->
+<!--                <element x="364" y="37" width="96" height="15" uuid="fb1d03d2-da6d-4e48-b994-7cc18963670c">-->
+<!--                    <textField textAdjust="StretchHeight">-->
+<!--                        <reportElement x="0" y="0" width="96" height="15"/>-->
+<!--                        <textFieldExpression><![CDATA["POINT DES DIVIDENDES".equals($F{titre})?"COUPON UNITAIRE":"VL"]]></textFieldExpression>-->
+<!--                    </textField>-->
+<!--                </element>-->
+<!--                <element stretchType="ContainerHeight" x="460" y="30" width="1" height="29" uuid="2e345bc1-f174-48d5-8aee-ea386e28e14a">-->
+<!--                    <line>-->
+<!--                        <reportElement x="0" y="0" width="1" height="29"/>-->
+<!--                        <pen lineColor="#3970E6"/>-->
+<!--                    </line>-->
+<!--                </element>-->
+<!--                <element x="461" y="37" width="91" height="15" uuid="72221b31-a5ac-45dc-a6b0-3a04c4b61094">-->
+<!--                    <textField textAdjust="StretchHeight">-->
+<!--                        <reportElement x="0" y="0" width="91" height="15"/>-->
+<!--                        <textFieldExpression><![CDATA["POINT DES SOUSCRIPTIONS".equals($F{titre})?"PRIX DE SOUSCRIPTION":"POINT DES RACHATS".equals($F{titre})?"PRIX DE RACHAT":"POINT DES DIVIDENDES".equals($F{titre})?"":"POINT DES TRANSFERTS ARRIVE".equals($F{titre})?"CUMP":""]]></textFieldExpression>-->
+<!--                    </textField>-->
+<!--                </element>-->
+<!--            </band>-->
+<!--        </groupHeader>-->
+<!--        <groupFooter>-->
+<!--            <band height="39">-->
+<!--                <element x="0" y="0" width="552" height="29" backcolor="#B9D7EE" uuid="b027d343-5715-4c54-ac53-0d272fd81c9e">-->
+<!--                    <rectangle>-->
+<!--                        <reportElement x="0" y="0" width="552" height="29" backcolor="#B9D7EE"/>-->
+<!--                        <pen lineColor="#3970E6"/>-->
+<!--                    </rectangle>-->
+<!--                </element>-->
+<!--                <element stretchType="ContainerHeight" x="84" y="0" width="1" height="29" uuid="cb38811b-eebd-4a70-a8df-c7c646989903">-->
+<!--                    <line>-->
+<!--                        <reportElement x="0" y="0" width="1" height="29"/>-->
+<!--                        <pen lineColor="#3970E6"/>-->
+<!--                    </line>-->
+<!--                </element>-->
+<!--                <element stretchType="ContainerHeight" x="222" y="0" width="1" height="29" uuid="6fbae5fc-350c-4a28-9855-4db89aa2494e">-->
+<!--                    <line>-->
+<!--                        <reportElement x="0" y="0" width="1" height="29"/>-->
+<!--                        <pen lineColor="#3970E6"/>-->
+<!--                    </line>-->
+<!--                </element>-->
+<!--                <element stretchType="ContainerHeight" x="361" y="0" width="1" height="29" uuid="9ce24300-52c7-48e1-b943-674443961c33">-->
+<!--                    <line>-->
+<!--                        <reportElement x="0" y="0" width="1" height="29"/>-->
+<!--                        <pen lineColor="#3970E6"/>-->
+<!--                    </line>-->
+<!--                </element>-->
+<!--                <element x="4" y="7" width="76" height="15" uuid="fa30c7ed-efcf-41a0-8b9c-b21a9bcc6a81">-->
+<!--                    <staticText>-->
+<!--                        <reportElement x="0" y="0" width="76" height="15"/>-->
+<!--                        <text><![CDATA[TOTAL]]></text>-->
+<!--                    </staticText>-->
+<!--                </element>-->
+<!--                <element x="90" y="7" width="130" height="15" uuid="1881a320-b844-43fe-9e1c-a1e45cd5b06f">-->
+<!--                    <textField pattern="#,##0.###;#,##0.###" blankWhenNull="true">-->
+<!--                        <reportElement x="0" y="0" width="130" height="15"/>-->
+<!--                        <textFieldExpression><![CDATA["POINT DES TRANSFERTS DEPART".equals($F{titre})?0:"POINT DES TRANSFERTS ARRIVE".equals($F{titre})?0:$V{montant1}]]></textFieldExpression>-->
+<!--                    </textField>-->
+<!--                </element>-->
+<!--                <element x="226" y="7" width="132" height="15" uuid="18fed46d-8d02-4b30-9e1a-b924df117bae">-->
+<!--                    <textField pattern="#,##0.###;#,##0.###" blankWhenNull="true">-->
+<!--                        <reportElement x="0" y="0" width="132" height="15"/>-->
+<!--                        <textFieldExpression><![CDATA[$V{part1}]]></textFieldExpression>-->
+<!--                    </textField>-->
+<!--                </element>-->
+<!--            </band>-->
+<!--        </groupFooter>-->
+<!--    </group>-->
+
+<!--    <background splitType="Stretch"/>-->
+<!--    <title splitType="Stretch"/>-->
+<!--    <pageHeader splitType="Stretch"/>-->
+<!--    <columnHeader splitType="Stretch"/>-->
+
+<!--    <detail>-->
+<!--        <band height="30" splitType="Stretch">-->
+<!--            <element stretchType="ContainerHeight" x="0" y="0" width="552" height="29" uuid="e81be481-ca80-43fb-8259-64fbec88865f">-->
+<!--                <rectangle>-->
+<!--                    <reportElement x="0" y="0" width="552" height="29"/>-->
+<!--                    <pen lineColor="#3970E6"/>-->
+<!--                </rectangle>-->
+<!--            </element>-->
+<!--            <element stretchType="ContainerHeight" x="84" y="0" width="1" height="29" uuid="1e96910a-28af-4255-8b78-dafd2b029beb">-->
+<!--                <line>-->
+<!--                    <reportElement x="0" y="0" width="1" height="29"/>-->
+<!--                    <pen lineColor="#3970E6"/>-->
+<!--                </line>-->
+<!--            </element>-->
+<!--            <element x="90" y="7" width="130" height="15" uuid="f5857403-309d-4e53-bb70-01c6e86e4b28">-->
+<!--                <textField textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###" blankWhenNull="true">-->
+<!--                    <reportElement x="0" y="0" width="130" height="15"/>-->
+<!--                    <textFieldExpression><![CDATA["POINT DES TRANSFERTS DEPART".equals($F{titre})?$F{beneficiaireDonateur}:"POINT DES TRANSFERTS ARRIVE".equals($F{titre})?$F{beneficiaireDonateur}:$F{montant}]]></textFieldExpression>-->
+<!--                </textField>-->
+<!--            </element>-->
+<!--            <element stretchType="ContainerHeight" x="222" y="0" width="1" height="29" uuid="9df70a72-b236-4726-9aad-d920c5322a7f">-->
+<!--                <line>-->
+<!--                    <reportElement x="0" y="0" width="1" height="29"/>-->
+<!--                    <pen lineColor="#3970E6"/>-->
+<!--                </line>-->
+<!--            </element>-->
+<!--            <element x="228" y="7" width="130" height="15" uuid="137d62ba-ece2-4fbe-ba71-a23e315cb397">-->
+<!--                <textField textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###" blankWhenNull="true">-->
+<!--                    <reportElement x="0" y="0" width="130" height="15"/>-->
+<!--                    <textFieldExpression><![CDATA[$F{part}]]></textFieldExpression>-->
+<!--                </textField>-->
+<!--            </element>-->
+<!--            <element stretchType="ContainerHeight" x="361" y="0" width="1" height="29" uuid="a7cc3ebc-bd78-43b2-b630-d4b9a6700e3d">-->
+<!--                <line>-->
+<!--                    <reportElement x="0" y="0" width="1" height="29"/>-->
+<!--                    <pen lineColor="#3970E6"/>-->
+<!--                </line>-->
+<!--            </element>-->
+<!--            <element x="364" y="7" width="96" height="15" uuid="a6abe11b-bee8-4965-8579-f89085957214">-->
+<!--                <textField textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###" blankWhenNull="true">-->
+<!--                    <reportElement x="0" y="0" width="96" height="15"/>-->
+<!--                    <textFieldExpression><![CDATA[$F{valeurLiquidative}]]></textFieldExpression>-->
+<!--                </textField>-->
+<!--            </element>-->
+<!--            <element stretchType="ContainerHeight" x="460" y="0" width="1" height="29" uuid="8266420b-e34d-4d83-ab7d-e68a151921f1">-->
+<!--                <line>-->
+<!--                    <reportElement x="0" y="0" width="1" height="29"/>-->
+<!--                    <pen lineColor="#3970E6"/>-->
+<!--                </line>-->
+<!--            </element>-->
+<!--            <element x="461" y="7" width="91" height="15" uuid="97cb6aae-bdc5-4ca0-8039-120ac2fb5841">-->
+<!--                <textField textAdjust="StretchHeight" pattern="#,##0.####" blankWhenNull="true">-->
+<!--                    <reportElement x="0" y="0" width="91" height="15"/>-->
+<!--                    <textFieldExpression><![CDATA[$F{prixSouscription}]]></textFieldExpression>-->
+<!--                </textField>-->
+<!--            </element>-->
+<!--            <element x="4" y="7" width="76" height="15" uuid="a37efc42-f636-484e-8bf2-47cb0c90e23d">-->
+<!--                <textField textAdjust="StretchHeight" blankWhenNull="true">-->
+<!--                    <reportElement x="0" y="0" width="76" height="15"/>-->
+<!--                    <textFieldExpression><![CDATA[$F{dateOperation}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"))]]></textFieldExpression>-->
+<!--                    <patternExpression><![CDATA["EE dd/MM/yyyy"]]></patternExpression>-->
+<!--                </textField>-->
+<!--            </element>-->
+<!--        </band>-->
+<!--    </detail>-->
+
+<!--    <columnFooter splitType="Stretch"/>-->
+<!--    <pageFooter height="39" splitType="Stretch">-->
+<!--        <element x="450" y="4" width="100" height="25" uuid="bfed89db-1057-4eee-9246-a486e83325a4">-->
+<!--            <textField hTextAlign="Right">-->
+<!--                <reportElement x="0" y="0" width="100" height="25"/>-->
+<!--                <textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>-->
+<!--            </textField>-->
+<!--        </element>-->
+<!--        <element x="0" y="6" width="120" height="26" uuid="199a29a0-f559-48ed-99a9-c4fffffed24b">-->
+<!--            <staticText>-->
+<!--                <reportElement x="0" y="0" width="120" height="26" fontName="Segoe UI"/>-->
+<!--                <text><![CDATA[Edité avec OPCCIEL 2.0]]></text>-->
+<!--            </staticText>-->
+<!--        </element>-->
+<!--    </pageFooter>-->
+<!--    <summary splitType="Stretch"/>-->
+<!--</jasperReport>-->
+<!--&lt;!&ndash;&lt;!&ndash; Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 7.0.1-573496633c2b4074e32f433154b543003f7d2498  &ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;<jasperReport name="EtatsSuivis" language="java" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="56db8ee7-9c4f-4ecb-886c-f8b8283daf5f">&ndash;&gt;-->
+<!--&lt;!&ndash;    <property name="net.sf.jasperreports.default.locale" value="fr_FR"/>&ndash;&gt;-->
+<!--&lt;!&ndash;    <parameter name="letterDate" class="java.lang.String"/>&ndash;&gt;-->
+<!--&lt;!&ndash;	<parameter name="ALL_LIGNES" class="net.sf.jasperreports.engine.JRDataSource"/>&ndash;&gt;-->
+<!--&lt;!&ndash;	<parameter name="SUBREPORT_REF" class="net.sf.jasperreports.engine.JasperReport"/>&ndash;&gt;-->
+<!--&lt;!&ndash;    <parameter name="idOpcvm" class="java.lang.Long"/>&ndash;&gt;-->
+<!--&lt;!&ndash;    <parameter name="idActionnaire" class="java.lang.Long"/>&ndash;&gt;-->
+<!--&lt;!&ndash;    <parameter name="dateDebutEstimation" class="java.time.LocalDateTime"/>&ndash;&gt;-->
+<!--&lt;!&ndash;    <parameter name="dateEstimation" class="java.time.LocalDateTime"/>&ndash;&gt;-->
+<!--&lt;!&ndash;	<field name="dateEddition" class="java.time.LocalDateTime">&ndash;&gt;-->
+<!--&lt;!&ndash;		<property name="com.jaspersoft.studio.field.name" value="dateEddition"/>&ndash;&gt;-->
+<!--&lt;!&ndash;		<property name="com.jaspersoft.studio.field.label" value="dateEddition"/>&ndash;&gt;-->
+<!--&lt;!&ndash;	</field>&ndash;&gt;-->
+<!--&lt;!&ndash;	<field name="idOpcvm" class="java.lang.Long">&ndash;&gt;-->
+<!--&lt;!&ndash;		<property name="com.jaspersoft.studio.field.name" value="idOpcvm"/>&ndash;&gt;-->
+<!--&lt;!&ndash;		<property name="com.jaspersoft.studio.field.label" value="idOpcvm"/>&ndash;&gt;-->
+<!--&lt;!&ndash;	</field>&ndash;&gt;-->
+<!--&lt;!&ndash;	<field name="denominationOpcvm" class="java.lang.String">&ndash;&gt;-->
+<!--&lt;!&ndash;		<property name="com.jaspersoft.studio.field.name" value="denominationOpcvm"/>&ndash;&gt;-->
+<!--&lt;!&ndash;		<property name="com.jaspersoft.studio.field.label" value="denominationOpcvm"/>&ndash;&gt;-->
+<!--&lt;!&ndash;	</field>&ndash;&gt;-->
+<!--&lt;!&ndash;	<field name="idActionnaire" class="java.lang.Long">&ndash;&gt;-->
+<!--&lt;!&ndash;		<property name="com.jaspersoft.studio.field.name" value="idActionnaire"/>&ndash;&gt;-->
+<!--&lt;!&ndash;		<property name="com.jaspersoft.studio.field.label" value="idActionnaire"/>&ndash;&gt;-->
+<!--&lt;!&ndash;	</field>&ndash;&gt;-->
+<!--&lt;!&ndash;	<field name="personne" class="java.lang.String">&ndash;&gt;-->
+<!--&lt;!&ndash;		<property name="com.jaspersoft.studio.field.name" value="personne"/>&ndash;&gt;-->
+<!--&lt;!&ndash;		<property name="com.jaspersoft.studio.field.label" value="personne"/>&ndash;&gt;-->
+<!--&lt;!&ndash;	</field>&ndash;&gt;-->
+<!--&lt;!&ndash;	<field name="dateOperation" class="java.time.LocalDateTime">&ndash;&gt;-->
+<!--&lt;!&ndash;		<property name="com.jaspersoft.studio.field.name" value="dateOperation"/>&ndash;&gt;-->
+<!--&lt;!&ndash;		<property name="com.jaspersoft.studio.field.label" value="dateOperation"/>&ndash;&gt;-->
+<!--&lt;!&ndash;	</field>&ndash;&gt;-->
+<!--&lt;!&ndash;	<field name="montant" class="java.math.BigDecimal">&ndash;&gt;-->
+<!--&lt;!&ndash;		<property name="com.jaspersoft.studio.field.name" value="montant"/>&ndash;&gt;-->
+<!--&lt;!&ndash;		<property name="com.jaspersoft.studio.field.label" value="montant"/>&ndash;&gt;-->
+<!--&lt;!&ndash;	</field>&ndash;&gt;-->
+<!--&lt;!&ndash;	<field name="part" class="java.math.BigDecimal">&ndash;&gt;-->
+<!--&lt;!&ndash;		<property name="com.jaspersoft.studio.field.name" value="part"/>&ndash;&gt;-->
+<!--&lt;!&ndash;		<property name="com.jaspersoft.studio.field.label" value="part"/>&ndash;&gt;-->
+<!--&lt;!&ndash;	</field>&ndash;&gt;-->
+<!--&lt;!&ndash;	<field name="valeurLiquidative" class="java.math.BigDecimal">&ndash;&gt;-->
+<!--&lt;!&ndash;		<property name="com.jaspersoft.studio.field.name" value="valeurLiquidative"/>&ndash;&gt;-->
+<!--&lt;!&ndash;		<property name="com.jaspersoft.studio.field.label" value="valeurLiquidative"/>&ndash;&gt;-->
+<!--&lt;!&ndash;	</field>&ndash;&gt;-->
+<!--&lt;!&ndash;	<field name="partACtuel" class="java.math.BigDecimal">&ndash;&gt;-->
+<!--&lt;!&ndash;		<property name="com.jaspersoft.studio.field.name" value="partACtuel"/>&ndash;&gt;-->
+<!--&lt;!&ndash;		<property name="com.jaspersoft.studio.field.label" value="partACtuel"/>&ndash;&gt;-->
+<!--&lt;!&ndash;	</field>&ndash;&gt;-->
+<!--&lt;!&ndash;	<field name="cump" class="java.math.BigDecimal">&ndash;&gt;-->
+<!--&lt;!&ndash;		<property name="com.jaspersoft.studio.field.name" value="cump"/>&ndash;&gt;-->
+<!--&lt;!&ndash;		<property name="com.jaspersoft.studio.field.label" value="cump"/>&ndash;&gt;-->
+<!--&lt;!&ndash;	</field>&ndash;&gt;-->
+<!--&lt;!&ndash;	<field name="coursVL" class="java.math.BigDecimal">&ndash;&gt;-->
+<!--&lt;!&ndash;		<property name="com.jaspersoft.studio.field.name" value="coursVL"/>&ndash;&gt;-->
+<!--&lt;!&ndash;		<property name="com.jaspersoft.studio.field.label" value="coursVL"/>&ndash;&gt;-->
+<!--&lt;!&ndash;	</field>&ndash;&gt;-->
+<!--&lt;!&ndash;	<field name="prixSouscription" class="java.math.BigDecimal">&ndash;&gt;-->
+<!--&lt;!&ndash;		<property name="com.jaspersoft.studio.field.name" value="prixSouscription"/>&ndash;&gt;-->
+<!--&lt;!&ndash;		<property name="com.jaspersoft.studio.field.label" value="prixSouscription"/>&ndash;&gt;-->
+<!--&lt;!&ndash;	</field>&ndash;&gt;-->
+<!--&lt;!&ndash;	<field name="titre" class="java.lang.String">&ndash;&gt;-->
+<!--&lt;!&ndash;		<property name="com.jaspersoft.studio.field.name" value="titre"/>&ndash;&gt;-->
+<!--&lt;!&ndash;		<property name="com.jaspersoft.studio.field.label" value="titre"/>&ndash;&gt;-->
+<!--&lt;!&ndash;	</field>&ndash;&gt;-->
+<!--&lt;!&ndash;	<field name="valorisation" class="java.math.BigDecimal">&ndash;&gt;-->
+<!--&lt;!&ndash;		<property name="com.jaspersoft.studio.field.name" value="valorisation"/>&ndash;&gt;-->
+<!--&lt;!&ndash;		<property name="com.jaspersoft.studio.field.label" value="valorisation"/>&ndash;&gt;-->
+<!--&lt;!&ndash;	</field>&ndash;&gt;-->
+<!--&lt;!&ndash;	<field name="plusOuMoinsValue" class="java.math.BigDecimal">&ndash;&gt;-->
+<!--&lt;!&ndash;		<property name="com.jaspersoft.studio.field.name" value="plusOuMoinsValue"/>&ndash;&gt;-->
+<!--&lt;!&ndash;		<property name="com.jaspersoft.studio.field.label" value="plusOuMoinsValue"/>&ndash;&gt;-->
+<!--&lt;!&ndash;	</field>&ndash;&gt;-->
+<!--&lt;!&ndash;	<field name="beneficiaireDonateur" class="java.lang.String">&ndash;&gt;-->
+<!--&lt;!&ndash;		<property name="com.jaspersoft.studio.field.name" value="beneficiaireDonateur"/>&ndash;&gt;-->
+<!--&lt;!&ndash;		<property name="com.jaspersoft.studio.field.label" value="beneficiaireDonateur"/>&ndash;&gt;-->
+<!--&lt;!&ndash;	</field>&ndash;&gt;-->
+<!--&lt;!&ndash;	<variable name="montant1" resetType="Group" calculation="Sum" resetGroup="Group3" class="java.math.BigDecimal">&ndash;&gt;-->
+<!--&lt;!&ndash;		<expression><![CDATA[$F{montant}]]></expression>&ndash;&gt;-->
+<!--&lt;!&ndash;	</variable>&ndash;&gt;-->
+<!--&lt;!&ndash;	<variable name="part1" resetType="Group" calculation="Sum" resetGroup="Group3" class="java.math.BigDecimal">&ndash;&gt;-->
+<!--&lt;!&ndash;		<expression><![CDATA[$F{part}]]></expression>&ndash;&gt;-->
+<!--&lt;!&ndash;	</variable>&ndash;&gt;-->
+<!--&lt;!&ndash;	<group name="Group1" startNewPage="true">&ndash;&gt;-->
+<!--&lt;!&ndash;		<expression><![CDATA[$F{idActionnaire}]]></expression>&ndash;&gt;-->
+<!--&lt;!&ndash;		<groupHeader>&ndash;&gt;-->
+<!--&lt;!&ndash;			<band height="88">&ndash;&gt;-->
+<!--&lt;!&ndash;				<element kind="textField" uuid="e5054658-1f6d-47c5-8371-2b21c6572378" mode="Opaque" x="2" y="32" width="550" height="24" forecolor="#000000" backcolor="#BDD7EE" fontName="Segoe UI" fontSize="14.0" bold="true" hTextAlign="Center">&ndash;&gt;-->
+<!--&lt;!&ndash;					<expression><![CDATA["ETAT DE SUIVI DU CLIENT "+$F{personne}]]></expression>&ndash;&gt;-->
+<!--&lt;!&ndash;				</element>&ndash;&gt;-->
+<!--&lt;!&ndash;				<element kind="staticText" uuid="bf8e9d44-0f27-42d5-b042-03bbbc8de7e7" x="80" y="62" width="80" height="20" underline="true" bold="true">&ndash;&gt;-->
+<!--&lt;!&ndash;					<text><![CDATA[DATE EDITION:]]></text>&ndash;&gt;-->
+<!--&lt;!&ndash;				</element>&ndash;&gt;-->
+<!--&lt;!&ndash;				<element kind="textField" uuid="03a0ab7e-7b23-4829-be61-9580e63f1ce9" x="160" y="62" width="180" height="20" textAdjust="StretchHeight" pattern="EE dd/MM/yyyy" blankWhenNull="true">&ndash;&gt;-->
+<!--&lt;!&ndash;					<expression><![CDATA[$F{dateEddition}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"))]]></expression>&ndash;&gt;-->
+<!--&lt;!&ndash;					<patternExpression><![CDATA["EE dd/MM/yyyy"]]></patternExpression>&ndash;&gt;-->
+<!--&lt;!&ndash;				</element>&ndash;&gt;-->
+<!--&lt;!&ndash;				<element kind="textField" uuid="48140988-acaa-4d4b-ab4b-bcadb9ae1ed5" x="0" y="4" width="230" height="20" fontName="Segoe UI">&ndash;&gt;-->
+<!--&lt;!&ndash;					<expression><![CDATA["Cotonou le, " + $P{letterDate}]]></expression>&ndash;&gt;-->
+<!--&lt;!&ndash;				</element>&ndash;&gt;-->
+<!--&lt;!&ndash;			</band>&ndash;&gt;-->
+<!--&lt;!&ndash;		</groupHeader>&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;		<groupFooter>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;			<band height="173">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;				<element kind="subreport" uuid="b87a14fd-827d-40f8-8af0-5c0a71fa2821" positionType="Float" stretchType="ContainerHeight" x="1" y="4" width="552" height="156">&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;                    <connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;                    <subreportParameter name="idOpcvm">&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;                        <expression><![CDATA[$F{idOpcvm}]]></expression>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;                    </subreportParameter>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;                    <subreportParameter name="idActionnaire">&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;                        <expression><![CDATA[$F{idActionnaire}]]></expression>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;                    </subreportParameter>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;                    <subreportParameter name="dateDebutEstimation">&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;                        <expression><![CDATA[$P{dateDebutEstimation}]]></expression>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;                    </subreportParameter>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;                    <subreportParameter name="dateEstimation">&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;                        <expression><![CDATA[$P{dateEstimation}]]></expression>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;                    </subreportParameter>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;                    <dataSourceExpression><![CDATA[$P{ALL_LIGNES}]]></dataSourceExpression>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;					<expression><![CDATA[$P{SUBREPORT_REF}]]></expression>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;					<property name="com.jaspersoft.layout.grid.x" value="1"/>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;				</element>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                &ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;			</band>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;		</groupFooter>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;        <groupFooter>&ndash;&gt;-->
+<!--&lt;!&ndash;            <band height="173">&ndash;&gt;-->
+<!--&lt;!&ndash;                <element&ndash;&gt;-->
+<!--&lt;!&ndash;                        positionType="Float"&ndash;&gt;-->
+<!--&lt;!&ndash;                        stretchType="ContainerHeight"&ndash;&gt;-->
+<!--&lt;!&ndash;                        x="1"&ndash;&gt;-->
+<!--&lt;!&ndash;                        y="4"&ndash;&gt;-->
+<!--&lt;!&ndash;                        width="552"&ndash;&gt;-->
+<!--&lt;!&ndash;                        height="156"&ndash;&gt;-->
+<!--&lt;!&ndash;                        uuid="b87a14fd-827d-40f8-8af0-5c0a71fa2821">   &lt;!&ndash; uuid optionnel mais conservable &ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;                    <property name="com.jaspersoft.layout.grid.x" value="1"/>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <subreport>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <subreportParameter name="idOpcvm">&ndash;&gt;-->
+<!--&lt;!&ndash;                            <subreportParameterExpression><![CDATA[$F{idOpcvm}]]></subreportParameterExpression>&ndash;&gt;-->
+<!--&lt;!&ndash;                        </subreportParameter>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <subreportParameter name="idActionnaire">&ndash;&gt;-->
+<!--&lt;!&ndash;                            <subreportParameterExpression><![CDATA[$F{idActionnaire}]]></subreportParameterExpression>&ndash;&gt;-->
+<!--&lt;!&ndash;                        </subreportParameter>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <subreportParameter name="dateDebutEstimation">&ndash;&gt;-->
+<!--&lt;!&ndash;                            <subreportParameterExpression><![CDATA[$P{dateDebutEstimation}]]></subreportParameterExpression>&ndash;&gt;-->
+<!--&lt;!&ndash;                        </subreportParameter>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <subreportParameter name="dateEstimation">&ndash;&gt;-->
+<!--&lt;!&ndash;                            <subreportParameterExpression><![CDATA[$P{dateEstimation}]]></subreportParameterExpression>&ndash;&gt;-->
+<!--&lt;!&ndash;                        </subreportParameter>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <dataSourceExpression><![CDATA[$P{ALL_LIGNES}]]></dataSourceExpression>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <subreportExpression><![CDATA[$P{SUBREPORT_REF}]]></subreportExpression>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </subreport>&ndash;&gt;-->
+<!--&lt;!&ndash;                </element>&ndash;&gt;-->
+<!--&lt;!&ndash;            </band>&ndash;&gt;-->
+<!--&lt;!&ndash;        </groupFooter>&ndash;&gt;-->
+<!--&lt;!&ndash;	</group>&ndash;&gt;-->
+<!--&lt;!&ndash;	<group name="Group2">&ndash;&gt;-->
+<!--&lt;!&ndash;		<expression><![CDATA[$F{idOpcvm}]]></expression>&ndash;&gt;-->
+<!--&lt;!&ndash;		<groupHeader>&ndash;&gt;-->
+<!--&lt;!&ndash;			<band height="40">&ndash;&gt;-->
+<!--&lt;!&ndash;				<element kind="rectangle" uuid="f954bca6-4c96-4fbc-ad6e-46c0f739bbf7" x="0" y="5" width="220" height="35">&ndash;&gt;-->
+<!--&lt;!&ndash;					<pen lineColor="#3970E6"/>&ndash;&gt;-->
+<!--&lt;!&ndash;				</element>&ndash;&gt;-->
+<!--&lt;!&ndash;				<element kind="textField" uuid="25c952d6-82e4-4c27-955b-743e4ece76d9" x="4" y="10" width="210" height="23" textAdjust="StretchHeight">&ndash;&gt;-->
+<!--&lt;!&ndash;					<expression><![CDATA[$F{denominationOpcvm}]]></expression>&ndash;&gt;-->
+<!--&lt;!&ndash;				</element>&ndash;&gt;-->
+<!--&lt;!&ndash;			</band>&ndash;&gt;-->
+<!--&lt;!&ndash;		</groupHeader>&ndash;&gt;-->
+<!--&lt;!&ndash;		<groupFooter>&ndash;&gt;-->
+<!--&lt;!&ndash;			<band height="10">&ndash;&gt;-->
+<!--&lt;!&ndash;				<property name="com.jaspersoft.studio.unit.height" value="px"/>&ndash;&gt;-->
+<!--&lt;!&ndash;			</band>&ndash;&gt;-->
+<!--&lt;!&ndash;		</groupFooter>&ndash;&gt;-->
+<!--&lt;!&ndash;	</group>&ndash;&gt;-->
+<!--&lt;!&ndash;	<group name="Group3">&ndash;&gt;-->
+<!--&lt;!&ndash;		<expression><![CDATA[$F{titre}]]></expression>&ndash;&gt;-->
+<!--&lt;!&ndash;		<groupHeader>&ndash;&gt;-->
+<!--&lt;!&ndash;			<band height="60">&ndash;&gt;-->
+<!--&lt;!&ndash;				<element kind="rectangle" uuid="a835a09c-9a54-47e6-85b4-285c7ca0c4d8" x="0" y="1" width="552" height="29">&ndash;&gt;-->
+<!--&lt;!&ndash;					<pen lineColor="#3970E6"/>&ndash;&gt;-->
+<!--&lt;!&ndash;				</element>&ndash;&gt;-->
+<!--&lt;!&ndash;				<element kind="textField" uuid="8cc8b7d4-dcb0-48e9-9428-dfd052791827" x="2" y="5" width="510" height="20" textAdjust="StretchHeight">&ndash;&gt;-->
+<!--&lt;!&ndash;					<expression><![CDATA[$F{titre}]]></expression>&ndash;&gt;-->
+<!--&lt;!&ndash;				</element>&ndash;&gt;-->
+<!--&lt;!&ndash;				<element kind="rectangle" uuid="f56ebffc-538d-42d8-b88c-b068827e28c4" stretchType="ContainerHeight" mode="Opaque" x="0" y="30" width="552" height="29" backcolor="#B9D7EE">&ndash;&gt;-->
+<!--&lt;!&ndash;					<pen lineColor="#3970E6"/>&ndash;&gt;-->
+<!--&lt;!&ndash;				</element>&ndash;&gt;-->
+<!--&lt;!&ndash;				<element kind="staticText" uuid="2abeee5a-f8d7-4dd4-a135-a83723961bc2" x="4" y="37" width="76" height="15" bold="true">&ndash;&gt;-->
+<!--&lt;!&ndash;					<text><![CDATA[DATE OP.]]></text>&ndash;&gt;-->
+<!--&lt;!&ndash;				</element>&ndash;&gt;-->
+<!--&lt;!&ndash;				<element kind="line" uuid="cc749ac8-7864-4a5d-9cb4-b5db8bfd54d6" stretchType="ContainerHeight" x="84" y="30" width="1" height="29">&ndash;&gt;-->
+<!--&lt;!&ndash;					<pen lineColor="#3970E6"/>&ndash;&gt;-->
+<!--&lt;!&ndash;				</element>&ndash;&gt;-->
+<!--&lt;!&ndash;				<element kind="textField" uuid="63b4f83d-61bf-436c-a22b-93d5a58ec55a" x="90" y="37" width="130" height="15" textAdjust="StretchHeight" bold="true">&ndash;&gt;-->
+<!--&lt;!&ndash;					<expression><![CDATA["POINT DES SOUSCRIPTIONS".equals($F{titre}) ? "MONTANT DEPOSE" :&ndash;&gt;-->
+<!--&lt;!&ndash;"POINT DES RACHATS".equals($F{titre}) ? "MONTANT RACHAT" :&ndash;&gt;-->
+<!--&lt;!&ndash;"POINT DES DIVIDENDES".equals($F{titre}) ? "MONTANT PERCU" :&ndash;&gt;-->
+<!--&lt;!&ndash;"POINT DES TRANSFERTS DEPART".equals($F{titre}) ? "BENEFICIAIRE" :&ndash;&gt;-->
+<!--&lt;!&ndash;"DONATEUR"]]></expression>&ndash;&gt;-->
+<!--&lt;!&ndash;				</element>&ndash;&gt;-->
+<!--&lt;!&ndash;				<element kind="line" uuid="f6e1cd7e-2c0e-407b-81b6-56180c59fb06" stretchType="ContainerHeight" x="222" y="30" width="1" height="29">&ndash;&gt;-->
+<!--&lt;!&ndash;					<pen lineColor="#3970E6"/>&ndash;&gt;-->
+<!--&lt;!&ndash;				</element>&ndash;&gt;-->
+<!--&lt;!&ndash;				<element kind="textField" uuid="b84d2377-3f35-4090-9af5-877e5c3ff77e" x="228" y="37" width="130" height="15" textAdjust="StretchHeight" bold="true">&ndash;&gt;-->
+<!--&lt;!&ndash;					<expression><![CDATA["POINT DES SOUSCRIPTIONS".equals($F{titre}) ? "PARTS ATTRIBUEES" :&ndash;&gt;-->
+<!--&lt;!&ndash;"POINT DES RACHATS".equals($F{titre}) ? "PARTS RACHETEES" :&ndash;&gt;-->
+<!--&lt;!&ndash;"POINT DES DIVIDENDES".equals($F{titre}) ? "PARTS DETENUES" :&ndash;&gt;-->
+<!--&lt;!&ndash;"PARTS"]]></expression>&ndash;&gt;-->
+<!--&lt;!&ndash;				</element>&ndash;&gt;-->
+<!--&lt;!&ndash;				<element kind="line" uuid="2c6675a4-dc2b-4507-b496-c67997c65aec" stretchType="ContainerHeight" x="361" y="30" width="1" height="29">&ndash;&gt;-->
+<!--&lt;!&ndash;					<pen lineColor="#3970E6"/>&ndash;&gt;-->
+<!--&lt;!&ndash;				</element>&ndash;&gt;-->
+<!--&lt;!&ndash;				<element kind="textField" uuid="fb1d03d2-da6d-4e48-b994-7cc18963670c" x="364" y="37" width="96" height="15" textAdjust="StretchHeight" bold="true">&ndash;&gt;-->
+<!--&lt;!&ndash;					<expression><![CDATA["POINT DES DIVIDENDES".equals($F{titre})?"COUPON UNITAIRE":"VL"]]></expression>&ndash;&gt;-->
+<!--&lt;!&ndash;				</element>&ndash;&gt;-->
+<!--&lt;!&ndash;				<element kind="line" uuid="2e345bc1-f174-48d5-8aee-ea386e28e14a" stretchType="ContainerHeight" x="460" y="30" width="1" height="29">&ndash;&gt;-->
+<!--&lt;!&ndash;					<pen lineColor="#3970E6"/>&ndash;&gt;-->
+<!--&lt;!&ndash;				</element>&ndash;&gt;-->
+<!--&lt;!&ndash;				<element kind="textField" uuid="72221b31-a5ac-45dc-a6b0-3a04c4b61094" x="461" y="37" width="91" height="15" textAdjust="StretchHeight" bold="true">&ndash;&gt;-->
+<!--&lt;!&ndash;					<expression><![CDATA["POINT DES SOUSCRIPTIONS".equals($F{titre})?"PRIX DE SOUSCRIPTION":"POINT DES RACHATS".equals($F{titre})?"PRIX DE RACHAT":"POINT DES DIVIDENDES".equals($F{titre})?"":"POINT DES TRANSFERTS ARRIVE".equals($F{titre})?"CUMP":""]]></expression>&ndash;&gt;-->
+<!--&lt;!&ndash;				</element>&ndash;&gt;-->
+<!--&lt;!&ndash;			</band>&ndash;&gt;-->
+<!--&lt;!&ndash;		</groupHeader>&ndash;&gt;-->
+<!--&lt;!&ndash;		<groupFooter>&ndash;&gt;-->
+<!--&lt;!&ndash;			<band height="39">&ndash;&gt;-->
+<!--&lt;!&ndash;				<element kind="rectangle" uuid="b027d343-5715-4c54-ac53-0d272fd81c9e" x="0" y="0" width="552" height="29" backcolor="#B9D7EE">&ndash;&gt;-->
+<!--&lt;!&ndash;					<pen lineColor="#3970E6"/>&ndash;&gt;-->
+<!--&lt;!&ndash;				</element>&ndash;&gt;-->
+<!--&lt;!&ndash;				<element kind="line" uuid="cb38811b-eebd-4a70-a8df-c7c646989903" stretchType="ContainerHeight" x="84" y="0" width="1" height="29">&ndash;&gt;-->
+<!--&lt;!&ndash;					<pen lineColor="#3970E6"/>&ndash;&gt;-->
+<!--&lt;!&ndash;				</element>&ndash;&gt;-->
+<!--&lt;!&ndash;				<element kind="line" uuid="6fbae5fc-350c-4a28-9855-4db89aa2494e" stretchType="ContainerHeight" x="222" y="0" width="1" height="29">&ndash;&gt;-->
+<!--&lt;!&ndash;					<pen lineColor="#3970E6"/>&ndash;&gt;-->
+<!--&lt;!&ndash;				</element>&ndash;&gt;-->
+<!--&lt;!&ndash;				<element kind="line" uuid="9ce24300-52c7-48e1-b943-674443961c33" stretchType="ContainerHeight" x="361" y="0" width="1" height="29">&ndash;&gt;-->
+<!--&lt;!&ndash;					<pen lineColor="#3970E6"/>&ndash;&gt;-->
+<!--&lt;!&ndash;				</element>&ndash;&gt;-->
+<!--&lt;!&ndash;				<element kind="staticText" uuid="fa30c7ed-efcf-41a0-8b9c-b21a9bcc6a81" x="4" y="7" width="76" height="15" bold="true">&ndash;&gt;-->
+<!--&lt;!&ndash;					<text><![CDATA[TOTAL]]></text>&ndash;&gt;-->
+<!--&lt;!&ndash;				</element>&ndash;&gt;-->
+<!--&lt;!&ndash;				<element kind="textField" uuid="1881a320-b844-43fe-9e1c-a1e45cd5b06f" x="90" y="7" width="130" height="15" pattern="#,##0.###;#,##0.###" blankWhenNull="true">&ndash;&gt;-->
+<!--&lt;!&ndash;					<expression><![CDATA["POINT DES TRANSFERTS DEPART".equals($F{titre})?0:"POINT DES TRANSFERTS ARRIVE".equals($F{titre})?0:$V{montant1}]]></expression>&ndash;&gt;-->
+<!--&lt;!&ndash;				</element>&ndash;&gt;-->
+<!--&lt;!&ndash;				<element kind="textField" uuid="18fed46d-8d02-4b30-9e1a-b924df117bae" x="226" y="7" width="132" height="15" pattern="#,##0.###;#,##0.###" blankWhenNull="true">&ndash;&gt;-->
+<!--&lt;!&ndash;					<expression><![CDATA[$V{part1}]]></expression>&ndash;&gt;-->
+<!--&lt;!&ndash;				</element>&ndash;&gt;-->
+<!--&lt;!&ndash;			</band>&ndash;&gt;-->
+<!--&lt;!&ndash;		</groupFooter>&ndash;&gt;-->
+<!--&lt;!&ndash;	</group>&ndash;&gt;-->
+<!--&lt;!&ndash;	<background splitType="Stretch"/>&ndash;&gt;-->
+<!--&lt;!&ndash;	<title height="17" splitType="Stretch"/>&ndash;&gt;-->
+<!--&lt;!&ndash;	<pageHeader splitType="Stretch"/>&ndash;&gt;-->
+<!--&lt;!&ndash;	<columnHeader splitType="Stretch"/>&ndash;&gt;-->
+<!--&lt;!&ndash;	<detail>&ndash;&gt;-->
+<!--&lt;!&ndash;		<band height="30" splitType="Stretch">&ndash;&gt;-->
+<!--&lt;!&ndash;			<element kind="rectangle" uuid="e81be481-ca80-43fb-8259-64fbec88865f" stretchType="ContainerHeight" x="0" y="0" width="552" height="29">&ndash;&gt;-->
+<!--&lt;!&ndash;				<pen lineColor="#3970E6"/>&ndash;&gt;-->
+<!--&lt;!&ndash;			</element>&ndash;&gt;-->
+<!--&lt;!&ndash;			<element kind="line" uuid="1e96910a-28af-4255-8b78-dafd2b029beb" stretchType="ContainerHeight" x="84" y="0" width="1" height="29">&ndash;&gt;-->
+<!--&lt;!&ndash;				<pen lineColor="#3970E6"/>&ndash;&gt;-->
+<!--&lt;!&ndash;			</element>&ndash;&gt;-->
+<!--&lt;!&ndash;			<element kind="textField" uuid="f5857403-309d-4e53-bb70-01c6e86e4b28" x="90" y="7" width="130" height="15" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###" blankWhenNull="true" bold="false">&ndash;&gt;-->
+<!--&lt;!&ndash;				<expression><![CDATA["POINT DES TRANSFERTS DEPART".equals($F{titre})?$F{beneficiaireDonateur}:"POINT DES TRANSFERTS ARRIVE".equals($F{titre})?$F{beneficiaireDonateur}:$F{montant}]]></expression>&ndash;&gt;-->
+<!--&lt;!&ndash;			</element>&ndash;&gt;-->
+<!--&lt;!&ndash;			<element kind="line" uuid="9df70a72-b236-4726-9aad-d920c5322a7f" stretchType="ContainerHeight" x="222" y="0" width="1" height="29">&ndash;&gt;-->
+<!--&lt;!&ndash;				<pen lineColor="#3970E6"/>&ndash;&gt;-->
+<!--&lt;!&ndash;			</element>&ndash;&gt;-->
+<!--&lt;!&ndash;			<element kind="textField" uuid="137d62ba-ece2-4fbe-ba71-a23e315cb397" x="228" y="7" width="130" height="15" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###" blankWhenNull="true" bold="false">&ndash;&gt;-->
+<!--&lt;!&ndash;				<expression><![CDATA[$F{part}]]></expression>&ndash;&gt;-->
+<!--&lt;!&ndash;			</element>&ndash;&gt;-->
+<!--&lt;!&ndash;			<element kind="line" uuid="a7cc3ebc-bd78-43b2-b630-d4b9a6700e3d" stretchType="ContainerHeight" x="361" y="0" width="1" height="29">&ndash;&gt;-->
+<!--&lt;!&ndash;				<pen lineColor="#3970E6"/>&ndash;&gt;-->
+<!--&lt;!&ndash;			</element>&ndash;&gt;-->
+<!--&lt;!&ndash;			<element kind="textField" uuid="a6abe11b-bee8-4965-8579-f89085957214" x="364" y="7" width="96" height="15" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###" blankWhenNull="true" bold="false">&ndash;&gt;-->
+<!--&lt;!&ndash;				<expression><![CDATA[$F{valeurLiquidative}]]></expression>&ndash;&gt;-->
+<!--&lt;!&ndash;			</element>&ndash;&gt;-->
+<!--&lt;!&ndash;			<element kind="line" uuid="8266420b-e34d-4d83-ab7d-e68a151921f1" stretchType="ContainerHeight" x="460" y="0" width="1" height="29">&ndash;&gt;-->
+<!--&lt;!&ndash;				<pen lineColor="#3970E6"/>&ndash;&gt;-->
+<!--&lt;!&ndash;			</element>&ndash;&gt;-->
+<!--&lt;!&ndash;			<element kind="textField" uuid="97cb6aae-bdc5-4ca0-8039-120ac2fb5841" x="461" y="7" width="91" height="15" textAdjust="StretchHeight" pattern="#,##0.####" blankWhenNull="true" bold="false">&ndash;&gt;-->
+<!--&lt;!&ndash;				<expression><![CDATA[$F{prixSouscription}]]></expression>&ndash;&gt;-->
+<!--&lt;!&ndash;			</element>&ndash;&gt;-->
+<!--&lt;!&ndash;			<element kind="textField" uuid="a37efc42-f636-484e-8bf2-47cb0c90e23d" x="4" y="7" width="76" height="15" textAdjust="StretchHeight" pattern="EE dd/MM/yyyy" blankWhenNull="true">&ndash;&gt;-->
+<!--&lt;!&ndash;				<expression><![CDATA[$F{dateOperation}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"))]]></expression>&ndash;&gt;-->
+<!--&lt;!&ndash;				<patternExpression><![CDATA["EE dd/MM/yyyy"]]></patternExpression>&ndash;&gt;-->
+<!--&lt;!&ndash;			</element>&ndash;&gt;-->
+<!--&lt;!&ndash;		</band>&ndash;&gt;-->
+<!--&lt;!&ndash;	</detail>&ndash;&gt;-->
+<!--&lt;!&ndash;	<columnFooter splitType="Stretch"/>&ndash;&gt;-->
+<!--&lt;!&ndash;	<pageFooter height="39" splitType="Stretch">&ndash;&gt;-->
+<!--&lt;!&ndash;		<element kind="textField" uuid="bfed89db-1057-4eee-9246-a486e83325a4" x="450" y="4" width="100" height="25" hTextAlign="Right">&ndash;&gt;-->
+<!--&lt;!&ndash;			<expression><![CDATA[$V{PAGE_NUMBER}]]></expression>&ndash;&gt;-->
+<!--&lt;!&ndash;		</element>&ndash;&gt;-->
+<!--&lt;!&ndash;		<element kind="staticText" uuid="199a29a0-f559-48ed-99a9-c4fffffed24b" x="0" y="6" width="120" height="26" fontName="Segoe UI">&ndash;&gt;-->
+<!--&lt;!&ndash;			<text><![CDATA[Edité avec OPCCIEL 2.0]]></text>&ndash;&gt;-->
+<!--&lt;!&ndash;		</element>&ndash;&gt;-->
+<!--&lt;!&ndash;	</pageFooter>&ndash;&gt;-->
+<!--&lt;!&ndash;	<summary splitType="Stretch"/>&ndash;&gt;-->
+<!--&lt;!&ndash;</jasperReport>&ndash;&gt;-->

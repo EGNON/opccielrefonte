@@ -7,6 +7,7 @@ import com.ged.dto.lab.reportings.BeginEndDateParameter;
 import com.ged.dto.opcciel.*;
 import com.ged.dto.opcciel.comptabilite.MiseEnAffectationDto;
 import com.ged.dto.request.*;
+import com.ged.dto.standard.DefinitionArrondiDto;
 import com.ged.dto.standard.ParametreJourFerieDto;
 import com.ged.entity.opcciel.SeanceOpcvm;
 import com.ged.mapper.opcciel.OpcvmMapper;
@@ -1351,10 +1352,38 @@ public class LibraryController {
     public ResponseEntity<?> modifierJoursFeries(@RequestBody @Valid ParametreJourFerieDto request) {
         return service.modifierJoursFeries(request);
     }
+    @DeleteMapping("/joursferies/supprimer/{userLogin}/{numLigne}")
+    public ResponseEntity<?> supprimerJoursFeries(@PathVariable String userLogin,
+                                                 @PathVariable Long numLigne) {
+        return service.supprimerJoursFeries(userLogin, numLigne);
+    }
     @GetMapping("/joursferies/{numLigne}")
     public ResponseEntity<?> afficherJoursFeries(
                                              @PathVariable Long numLigne) {
         return service.afficherJoursFeries(numLigne);
+    }
+    //Définition arrondi
+    @PostMapping("/definitionarrondi")
+    public ResponseEntity<?> afficherDefinitionArrondi(@RequestBody @Valid DatatableParameters request) {
+        return service.afficherDefinitionArrondi(request);
+    }
+    @PostMapping("/definitionarrondi/enregistrer")
+    public ResponseEntity<?> enregistrerdefinitionarrondi(@RequestBody @Valid DefinitionArrondiDto request) {
+        return service.enregistrerDefinitionArrondi(request);
+    }
+    @PutMapping("/definitionarrondi/modifier")
+    public ResponseEntity<?> modifierdefinitionarrondi(@RequestBody @Valid DefinitionArrondiDto request) {
+        return service.modifierDefinitionArrondi(request);
+    }
+    @DeleteMapping("/definitionarrondi/supprimer/{userLogin}/{numLigne}")
+    public ResponseEntity<?> supprimerdefinitionarrondi(@PathVariable String userLogin,
+                                                 @PathVariable Long numLigne) {
+        return service.supprimerDefinitionArrondi(userLogin, numLigne);
+    }
+    @GetMapping("/definitionarrondi/{numLigne}")
+    public ResponseEntity<?> afficherdefinitionarrondi(
+                                             @PathVariable Long numLigne) {
+        return service.afficherDefinitionArrondi(numLigne);
     }
 
     //avistransfertpart
@@ -1609,6 +1638,77 @@ public class LibraryController {
 
          service.pointRepartitionPortefeuille(request,response);
     }
+    @PostMapping("/etats/titre/tableauamortissement/{idTitre}")
+    public void tableuAmortissement(@PathVariable String idTitre, HttpServletResponse response) throws JRException, IOException {
+        response.setContentType("application/pdf");
+        DateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy:hh:mm:ss");
+        String currentDateTime = dateFormatter.format(new Date());
+
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=tableau_amortissement" + currentDateTime + ".pdf";
+        response.setHeader(headerKey, headerValue);
+
+        service.tableauAmorissement(idTitre,response);
+    }
+    @PostMapping("/etats/titre/ficheaction/{idTitre}")
+    public void ficheAction(@PathVariable Long idTitre, HttpServletResponse response) throws JRException, IOException, SQLException {
+        response.setContentType("application/pdf");
+        DateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy:hh:mm:ss");
+        String currentDateTime = dateFormatter.format(new Date());
+
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=fiche_action" + currentDateTime + ".pdf";
+        response.setHeader(headerKey, headerValue);
+
+        service.ficheAction(idTitre,response);
+    }
+    @PostMapping("/etats/titre/fichedroit/{idTitre}")
+    public void ficheDroit(@PathVariable Long idTitre, HttpServletResponse response) throws JRException, IOException, SQLException {
+        response.setContentType("application/pdf");
+        DateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy:hh:mm:ss");
+        String currentDateTime = dateFormatter.format(new Date());
+
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=fiche_droit" + currentDateTime + ".pdf";
+        response.setHeader(headerKey, headerValue);
+
+        service.ficheDroit(idTitre,response);
+    }
+    @PostMapping("/etats/titre/ficheobligation/{idTitre}")
+    public void ficheObligation(@PathVariable Long idTitre, HttpServletResponse response) throws JRException, IOException, SQLException {
+        response.setContentType("application/pdf");
+        DateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy:hh:mm:ss");
+        String currentDateTime = dateFormatter.format(new Date());
+
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=fiche_obligation" + currentDateTime + ".pdf";
+        response.setHeader(headerKey, headerValue);
+
+        service.ficheObligation(idTitre,response);
+    }
+    @PostMapping("/etats/titre/ficheopc/{idTitre}")
+    public void ficheOpc(@PathVariable Long idTitre, HttpServletResponse response) throws JRException, IOException, SQLException {
+        response.setContentType("application/pdf");
+        DateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy:hh:mm:ss");
+        String currentDateTime = dateFormatter.format(new Date());
+
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=fiche_opc" + currentDateTime + ".pdf";
+        response.setHeader(headerKey, headerValue);
+
+        service.ficheOPC(idTitre,response);
+    }@PostMapping("/etats/titre/fichetcn/{idTitre}")
+    public void ficheTcn(@PathVariable Long idTitre, HttpServletResponse response) throws JRException, IOException, SQLException {
+        response.setContentType("application/pdf");
+        DateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy:hh:mm:ss");
+        String currentDateTime = dateFormatter.format(new Date());
+
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=fiche_Tcn" + currentDateTime + ".pdf";
+        response.setHeader(headerKey, headerValue);
+
+        service.ficheTcn(idTitre,response);
+    }
     @PostMapping("/evolutionactifnet")
     public ResponseEntity<?> evolutionactifnet(@RequestBody @Valid ReleveTitreFCPRequest request) {
         return service.evolutionActifNet(request);
@@ -1634,7 +1734,7 @@ public class LibraryController {
         return service.suiviClient(request);
     }
     @PostMapping("/etats/etatsuiviclient")
-    public void etatSuiviClient(@RequestBody @Valid HistoriqueActionnaireRequest request, HttpServletResponse response) throws JRException, IOException {
+    public void etatSuiviClient(@RequestBody @Valid HistoriqueActionnaireRequest request, HttpServletResponse response) throws JRException, IOException, SQLException {
         response.setContentType("application/pdf");
         DateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy:hh:mm:ss");
         String currentDateTime = dateFormatter.format(new Date());

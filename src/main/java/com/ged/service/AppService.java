@@ -17,6 +17,7 @@ import com.ged.dto.lab.reportings.BeginEndDateParameter;
 import com.ged.dto.opcciel.*;
 import com.ged.dto.opcciel.comptabilite.OperationDto;
 import com.ged.dto.request.*;
+import com.ged.dto.standard.DefinitionArrondiDto;
 import com.ged.dto.standard.ParametreJourFerieDto;
 import com.ged.entity.opcciel.*;
 import com.ged.entity.opcciel.comptabilite.*;
@@ -28,7 +29,6 @@ import com.ged.response.ResponseHandler;
 import com.ged.service.opcciel.IbService;
 import com.ged.service.opcciel.OpcvmService;
 import com.ged.service.opcciel.PlanService;
-import jakarta.persistence.Convert;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.ParameterMode;
 import jakarta.persistence.PersistenceContext;
@@ -5149,7 +5149,47 @@ public class AppService {
 
     }
 
+    //tableau d'amortissement
+    public ResponseEntity<Object> tableauAmorissement(String idTitre, HttpServletResponse response) throws JRException, IOException {
 
+        InputStream rapportStream = null;
+        InputStream subreportStream = null;
+//        try {
+        // Récupération des données
+        List<TableauAmortissementProjection> list =
+                libraryDao.tableauAmortissemen(idTitre);
+
+        // Chargement des fichiers .jrxml depuis le classpath
+        rapportStream = getClass().getResourceAsStream("/tableauAmortissement.jrxml");
+//        subreportStream = getClass().getResourceAsStream("/operationDetachement.jrxml");
+
+        if (rapportStream == null) {
+            throw new RuntimeException("Fichiers .jrxml introuvables dans le classpath !");
+        }
+
+        // Compiler les rapports à la volée
+        JasperReport rapportPrincipal = JasperCompileManager.compileReport(rapportStream);
+//        JasperReport subreport = JasperCompileManager.compileReport(subreportStream);
+
+        // Préparation des paramètres
+//        Map<String, Object> parameters = new HashMap<>();
+//        DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
+//        String letterDate = dateFormatter.format(new Date());
+
+        // Remplissage du rapport
+        JasperPrint print = JasperFillManager.fillReport(
+                rapportPrincipal,
+                null,
+                new JRBeanCollectionDataSource(list)
+        );
+        JasperExportManager.exportReportToPdfStream(print, response.getOutputStream());
+        return ResponseHandler.generateResponse(
+                "Tableau d'amortissement",
+                HttpStatus.OK,
+                list);
+
+
+    }
 
     //point repartition portefeuille
     public ResponseEntity<?> evolutionActifNet(ReleveTitreFCPRequest request) {
@@ -5644,30 +5684,214 @@ public class AppService {
                     e);
         }
     }
-    public ResponseEntity<Object> suiviClient(HistoriqueActionnaireRequest parameter, HttpServletResponse response) throws IOException, JRException {
+    public void suiviClient(HistoriqueActionnaireRequest request, HttpServletResponse response) throws IOException, JRException, SQLException {
 
-        List<EtatsSuiviClientProjection> list=libraryDao.etatSuiviClient(parameter.getIdActionnaire(),
-                null,parameter.getDateFin());
+        InputStream rapportStream = null;
+        rapportStream = getClass().getResourceAsStream("/EtatsSuivis4.jrxml");
+
+        JasperReport rapportPrincipal = JasperCompileManager.compileReport(rapportStream);
+//        JasperReport subreport = JasperCompileManager.compileReport(subreportStream);
+
+
+        // Préparation des paramètres
         Map<String, Object> parameters = new HashMap<>();
+//        BigDecimal soldeEspece = portefeuille.get(0).getSoldeEspece();
         DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
         String letterDate = dateFormatter.format(new Date());
-
+//        String dateFin = dateFormatter.format(date);
         parameters.put("letterDate", letterDate);
-        InputStream inputStream = getClass().getResourceAsStream("/EtatsSuivis.jrxml");
-        if (inputStream == null) {
-            throw new FileNotFoundException("Fichier JRXML introuvable dans le classpath");
+        DateFormat dateFormatter2 = new SimpleDateFormat("yyyy/MM/dd");
+        LocalDateTime dateDebut = request.getDateDebut();
+        LocalDateTime dateFin = request.getDateFin();
+
+
+        parameters.put("letterDate", new SimpleDateFormat("dd MMMM yyyy").format(new Date()));
+
+// ⚠️ ici on ajoute les apostrophes manuellement pour SQL
+        parameters.put("idActionnaireList", request.getIdActionnaire() );
+        parameters.put("dateDebutEstimation", dateDebut );
+        parameters.put("dateEstimation", dateFin);
+        parameters.put("idActionnaire", request.getIdActionnaire());
+        //parameters.put("TABLE_DATASOURCE", new JRBeanCollectionDataSource(portefeuilleActionnaireProjections));
+        Connection connection = null;
+        try {
+            connection = dataSource.getConnection(); // connexion JDBC
+            JasperPrint print = JasperFillManager.fillReport(
+                    rapportPrincipal,
+                    parameters,
+                    connection
+            );
+            JasperExportManager.exportReportToPdfStream(print, response.getOutputStream());
+        } finally {
+            if (connection != null) connection.close();
         }
 
-        JasperReport jasperReport = JasperCompileManager.compileReport(inputStream);
-        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(list);
-        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
+//        return ResponseHandler.generateResponse(
+//                "Releve actionnaire",
+//                HttpStatus.OK,
+//                null);
+    }
+    //fiche action
+    public void ficheAction(Long idTitre, HttpServletResponse response) throws IOException, JRException, SQLException {
 
-        // Export vers le flux de sortie HTTP
-        JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());
-        return ResponseHandler.generateResponse(
-                "Releve actionnaire",
-                HttpStatus.OK,
-                list);
+        InputStream rapportStream = null;
+        rapportStream = getClass().getResourceAsStream("/fiche_Action.jrxml");
+
+        JasperReport rapportPrincipal = JasperCompileManager.compileReport(rapportStream);
+//        JasperReport subreport = JasperCompileManager.compileReport(subreportStream);
+
+
+        // Préparation des paramètres
+        Map<String, Object> parameters = new HashMap<>();
+//        BigDecimal soldeEspece = portefeuille.get(0).getSoldeEspece();
+        DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
+        String letterDate = dateFormatter.format(new Date());
+//        String dateFin = dateFormatter.format(date);
+        parameters.put("idTitre", idTitre);
+        //parameters.put("TABLE_DATASOURCE", new JRBeanCollectionDataSource(portefeuilleActionnaireProjections));
+        Connection connection = null;
+        try {
+            connection = dataSource.getConnection(); // connexion JDBC
+            JasperPrint print = JasperFillManager.fillReport(
+                    rapportPrincipal,
+                    parameters,
+                    connection
+            );
+            JasperExportManager.exportReportToPdfStream(print, response.getOutputStream());
+        } finally {
+            if (connection != null) connection.close();
+        }
+
+//        return ResponseHandler.generateResponse(
+//                "Releve actionnaire",
+//                HttpStatus.OK,
+//                null);
+    }
+    //fiche droit
+    public void ficheDroit(Long idTitre, HttpServletResponse response) throws IOException, JRException, SQLException {
+
+        InputStream rapportStream = null;
+        rapportStream = getClass().getResourceAsStream("/fiche_Droit.jrxml");
+
+        JasperReport rapportPrincipal = JasperCompileManager.compileReport(rapportStream);
+//        JasperReport subreport = JasperCompileManager.compileReport(subreportStream);
+
+
+        // Préparation des paramètres
+        Map<String, Object> parameters = new HashMap<>();
+//        BigDecimal soldeEspece = portefeuille.get(0).getSoldeEspece();
+        DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
+        String letterDate = dateFormatter.format(new Date());
+//        String dateFin = dateFormatter.format(date);
+        parameters.put("idTitre", idTitre);
+        //parameters.put("TABLE_DATASOURCE", new JRBeanCollectionDataSource(portefeuilleActionnaireProjections));
+        Connection connection = null;
+        try {
+            connection = dataSource.getConnection(); // connexion JDBC
+            JasperPrint print = JasperFillManager.fillReport(
+                    rapportPrincipal,
+                    parameters,
+                    connection
+            );
+            JasperExportManager.exportReportToPdfStream(print, response.getOutputStream());
+        } finally {
+            if (connection != null) connection.close();
+        }
+
+    }
+    //fiche obligation
+    public void ficheObligation(Long idTitre, HttpServletResponse response) throws IOException, JRException, SQLException {
+
+        InputStream rapportStream = null;
+        rapportStream = getClass().getResourceAsStream("/fiche_Obligation.jrxml");
+
+        JasperReport rapportPrincipal = JasperCompileManager.compileReport(rapportStream);
+//        JasperReport subreport = JasperCompileManager.compileReport(subreportStream);
+
+
+        // Préparation des paramètres
+        Map<String, Object> parameters = new HashMap<>();
+//        BigDecimal soldeEspece = portefeuille.get(0).getSoldeEspece();
+        DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
+        String letterDate = dateFormatter.format(new Date());
+//        String dateFin = dateFormatter.format(date);
+        parameters.put("idTitre", idTitre);
+        //parameters.put("TABLE_DATASOURCE", new JRBeanCollectionDataSource(portefeuilleActionnaireProjections));
+        Connection connection = null;
+        try {
+            connection = dataSource.getConnection(); // connexion JDBC
+            JasperPrint print = JasperFillManager.fillReport(
+                    rapportPrincipal,
+                    parameters,
+                    connection
+            );
+            JasperExportManager.exportReportToPdfStream(print, response.getOutputStream());
+        } finally {
+            if (connection != null) connection.close();
+        }
+
+    } //fiche obligation
+    public void ficheOPC(Long idTitre, HttpServletResponse response) throws IOException, JRException, SQLException {
+
+        InputStream rapportStream = null;
+        rapportStream = getClass().getResourceAsStream("/fiche_OPC.jrxml");
+
+        JasperReport rapportPrincipal = JasperCompileManager.compileReport(rapportStream);
+//        JasperReport subreport = JasperCompileManager.compileReport(subreportStream);
+
+
+        // Préparation des paramètres
+        Map<String, Object> parameters = new HashMap<>();
+//        BigDecimal soldeEspece = portefeuille.get(0).getSoldeEspece();
+        DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
+        String letterDate = dateFormatter.format(new Date());
+//        String dateFin = dateFormatter.format(date);
+        parameters.put("idTitre", idTitre);
+        //parameters.put("TABLE_DATASOURCE", new JRBeanCollectionDataSource(portefeuilleActionnaireProjections));
+        Connection connection = null;
+        try {
+            connection = dataSource.getConnection(); // connexion JDBC
+            JasperPrint print = JasperFillManager.fillReport(
+                    rapportPrincipal,
+                    parameters,
+                    connection
+            );
+            JasperExportManager.exportReportToPdfStream(print, response.getOutputStream());
+        } finally {
+            if (connection != null) connection.close();
+        }
+
+    } //fiche obligation
+    public void ficheTcn(Long idTitre, HttpServletResponse response) throws IOException, JRException, SQLException {
+
+        InputStream rapportStream = null;
+        rapportStream = getClass().getResourceAsStream("/fiche_Tcn.jrxml");
+
+        JasperReport rapportPrincipal = JasperCompileManager.compileReport(rapportStream);
+//        JasperReport subreport = JasperCompileManager.compileReport(subreportStream);
+
+
+        // Préparation des paramètres
+        Map<String, Object> parameters = new HashMap<>();
+//        BigDecimal soldeEspece = portefeuille.get(0).getSoldeEspece();
+        DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
+        String letterDate = dateFormatter.format(new Date());
+//        String dateFin = dateFormatter.format(date);
+        parameters.put("idTitre", idTitre);
+        //parameters.put("TABLE_DATASOURCE", new JRBeanCollectionDataSource(portefeuilleActionnaireProjections));
+        Connection connection = null;
+        try {
+            connection = dataSource.getConnection(); // connexion JDBC
+            JasperPrint print = JasperFillManager.fillReport(
+                    rapportPrincipal,
+                    parameters,
+                    connection
+            );
+            JasperExportManager.exportReportToPdfStream(print, response.getOutputStream());
+        } finally {
+            if (connection != null) connection.close();
+        }
+
     }
     //performance portefeuille actionnaire
     public ResponseEntity<Object> perfomancePortefeuilleAcctionnaire(HistoriqueActionnaireRequest parameter, HttpServletResponse response) throws IOException, JRException {
@@ -6683,6 +6907,170 @@ public class AppService {
             JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());
 
     }
+    //definition arrondi
+    public ResponseEntity<Object> afficherDefinitionArrondi(DatatableParameters parameters) {
+        try {
+
+            Pageable pageable = PageRequest.of(
+                    parameters.getStart()/ parameters.getLength(), parameters.getLength());
+            Page<DefinitionArrondiProjection> definitionArrondiProjections;
+//            if(parameters.getSearch() != null && !StringUtils.isEmpty(parameters.getSearch().getValue()))
+//            {
+//                parametreJourFerieProjections = libraryDao.afficherJourFerie(null,parameters.getSearch().getValue(), pageable);
+//            }
+//            else {
+            definitionArrondiProjections = libraryDao.afficherDefinitionArrrondi(null, pageable);
+//            }
+            List<DefinitionArrondiProjection> content = definitionArrondiProjections
+                    .getContent().stream().collect(Collectors.toList());
+            DataTablesResponse<DefinitionArrondiProjection> dataTablesResponse = new DataTablesResponse<>();
+            dataTablesResponse.setDraw(parameters.getDraw());
+            dataTablesResponse.setRecordsFiltered((int)definitionArrondiProjections.getTotalElements());
+            dataTablesResponse.setRecordsTotal((int)definitionArrondiProjections.getTotalElements());
+            dataTablesResponse.setData(content);
+            return ResponseHandler.generateResponse(
+                    "Liste des définitions arrondis par page datatable",
+                    HttpStatus.OK,
+                    dataTablesResponse);
+        }
+        catch(Exception e)
+        {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e);
+        }
+    }
+    public ResponseEntity<Object> afficherDefinitionArrondi(Long numLigne) {
+        try {
+            DefinitionArrondiProjection definitionArrondiProjection =
+                    libraryDao.afficherDefinitionArrrondi(numLigne);
+            return ResponseHandler.generateResponse(
+                    "Liste des définitions arrondi par id",
+                    HttpStatus.OK,
+                    definitionArrondiProjection);
+        }
+        catch(Exception e)
+        {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e);
+        }
+    }
+    public ResponseEntity<Object> enregistrerDefinitionArrondi(DefinitionArrondiDto request) {
+        try {
+            String sortie="";
+            var k=em.createStoredProcedureQuery("[Parametre].[PS_DefinitionArrondi_IP]");
+            k.registerStoredProcedureParameter("codeDefinitionArrondi",String.class,ParameterMode.IN);
+            k.registerStoredProcedureParameter("typeArrondi",String.class,ParameterMode.IN);
+            k.registerStoredProcedureParameter("estParDefaut",Boolean.class,ParameterMode.IN);
+            k.registerStoredProcedureParameter("nbreDecimaux",Long.class,ParameterMode.IN);
+            k.registerStoredProcedureParameter("estParValSup",Boolean.class,ParameterMode.IN);
+            k.registerStoredProcedureParameter("obserVationModeleArrondis",String.class,ParameterMode.IN);
+            k.registerStoredProcedureParameter("libelleDefinitionArrondi",String.class,ParameterMode.IN);
+            k.registerStoredProcedureParameter("userLogin",String.class,ParameterMode.IN);
+            k.registerStoredProcedureParameter("dateDernModifClient",LocalDateTime.class,ParameterMode.IN);
+            k.registerStoredProcedureParameter("CodeLangue",String.class,ParameterMode.IN);
+            k.registerStoredProcedureParameter("Sortie",String.class,ParameterMode.OUT);
+
+            k.setParameter("codeDefinitionArrondi",request.getCodeDefinitionArrondi());
+            k.setParameter("typeArrondi",request.getTypeArrondi());
+            k.setParameter("estParDefaut",request.getEstParDefaut());
+            k.setParameter("nbreDecimaux",request.getNbreDecimaux());
+            k.setParameter("estParValSup",request.getEstParValSup());
+            k.setParameter("obserVationModeleArrondis",request.getObserVationModeleArrondis());
+            k.setParameter("libelleDefinitionArrondi",request.getLibelleDefinitionArrondi());
+            k.setParameter("userLogin",request.getUserLogin());
+            k.setParameter("dateDernModifClient",LocalDateTime.now());
+            k.setParameter("CodeLangue","fr-FR");
+            k.setParameter("Sortie",sortie);
+            k.execute();
+
+            return ResponseHandler.generateResponse(
+                    "Enregistrement jours fériés",
+                    HttpStatus.OK,
+                    "Enregistrement effectué avec succès");
+        }
+        catch(Exception e)
+        {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e);
+        }
+    }
+    public ResponseEntity<Object> modifierDefinitionArrondi(DefinitionArrondiDto request) {
+        try {
+            String sortie="";
+            var k=em.createStoredProcedureQuery("[Parametre].[PS_DefinitionArrondi_UP_New]");
+            k.registerStoredProcedureParameter("codeDefinitionArrondi",String.class,ParameterMode.IN);
+            k.registerStoredProcedureParameter("typeArrondi",String.class,ParameterMode.IN);
+            k.registerStoredProcedureParameter("estParDefaut",Boolean.class,ParameterMode.IN);
+            k.registerStoredProcedureParameter("nbreDecimaux",Long.class,ParameterMode.IN);
+            k.registerStoredProcedureParameter("estParValSup",Boolean.class,ParameterMode.IN);
+            k.registerStoredProcedureParameter("obserVationModeleArrondis",String.class,ParameterMode.IN);
+            k.registerStoredProcedureParameter("libelleDefinitionArrondi",String.class,ParameterMode.IN);
+            k.registerStoredProcedureParameter("numLigne",Long.class,ParameterMode.IN);
+            k.registerStoredProcedureParameter("userLogin",String.class,ParameterMode.IN);
+            k.registerStoredProcedureParameter("CodeLangue",String.class,ParameterMode.IN);
+            k.registerStoredProcedureParameter("Sortie",String.class,ParameterMode.OUT);
+
+            k.setParameter("codeDefinitionArrondi",request.getCodeDefinitionArrondi());
+            k.setParameter("typeArrondi",request.getTypeArrondi());
+            k.setParameter("estParDefaut",request.getEstParDefaut());
+            k.setParameter("nbreDecimaux",request.getNbreDecimaux());
+            k.setParameter("estParValSup",request.getEstParValSup());
+            k.setParameter("obserVationModeleArrondis",request.getObserVationModeleArrondis());
+            k.setParameter("libelleDefinitionArrondi",request.getLibelleDefinitionArrondi());
+            k.setParameter("numLigne",request.getNumLigne());
+            k.setParameter("userLogin",request.getUserLogin());
+            k.setParameter("CodeLangue","fr-FR");
+            k.setParameter("Sortie",sortie);
+            k.executeUpdate();
+
+            return ResponseHandler.generateResponse(
+                    "Modification jours fériés",
+                    HttpStatus.OK,
+                    "Modification effectuée avec succès");
+        }
+        catch(Exception e)
+        {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e);
+        }
+    }
+    public ResponseEntity<Object> supprimerDefinitionArrondi(String userLogin,Long numLigne) {
+        try {
+            String sortie="";
+            var k=em.createStoredProcedureQuery("[Parametre].[PS_DefinitionArrondi_DP_New]");
+            k.registerStoredProcedureParameter("userLogin",String.class,ParameterMode.IN);
+            k.registerStoredProcedureParameter("numLigne",Long.class,ParameterMode.IN);
+            k.registerStoredProcedureParameter("CodeLangue",String.class,ParameterMode.IN);
+            k.registerStoredProcedureParameter("Sortie",String.class,ParameterMode.OUT);
+
+
+            k.setParameter("userLogin",userLogin);
+            k.setParameter("numLigne",numLigne);
+            k.setParameter("CodeLangue","fr-FR");
+            k.setParameter("Sortie",sortie);
+            k.execute();
+
+            return ResponseHandler.generateResponse(
+                    "Suppression jours fériés",
+                    HttpStatus.OK,
+                    "Suppression effectuée avec succès");
+        }
+        catch(Exception e)
+        {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e);
+        }
+    }
     //jours fériés
     public ResponseEntity<Object> afficherJoursFeries(DatatableParameters parameters) {
         try {
@@ -6725,7 +7113,7 @@ public class AppService {
 
             parametreJourFerieProjections = libraryDao.afficherJourFerie(numLigne);
             return ResponseHandler.generateResponse(
-                    "Liste des jours fériés par page datatable",
+                    "Liste des jours fériés par id",
                     HttpStatus.OK,
                     parametreJourFerieProjections);
         }
@@ -6759,7 +7147,7 @@ public class AppService {
             k.execute();
 
             return ResponseHandler.generateResponse(
-                    "Enregsitrement jours fériés",
+                    "Enregistrement jours fériés",
                     HttpStatus.OK,
                     "Enregistrement effectué avec succès");
         }
@@ -6774,7 +7162,7 @@ public class AppService {
     public ResponseEntity<Object> modifierJoursFeries(ParametreJourFerieDto request) {
         try {
             String sortie="";
-            var k=em.createStoredProcedureQuery("[Parametre].[PS_ParametreJourFerie_IP]");
+            var k=em.createStoredProcedureQuery("[Parametre].[PS_ParametreJourFerie_UP_New]");
             k.registerStoredProcedureParameter("Date",LocalDateTime.class,ParameterMode.IN);
             k.registerStoredProcedureParameter("Description",String.class,ParameterMode.IN);
             k.registerStoredProcedureParameter("estAnnuel",Boolean.class,ParameterMode.IN);
@@ -6794,9 +7182,38 @@ public class AppService {
             k.executeUpdate();
 
             return ResponseHandler.generateResponse(
-                    "Enregsitrement jours fériés",
+                    "Modification jours fériés",
                     HttpStatus.OK,
-                    "Enregistrement effectué avec succès");
+                    "Modification effectuée avec succès");
+        }
+        catch(Exception e)
+        {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e);
+        }
+    }
+    public ResponseEntity<Object> supprimerJoursFeries(String userLogin,Long numLigne) {
+        try {
+            String sortie="";
+            var k=em.createStoredProcedureQuery("[Parametre].[PS_ParametreJourFerie_DP_New]");
+            k.registerStoredProcedureParameter("userLogin",String.class,ParameterMode.IN);
+            k.registerStoredProcedureParameter("numLigne",Long.class,ParameterMode.IN);
+            k.registerStoredProcedureParameter("CodeLangue",String.class,ParameterMode.IN);
+            k.registerStoredProcedureParameter("Sortie",String.class,ParameterMode.OUT);
+
+
+            k.setParameter("userLogin",userLogin);
+            k.setParameter("numLigne",numLigne);
+            k.setParameter("CodeLangue","fr-FR");
+            k.setParameter("Sortie",sortie);
+            k.execute();
+
+            return ResponseHandler.generateResponse(
+                    "Suppression jours fériés",
+                    HttpStatus.OK,
+                    "Suppression effectuée avec succès");
         }
         catch(Exception e)
         {

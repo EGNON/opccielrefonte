@@ -9,11 +9,14 @@ import com.ged.service.opcciel.OperationService;
 import com.ged.service.opcciel.PosteComptableSeanceOpcvmService;
 import jakarta.servlet.http.HttpServletResponse;
 import net.sf.jasperreports.engine.JRException;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -53,49 +56,61 @@ public class PosteComptableSeanceOpcvmController {
                                                       @PathVariable Boolean estVerifie1,
                                                       @PathVariable Boolean estVerifie2,
                                                       @PathVariable Long niveau,
-                                                      @PathVariable Long niv,
-                                                      HttpServletResponse response) throws JRException, IOException {
+                                                      @PathVariable Long niv) throws JRException, IOException {
         if(idSeance==0){
             String etapes=operationService.verifierEtape(niveau==1?6L:7L, idOpcvm);
-            if(!etapes.equals(""))
-            {
-                return ResponseHandler.generateResponse(
-                        "Ordre de bourse",
-                        HttpStatus.OK,
-                        "Les étapes suivantes n'ont pas encore été faites:" + etapes);
-            }
-            else
-            {
-                response.setContentType("application/pdf");
-                DateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy:hh:mm:ss");
-                String currentDateTime = dateFormatter.format(new Date());
 
-                String headerKey = "Content-Disposition";
-                String headerValue = "attachment; filename=verificationAmortissementCharge_Niveau" + niveau + "_" + currentDateTime + ".pdf";
-                response.setHeader(headerKey, headerValue);
+            if (!etapes.equals("")) {
 
-                return PosteComptableSeanceOpcvmService.jaspertReportCodePoste(idOpcvm, idSeance, estVerifie1, estVerifie2, niveau, response);
+                byte[] messageBytes = (
+                        "Les étapes suivantes n'ont pas encore été faites: " + etapes
+                ).getBytes(StandardCharsets.UTF_8);
+
+                return ResponseEntity.ok()
+                        .contentType(MediaType.TEXT_PLAIN)
+                        .body(messageBytes);
             }
+
+            byte[] pdfBytes =
+                    PosteComptableSeanceOpcvmService.jaspertReportCodePoste(idOpcvm, idSeance, estVerifie1, estVerifie2, niveau);
+
+            String fileName = "verificationDe_Niveau" + niv + "_" +
+                    new SimpleDateFormat("ddMMyyyy_HHmmss")
+                            .format(new Date()) + ".pdf";
+
+            return ResponseEntity.ok()
+                    .contentType(MediaType.APPLICATION_PDF)
+                    .header(HttpHeaders.CONTENT_DISPOSITION,
+                            "attachment; filename=" + fileName)
+                    .body(pdfBytes);
+//
         }
         else {
             String etapes = operationService.verifierEtape(niv, idOpcvm);
             if (!etapes.equals("")) {
-                return ResponseHandler.generateResponse(
-                        "Ordre de bourse",
-                        HttpStatus.OK,
-                        "Les étapes suivantes n'ont pas encore été faites:" + etapes);
-            }
-            else {
-                response.setContentType("application/pdf");
-                DateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy:hh:mm:ss");
-                String currentDateTime = dateFormatter.format(new Date());
 
-                String headerKey = "Content-Disposition";
-                String headerValue = "attachment; filename=verificationAmortissementCharge_Niveau" + niveau + "_" + currentDateTime + ".pdf";
-                response.setHeader(headerKey, headerValue);
+                byte[] messageBytes = (
+                        "Les étapes suivantes n'ont pas encore été faites: " + etapes
+                ).getBytes(StandardCharsets.UTF_8);
 
-                return PosteComptableSeanceOpcvmService.jaspertReportCodePoste(idOpcvm, idSeance, estVerifie1, estVerifie2, niveau, response);
+                return ResponseEntity.ok()
+                        .contentType(MediaType.TEXT_PLAIN)
+                        .body(messageBytes);
             }
+
+            byte[] pdfBytes =
+                    PosteComptableSeanceOpcvmService.jaspertReportCodePoste(idOpcvm, idSeance, estVerifie1, estVerifie2, niveau);
+
+            String fileName = "verificationDe_Niveau" + niv + "_" +
+                    new SimpleDateFormat("ddMMyyyy_HHmmss")
+                            .format(new Date()) + ".pdf";
+
+            return ResponseEntity.ok()
+                    .contentType(MediaType.APPLICATION_PDF)
+                    .header(HttpHeaders.CONTENT_DISPOSITION,
+                            "attachment; filename=" + fileName)
+                    .body(pdfBytes);
+
         }
 
     }

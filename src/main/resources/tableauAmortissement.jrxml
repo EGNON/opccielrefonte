@@ -1,0 +1,273 @@
+<!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 7.0.1-573496633c2b4074e32f433154b543003f7d2498  -->
+<jasperReport name="tableauAmortissement" language="java" columnCount="1" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a3f46a54-efce-4233-a8e2-e1f146f2ebbd">
+    <property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+    <property name="com.jaspersoft.studio.unit." value="pixel"/>
+    <property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+    <property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+    <property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+    <property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+    <property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+    <property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+    <property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+    <property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+    <field name="numEcheance" class="java.lang.Long">
+        <property name="com.jaspersoft.studio.field.name" value="numEcheance"/>
+        <property name="com.jaspersoft.studio.field.label" value="numEcheance"/>
+    </field>
+    <field name="dateEcheance" class="java.time.LocalDateTime">
+        <property name="com.jaspersoft.studio.field.name" value="dateEcheance"/>
+        <property name="com.jaspersoft.studio.field.label" value="dateEcheance"/>
+    </field>
+    <field name="nbreTitre" class="java.math.BigDecimal">
+        <property name="com.jaspersoft.studio.field.name" value="nbreTitre"/>
+        <property name="com.jaspersoft.studio.field.label" value="nbreTitre"/>
+    </field>
+    <field name="capital" class="java.math.BigDecimal">
+        <property name="com.jaspersoft.studio.field.name" value="capital"/>
+        <property name="com.jaspersoft.studio.field.label" value="capital"/>
+    </field>
+    <field name="interet" class="java.math.BigDecimal">
+        <property name="com.jaspersoft.studio.field.name" value="interet"/>
+        <property name="com.jaspersoft.studio.field.label" value="interet"/>
+    </field>
+    <field name="nbreTitreAmorti" class="java.math.BigDecimal">
+        <property name="com.jaspersoft.studio.field.name" value="nbreTitreAmorti"/>
+        <property name="com.jaspersoft.studio.field.label" value="nbreTitreAmorti"/>
+    </field>
+    <field name="montantRembourse" class="java.math.BigDecimal">
+        <property name="com.jaspersoft.studio.field.name" value="montantRembourse"/>
+        <property name="com.jaspersoft.studio.field.label" value="montantRembourse"/>
+    </field>
+    <field name="annuiteTotale" class="java.math.BigDecimal">
+        <property name="com.jaspersoft.studio.field.name" value="annuiteTotale"/>
+        <property name="com.jaspersoft.studio.field.label" value="annuiteTotale"/>
+    </field>
+    <field name="montantFin" class="java.math.BigDecimal">
+        <property name="com.jaspersoft.studio.field.name" value="montantFin"/>
+        <property name="com.jaspersoft.studio.field.label" value="montantFin"/>
+    </field>
+    <field name="symbolTitre" class="java.lang.String">
+        <property name="com.jaspersoft.studio.field.name" value="symbolTitre"/>
+        <property name="com.jaspersoft.studio.field.label" value="symbolTitre"/>
+    </field>
+    <field name="designationTitre" class="java.lang.String">
+        <property name="com.jaspersoft.studio.field.name" value="designationTitre"/>
+        <property name="com.jaspersoft.studio.field.label" value="designationTitre"/>
+    </field>
+    <field name="isin" class="java.lang.String">
+        <property name="com.jaspersoft.studio.field.name" value="isin"/>
+        <property name="com.jaspersoft.studio.field.label" value="isin"/>
+    </field>
+    <field name="nominal" class="java.math.BigDecimal">
+        <property name="com.jaspersoft.studio.field.name" value="nominal"/>
+        <property name="com.jaspersoft.studio.field.label" value="nominal"/>
+    </field>
+    <field name="idTitre" class="java.lang.Long">
+        <property name="com.jaspersoft.studio.field.name" value="idTitre"/>
+        <property name="com.jaspersoft.studio.field.label" value="idTitre"/>
+    </field>
+    <variable name="interet1" resetType="Group" calculation="Sum" resetGroup="Group1" class="java.math.BigDecimal">
+        <expression><![CDATA[$F{interet}]]></expression>
+    </variable>
+    <variable name="nbreTitreAmorti1" resetType="Group" calculation="Sum" resetGroup="Group1" class="java.math.BigDecimal">
+        <expression><![CDATA[$F{nbreTitreAmorti}]]></expression>
+    </variable>
+    <variable name="montantRembourse1" resetType="Group" calculation="Sum" resetGroup="Group1" class="java.math.BigDecimal">
+        <expression><![CDATA[$F{montantRembourse}]]></expression>
+    </variable>
+    <variable name="annuiteTotale1" resetType="Group" calculation="Sum" resetGroup="Group1" class="java.math.BigDecimal">
+        <expression><![CDATA[$F{annuiteTotale}]]></expression>
+    </variable>
+    <group name="symbolTitre">
+        <expression><![CDATA[$F{symbolTitre}]]></expression>
+    </group>
+    <group name="Group1">
+        <expression><![CDATA[$F{symbolTitre}]]></expression>
+        <groupHeader>
+            <band height="132">
+                <element kind="staticText" uuid="dd865180-2f40-422d-b35c-ca397621590c" x="28" y="8" width="32" height="22" bold="true" hTextAlign="Left" vTextAlign="Middle">
+                    <text><![CDATA[ISIN:]]></text>
+                </element>
+                <element kind="textField" uuid="1427b01c-bf4c-4456-86c8-6b3c4281a232" x="60" y="8" width="290" height="22" vTextAlign="Middle">
+                    <expression><![CDATA[$F{isin}]]></expression>
+                </element>
+                <element kind="staticText" uuid="17f35ac1-d6f1-45be-bb2e-1833bf942249" x="360" y="8" width="80" height="22" bold="true" hTextAlign="Left" vTextAlign="Middle">
+                    <text><![CDATA[DESIGNATION:]]></text>
+                </element>
+                <element kind="textField" uuid="bc12905d-acee-43df-8599-0f6f4bf62aa9" x="440" y="8" width="351" height="22" textAdjust="StretchHeight" vTextAlign="Middle">
+                    <expression><![CDATA[$F{designationTitre}]]></expression>
+                </element>
+                <element kind="staticText" uuid="b03f30be-436b-472b-9ba6-7cf1444ce0f1" x="28" y="40" width="62" height="22" bold="true" hTextAlign="Left" vTextAlign="Middle">
+                    <text><![CDATA[SYMBOLE:]]></text>
+                </element>
+                <element kind="textField" uuid="2b63c415-0679-4b63-b910-997f0ff1071b" x="90" y="40" width="260" height="22" textAdjust="StretchHeight" vTextAlign="Middle">
+                    <expression><![CDATA[$F{symbolTitre}]]></expression>
+                </element>
+                <element kind="staticText" uuid="cbc543ef-49fc-4a6a-9efa-286d6ca29c9b" x="360" y="40" width="60" height="22" bold="true" hTextAlign="Left" vTextAlign="Middle">
+                    <text><![CDATA[NOMINAL:]]></text>
+                </element>
+                <element kind="textField" uuid="78bc1e07-a8c5-4415-a14f-d168e7847f48" x="420" y="40" width="290" height="22" vTextAlign="Middle">
+                    <expression><![CDATA[$F{nominal}]]></expression>
+                </element>
+                <element kind="staticText" uuid="d0ab99cd-08a5-43d8-bdf6-1b7773755fa7" x="6" y="74" width="788" height="22" underline="true" bold="true" hTextAlign="Center" vTextAlign="Middle">
+                    <text><![CDATA[TABLEAU]]></text>
+                </element>
+                <element kind="rectangle" uuid="a24c9a58-95c7-4ada-92e3-c0688fa554df" stretchType="ContainerHeight" mode="Opaque" x="8" y="103" width="786" height="29" backcolor="#B9D7EE">
+                    <pen lineColor="#3970E6"/>
+                </element>
+                <element kind="staticText" uuid="947e5652-a56e-4dd2-90d1-d318e5cdd932" x="12" y="110" width="76" height="15" bold="true" hTextAlign="Center">
+                    <text><![CDATA[Echeance]]></text>
+                </element>
+                <element kind="line" uuid="9644d705-5d95-44d0-8a17-78d075fa61b5" stretchType="ContainerHeight" x="92" y="103" width="1" height="29">
+                    <pen lineColor="#3970E6"/>
+                </element>
+                <element kind="textField" uuid="9a4ec4ca-fb0d-4c5d-9653-3397a479041e" x="98" y="110" width="82" height="15" textAdjust="StretchHeight" bold="true" hTextAlign="Center">
+                    <expression><![CDATA["Nbre de titres"]]></expression>
+                </element>
+                <element kind="line" uuid="b1e1b5f2-959d-429b-b5d5-7e4bc62064f5" stretchType="ContainerHeight" x="181" y="103" width="1" height="29">
+                    <pen lineColor="#3970E6"/>
+                </element>
+                <element kind="textField" uuid="d9a9c7fb-6a3a-4800-a202-9bf1f7e12f35" x="187" y="110" width="103" height="15" textAdjust="StretchHeight" bold="true" hTextAlign="Center">
+                    <expression><![CDATA["Capital"]]></expression>
+                </element>
+                <element kind="line" uuid="d2fdd633-0f2d-4e0a-a9e4-894108f99357" stretchType="ContainerHeight" x="291" y="103" width="1" height="29">
+                    <pen lineColor="#3970E6"/>
+                </element>
+                <element kind="textField" uuid="38fa396f-0b87-4774-b59b-264a6fc165e9" x="295" y="110" width="96" height="15" textAdjust="StretchHeight" bold="true" hTextAlign="Center">
+                    <expression><![CDATA["Intérêts"]]></expression>
+                </element>
+                <element kind="line" uuid="6c5330a5-7f8e-4362-b30c-6c47773b994a" stretchType="ContainerHeight" x="394" y="103" width="1" height="29">
+                    <pen lineColor="#3970E6"/>
+                </element>
+                <element kind="textField" uuid="4cdf2bd8-bb0f-491a-8cd1-b1c11dc96c60" x="400" y="110" width="80" height="15" textAdjust="StretchHeight" bold="true" hTextAlign="Center">
+                    <expression><![CDATA["Titre amort."]]></expression>
+                </element>
+                <element kind="line" uuid="5be165e9-a4f2-4b2f-bdad-464bac73201a" stretchType="ContainerHeight" x="481" y="103" width="1" height="29">
+                    <pen lineColor="#3970E6"/>
+                </element>
+                <element kind="staticText" uuid="6b18ef2f-141b-41cb-8246-8df3df4c46b2" x="482" y="110" width="98" height="15" bold="true" hTextAlign="Center">
+                    <text><![CDATA[Remb.]]></text>
+                </element>
+                <element kind="staticText" uuid="503228c0-da76-4550-accc-8f61f721f829" x="587" y="110" width="95" height="15" bold="true" hTextAlign="Center">
+                    <text><![CDATA[Annu. totales]]></text>
+                </element>
+                <element kind="line" uuid="a9b12274-23b7-4d04-9af3-557de4a554d5" stretchType="ContainerHeight" x="582" y="103" width="1" height="29">
+                    <pen lineColor="#3970E6"/>
+                </element>
+                <element kind="line" uuid="0b1b999c-81c1-468f-b161-e3c3fa0af5b6" stretchType="ContainerHeight" x="688" y="103" width="1" height="29">
+                    <pen lineColor="#3970E6"/>
+                </element>
+                <element kind="staticText" uuid="0c307570-7a9a-43b0-a41a-4146dfe7ec9e" x="691" y="110" width="99" height="15" bold="true" hTextAlign="Center">
+                    <text><![CDATA[Fin période]]></text>
+                </element>
+            </band>
+        </groupHeader>
+        <groupFooter>
+            <band height="29">
+                <element kind="rectangle" uuid="1300f437-c738-494b-8ec9-25520c309580" stretchType="ContainerHeight" mode="Opaque" x="8" y="0" width="786" height="29" backcolor="#B9D7EE">
+                    <pen lineColor="#3970E6"/>
+                </element>
+                <element kind="staticText" uuid="c76f5ae7-6b05-4386-b2e2-9fa19c42edc5" x="12" y="7" width="275" height="15" bold="true" hTextAlign="Right">
+                    <text><![CDATA[TOTAL]]></text>
+                </element>
+                <element kind="line" uuid="47e13b10-c61d-4e69-b143-5bf18480ec47" stretchType="ContainerHeight" x="291" y="0" width="1" height="29">
+                    <pen lineColor="#3970E6"/>
+                </element>
+                <element kind="line" uuid="6bea56bc-b2e8-43aa-a0d9-f255763cf533" stretchType="ContainerHeight" x="394" y="0" width="1" height="29">
+                    <pen lineColor="#3970E6"/>
+                </element>
+                <element kind="line" uuid="64733d90-d16f-48f8-8eb2-ada4df5a9ddb" stretchType="ContainerHeight" x="481" y="0" width="1" height="29">
+                    <pen lineColor="#3970E6"/>
+                </element>
+                <element kind="line" uuid="32e115aa-eaa3-44ea-afe4-3a7560b0e3b3" stretchType="ContainerHeight" x="582" y="0" width="1" height="29">
+                    <pen lineColor="#3970E6"/>
+                </element>
+                <element kind="line" uuid="a4bd0535-1a81-41fa-941e-0960795a69c6" stretchType="ContainerHeight" x="688" y="0" width="1" height="29">
+                    <pen lineColor="#3970E6"/>
+                </element>
+                <element kind="textField" uuid="89ae2889-b90d-4573-9fec-5c189c4bbd49" x="295" y="7" width="96" height="15" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###">
+                    <expression><![CDATA[$V{interet1}]]></expression>
+                </element>
+                <element kind="textField" uuid="02e68756-7b83-4049-8147-1101a12c4247" x="400" y="7" width="82" height="15" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###">
+                    <expression><![CDATA[$V{nbreTitreAmorti1}]]></expression>
+                </element>
+                <element kind="textField" uuid="b4db0c50-85c7-4484-99f4-5a1e03511263" x="486" y="7" width="94" height="15" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###">
+                    <expression><![CDATA[$V{montantRembourse1}]]></expression>
+                </element>
+                <element kind="textField" uuid="172bd577-2989-486d-ad1a-5f104824fb3c" x="587" y="7" width="97" height="15" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###">
+                    <expression><![CDATA[$V{annuiteTotale1}]]></expression>
+                </element>
+            </band>
+        </groupFooter>
+    </group>
+    <background splitType="Stretch"/>
+    <title height="41" splitType="Stretch">
+        <element kind="textField" uuid="c16db496-73e5-47af-88ee-7982c8feaaa9" mode="Opaque" x="6" y="10" width="788" height="24" forecolor="#000000" backcolor="#BDD7EE" fontName="Segoe UI" fontSize="14.0" bold="true" hTextAlign="Center">
+            <expression><![CDATA["TABLEAU D'AMORTISSEMENT "]]></expression>
+        </element>
+    </title>
+    <pageHeader splitType="Stretch"/>
+    <columnHeader splitType="Stretch"/>
+    <detail>
+        <band height="30" splitType="Stretch">
+            <element kind="rectangle" uuid="f7726d04-e209-4a7f-82e3-d1c98ce85c12" stretchType="ContainerHeight" mode="Opaque" x="8" y="1" width="786" height="29" backcolor="#FFFFFF">
+                <pen lineColor="#3970E6"/>
+            </element>
+            <element kind="line" uuid="f243a2c7-fa15-4305-96e9-b812ff4757d1" stretchType="ContainerHeight" x="92" y="1" width="1" height="29">
+                <pen lineColor="#3970E6"/>
+            </element>
+            <element kind="line" uuid="7058e8c6-01cf-4171-b007-baa4b0a81061" stretchType="ContainerHeight" x="181" y="1" width="1" height="29">
+                <pen lineColor="#3970E6"/>
+            </element>
+            <element kind="line" uuid="9aba8f78-2fe7-460c-b478-0d8d20a8a887" stretchType="ContainerHeight" x="291" y="1" width="1" height="29">
+                <pen lineColor="#3970E6"/>
+            </element>
+            <element kind="line" uuid="b17263ec-fb7a-4833-a121-364d2faf3844" stretchType="ContainerHeight" x="394" y="1" width="1" height="29">
+                <pen lineColor="#3970E6"/>
+            </element>
+            <element kind="line" uuid="9b6012e5-395d-455d-a203-24fb29b397f9" stretchType="ContainerHeight" x="481" y="1" width="1" height="29">
+                <pen lineColor="#3970E6"/>
+            </element>
+            <element kind="line" uuid="a4c6774e-d55a-4988-8939-cd2efe1d516f" stretchType="ContainerHeight" x="582" y="1" width="1" height="29">
+                <pen lineColor="#3970E6"/>
+            </element>
+            <element kind="line" uuid="c2eac084-4128-4a07-9dc8-7347d2df92c5" stretchType="ContainerHeight" x="688" y="1" width="1" height="29">
+                <pen lineColor="#3970E6"/>
+            </element>
+            <element kind="textField" uuid="c2a0ddb8-33d7-4567-be34-ac2930b58368" x="12" y="5" width="76" height="20" textAdjust="StretchHeight">
+                <expression><![CDATA[$F{dateEcheance}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"))]]></expression>
+            </element>
+            <element kind="textField" uuid="8257f954-222b-4618-a07c-e33c511cf656" x="96" y="5" width="82" height="20" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###">
+                <expression><![CDATA[$F{nbreTitre}]]></expression>
+            </element>
+            <element kind="textField" uuid="28ca4c0e-7233-4809-9fbd-ee65415e57b9" x="187" y="5" width="100" height="20" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###">
+                <expression><![CDATA[$F{capital}]]></expression>
+            </element>
+            <element kind="textField" uuid="61ae28af-bc8c-4335-8718-10de26274df9" x="293" y="5" width="100" height="20" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###">
+                <expression><![CDATA[$F{interet}]]></expression>
+            </element>
+            <element kind="textField" uuid="3143b645-5e38-4ff3-8e81-ea7c142d289a" x="399" y="5" width="81" height="20" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###">
+                <expression><![CDATA[$F{nbreTitreAmorti}]]></expression>
+            </element>
+            <element kind="textField" uuid="17e81589-cab1-4421-a084-cdf5a170b069" x="482" y="5" width="98" height="20" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###">
+                <expression><![CDATA[$F{montantRembourse}]]></expression>
+            </element>
+            <element kind="textField" uuid="c35f9e0d-0106-4602-a1e6-601513ae9e93" x="586" y="5" width="96" height="20" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###">
+                <expression><![CDATA[$F{annuiteTotale}]]></expression>
+            </element>
+            <element kind="textField" uuid="08397296-fba6-42ce-8240-8823bb581870" x="690" y="5" width="100" height="20" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###">
+                <expression><![CDATA[$F{montantFin}]]></expression>
+            </element>
+        </band>
+    </detail>
+    <columnFooter splitType="Stretch"/>
+    <pageFooter height="43" splitType="Stretch">
+        <element kind="textField" uuid="96b6ea4e-ad36-4a26-bf1d-0e667bae284d" x="694" y="6" width="100" height="25" hTextAlign="Right">
+            <expression><![CDATA[$V{PAGE_NUMBER}]]></expression>
+        </element>
+        <element kind="staticText" uuid="69ca42eb-7f81-4d0e-b173-d7de39d02ecd" x="8" y="5" width="120" height="26" fontName="Segoe UI">
+            <text><![CDATA[Edité avec OPCCIEL 2.0]]></text>
+        </element>
+    </pageFooter>
+    <summary height="42" splitType="Stretch"/>
+</jasperReport>

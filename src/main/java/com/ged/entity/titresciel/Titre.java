@@ -27,16 +27,16 @@ public class Titre extends Base {
     private String symbolTitre;
     @Column(name = "designationTitre")
     private String designationTitre;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "codePlace")
     private Place place;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "idDepositaireNew", referencedColumnName = "idPersonne")
     private PersonneMorale depositaire;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "idTypeEmission")
     private TypeEmission typeEmission;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "codeTypeTitre")
     private TypeTitre typeTitre;
     //
@@ -47,22 +47,22 @@ public class Titre extends Base {
     private Long idEmetteur;
     private Long idRegistraire;
     //
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "idSecteur")
     private Secteur secteur;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "idCompartiment")
     private Compartiment compartiment;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "codeNormalAssimile")
     private NormalAssimile normalAssimile;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "idPaysNew")
     private Pays pays;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "idRegistraireNew",referencedColumnName = "idPersonne")
     private PersonneMorale registraire;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "idEmetteurNew",referencedColumnName = "idPersonne")
     private PersonneMorale emetteur;
     @Column(name = "lotMinimum")

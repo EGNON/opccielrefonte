@@ -1,0 +1,538 @@
+<!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 7.0.1-573496633c2b4074e32f433154b543003f7d2498  -->
+<jasperReport name="EtatsSuivis" language="java" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="56db8ee7-9c4f-4ecb-886c-f8b8283daf5f">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="db_opcciel_data_adapter"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<style name="Table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<dataset name="Dataset1" uuid="949d80bf-1cc4-49b3-a36d-e645d1665b5a">
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="db_opcciel_data_adapter"/>
+		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+		<parameter name="idActionnaireList" class="java.lang.String"/>
+		<parameter name="dateDebutEstimation" class="java.time.LocalDateTime"/>
+		<parameter name="dateEstimation" class="java.time.LocalDateTime"/>
+		<parameter name="idActionnaire" class="java.lang.String"/>
+		<query language="sql"><![CDATA[SELECT *
+        FROM [Impressions].[FT_PortefeuilleActionnaire_New_JAVA](null, $P{idActionnaireList}, $P{dateDebutEstimation}, $P{dateEstimation}) AS f
+        WHERE f.idActionnaire = $P{idActionnaire}]]></query>
+		<field name="idOpcvm" class="java.lang.Long">
+			<property name="com.jaspersoft.studio.field.name" value="idOpcvm"/>
+			<property name="com.jaspersoft.studio.field.label" value="idOpcvm"/>
+		</field>
+		<field name="sigleOpcvm" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.name" value="sigleOpcvm"/>
+			<property name="com.jaspersoft.studio.field.label" value="sigleOpcvm"/>
+		</field>
+		<field name="denominationOpcvm" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.name" value="denominationOpcvm"/>
+			<property name="com.jaspersoft.studio.field.label" value="denominationOpcvm"/>
+		</field>
+		<field name="idActionnaire" class="java.lang.Long">
+			<property name="com.jaspersoft.studio.field.name" value="idActionnaire"/>
+			<property name="com.jaspersoft.studio.field.label" value="idActionnaire"/>
+		</field>
+		<field name="nomSigle" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.name" value="nomSigle"/>
+			<property name="com.jaspersoft.studio.field.label" value="nomSigle"/>
+		</field>
+		<field name="prenomRaison" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.name" value="prenomRaison"/>
+			<property name="com.jaspersoft.studio.field.label" value="prenomRaison"/>
+		</field>
+		<field name="inttule" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.name" value="inttule"/>
+			<property name="com.jaspersoft.studio.field.label" value="inttule"/>
+		</field>
+		<field name="numCompteSgi" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.name" value="numCompteSgi"/>
+			<property name="com.jaspersoft.studio.field.label" value="numCompteSgi"/>
+		</field>
+		<field name="telephoneFixe" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.name" value="telephoneFixe"/>
+			<property name="com.jaspersoft.studio.field.label" value="telephoneFixe"/>
+		</field>
+		<field name="telephoneMobile1" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.name" value="telephoneMobile1"/>
+			<property name="com.jaspersoft.studio.field.label" value="telephoneMobile1"/>
+		</field>
+		<field name="telephoneMobile2" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.name" value="telephoneMobile2"/>
+			<property name="com.jaspersoft.studio.field.label" value="telephoneMobile2"/>
+		</field>
+		<field name="email" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.name" value="email"/>
+			<property name="com.jaspersoft.studio.field.label" value="email"/>
+		</field>
+		<field name="boitePostale" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.name" value="boitePostale"/>
+			<property name="com.jaspersoft.studio.field.label" value="boitePostale"/>
+		</field>
+		<field name="adresseComplete" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.name" value="adresseComplete"/>
+			<property name="com.jaspersoft.studio.field.label" value="adresseComplete"/>
+		</field>
+		<field name="dateDebutEstimation" class="java.time.LocalDateTime">
+			<property name="com.jaspersoft.studio.field.name" value="dateDebutEstimation"/>
+			<property name="com.jaspersoft.studio.field.label" value="dateDebutEstimation"/>
+		</field>
+		<field name="dateEstimation" class="java.time.LocalDateTime">
+			<property name="com.jaspersoft.studio.field.name" value="dateEstimation"/>
+			<property name="com.jaspersoft.studio.field.label" value="dateEstimation"/>
+		</field>
+		<field name="nombrePartDebut" class="java.math.BigDecimal">
+			<property name="com.jaspersoft.studio.field.name" value="nombrePartDebut"/>
+			<property name="com.jaspersoft.studio.field.label" value="nombrePartDebut"/>
+		</field>
+		<field name="nombrePartActuel" class="java.math.BigDecimal">
+			<property name="com.jaspersoft.studio.field.name" value="nombrePartActuel"/>
+			<property name="com.jaspersoft.studio.field.label" value="nombrePartActuel"/>
+		</field>
+		<field name="nombrePartNanti" class="java.math.BigDecimal">
+			<property name="com.jaspersoft.studio.field.name" value="nombrePartNanti"/>
+			<property name="com.jaspersoft.studio.field.label" value="nombrePartNanti"/>
+		</field>
+		<field name="valeurLiquidativeActuelle" class="java.math.BigDecimal">
+			<property name="com.jaspersoft.studio.field.name" value="valeurLiquidativeActuelle"/>
+			<property name="com.jaspersoft.studio.field.label" value="valeurLiquidativeActuelle"/>
+		</field>
+		<field name="valorisation" class="java.math.BigDecimal">
+			<property name="com.jaspersoft.studio.field.name" value="valorisation"/>
+			<property name="com.jaspersoft.studio.field.label" value="valorisation"/>
+		</field>
+		<field name="dividendeReçu" class="java.math.BigDecimal">
+			<property name="com.jaspersoft.studio.field.name" value="dividendeReçu"/>
+			<property name="com.jaspersoft.studio.field.label" value="dividendeReçu"/>
+		</field>
+		<field name="soldeEspece" class="java.math.BigDecimal">
+			<property name="com.jaspersoft.studio.field.name" value="soldeEspece"/>
+			<property name="com.jaspersoft.studio.field.label" value="soldeEspece"/>
+		</field>
+		<field name="cump" class="java.math.BigDecimal">
+			<property name="com.jaspersoft.studio.field.name" value="cump"/>
+			<property name="com.jaspersoft.studio.field.label" value="cump"/>
+		</field>
+		<field name="valoInitial" class="java.math.BigDecimal">
+			<property name="com.jaspersoft.studio.field.name" value="valoInitial"/>
+			<property name="com.jaspersoft.studio.field.label" value="valoInitial"/>
+		</field>
+		<field name="totalSouscription" class="java.math.BigDecimal">
+			<property name="com.jaspersoft.studio.field.name" value="totalSouscription"/>
+			<property name="com.jaspersoft.studio.field.label" value="totalSouscription"/>
+		</field>
+		<field name="totalRachat" class="java.math.BigDecimal">
+			<property name="com.jaspersoft.studio.field.name" value="totalRachat"/>
+			<property name="com.jaspersoft.studio.field.label" value="totalRachat"/>
+		</field>
+		<field name="couponPaye" class="java.math.BigDecimal">
+			<property name="com.jaspersoft.studio.field.name" value="couponPaye"/>
+			<property name="com.jaspersoft.studio.field.label" value="couponPaye"/>
+		</field>
+		<field name="plusValue" class="java.math.BigDecimal">
+			<property name="com.jaspersoft.studio.field.name" value="plusValue"/>
+			<property name="com.jaspersoft.studio.field.label" value="plusValue"/>
+		</field>
+	</dataset>
+	<parameter name="letterDate" class="java.lang.String"/>
+	<parameter name="ALL_LIGNES" class="net.sf.jasperreports.engine.JRDataSource"/>
+	<parameter name="SUBREPORT_REF" class="net.sf.jasperreports.engine.JasperReport"/>
+	<parameter name="idActionnaireList" class="java.lang.String"/>
+	<parameter name="dateEstimation" class="java.time.LocalDateTime"/>
+	<parameter name="TABLE_DATASOURCE" class="net.sf.jasperreports.engine.JRDataSource"/>
+	<parameter name="dateDebutEstimation" class="java.time.LocalDateTime"/>
+	<parameter name="idActionnaire" class="java.lang.String"/>
+	<query language="SQL"><![CDATA[select * from Impressions.FT_EtatSuiviClients($P{idActionnaireList},null,$P{dateEstimation}) AS f
+        order by f.idActionnaire asc]]></query>
+	<field name="dateEddition" class="java.time.LocalDateTime">
+		<property name="com.jaspersoft.studio.field.name" value="dateEddition"/>
+		<property name="com.jaspersoft.studio.field.label" value="dateEddition"/>
+	</field>
+	<field name="idOpcvm" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="idOpcvm"/>
+		<property name="com.jaspersoft.studio.field.label" value="idOpcvm"/>
+	</field>
+	<field name="denominationOpcvm" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="denominationOpcvm"/>
+		<property name="com.jaspersoft.studio.field.label" value="denominationOpcvm"/>
+	</field>
+	<field name="idActionnaire" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="idActionnaire"/>
+		<property name="com.jaspersoft.studio.field.label" value="idActionnaire"/>
+	</field>
+	<field name="personne" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="personne"/>
+		<property name="com.jaspersoft.studio.field.label" value="personne"/>
+	</field>
+	<field name="dateOperation" class="java.time.LocalDateTime">
+		<property name="com.jaspersoft.studio.field.name" value="dateOperation"/>
+		<property name="com.jaspersoft.studio.field.label" value="dateOperation"/>
+	</field>
+	<field name="montant" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="montant"/>
+		<property name="com.jaspersoft.studio.field.label" value="montant"/>
+	</field>
+	<field name="part" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="part"/>
+		<property name="com.jaspersoft.studio.field.label" value="part"/>
+	</field>
+	<field name="valeurLiquidative" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="valeurLiquidative"/>
+		<property name="com.jaspersoft.studio.field.label" value="valeurLiquidative"/>
+	</field>
+	<field name="partACtuel" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="partACtuel"/>
+		<property name="com.jaspersoft.studio.field.label" value="partACtuel"/>
+	</field>
+	<field name="cump" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="cump"/>
+		<property name="com.jaspersoft.studio.field.label" value="cump"/>
+	</field>
+	<field name="coursVL" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="coursVL"/>
+		<property name="com.jaspersoft.studio.field.label" value="coursVL"/>
+	</field>
+	<field name="prixSouscription" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="prixSouscription"/>
+		<property name="com.jaspersoft.studio.field.label" value="prixSouscription"/>
+	</field>
+	<field name="titre" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="titre"/>
+		<property name="com.jaspersoft.studio.field.label" value="titre"/>
+	</field>
+	<field name="valorisation" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="valorisation"/>
+		<property name="com.jaspersoft.studio.field.label" value="valorisation"/>
+	</field>
+	<field name="plusOuMoinsValue" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="plusOuMoinsValue"/>
+		<property name="com.jaspersoft.studio.field.label" value="plusOuMoinsValue"/>
+	</field>
+	<field name="beneficiaireDonateur" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="beneficiaireDonateur"/>
+		<property name="com.jaspersoft.studio.field.label" value="beneficiaireDonateur"/>
+	</field>
+	<variable name="montant1" resetType="Group" calculation="Sum" resetGroup="Group3" class="java.math.BigDecimal">
+		<expression><![CDATA[$F{montant}]]></expression>
+	</variable>
+	<variable name="part1" resetType="Group" calculation="Sum" resetGroup="Group3" class="java.math.BigDecimal">
+		<expression><![CDATA[$F{part}]]></expression>
+	</variable>
+	<group name="Group1" startNewPage="true">
+		<expression><![CDATA[$F{idActionnaire}]]></expression>
+		<groupHeader>
+			<band height="88">
+				<element kind="textField" uuid="e5054658-1f6d-47c5-8371-2b21c6572378" mode="Opaque" x="2" y="32" width="550" height="24" forecolor="#000000" backcolor="#BDD7EE" fontName="Segoe UI" fontSize="14.0" bold="true" hTextAlign="Center">
+					<expression><![CDATA["ETAT DE SUIVI DU CLIENT "+$F{personne}]]></expression>
+				</element>
+				<element kind="staticText" uuid="bf8e9d44-0f27-42d5-b042-03bbbc8de7e7" x="80" y="62" width="80" height="20" bold="true" underline="true">
+					<text><![CDATA[DATE EDITION:]]></text>
+				</element>
+				<element kind="textField" uuid="03a0ab7e-7b23-4829-be61-9580e63f1ce9" x="160" y="62" width="180" height="20" textAdjust="StretchHeight" pattern="EE dd/MM/yyyy" blankWhenNull="true">
+					<expression><![CDATA[$F{dateEddition}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"))]]></expression>
+					<patternExpression><![CDATA["EE dd/MM/yyyy"]]></patternExpression>
+				</element>
+				<element kind="textField" uuid="48140988-acaa-4d4b-ab4b-bcadb9ae1ed5" x="0" y="4" width="230" height="20" fontName="Segoe UI">
+					<expression><![CDATA["Cotonou le, " + $P{letterDate}]]></expression>
+				</element>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="159">
+				<element kind="component" uuid="ca88cdca-eb95-4609-a2ff-2f9ae5802d12" x="10" y="33" width="528" height="66">
+					<component kind="table">
+						<datasetRun uuid="dfc7e093-c7b8-46bd-8d46-d8092f1b6ce9" subDataset="Dataset1">
+							<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+						</datasetRun>
+						<column kind="single" uuid="20199c74-2f9e-4716-ba11-31e658052ffa" width="130">
+							<tableHeader height="2" rowSpan="1" style="Table_TH"/>
+							<tableFooter height="2" rowSpan="1" style="Table_TH"/>
+							<columnHeader height="30" rowSpan="1" style="Table_CH">
+								<element kind="staticText" uuid="566da187-1085-4e29-894e-3c59cdc217d6" x="0" y="0" width="130" height="30" bold="true" hTextAlign="Center">
+									<text><![CDATA[Désignation]]></text>
+								</element>
+							</columnHeader>
+							<columnFooter height="2" rowSpan="1" style="Table_CH"/>
+							<detailCell height="30" style="Table_TD">
+								<element kind="textField" uuid="63505217-fadd-4222-b68b-bf0397e2aa4b" x="0" y="0" width="130" height="30" textAdjust="StretchHeight">
+									<expression><![CDATA[$F{denominationOpcvm}]]></expression>
+								</element>
+							</detailCell>
+							<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column1"/>
+						</column>
+						<column kind="single" uuid="f10222ae-0c54-48fc-90b1-a007488b7ec6" width="60">
+							<tableHeader height="2" rowSpan="1" style="Table_TH"/>
+							<tableFooter height="2" rowSpan="1" style="Table_TH"/>
+							<columnHeader height="30" rowSpan="1" style="Table_CH">
+								<element kind="staticText" uuid="bd43ee12-d1a5-489c-8167-862ee01903fe" x="0" y="0" width="60" height="30" bold="true" hTextAlign="Center">
+									<text><![CDATA[Quantité]]></text>
+								</element>
+							</columnHeader>
+							<columnFooter height="2" rowSpan="1" style="Table_CH"/>
+							<detailCell height="30" style="Table_TD">
+								<element kind="textField" uuid="6c790d6a-f864-47df-82e6-380802035733" x="0" y="0" width="60" height="30" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###">
+									<expression><![CDATA[$F{nombrePartActuel}]]></expression>
+								</element>
+							</detailCell>
+							<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column2"/>
+						</column>
+						<column kind="single" uuid="1a2f2c94-4def-4e1f-8e51-07976efe4304" width="60">
+							<tableHeader height="2" rowSpan="1" style="Table_TH"/>
+							<tableFooter height="2" rowSpan="1" style="Table_TH"/>
+							<columnHeader height="30" rowSpan="1" style="Table_CH">
+								<element kind="staticText" uuid="4333fe25-28a8-4e5c-bddd-94f42191ca12" x="0" y="0" width="60" height="30" bold="true" hTextAlign="Center">
+									<text><![CDATA[Cump]]></text>
+								</element>
+							</columnHeader>
+							<columnFooter height="2" rowSpan="1" style="Table_CH"/>
+							<detailCell height="30" style="Table_TD">
+								<element kind="textField" uuid="d3440235-e1ab-4063-beb0-a0ead36267fd" x="0" y="0" width="60" height="30" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###">
+									<expression><![CDATA[$F{cump}]]></expression>
+								</element>
+							</detailCell>
+							<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column3"/>
+						</column>
+						<column kind="single" uuid="a98f4b17-ba2b-4bdd-a3bc-1dda3de76f75" width="60">
+							<tableHeader height="2" rowSpan="1" style="Table_TH"/>
+							<tableFooter height="2" rowSpan="1" style="Table_TH"/>
+							<columnHeader height="30" rowSpan="1" style="Table_CH">
+								<element kind="staticText" uuid="1d231569-0d22-4a65-9279-95d3b3afead5" x="0" y="0" width="60" height="30" bold="true" hTextAlign="Center">
+									<text><![CDATA[Cours VL]]></text>
+								</element>
+							</columnHeader>
+							<columnFooter height="2" rowSpan="1" style="Table_CH"/>
+							<detailCell height="30" style="Table_TD">
+								<element kind="textField" uuid="315d1928-19f7-4897-b3f9-0b41161579e9" x="0" y="0" width="60" height="30" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###">
+									<expression><![CDATA[$F{valeurLiquidativeActuelle}]]></expression>
+								</element>
+							</detailCell>
+							<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column4"/>
+						</column>
+						<column kind="single" uuid="fe29bf27-e03f-4337-8dbb-a7f39f74b607" width="70">
+							<tableHeader height="2" rowSpan="1" style="Table_TH"/>
+							<tableFooter height="2" rowSpan="1" style="Table_TH"/>
+							<columnHeader height="30" rowSpan="1" style="Table_CH">
+								<element kind="staticText" uuid="9bfde97b-fa73-4749-8c6e-66b6f92136e9" x="0" y="0" width="70" height="30" bold="true" hTextAlign="Center">
+									<text><![CDATA[Prix de revient]]></text>
+								</element>
+							</columnHeader>
+							<columnFooter height="2" rowSpan="1" style="Table_CH"/>
+							<detailCell height="30" style="Table_TD">
+								<element kind="textField" uuid="502526c8-031b-4029-8fe5-7a82e47a9105" x="0" y="0" width="70" height="30" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###">
+									<expression><![CDATA[PRODUCT( $F{nombrePartActuel},$F{cump})]]></expression>
+								</element>
+							</detailCell>
+							<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column5"/>
+						</column>
+						<column kind="single" uuid="46cf7bcf-29ba-41d3-a9c8-ac8999408e27" width="70">
+							<tableHeader height="2" rowSpan="1" style="Table_TH"/>
+							<tableFooter height="2" rowSpan="1" style="Table_TH"/>
+							<columnHeader height="30" rowSpan="1" style="Table_CH">
+								<element kind="staticText" uuid="1b53d64f-7a05-4dfe-b7e3-58b9dbd058cf" x="0" y="0" width="70" height="30" bold="true">
+									<text><![CDATA[valorisation]]></text>
+								</element>
+							</columnHeader>
+							<columnFooter height="2" rowSpan="1" style="Table_CH"/>
+							<detailCell height="30" style="Table_TD">
+								<element kind="textField" uuid="16015db1-23da-4620-94ed-8a00e6af0e75" x="0" y="0" width="70" height="30" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###">
+									<expression><![CDATA[$F{valorisation}]]></expression>
+								</element>
+							</detailCell>
+							<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column6"/>
+						</column>
+						<column kind="single" uuid="785e54ac-1960-48ed-b49c-91765a41d580" width="70">
+							<tableHeader height="2" rowSpan="1" style="Table_TH"/>
+							<tableFooter height="2" rowSpan="1" style="Table_TH"/>
+							<columnHeader height="30" rowSpan="1" style="Table_CH">
+								<element kind="staticText" uuid="c2c4cb7e-4684-4352-bb70-5d27cdaebc9f" x="0" y="0" width="70" height="30" bold="true">
+									<text><![CDATA[plusValue]]></text>
+								</element>
+							</columnHeader>
+							<columnFooter height="2" rowSpan="1" style="Table_CH"/>
+							<detailCell height="30" style="Table_TD">
+								<element kind="textField" uuid="4b8d748c-8adc-4f8c-b9a1-0d51f3b123b1" x="0" y="0" width="70" height="30">
+									<expression><![CDATA[$F{plusValue}]]></expression>
+								</element>
+							</detailCell>
+							<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column7"/>
+						</column>
+					</component>
+					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
+					<property name="com.jaspersoft.studio.table.style.table_header" value="Table_TH"/>
+					<property name="com.jaspersoft.studio.table.style.column_header" value="Table_CH"/>
+					<property name="com.jaspersoft.studio.table.style.detail" value="Table_TD"/>
+				</element>
+				<element kind="rectangle" uuid="453633b9-0f99-4f17-9240-e9e5df3bfd6f" x="10" y="6" width="520" height="25">
+					<pen lineColor="#3970E6"/>
+				</element>
+				<element kind="staticText" uuid="247ccc7f-fa03-4782-8bae-90bfaa65fd22" x="13" y="11" width="510" height="17" hTextAlign="Center">
+					<text><![CDATA[RESUME DE LA SITUATION DU CLIENT]]></text>
+				</element>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="Group2">
+		<expression><![CDATA[$F{idOpcvm}]]></expression>
+		<groupHeader>
+			<band height="40">
+				<element kind="rectangle" uuid="f954bca6-4c96-4fbc-ad6e-46c0f739bbf7" x="0" y="5" width="220" height="35">
+					<pen lineColor="#3970E6"/>
+				</element>
+				<element kind="textField" uuid="25c952d6-82e4-4c27-955b-743e4ece76d9" x="4" y="10" width="210" height="23" textAdjust="StretchHeight">
+					<expression><![CDATA[$F{denominationOpcvm}]]></expression>
+				</element>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="10">
+				<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="Group3">
+		<expression><![CDATA[$F{titre}]]></expression>
+		<groupHeader>
+			<band height="60">
+				<element kind="rectangle" uuid="a835a09c-9a54-47e6-85b4-285c7ca0c4d8" x="0" y="1" width="552" height="29">
+					<pen lineColor="#3970E6"/>
+				</element>
+				<element kind="textField" uuid="8cc8b7d4-dcb0-48e9-9428-dfd052791827" x="2" y="5" width="510" height="20" textAdjust="StretchHeight">
+					<expression><![CDATA[$F{titre}]]></expression>
+				</element>
+				<element kind="rectangle" uuid="f56ebffc-538d-42d8-b88c-b068827e28c4" stretchType="ContainerHeight" mode="Opaque" x="0" y="30" width="552" height="29" backcolor="#B9D7EE">
+					<pen lineColor="#3970E6"/>
+				</element>
+				<element kind="staticText" uuid="2abeee5a-f8d7-4dd4-a135-a83723961bc2" x="4" y="37" width="76" height="15" bold="true">
+					<text><![CDATA[DATE OP.]]></text>
+				</element>
+				<element kind="line" uuid="cc749ac8-7864-4a5d-9cb4-b5db8bfd54d6" stretchType="ContainerHeight" x="84" y="30" width="1" height="29">
+					<pen lineColor="#3970E6"/>
+				</element>
+				<element kind="textField" uuid="63b4f83d-61bf-436c-a22b-93d5a58ec55a" x="90" y="37" width="130" height="15" textAdjust="StretchHeight" bold="true">
+					<expression><![CDATA["POINT DES SOUSCRIPTIONS".equals($F{titre}) ? "MONTANT DEPOSE" :
+"POINT DES RACHATS".equals($F{titre}) ? "MONTANT RACHAT" :
+"POINT DES DIVIDENDES".equals($F{titre}) ? "MONTANT PERCU" :
+"POINT DES TRANSFERTS DEPART".equals($F{titre}) ? "BENEFICIAIRE" :
+"DONATEUR"]]></expression>
+				</element>
+				<element kind="line" uuid="f6e1cd7e-2c0e-407b-81b6-56180c59fb06" stretchType="ContainerHeight" x="222" y="30" width="1" height="29">
+					<pen lineColor="#3970E6"/>
+				</element>
+				<element kind="textField" uuid="b84d2377-3f35-4090-9af5-877e5c3ff77e" x="228" y="37" width="130" height="15" textAdjust="StretchHeight" bold="true">
+					<expression><![CDATA["POINT DES SOUSCRIPTIONS".equals($F{titre}) ? "PARTS ATTRIBUEES" :
+"POINT DES RACHATS".equals($F{titre}) ? "PARTS RACHETEES" :
+"POINT DES DIVIDENDES".equals($F{titre}) ? "PARTS DETENUES" :
+"PARTS"]]></expression>
+				</element>
+				<element kind="line" uuid="2c6675a4-dc2b-4507-b496-c67997c65aec" stretchType="ContainerHeight" x="361" y="30" width="1" height="29">
+					<pen lineColor="#3970E6"/>
+				</element>
+				<element kind="textField" uuid="fb1d03d2-da6d-4e48-b994-7cc18963670c" x="364" y="37" width="96" height="15" textAdjust="StretchHeight" bold="true">
+					<expression><![CDATA["POINT DES DIVIDENDES".equals($F{titre})?"COUPON UNITAIRE":"VL"]]></expression>
+				</element>
+				<element kind="line" uuid="2e345bc1-f174-48d5-8aee-ea386e28e14a" stretchType="ContainerHeight" x="460" y="30" width="1" height="29">
+					<pen lineColor="#3970E6"/>
+				</element>
+				<element kind="textField" uuid="72221b31-a5ac-45dc-a6b0-3a04c4b61094" x="461" y="37" width="91" height="15" textAdjust="StretchHeight" bold="true">
+					<expression><![CDATA["POINT DES SOUSCRIPTIONS".equals($F{titre})?"PRIX DE SOUSCRIPTION":"POINT DES RACHATS".equals($F{titre})?"PRIX DE RACHAT":"POINT DES DIVIDENDES".equals($F{titre})?"":"POINT DES TRANSFERTS ARRIVE".equals($F{titre})?"CUMP":""]]></expression>
+				</element>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="39">
+				<element kind="rectangle" uuid="b027d343-5715-4c54-ac53-0d272fd81c9e" x="0" y="0" width="552" height="29" backcolor="#B9D7EE">
+					<pen lineColor="#3970E6"/>
+				</element>
+				<element kind="line" uuid="cb38811b-eebd-4a70-a8df-c7c646989903" stretchType="ContainerHeight" x="84" y="0" width="1" height="29">
+					<pen lineColor="#3970E6"/>
+				</element>
+				<element kind="line" uuid="6fbae5fc-350c-4a28-9855-4db89aa2494e" stretchType="ContainerHeight" x="222" y="0" width="1" height="29">
+					<pen lineColor="#3970E6"/>
+				</element>
+				<element kind="line" uuid="9ce24300-52c7-48e1-b943-674443961c33" stretchType="ContainerHeight" x="361" y="0" width="1" height="29">
+					<pen lineColor="#3970E6"/>
+				</element>
+				<element kind="staticText" uuid="fa30c7ed-efcf-41a0-8b9c-b21a9bcc6a81" x="4" y="7" width="76" height="15" bold="true">
+					<text><![CDATA[TOTAL]]></text>
+				</element>
+				<element kind="textField" uuid="1881a320-b844-43fe-9e1c-a1e45cd5b06f" x="90" y="7" width="130" height="15" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+					<expression><![CDATA["POINT DES TRANSFERTS DEPART".equals($F{titre})?0:"POINT DES TRANSFERTS ARRIVE".equals($F{titre})?0:$V{montant1}]]></expression>
+				</element>
+				<element kind="textField" uuid="18fed46d-8d02-4b30-9e1a-b924df117bae" x="226" y="7" width="132" height="15" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+					<expression><![CDATA[$V{part1}]]></expression>
+				</element>
+			</band>
+		</groupFooter>
+	</group>
+	<background splitType="Stretch"/>
+	<title height="17" splitType="Stretch"/>
+	<pageHeader splitType="Stretch"/>
+	<columnHeader splitType="Stretch"/>
+	<detail>
+		<band height="30" splitType="Stretch">
+			<element kind="rectangle" uuid="e81be481-ca80-43fb-8259-64fbec88865f" stretchType="ContainerHeight" x="0" y="0" width="552" height="29">
+				<pen lineColor="#3970E6"/>
+			</element>
+			<element kind="line" uuid="1e96910a-28af-4255-8b78-dafd2b029beb" stretchType="ContainerHeight" x="84" y="0" width="1" height="29">
+				<pen lineColor="#3970E6"/>
+			</element>
+			<element kind="textField" uuid="f5857403-309d-4e53-bb70-01c6e86e4b28" x="90" y="7" width="130" height="15" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###" blankWhenNull="true" bold="false">
+				<expression><![CDATA["POINT DES TRANSFERTS DEPART".equals($F{titre})?$F{beneficiaireDonateur}:"POINT DES TRANSFERTS ARRIVE".equals($F{titre})?$F{beneficiaireDonateur}:$F{montant}]]></expression>
+			</element>
+			<element kind="line" uuid="9df70a72-b236-4726-9aad-d920c5322a7f" stretchType="ContainerHeight" x="222" y="0" width="1" height="29">
+				<pen lineColor="#3970E6"/>
+			</element>
+			<element kind="textField" uuid="137d62ba-ece2-4fbe-ba71-a23e315cb397" x="228" y="7" width="130" height="15" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###" blankWhenNull="true" bold="false">
+				<expression><![CDATA[$F{part}]]></expression>
+			</element>
+			<element kind="line" uuid="a7cc3ebc-bd78-43b2-b630-d4b9a6700e3d" stretchType="ContainerHeight" x="361" y="0" width="1" height="29">
+				<pen lineColor="#3970E6"/>
+			</element>
+			<element kind="textField" uuid="a6abe11b-bee8-4965-8579-f89085957214" x="364" y="7" width="96" height="15" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###" blankWhenNull="true" bold="false">
+				<expression><![CDATA[$F{valeurLiquidative}]]></expression>
+			</element>
+			<element kind="line" uuid="8266420b-e34d-4d83-ab7d-e68a151921f1" stretchType="ContainerHeight" x="460" y="0" width="1" height="29">
+				<pen lineColor="#3970E6"/>
+			</element>
+			<element kind="textField" uuid="97cb6aae-bdc5-4ca0-8039-120ac2fb5841" x="461" y="7" width="91" height="15" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###" blankWhenNull="true" bold="false">
+				<expression><![CDATA[$F{prixSouscription}]]></expression>
+			</element>
+			<element kind="textField" uuid="a37efc42-f636-484e-8bf2-47cb0c90e23d" x="4" y="7" width="76" height="15" textAdjust="StretchHeight" pattern="EE dd/MM/yyyy" blankWhenNull="true">
+				<expression><![CDATA[$F{dateOperation}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"))]]></expression>
+				<patternExpression><![CDATA["EE dd/MM/yyyy"]]></patternExpression>
+			</element>
+		</band>
+	</detail>
+	<columnFooter splitType="Stretch"/>
+	<pageFooter height="39" splitType="Stretch">
+		<element kind="textField" uuid="bfed89db-1057-4eee-9246-a486e83325a4" x="450" y="4" width="100" height="25" hTextAlign="Right">
+			<expression><![CDATA[$V{PAGE_NUMBER}]]></expression>
+		</element>
+		<element kind="staticText" uuid="199a29a0-f559-48ed-99a9-c4fffffed24b" x="0" y="6" width="120" height="26" fontName="Segoe UI">
+			<text><![CDATA[Edité avec OPCCIEL 2.0]]></text>
+		</element>
+	</pageFooter>
+	<summary splitType="Stretch"/>
+</jasperReport>

@@ -29,10 +29,10 @@ public class Obligation extends Titre{
     private Integer differeNbre;
     @Column(name = "differeUnite")
     private String differeUnite;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "idModeAmortissement", referencedColumnName = "idModeAmortissement")
     private ModeAmortissement modeAmortissement;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "idTypeAmortissement", referencedColumnName = "idTypeAmortissement")
     private TypeAmortissement typeAmortissement;
     @Column(name = "tauxBrut")
@@ -41,7 +41,7 @@ public class Obligation extends Titre{
     private Double tauxNet;
     @Column(name = "nombreTitre")
     private Integer nombreTitre;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "idTypeObligation", referencedColumnName = "idTypeObligation")
     private TypeObligation typeObligation;
     @Column(name = "estParAdjudication")

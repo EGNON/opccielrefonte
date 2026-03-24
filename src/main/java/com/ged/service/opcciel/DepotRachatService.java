@@ -69,7 +69,7 @@ public interface DepotRachatService {
     ResponseEntity<Object> modifier(DepotRachatDto depotRachatDto);
     ResponseEntity<Object> modifier(Long[] id,String userLogin);
 
-    ResponseEntity<Object> confirmerListeVerifDepot(List<DepotRachatDto> depotRachatDtos);
+    ResponseEntity<Object> confirmerListeVerifDepot(VerifDepSouscriptionIntRachatDto verifDepSouscriptionIntRachatDto);
 
     ResponseEntity<Object> confirmerListeVerifNiv2Depot(List<DepotRachatDto> depotRachatDtos);
 

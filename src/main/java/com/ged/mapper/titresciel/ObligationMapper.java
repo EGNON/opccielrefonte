@@ -76,7 +76,8 @@ public class ObligationMapper {
     {
         Obligation Obligation = new Obligation();
         BeanUtils.copyProperties(ObligationDTO, Obligation);
-        Obligation.setTabAmortissements(ObligationDTO.getTabAmortissements().stream().map(tabAmortissementMapper::deTableauAmortissementDto).collect(Collectors.toSet()));
+        if(ObligationDTO.getTabAmortissements()!=null)
+            Obligation.setTabAmortissements(ObligationDTO.getTabAmortissements().stream().map(tabAmortissementMapper::deTableauAmortissementDto).collect(Collectors.toSet()));
         return Obligation;
     }
 }

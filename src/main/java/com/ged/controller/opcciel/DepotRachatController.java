@@ -26,6 +26,7 @@ import com.ged.projection.PrecalculRachatProjection;
 import com.ged.service.opcciel.DepotRachatService;
 import com.ged.service.opcciel.OpcvmService;
 import com.ged.service.opcciel.SeanceOpcvmService;
+import com.ged.service.opcciel.impl.DepotRachatImpl;
 import jakarta.annotation.Priority;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
@@ -55,14 +56,14 @@ public class DepotRachatController {
     @Autowired
     private TemplateEngine templateEngine;
     private final OpcvmService opcvmService;
-    private final DepotRachatService depotRachatService;
+    private final DepotRachatImpl depotRachatService;
     private final PdfGeneratorService pdfGeneratorService;
     private final SeanceOpcvmService seanceService;
     private final DepotRachatDao depotRachatDao;
     private final DepotRachatMapper depotRachatMapper;
     private final UtilisateurDao utilisateurDao;
 
-    public DepotRachatController(OpcvmService opcvmService, DepotRachatService DepotRachatService, PdfGeneratorService pdfGeneratorService, SeanceOpcvmService seanceService, DepotRachatDao depotRachatDao, DepotRachatMapper depotRachatMapper, UtilisateurDao utilisateurDao) {
+    public DepotRachatController(OpcvmService opcvmService, DepotRachatImpl DepotRachatService, PdfGeneratorService pdfGeneratorService, SeanceOpcvmService seanceService, DepotRachatDao depotRachatDao, DepotRachatMapper depotRachatMapper, UtilisateurDao utilisateurDao) {
         this.opcvmService = opcvmService;
         this.depotRachatService = DepotRachatService;
         this.pdfGeneratorService = pdfGeneratorService;
@@ -128,6 +129,13 @@ public class DepotRachatController {
                                                            @PathVariable boolean niveau1,
                                                            @PathVariable boolean niveau2) {
         return depotRachatService.afficherFT_DepotRachat(idOpcvm,niveau1,niveau2);
+    }
+    @GetMapping("depotrachatsous/{idOpcvm}")
+    public List<FT_DepotRachatProjection> afficherFT_DepotRachat_DEPSOUS(
+                                                           @PathVariable Long idOpcvm,
+                                                           @RequestParam boolean niveau1,
+                                                           @RequestParam boolean niveau2) {
+        return depotRachatService.afficherFT_DepotRachat_DEPSOUS(idOpcvm,niveau1,niveau2);
     }
 
 
@@ -383,8 +391,8 @@ public class DepotRachatController {
     }
 
     @PostMapping("/confirmer/liste/verification/depots/tous")
-    public ResponseEntity<Object> addAll(@Valid @RequestBody List<DepotRachatDto> depotRachatDtos) {
-        return depotRachatService.confirmerListeVerifDepot(depotRachatDtos);
+    public ResponseEntity<Object> addAll(@Valid @RequestBody VerifDepSouscriptionIntRachatDto verifDepSouscriptionIntRachatDto) {
+        return depotRachatService.confirmerListeVerifDepot(verifDepSouscriptionIntRachatDto);
     }
 
     @PostMapping("/confirmer/liste/verification/niveau1/depots/tous")

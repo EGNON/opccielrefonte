@@ -82,7 +82,7 @@
 				<element kind="textField" uuid="e5054658-1f6d-47c5-8371-2b21c6572378" mode="Opaque" x="2" y="32" width="550" height="24" forecolor="#000000" backcolor="#BDD7EE" fontName="Segoe UI" fontSize="14.0" bold="true" hTextAlign="Center">
 					<expression><![CDATA["ETAT DE SUIVI DU CLIENT "+$F{personne}]]></expression>
 				</element>
-				<element kind="staticText" uuid="bf8e9d44-0f27-42d5-b042-03bbbc8de7e7" x="80" y="62" width="80" height="20" bold="true" underline="true">
+				<element kind="staticText" uuid="bf8e9d44-0f27-42d5-b042-03bbbc8de7e7" x="80" y="62" width="80" height="20" underline="true" bold="true">
 					<text><![CDATA[DATE EDITION:]]></text>
 				</element>
 				<element kind="textField" uuid="03a0ab7e-7b23-4829-be61-9580e63f1ce9" x="160" y="62" width="180" height="20" textAdjust="StretchHeight" pattern="EE dd/MM/yyyy" blankWhenNull="true">
@@ -95,7 +95,23 @@
 			</band>
 		</groupHeader>
 		<groupFooter>
-			<band height="99">
+			<band height="9"/>
+		</groupFooter>
+	</group>
+	<group name="Group2">
+		<expression><![CDATA[$F{idOpcvm}]]></expression>
+		<groupHeader>
+			<band height="40">
+				<element kind="rectangle" uuid="f954bca6-4c96-4fbc-ad6e-46c0f739bbf7" x="0" y="5" width="220" height="35">
+					<pen lineColor="#3970E6"/>
+				</element>
+				<element kind="textField" uuid="25c952d6-82e4-4c27-955b-743e4ece76d9" x="4" y="10" width="210" height="23" textAdjust="StretchHeight">
+					<expression><![CDATA[$F{denominationOpcvm}]]></expression>
+				</element>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="94">
 				<element kind="rectangle" uuid="ef6d1a53-d597-40c0-8a44-63fe7f73f94d" x="0" y="5" width="552" height="25">
 					<pen lineColor="#3970E6"/>
 				</element>
@@ -186,23 +202,8 @@
 				<element kind="textField" uuid="f1cc0c6f-26fc-4e0f-a456-954e86f1967d" x="324" y="67" width="72" height="15" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###" blankWhenNull="true" bold="false">
 					<expression><![CDATA[PRODUCT($F{partACtuel} ,$F{cump})]]></expression>
 				</element>
+				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			</band>
-		</groupFooter>
-	</group>
-	<group name="Group2">
-		<expression><![CDATA[$F{idOpcvm}]]></expression>
-		<groupHeader>
-			<band height="40">
-				<element kind="rectangle" uuid="f954bca6-4c96-4fbc-ad6e-46c0f739bbf7" x="0" y="5" width="220" height="35">
-					<pen lineColor="#3970E6"/>
-				</element>
-				<element kind="textField" uuid="25c952d6-82e4-4c27-955b-743e4ece76d9" x="4" y="10" width="210" height="23" textAdjust="StretchHeight">
-					<expression><![CDATA[$F{denominationOpcvm}]]></expression>
-				</element>
-			</band>
-		</groupHeader>
-		<groupFooter>
-			<band height="4"/>
 		</groupFooter>
 	</group>
 	<group name="Group3">
@@ -225,30 +226,37 @@
 					<pen lineColor="#3970E6"/>
 				</element>
 				<element kind="textField" uuid="63b4f83d-61bf-436c-a22b-93d5a58ec55a" x="90" y="37" width="130" height="15" textAdjust="StretchHeight" bold="true">
-					<expression><![CDATA[($F{titre}=="POINT DES SOUSCRIPTIONS"?"MONTANT DEPOSE":$F{titre}=="POINT DES RACHATS"?"MONTANT RACHAT":$F{titre}=="POINT DES DIVIDENDES"?"MONTANT PERCU":$F{titre}=="POINT DES TRANSFERTS DEPART"?"BENEFICIAIRE":"DONATEUR")]]></expression>
+					<expression><![CDATA["POINT DES SOUSCRIPTIONS".equals($F{titre}) ? "MONTANT DEPOSE" :
+"POINT DES RACHATS".equals($F{titre}) ? "MONTANT RACHAT" :
+"POINT DES DIVIDENDES".equals($F{titre}) ? "MONTANT PERCU" :
+"POINT DES TRANSFERTS DEPART".equals($F{titre}) ? "BENEFICIAIRE" :
+"DONATEUR"]]></expression>
 				</element>
 				<element kind="line" uuid="f6e1cd7e-2c0e-407b-81b6-56180c59fb06" stretchType="ContainerHeight" x="222" y="30" width="1" height="29">
 					<pen lineColor="#3970E6"/>
 				</element>
 				<element kind="textField" uuid="b84d2377-3f35-4090-9af5-877e5c3ff77e" x="228" y="37" width="130" height="15" textAdjust="StretchHeight" bold="true">
-					<expression><![CDATA[($F{titre}=="POINT DES SOUSCRIPTIONS"?"PARTS ATTRIBUEES":$F{titre}=="POINT DES RACHATS"?"PARTS RACHETEES":$F{titre}=="POINT DES DIVIDENDES"?"PARTS DETENUES":"PARTS")]]></expression>
+					<expression><![CDATA["POINT DES SOUSCRIPTIONS".equals($F{titre}) ? "PARTS ATTRIBUEES" :
+"POINT DES RACHATS".equals($F{titre}) ? "PARTS RACHETEES" :
+"POINT DES DIVIDENDES".equals($F{titre}) ? "PARTS DETENUES" :
+"PARTS"]]></expression>
 				</element>
 				<element kind="line" uuid="2c6675a4-dc2b-4507-b496-c67997c65aec" stretchType="ContainerHeight" x="361" y="30" width="1" height="29">
 					<pen lineColor="#3970E6"/>
 				</element>
 				<element kind="textField" uuid="fb1d03d2-da6d-4e48-b994-7cc18963670c" x="364" y="37" width="96" height="15" textAdjust="StretchHeight" bold="true">
-					<expression><![CDATA[($F{titre}=="POINT DES DIVIDENDES"?"COUPON UNITAIRE":"VL")]]></expression>
+					<expression><![CDATA["POINT DES DIVIDENDES".equals($F{titre})?"COUPON UNITAIRE":"VL"]]></expression>
 				</element>
 				<element kind="line" uuid="2e345bc1-f174-48d5-8aee-ea386e28e14a" stretchType="ContainerHeight" x="460" y="30" width="1" height="29">
 					<pen lineColor="#3970E6"/>
 				</element>
 				<element kind="textField" uuid="72221b31-a5ac-45dc-a6b0-3a04c4b61094" x="461" y="37" width="91" height="15" textAdjust="StretchHeight" bold="true">
-					<expression><![CDATA[($F{titre}=="POINT DES SOUSCRIPTIONS"?"PRIX DE SOUSCRIPTION":$F{titre}=="POINT DES RACHATS"?"PRIX DE RACHAT":$F{titre}=="POINT DES DIVIDENDES"?"":$F{titre}=="POINT DES TRANSFERTS ARRIVE"?"CUMP":"")]]></expression>
+					<expression><![CDATA["POINT DES SOUSCRIPTIONS".equals($F{titre})?"PRIX DE SOUSCRIPTION":"POINT DES RACHATS".equals($F{titre})?"PRIX DE RACHAT":"POINT DES DIVIDENDES".equals($F{titre})?"":"POINT DES TRANSFERTS ARRIVE".equals($F{titre})?"CUMP":""]]></expression>
 				</element>
 			</band>
 		</groupHeader>
 		<groupFooter>
-			<band height="38">
+			<band height="39">
 				<element kind="rectangle" uuid="b027d343-5715-4c54-ac53-0d272fd81c9e" x="0" y="0" width="552" height="29">
 					<pen lineColor="#3970E6"/>
 				</element>
@@ -265,7 +273,7 @@
 					<text><![CDATA[TOTAL]]></text>
 				</element>
 				<element kind="textField" uuid="1881a320-b844-43fe-9e1c-a1e45cd5b06f" x="90" y="7" width="130" height="15" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
-					<expression><![CDATA[($F{titre}=="POINT DES TRANSFERTS DEPART"?0: $F{titre}=="POINT DES TRANSFERTS ARRIVE"?0:$V{montant1})]]></expression>
+					<expression><![CDATA["POINT DES TRANSFERTS DEPART".equals($F{titre})?0:"POINT DES TRANSFERTS ARRIVE".equals($F{titre})?0:$V{montant1}]]></expression>
 				</element>
 				<element kind="textField" uuid="18fed46d-8d02-4b30-9e1a-b924df117bae" x="226" y="7" width="132" height="15" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
 					<expression><![CDATA[$V{part1}]]></expression>
@@ -286,7 +294,7 @@
 				<pen lineColor="#3970E6"/>
 			</element>
 			<element kind="textField" uuid="f5857403-309d-4e53-bb70-01c6e86e4b28" x="90" y="7" width="130" height="15" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###" blankWhenNull="true" bold="false">
-				<expression><![CDATA[($F{titre}=="POINT DES TRANSFERTS DEPART"?$F{beneficiaireDonateur}:$F{titre}=="POINT DES TRANSFERTS ARRIVE"?$F{beneficiaireDonateur}:$F{montant}) ]]></expression>
+				<expression><![CDATA["POINT DES TRANSFERTS DEPART".equals($F{titre})?$F{beneficiaireDonateur}:"POINT DES TRANSFERTS ARRIVE".equals($F{titre})?$F{beneficiaireDonateur}:$F{montant}]]></expression>
 			</element>
 			<element kind="line" uuid="9df70a72-b236-4726-9aad-d920c5322a7f" stretchType="ContainerHeight" x="222" y="0" width="1" height="29">
 				<pen lineColor="#3970E6"/>

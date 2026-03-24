@@ -4,7 +4,7 @@
 	<parameter name="denominationOpcvm" class="java.lang.String"/>
 	<parameter name="dateOuverture" class="java.time.LocalDateTime"/>
 	<parameter name="dateFermeture" class="java.time.LocalDateTime"/>
-	<parameter name="vl" class="java.lang.Double"/>
+	<parameter name="vl" class="java.math.BigDecimal"/>
 	<field name="idSeance" class="java.lang.Long">
 		<property name="com.jaspersoft.studio.field.name" value="idSeance"/>
 		<property name="com.jaspersoft.studio.field.label" value="idSeance"/>
@@ -33,7 +33,7 @@
 		<property name="com.jaspersoft.studio.field.name" value="qteDetenue"/>
 		<property name="com.jaspersoft.studio.field.label" value="qteDetenue"/>
 	</field>
-	<field name="cours" class="java.lang.String">
+	<field name="cours" class="java.math.BigDecimal">
 		<property name="com.jaspersoft.studio.field.name" value="cours"/>
 		<property name="com.jaspersoft.studio.field.label" value="cours"/>
 	</field>

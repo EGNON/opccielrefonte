@@ -35,10 +35,10 @@ public class DetailProfilController {
         idDetailProfil.setBorneInferieur(borneInferieur);
         return DetailProfilService.afficher(idDetailProfil);
     }
-    @GetMapping("/{codeProfil}/{idOpcvm}")
+    @GetMapping("/detailprofilselonid")
     //@PreAuthorize("hasAuthority('ROLE_DetailProfil')")
-    public ResponseEntity<Object> afficher(@PathVariable String codeProfil,
-                                           @PathVariable Long idOpcvm) {
+    public ResponseEntity<Object> afficher(@RequestParam String codeProfil,
+                                           @RequestParam Long idOpcvm) {
         return DetailProfilService.afficher(codeProfil,idOpcvm);
     }
     @PostMapping("/datatable/list/{idOpcvm}")
@@ -80,9 +80,9 @@ public class DetailProfilController {
         idDetailProfil.setBorneInferieur(borneInferieur);
         return DetailProfilService.supprimer(idDetailProfil);
     }
-    @DeleteMapping("/{codeProfil}/{idOpcvm}")
-    public ResponseEntity<Object> supprimer(@PathVariable String codeProfil,
-                                            @PathVariable Long idOpcvm)
+    @DeleteMapping
+    public ResponseEntity<Object> supprimer(@RequestParam String codeProfil,
+                                            @RequestParam Long idOpcvm)
     {
         return DetailProfilService.supprimer(codeProfil,idOpcvm);
     }

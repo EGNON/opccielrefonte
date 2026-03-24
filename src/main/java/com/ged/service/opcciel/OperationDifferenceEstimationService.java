@@ -19,7 +19,7 @@ public interface OperationDifferenceEstimationService {
     ResponseEntity<Object> creer(OperationDifferenceEstimationDto operationDifferenceEstimationDto);
     ResponseEntity<Object> enregistrerDifferenceEstimation(DifferenceEstimationRequest  request);
     ResponseEntity<Object> modifier(OperationDifferenceEstimationDto operationDifferenceEstimationDto);
-     ResponseEntity<Object> genrerDifferenceEstimation(Long idOpcvm, Boolean estEnCloture);
+    String genrerDifferenceEstimation(Long idOpcvm, Boolean estEnCloture);
      ResponseEntity<Object> precalculDifferenceEstimation(DifferenceEstimationRequest differenceEstimationRequest);
      ResponseEntity<Object> validationNiveau(DifferenceEstimationRequest differenceEstimationRequest);
     ResponseEntity<Object> supprimer(String userLogin,

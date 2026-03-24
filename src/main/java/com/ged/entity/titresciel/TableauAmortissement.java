@@ -25,12 +25,12 @@ public class TableauAmortissement extends Base {
     private BigDecimal annuiteTotale;
     private BigDecimal montantFinPeriode;
     private Boolean estGenere;
-/*    private LocalDateTime dateCreationServeur;
+    private LocalDateTime dateCreationServeur;
     private LocalDateTime dateDernModifServeur;
     private LocalDateTime dateDernModifClient;
     private String userLogin;
-    private Long numLigne;
-    private Boolean supprimer;*/
+    //private Long numLigne;
+    private Boolean supprimer;
     //private byte[] rowvers;
 
     public CleTableauAmortissement getIdTabAmortissement() {
@@ -129,7 +129,7 @@ public class TableauAmortissement extends Base {
         this.estGenere = estGenere;
     }
 
-   /* public LocalDateTime getDateCreationServeur() {
+    public LocalDateTime getDateCreationServeur() {
         return dateCreationServeur;
     }
 
@@ -161,13 +161,13 @@ public class TableauAmortissement extends Base {
         this.userLogin = userLogin;
     }
 
-    public Long getNumLigne() {
-        return numLigne;
-    }
-
-    public void setNumLigne(Long numLigne) {
-        this.numLigne = numLigne;
-    }
+//    public Long getNumLigne() {
+//        return numLigne;
+//    }
+//
+//    public void setNumLigne(Long numLigne) {
+//        this.numLigne = numLigne;
+//    }
 
     public Boolean getSupprimer() {
         return supprimer;
@@ -176,7 +176,7 @@ public class TableauAmortissement extends Base {
     public void setSupprimer(Boolean supprimer) {
         this.supprimer = supprimer;
     }
-*/
+
     /*public byte[] getRowvers() {
         return rowvers;
     }

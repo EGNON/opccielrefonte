@@ -20,8 +20,8 @@ public interface OperationChargeAEtalerService {
      ResponseEntity<Object> precalculChargeAEtaler(DifferenceEstimationRequest differenceEstimationRequest);
      ResponseEntity<Object> chargerOperation(DifferenceEstimationRequest differenceEstimationRequest);
      ResponseEntity<Object> creer(List<OperationChargeAEtalerDto> operationChargeAEtalerDto);
-     ResponseEntity<Object> verifier(Long idSeance,Long idOpcvm, HttpServletResponse response) throws IOException, JRException;
-     ResponseEntity<Object> verifier(Long idSeance,Long idOpcvm,Boolean estVerifie1,Boolean estVerifie2,Long niveau, HttpServletResponse response) throws IOException, JRException;
+     void verifier(Long idSeance,Long idOpcvm, HttpServletResponse response) throws IOException, JRException;
+     byte[] verifier(Long idSeance,Long idOpcvm,Boolean estVerifie1,Boolean estVerifie2,Long niveau) throws IOException, JRException;
      ResponseEntity<Object> precalculChargeAEtalerListe(DifferenceEstimationRequest differenceEstimationRequest);
      ResponseEntity<Object> validationNiveau(DifferenceEstimationRequest differenceEstimationRequest);
 }

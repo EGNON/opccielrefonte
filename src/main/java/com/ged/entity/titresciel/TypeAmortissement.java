@@ -9,7 +9,7 @@ public class TypeAmortissement {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idTypeAmortissement;
     private String codeTypeAmortissement;
-    private String libelleTypeAmortissement;
+    private String libelleAmortissement;
 
     public Long getIdTypeAmortissement() {
         return idTypeAmortissement;
@@ -27,11 +27,11 @@ public class TypeAmortissement {
         this.codeTypeAmortissement = codeTypeAmortissement;
     }
 
-    public String getLibelleTypeAmortissement() {
-        return libelleTypeAmortissement;
+    public String getLibelleAmortissement() {
+        return libelleAmortissement;
     }
 
-    public void setLibelleTypeAmortissement(String libelleTypeAmortissement) {
-        this.libelleTypeAmortissement = libelleTypeAmortissement;
+    public void setLibelleAmortissement(String libelleAmortissement) {
+        this.libelleAmortissement = libelleAmortissement;
     }
 }

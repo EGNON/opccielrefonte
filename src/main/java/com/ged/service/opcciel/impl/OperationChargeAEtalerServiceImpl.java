@@ -46,6 +46,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
 import java.math.MathContext;
+import java.math.RoundingMode;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.*;
@@ -572,6 +573,8 @@ public class OperationChargeAEtalerServiceImpl implements OperationChargeAEtaler
 //    Chaineretour = retour.toString();
 //    return Chaineretour;
 //}
+
+    /*
 public String calculerExpressionTraitee(String expression) {
     int i = 0;
     boolean isDecimalPart = false;
@@ -723,8 +726,217 @@ public String calculerExpressionTraitee(String expression) {
     chaineRetour = retour.stripTrailingZeros().toPlainString();
     return chaineRetour;
 }
+*/
 
-    public  String calculer(String expression, String codePlan, LocalDateTime dateEvalution,Long idOpcvm)
+    public String calculerExpressionTraitee(String expression) {
+
+        int i = 0;
+        boolean isDecimalPart = false;
+        char car;
+        BigDecimal nbreEnTempon = BigDecimal.ZERO;
+        BigDecimal ct = BigDecimal.ONE;
+        char opTp = '\0';
+        String expresPriorite = "";
+        int nbParantPrio = 0;
+        BigDecimal retour = BigDecimal.ZERO;
+        String chaineRetour = "";
+
+        try {
+
+            // Gestion des valeurs signées
+            if (expression.startsWith("-")) {
+                expression = "0" + expression;
+            }
+
+            // Ajout caractère fin
+//            expression = expression.trim() + ".";
+            expression = expression.trim() + "#";
+            for (i = 0; i < expression.length(); i++) {
+
+                car = Character.toLowerCase(expression.charAt(i));
+
+                // Si chiffre
+                if (Character.isDigit(car)) {
+
+                    if (!isDecimalPart) {
+                        nbreEnTempon = nbreEnTempon
+                                .multiply(BigDecimal.TEN)
+                                .add(BigDecimal.valueOf(Character.getNumericValue(car)));
+                    } else {
+                        if (ct.compareTo(new BigDecimal("100000000000000")) < 0) {
+                            ct = ct.multiply(BigDecimal.TEN);
+                            nbreEnTempon = nbreEnTempon.add(
+                                    BigDecimal.valueOf(Character.getNumericValue(car))
+                                            .divide(ct, 15, RoundingMode.HALF_UP)
+                            );
+                        }
+                    }
+                }
+
+                // Virgule décimale
+                if (car == ',' || car == '.') {
+                    isDecimalPart = true;
+                }
+
+                // Opérateurs
+                if (car == '/' || car == '*' || car == '+' || car == '-') {
+
+                    isDecimalPart = false;
+
+                    switch (opTp) {
+
+                        case '/':
+                            if (nbreEnTempon.compareTo(BigDecimal.ZERO) != 0) {
+                                retour = retour.divide(nbreEnTempon, 15, RoundingMode.HALF_UP);
+                            } else {
+                                return "#Erreur: Division par zéro#";
+                            }
+                            break;
+
+                        case '*':
+                            retour = retour.multiply(nbreEnTempon);
+                            break;
+
+                        case '+':
+                        case '-':
+                            if (car == '/' || car == '*') {
+
+                                expresPriorite = nbreEnTempon.toString() + car;
+                                int j = i;
+                                nbParantPrio = 0;
+
+                                do {
+                                    j++;
+                                    char current = expression.charAt(j);
+                                    if (current == '(') nbParantPrio++;
+                                    if (current == ')') nbParantPrio--;
+                                    expresPriorite += current;
+
+                                } while (j < expression.length() - 2 &&
+                                        !((expression.charAt(j) == '+' || expression.charAt(j) == '-') && nbParantPrio == 0));
+
+                                BigDecimal val = new BigDecimal(
+                                        calculerExpressionTraitee(expresPriorite)
+                                );
+
+                                retour = (opTp == '+') ? retour.add(val) : retour.subtract(val);
+                                i = j;
+                                expresPriorite = "";
+
+                            } else if (opTp == '+') {
+                                retour = retour.add(nbreEnTempon);
+                            } else {
+                                retour = retour.subtract(nbreEnTempon);
+                            }
+                            break;
+
+                        default:
+                            retour = nbreEnTempon;
+                            break;
+                    }
+
+                    opTp = car;
+                    nbreEnTempon = BigDecimal.ZERO;
+                    ct = BigDecimal.ONE;
+                    isDecimalPart = false;
+                }
+
+                // Parenthèses
+                if (car == '(') {
+
+                    int nbreParant = 1;
+                    int j = i;
+                    expresPriorite = "";
+
+                    do {
+                        j++;
+                        char current = expression.charAt(j);
+
+                        if (!(current == ')' && nbreParant == 1)) {
+                            expresPriorite += current;
+                        }
+
+                        if (current == '(') nbreParant++;
+                        if (current == ')') nbreParant--;
+
+                    } while (j < expression.length() - 2 && nbreParant != 0);
+
+                    nbreEnTempon = new BigDecimal(
+                            calculerExpressionTraitee(expresPriorite)
+                    );
+
+                    i = j;
+                    expresPriorite = "";
+                }
+
+                // Fin expression
+//                if (car == '.') {
+                if (car == '#') {
+
+                    switch (opTp) {
+
+                        case '/':
+                            if (nbreEnTempon.compareTo(BigDecimal.ZERO) != 0) {
+                                retour = retour.divide(nbreEnTempon, 15, RoundingMode.HALF_UP);
+                            } else {
+                                return "#Erreur: Division par zéro#";
+                            }
+                            break;
+
+                        case '*':
+                            retour = retour.multiply(nbreEnTempon);
+                            break;
+
+                        case '+':
+                            retour = retour.add(nbreEnTempon);
+                            break;
+
+                        case '-':
+                            retour = retour.subtract(nbreEnTempon);
+                            break;
+
+                        case '\0':
+                            retour = nbreEnTempon;
+                            break;
+                    }
+                }
+            }
+
+            chaineRetour = retour.stripTrailingZeros().toPlainString();
+
+        } catch (Exception e) {
+            return "#Erreur: Exception Interne#";
+        }
+
+        return chaineRetour;
+    }
+    public String calculer(String expression,
+                           String codePlan,
+                           LocalDateTime dateEvalution,
+                           Long idOpcvm) {
+
+        String test = interpreter(expression, codePlan, dateEvalution, idOpcvm);
+
+        try {
+            if (!test.contains("#Erreur#")) {
+
+                test = calculerExpressionTraitee(test.trim());
+
+                if (test.contains("Erreur")) {
+                    test = "0";
+                }
+
+                test = new BigDecimal(test)
+                        .setScale(4, RoundingMode.HALF_UP)
+                        .toPlainString();
+            }
+        } catch (Exception e) {
+            return "#Erreur Exception Interne#";
+        }
+
+        return test;
+    }
+    /*    public  String calculer(String expression, String codePlan, LocalDateTime dateEvalution,Long idOpcvm)
 {
     String test = interpreter(expression, codePlan, dateEvalution,idOpcvm);
     try
@@ -744,6 +956,7 @@ public String calculerExpressionTraitee(String expression) {
     return test;
 
 }
+*/
     public boolean isInteger(String str) {
         if (str == null) return false;
         try {
@@ -753,159 +966,391 @@ public String calculerExpressionTraitee(String expression) {
             return false;
         }
     }
-    public String interpreter(String expressionO, String codePlan, LocalDateTime dateEvaluation, Long idOpcvm) {
-        String retour = "", codeVal = "", numCpte = "", carsAutorises = "0123456789,-+*/()";
-        char car;
-        int i, j, nbparant = 0;
-        String codePoste = "", formuleCP = "", expression = "";
 
-        try {
-            // === Traitement des codes postes ===
-            for (i = 0; i < expressionO.length(); i++) {
-                car = Character.toLowerCase(expressionO.charAt(i));
-                if (car == '_') {
-                    j = i;
-                    do {
-                        codePoste += expressionO.substring(j, j + 1).trim();
-                        j++;
-                    } while (j < expressionO.length() && !"-+*/)".contains(expressionO.substring(j, j + 1)));
-
-                    formuleCP = libraryDao.formuleDunCodePoste(codePoste);
-                    codePoste = "";
-
-                    String tempon = calculer(formuleCP, codePlan, dateEvaluation, idOpcvm);
-
-                    if (!expression.isEmpty() && tempon.startsWith("-")) {
-                        if (expression.endsWith("-")) {
-                            expression = expression.substring(0, expression.length() - 1) + "+" + tempon.substring(1);
-                        } else {
-                            expression = expression.substring(0, expression.length() - 1) + tempon;
-                        }
-                    } else {
-                        expression += tempon;
-                    }
-                    formuleCP = "";
-                    i = j - 1;
-                } else {
-                    expression += String.valueOf(car).trim();
-                }
-            }
-
-            // === Analyse de l'expression ===
-            if (expression.isEmpty() || !"-+0123456789(ms".contains(expression.substring(0, 1).toLowerCase())) {
-                return "#Erreur#0";
-            }
-
-            for (i = 0; i < expression.length(); i++) {
-                car = Character.toLowerCase(expression.charAt(i));
-
-                if ("0123456789,.-+*/()mcds".contains(String.valueOf(car))) {
-                    if (Character.isDigit(car)) {
-                        if (i + 1 < expression.length() && "(mcds".contains(String.valueOf(expression.charAt(i + 1)).toLowerCase())) {
-                            return "#Erreur#" + i;
-                        }
-                    }
-
-                    if (car == ',' || car=='.') {
-                        if (i + 1 >= expression.length() || !Character.isDigit(expression.charAt(i + 1))) {
-                            return "#Erreur#" + i;
-                        }
-                    }
-
-                    if ("-+*/".contains(String.valueOf(car))) {
-                        if (i + 1 >= expression.length() || !"0123456789ms(".contains(String.valueOf(expression.charAt(i + 1)).toLowerCase())) {
-                            return "#Erreur#" + i;
-                        }
-                    }
-
-                    if (car == 'm') {
-                        if (i + 1 >= expression.length() || !"cd".contains(String.valueOf(expression.charAt(i + 1)).toLowerCase())) {
-                            return "#Erreur#" + i;
-                        }
-                    }
-
-                    if ("cds".contains(String.valueOf(car))) {
-                        if (i + 1 >= expression.length() || !Character.isDigit(expression.charAt(i + 1))) {
-                            return "#Erreur#" + i;
-                        }
-                    }
-
-                    if (car == '(') nbparant++;
-                    if (car == ')') nbparant--;
-                } else {
-                    return "#Erreur:caractère non autorisé#";
-                }
-            }
-
-            if (nbparant != 0) {
-                return "#Erreur:paranthèse(s) manquante(s)#";
-            }
-
-            // === Remplacement des opérations sur les comptes ===
-            retour = "";
-            i = 0;
-            while (i < expression.length()) {
-                car = expression.charAt(i);
-                if (car == 'm' || car == 's') {
-                    j = i;
-                    codeVal = String.valueOf(car);
-                    numCpte = "";
-
-                    while (++j < expression.length()) {
-                        char next = expression.charAt(j);
-                        if ("+-/*)".contains(String.valueOf(next))) break;
-                        if (codeVal.length() == 1 && car == 'm') {
-                            codeVal += next;
-                        } else {
-                            numCpte += next;
-                        }
-                    }
-
-//                    SoldeResult solde = soldeCompteService.getSolde(idOpcvm, numCpte.trim(), codePlan, dateEvaluation);
-//                    if (solde.getSortie().contains("Erreur")) {
-//                        return solde.getSortie();
+//    public String interpreter(String expressionO, String codePlan, LocalDateTime dateEvaluation, Long idOpcvm) {
+//
+//        String retour = "", codeVal = "", numCpte = "", carsAutorises = "0123456789,-+*/()";
+//        char car;
+//        int i, j, nbparant = 0;
+//        String codePoste = "", formuleCP = "", expression = "";
+//
+//        try {
+//            // === Traitement des codes postes ===
+//            for (i = 0; i < expressionO.length(); i++) {
+//                car = Character.toLowerCase(expressionO.charAt(i));
+//                if (car == '_') {
+//                    j = i;
+//                    do {
+//                        codePoste += expressionO.substring(j, j + 1).trim();
+//                        j++;
+//                    } while (j < expressionO.length() && !"-+*/)".contains(expressionO.substring(j, j + 1)));
+//
+//                    formuleCP = libraryDao.formuleDunCodePoste(codePoste);
+//                    codePoste = "";
+//
+//                    String tempon = calculer(formuleCP, codePlan, dateEvaluation, idOpcvm);
+//
+//                    if (!expression.isEmpty() && tempon.startsWith("-")) {
+//                        if (expression.endsWith("-")) {
+//                            expression = expression.substring(0, expression.length() - 1) + "+" + tempon.substring(1);
+//                        } else {
+//                            expression = expression.substring(0, expression.length() - 1) + tempon;
+//                        }
+//                    } else {
+//                        expression += tempon;
 //                    }
-                    LocalDateTime dateTime = dateEvaluation;
-                    Date date = Date.from(dateTime.atZone(ZoneId.systemDefault()).toInstant());
-                    List<SoldeCompteFormuleProjection> list = libraryDao.afficherSoldeCompteFormule(idOpcvm, numCpte, codePlan, null, date);
-                    String sortie = (list.size() != 0) ? list.get(0).getSortie() : "";
+//                    formuleCP = "";
+//                    i = j - 1;
+//                } else {
+//                    expression += String.valueOf(car).trim();
+//                }
+//            }
+//
+//            // === Analyse de l'expression ===
+//            if (expression.isEmpty() || !"-+0123456789(ms".contains(expression.substring(0, 1).toLowerCase())) {
+//                return "#Erreur#0";
+//            }
+//
+//            for (i = 0; i < expression.length(); i++) {
+//                car = Character.toLowerCase(expression.charAt(i));
+//
+//                if ("0123456789,.-+*/()mcds".contains(String.valueOf(car))) {
+//                    if (Character.isDigit(car)) {
+//                        if (i + 1 < expression.length() && "(mcds".contains(String.valueOf(expression.charAt(i + 1)).toLowerCase())) {
+//                            return "#Erreur#" + i;
+//                        }
+//                    }
+//
+//                    if (car == ',' || car=='.') {
+//                        if (i + 1 >= expression.length() || !Character.isDigit(expression.charAt(i + 1))) {
+//                            return "#Erreur#" + i;
+//                        }
+//                    }
+//
+//                    if ("-+*/".contains(String.valueOf(car))) {
+//                        if (i + 1 >= expression.length() || !"0123456789ms(".contains(String.valueOf(expression.charAt(i + 1)).toLowerCase())) {
+//                            return "#Erreur#" + i;
+//                        }
+//                    }
+//
+//                    if (car == 'm') {
+//                        if (i + 1 >= expression.length() || !"cd".contains(String.valueOf(expression.charAt(i + 1)).toLowerCase())) {
+//                            return "#Erreur#" + i;
+//                        }
+//                    }
+//
+//                    if ("cds".contains(String.valueOf(car))) {
+//                        if (i + 1 >= expression.length() || !Character.isDigit(expression.charAt(i + 1))) {
+//                            return "#Erreur#" + i;
+//                        }
+//                    }
+//
+//                    if (car == '(') nbparant++;
+//                    if (car == ')') nbparant--;
+//                } else {
+//                    return "#Erreur:caractère non autorisé#";
+//                }
+//            }
+//
+//            if (nbparant != 0) {
+//                return "#Erreur:paranthèse(s) manquante(s)#";
+//            }
+//
+//            // === Remplacement des opérations sur les comptes ===
+//            retour = "";
+//            i = 0;
+//            while (i < expression.length()) {
+//                car = expression.charAt(i);
+//                if (car == 'm' || car == 's') {
+//                    j = i;
+//                    codeVal = String.valueOf(car);
+//                    numCpte = "";
+//
+//                    while (++j < expression.length()) {
+//                        char next = expression.charAt(j);
+//                        if ("+-/*)".contains(String.valueOf(next))) break;
+//                        if (codeVal.length() == 1 && car == 'm') {
+//                            codeVal += next;
+//                        } else {
+//                            numCpte += next;
+//                        }
+//                    }
+//
+////                    SoldeResult solde = soldeCompteService.getSolde(idOpcvm, numCpte.trim(), codePlan, dateEvaluation);
+////                    if (solde.getSortie().contains("Erreur")) {
+////                        return solde.getSortie();
+////                    }
+//                    LocalDateTime dateTime = dateEvaluation;
+//                    Date date = Date.from(dateTime.atZone(ZoneId.systemDefault()).toInstant());
+//                    List<SoldeCompteFormuleProjection> list = libraryDao.afficherSoldeCompteFormule(idOpcvm, numCpte, codePlan, null, date);
+//                    String sortie = (list.size() != 0) ? list.get(0).getSortie() : "";
+//
+//                    String tempon = "";
+//                    switch (codeVal.toLowerCase()) {
+//                        case "mc":
+//                            tempon = String.valueOf(list.get(0).getSoldeCredit());
+//                            break;
+//                        case "md":
+//                            tempon = String.valueOf(list.get(0).getSoldeDebit());
+//                            break;
+//                        case "s":
+//                            tempon = String.valueOf(list.get(0).getSoldeReel());
+//                            break;
+//                        default:
+//                            return "#Erreur#" + i;
+//                    }
+//
+//                    if (!retour.isEmpty() && tempon.startsWith("-") && retour.endsWith("-")) {
+//                        retour = retour.substring(0, retour.length() - 1) + "+" + tempon.substring(1);
+//                    } else {
+//                        retour += tempon;
+//                    }
+//
+//                    codeVal = "";
+//                    numCpte = "";
+//                    i = j;
+//                } else {
+//                    retour += car;
+//                    i++;
+//                }
+//            }
+//
+//        } catch (Exception e) {
+//            return "#Erreur Exception Interne#";
+//        }
+//
+//        return retour.trim();
+//    }
+public String interpreter(String expressionO,
+                          String codePlan,
+                          LocalDateTime dateEvaluation,
+                          Long idOpcvm) {
 
-                    String tempon = "";
-                    switch (codeVal.toLowerCase()) {
-                        case "mc":
-                            tempon = String.valueOf(list.get(0).getSoldeCredit());
-                            break;
-                        case "md":
-                            tempon = String.valueOf(list.get(0).getSoldeDebit());
-                            break;
-                        case "s":
-                            tempon = String.valueOf(list.get(0).getSoldeReel());
-                            break;
-                        default:
-                            return "#Erreur#" + i;
+    String retour = "";
+    String codeVal = "";
+    String numCpte = "";
+    String expression = "";
+    int nbparant = 0;
+
+    try {
+
+        // ===============================
+        // 1️⃣ TRAITEMENT DES CODES POSTES
+        // ===============================
+
+        for (int i = 0; i < expressionO.length(); i++) {
+
+            char car = Character.toLowerCase(expressionO.charAt(i));
+
+            if (car == '_') {
+
+                int j = i;
+                String codePoste = "";
+
+                do {
+                    codePoste += expressionO.substring(j, j + 1).trim();
+                    j++;
+                } while (j < expressionO.length()
+                        && !"-+*/)".contains(expressionO.substring(j, j + 1)));
+
+                String formuleCP = libraryDao.formuleDunCodePoste(codePoste);
+
+                String tempon = calculer(formuleCP, codePlan, dateEvaluation, idOpcvm);
+
+                if (!expression.isEmpty() && tempon.startsWith("-")) {
+                    if (expression.endsWith("-")) {
+                        expression = expression.substring(0, expression.length() - 1)
+                                + "+" + tempon.substring(1);
+                    } else {
+                        expression = expression.substring(0, expression.length() - 1)
+                                + tempon;
                     }
+                } else {
+                    expression += tempon;
+                }
 
-                    if (!retour.isEmpty() && tempon.startsWith("-") && retour.endsWith("-")) {
-                        retour = retour.substring(0, retour.length() - 1) + "+" + tempon.substring(1);
+                i = j - 1;
+
+            } else {
+                expression += car;
+            }
+        }
+
+        // ===============================
+        // 2️⃣ ANALYSE STRICTE IDENTIQUE C#
+        // ===============================
+
+        if (expression.isEmpty()
+                || !"-+0123456789(ms".contains(expression.substring(0, 1).toLowerCase())) {
+            return "#Erreur#0";
+        }
+
+        for (int i = 0; i < expression.length(); i++) {
+
+            char car = Character.toLowerCase(expression.charAt(i));
+
+            if ("0123456789,.-+*/()mcds".contains(String.valueOf(car))) {
+
+                // --- contrôle chiffre ---
+                if (Character.isDigit(car)) {
+                    if (i + 1 < expression.length() &&
+                            "(mcds".contains(String.valueOf(expression.charAt(i + 1)).toLowerCase())) {
+                        return "#Erreur#" + i;
+                    }
+                }
+
+                // --- contrôle virgule ---
+                if (car == ',' || car=='.') {
+                    if (i + 1 >= expression.length()
+                            || !Character.isDigit(expression.charAt(i + 1))) {
+                        return "#Erreur#" + i;
+                    }
+                }
+
+                // --- contrôle opérateur ---
+                if ("-+*/".contains(String.valueOf(car))) {
+                    if (i + 1 >= expression.length()
+                            || !"0123456789ms(".contains(
+                            String.valueOf(expression.charAt(i + 1)).toLowerCase())) {
+                        return "#Erreur#" + i;
+                    }
+                }
+
+                // --- contrôle m ---
+                if (car == 'm') {
+                    if (i + 1 >= expression.length()
+                            || !"cd".contains(
+                            String.valueOf(expression.charAt(i + 1)).toLowerCase())) {
+                        return "#Erreur#" + i;
+                    }
+                }
+
+                // --- contrôle c d s ---
+                if ("cds".contains(String.valueOf(car))) {
+                    if (i + 1 >= expression.length()
+                            || !Character.isDigit(expression.charAt(i + 1))) {
+                        return "#Erreur#" + i;
+                    }
+                }
+
+                // --- contrôle ( ---
+                if (car == '(') {
+                    if (i + 1 >= expression.length()
+                            || !"0123456789(ms".contains(
+                            String.valueOf(expression.charAt(i + 1)).toLowerCase())) {
+                        return "#Erreur#" + i;
+                    }
+                }
+
+                // --- contrôle ) ---
+                if (car == ')') {
+                    if (i + 1 < expression.length()
+                            && !"-+*/)".contains(
+                            String.valueOf(expression.charAt(i + 1)).toLowerCase())) {
+                        return "#Erreur#" + i;
+                    }
+                }
+
+                // --- comptage parenthèses ---
+                if (car == '(') nbparant++;
+                if (car == ')') nbparant--;
+
+            } else {
+                return "#Erreur:caractère non autorisé#";
+            }
+        }
+
+        if (nbparant != 0) {
+            return "#Erreur:paranthèse(s) manquante(s)#";
+        }
+
+        // ===============================
+        // 3️⃣ REMPLACEMENT DES COMPTES
+        // ===============================
+
+        retour = "";
+
+        for (int i = 0; i < expression.length(); i++) {
+
+            char car = expression.charAt(i);
+
+            if (car == 'm' || car == 's') {
+
+                int j = i;
+                codeVal = String.valueOf(car);
+                numCpte = "";
+
+                while (++j < expression.length()) {
+                    char next = expression.charAt(j);
+                    if ("+-/*)".contains(String.valueOf(next))) break;
+
+                    if (codeVal.length() == 1 && car == 'm') {
+                        codeVal += next;
+                    } else {
+                        numCpte += next;
+                    }
+                }
+
+                Date date = Date.from(
+                        dateEvaluation.atZone(ZoneId.systemDefault()).toInstant()
+                );
+
+                List<SoldeCompteFormuleProjection> list =
+                        libraryDao.afficherSoldeCompteFormule(
+                                idOpcvm, numCpte.trim(), codePlan, null, date);
+
+                if (list.isEmpty()) {
+                    return "#Erreur#Compte introuvable";
+                }
+
+                if (list.get(0).getSortie().contains("Erreur")) {
+                    return list.get(0).getSortie();
+                }
+
+                String tempon;
+
+                switch (codeVal.toLowerCase()) {
+                    case "mc":
+                        tempon = list.get(0).getSoldeCredit().toString().trim();
+                        break;
+                    case "md":
+                        tempon = list.get(0).getSoldeDebit().toString().trim();
+                        break;
+                    case "s":
+                        tempon = list.get(0).getSoldeReel().toString().trim();
+                        break;
+                    default:
+                        return "#Erreur#" + i;
+                }
+
+                if (!retour.isEmpty()) {
+                    if (tempon.startsWith("-") && retour.endsWith("-")) {
+                        retour = retour.substring(0, retour.length() - 1)
+                                + "+" + tempon.substring(1);
                     } else {
                         retour += tempon;
                     }
-
-                    codeVal = "";
-                    numCpte = "";
-                    i = j;
                 } else {
-                    retour += car;
-                    i++;
+                    if (tempon.startsWith("-")) {
+                        retour += "0" + tempon;
+                    } else {
+                        retour += tempon;
+                    }
                 }
-            }
 
-        } catch (Exception e) {
-            return "#Erreur Exception Interne#";
+                i = j - 1;
+
+            } else {
+                retour += car;
+            }
         }
 
-        return retour.trim();
+    } catch (Exception e) {
+        return "#Erreur Exception Interne#";
     }
+
+    return retour.trim();
+}
 //    public String interpreter(String expressionO, String codeplan, LocalDateTime dateEvalution, Long idOpcvm) {
 //        String retour = "", codeVal = "", numCpte = "", expression = "";
 //        String carsAutorises = "0123456789,-+*/()";
@@ -1346,7 +1791,7 @@ public String calculerExpressionTraitee(String expression) {
         }
     }
     @Override
-    public ResponseEntity<Object> verifier(Long idSeance,Long idOpcvm, HttpServletResponse response) throws IOException, JRException {
+    public void verifier(Long idSeance,Long idOpcvm, HttpServletResponse response) throws IOException, JRException {
         List<FT_GenererChargeProjection> list=libraryDao.verifierChargeAEtaler(idSeance, idOpcvm);
         Map<String, Object> parameters = new HashMap<>();
         DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
@@ -1369,14 +1814,14 @@ public String calculerExpressionTraitee(String expression) {
 
         // Export vers le flux de sortie HTTP
         JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());
-        return ResponseHandler.generateResponse(
-                "Ordre de bourse",
-                HttpStatus.OK,
-                list);
+//        return ResponseHandler.generateResponse(
+//                "Ordre de bourse",
+//                HttpStatus.OK,
+//                list);
     }
 
     @Override
-    public ResponseEntity<Object> verifier(Long idSeance, Long idOpcvm, Boolean estVerifie1, Boolean estVerifie2, Long niveau, HttpServletResponse response) throws IOException, JRException {
+    public byte[] verifier(Long idSeance, Long idOpcvm, Boolean estVerifie1, Boolean estVerifie2, Long niveau) throws IOException, JRException {
         List<FT_GenererChargeProjection> list=libraryDao.afficherChargeAEtaler(idSeance, idOpcvm, false,estVerifie1, estVerifie2);
 
         Map<String, Object> parameters = new HashMap<>();
@@ -1404,16 +1849,21 @@ public String calculerExpressionTraitee(String expression) {
             throw new FileNotFoundException("Fichier JRXML introuvable dans le classpath");
         }
 
-        JasperReport jasperReport = JasperCompileManager.compileReport(inputStream);
-        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(list);
-        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
+        JasperReport jasperReport =
+                JasperCompileManager.compileReport(inputStream);
 
-        // Export vers le flux de sortie HTTP
-        JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());
-        return ResponseHandler.generateResponse(
-                "Extourne VDE",
-                HttpStatus.OK,
-                list);
+        JRBeanCollectionDataSource dataSource =
+                new JRBeanCollectionDataSource(list);
+
+        JasperPrint jasperPrint =
+                JasperFillManager.fillReport(jasperReport, parameters, dataSource);
+
+        // ✅ ICI on retourne directement le PDF en byte[]
+        return JasperExportManager.exportReportToPdf(jasperPrint);
+//        return ResponseHandler.generateResponse(
+//                "Extourne VDE",
+//                HttpStatus.OK,
+//                list);
     }
 
     @Override

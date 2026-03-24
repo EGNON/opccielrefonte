@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class TypeAffectationTitreDto {
     private Long idTypeAffectation;
-    private String libelleTypeAffectation;
+    private String libelleTypeAffectationVL;
 
     public Long getIdTypeAffectation() {
         return idTypeAffectation;
@@ -15,11 +15,11 @@ public class TypeAffectationTitreDto {
         this.idTypeAffectation = idTypeAffectation;
     }
 
-    public String getLibelleTypeAffectation() {
-        return libelleTypeAffectation;
+    public String getLibelleTypeAffectationVL() {
+        return libelleTypeAffectationVL;
     }
 
-    public void setLibelleTypeAffectation(String libelleTypeAffectation) {
-        this.libelleTypeAffectation = libelleTypeAffectation;
+    public void setLibelleTypeAffectationVL(String libelleTypeAffectationVL) {
+        this.libelleTypeAffectationVL = libelleTypeAffectationVL;
     }
 }

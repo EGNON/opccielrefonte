@@ -319,7 +319,7 @@ public class DepotRachatImpl implements DepotRachatService {
                             objs.setCleActionnaireOpcvm(cleActionnaireOpcvm);
                             ActionnaireOpcvm sortieActOpcvm = actionnaireOpcvmDao.save(objs);
                             if (sortieActOpcvm!=null) {
-                                List<ProfilCommissionSousRach> profilCommissionSousRaches = profilCommissionSousRachDao.findByOpcvm(opcvm);
+                                List<ProfilCommissionSousRach> profilCommissionSousRaches = profilCommissionSousRachDao.findByOpcvmAndStandard(opcvm,true);
                                 for (int s = 0; s < profilCommissionSousRaches.size(); s++) {
                                     List<ActionnaireCommission> actionnaireCommissions = actionnaireCommissionDao.afficherSelonOpcvm(
                                             phForms.get(j).getOpcvm().getIdOpcvm(), obj.get(0).getIdPersonne(), profilCommissionSousRaches.get(s).getTypeCommission(),
@@ -379,7 +379,7 @@ public class DepotRachatImpl implements DepotRachatService {
                     objDepot.setLibelleOperation("DEPOT DE " + phForms.get(j).getMontantSouscrit()+" FCFA POUR SOUSCRIPTION ");
                     objDepot.setIdSeance(seanceOpcvm.getIdSeanceOpcvm().getIdSeance());
                     objDepot.setQuantite(BigDecimal.ZERO);
-                    objDepot.setEcriture("A");
+                    objDepot.setEcriture("E");
                     objDepot.setType("S");
                     NatureOperation natureOperation = natureOperationDao.findByCodeNatureOperationIgnoreCase(
                             "DEP_SOUS").orElseThrow();
@@ -500,7 +500,7 @@ public class DepotRachatImpl implements DepotRachatService {
             ActionnaireOpcvm sortieActOpcvm = actionnaireOpcvmDao.save(objs);
 
             if (sortieActOpcvm!=null) {
-                List<ProfilCommissionSousRach> profilCommissionSousRaches = profilCommissionSousRachDao.findByOpcvm(opcvm);
+                List<ProfilCommissionSousRach> profilCommissionSousRaches = profilCommissionSousRachDao.findByOpcvmAndStandard(opcvm,true);
                 for (int j = 0; j < profilCommissionSousRaches.size(); j++) {
                     List<ActionnaireCommission> actionnaireCommissions = actionnaireCommissionDao.afficherSelonOpcvm(
                             phForms.getOpcvm().getIdOpcvm(), sortie.getIdPersonne(), profilCommissionSousRaches.get(j).getTypeCommission(),
@@ -617,7 +617,7 @@ public class DepotRachatImpl implements DepotRachatService {
                         objs.setCleActionnaireOpcvm(cleActionnaireOpcvm);
                         ActionnaireOpcvm sortieActOpcvm = actionnaireOpcvmDao.save(objs);
                         if (sortieActOpcvm!=null) {
-                            List<ProfilCommissionSousRach> profilCommissionSousRaches = profilCommissionSousRachDao.findByOpcvm(opcvm);
+                            List<ProfilCommissionSousRach> profilCommissionSousRaches = profilCommissionSousRachDao.findByOpcvmAndStandard(opcvm,true);
                             for (int s = 0; s < profilCommissionSousRaches.size(); s++) {
                                 List<ActionnaireCommission> actionnaireCommissions = actionnaireCommissionDao.afficherSelonOpcvm(
                                         pmForms.get(j).getOpcvm().getIdOpcvm(), obj.get(0).getIdPersonne(), profilCommissionSousRaches.get(s).getTypeCommission(),
@@ -676,7 +676,7 @@ public class DepotRachatImpl implements DepotRachatService {
                 objDepot.setLibelleOperation("DEPOT DE " + pmForms.get(j).getMontantSouscrit()+" FCFA POUR SOUSCRIPTION ");
                 objDepot.setIdSeance(seanceOpcvm.getIdSeanceOpcvm().getIdSeance());
                 objDepot.setQuantite(BigDecimal.ZERO);
-                objDepot.setEcriture("A");
+                objDepot.setEcriture("E");
                 objDepot.setType("S");
                 NatureOperation natureOperation = natureOperationDao.findByCodeNatureOperationIgnoreCase(
                         "DEP_SOUS").orElseThrow();
@@ -780,7 +780,7 @@ public class DepotRachatImpl implements DepotRachatService {
                 ActionnaireOpcvm sortieActOpcvm = actionnaireOpcvmDao.save(objs);
 
                 if (sortieActOpcvm != null) {
-                    List<ProfilCommissionSousRach> profilCommissionSousRaches = profilCommissionSousRachDao.findByOpcvm(opcvm);
+                    List<ProfilCommissionSousRach> profilCommissionSousRaches = profilCommissionSousRachDao.findByOpcvmAndStandard(opcvm,true);
                     for (int j = 0; j < profilCommissionSousRaches.size(); j++) {
                         List<ActionnaireCommission> actionnaireCommissions = actionnaireCommissionDao.afficherSelonOpcvm(
                                 pmForm.getOpcvm().getIdOpcvm(), sortie.getIdPersonne(), profilCommissionSousRaches.get(j).getTypeCommission(),
@@ -954,6 +954,15 @@ public class DepotRachatImpl implements DepotRachatService {
         Long idSeance = seanceOpcvm.getIdSeanceOpcvm().getIdSeance();
         List<FT_DepotRachatProjection> list = libraryDao.afficherFT_DepotRachat(idSeance,
                 null, IdOpcvm, "INT_RACH",
+                niveau1, niveau2);
+
+        return list;
+    }
+    public List<FT_DepotRachatProjection> afficherFT_DepotRachat_DEPSOUS(Long IdOpcvm,boolean niveau1,boolean niveau2) {
+        SeanceOpcvm seanceOpcvm = seanceOpcvmService.afficherSeanceEnCours(IdOpcvm);
+        Long idSeance = seanceOpcvm.getIdSeanceOpcvm().getIdSeance();
+        List<FT_DepotRachatProjection> list = libraryDao.afficherFT_DepotRachat(idSeance,
+                null, IdOpcvm, "DEP_SOUS",
                 niveau1, niveau2);
 
         return list;
@@ -1851,16 +1860,42 @@ public class DepotRachatImpl implements DepotRachatService {
     }
 
     @Override
-    public ResponseEntity<Object> confirmerListeVerifDepot(List<DepotRachatDto> depotRachatDtos) {
-        try {
-            List<DepotRachat> depotRachats = depotRachatDtos.stream().map(depotRachatMapper::deDepotRachatDto).toList();
-            if(depotRachats.size() > 0) {
-                depotRachatDtos = depotRachatDao.saveAll(depotRachats).stream().map(depotRachatMapper::deDepotRachat).collect(Collectors.toList());
-            }
-            return ResponseHandler.generateResponse(
-                    "Liste des dépôts confirmée avec succès.",
-                    HttpStatus.OK,
-                    depotRachatDtos);
+    public ResponseEntity<Object> confirmerListeVerifDepot(VerifDepSouscriptionIntRachatDto verifDepSouscriptionIntRachatDto) {
+
+            try {
+                StoredProcedureQuery q = em.createStoredProcedureQuery("[Parametre].[PS_VerifDepSouscriptionIntRachat]");
+                q.registerStoredProcedureParameter("IdSeance", Long.class, ParameterMode.IN);
+                q.registerStoredProcedureParameter("IdPersonne", Long.class, ParameterMode.IN);
+                q.registerStoredProcedureParameter("IdOpcvm", Long.class, ParameterMode.IN);
+                q.registerStoredProcedureParameter("codeNatureOperation", String.class, ParameterMode.IN);
+                q.registerStoredProcedureParameter("niveau", String.class, ParameterMode.IN);
+                q.registerStoredProcedureParameter("dateVerif", LocalDateTime.class, ParameterMode.IN);
+                q.registerStoredProcedureParameter("userLoginVerif", String.class, ParameterMode.IN);
+
+                SeanceOpcvm seanceOpcvm = seanceOpcvmService.afficherSeanceEnCours(verifDepSouscriptionIntRachatDto.getIdOpcvm());
+                LocalDateTime dateEstimation = seanceOpcvm.getDateFermeture();
+                q.setParameter("IdSeance", seanceOpcvm.getIdSeanceOpcvm().getIdSeance());
+                q.setParameter("IdPersonne", null);
+                q.setParameter("IdOpcvm", verifDepSouscriptionIntRachatDto.getIdOpcvm());
+                q.setParameter("codeNatureOperation", verifDepSouscriptionIntRachatDto.getCodeNatureOperation());
+                q.setParameter("niveau", verifDepSouscriptionIntRachatDto.getNiveau());
+                q.setParameter("dateVerif", LocalDateTime.now());
+                q.setParameter("userLoginVerif", verifDepSouscriptionIntRachatDto.getUserLoginVerif());
+
+                try {
+                    // Execute query
+                    q.executeUpdate();
+                } finally {
+                    try {
+
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage());
+                    }
+                }
+                return ResponseHandler.generateResponse(
+                        "Enregistrement effectué avec succès !",
+                        HttpStatus.OK,
+                        null);
         } catch (Exception e) {
             return ResponseHandler.generateResponse(
                     e.getMessage(),
@@ -1873,31 +1908,109 @@ public class DepotRachatImpl implements DepotRachatService {
     public ResponseEntity<Object> confirmerListeVerifNiv2Depot(List<DepotRachatDto> depotRachatDtos) {
         try {
             List<DepotRachat> depotRachats = depotRachatDtos.stream().map(depotRachatMapper::deDepotRachatDto).toList();
+            String sortie="";
+            String userLogin="";
+            int l=0;
             if(depotRachats.size() > 0) {
                 for (DepotRachat d : depotRachats) {
                     DepotRachatDto depotRachatDto = depotRachatMapper.deDepotRachat(d);
-                    OperationDto op = new OperationDto();
-                    op.setIdActionnaire(d.getActionnaire().getIdPersonne());
-                    op.setIdTitre(0L);
-                    op.setActionnaire(depotRachatDto.getActionnaire());
-                    op.setNatureOperation(depotRachatDto.getNatureOperation());
-                    op.setDateOperation(depotRachatDto.getDateOperation());
-                    op.setDatePiece(depotRachatDto.getDatePiece());
-                    op.setDateSaisie(depotRachatDto.getDateSaisie());
-                    op.setDateValeur(depotRachatDto.getDateValeur());
-                    op.setOpcvm(depotRachatDto.getOpcvm());
-                    op.setIdSeance(depotRachatDto.getIdSeance());
-                    op.setMontant(depotRachatDto.getMontant());
-                    op.setReferencePiece(depotRachatDto.getReferencePiece());
-                    op.setValeurCodeAnalytique("OPC:" + depotRachatDto.getOpcvm().getIdOpcvm()
-                            + ";ACT:" + depotRachatDto.getActionnaire().getIdPersonne());
-                    op.setValeurFormule("2:" + depotRachatDto.getMontant());
-                    op.setLibelleOperation(depotRachatDto.getLibelleOperation());
-                    op.setType(depotRachatDto.getType());
-                    op = appService.genererEcritureComptable(op);
-                    d.setIdOperation(op.getIdOperation());
-                    depotRachatDao.save(d);
-                    System.out.println("Résultat final => " + d);
+                    var k=em.createStoredProcedureQuery("[Comptabilite].[PS_Operation_IP_New]");
+                    k.registerStoredProcedureParameter("IdOperation",Long.class,ParameterMode.IN);
+                    k.registerStoredProcedureParameter("idOpcvm",Long.class,ParameterMode.IN);
+                    k.registerStoredProcedureParameter("idActionnaire",Long.class,ParameterMode.IN);
+                    k.registerStoredProcedureParameter("idTitre",Long.class,ParameterMode.IN);
+                    k.registerStoredProcedureParameter("IdTransaction",Long.class,ParameterMode.IN);
+                    k.registerStoredProcedureParameter("idSeance",Long.class,ParameterMode.IN);
+                    k.registerStoredProcedureParameter("codeNatureOperation",String.class,ParameterMode.IN);
+                    k.registerStoredProcedureParameter("dateOperation",LocalDateTime.class,ParameterMode.IN);
+                    k.registerStoredProcedureParameter("libelleOperation",String.class,ParameterMode.IN);
+                    k.registerStoredProcedureParameter("dateSaisie",LocalDateTime.class,ParameterMode.IN);
+                    k.registerStoredProcedureParameter("datePiece",LocalDateTime.class,ParameterMode.IN);
+                    k.registerStoredProcedureParameter("dateValeur",LocalDateTime.class,ParameterMode.IN);
+                    k.registerStoredProcedureParameter("referencePiece",String.class,ParameterMode.IN);
+                    k.registerStoredProcedureParameter("montant",BigDecimal.class,ParameterMode.IN);
+                    k.registerStoredProcedureParameter("ecriture",String.class,ParameterMode.IN);
+                    k.registerStoredProcedureParameter("estOD",Boolean.class,ParameterMode.IN);
+                    k.registerStoredProcedureParameter("type",String.class,ParameterMode.IN);
+                    k.registerStoredProcedureParameter("valeurFormule",String.class,ParameterMode.IN);
+                    k.registerStoredProcedureParameter("valeurCodeAnalytique",String.class,ParameterMode.IN);
+                    k.registerStoredProcedureParameter("userLogin",String.class,ParameterMode.IN);
+                    k.registerStoredProcedureParameter("dateDernModifClient",LocalDateTime.class,ParameterMode.IN);
+                    k.registerStoredProcedureParameter("CodeLangue",String.class,ParameterMode.IN);
+                    k.registerStoredProcedureParameter("Sortie",String.class,ParameterMode.OUT);
+
+                    if(l==0)
+                    {
+                        userLogin=depotRachatDto.getUserLogin();
+                        l+=1;
+                    }
+                    k.setParameter("IdOperation",0L);
+                    k.setParameter("idOpcvm",depotRachatDto.getOpcvm().getIdOpcvm());
+                    k.setParameter("idActionnaire",depotRachatDto.getActionnaire().getIdPersonne());
+                    k.setParameter("idTitre",0L);
+                    k.setParameter("IdTransaction",0L);
+                    k.setParameter("idSeance",depotRachatDto.getIdSeance());
+                    k.setParameter("codeNatureOperation",depotRachatDto.getNatureOperation().getCodeNatureOperation());
+                    k.setParameter("dateOperation",depotRachatDto.getDateOperation());
+                    k.setParameter("libelleOperation",depotRachatDto.getLibelleOperation());
+                    k.setParameter("dateSaisie",depotRachatDto.getDateSaisie());
+                    k.setParameter("datePiece",depotRachatDto.getDatePiece());
+                    k.setParameter("dateValeur",depotRachatDto.getDateValeur());
+                    k.setParameter("referencePiece",depotRachatDto.getReferencePiece());
+                    k.setParameter("montant",depotRachatDto.getMontant());
+                    k.setParameter("ecriture","E");
+                    k.setParameter("estOD",false);
+                    k.setParameter("type",depotRachatDto.getType());
+                    k.setParameter("valeurFormule","2:" + depotRachatDto.getMontant());
+                    k.setParameter("valeurCodeAnalytique","OPC:" + depotRachatDto.getOpcvm().getIdOpcvm()
+                           + ";ACT:" + depotRachatDto.getActionnaire().getIdPersonne());
+                    k.setParameter("userLogin",userLogin);
+                    k.setParameter("dateDernModifClient",LocalDateTime.now());
+                    k.setParameter("CodeLangue","fr-FR");
+                    k.setParameter("Sortie",sortie);
+                    String[] s=new String[20];
+                    try
+                    {
+                        k.execute();
+                        String result=(String) k.getOutputParameterValue("Sortie");
+                        s=result.split("#");
+                        DepotRachat depotRachat=depotRachatDao.findById(depotRachatDto.getIdDepotRachat()).orElseThrow();
+
+                        depotRachat.setIdDepotRachat(depotRachatDto.getIdDepotRachat());
+                        depotRachat.setIdOperation(Long.valueOf(s[s.length-1]));
+                        depotRachat.setEstVerifie2(true);
+                        depotRachat.setDateVerification2(LocalDateTime.now());
+                        depotRachat.setUserLoginVerificateur2(userLogin);
+                        depotRachatDao.save(depotRachat);
+
+                    }
+                    catch(Exception e){
+
+                    }
+//
+//                    OperationDto op = new OperationDto();
+//                    op.setIdActionnaire(d.getActionnaire().getIdPersonne());
+//                    op.setIdTitre(0L);
+//                    op.setActionnaire(depotRachatDto.getActionnaire());
+//                    op.setNatureOperation(depotRachatDto.getNatureOperation());
+//                    op.setDateOperation(depotRachatDto.getDateOperation());
+//                    op.setDatePiece(depotRachatDto.getDatePiece());
+//                    op.setDateSaisie(depotRachatDto.getDateSaisie());
+//                    op.setDateValeur(depotRachatDto.getDateValeur());
+//                    op.setOpcvm(depotRachatDto.getOpcvm());
+//                    op.setIdSeance(depotRachatDto.getIdSeance());
+//                    op.setMontant(depotRachatDto.getMontant());
+//                    op.setEcriture("E");
+//                    op.setReferencePiece(depotRachatDto.getReferencePiece());
+//                    op.setValeurCodeAnalytique("OPC:" + depotRachatDto.getOpcvm().getIdOpcvm()
+//                            + ";ACT:" + depotRachatDto.getActionnaire().getIdPersonne());
+//                    op.setValeurFormule("2:" + depotRachatDto.getMontant());
+//                    op.setLibelleOperation(depotRachatDto.getLibelleOperation());
+//                    op.setType(depotRachatDto.getType());
+//                    op = appService.genererEcritureComptable(op);
+//                    d.setIdOperation(op.getIdOperation());
+//                    depotRachatDao.save(d);
+//                    System.out.println("Résultat final => " + d);
                 }
             }
             return ResponseHandler.generateResponse(

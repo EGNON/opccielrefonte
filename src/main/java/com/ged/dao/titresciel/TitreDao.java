@@ -15,7 +15,7 @@ public interface TitreDao extends JpaRepository<Titre,Long>, JpaSpecificationExe
     Optional<Titre> findByIdOcc(Long id);
     List<Titre> findBySupprimerOrderBySymbolTitreAsc(boolean supprimer);
     Optional<Titre> findByTypeVMAndIdOcc(String type, Long id);
-    Optional<Titre> findBySymbolTitreIgnoreCase(String symbolTitre);
+    Optional<Titre> findBySymbolTitreIgnoreCaseAndSupprimer(String symbolTitre,boolean supprimer);
     @Query(value = "select ph from Titre as ph inner join StatutTitre as sp " +
             "on sp.idStatutTitre.idTitre = ph.idTitre inner join QualiteTitre as q " +
             "on q.idQualite = sp.qualiteTitre.idQualite where q.libelleQualite = :qualite " +

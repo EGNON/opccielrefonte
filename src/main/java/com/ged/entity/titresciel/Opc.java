@@ -12,16 +12,16 @@ public class Opc extends Titre {
     private BigDecimal vlOrigine;
     private Integer periodiciteVlNbre;
     private String periodiciteVlUnite;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "codeClassificationOPC", referencedColumnName = "codeClassificationOPC")
     private ClassificationOPC classificationOPC;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "idTypeAffectation", referencedColumnName = "idTypeAffectation")
     private TypeAffectationVL typeAffectationTitre;
 //    private String codeClassificationOPC;
     private String codeFormeJuridiqueOPC;
     private String libelleTypeAffectationVL;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "idFormeJuridiqueOpc", referencedColumnName = "idFormeJuridiqueOpc")
     private FormeJuridiqueOpc formeJuridiqueOpc;
 

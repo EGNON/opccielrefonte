@@ -9,11 +9,14 @@ import com.ged.service.AppService;
 import com.ged.service.opcciel.OperationService;
 import jakarta.servlet.http.HttpServletResponse;
 import net.sf.jasperreports.engine.JRException;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
@@ -59,36 +62,69 @@ public class OperationController {
                                                    @PathVariable String code) {
         return operationService.actionnaireBanque(idOpcvm, code);
     }
-    @GetMapping("/verifieretape/{niveau}/{idOpcvm}/{idSeance}/{estVerifie1}/{estVerifie2}/{niv}")
-    public ResponseEntity<Object> verifierEtape(@PathVariable Long niveau,
-                                                   @PathVariable Long idOpcvm,
-                                                   @PathVariable Long idSeance,
-                                                @PathVariable Boolean estVerifie1,
-                                                @PathVariable Boolean estVerifie2,
-                                                @PathVariable Long niv,
-                                                HttpServletResponse response) throws JRException, IOException {
-        String etapes=operationService.verifierEtape(niveau, idOpcvm);
-        if(!etapes.equals(""))
-        {
-            return ResponseHandler.generateResponse(
-                    "Ordre de bourse",
-                    HttpStatus.OK,
-                    "Les étapes suivantes n'ont pas encore été faites:" + etapes);
-        }
-        else
-        {
-            response.setContentType("application/pdf");
-            DateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy:hh:mm:ss");
-            String currentDateTime = dateFormatter.format(new Date());
+//    @GetMapping("/verifieretape/{niveau}/{idOpcvm}/{idSeance}/{estVerifie1}/{estVerifie2}/{niv}")
+//    public ResponseEntity<Object> verifierEtape(@PathVariable Long niveau,
+//                                                   @PathVariable Long idOpcvm,
+//                                                   @PathVariable Long idSeance,
+//                                                @PathVariable Boolean estVerifie1,
+//                                                @PathVariable Boolean estVerifie2,
+//                                                @PathVariable Long niv,
+//                                                HttpServletResponse response) throws JRException, IOException {
+//        String etapes=operationService.verifierEtape(niveau, idOpcvm);
+//        if(!etapes.equals(""))
+//        {
+//            return ResponseHandler.generateResponse(
+//                    "Ordre de bourse",
+//                    HttpStatus.OK,
+//                    "Les étapes suivantes n'ont pas encore été faites:" + etapes);
+//        }
+//        else
+//        {
+//            response.setContentType("application/pdf");
+//            DateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy:hh:mm:ss");
+//            String currentDateTime = dateFormatter.format(new Date());
+//
+//            String headerKey = "Content-Disposition";
+//            String headerValue = "attachment; filename=verificationDe_Niveau"+niv+ "_"+ currentDateTime + ".pdf";
+//            response.setHeader(headerKey, headerValue);
+//
+//            return operationService.apercuVerificationDE1(idOpcvm,idSeance,estVerifie1,estVerifie2,niv,response);
+//        }
+//
+//    }
+@GetMapping("/verifieretape/{niveau}/{idOpcvm}/{idSeance}/{niv}")
+public ResponseEntity<?> verifierEtape(@PathVariable Long niveau,
+                                       @PathVariable Long idOpcvm,
+                                       @PathVariable Long idSeance,
+                                       @PathVariable Long niv,
+                                       @RequestParam Boolean estVerifie1,
+                                       @RequestParam Boolean estVerifie2) throws JRException, IOException {
 
-            String headerKey = "Content-Disposition";
-            String headerValue = "attachment; filename=verificationDe_Niveau"+niv+ "_"+ currentDateTime + ".pdf";
-            response.setHeader(headerKey, headerValue);
+    String etapes = operationService.verifierEtape(niveau, idOpcvm);
 
-            return operationService.apercuVerificationDE1(idOpcvm,idSeance,estVerifie1,estVerifie2,niv,response);
-        }
+    if (!etapes.equals("")) {
 
+        byte[] messageBytes = (
+                "Les étapes suivantes n'ont pas encore été faites: " + etapes
+        ).getBytes(StandardCharsets.UTF_8);
+
+        return ResponseEntity.ok()
+                .contentType(MediaType.TEXT_PLAIN)
+                .body(messageBytes);
     }
+
+    // Génération PDF en byte[]
+    byte[] pdfBytes = operationService.apercuVerificationDE1(
+            idOpcvm, idSeance, estVerifie1, estVerifie2, niv);
+
+    String fileName = "verificationDe_Niveau" + niv + "_" +
+            new SimpleDateFormat("ddMMyyyy_HHmmss").format(new Date()) + ".pdf";
+
+    return ResponseEntity.ok()
+            .contentType(MediaType.APPLICATION_PDF)
+            .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + fileName)
+            .body(pdfBytes);
+}
     @GetMapping("/verifieretape/{niveau}/{idOpcvm}")
     public ResponseEntity<Object> verifierEtape(@PathVariable Long niveau,
                                                    @PathVariable Long idOpcvm)  {

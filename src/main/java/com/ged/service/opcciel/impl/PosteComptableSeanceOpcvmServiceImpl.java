@@ -682,7 +682,7 @@ public class PosteComptableSeanceOpcvmServiceImpl implements PosteComptableSeanc
     }
 
     @Override
-    public ResponseEntity<Object> jaspertReportCodePoste(Long idOpcvm, Long idSeance, Boolean estVerifie1, Boolean estVerifie2,Long niveau, HttpServletResponse response) throws IOException, JRException {
+    public byte[] jaspertReportCodePoste(Long idOpcvm, Long idSeance, Boolean estVerifie1, Boolean estVerifie2,Long niveau) throws IOException, JRException {
         List<CodePosteComptableProjection> list=libraryDao.afficherCodePosteComptable(idOpcvm, idSeance, estVerifie1, estVerifie2);
         Map<String, Object> parameters = new HashMap<>();
         DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
@@ -702,21 +702,26 @@ public class PosteComptableSeanceOpcvmServiceImpl implements PosteComptableSeanc
             throw new FileNotFoundException("Fichier JRXML introuvable dans le classpath");
         }
 
-        JasperReport jasperReport = JasperCompileManager.compileReport(inputStream);
-        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(list);
-        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
+        JasperReport jasperReport =
+                JasperCompileManager.compileReport(inputStream);
 
-        // Export vers le flux de sortie HTTP
-        JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());
+        JRBeanCollectionDataSource dataSource =
+                new JRBeanCollectionDataSource(list);
+
+        JasperPrint jasperPrint =
+                JasperFillManager.fillReport(jasperReport, parameters, dataSource);
+
+        // ✅ ICI on retourne directement le PDF en byte[]
+        return JasperExportManager.exportReportToPdf(jasperPrint);
 //        File file = ResourceUtils.getFile("classpath:verificationValorisationCodePosteN1N2.jrxml");
 //        JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
 //        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(list);
 //        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport,parameters, dataSource);
 //        JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());
-        return ResponseHandler.generateResponse(
-                "Ordre de bourse",
-                HttpStatus.OK,
-                list);
+//        return ResponseHandler.generateResponse(
+//                "Ordre de bourse",
+//                HttpStatus.OK,
+//                list);
     }
 
     @Override

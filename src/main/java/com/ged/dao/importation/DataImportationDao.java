@@ -1684,7 +1684,7 @@ public class DataImportationDao {
                 qTypeAmortissement.setParameter(1, codeTypeAmortissement);
                 var oTypeAmortissement = (Object[]) qTypeAmortissement.getSingleResult();
                 typeAmortissement.setCodeTypeAmortissement((String) oTypeAmortissement[0]);
-                typeAmortissement.setLibelleTypeAmortissement((String) oTypeAmortissement[1]);
+                typeAmortissement.setLibelleAmortissement((String) oTypeAmortissement[1]);
 
                 TypeObligation typeObligation = typeObligationDao.findByCodeTypeObligationIgnoreCase(codeTypeObligation).orElse(new TypeObligation());
                 Query qTypeObligation = emTitre.createNativeQuery("SELECT * FROM Titre.T_TypeObligation WHERE codeTypeObligation = ?");
@@ -1935,7 +1935,7 @@ public class DataImportationDao {
                 qTypeAmortissement.setParameter(1, codeTypeAmortissement);
                 var oTypeAmortissement = (Object[]) qTypeAmortissement.getSingleResult();
                 typeAmortissement.setCodeTypeAmortissement((String) oTypeAmortissement[0]);
-                typeAmortissement.setLibelleTypeAmortissement((String) oTypeAmortissement[1]);
+                typeAmortissement.setLibelleAmortissement((String) oTypeAmortissement[1]);
 
                 NatureTcn natureTcn = natureTcnDao.findByCodeNatureTcnIgnoreCase(codeNatureTcn).orElse(new NatureTcn());
                 Query qNatureTcn = emTitre.createNativeQuery("SELECT * FROM Titre.T_NatureTcn WHERE codeNatureTcn = ?");

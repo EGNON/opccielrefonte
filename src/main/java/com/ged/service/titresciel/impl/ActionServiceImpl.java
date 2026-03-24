@@ -16,6 +16,8 @@ import com.ged.entity.standard.PersonneMorale;
 import com.ged.entity.standard.Secteur;
 import com.ged.entity.titresciel.*;
 import com.ged.mapper.titresciel.ActionMapper;
+import com.ged.mapper.titresciel.SousTypeActionMapper;
+import com.ged.mapper.titresciel.TypeActionMapper;
 import com.ged.response.ResponseHandler;
 import com.ged.service.FiltersSpecification;
 import com.ged.service.titresciel.ActionService;
@@ -45,6 +47,10 @@ public class ActionServiceImpl implements ActionService {
     private EntityManager emOpcciel;*/
     private final ActionDao actionDao;
     private final ActionMapper actionMapper;
+    private final TypeActionDao typeActionDao;
+    private final TypeActionMapper typeActionMapper;
+    private final SousTypeActionDao sousTypeActionDao;
+    private final SousTypeActionMapper sousTypeActionMapper;
     private final PaysDao paysDao;
     private final TypeTitreDao typeTitreDao;
     private final TypeEmissionDao typeEmissionDao;
@@ -54,10 +60,14 @@ public class ActionServiceImpl implements ActionService {
     private final PersonneMoraleDao personneMoraleDao;
     private final FiltersSpecification<Action> titreFiltersSpecification;
 
-    public ActionServiceImpl(ActionDao ActionDao, ActionMapper ActionMapper, PaysDao paysDao, TypeTitreDao typeTitreDao, TypeEmissionDao typeEmissionDao, SecteurDao secteurDao, CompartimentDao compartimentDao, PlaceDao placeDao, PersonneMoraleDao personneMoraleDao, FiltersSpecification<Action> titreFiltersSpecification){
+    public ActionServiceImpl(ActionDao ActionDao, ActionMapper ActionMapper, TypeActionDao typeActionDao, TypeActionMapper typeActionMapper, SousTypeActionDao sousTypeActionDao, SousTypeActionMapper sousTypeActionMapper, PaysDao paysDao, TypeTitreDao typeTitreDao, TypeEmissionDao typeEmissionDao, SecteurDao secteurDao, CompartimentDao compartimentDao, PlaceDao placeDao, PersonneMoraleDao personneMoraleDao, FiltersSpecification<Action> titreFiltersSpecification){
         this.actionDao = ActionDao;
 
         this.actionMapper = ActionMapper;
+        this.typeActionDao = typeActionDao;
+        this.typeActionMapper = typeActionMapper;
+        this.sousTypeActionDao = sousTypeActionDao;
+        this.sousTypeActionMapper = sousTypeActionMapper;
         this.paysDao = paysDao;
         this.typeTitreDao = typeTitreDao;
         this.typeEmissionDao = typeEmissionDao;
@@ -213,6 +223,14 @@ public class ActionServiceImpl implements ActionService {
                 PersonneMorale depositaire = personneMoraleDao.findById(ActionDto.getDepositaire().getIdPersonne()).orElse(null);
                 Action.setDepositaire(depositaire);
             }
+            if(ActionDto.getTypeAction() != null && ActionDto.getTypeAction().getCodeTypeAction() != null) {
+                TypeAction typeAction = typeActionDao.findById(ActionDto.getTypeAction().getIdTypeAction()).orElse(null);
+                Action.setTypeAction(typeAction);
+            }
+            if(ActionDto.getSousTypeAction() != null && ActionDto.getSousTypeAction().getCodeSousTypeAction() != null) {
+                SousTypeAction sousTypeAction = sousTypeActionDao.findById(ActionDto.getSousTypeAction().getIdSousTypeAction()).orElse(null);
+                Action.setSousTypeAction(sousTypeAction);
+            }
             Action = actionDao.save(Action);
             return ResponseHandler.generateResponse(
                     "Enregistrement effectué avec succès !",
@@ -267,6 +285,14 @@ public class ActionServiceImpl implements ActionService {
             if(ActionDto.getDepositaire() != null && ActionDto.getDepositaire().getIdPersonne() != null) {
                 PersonneMorale depositaire = personneMoraleDao.findById(ActionDto.getDepositaire().getIdPersonne()).orElse(null);
                 Action.setDepositaire(depositaire);
+            }
+            if(ActionDto.getTypeAction() != null && ActionDto.getTypeAction().getCodeTypeAction() != null) {
+                TypeAction typeAction = typeActionDao.findById(ActionDto.getTypeAction().getIdTypeAction()).orElse(null);
+                Action.setTypeAction(typeAction);
+            }
+            if(ActionDto.getSousTypeAction() != null && ActionDto.getSousTypeAction().getCodeSousTypeAction() != null) {
+                SousTypeAction sousTypeAction = sousTypeActionDao.findById(ActionDto.getSousTypeAction().getIdSousTypeAction()).orElse(null);
+                Action.setSousTypeAction(sousTypeAction);
             }
             Action = actionDao.save(Action);
             return ResponseHandler.generateResponse(

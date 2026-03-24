@@ -347,36 +347,87 @@ public class OperationComptableServiceImpl implements OperationService {
 
     }
     @Override
-        public ResponseEntity<Object> apercuVerificationDE1(Long idOpcvm,Long idSeance,Boolean estVerifie1,Boolean estVerifie2,Long niv, HttpServletResponse response) throws IOException, JRException {
-            List<OperationDifferenceEstimationProjection> list=libraryDao.operationDifferenceEstimation(
-                    idSeance,idOpcvm,estVerifie1,estVerifie2,false);
+    public byte[] apercuVerificationDE1(Long idOpcvm,Long idSeance,Boolean estVerifie1,Boolean estVerifie2,Long niv) throws IOException, JRException {
+        List<OperationDifferenceEstimationProjection> list =
+                libraryDao.operationDifferenceEstimation(
+                        idSeance, idOpcvm, estVerifie1, estVerifie2, false);
+
         Map<String, Object> parameters = new HashMap<>();
+
         DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
-//        DateFormat dateFormatter2 = new SimpleDateFormat("dd/MM/yyyy");
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-//        String dateFormatee = date.format(formatter);
+
         String letterDate = dateFormatter.format(new Date());
-        SeanceOpcvmDto seanceOpcvmDto=seanceOpcvmMapper.deSeanceOpcvm(seanceOpcvmDao.afficherSeance(idOpcvm,idSeance));
+
+        SeanceOpcvmDto seanceOpcvmDto =
+                seanceOpcvmMapper.deSeanceOpcvm(
+                        seanceOpcvmDao.afficherSeance(idOpcvm, idSeance));
+
         parameters.put("letterDate", letterDate);
         parameters.put("niveau", niv.toString());
-        parameters.put("dateOuverture", seanceOpcvmDto.getDateOuverture().format(formatter).toString());
-        parameters.put("dateFermeture", seanceOpcvmDto.getDateFermeture().format(formatter).toString());
+        parameters.put("dateOuverture",
+                seanceOpcvmDto.getDateOuverture());
+        parameters.put("dateFermeture",
+                seanceOpcvmDto.getDateFermeture());
 
-        OpcvmDto opcvmDto=opcvmMapper.deOpcvm(opcvmDao.findById(idOpcvm).orElseThrow());
-        parameters.put("VL", opcvmDto.getValeurLiquidativeActuelle().toString());
-        parameters.put("designationOpcvm", opcvmDto.getDenominationOpcvm());
+        OpcvmDto opcvmDto =
+                opcvmMapper.deOpcvm(opcvmDao.findById(idOpcvm).orElseThrow());
 
-        File file = ResourceUtils.getFile("classpath:verificationVDEN1.jrxml");
-            JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
-            JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(list);
-            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport,parameters, dataSource);
-            JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());
-            return ResponseHandler.generateResponse(
-                    "Ordre de bourse",
-                    HttpStatus.OK,
-                    list);
+        parameters.put("vl",
+                opcvmDto.getValeurLiquidativeActuelle());
+        parameters.put("denominationOpcvm",
+                opcvmDto.getDenominationOpcvm());
 
+        InputStream inputStream = getClass()
+                .getResourceAsStream("/Document_Seance_Liste_Verification_VDE_OP.jrxml");
+
+        if (inputStream == null) {
+            throw new FileNotFoundException("Fichier verificationVDEN1.jrxml introuvable");
         }
+
+        JasperReport jasperReport =
+                JasperCompileManager.compileReport(inputStream);
+
+        JRBeanCollectionDataSource dataSource =
+                new JRBeanCollectionDataSource(list);
+
+        JasperPrint jasperPrint =
+                JasperFillManager.fillReport(jasperReport, parameters, dataSource);
+
+        // ✅ ICI on retourne directement le PDF en byte[]
+        return JasperExportManager.exportReportToPdf(jasperPrint);
+    }
+//    @Override
+//    public byte[] apercuVerificationDE1(Long idOpcvm,Long idSeance,Boolean estVerifie1,Boolean estVerifie2,Long niv, HttpServletResponse response) throws IOException, JRException {
+//            List<OperationDifferenceEstimationProjection> list=libraryDao.operationDifferenceEstimation(
+//                    idSeance,idOpcvm,estVerifie1,estVerifie2,false);
+//        Map<String, Object> parameters = new HashMap<>();
+//        DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
+////        DateFormat dateFormatter2 = new SimpleDateFormat("dd/MM/yyyy");
+//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+////        String dateFormatee = date.format(formatter);
+//        String letterDate = dateFormatter.format(new Date());
+//        SeanceOpcvmDto seanceOpcvmDto=seanceOpcvmMapper.deSeanceOpcvm(seanceOpcvmDao.afficherSeance(idOpcvm,idSeance));
+//        parameters.put("letterDate", letterDate);
+//        parameters.put("niveau", niv.toString());
+//        parameters.put("dateOuverture", seanceOpcvmDto.getDateOuverture().format(formatter).toString());
+//        parameters.put("dateFermeture", seanceOpcvmDto.getDateFermeture().format(formatter).toString());
+//
+//        OpcvmDto opcvmDto=opcvmMapper.deOpcvm(opcvmDao.findById(idOpcvm).orElseThrow());
+//        parameters.put("VL", opcvmDto.getValeurLiquidativeActuelle().toString());
+//        parameters.put("designationOpcvm", opcvmDto.getDenominationOpcvm());
+//
+//        File file = ResourceUtils.getFile("classpath:verificationVDEN1.jrxml");
+//            JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
+//            JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(list);
+//            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport,parameters, dataSource);
+//            JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());
+//            return ResponseHandler.generateResponse(
+//                    "Ordre de bourse",
+//                    HttpStatus.OK,
+//                    list);
+//
+//        }
 
     @Override
     public ResponseEntity<Object> creerTout(OperationRequest request) {

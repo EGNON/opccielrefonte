@@ -298,7 +298,7 @@ public interface LibraryDao extends JpaRepository<BaseEntity, Long> {
             "", nativeQuery = true)
     List<EtatsSuiviActionnaireProjection> etatSuiviActionnaire(Long idOpcvm,LocalDateTime dateDeb,LocalDateTime dateFin);
     @Query(value = "select * from [Impressions].[FT_EtatSuiviClients](:idActionnaire,:idOpcvm,:dateEddition) " +
-            "order by idactionnaire asc,idopcvm asc,titre asc", nativeQuery = true)
+            "order by idactionnaire asc,idopcvm asc,titre desc,dateOperation asc", nativeQuery = true)
     List<EtatsSuiviClientProjection> etatSuiviClient(String idActionnaire,Long idOpcvm,LocalDateTime dateEddition);
     @Query(value = "select * from [Impressions].[FT_EtatSuiviActionnaires_New] (:idOpcvm,:dateDeb,:dateFin) " +
             "", nativeQuery = true)
@@ -402,6 +402,12 @@ public interface LibraryDao extends JpaRepository<BaseEntity, Long> {
                                                                        LocalDateTime dateSeance,
                                                                        Pageable pageable
                                                                   );
+//    @Query(value = "SELECT * FROM [Operation].[FT_GenerationDifferenceEstimation_New]" +
+//            "(:idSeance,:idOpcvm,:dateSeance)", nativeQuery = true)
+//    List<DifferenceEstimationProjection> precalculDifferenceEstimation(Long idSeance,
+//                                                                       Long idOpcvm,
+//                                                                       LocalDateTime dateSeance
+//                                                                  );
     @Query(value = "SELECT * FROM [Operation].[FT_genererCharge_New](:idOpcvm,:idSeance,:actifBrut,:nbreJour,:usance)", nativeQuery = true)
     Page<FT_GenererChargeProjection> genererCharge(Long idOpcvm,
                                                        Long idSeance,
@@ -425,7 +431,8 @@ public interface LibraryDao extends JpaRepository<BaseEntity, Long> {
                                                                   );
 
     @Query(value = "SELECT * FROM [Operation].[FT_OperationDifferenceEstimation]" +
-            "(:idSeance,:idOpcvm,:estVerifie1,:estVerifie2,:supprimer)", nativeQuery = true)
+            "(:idSeance,:idOpcvm,:estVerifie1,:estVerifie2,:supprimer)" +
+            " order by idOpcvm asc,codeClasseTitre asc", nativeQuery = true)
     List<OperationDifferenceEstimationProjection> operationDifferenceEstimation(Long idSeance,
                                                                        Long idOpcvm,
                                                                        Boolean estVerifie1,
@@ -536,7 +543,15 @@ public interface LibraryDao extends JpaRepository<BaseEntity, Long> {
       LocalDateTime dateDebut,LocalDateTime dateFin,Boolean estVerifie1,
       Boolean estVerifie2,String idOperation
     );
+    //définition arrondi
+    @Query(value = "SELECT * FROM [Parametre].[FT_DefinitionArrondi](:numLigne)",nativeQuery = true)
+    Page<DefinitionArrondiProjection> afficherDefinitionArrrondi(Long numLigne,Pageable pageable);
+
+    @Query(value = "SELECT * FROM [Parametre].[FT_DefinitionArrondi](:numLigne)",nativeQuery = true)
+    DefinitionArrondiProjection afficherDefinitionArrrondi(Long numLigne);
+
     //parametrage jour ferié
+
     @Query(value = "SELECT * FROM [Parametre].[FT_ParametreJourFerie](:numLigne)",nativeQuery = true)
     Page<ParametreJourFerieProjection> afficherJourFerie(Long numLigne,Pageable pageable);
 
@@ -811,4 +826,7 @@ public interface LibraryDao extends JpaRepository<BaseEntity, Long> {
     List<SoldeCompteProjection> soldeCompte(
             String ib, String rubrique, String position, LocalDateTime date
     );
+    @Query(value = "select * from [Impression].[FT_TableauDAmortissement](:idTitre) ", nativeQuery = true)
+    List<TableauAmortissementProjection> tableauAmortissemen(String idTitre);
+
 }

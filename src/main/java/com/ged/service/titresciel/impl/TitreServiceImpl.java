@@ -43,7 +43,7 @@ public class TitreServiceImpl implements TitreService {
     @Override
     public ResponseEntity<Object> findBySymbolTitre(String symbolTitre) {
         try {
-            Titre titre = titreDao.findBySymbolTitreIgnoreCase(symbolTitre).orElse(null);
+            Titre titre = titreDao.findBySymbolTitreIgnoreCaseAndSupprimer(symbolTitre,false).orElse(null);
             return ResponseHandler.generateResponse(
                     "Titre dont Symbole = " + symbolTitre,
                     HttpStatus.OK,

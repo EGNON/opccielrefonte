@@ -31,6 +31,15 @@ public class ProfilCommissionSousRachController {
         idProfilCommissionSousRach.setIdOpcvm(idOpcvm);
         return ProfilCommissionSousRachService.afficher(idProfilCommissionSousRach);
     }
+    @GetMapping("/profilselonid")
+    //@PreAuthorize("hasAuthority('ROLE_ProfilCommissionSousRach')")
+    public ResponseEntity<Object> afficherRequestParam(@RequestParam String codeProfil,
+                                           @RequestParam Long idOpcvm) {
+        CleProfilCommissionSousRach idProfilCommissionSousRach = new CleProfilCommissionSousRach();
+        idProfilCommissionSousRach.setCodeProfil(codeProfil);
+        idProfilCommissionSousRach.setIdOpcvm(idOpcvm);
+        return ProfilCommissionSousRachService.afficher(idProfilCommissionSousRach);
+    }
     @GetMapping("liste/{typeCommission}/{idOpcvm}")
     //@PreAuthorize("hasAuthority('ROLE_ProfilCommissionSousRach')")
     public ResponseEntity<Object> afficherSelonTypeCommissionOpcvm(@PathVariable String typeCommission,
@@ -52,21 +61,21 @@ public class ProfilCommissionSousRachController {
         return ProfilCommissionSousRachService.creer(ProfilCommissionSousRachDto);
     }
 
-    @PutMapping("/{codeProfil}/{idOpcvm}")
+    @PutMapping
     //  @PreAuthorize("hasAuthority('ROLE_ProfilCommissionSousRach')")
     public ResponseEntity<Object> modifier(
             @Valid @RequestBody ProfilCommissionSousRachDto ProfilCommissionSousRachDto,
-            @PathVariable String codeProfil,
-            @PathVariable Long idOpcvm)
+            @RequestParam String codeProfil,
+            @RequestParam Long idOpcvm)
     {
         ProfilCommissionSousRachDto.setCodeProfil(codeProfil);
         ProfilCommissionSousRachDto.getOpcvm().setIdOpcvm(idOpcvm);
         return ProfilCommissionSousRachService.modifier(ProfilCommissionSousRachDto);
     }
 
-    @DeleteMapping("/{codeProfil}/{idOpcvm}")
-    public ResponseEntity<Object> supprimer(@PathVariable String codeProfil,
-                                            @PathVariable Long idOpcvm)
+    @DeleteMapping
+    public ResponseEntity<Object> supprimer(@RequestParam String codeProfil,
+                                            @RequestParam Long idOpcvm)
     {
         CleProfilCommissionSousRach idProfilCommissionSousRach=new CleProfilCommissionSousRach();
         idProfilCommissionSousRach.setIdOpcvm(idOpcvm);

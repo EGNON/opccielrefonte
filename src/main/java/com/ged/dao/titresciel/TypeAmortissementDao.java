@@ -7,5 +7,5 @@ import java.util.Optional;
 
 public interface TypeAmortissementDao extends JpaRepository<TypeAmortissement, Long> {
     Optional<TypeAmortissement> findByCodeTypeAmortissementIgnoreCase(String code);
-    Optional<TypeAmortissement> findByLibelleTypeAmortissementIgnoreCase(String libelle);
+    Optional<TypeAmortissement> findByLibelleAmortissementIgnoreCase(String libelle);
 }

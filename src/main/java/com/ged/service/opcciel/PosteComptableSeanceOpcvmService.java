@@ -22,7 +22,7 @@ public interface PosteComptableSeanceOpcvmService {
     ResponseEntity<Object>  afficherSelonCodePosteComptableSeanceOpcvm(String codePosteComptableSeanceOpcvm);
     ResponseEntity<Object>  valoriser(DifferenceEstimationRequest posteComptableSeanceOpcvm);
     ResponseEntity<Object>  creer(List<PosteComptableSeanceOpcvmDto> PosteComptableSeanceOpcvmDto);
-    ResponseEntity<Object> jaspertReportCodePoste(Long idOpcvm,Long idSeance,Boolean estVerifie1,Boolean estVerifie2,Long niveau, HttpServletResponse response) throws IOException, JRException;
+    byte[] jaspertReportCodePoste(Long idOpcvm,Long idSeance,Boolean estVerifie1,Boolean estVerifie2,Long niveau) throws IOException, JRException;
     ResponseEntity<Object> validerNiveau(Long idOpcvm,Long idSeance,Long niveau,String userLogin) ;
     ResponseEntity<Object>  modifier(PosteComptableSeanceOpcvmDto PosteComptableSeanceOpcvmDto);
     ResponseEntity<Object>  supprimer(ClePosteComptableSeanceOpcvm clePosteComptableSeanceOpcvm);
