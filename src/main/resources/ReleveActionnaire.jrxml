@@ -98,21 +98,25 @@
 	<group name="Group1" startNewPage="true">
 		<expression><![CDATA[$F{idActionnaire}]]></expression>
 		<groupHeader>
-			<band height="241">
-				<element kind="rectangle" uuid="cbb4fa20-4507-4d83-b240-b1b2377ef9e8" mode="Opaque" x="3" y="200" width="545" height="40" backcolor="#BDD7EE"/>
-				<element kind="staticText" uuid="10482c82-ca08-4425-bdeb-ea4e6b821d94" x="5" y="203" width="75" height="31" bold="true" hTextAlign="Center">
+			<band height="280">
+				<element kind="rectangle" uuid="cbb4fa20-4507-4d83-b240-b1b2377ef9e8" mode="Opaque" x="3" y="249" width="545" height="31" backcolor="#BDD7EE"/>
+				<element kind="staticText" uuid="10482c82-ca08-4425-bdeb-ea4e6b821d94" x="5" y="252" width="75" height="28" bold="true" hTextAlign="Center">
 					<text><![CDATA[Date oper.]]></text>
 				</element>
-				<element kind="line" uuid="f5dfdf09-6a50-4729-8bc0-3a892f0c015f" x="80" y="200" width="1" height="39"/>
-				<element kind="staticText" uuid="c11c2b2b-0c06-432f-8b77-69a4240d9332" x="83" y="203" width="75" height="31" bold="true" hTextAlign="Center">
+				<element kind="line" uuid="f5dfdf09-6a50-4729-8bc0-3a892f0c015f" x="80" y="249" width="1" height="30">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</element>
+				<element kind="staticText" uuid="c11c2b2b-0c06-432f-8b77-69a4240d9332" x="83" y="252" width="75" height="28" bold="true" hTextAlign="Center">
 					<text><![CDATA[Date valeur]]></text>
 				</element>
-				<element kind="line" uuid="1ae02818-00b0-4771-9abe-7fabea782488" x="160" y="200" width="1" height="39"/>
-				<element kind="staticText" uuid="16b06b22-c9a3-4ac7-9833-fd3ccc8f828c" x="162" y="203" width="158" height="27" bold="true" hTextAlign="Center">
+				<element kind="line" uuid="1ae02818-00b0-4771-9abe-7fabea782488" x="160" y="249" width="1" height="30">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</element>
+				<element kind="staticText" uuid="16b06b22-c9a3-4ac7-9833-fd3ccc8f828c" x="162" y="252" width="158" height="27" bold="true" hTextAlign="Center">
 					<text><![CDATA[Libelle opération]]></text>
 				</element>
-				<element kind="rectangle" uuid="a5447f5c-ded9-48e3-9c50-633d9f1225ee" stretchType="ContainerHeight" x="3" y="69" width="207" height="71"/>
-				<element kind="textField" uuid="5282c9ab-ab35-4886-b462-2051a2c70356" mode="Opaque" x="3" y="35" width="545" height="25" backcolor="#BDD7EE" fontName="Segoe UI" bold="true" hTextAlign="Center" vTextAlign="Middle">
+				<element kind="rectangle" uuid="a5447f5c-ded9-48e3-9c50-633d9f1225ee" stretchType="ContainerHeight" x="3" y="118" width="207" height="71"/>
+				<element kind="textField" uuid="5282c9ab-ab35-4886-b462-2051a2c70356" mode="Opaque" x="3" y="84" width="545" height="25" backcolor="#BDD7EE" fontName="Segoe UI" bold="true" hTextAlign="Center" vTextAlign="Middle">
 					<expression><![CDATA["RELEVE DE COMPTE DU "+ $P{dateDebut}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy")) +" AU "+ $P{dateFin}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"))]]></expression>
 					<box>
 						<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -121,69 +125,92 @@
 						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					</box>
 				</element>
-				<element kind="textField" uuid="1960fce9-a6d6-4577-a938-e52a81aaf79d" x="5" y="2" width="230" height="20" fontName="Segoe UI">
-					<expression><![CDATA["Cotonou le, " + $P{letterDate}]]></expression>
-				</element>
-				<element kind="textField" uuid="2437f707-4cdd-4207-9951-3fe0d34e212f" x="70" y="70" width="136" height="20">
+				<element kind="textField" uuid="2437f707-4cdd-4207-9951-3fe0d34e212f" x="70" y="119" width="136" height="20">
 					<expression><![CDATA[$F{numCompteSgi}]]></expression>
 				</element>
-				<element kind="staticText" uuid="8f794082-3126-4745-abf5-ed07fc1018f2" x="7" y="70" width="63" height="20" bold="true" hTextAlign="Left">
+				<element kind="staticText" uuid="8f794082-3126-4745-abf5-ed07fc1018f2" x="7" y="119" width="63" height="20" bold="true" hTextAlign="Left">
 					<text><![CDATA[N°Compte:]]></text>
 				</element>
-				<element kind="staticText" uuid="d1f41244-b2d2-464d-a6a9-ea88f16b33dd" x="7" y="100" width="63" height="20" bold="true" hTextAlign="Left">
+				<element kind="staticText" uuid="d1f41244-b2d2-464d-a6a9-ea88f16b33dd" x="7" y="149" width="63" height="20" bold="true" hTextAlign="Left">
 					<text><![CDATA[Intitulé:]]></text>
 				</element>
-				<element kind="textField" uuid="a4db2a07-0311-464c-ae08-b31fe6ee673c" x="70" y="100" width="136" height="20" textAdjust="StretchHeight">
+				<element kind="textField" uuid="a4db2a07-0311-464c-ae08-b31fe6ee673c" x="70" y="149" width="136" height="20" textAdjust="StretchHeight">
 					<expression><![CDATA[$F{intitule}]]></expression>
 				</element>
-				<element kind="rectangle" uuid="8dbbb022-fd63-465e-938a-1317548b1d8f" stretchType="ContainerHeight" x="300" y="72" width="248" height="118"/>
-				<element kind="staticText" uuid="95985870-5b90-4262-a4bf-7766343c3efc" x="306" y="72" width="50" height="20" bold="true" hTextAlign="Left">
+				<element kind="rectangle" uuid="8dbbb022-fd63-465e-938a-1317548b1d8f" stretchType="ContainerHeight" x="300" y="121" width="248" height="118"/>
+				<element kind="staticText" uuid="95985870-5b90-4262-a4bf-7766343c3efc" x="306" y="121" width="50" height="20" bold="true" hTextAlign="Left">
 					<text><![CDATA[Solde au:]]></text>
 				</element>
-				<element kind="textField" uuid="17729380-a253-472f-ad72-a0c4ff7850a4" x="356" y="72" width="84" height="20">
+				<element kind="textField" uuid="17729380-a253-472f-ad72-a0c4ff7850a4" x="356" y="121" width="84" height="20">
 					<expression><![CDATA[$P{dateDebut}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"))]]></expression>
 					<patternExpression><![CDATA["EE dd/MM/yyyy"]]></patternExpression>
 				</element>
-				<element pattern="#,##0.###;#,##0.###" kind="textField" uuid="578b050b-539c-4dbf-a5f1-1314b8fe4de7" x="444" y="72" width="100" height="20">
-					<expression><![CDATA[$F{soldeDebut}]]></expression>
+				<element kind="textField" uuid="578b050b-539c-4dbf-a5f1-1314b8fe4de7" x="444" y="121" width="100" height="20" hTextAlign="Right">
+					<expression><![CDATA[$F{soldeDebut} == null ? "" :
+                    new java.text.DecimalFormat("#,##0;-,##0",
+                        java.text.DecimalFormatSymbols.getInstance(java.util.Locale.FRANCE))
+                        .format($F{soldeDebut})
+                        .replace('\u202F', ' ')
+                ]]></expression>
 				</element>
-				<element kind="staticText" uuid="62301cd0-b642-4137-afe6-a3dc863f2ba0" x="306" y="100" width="134" height="20" bold="true" hTextAlign="Left">
+				<element kind="staticText" uuid="62301cd0-b642-4137-afe6-a3dc863f2ba0" x="306" y="149" width="134" height="20" bold="true" hTextAlign="Left">
 					<text><![CDATA[Total crédit:]]></text>
 				</element>
-				<element pattern="#,##0.###;#,##0.###" kind="textField" uuid="6e80dfd4-7c0a-4e23-820a-a4f4769da2e7" x="445" y="100" width="100" height="20">
-					<expression><![CDATA[$F{totCredit}]]></expression>
+				<element kind="textField" uuid="6e80dfd4-7c0a-4e23-820a-a4f4769da2e7" x="445" y="149" width="100" height="20" hTextAlign="Right">
+					<expression><![CDATA[$F{totCredit} == null ? "" :
+                    new java.text.DecimalFormat("#,##0;-,##0",
+                        java.text.DecimalFormatSymbols.getInstance(java.util.Locale.FRANCE))
+                        .format($F{totCredit})
+                        .replace('\u202F', ' ')]]></expression>
 				</element>
-				<element kind="staticText" uuid="c6cd5908-07f3-47fd-9a42-dffffa046487" x="306" y="130" width="134" height="20" bold="true" hTextAlign="Left">
+				<element kind="staticText" uuid="c6cd5908-07f3-47fd-9a42-dffffa046487" x="306" y="179" width="134" height="20" bold="true" hTextAlign="Left">
 					<text><![CDATA[Total débit:]]></text>
 				</element>
-				<element pattern="#,##0.###;#,##0.###" kind="textField" uuid="cede80d0-2ea0-40d8-bff5-f9ee1a8b0b8f" x="444" y="130" width="100" height="20">
-					<expression><![CDATA[$F{totDebit}]]></expression>
+				<element kind="textField" uuid="cede80d0-2ea0-40d8-bff5-f9ee1a8b0b8f" x="444" y="179" width="100" height="20" hTextAlign="Right">
+					<expression><![CDATA[$F{totDebit} == null ? "" :
+                    new java.text.DecimalFormat("#,##0;-,##0",
+                        java.text.DecimalFormatSymbols.getInstance(java.util.Locale.FRANCE))
+                        .format($F{totDebit})
+                        .replace('\u202F', ' ')]]></expression>
 				</element>
-				<element kind="line" uuid="9ee02810-1782-477f-a32b-3eef8340025d" x="300" y="154" width="247" height="1">
+				<element kind="line" uuid="9ee02810-1782-477f-a32b-3eef8340025d" x="300" y="203" width="247" height="1">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</element>
-				<element kind="staticText" uuid="521956a8-41e3-4b21-a333-5e4246ed891e" x="306" y="160" width="50" height="20" bold="true" hTextAlign="Left">
+				<element kind="staticText" uuid="521956a8-41e3-4b21-a333-5e4246ed891e" x="306" y="209" width="50" height="20" bold="true" hTextAlign="Left">
 					<text><![CDATA[Solde au:]]></text>
 				</element>
-				<element kind="textField" uuid="c3479271-a3a2-4e9e-95df-d85d434ba9d5" x="356" y="160" width="84" height="20">
+				<element kind="textField" uuid="c3479271-a3a2-4e9e-95df-d85d434ba9d5" x="356" y="209" width="84" height="20">
 					<expression><![CDATA[$P{dateFin}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"))]]></expression>
 					<patternExpression><![CDATA["EE dd/MM/yyyy"]]></patternExpression>
 				</element>
-				<element pattern="#,##0.###;#,##0.###" kind="textField" uuid="d189a579-a03f-4ecc-b217-776e45317e5a" x="444" y="160" width="100" height="20">
-					<expression><![CDATA[$F{soldeFin}]]></expression>
+				<element kind="textField" uuid="d189a579-a03f-4ecc-b217-776e45317e5a" x="444" y="209" width="100" height="20" hTextAlign="Right">
+					<expression><![CDATA[$F{soldeFin} == null ? "" :
+                    new java.text.DecimalFormat("#,##0;-,##0",
+                        java.text.DecimalFormatSymbols.getInstance(java.util.Locale.FRANCE))
+                        .format($F{soldeFin})
+                        .replace('\u202F', ' ')]]></expression>
 				</element>
-				<element kind="line" uuid="c04559be-e1b8-4f43-9652-1f884afb88d9" x="322" y="200" width="1" height="39"/>
-				<element kind="staticText" uuid="fa10bbaf-805c-4f92-a6b1-df4350046456" x="323" y="204" width="74" height="27" bold="true" hTextAlign="Center">
+				<element kind="line" uuid="c04559be-e1b8-4f43-9652-1f884afb88d9" x="322" y="249" width="1" height="30">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</element>
+				<element kind="staticText" uuid="fa10bbaf-805c-4f92-a6b1-df4350046456" x="323" y="253" width="74" height="27" bold="true" hTextAlign="Center">
 					<text><![CDATA[Débit]]></text>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</element>
-				<element kind="line" uuid="49ba7740-9591-409a-8d44-17369154a3c0" x="398" y="201" width="1" height="39"/>
-				<element kind="staticText" uuid="b66c6c0d-f5c5-4f30-9d38-e42b11216a2f" x="398" y="204" width="77" height="27" bold="true" hTextAlign="Center">
+				<element kind="line" uuid="49ba7740-9591-409a-8d44-17369154a3c0" x="398" y="250" width="1" height="30">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</element>
+				<element kind="staticText" uuid="b66c6c0d-f5c5-4f30-9d38-e42b11216a2f" x="398" y="253" width="77" height="27" bold="true" hTextAlign="Center">
 					<text><![CDATA[Crédit]]></text>
 				</element>
-				<element kind="line" uuid="9904b7cd-3954-49ff-b687-f7aa19172750" x="475" y="201" width="1" height="39"/>
-				<element kind="staticText" uuid="cdc115f3-da62-4c48-a76e-e2969907690a" x="475" y="203" width="73" height="27" bold="true" hTextAlign="Center">
+				<element kind="line" uuid="9904b7cd-3954-49ff-b687-f7aa19172750" x="475" y="250" width="1" height="30">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</element>
+				<element kind="staticText" uuid="cdc115f3-da62-4c48-a76e-e2969907690a" x="475" y="252" width="73" height="27" bold="true" hTextAlign="Center">
 					<text><![CDATA[Solde]]></text>
+				</element>
+				<element kind="image" uuid="717d0f78-e54e-4f98-9915-ef97fc585e87" x="3" y="4" width="545" height="74" scaleImage="FillFrame">
+					<expression><![CDATA["C:/OPCCIEL2/Resources/logo_(2).jpg"]]></expression>
 				</element>
 			</band>
 		</groupHeader>
@@ -192,7 +219,7 @@
 		</groupFooter>
 	</group>
 	<background splitType="Stretch"/>
-	<title height="18" splitType="Stretch"/>
+	<title splitType="Stretch"/>
 	<pageHeader splitType="Stretch"/>
 	<columnHeader splitType="Stretch"/>
 	<detail>
@@ -212,28 +239,45 @@
 				<patternExpression><![CDATA["EE dd/MM/yyyy"]]></patternExpression>
 			</element>
 			<element kind="line" uuid="7f784323-c4ea-4992-a3dc-48e9bc897702" stretchType="ContainerHeight" x="398" y="0" width="1" height="30"/>
-			<element kind="textField" uuid="0b0e5399-2c02-48d7-94aa-009374a8e74d" stretchType="ContainerHeight" x="323" y="4" width="74" height="21" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
-				<expression><![CDATA[$F{debit}]]></expression>
+			<element kind="textField" uuid="0b0e5399-2c02-48d7-94aa-009374a8e74d" stretchType="ContainerHeight" x="323" y="4" width="72" height="21" textAdjust="StretchHeight" blankWhenNull="true" hTextAlign="Right">
+				<expression><![CDATA[$F{debit} == null ? "" :
+                    new java.text.DecimalFormat("#,##0;-,##0",
+                        java.text.DecimalFormatSymbols.getInstance(java.util.Locale.FRANCE))
+                        .format($F{debit})
+                        .replace('\u202F', ' ')]]></expression>
 				<property name="com.jaspersoft.studio.unit.width" value="px"/>
 			</element>
 			<element kind="line" uuid="bd264bde-76b9-419a-8585-eac810f199c7" stretchType="ContainerHeight" x="322" y="0" width="1" height="30"/>
-			<element kind="textField" uuid="fb1e51d5-9b19-456b-9fe3-bbb433a1b809" stretchType="ContainerHeight" x="399" y="4" width="76" height="21" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
-				<expression><![CDATA[$F{credit}]]></expression>
+			<element kind="textField" uuid="fb1e51d5-9b19-456b-9fe3-bbb433a1b809" stretchType="ContainerHeight" x="399" y="4" width="73" height="21" textAdjust="StretchHeight" blankWhenNull="true" hTextAlign="Right">
+				<expression><![CDATA[$F{credit} == null ? "" :
+                    new java.text.DecimalFormat("#,##0;-,##0",
+                        java.text.DecimalFormatSymbols.getInstance(java.util.Locale.FRANCE))
+                        .format($F{credit})
+                        .replace('\u202F', ' ')]]></expression>
+				<property name="com.jaspersoft.studio.unit.width" value="px"/>
 			</element>
 			<element kind="line" uuid="d2860210-ef2c-4a6a-b146-aaa8030d02d9" stretchType="ContainerHeight" x="475" y="1" width="1" height="30"/>
-			<element kind="textField" uuid="daa9e2ff-fe37-4b0f-bab6-93207a548cf0" stretchType="ContainerHeight" x="480" y="5" width="68" height="20" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###" blankWhenNull="false">
-				<expression><![CDATA[$F{soldeParLigne}]]></expression>
+			<element kind="textField" uuid="daa9e2ff-fe37-4b0f-bab6-93207a548cf0" stretchType="ContainerHeight" x="478" y="5" width="65" height="20" textAdjust="StretchHeight" blankWhenNull="false" hTextAlign="Right">
+				<expression><![CDATA[$F{soldeParLigne} == null ? "" :
+                    new java.text.DecimalFormat("#,##0;-,##0",
+                        java.text.DecimalFormatSymbols.getInstance(java.util.Locale.FRANCE))
+                        .format($F{soldeParLigne})
+                        .replace('\u202F', ' ')]]></expression>
+				<property name="com.jaspersoft.studio.unit.width" value="px"/>
 			</element>
 		</band>
 	</detail>
 	<columnFooter splitType="Stretch"/>
 	<pageFooter height="41" splitType="Stretch">
-		<element kind="staticText" uuid="cd313411-0269-4bcc-8541-d177b91e953e" x="3" y="8" width="120" height="26" fontName="Segoe UI">
-			<text><![CDATA[Edité avec OPCCIEL 2.0]]></text>
+		<element kind="staticText" uuid="eaabcb97-a8e6-4a97-8c63-2071cbbe3230" x="210" y="7" width="120" height="26" fontName="SansSerif" hTextAlign="Center">
+			<text><![CDATA[OPCCIEL 2.0]]></text>
 		</element>
-		<element kind="textField" uuid="a80fd44d-558b-450a-8919-34f2f4bd69fd" x="448" y="8" width="100" height="25" hTextAlign="Right">
+		<element kind="textField" uuid="582febd7-cd5c-4fb7-b631-12e413417ba3" x="448" y="8" width="100" height="25" fontName="SansSerif" hTextAlign="Right">
 			<expression><![CDATA[$V{PAGE_NUMBER}]]></expression>
 		</element>
+		<element kind="textField" uuid="05673d1d-b3c4-4ebf-9752-057a8a71e133" x="0" y="6" width="140" height="20" fontName="SansSerif">
+			<expression><![CDATA["Imprimé  le, " + $P{letterDate}]]></expression>
+		</element>
 	</pageFooter>
-	<summary height="42" splitType="Stretch"/>
+	<summary splitType="Stretch"/>
 </jasperReport>

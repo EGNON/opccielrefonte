@@ -12,6 +12,7 @@ import java.util.Set;
 public class PersonnePhysiqueDto extends PersonneDto{
     private Long idPersonne;
     private String nom;
+    private String email;
     private String prenom;
     private String sexe;
     private LocalDateTime dateNaissance;
@@ -60,6 +61,14 @@ public class PersonnePhysiqueDto extends PersonneDto{
 //    public Long getId() {
 //        return idPersonne;
 //    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
     public String getTeint() {
         return teint;

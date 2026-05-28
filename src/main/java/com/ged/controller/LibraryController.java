@@ -77,6 +77,19 @@ public class LibraryController {
     public ResponseEntity<?> soldeToutCompte2(@RequestBody @Valid SoldeToutCompteRequest request) {
         return service.soldeToutCompte2(request);
     }
+    //circulaire8
+    @PostMapping("/opcvm/etats/circulaire8")
+    public void cirulaire8(@RequestBody @Valid Circulaire8Request request, HttpServletResponse response) throws JRException, IOException {
+        response.setContentType("application/pdf");
+        DateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy:hh:mm:ss");
+        String currentDateTime = dateFormatter.format(new Date());
+
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=circulaire8_" + currentDateTime + ".pdf";
+        response.setHeader(headerKey, headerValue);
+
+        service.afficherCirculaire8(request,response);
+    }
 //    @PostMapping("/opcvm/etats/portefeuille")
     @PostMapping("/opcvm/etats/portefeuille")
     public void porteFeuille(@RequestBody @Valid DifferenceEstimationRequest request, HttpServletResponse response) throws JRException, IOException {
@@ -1798,5 +1811,15 @@ public class LibraryController {
             response,
             request
         );
+    }
+
+    //ordre de bourse
+    @PostMapping("/opcvm/listeordredebourse")
+    public ResponseEntity<?> listeOrdreDebourse(@RequestBody HistoriqueActionnaireRequest request) {
+        return service.listeOrdreDeBourse(request);
+    }
+    @PostMapping("/opcvm/enregistrerordrerelache")
+    public ResponseEntity<?> enregistrerordrerelache(@RequestBody HistoriqueActionnaireRequest request) {
+        return service.enregistrerOrdreRelache(request);
     }
 }

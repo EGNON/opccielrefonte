@@ -432,12 +432,40 @@ public class OperationSouscriptionRachatServiceImpl implements OperationSouscrip
             String letterDate = dateFormatter.format(new Date());
 
             parameters.put("letterDate", letterDate);
-//            File file = ResourceUtils.getFile("classpath:avisRachat.jrxml");
-//            JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
-//            JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(list);
-//            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport,parameters, dataSource);
-//            JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());
             InputStream inputStream = getClass().getResourceAsStream("/avisRachat.jrxml");
+            if (inputStream == null) {
+                throw new FileNotFoundException("Fichier JRXML introuvable dans le classpath");
+            }
+
+            JasperReport jasperReport = JasperCompileManager.compileReport(inputStream);
+            JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(list);
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
+
+            // Export vers le flux de sortie HTTP
+            JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());
+            return ResponseHandler.generateResponse(
+                    "Avis opération",
+                    HttpStatus.OK,
+                    list);
+        }
+        catch(Exception e)
+        {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e);
+        }
+    }
+    @Override
+    public ResponseEntity<Object> avisOperationSouscription(String idOperation, HttpServletResponse response) {
+        try {
+            List<AvisOperationProjection> list=libraryDao.avisOper(idOperation);
+            Map<String, Object> parameters = new HashMap<>();
+            DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
+            String letterDate = dateFormatter.format(new Date());
+
+            parameters.put("letterDate", letterDate);
+            InputStream inputStream = getClass().getResourceAsStream("/avis_souscription.jrxml");
             if (inputStream == null) {
                 throw new FileNotFoundException("Fichier JRXML introuvable dans le classpath");
             }
@@ -480,6 +508,80 @@ public class OperationSouscriptionRachatServiceImpl implements OperationSouscrip
 //                    JasperDesign jasperDesign = JRXmlLoader.load(file.getAbsolutePath());
 //                    JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
                     InputStream inputStream = getClass().getResourceAsStream("/avisRachat.jrxml");
+
+                    if (inputStream == null) {
+                        throw new FileNotFoundException("Fichier avisRachat.jrxml introuvable dans le classpath");
+                    }
+
+// Chargement du design Jasper depuis le flux
+                    JasperDesign jasperDesign = JRXmlLoader.load(inputStream);
+
+// Compilation du rapport Jasper
+                    JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
+                    // - Paramètres à envoyer au rapport
+                    Map parameters = new HashMap();
+                    DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
+                    String letterDate = dateFormatter.format(new Date());
+                    parameters.put("letterDate", letterDate);
+
+                    // - Execution du rapport
+
+                    JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(list);
+                    JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
+
+                    // - Création du rapport au format PDF
+                    String fichier="C:\\OPCCIEL2\\OPERE_COMPTE" +o.getNumCompteSgi().trim() +
+                            "_OP" + o.getIdOperation()+"_"+LocalDateTime.now().toString().substring(0,16).replace(":","H")+".pdf";
+                    JasperExportManager.exportReportToPdfFile(jasperPrint, fichier);
+
+                    File f=new File(fichier);
+                    String[]email=new String[1];
+                    email[0]=o.getMail();
+//                     fichiers="";
+////                String fTobyte="";
+////                fTobyte=byteArrays;
+                    String fichiers="OPERE_COMPTE" +o.getNumCompteSgi().trim() +
+                            "_OP" + o.getIdOperation()+"_"+LocalDateTime.now().toString().substring(0,16).replace(":","H")+".pdf";
+//                    byteArrays = Files.readAllBytes(Paths.get(fichier));
+                mailSenderService.sendManyWithAttachementPath("AVIS d'OPERE",email,
+                        "Cher(e) client(e), \n recevez en piece jointe votre avis d'opéré.\n Cordialement "
+                ,fichiers,fichier);
+                }
+            }
+
+
+            return ResponseHandler.generateResponse(
+                    "Avis opération",
+                    HttpStatus.OK,
+                    list);
+        }
+        catch(Exception e)
+        {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e);
+        }
+
+    }
+    @Override
+    public ResponseEntity<Object> avisOperationSouscription2(String idOperation) throws JRException, FileNotFoundException {
+
+        try{
+            List<AvisOperationProjection> list=new ArrayList<>();
+            String []idOpe=idOperation.split(",");
+            for(int i=0;i<idOpe.length;i++){
+                list=libraryDao.avisOper(idOpe[i]);
+
+                byte[] byteArrays=new byte[10000000];
+                // - Chargement et compilation du rapport
+                for(AvisOperationProjection o:list)
+                {
+//                    File file = ResourceUtils.getFile("classpath:avisRachat.jrxml");
+////        JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
+//                    JasperDesign jasperDesign = JRXmlLoader.load(file.getAbsolutePath());
+//                    JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
+                    InputStream inputStream = getClass().getResourceAsStream("/avis_souscription.jrxml");
 
                     if (inputStream == null) {
                         throw new FileNotFoundException("Fichier avisRachat.jrxml introuvable dans le classpath");

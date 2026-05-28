@@ -47,9 +47,10 @@ public class PersonnePhysique extends Personne{
     @Column(length = 20)
     private String telephoneMobile1;
     @Column(length = 20)
-    private String telephoneMobile2;
+    private String telephoneMobile2;*/
     @Column(length = 128)
     private String email;
+    /*
     @Column(length = 128)
     private String boitePostale;
     @Column(length = 250)
@@ -189,6 +190,14 @@ public class PersonnePhysique extends Personne{
         this.Sexe = sexe;
         this.Civilite = civilite;
         this.profession = profession;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getNumCompteSgi() {

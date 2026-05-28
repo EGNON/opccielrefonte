@@ -11,8 +11,8 @@
 	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
-    <parameter name="idTitre" class="java.lang.Long"/>
-    <query language="sql"><![CDATA[select * from Titre.[FT_Obligation]($P{idTitre})]]></query>
+	<parameter name="idTitre" class="java.lang.Long"/>
+	<query language="sql"><![CDATA[select * from Titre.[FT_Obligation]($P{idTitre})]]></query>
 	<field name="idTitre" class="java.lang.Long">
 		<property name="com.jaspersoft.studio.field.name" value="idTitre"/>
 		<property name="com.jaspersoft.studio.field.label" value="idTitre"/>
@@ -178,52 +178,52 @@
 	<pageHeader splitType="Stretch"/>
 	<columnHeader splitType="Stretch"/>
 	<detail>
-		<band height="691" splitType="Stretch">
-			<element kind="rectangle" uuid="2385eb13-67a1-46d2-85e6-038f2969598e" stretchType="ContainerHeight" x="7" y="357" width="543" height="18">
+		<band height="696" splitType="Stretch">
+			<element kind="rectangle" uuid="2385eb13-67a1-46d2-85e6-038f2969598e" stretchType="ContainerHeight" x="7" y="364" width="543" height="18">
 				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				<pen lineColor="#8294FA"/>
 			</element>
-			<element kind="rectangle" uuid="eb0aa21d-6a51-4252-89cd-1232abe0e6f2" stretchType="ContainerHeight" x="7" y="339" width="543" height="18">
+			<element kind="rectangle" uuid="eb0aa21d-6a51-4252-89cd-1232abe0e6f2" stretchType="ContainerHeight" x="7" y="346" width="543" height="18">
 				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				<pen lineColor="#8294FA"/>
 			</element>
-			<element kind="rectangle" uuid="f10eb56d-70c8-449e-9687-87b6f7b9126c" stretchType="ContainerHeight" x="7" y="320" width="543" height="18">
+			<element kind="rectangle" uuid="f10eb56d-70c8-449e-9687-87b6f7b9126c" stretchType="ContainerHeight" x="7" y="327" width="543" height="18">
 				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				<pen lineColor="#8294FA"/>
 			</element>
-			<element kind="rectangle" uuid="c37a0ed4-9618-4004-873a-3ef7e8c2f572" stretchType="ContainerHeight" x="7" y="302" width="543" height="18">
+			<element kind="rectangle" uuid="c37a0ed4-9618-4004-873a-3ef7e8c2f572" stretchType="ContainerHeight" x="7" y="309" width="543" height="18">
 				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				<pen lineColor="#8294FA"/>
 			</element>
-			<element kind="rectangle" uuid="2ba83ae7-8342-4f99-a8c7-bddd87a9f725" stretchType="ContainerHeight" x="7" y="283" width="543" height="18">
+			<element kind="rectangle" uuid="2ba83ae7-8342-4f99-a8c7-bddd87a9f725" stretchType="ContainerHeight" x="7" y="290" width="543" height="18">
 				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				<pen lineColor="#8294FA"/>
 			</element>
-			<element kind="rectangle" uuid="e85093b0-f547-4ff7-a5dd-2dddea2814ce" stretchType="ContainerHeight" x="7" y="264" width="543" height="18">
+			<element kind="rectangle" uuid="e85093b0-f547-4ff7-a5dd-2dddea2814ce" stretchType="ContainerHeight" x="7" y="271" width="543" height="18">
 				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				<pen lineColor="#8294FA"/>
 			</element>
-			<element kind="rectangle" uuid="438f41e6-829f-4f1e-b73f-c72d8ffff252" stretchType="ContainerHeight" x="7" y="246" width="543" height="18">
+			<element kind="rectangle" uuid="438f41e6-829f-4f1e-b73f-c72d8ffff252" stretchType="ContainerHeight" x="7" y="253" width="543" height="18">
 				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				<pen lineColor="#8294FA"/>
 			</element>
-			<element kind="rectangle" uuid="b5b4bda6-a2e6-4dea-aefc-f48149d81903" stretchType="ContainerHeight" x="7" y="227" width="543" height="18">
+			<element kind="rectangle" uuid="b5b4bda6-a2e6-4dea-aefc-f48149d81903" stretchType="ContainerHeight" x="7" y="234" width="543" height="18">
 				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				<pen lineColor="#8294FA"/>
 			</element>
-			<element kind="rectangle" uuid="445c1527-c486-4ad1-b5fb-c76ba8be4b63" stretchType="ContainerHeight" x="7" y="208" width="543" height="18">
+			<element kind="rectangle" uuid="445c1527-c486-4ad1-b5fb-c76ba8be4b63" stretchType="ContainerHeight" x="7" y="215" width="543" height="18">
 				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				<pen lineColor="#8294FA"/>
 			</element>
-			<element kind="rectangle" uuid="57d1bfbf-fe15-48dc-ae72-0466851073b4" stretchType="ContainerHeight" x="7" y="189" width="543" height="18">
+			<element kind="rectangle" uuid="57d1bfbf-fe15-48dc-ae72-0466851073b4" stretchType="ContainerHeight" x="7" y="196" width="543" height="18">
 				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				<pen lineColor="#8294FA"/>
 			</element>
-			<element kind="rectangle" uuid="5a3305b3-cc38-4be0-bf76-cb7d86f78aaf" stretchType="ContainerHeight" x="7" y="171" width="543" height="18">
+			<element kind="rectangle" uuid="5a3305b3-cc38-4be0-bf76-cb7d86f78aaf" stretchType="ContainerHeight" x="7" y="178" width="543" height="18">
 				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				<pen lineColor="#8294FA"/>
 			</element>
-			<element kind="rectangle" uuid="9163b0a1-2803-4c1e-94f0-602eab95a3a3" stretchType="ContainerHeight" x="7" y="152" width="543" height="18">
+			<element kind="rectangle" uuid="9163b0a1-2803-4c1e-94f0-602eab95a3a3" stretchType="ContainerHeight" x="7" y="152" width="543" height="26">
 				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				<pen lineColor="#8294FA"/>
 			</element>
@@ -256,7 +256,7 @@
 				<pen lineColor="#8294FA"/>
 			</element>
 			<element kind="rectangle" uuid="f73b3749-fd8b-4d91-8bca-45befb122f99" x="7" y="2" width="543" height="20"/>
-			<element kind="staticText" uuid="62ae8065-2f06-4485-bc31-ed44525c62ea" x="7" y="2" width="163" height="20" fontSize="14.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+			<element kind="staticText" uuid="62ae8065-2f06-4485-bc31-ed44525c62ea" x="7" y="2" width="123" height="20" fontSize="14.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
 				<text><![CDATA[  Elements]]></text>
 				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				<box>
@@ -266,7 +266,7 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 			</element>
-			<element kind="staticText" uuid="10704815-d45d-420f-98ed-19769acef300" x="170" y="2" width="242" height="20" fontSize="14.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+			<element kind="staticText" uuid="10704815-d45d-420f-98ed-19769acef300" x="140" y="2" width="272" height="20" fontSize="14.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
 				<text><![CDATA[   Valeurs]]></text>
 				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				<box>
@@ -276,7 +276,7 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 			</element>
-			<element kind="staticText" uuid="fa00e597-274c-4c17-a7a7-3183c24732c2" x="420" y="2" width="131" height="20" fontSize="14.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+			<element kind="staticText" uuid="fa00e597-274c-4c17-a7a7-3183c24732c2" x="460" y="2" width="91" height="20" fontSize="14.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
 				<text><![CDATA[Valider?]]></text>
 				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				<box>
@@ -286,7 +286,7 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 			</element>
-			<element kind="staticText" uuid="cd5fac91-b5eb-4656-ae81-7657b8d8060f" x="7" y="22" width="163" height="16" fontSize="10.0" bold="true" hTextAlign="Left" vTextAlign="Middle">
+			<element kind="staticText" uuid="cd5fac91-b5eb-4656-ae81-7657b8d8060f" x="7" y="22" width="123" height="16" fontSize="10.0" bold="true" hTextAlign="Left" vTextAlign="Middle">
 				<text><![CDATA[ ISIN]]></text>
 				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				<box>
@@ -296,7 +296,7 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 			</element>
-			<element kind="staticText" uuid="00781071-a4e6-421d-a3dc-ded27bc75249" x="7" y="40" width="163" height="16" fontSize="10.0" bold="true" hTextAlign="Left" vTextAlign="Middle">
+			<element kind="staticText" uuid="00781071-a4e6-421d-a3dc-ded27bc75249" x="7" y="40" width="123" height="16" fontSize="10.0" bold="true" hTextAlign="Left" vTextAlign="Middle">
 				<text><![CDATA[DATE EMISSION]]></text>
 				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				<box>
@@ -306,7 +306,7 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 			</element>
-			<element kind="staticText" uuid="1c082c46-5195-4cf4-b411-4a334f3e29b7" x="7" y="61" width="163" height="16" fontSize="10.0" bold="true" hTextAlign="Left" vTextAlign="Middle">
+			<element kind="staticText" uuid="1c082c46-5195-4cf4-b411-4a334f3e29b7" x="7" y="61" width="123" height="16" fontSize="10.0" bold="true" hTextAlign="Left" vTextAlign="Middle">
 				<text><![CDATA[DATE OUVERTURE]]></text>
 				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				<box>
@@ -316,7 +316,7 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 			</element>
-			<element kind="staticText" uuid="a52a0819-4dda-4149-9bb5-fb92e1b60aa4" x="7" y="80" width="163" height="16" fontSize="10.0" bold="true" hTextAlign="Left" vTextAlign="Middle">
+			<element kind="staticText" uuid="a52a0819-4dda-4149-9bb5-fb92e1b60aa4" x="7" y="80" width="123" height="16" fontSize="10.0" bold="true" hTextAlign="Left" vTextAlign="Middle">
 				<text><![CDATA[DATE FERMETURE]]></text>
 				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				<box>
@@ -326,7 +326,7 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 			</element>
-			<element kind="staticText" uuid="27a910cf-b190-46dd-8638-a47ffdc20905" x="7" y="96" width="163" height="16" fontSize="10.0" bold="true" hTextAlign="Left" vTextAlign="Middle">
+			<element kind="staticText" uuid="27a910cf-b190-46dd-8638-a47ffdc20905" x="7" y="96" width="123" height="16" fontSize="10.0" bold="true" hTextAlign="Left" vTextAlign="Middle">
 				<text><![CDATA[TYPE TITRE]]></text>
 				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				<box>
@@ -336,7 +336,7 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 			</element>
-			<element kind="staticText" uuid="9a165daa-f4e7-4761-b3f5-672599deb755" x="7" y="115" width="163" height="16" fontSize="10.0" bold="true" hTextAlign="Left" vTextAlign="Middle">
+			<element kind="staticText" uuid="9a165daa-f4e7-4761-b3f5-672599deb755" x="7" y="115" width="123" height="16" fontSize="10.0" bold="true" hTextAlign="Left" vTextAlign="Middle">
 				<text><![CDATA[CLASSE BOURSE]]></text>
 				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				<box>
@@ -346,7 +346,7 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 			</element>
-			<element kind="staticText" uuid="3aff38ed-9678-47ca-9801-7dc56a5a1724" x="7" y="135" width="163" height="16" fontSize="10.0" bold="true" hTextAlign="Left" vTextAlign="Middle">
+			<element kind="staticText" uuid="3aff38ed-9678-47ca-9801-7dc56a5a1724" x="7" y="135" width="123" height="16" fontSize="10.0" bold="true" hTextAlign="Left" vTextAlign="Middle">
 				<text><![CDATA[SYMBOLE]]></text>
 				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				<box>
@@ -356,7 +356,7 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 			</element>
-			<element kind="staticText" uuid="f3bd2e90-3cd8-4e62-83fe-2be297b6c8d5" x="7" y="154" width="163" height="16" fontSize="10.0" bold="true" hTextAlign="Left" vTextAlign="Middle">
+			<element kind="staticText" uuid="f3bd2e90-3cd8-4e62-83fe-2be297b6c8d5" x="7" y="154" width="123" height="24" fontSize="10.0" bold="true" hTextAlign="Left" vTextAlign="Middle">
 				<text><![CDATA[DESIGNATION]]></text>
 				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				<box>
@@ -366,7 +366,7 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 			</element>
-			<element kind="staticText" uuid="9e00bd17-0a32-48f5-a821-494d16441eb1" x="7" y="171" width="163" height="16" fontSize="10.0" bold="true" hTextAlign="Left" vTextAlign="Middle">
+			<element kind="staticText" uuid="9e00bd17-0a32-48f5-a821-494d16441eb1" x="7" y="178" width="123" height="16" fontSize="10.0" bold="true" hTextAlign="Left" vTextAlign="Middle">
 				<text><![CDATA[COTATION]]></text>
 				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				<box>
@@ -376,7 +376,7 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 			</element>
-			<element kind="staticText" uuid="eb0b3924-ad08-48a3-85d6-5895a9b59fba" x="7" y="189" width="163" height="16" fontSize="10.0" bold="true" hTextAlign="Left" vTextAlign="Middle">
+			<element kind="staticText" uuid="eb0b3924-ad08-48a3-85d6-5895a9b59fba" x="7" y="196" width="123" height="16" fontSize="10.0" bold="true" hTextAlign="Left" vTextAlign="Middle">
 				<text><![CDATA[NOMINAL]]></text>
 				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				<box>
@@ -386,7 +386,7 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 			</element>
-			<element kind="staticText" uuid="5ad38449-e365-417f-86b9-32bfa9385293" x="7" y="209" width="163" height="16" fontSize="10.0" bold="true" hTextAlign="Left" vTextAlign="Middle">
+			<element kind="staticText" uuid="5ad38449-e365-417f-86b9-32bfa9385293" x="7" y="216" width="123" height="16" fontSize="10.0" bold="true" hTextAlign="Left" vTextAlign="Middle">
 				<text><![CDATA[PAYS]]></text>
 				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				<box>
@@ -396,7 +396,7 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 			</element>
-			<element kind="staticText" uuid="46e33502-4d14-4ebd-81bf-3db3eb6b3c31" x="7" y="228" width="163" height="16" fontSize="10.0" bold="true" hTextAlign="Left" vTextAlign="Middle">
+			<element kind="staticText" uuid="46e33502-4d14-4ebd-81bf-3db3eb6b3c31" x="7" y="235" width="123" height="16" fontSize="10.0" bold="true" hTextAlign="Left" vTextAlign="Middle">
 				<text><![CDATA[MONNAIE]]></text>
 				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				<box>
@@ -406,7 +406,7 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 			</element>
-			<element kind="textField" uuid="172e8b3f-0883-45ac-8960-19c366dfb948" x="177" y="228" width="232" height="16" textAdjust="StretchHeight" vTextAlign="Middle">
+			<element kind="textField" uuid="172e8b3f-0883-45ac-8960-19c366dfb948" x="139" y="235" width="301" height="16" fontSize="8.0" textAdjust="StretchHeight" vTextAlign="Middle">
 				<expression><![CDATA["CFA"]]></expression>
 				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				<box>
@@ -416,7 +416,7 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 			</element>
-			<element kind="staticText" uuid="29d77f39-488d-4325-b399-7e922175dbe6" x="7" y="247" width="163" height="16" fontSize="10.0" bold="true" hTextAlign="Left" vTextAlign="Middle">
+			<element kind="staticText" uuid="29d77f39-488d-4325-b399-7e922175dbe6" x="7" y="254" width="123" height="16" fontSize="10.0" bold="true" hTextAlign="Left" vTextAlign="Middle">
 				<text><![CDATA[LOT MINIMUM]]></text>
 				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				<box>
@@ -426,7 +426,7 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 			</element>
-			<element kind="staticText" uuid="7256e660-1aba-49c0-aa89-fdfef671d15f" x="7" y="266" width="163" height="16" fontSize="10.0" bold="true" hTextAlign="Left" vTextAlign="Middle">
+			<element kind="staticText" uuid="7256e660-1aba-49c0-aa89-fdfef671d15f" x="7" y="273" width="123" height="16" fontSize="10.0" bold="true" hTextAlign="Left" vTextAlign="Middle">
 				<text><![CDATA[TYPE EMISSION]]></text>
 				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				<box>
@@ -436,7 +436,7 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 			</element>
-			<element kind="staticText" uuid="4c8da734-9a40-4e5f-9891-f13129579228" x="7" y="285" width="163" height="16" fontSize="10.0" bold="true" hTextAlign="Left" vTextAlign="Middle">
+			<element kind="staticText" uuid="4c8da734-9a40-4e5f-9891-f13129579228" x="7" y="292" width="123" height="16" fontSize="10.0" bold="true" hTextAlign="Left" vTextAlign="Middle">
 				<text><![CDATA[SECTEUR D'ACTIVITE]]></text>
 				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				<box>
@@ -446,7 +446,7 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 			</element>
-			<element kind="staticText" uuid="93dcb2b5-c8fb-4c1b-b8df-dded282fe10c" x="7" y="303" width="163" height="16" fontSize="10.0" bold="true" hTextAlign="Left" vTextAlign="Middle">
+			<element kind="staticText" uuid="93dcb2b5-c8fb-4c1b-b8df-dded282fe10c" x="7" y="310" width="123" height="16" fontSize="10.0" bold="true" hTextAlign="Left" vTextAlign="Middle">
 				<text><![CDATA[EMETTEUR]]></text>
 				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				<box>
@@ -456,7 +456,7 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 			</element>
-			<element kind="staticText" uuid="5397a215-2ef3-4882-8dac-d6e4bee8057f" x="7" y="321" width="163" height="16" fontSize="10.0" bold="true" hTextAlign="Left" vTextAlign="Middle">
+			<element kind="staticText" uuid="5397a215-2ef3-4882-8dac-d6e4bee8057f" x="7" y="328" width="123" height="16" fontSize="10.0" bold="true" hTextAlign="Left" vTextAlign="Middle">
 				<text><![CDATA[REGISTRAIRE]]></text>
 				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				<box>
@@ -466,7 +466,7 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 			</element>
-			<element kind="staticText" uuid="72b7721a-07de-4b5a-bf70-5e91d78cfdbc" x="7" y="339" width="163" height="16" fontSize="10.0" bold="true" hTextAlign="Left" vTextAlign="Middle">
+			<element kind="staticText" uuid="72b7721a-07de-4b5a-bf70-5e91d78cfdbc" x="7" y="346" width="123" height="16" fontSize="10.0" bold="true" hTextAlign="Left" vTextAlign="Middle">
 				<text><![CDATA[PLACE]]></text>
 				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				<box>
@@ -476,7 +476,7 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 			</element>
-			<element kind="staticText" uuid="78767db6-2d36-401c-af8c-3f50417a3cd6" x="7" y="360" width="163" height="16" fontSize="10.0" bold="true" hTextAlign="Left" vTextAlign="Middle">
+			<element kind="staticText" uuid="78767db6-2d36-401c-af8c-3f50417a3cd6" x="7" y="367" width="123" height="16" fontSize="10.0" bold="true" hTextAlign="Left" vTextAlign="Middle">
 				<text><![CDATA[DEPOSITAIRE]]></text>
 				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				<box>
@@ -486,128 +486,128 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 			</element>
-			<element kind="line" uuid="9e340b65-dd43-466f-8113-0314654f75f7" stretchType="ContainerHeight" x="170" y="23" width="1" height="24">
+			<element kind="line" uuid="9e340b65-dd43-466f-8113-0314654f75f7" stretchType="ContainerHeight" x="136" y="23" width="1" height="24">
 				<pen lineColor="#8294FA"/>
 			</element>
-			<element kind="line" uuid="4e978529-04b6-40d6-aa23-dbc88a69eda4" stretchType="ContainerHeight" x="412" y="23" width="1" height="24">
+			<element kind="line" uuid="4e978529-04b6-40d6-aa23-dbc88a69eda4" stretchType="ContainerHeight" x="444" y="23" width="1" height="24">
 				<pen lineColor="#8294FA"/>
 			</element>
-			<element kind="line" uuid="35d4cd9a-30f6-4842-9753-d60fc34bf01a" stretchType="ContainerHeight" x="170" y="41" width="1" height="18">
+			<element kind="line" uuid="35d4cd9a-30f6-4842-9753-d60fc34bf01a" stretchType="ContainerHeight" x="136" y="41" width="1" height="18">
 				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				<pen lineColor="#8294FA"/>
 			</element>
-			<element kind="line" uuid="9f61c599-a87f-4755-803c-57471ee6009d" stretchType="ContainerHeight" x="412" y="41" width="1" height="18">
+			<element kind="line" uuid="9f61c599-a87f-4755-803c-57471ee6009d" stretchType="ContainerHeight" x="444" y="41" width="1" height="18">
 				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				<pen lineColor="#8294FA"/>
 			</element>
-			<element kind="line" uuid="cd7b6c87-bdb5-48d9-8708-b8eb97c744f6" stretchType="ContainerHeight" x="170" y="59" width="1" height="18">
+			<element kind="line" uuid="cd7b6c87-bdb5-48d9-8708-b8eb97c744f6" stretchType="ContainerHeight" x="136" y="59" width="1" height="18">
 				<pen lineColor="#8294FA"/>
 			</element>
-			<element kind="line" uuid="acec6ce8-1e7c-4ba8-b614-50ac9a946f97" stretchType="ContainerHeight" x="412" y="60" width="1" height="18">
+			<element kind="line" uuid="acec6ce8-1e7c-4ba8-b614-50ac9a946f97" stretchType="ContainerHeight" x="444" y="60" width="1" height="18">
 				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				<pen lineColor="#8294FA"/>
 			</element>
-			<element kind="line" uuid="5a777413-5b0c-48be-9c66-70baa5f536ea" stretchType="ContainerHeight" x="170" y="78" width="1" height="18">
+			<element kind="line" uuid="5a777413-5b0c-48be-9c66-70baa5f536ea" stretchType="ContainerHeight" x="136" y="78" width="1" height="18">
 				<pen lineColor="#8294FA"/>
 			</element>
-			<element kind="line" uuid="6776a825-254b-48e1-8888-1fc6c5a98421" stretchType="ContainerHeight" x="412" y="78" width="1" height="18">
+			<element kind="line" uuid="6776a825-254b-48e1-8888-1fc6c5a98421" stretchType="ContainerHeight" x="444" y="78" width="1" height="18">
 				<pen lineColor="#8294FA"/>
 			</element>
-			<element kind="line" uuid="6e597950-fb7f-4367-a338-3f92ab4f709b" stretchType="ContainerHeight" x="170" y="96" width="1" height="18">
+			<element kind="line" uuid="6e597950-fb7f-4367-a338-3f92ab4f709b" stretchType="ContainerHeight" x="136" y="96" width="1" height="18">
 				<pen lineColor="#8294FA"/>
 			</element>
-			<element kind="line" uuid="e7d517ba-c09f-40a5-86d8-762f20804812" stretchType="ContainerHeight" x="412" y="97" width="1" height="18">
+			<element kind="line" uuid="e7d517ba-c09f-40a5-86d8-762f20804812" stretchType="ContainerHeight" x="444" y="97" width="1" height="18">
 				<pen lineColor="#8294FA"/>
 			</element>
-			<element kind="line" uuid="bbb19047-7cec-4374-a079-c04809d624ee" stretchType="ContainerHeight" x="170" y="115" width="1" height="18">
+			<element kind="line" uuid="bbb19047-7cec-4374-a079-c04809d624ee" stretchType="ContainerHeight" x="136" y="115" width="1" height="18">
 				<pen lineColor="#8294FA"/>
 			</element>
-			<element kind="line" uuid="483796c5-4fa3-4521-9c2b-f4eecee9198d" stretchType="ContainerHeight" x="412" y="114" width="1" height="18">
+			<element kind="line" uuid="483796c5-4fa3-4521-9c2b-f4eecee9198d" stretchType="ContainerHeight" x="444" y="114" width="1" height="18">
 				<pen lineColor="#8294FA"/>
 			</element>
-			<element kind="line" uuid="6aa591e6-379a-4f52-a387-1e1b440cbdb7" stretchType="ContainerHeight" x="412" y="133" width="1" height="18">
+			<element kind="line" uuid="6aa591e6-379a-4f52-a387-1e1b440cbdb7" stretchType="ContainerHeight" x="444" y="133" width="1" height="18">
 				<pen lineColor="#8294FA"/>
 			</element>
-			<element kind="line" uuid="fd426837-1f5a-49b0-af0f-98bd65144281" stretchType="ContainerHeight" x="170" y="153" width="1" height="18">
+			<element kind="line" uuid="fd426837-1f5a-49b0-af0f-98bd65144281" stretchType="ContainerHeight" x="136" y="153" width="1" height="25">
 				<pen lineColor="#8294FA"/>
 			</element>
-			<element kind="line" uuid="258f01da-b9ec-41c9-bdd0-0afeeb15c4cf" stretchType="ContainerHeight" x="412" y="151" width="1" height="18">
+			<element kind="line" uuid="258f01da-b9ec-41c9-bdd0-0afeeb15c4cf" stretchType="ContainerHeight" x="444" y="151" width="1" height="27">
 				<pen lineColor="#8294FA"/>
 			</element>
-			<element kind="line" uuid="5b437ed3-0c03-45b7-a4d3-349496e03846" stretchType="ContainerHeight" x="170" y="171" width="1" height="18">
+			<element kind="line" uuid="5b437ed3-0c03-45b7-a4d3-349496e03846" stretchType="ContainerHeight" x="136" y="178" width="1" height="18">
 				<pen lineColor="#8294FA"/>
 			</element>
-			<element kind="line" uuid="367f520e-c07f-49d7-9cd2-97461577eaa5" stretchType="ContainerHeight" x="412" y="171" width="1" height="18">
+			<element kind="line" uuid="367f520e-c07f-49d7-9cd2-97461577eaa5" stretchType="ContainerHeight" x="444" y="178" width="1" height="18">
 				<pen lineColor="#8294FA"/>
 			</element>
-			<element kind="line" uuid="ce125220-192a-4b65-a1cc-ce2fa01d4844" stretchType="ContainerHeight" x="170" y="189" width="1" height="18">
+			<element kind="line" uuid="ce125220-192a-4b65-a1cc-ce2fa01d4844" stretchType="ContainerHeight" x="136" y="196" width="1" height="18">
 				<pen lineColor="#8294FA"/>
 			</element>
-			<element kind="line" uuid="aa34a709-b1ac-4150-ac7b-2bfadfc9cdd0" stretchType="ContainerHeight" x="412" y="190" width="1" height="18">
+			<element kind="line" uuid="aa34a709-b1ac-4150-ac7b-2bfadfc9cdd0" stretchType="ContainerHeight" x="444" y="197" width="1" height="18">
 				<pen lineColor="#8294FA"/>
 			</element>
-			<element kind="line" uuid="17b08538-c2fd-4f7b-89bb-14ea147866db" stretchType="ContainerHeight" x="170" y="208" width="1" height="18">
+			<element kind="line" uuid="17b08538-c2fd-4f7b-89bb-14ea147866db" stretchType="ContainerHeight" x="136" y="215" width="1" height="18">
 				<pen lineColor="#8294FA"/>
 			</element>
-			<element kind="line" uuid="54881d93-5193-4b30-b7c3-f456d99fb0fd" stretchType="ContainerHeight" x="412" y="209" width="1" height="18">
+			<element kind="line" uuid="54881d93-5193-4b30-b7c3-f456d99fb0fd" stretchType="ContainerHeight" x="444" y="216" width="1" height="18">
 				<pen lineColor="#8294FA"/>
 			</element>
-			<element kind="line" uuid="9b299911-a900-4742-b551-cbe46985b957" stretchType="ContainerHeight" x="170" y="228" width="1" height="18">
+			<element kind="line" uuid="9b299911-a900-4742-b551-cbe46985b957" stretchType="ContainerHeight" x="136" y="235" width="1" height="18">
 				<pen lineColor="#8294FA"/>
 			</element>
-			<element kind="line" uuid="9ed045ab-566e-4b2e-a8f7-905b89be4f34" stretchType="ContainerHeight" x="412" y="228" width="1" height="18">
+			<element kind="line" uuid="9ed045ab-566e-4b2e-a8f7-905b89be4f34" stretchType="ContainerHeight" x="444" y="235" width="1" height="18">
 				<pen lineColor="#8294FA"/>
 			</element>
-			<element kind="line" uuid="843ec0ae-c78c-49c6-8017-405fbdd79507" stretchType="ContainerHeight" x="170" y="247" width="1" height="18">
+			<element kind="line" uuid="843ec0ae-c78c-49c6-8017-405fbdd79507" stretchType="ContainerHeight" x="136" y="254" width="1" height="18">
 				<pen lineColor="#8294FA"/>
 			</element>
-			<element kind="line" uuid="d6a24fa0-aa15-433e-a167-a1fc5903ba5e" stretchType="ContainerHeight" x="170" y="134" width="1" height="18">
+			<element kind="line" uuid="d6a24fa0-aa15-433e-a167-a1fc5903ba5e" stretchType="ContainerHeight" x="136" y="134" width="1" height="18">
 				<pen lineColor="#8294FA"/>
 			</element>
-			<element kind="line" uuid="165083ae-0368-4dd2-b138-c6e3e19bbd30" stretchType="ContainerHeight" x="412" y="247" width="1" height="18">
+			<element kind="line" uuid="165083ae-0368-4dd2-b138-c6e3e19bbd30" stretchType="ContainerHeight" x="444" y="254" width="1" height="18">
 				<pen lineColor="#8294FA"/>
 			</element>
-			<element kind="line" uuid="2f5a7d57-b3d3-4684-b6ee-3a7f353df5f5" stretchType="ContainerHeight" x="170" y="265" width="1" height="18">
+			<element kind="line" uuid="2f5a7d57-b3d3-4684-b6ee-3a7f353df5f5" stretchType="ContainerHeight" x="136" y="272" width="1" height="18">
 				<pen lineColor="#8294FA"/>
 			</element>
-			<element kind="line" uuid="969fee3c-db53-48ed-ad75-5e77bc944961" stretchType="ContainerHeight" x="412" y="265" width="1" height="18">
+			<element kind="line" uuid="969fee3c-db53-48ed-ad75-5e77bc944961" stretchType="ContainerHeight" x="444" y="272" width="1" height="18">
 				<pen lineColor="#8294FA"/>
 			</element>
-			<element kind="line" uuid="483c93a7-91de-4a05-bbd3-56ff29408fe1" stretchType="ContainerHeight" x="170" y="283" width="1" height="18">
+			<element kind="line" uuid="483c93a7-91de-4a05-bbd3-56ff29408fe1" stretchType="ContainerHeight" x="136" y="290" width="1" height="18">
 				<pen lineColor="#8294FA"/>
 			</element>
-			<element kind="line" uuid="9f2d3743-a901-4e2d-b58d-dd2d5597148a" stretchType="ContainerHeight" x="412" y="284" width="1" height="18">
+			<element kind="line" uuid="9f2d3743-a901-4e2d-b58d-dd2d5597148a" stretchType="ContainerHeight" x="444" y="291" width="1" height="18">
 				<pen lineColor="#8294FA"/>
 			</element>
-			<element kind="line" uuid="b5d851c7-600a-45e4-810e-99c10097b356" stretchType="ContainerHeight" x="170" y="303" width="1" height="18">
+			<element kind="line" uuid="b5d851c7-600a-45e4-810e-99c10097b356" stretchType="ContainerHeight" x="136" y="310" width="1" height="18">
 				<pen lineColor="#8294FA"/>
 			</element>
-			<element kind="line" uuid="428c9114-d54c-4056-a289-ccb46d8fe6d1" stretchType="ContainerHeight" x="412" y="303" width="1" height="18">
+			<element kind="line" uuid="428c9114-d54c-4056-a289-ccb46d8fe6d1" stretchType="ContainerHeight" x="444" y="310" width="1" height="18">
 				<pen lineColor="#8294FA"/>
 			</element>
-			<element kind="line" uuid="5f2d995a-4895-4a7d-9f74-21e7864f305d" stretchType="ContainerHeight" x="170" y="321" width="1" height="18">
+			<element kind="line" uuid="5f2d995a-4895-4a7d-9f74-21e7864f305d" stretchType="ContainerHeight" x="136" y="328" width="1" height="18">
 				<pen lineColor="#8294FA"/>
 			</element>
-			<element kind="line" uuid="63b1f1ab-1356-4e63-bbdc-e9cd53b8a850" stretchType="ContainerHeight" x="412" y="321" width="1" height="18">
+			<element kind="line" uuid="63b1f1ab-1356-4e63-bbdc-e9cd53b8a850" stretchType="ContainerHeight" x="444" y="328" width="1" height="18">
 				<pen lineColor="#8294FA"/>
 			</element>
-			<element kind="line" uuid="c6e74b76-1ced-43aa-be34-71c63abc98df" stretchType="ContainerHeight" x="170" y="340" width="1" height="18">
+			<element kind="line" uuid="c6e74b76-1ced-43aa-be34-71c63abc98df" stretchType="ContainerHeight" x="136" y="347" width="1" height="18">
 				<pen lineColor="#8294FA"/>
 			</element>
-			<element kind="line" uuid="98948ad3-513a-447c-884f-56f1ce8fe029" stretchType="ContainerHeight" x="412" y="339" width="1" height="18">
+			<element kind="line" uuid="98948ad3-513a-447c-884f-56f1ce8fe029" stretchType="ContainerHeight" x="444" y="346" width="1" height="18">
 				<pen lineColor="#8294FA"/>
 			</element>
-			<element kind="line" uuid="17f63981-e4e5-4842-b61b-bc727f47f2a5" stretchType="ContainerHeight" x="170" y="358" width="1" height="18">
+			<element kind="line" uuid="17f63981-e4e5-4842-b61b-bc727f47f2a5" stretchType="ContainerHeight" x="136" y="365" width="1" height="18">
 				<pen lineColor="#8294FA"/>
 			</element>
-			<element kind="line" uuid="ff00a553-f106-424a-9c00-8b48da70068e" stretchType="ContainerHeight" x="412" y="358" width="1" height="18">
+			<element kind="line" uuid="ff00a553-f106-424a-9c00-8b48da70068e" stretchType="ContainerHeight" x="444" y="365" width="1" height="18">
 				<pen lineColor="#8294FA"/>
 			</element>
-			<element kind="rectangle" uuid="336399f3-0a25-4b36-be91-9d3d26f15ed4" stretchType="ContainerHeight" x="7" y="376" width="543" height="18">
+			<element kind="rectangle" uuid="336399f3-0a25-4b36-be91-9d3d26f15ed4" stretchType="ContainerHeight" x="7" y="383" width="543" height="18">
 				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				<pen lineColor="#8294FA"/>
 			</element>
-			<element kind="staticText" uuid="908d6c30-56e7-4698-896b-e3051fc0cc28" x="7" y="379" width="163" height="16" fontSize="10.0" bold="true" hTextAlign="Left" vTextAlign="Middle">
+			<element kind="staticText" uuid="908d6c30-56e7-4698-896b-e3051fc0cc28" x="7" y="386" width="123" height="16" fontSize="10.0" bold="true" hTextAlign="Left" vTextAlign="Middle">
 				<text><![CDATA[FISC. PAYS]]></text>
 				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				<box>
@@ -617,17 +617,17 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 			</element>
-			<element kind="line" uuid="53ce8ef3-deb6-461e-a50e-114ad3bcdfcc" stretchType="ContainerHeight" x="170" y="377" width="1" height="18">
+			<element kind="line" uuid="53ce8ef3-deb6-461e-a50e-114ad3bcdfcc" stretchType="ContainerHeight" x="136" y="384" width="1" height="18">
 				<pen lineColor="#8294FA"/>
 			</element>
-			<element kind="line" uuid="f2b03343-61f7-4fa1-85a1-42244ab9a31f" stretchType="ContainerHeight" x="412" y="377" width="1" height="18">
+			<element kind="line" uuid="f2b03343-61f7-4fa1-85a1-42244ab9a31f" stretchType="ContainerHeight" x="444" y="384" width="1" height="18">
 				<pen lineColor="#8294FA"/>
 			</element>
-			<element kind="rectangle" uuid="42ce991b-3c29-4192-92ee-330df72a011f" stretchType="ContainerHeight" x="7" y="395" width="543" height="18">
+			<element kind="rectangle" uuid="42ce991b-3c29-4192-92ee-330df72a011f" stretchType="ContainerHeight" x="7" y="402" width="543" height="18">
 				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				<pen lineColor="#8294FA"/>
 			</element>
-			<element kind="staticText" uuid="f6c62fea-136c-4628-9c26-4bb50ce12d9f" x="7" y="398" width="163" height="16" fontSize="10.0" bold="true" hTextAlign="Left" vTextAlign="Middle">
+			<element kind="staticText" uuid="f6c62fea-136c-4628-9c26-4bb50ce12d9f" x="7" y="405" width="123" height="16" fontSize="10.0" bold="true" hTextAlign="Left" vTextAlign="Middle">
 				<text><![CDATA[FISC. LOC?]]></text>
 				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				<box>
@@ -637,7 +637,7 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 			</element>
-			<element kind="textField" uuid="abd8da95-6f55-48c2-b5b0-5e1197e4f8d1" x="177" y="398" width="232" height="16" textAdjust="StretchHeight" vTextAlign="Middle">
+			<element kind="textField" uuid="abd8da95-6f55-48c2-b5b0-5e1197e4f8d1" x="139" y="405" width="301" height="16" fontSize="8.0" textAdjust="StretchHeight" vTextAlign="Middle">
 				<expression><![CDATA[$F{appliqueFiscaliteLocale}==true?"OUI":"NON"]]></expression>
 				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				<box>
@@ -647,17 +647,17 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 			</element>
-			<element kind="line" uuid="c64a868c-492d-41f9-9649-7935f8ae136b" stretchType="ContainerHeight" x="170" y="396" width="1" height="18">
+			<element kind="line" uuid="c64a868c-492d-41f9-9649-7935f8ae136b" stretchType="ContainerHeight" x="136" y="403" width="1" height="18">
 				<pen lineColor="#8294FA"/>
 			</element>
-			<element kind="line" uuid="1dc2f89c-f458-4157-aaac-15a8acaabe02" stretchType="ContainerHeight" x="412" y="396" width="1" height="18">
+			<element kind="line" uuid="1dc2f89c-f458-4157-aaac-15a8acaabe02" stretchType="ContainerHeight" x="444" y="403" width="1" height="18">
 				<pen lineColor="#8294FA"/>
 			</element>
-			<element kind="rectangle" uuid="f26bf5e4-1da1-41c5-8fcd-c2080b8ee37c" stretchType="ContainerHeight" x="7" y="414" width="543" height="18">
+			<element kind="rectangle" uuid="f26bf5e4-1da1-41c5-8fcd-c2080b8ee37c" stretchType="ContainerHeight" x="7" y="421" width="543" height="18">
 				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				<pen lineColor="#8294FA"/>
 			</element>
-			<element kind="staticText" uuid="29ca8dcd-637e-40f5-af39-9c6caa4bf07b" x="7" y="417" width="163" height="16" fontSize="10.0" bold="true" hTextAlign="Left" vTextAlign="Middle">
+			<element kind="staticText" uuid="29ca8dcd-637e-40f5-af39-9c6caa4bf07b" x="7" y="424" width="123" height="16" fontSize="10.0" bold="true" hTextAlign="Left" vTextAlign="Middle">
 				<text><![CDATA[FISC. LOCAL]]></text>
 				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				<box>
@@ -667,17 +667,17 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 			</element>
-			<element kind="line" uuid="d9693120-e8ed-45e9-9b2b-d6dc7332e412" stretchType="ContainerHeight" x="170" y="415" width="1" height="18">
+			<element kind="line" uuid="d9693120-e8ed-45e9-9b2b-d6dc7332e412" stretchType="ContainerHeight" x="136" y="422" width="1" height="18">
 				<pen lineColor="#8294FA"/>
 			</element>
-			<element kind="line" uuid="ff79f629-3604-4dbb-8df8-ec9cf808da78" stretchType="ContainerHeight" x="412" y="415" width="1" height="18">
+			<element kind="line" uuid="ff79f629-3604-4dbb-8df8-ec9cf808da78" stretchType="ContainerHeight" x="444" y="422" width="1" height="18">
 				<pen lineColor="#8294FA"/>
 			</element>
-			<element kind="rectangle" uuid="c1a8292b-0e02-4061-b96a-f3b9c39d8950" stretchType="ContainerHeight" x="7" y="433" width="543" height="18">
+			<element kind="rectangle" uuid="c1a8292b-0e02-4061-b96a-f3b9c39d8950" stretchType="ContainerHeight" x="7" y="440" width="543" height="18">
 				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				<pen lineColor="#8294FA"/>
 			</element>
-			<element kind="staticText" uuid="cdb14458-6c8c-421c-aa04-fa6c5700858c" x="7" y="436" width="163" height="16" fontSize="10.0" bold="true" hTextAlign="Left" vTextAlign="Middle">
+			<element kind="staticText" uuid="cdb14458-6c8c-421c-aa04-fa6c5700858c" x="7" y="443" width="123" height="16" fontSize="10.0" bold="true" hTextAlign="Left" vTextAlign="Middle">
 				<text><![CDATA[IRVM]]></text>
 				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				<box>
@@ -687,17 +687,17 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 			</element>
-			<element kind="line" uuid="44bb951b-720c-4668-a68f-acc3aeee0307" stretchType="ContainerHeight" x="170" y="434" width="1" height="18">
+			<element kind="line" uuid="44bb951b-720c-4668-a68f-acc3aeee0307" stretchType="ContainerHeight" x="136" y="441" width="1" height="18">
 				<pen lineColor="#8294FA"/>
 			</element>
-			<element kind="line" uuid="a5106a25-e300-4612-b439-7c6232c70037" stretchType="ContainerHeight" x="412" y="434" width="1" height="18">
+			<element kind="line" uuid="a5106a25-e300-4612-b439-7c6232c70037" stretchType="ContainerHeight" x="444" y="441" width="1" height="18">
 				<pen lineColor="#8294FA"/>
 			</element>
-			<element kind="rectangle" uuid="6c03088a-039a-41e6-bd45-f86ab2276e76" stretchType="ContainerHeight" x="7" y="452" width="543" height="18">
+			<element kind="rectangle" uuid="6c03088a-039a-41e6-bd45-f86ab2276e76" stretchType="ContainerHeight" x="7" y="459" width="543" height="18">
 				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				<pen lineColor="#8294FA"/>
 			</element>
-			<element kind="staticText" uuid="20ff1f48-0a94-4916-8fb8-5f03a0e4870c" x="7" y="452" width="163" height="16" fontSize="10.0" bold="true" hTextAlign="Left" vTextAlign="Middle">
+			<element kind="staticText" uuid="20ff1f48-0a94-4916-8fb8-5f03a0e4870c" x="7" y="459" width="123" height="16" fontSize="10.0" bold="true" hTextAlign="Left" vTextAlign="Middle">
 				<text><![CDATA[DUREE]]></text>
 				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				<box>
@@ -707,17 +707,17 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 			</element>
-			<element kind="line" uuid="5a4fb970-64f8-4dc3-828d-fbccd3ca0d5c" stretchType="ContainerHeight" x="170" y="453" width="1" height="18">
+			<element kind="line" uuid="5a4fb970-64f8-4dc3-828d-fbccd3ca0d5c" stretchType="ContainerHeight" x="136" y="460" width="1" height="18">
 				<pen lineColor="#8294FA"/>
 			</element>
-			<element kind="line" uuid="5bad8b17-3af6-4f29-83e9-b178ee1aef0e" stretchType="ContainerHeight" x="412" y="452" width="1" height="18">
+			<element kind="line" uuid="5bad8b17-3af6-4f29-83e9-b178ee1aef0e" stretchType="ContainerHeight" x="444" y="459" width="1" height="18">
 				<pen lineColor="#8294FA"/>
 			</element>
-			<element kind="rectangle" uuid="4bbb0468-669a-4435-9cb3-e086293fa6bc" stretchType="ContainerHeight" x="7" y="471" width="543" height="18">
+			<element kind="rectangle" uuid="4bbb0468-669a-4435-9cb3-e086293fa6bc" stretchType="ContainerHeight" x="7" y="478" width="543" height="18">
 				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				<pen lineColor="#8294FA"/>
 			</element>
-			<element kind="staticText" uuid="fd847f41-4bc0-480f-979a-ae2ada19f77a" x="7" y="471" width="163" height="16" fontSize="10.0" bold="true" hTextAlign="Left" vTextAlign="Middle">
+			<element kind="staticText" uuid="fd847f41-4bc0-480f-979a-ae2ada19f77a" x="7" y="478" width="123" height="16" fontSize="10.0" bold="true" hTextAlign="Left" vTextAlign="Middle">
 				<text><![CDATA[PERIODICITE]]></text>
 				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				<box>
@@ -727,115 +727,115 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 			</element>
-			<element kind="line" uuid="a6c821c1-efca-49da-95ce-7b391136b073" stretchType="ContainerHeight" x="170" y="472" width="1" height="18">
+			<element kind="line" uuid="a6c821c1-efca-49da-95ce-7b391136b073" stretchType="ContainerHeight" x="136" y="479" width="1" height="18">
 				<pen lineColor="#8294FA"/>
 			</element>
-			<element kind="line" uuid="e1d93300-2010-4d88-92ca-21764f0baa42" stretchType="ContainerHeight" x="412" y="471" width="1" height="18">
+			<element kind="line" uuid="e1d93300-2010-4d88-92ca-21764f0baa42" stretchType="ContainerHeight" x="444" y="478" width="1" height="18">
 				<pen lineColor="#8294FA"/>
 			</element>
-			<element kind="textField" uuid="d96b4f0d-642e-4613-a6fe-62399bd93e78" x="177" y="25" width="232" height="16" vTextAlign="Middle">
+			<element kind="textField" uuid="d96b4f0d-642e-4613-a6fe-62399bd93e78" x="139" y="25" width="270" height="16" fontSize="8.0" vTextAlign="Middle">
 				<expression><![CDATA[$F{codeIsin}]]></expression>
 				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			</element>
-			<element kind="textField" uuid="9f2be35b-2eec-460e-8dbc-086d3e2c78bd" x="177" y="43" width="232" height="16" vTextAlign="Middle">
+			<element kind="textField" uuid="9f2be35b-2eec-460e-8dbc-086d3e2c78bd" x="139" y="43" width="301" height="16" fontSize="8.0" vTextAlign="Middle">
 				<expression><![CDATA[$F{dateEmission}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"))]]></expression>
 				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			</element>
-			<element kind="textField" uuid="b19b80f5-42b4-472a-9eeb-f610d0d6179e" x="178" y="63" width="231" height="16" vTextAlign="Middle">
+			<element kind="textField" uuid="b19b80f5-42b4-472a-9eeb-f610d0d6179e" x="140" y="63" width="300" height="16" fontSize="8.0" vTextAlign="Middle">
 				<expression><![CDATA[$F{dateOuverture}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"))]]></expression>
 				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			</element>
-			<element kind="textField" uuid="e045d191-2fb7-4136-811c-dca79f67c4b6" x="177" y="80" width="232" height="16" vTextAlign="Middle">
+			<element kind="textField" uuid="e045d191-2fb7-4136-811c-dca79f67c4b6" x="139" y="80" width="301" height="16" fontSize="8.0" vTextAlign="Middle">
 				<expression><![CDATA[$F{dateCloture}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"))]]></expression>
 				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			</element>
-			<element kind="textField" uuid="346284f5-ca01-4658-abd8-dec0747f5061" x="177" y="97" width="232" height="16" textAdjust="StretchHeight" vTextAlign="Middle">
+			<element kind="textField" uuid="346284f5-ca01-4658-abd8-dec0747f5061" x="139" y="97" width="301" height="16" fontSize="8.0" textAdjust="StretchHeight" vTextAlign="Middle">
 				<expression><![CDATA[$F{libelleTypeTitre}]]></expression>
 				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			</element>
-			<element kind="textField" uuid="59eb85db-bcdc-49c4-8092-d76cfcb71e17" x="177" y="116" width="232" height="16" textAdjust="StretchHeight" vTextAlign="Middle">
+			<element kind="textField" uuid="59eb85db-bcdc-49c4-8092-d76cfcb71e17" x="139" y="116" width="301" height="16" fontSize="8.0" textAdjust="StretchHeight" vTextAlign="Middle">
 				<expression><![CDATA[$F{libelleCompartiment}]]></expression>
 				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			</element>
-			<element kind="textField" uuid="299efb1a-0c28-4ebf-a3ca-140e2b7db802" x="178" y="135" width="231" height="16" textAdjust="StretchHeight" vTextAlign="Middle">
+			<element kind="textField" uuid="299efb1a-0c28-4ebf-a3ca-140e2b7db802" x="140" y="135" width="300" height="16" fontSize="8.0" textAdjust="StretchHeight" vTextAlign="Middle">
 				<expression><![CDATA[$F{symbolTitre}]]></expression>
 				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			</element>
-			<element kind="textField" uuid="d13cd62b-c912-413d-9882-7da132247548" x="178" y="152" width="231" height="16" textAdjust="StretchHeight" vTextAlign="Middle">
+			<element kind="textField" uuid="d13cd62b-c912-413d-9882-7da132247548" x="140" y="152" width="300" height="26" fontSize="8.0" textAdjust="StretchHeight" vTextAlign="Middle">
 				<expression><![CDATA[$F{designationTitre}]]></expression>
 				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			</element>
-			<element kind="textField" uuid="0e26e92c-c80d-4cec-adfe-d6359b9372d9" x="178" y="171" width="231" height="16" textAdjust="StretchHeight" vTextAlign="Middle">
+			<element kind="textField" uuid="0e26e92c-c80d-4cec-adfe-d6359b9372d9" x="140" y="178" width="300" height="16" fontSize="8.0" textAdjust="StretchHeight" vTextAlign="Middle">
 				<expression><![CDATA[$F{libelleCotation}]]></expression>
 				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			</element>
-			<element kind="textField" uuid="1a7459e9-0f5a-405c-bb95-7252e617ae6c" x="178" y="188" width="231" height="16" pattern="#,##0.###;#,##0.###" vTextAlign="Middle">
+			<element kind="textField" uuid="1a7459e9-0f5a-405c-bb95-7252e617ae6c" x="140" y="195" width="300" height="16" fontSize="8.0" pattern="#,##0.###;#,##0.###" vTextAlign="Middle">
 				<expression><![CDATA[$F{nominal}]]></expression>
 				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			</element>
-			<element kind="textField" uuid="34a1819f-2c93-4ce7-999a-f242b3041d56" x="178" y="209" width="231" height="16" textAdjust="StretchHeight" vTextAlign="Middle">
+			<element kind="textField" uuid="34a1819f-2c93-4ce7-999a-f242b3041d56" x="140" y="216" width="300" height="16" fontSize="8.0" textAdjust="StretchHeight" vTextAlign="Middle">
 				<expression><![CDATA[$F{libelleFr}]]></expression>
 				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			</element>
-			<element kind="textField" uuid="6352f7e1-a30f-450a-bfe7-ddcb463252cc" x="178" y="247" width="231" height="16" pattern="#,##0.###;#,##0.###" vTextAlign="Middle">
+			<element kind="textField" uuid="6352f7e1-a30f-450a-bfe7-ddcb463252cc" x="140" y="254" width="300" height="16" fontSize="8.0" pattern="#,##0.###;#,##0.###" vTextAlign="Middle">
 				<expression><![CDATA[$F{lotMinimum}]]></expression>
 				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			</element>
-			<element kind="textField" uuid="eb35cb5c-9a10-4435-a917-7b4375c64628" x="177" y="266" width="233" height="16" textAdjust="StretchHeight" vTextAlign="Middle">
+			<element kind="textField" uuid="eb35cb5c-9a10-4435-a917-7b4375c64628" x="139" y="273" width="302" height="16" fontSize="8.0" textAdjust="StretchHeight" vTextAlign="Middle">
 				<expression><![CDATA[$F{libelleTypeEmission}]]></expression>
 				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			</element>
-			<element kind="textField" uuid="c2b01bd4-e2a0-407e-913f-9419d0362ddb" x="178" y="285" width="231" height="16" textAdjust="StretchHeight" vTextAlign="Middle">
+			<element kind="textField" uuid="c2b01bd4-e2a0-407e-913f-9419d0362ddb" x="140" y="292" width="300" height="16" fontSize="8.0" textAdjust="StretchHeight" vTextAlign="Middle">
 				<expression><![CDATA[$F{libelleSecteurBoursier}]]></expression>
 				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			</element>
-			<element kind="textField" uuid="87fc177a-6dc2-457b-90ae-0678e46a214b" x="177" y="304" width="232" height="16" textAdjust="StretchHeight" vTextAlign="Middle">
+			<element kind="textField" uuid="87fc177a-6dc2-457b-90ae-0678e46a214b" x="139" y="311" width="301" height="16" fontSize="8.0" textAdjust="StretchHeight" vTextAlign="Middle">
 				<expression><![CDATA[$F{raisonSocialeEmetteur}]]></expression>
 				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			</element>
-			<element kind="textField" uuid="c216e6b4-4305-4b3d-9b4c-1de9b98c91ef" x="177" y="323" width="232" height="16" textAdjust="StretchHeight" vTextAlign="Middle">
+			<element kind="textField" uuid="c216e6b4-4305-4b3d-9b4c-1de9b98c91ef" x="139" y="330" width="301" height="16" fontSize="8.0" textAdjust="StretchHeight" vTextAlign="Middle">
 				<expression><![CDATA[$F{raisonSocialeRegistraire}]]></expression>
 				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			</element>
-			<element kind="textField" uuid="03e6a239-9ea6-406d-a031-8e19363b7fd8" x="177" y="340" width="232" height="16" fontSize="9.0" textAdjust="StretchHeight" vTextAlign="Middle">
+			<element kind="textField" uuid="03e6a239-9ea6-406d-a031-8e19363b7fd8" x="139" y="347" width="301" height="16" fontSize="8.0" textAdjust="StretchHeight" vTextAlign="Middle">
 				<expression><![CDATA[$F{libellePlace}]]></expression>
 				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			</element>
-			<element kind="textField" uuid="21d30205-6f03-427e-8fbc-72121b1d9b33" x="178" y="357" width="231" height="16" fontSize="9.0" textAdjust="StretchHeight" vTextAlign="Middle">
+			<element kind="textField" uuid="21d30205-6f03-427e-8fbc-72121b1d9b33" x="140" y="364" width="300" height="16" fontSize="8.0" textAdjust="StretchHeight" vTextAlign="Middle">
 				<expression><![CDATA[$F{raisonSocialeDepositaire}]]></expression>
 				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			</element>
-			<element kind="textField" uuid="4381c807-c61c-4a25-8ec4-3cb41088012d" x="178" y="376" width="231" height="16" pattern="#,##0.######;#,##0.######" vTextAlign="Middle">
+			<element kind="textField" uuid="4381c807-c61c-4a25-8ec4-3cb41088012d" x="140" y="383" width="300" height="16" fontSize="8.0" pattern="#,##0.######;#,##0.######" vTextAlign="Middle">
 				<expression><![CDATA[$F{tauxFiscalitePays}]]></expression>
 				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			</element>
-			<element kind="textField" uuid="4868aae7-052d-4d72-8a9d-0686a17b3f38" x="177" y="417" width="232" height="16" pattern="#,##0.######;#,##0.######" vTextAlign="Middle">
+			<element kind="textField" uuid="4868aae7-052d-4d72-8a9d-0686a17b3f38" x="139" y="424" width="301" height="16" fontSize="8.0" pattern="#,##0.######;#,##0.######" vTextAlign="Middle">
 				<expression><![CDATA[$F{tauxFiscaliteLocale}]]></expression>
 				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			</element>
-			<element kind="textField" uuid="e832d5f0-7ad8-4e88-962e-ec5c1194a73f" x="178" y="434" width="232" height="16" pattern="#,##0.###;#,##0.###" vTextAlign="Middle">
+			<element kind="textField" uuid="e832d5f0-7ad8-4e88-962e-ec5c1194a73f" x="140" y="441" width="301" height="16" fontSize="8.0" pattern="#,##0.###;#,##0.###" vTextAlign="Middle">
 				<expression><![CDATA[$F{irvm}]]></expression>
 				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			</element>
-			<element kind="textField" uuid="73e87e6e-f9f8-4b5b-a933-7eadbac587e7" x="177" y="453" width="233" height="16" textAdjust="StretchHeight" vTextAlign="Middle">
+			<element kind="textField" uuid="73e87e6e-f9f8-4b5b-a933-7eadbac587e7" x="139" y="460" width="302" height="16" fontSize="8.0" textAdjust="StretchHeight" vTextAlign="Middle">
 				<expression><![CDATA[$F{dureeNbre}+" "+$F{dureeUnite}]]></expression>
 				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			</element>
-			<element kind="textField" uuid="1f5ea963-8071-48c4-b4dc-f1ed266cb1a4" x="178" y="472" width="232" height="16" textAdjust="StretchHeight" vTextAlign="Middle">
+			<element kind="textField" uuid="1f5ea963-8071-48c4-b4dc-f1ed266cb1a4" x="140" y="479" width="301" height="16" fontSize="8.0" textAdjust="StretchHeight" vTextAlign="Middle">
 				<expression><![CDATA[$F{periodiciteNbre}+" "+$F{periodiciteUnite}]]></expression>
 				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			</element>
-			<element kind="line" uuid="97560dda-22a9-49e9-a178-e285b88d4aaa" stretchType="ContainerHeight" x="170" y="2" width="1" height="30">
+			<element kind="line" uuid="97560dda-22a9-49e9-a178-e285b88d4aaa" stretchType="ContainerHeight" x="136" y="2" width="1" height="30">
 				<pen lineColor="#8294FA"/>
 			</element>
-			<element kind="line" uuid="056335fc-6cf9-4314-a7e8-82d75384d316" stretchType="ContainerHeight" x="412" y="3" width="1" height="30">
+			<element kind="line" uuid="056335fc-6cf9-4314-a7e8-82d75384d316" stretchType="ContainerHeight" x="444" y="3" width="1" height="30">
 				<pen lineColor="#8294FA"/>
 			</element>
-			<element kind="rectangle" uuid="2588626f-5df2-47a3-a2b3-55337376acc8" stretchType="ContainerHeight" x="7" y="490" width="543" height="18">
+			<element kind="rectangle" uuid="2588626f-5df2-47a3-a2b3-55337376acc8" stretchType="ContainerHeight" x="7" y="497" width="543" height="18">
 				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				<pen lineColor="#8294FA"/>
 			</element>
-			<element kind="staticText" uuid="04081948-9cc3-44b0-920b-bcf2bf91a86f" x="7" y="490" width="163" height="16" fontSize="10.0" bold="true" hTextAlign="Left" vTextAlign="Middle">
+			<element kind="staticText" uuid="04081948-9cc3-44b0-920b-bcf2bf91a86f" x="7" y="497" width="123" height="16" fontSize="10.0" bold="true" hTextAlign="Left" vTextAlign="Middle">
 				<text><![CDATA[DIFFERE]]></text>
 				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				<box>
@@ -845,21 +845,21 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 			</element>
-			<element kind="line" uuid="6e9273c8-6530-42c1-9978-b4059fd58850" stretchType="ContainerHeight" x="170" y="491" width="1" height="18">
+			<element kind="line" uuid="6e9273c8-6530-42c1-9978-b4059fd58850" stretchType="ContainerHeight" x="136" y="498" width="1" height="18">
 				<pen lineColor="#8294FA"/>
 			</element>
-			<element kind="line" uuid="f2c9e1b5-785a-4771-8b1d-1bd4f73ff442" stretchType="ContainerHeight" x="412" y="490" width="1" height="18">
+			<element kind="line" uuid="f2c9e1b5-785a-4771-8b1d-1bd4f73ff442" stretchType="ContainerHeight" x="444" y="497" width="1" height="18">
 				<pen lineColor="#8294FA"/>
 			</element>
-			<element kind="textField" uuid="31c94da0-6f37-4b0c-957d-7b34ab60c17c" x="178" y="491" width="232" height="16" textAdjust="StretchHeight" vTextAlign="Middle">
+			<element kind="textField" uuid="31c94da0-6f37-4b0c-957d-7b34ab60c17c" x="140" y="498" width="301" height="16" fontSize="8.0" textAdjust="StretchHeight" vTextAlign="Middle">
 				<expression><![CDATA[$F{differeNbre}+" "+$F{differeUnite}]]></expression>
 				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			</element>
-			<element kind="rectangle" uuid="ebeb379c-dbd8-4c41-bc6f-b664fd964949" stretchType="ContainerHeight" x="7" y="508" width="543" height="18">
+			<element kind="rectangle" uuid="ebeb379c-dbd8-4c41-bc6f-b664fd964949" stretchType="ContainerHeight" x="7" y="515" width="543" height="18">
 				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				<pen lineColor="#8294FA"/>
 			</element>
-			<element kind="staticText" uuid="85db7334-5924-4461-96a4-9566fca23421" x="7" y="508" width="163" height="16" fontSize="10.0" bold="true" hTextAlign="Left" vTextAlign="Middle">
+			<element kind="staticText" uuid="85db7334-5924-4461-96a4-9566fca23421" x="7" y="515" width="123" height="16" fontSize="10.0" bold="true" hTextAlign="Left" vTextAlign="Middle">
 				<text><![CDATA[DATE DE JOUISSANCE]]></text>
 				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				<box>
@@ -869,21 +869,21 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 			</element>
-			<element kind="line" uuid="5dfa5831-1169-4d4e-bac1-6ca8b9dcc654" stretchType="ContainerHeight" x="170" y="509" width="1" height="18">
+			<element kind="line" uuid="5dfa5831-1169-4d4e-bac1-6ca8b9dcc654" stretchType="ContainerHeight" x="136" y="516" width="1" height="18">
 				<pen lineColor="#8294FA"/>
 			</element>
-			<element kind="line" uuid="d0a378a4-ee97-4821-8918-95d99b8ab86d" stretchType="ContainerHeight" x="412" y="508" width="1" height="18">
+			<element kind="line" uuid="d0a378a4-ee97-4821-8918-95d99b8ab86d" stretchType="ContainerHeight" x="444" y="515" width="1" height="18">
 				<pen lineColor="#8294FA"/>
 			</element>
-			<element kind="textField" uuid="8d3378e5-cd11-4f29-b665-e61bbb391855" x="178" y="509" width="232" height="16" textAdjust="StretchHeight" vTextAlign="Middle">
+			<element kind="textField" uuid="8d3378e5-cd11-4f29-b665-e61bbb391855" x="140" y="516" width="301" height="16" fontSize="8.0" textAdjust="StretchHeight" vTextAlign="Middle">
 				<expression><![CDATA[$F{dateJouissance}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"))]]></expression>
 				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			</element>
-			<element kind="rectangle" uuid="509f13d8-3a94-47f7-92e9-ba3da15c4c6d" stretchType="ContainerHeight" x="7" y="526" width="543" height="18">
+			<element kind="rectangle" uuid="509f13d8-3a94-47f7-92e9-ba3da15c4c6d" stretchType="ContainerHeight" x="7" y="533" width="543" height="18">
 				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				<pen lineColor="#8294FA"/>
 			</element>
-			<element kind="staticText" uuid="2ea02de8-3683-4b0b-a8e2-fcdff16fbc6f" x="7" y="526" width="163" height="16" fontSize="10.0" bold="true" hTextAlign="Left" vTextAlign="Middle">
+			<element kind="staticText" uuid="2ea02de8-3683-4b0b-a8e2-fcdff16fbc6f" x="7" y="533" width="123" height="16" fontSize="10.0" bold="true" hTextAlign="Left" vTextAlign="Middle">
 				<text><![CDATA[DATE 1ER PAIEMENT]]></text>
 				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				<box>
@@ -893,21 +893,21 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 			</element>
-			<element kind="line" uuid="2c20bb9b-877d-493e-83c3-ce2e98b6da9d" stretchType="ContainerHeight" x="170" y="527" width="1" height="18">
+			<element kind="line" uuid="2c20bb9b-877d-493e-83c3-ce2e98b6da9d" stretchType="ContainerHeight" x="136" y="534" width="1" height="18">
 				<pen lineColor="#8294FA"/>
 			</element>
-			<element kind="line" uuid="34e9ce93-94a5-45b9-9418-cf1424b9a5e8" stretchType="ContainerHeight" x="412" y="526" width="1" height="18">
+			<element kind="line" uuid="34e9ce93-94a5-45b9-9418-cf1424b9a5e8" stretchType="ContainerHeight" x="444" y="533" width="1" height="18">
 				<pen lineColor="#8294FA"/>
 			</element>
-			<element kind="textField" uuid="b4a3929f-b5b3-4205-969b-eacb04940649" x="178" y="527" width="232" height="16" textAdjust="StretchHeight" vTextAlign="Middle">
+			<element kind="textField" uuid="b4a3929f-b5b3-4205-969b-eacb04940649" x="140" y="534" width="301" height="16" fontSize="8.0" textAdjust="StretchHeight" vTextAlign="Middle">
 				<expression><![CDATA[$F{datePremierPaiement}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"))]]></expression>
 				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			</element>
-			<element kind="rectangle" uuid="3408c6b8-4d80-46df-a8d5-5fc56e982a48" stretchType="ContainerHeight" x="7" y="545" width="543" height="18">
+			<element kind="rectangle" uuid="3408c6b8-4d80-46df-a8d5-5fc56e982a48" stretchType="ContainerHeight" x="7" y="552" width="543" height="18">
 				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				<pen lineColor="#8294FA"/>
 			</element>
-			<element kind="staticText" uuid="b1e65882-3fb1-47fa-a859-6998fbcb942b" x="7" y="545" width="163" height="16" fontSize="10.0" bold="true" hTextAlign="Left" vTextAlign="Middle">
+			<element kind="staticText" uuid="b1e65882-3fb1-47fa-a859-6998fbcb942b" x="7" y="552" width="123" height="16" fontSize="10.0" bold="true" hTextAlign="Left" vTextAlign="Middle">
 				<text><![CDATA[DATE DERN PAIEMENT]]></text>
 				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				<box>
@@ -917,21 +917,21 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 			</element>
-			<element kind="line" uuid="ed6db895-0b23-4ed3-a227-24972d2d51da" stretchType="ContainerHeight" x="170" y="546" width="1" height="18">
+			<element kind="line" uuid="ed6db895-0b23-4ed3-a227-24972d2d51da" stretchType="ContainerHeight" x="136" y="553" width="1" height="18">
 				<pen lineColor="#8294FA"/>
 			</element>
-			<element kind="line" uuid="32257d0e-02e9-4c98-af56-b81508abade5" stretchType="ContainerHeight" x="412" y="545" width="1" height="18">
+			<element kind="line" uuid="32257d0e-02e9-4c98-af56-b81508abade5" stretchType="ContainerHeight" x="444" y="552" width="1" height="18">
 				<pen lineColor="#8294FA"/>
 			</element>
-			<element kind="textField" uuid="f14f8424-eca9-4a22-84b4-6bce940c43f8" x="178" y="546" width="232" height="16" textAdjust="StretchHeight" vTextAlign="Middle">
+			<element kind="textField" uuid="f14f8424-eca9-4a22-84b4-6bce940c43f8" x="140" y="553" width="301" height="16" fontSize="8.0" textAdjust="StretchHeight" vTextAlign="Middle">
 				<expression><![CDATA[$F{dateDernierPaiement}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"))]]></expression>
 				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			</element>
-			<element kind="rectangle" uuid="f1ceb0bd-e112-4179-8238-9fdb9baad6c4" stretchType="ContainerHeight" x="7" y="563" width="543" height="18">
+			<element kind="rectangle" uuid="f1ceb0bd-e112-4179-8238-9fdb9baad6c4" stretchType="ContainerHeight" x="7" y="570" width="543" height="18">
 				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				<pen lineColor="#8294FA"/>
 			</element>
-			<element kind="staticText" uuid="83c7cade-928b-4495-8249-328791184a66" x="7" y="563" width="163" height="16" fontSize="10.0" bold="true" hTextAlign="Left" vTextAlign="Middle">
+			<element kind="staticText" uuid="83c7cade-928b-4495-8249-328791184a66" x="7" y="570" width="123" height="16" fontSize="10.0" bold="true" hTextAlign="Left" vTextAlign="Middle">
 				<text><![CDATA[TYPE OBLIGATION]]></text>
 				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				<box>
@@ -941,21 +941,21 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 			</element>
-			<element kind="line" uuid="4f5b34c4-1e76-4379-9a10-fc0d3d5a34da" stretchType="ContainerHeight" x="170" y="564" width="1" height="18">
+			<element kind="line" uuid="4f5b34c4-1e76-4379-9a10-fc0d3d5a34da" stretchType="ContainerHeight" x="136" y="571" width="1" height="18">
 				<pen lineColor="#8294FA"/>
 			</element>
-			<element kind="line" uuid="c33e0952-841f-47ae-936b-787cc6569953" stretchType="ContainerHeight" x="412" y="563" width="1" height="18">
+			<element kind="line" uuid="c33e0952-841f-47ae-936b-787cc6569953" stretchType="ContainerHeight" x="444" y="570" width="1" height="18">
 				<pen lineColor="#8294FA"/>
 			</element>
-			<element kind="textField" uuid="fe440fa2-433e-48b8-a532-74b89c40f0a4" x="178" y="564" width="232" height="16" textAdjust="StretchHeight" vTextAlign="Middle">
+			<element kind="textField" uuid="fe440fa2-433e-48b8-a532-74b89c40f0a4" x="140" y="571" width="301" height="16" fontSize="8.0" textAdjust="StretchHeight" vTextAlign="Middle">
 				<expression><![CDATA[$F{libelleTypeObligation}]]></expression>
 				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			</element>
-			<element kind="rectangle" uuid="4e30c072-15e4-427d-b79c-46cafdb3cd16" stretchType="ContainerHeight" x="7" y="579" width="543" height="18">
+			<element kind="rectangle" uuid="4e30c072-15e4-427d-b79c-46cafdb3cd16" stretchType="ContainerHeight" x="7" y="586" width="543" height="18">
 				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				<pen lineColor="#8294FA"/>
 			</element>
-			<element kind="staticText" uuid="98dfe2f2-45ad-4d09-9dbc-8ba88bd0888e" x="7" y="579" width="163" height="16" fontSize="10.0" bold="true" hTextAlign="Left" vTextAlign="Middle">
+			<element kind="staticText" uuid="98dfe2f2-45ad-4d09-9dbc-8ba88bd0888e" x="7" y="586" width="123" height="16" fontSize="10.0" bold="true" hTextAlign="Left" vTextAlign="Middle">
 				<text><![CDATA[MODE AMORTISSEMENT]]></text>
 				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				<box>
@@ -965,21 +965,21 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 			</element>
-			<element kind="line" uuid="55b8d224-a4e6-4aa8-a7ee-654badaf2633" stretchType="ContainerHeight" x="170" y="580" width="1" height="18">
+			<element kind="line" uuid="55b8d224-a4e6-4aa8-a7ee-654badaf2633" stretchType="ContainerHeight" x="136" y="587" width="1" height="18">
 				<pen lineColor="#8294FA"/>
 			</element>
-			<element kind="line" uuid="557f7273-5a7b-4b53-9d13-cae2e3378226" stretchType="ContainerHeight" x="412" y="579" width="1" height="18">
+			<element kind="line" uuid="557f7273-5a7b-4b53-9d13-cae2e3378226" stretchType="ContainerHeight" x="444" y="586" width="1" height="18">
 				<pen lineColor="#8294FA"/>
 			</element>
-			<element kind="textField" uuid="01faf179-5ee9-406d-999d-16fceb324757" x="178" y="580" width="232" height="16" textAdjust="StretchHeight" vTextAlign="Middle">
+			<element kind="textField" uuid="01faf179-5ee9-406d-999d-16fceb324757" x="140" y="587" width="301" height="16" fontSize="8.0" textAdjust="StretchHeight" vTextAlign="Middle">
 				<expression><![CDATA[$F{libelleModeAmortissement}]]></expression>
 				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			</element>
-			<element kind="rectangle" uuid="3d010a62-19d1-4121-b7d6-036834f0c879" stretchType="ContainerHeight" x="7" y="598" width="543" height="18">
+			<element kind="rectangle" uuid="3d010a62-19d1-4121-b7d6-036834f0c879" stretchType="ContainerHeight" x="7" y="605" width="543" height="18">
 				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				<pen lineColor="#8294FA"/>
 			</element>
-			<element kind="staticText" uuid="4b8d5982-7387-48cd-be9e-cc12dedd66bf" x="7" y="598" width="163" height="16" fontSize="10.0" bold="true" hTextAlign="Left" vTextAlign="Middle">
+			<element kind="staticText" uuid="4b8d5982-7387-48cd-be9e-cc12dedd66bf" x="7" y="605" width="123" height="16" fontSize="10.0" bold="true" hTextAlign="Left" vTextAlign="Middle">
 				<text><![CDATA[TYPE AMORTISSEMENT]]></text>
 				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				<box>
@@ -989,21 +989,21 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 			</element>
-			<element kind="line" uuid="40274c2b-2ad7-47d4-bc22-e80f126f738c" stretchType="ContainerHeight" x="170" y="599" width="1" height="18">
+			<element kind="line" uuid="40274c2b-2ad7-47d4-bc22-e80f126f738c" stretchType="ContainerHeight" x="136" y="606" width="1" height="18">
 				<pen lineColor="#8294FA"/>
 			</element>
-			<element kind="line" uuid="009f34dc-353b-4fd6-8b74-6303f746bd8a" stretchType="ContainerHeight" x="412" y="598" width="1" height="18">
+			<element kind="line" uuid="009f34dc-353b-4fd6-8b74-6303f746bd8a" stretchType="ContainerHeight" x="444" y="605" width="1" height="18">
 				<pen lineColor="#8294FA"/>
 			</element>
-			<element kind="textField" uuid="03ed1041-903d-4232-b308-83b3842752a2" x="178" y="599" width="232" height="16" textAdjust="StretchHeight" vTextAlign="Middle">
+			<element kind="textField" uuid="03ed1041-903d-4232-b308-83b3842752a2" x="140" y="606" width="301" height="16" fontSize="8.0" textAdjust="StretchHeight" vTextAlign="Middle">
 				<expression><![CDATA[$F{libelleTypeAmortissement}]]></expression>
 				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			</element>
-			<element kind="rectangle" uuid="398962cc-d0ba-46d6-b8ea-964eb8fe5675" stretchType="ContainerHeight" x="7" y="616" width="543" height="18">
+			<element kind="rectangle" uuid="398962cc-d0ba-46d6-b8ea-964eb8fe5675" stretchType="ContainerHeight" x="7" y="623" width="543" height="18">
 				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				<pen lineColor="#8294FA"/>
 			</element>
-			<element kind="staticText" uuid="770eaccc-b911-40b4-ba93-7686d4538ee5" x="7" y="616" width="163" height="16" fontSize="10.0" bold="true" hTextAlign="Left" vTextAlign="Middle">
+			<element kind="staticText" uuid="770eaccc-b911-40b4-ba93-7686d4538ee5" x="7" y="623" width="123" height="16" fontSize="10.0" bold="true" hTextAlign="Left" vTextAlign="Middle">
 				<text><![CDATA[TAUX BRUT]]></text>
 				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				<box>
@@ -1013,21 +1013,21 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 			</element>
-			<element kind="line" uuid="156c131e-5cd7-4c08-a260-76be8f58218f" stretchType="ContainerHeight" x="170" y="617" width="1" height="18">
+			<element kind="line" uuid="156c131e-5cd7-4c08-a260-76be8f58218f" stretchType="ContainerHeight" x="136" y="624" width="1" height="18">
 				<pen lineColor="#8294FA"/>
 			</element>
-			<element kind="line" uuid="f8ec402b-3e2a-422a-ac35-a5fe556e1a29" stretchType="ContainerHeight" x="412" y="616" width="1" height="18">
+			<element kind="line" uuid="f8ec402b-3e2a-422a-ac35-a5fe556e1a29" stretchType="ContainerHeight" x="444" y="623" width="1" height="18">
 				<pen lineColor="#8294FA"/>
 			</element>
-			<element kind="textField" uuid="0a12338e-5621-43ca-ab17-2dc04b112217" x="178" y="617" width="232" height="16" textAdjust="StretchHeight" pattern="#,##0.####;#,##0.####" vTextAlign="Middle">
+			<element kind="textField" uuid="0a12338e-5621-43ca-ab17-2dc04b112217" x="140" y="624" width="301" height="16" fontSize="8.0" textAdjust="StretchHeight" pattern="#,##0.####;#,##0.####" vTextAlign="Middle">
 				<expression><![CDATA[$F{tauxBrut}]]></expression>
 				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			</element>
-			<element kind="rectangle" uuid="4730c50b-6084-45c0-be56-aab7c0d41deb" stretchType="ContainerHeight" x="7" y="635" width="543" height="18">
+			<element kind="rectangle" uuid="4730c50b-6084-45c0-be56-aab7c0d41deb" stretchType="ContainerHeight" x="7" y="642" width="543" height="18">
 				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				<pen lineColor="#8294FA"/>
 			</element>
-			<element kind="staticText" uuid="a95bc0e5-d411-4cce-9d60-27ac6652b032" x="7" y="635" width="163" height="16" fontSize="10.0" bold="true" hTextAlign="Left" vTextAlign="Middle">
+			<element kind="staticText" uuid="a95bc0e5-d411-4cce-9d60-27ac6652b032" x="7" y="642" width="123" height="16" fontSize="10.0" bold="true" hTextAlign="Left" vTextAlign="Middle">
 				<text><![CDATA[TAUX NET]]></text>
 				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				<box>
@@ -1037,21 +1037,21 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 			</element>
-			<element kind="line" uuid="da0b1dd1-2e66-4bf2-b54c-4dc82e77d50e" stretchType="ContainerHeight" x="170" y="636" width="1" height="18">
+			<element kind="line" uuid="da0b1dd1-2e66-4bf2-b54c-4dc82e77d50e" stretchType="ContainerHeight" x="136" y="643" width="1" height="18">
 				<pen lineColor="#8294FA"/>
 			</element>
-			<element kind="line" uuid="e2352b96-377f-4718-9a60-fe0c8cc794e0" stretchType="ContainerHeight" x="412" y="635" width="1" height="18">
+			<element kind="line" uuid="e2352b96-377f-4718-9a60-fe0c8cc794e0" stretchType="ContainerHeight" x="444" y="642" width="1" height="18">
 				<pen lineColor="#8294FA"/>
 			</element>
-			<element kind="textField" uuid="6f32cfba-b0eb-43e5-80c6-6df76a6e4510" x="178" y="636" width="232" height="16" textAdjust="StretchHeight" pattern="#,##0.####;#,##0.####" vTextAlign="Middle">
+			<element kind="textField" uuid="6f32cfba-b0eb-43e5-80c6-6df76a6e4510" x="140" y="643" width="301" height="16" fontSize="8.0" textAdjust="StretchHeight" pattern="#,##0.####;#,##0.####" vTextAlign="Middle">
 				<expression><![CDATA[$F{tauxNet}]]></expression>
 				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			</element>
-			<element kind="rectangle" uuid="061b1add-8e7f-4352-a54e-bc656983d69d" stretchType="ContainerHeight" x="7" y="653" width="543" height="18">
+			<element kind="rectangle" uuid="061b1add-8e7f-4352-a54e-bc656983d69d" stretchType="ContainerHeight" x="7" y="660" width="543" height="18">
 				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				<pen lineColor="#8294FA"/>
 			</element>
-			<element kind="staticText" uuid="4beb45c7-062d-4bc1-8d7a-da0d0bdbe2fe" x="7" y="653" width="163" height="16" fontSize="10.0" bold="true" hTextAlign="Left" vTextAlign="Middle">
+			<element kind="staticText" uuid="4beb45c7-062d-4bc1-8d7a-da0d0bdbe2fe" x="7" y="660" width="123" height="16" fontSize="10.0" bold="true" hTextAlign="Left" vTextAlign="Middle">
 				<text><![CDATA[NOMBRE DE TITRE]]></text>
 				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				<box>
@@ -1061,21 +1061,21 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 			</element>
-			<element kind="line" uuid="4598d632-2d4f-42dd-96ab-876db4dcbf37" stretchType="ContainerHeight" x="170" y="654" width="1" height="18">
+			<element kind="line" uuid="4598d632-2d4f-42dd-96ab-876db4dcbf37" stretchType="ContainerHeight" x="136" y="661" width="1" height="18">
 				<pen lineColor="#8294FA"/>
 			</element>
-			<element kind="line" uuid="efba1db2-55ad-4434-832b-434fa2e03572" stretchType="ContainerHeight" x="412" y="653" width="1" height="18">
+			<element kind="line" uuid="efba1db2-55ad-4434-832b-434fa2e03572" stretchType="ContainerHeight" x="444" y="660" width="1" height="18">
 				<pen lineColor="#8294FA"/>
 			</element>
-			<element kind="textField" uuid="619b09ac-4d8b-4525-a2e9-5ae38efd6e03" x="178" y="654" width="232" height="16" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###" vTextAlign="Middle">
+			<element kind="textField" uuid="619b09ac-4d8b-4525-a2e9-5ae38efd6e03" x="140" y="661" width="301" height="16" fontSize="8.0" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###" vTextAlign="Middle">
 				<expression><![CDATA[$F{nombreTitre}]]></expression>
 				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			</element>
-			<element kind="rectangle" uuid="7206a730-d662-4b61-a0bb-40a43cd625cc" stretchType="ContainerHeight" x="7" y="670" width="543" height="18">
+			<element kind="rectangle" uuid="7206a730-d662-4b61-a0bb-40a43cd625cc" stretchType="ContainerHeight" x="7" y="677" width="543" height="18">
 				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				<pen lineColor="#8294FA"/>
 			</element>
-			<element kind="staticText" uuid="edf05577-2167-48bf-8ad0-5c7273c209ba" x="7" y="670" width="163" height="16" fontSize="10.0" bold="true" hTextAlign="Left" vTextAlign="Middle">
+			<element kind="staticText" uuid="edf05577-2167-48bf-8ad0-5c7273c209ba" x="7" y="677" width="123" height="16" fontSize="10.0" bold="true" hTextAlign="Left" vTextAlign="Middle">
 				<text><![CDATA[USANCE]]></text>
 				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				<box>
@@ -1085,25 +1085,25 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 			</element>
-			<element kind="line" uuid="824d2d99-9beb-451d-aca7-86a6ce91218c" stretchType="ContainerHeight" x="170" y="670" width="1" height="18">
+			<element kind="line" uuid="824d2d99-9beb-451d-aca7-86a6ce91218c" stretchType="ContainerHeight" x="136" y="677" width="1" height="18">
 				<pen lineColor="#8294FA"/>
 			</element>
-			<element kind="line" uuid="0ce4ded2-61bf-4d24-9de3-b64516e89a9b" stretchType="ContainerHeight" x="412" y="670" width="1" height="18">
+			<element kind="line" uuid="0ce4ded2-61bf-4d24-9de3-b64516e89a9b" stretchType="ContainerHeight" x="444" y="677" width="1" height="18">
 				<pen lineColor="#8294FA"/>
 			</element>
-			<element kind="textField" uuid="7590799e-6fd5-457d-8abb-23d0422f72ad" x="178" y="671" width="232" height="16" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###" vTextAlign="Middle">
+			<element kind="textField" uuid="7590799e-6fd5-457d-8abb-23d0422f72ad" x="140" y="678" width="301" height="16" fontSize="8.0" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###" vTextAlign="Middle">
 				<expression><![CDATA[$F{usance}]]></expression>
 				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			</element>
-			<element kind="line" uuid="366ed396-7256-43b6-9dab-a99e4d060f7f" stretchType="ContainerHeight" x="485" y="24" width="1" height="664">
+			<element kind="line" uuid="366ed396-7256-43b6-9dab-a99e4d060f7f" stretchType="ContainerHeight" x="499" y="24" width="1" height="664">
 				<pen lineColor="#8294FA"/>
 			</element>
 		</band>
 	</detail>
 	<columnFooter splitType="Stretch"/>
-	<pageFooter height="80" splitType="Stretch">
-		<element kind="rectangle" uuid="fe94b30b-4d75-446b-8b28-b2b7e3d75801" x="20" y="7" width="120" height="73"/>
-		<element kind="staticText" uuid="269ab1d7-64ef-4386-8f99-ff53425f6be5" x="20" y="7" width="120" height="20" hTextAlign="Center" vTextAlign="Middle">
+	<pageFooter height="75" splitType="Stretch">
+		<element kind="rectangle" uuid="fe94b30b-4d75-446b-8b28-b2b7e3d75801" x="20" y="2" width="120" height="73"/>
+		<element kind="staticText" uuid="269ab1d7-64ef-4386-8f99-ff53425f6be5" x="20" y="2" width="120" height="20" hTextAlign="Center" vTextAlign="Middle">
 			<text><![CDATA[LE COMPTABLE]]></text>
 			<box>
 				<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1112,8 +1112,8 @@
 				<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 			</box>
 		</element>
-		<element kind="rectangle" uuid="8c1c741f-1639-40b9-8452-244ae6dd4874" x="400" y="7" width="120" height="73"/>
-		<element kind="staticText" uuid="d5277cef-c82c-48a3-9414-4d3e64bf2741" x="400" y="7" width="120" height="20" hTextAlign="Center" vTextAlign="Middle">
+		<element kind="rectangle" uuid="8c1c741f-1639-40b9-8452-244ae6dd4874" x="400" y="2" width="120" height="73"/>
+		<element kind="staticText" uuid="d5277cef-c82c-48a3-9414-4d3e64bf2741" x="400" y="2" width="120" height="20" hTextAlign="Center" vTextAlign="Middle">
 			<text><![CDATA[LE CONTRÔLEUR]]></text>
 			<box>
 				<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>

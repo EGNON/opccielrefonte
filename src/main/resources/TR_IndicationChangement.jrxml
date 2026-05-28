@@ -1,0 +1,218 @@
+<!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 7.0.1-573496633c2b4074e32f433154b543003f7d2498  -->
+<jasperReport name="TR_IndicationChangement" language="java" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="779b18c7-dd8d-4886-b202-2a6eed9eeac9">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="db_opcciel_data_adapter"/>
+<!--	<query language="SQL"><![CDATA[select * from [Circulaire8].[FT_Indication_Changement_new](9,'01/04/2022','30/06/2022')-->
+<!--order by numerop asc,numero asc]]></query>-->
+	<field name="numero" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="numero"/>
+		<property name="com.jaspersoft.studio.field.label" value="numero"/>
+	</field>
+	<field name="portefeuille" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="portefeuille"/>
+		<property name="com.jaspersoft.studio.field.label" value="portefeuille"/>
+	</field>
+	<field name="dateOp" class="java.time.LocalDateTime">
+		<property name="com.jaspersoft.studio.field.name" value="dateOp"/>
+		<property name="com.jaspersoft.studio.field.label" value="dateOp"/>
+	</field>
+	<field name="qte_Ktal" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="qte_Ktal"/>
+		<property name="com.jaspersoft.studio.field.label" value="qte_Ktal"/>
+	</field>
+	<field name="cours_interet" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="cours_interet"/>
+		<property name="com.jaspersoft.studio.field.label" value="cours_interet"/>
+	</field>
+	<field name="valeur_Rembours" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="valeur_Rembours"/>
+		<property name="com.jaspersoft.studio.field.label" value="valeur_Rembours"/>
+	</field>
+	<field name="frais" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="frais"/>
+		<property name="com.jaspersoft.studio.field.label" value="frais"/>
+	</field>
+	<field name="type" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="type"/>
+		<property name="com.jaspersoft.studio.field.label" value="type"/>
+	</field>
+	<field name="numerop" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="numerop"/>
+		<property name="com.jaspersoft.studio.field.label" value="numerop"/>
+	</field>
+	<field name="libelle_Numero" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="libelle_Numero"/>
+		<property name="com.jaspersoft.studio.field.label" value="libelle_Numero"/>
+	</field>
+	<variable name="valeur_Rembours1" resetType="Group" calculation="Sum" resetGroup="Group1" class="java.math.BigDecimal">
+		<expression><![CDATA[$F{valeur_Rembours}]]></expression>
+	</variable>
+	<group name="Group1">
+		<expression><![CDATA[$F{numerop}]]></expression>
+		<groupHeader>
+			<band height="81">
+				<element kind="rectangle" uuid="ae5410e3-5736-4df6-862b-b7362320c081" stretchType="ContainerHeight" x="24" y="5" width="753" height="25" backcolor="#FFFFFF">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="textField" uuid="f6683906-237e-4748-8bd4-ce2a5e99b033" x="30" y="9" width="37" height="20">
+					<expression><![CDATA[$F{numerop}]]></expression>
+				</element>
+				<element kind="textField" uuid="c54a9583-c2ac-4d66-adab-cacff4418cad" x="80" y="9" width="670" height="20" textAdjust="StretchHeight">
+					<expression><![CDATA[$F{libelle_Numero}]]></expression>
+				</element>
+				<element kind="line" uuid="5c3cc113-37ca-4cf5-b579-b9ecb18825f0" stretchType="ContainerHeight" x="74" y="5" width="1" height="25"/>
+				<element kind="line" uuid="b025963e-2f00-4047-be02-5f1672d2c6b7" x="239" y="35" width="1" height="1"/>
+				<element kind="line" uuid="37841a7a-d7e6-41ad-be32-765f601004d6" stretchType="ContainerHeight" x="466" y="35" width="1" height="1"/>
+				<element kind="rectangle" uuid="11402a7f-792d-4a02-be93-edfb0009a576" stretchType="ContainerHeight" x="25" y="36" width="752" height="45" backcolor="#FFFFFF">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="line" uuid="d609ef45-4bca-48fb-a080-3df77dc26d24" x="244" y="36" width="1" height="45">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</element>
+				<element kind="staticText" uuid="826a0c69-7d98-4694-939a-ffe3731f2e06" x="30" y="42" width="37" height="39" hTextAlign="Center" vTextAlign="Middle">
+					<text><![CDATA[N°]]></text>
+				</element>
+				<element kind="line" uuid="019379ba-2077-4df7-a296-5dc0f9659dbe" stretchType="ContainerHeight" x="463" y="58" width="1" height="23">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</element>
+				<element kind="line" uuid="88492d49-b780-4822-8ee7-30ebffcba9a4" x="74" y="36" width="1" height="45">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</element>
+				<element kind="staticText" uuid="3d95349b-2645-49d1-a800-41214084406f" x="80" y="41" width="159" height="40" hTextAlign="Center" vTextAlign="Middle">
+					<text><![CDATA[Portefeuille]]></text>
+				</element>
+				<element kind="staticText" uuid="5d91e469-e7c4-4e3e-8e31-47cc74fd17a8" x="251" y="43" width="99" height="38" hTextAlign="Center" vTextAlign="Middle">
+					<text><![CDATA[Date]]></text>
+				</element>
+				<element kind="line" uuid="9f007fc9-441b-46f3-9919-d5fb5cd9e730" x="355" y="36" width="1" height="45">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</element>
+				<element kind="line" uuid="a7cec161-1733-4013-b6bf-4c4a86a078a2" x="356" y="58" width="421" height="1"/>
+				<element kind="textField" uuid="35bf3c52-df70-4c98-9bb4-bb7ad39f11fa" x="360" y="38" width="417" height="17" hTextAlign="Center">
+					<expression><![CDATA[$F{type}]]></expression>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</element>
+				<element kind="textField" uuid="b0a23bbc-2ce3-46e8-9b9d-82824730f4bb" x="360" y="62" width="100" height="17" hTextAlign="Center">
+					<expression><![CDATA[EQUALS($F{type}, "Remboursement")==true?"Capital":"Quantités"]]></expression>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</element>
+				<element kind="textField" uuid="fe4ad0e5-5657-487c-a33f-96795df7423f" x="467" y="62" width="100" height="17" hTextAlign="Center">
+					<expression><![CDATA[EQUALS($F{type},"Remboursement")==true?"Interets":"Cours"]]></expression>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</element>
+				<element kind="line" uuid="c843b622-1c4e-4280-8b47-d5b3bd0c6aae" stretchType="ContainerHeight" x="570" y="57" width="1" height="23">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</element>
+				<element kind="staticText" uuid="67ac945b-ecf6-4a39-a71b-aafbb98c8389" x="571" y="62" width="100" height="17" hTextAlign="Center">
+					<text><![CDATA[Frais]]></text>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</element>
+				<element kind="line" uuid="9c470393-1952-4490-b29e-6134f6723054" stretchType="ContainerHeight" x="673" y="58" width="1" height="23">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</element>
+				<element kind="textField" uuid="2dc9c2cb-e8d0-4ad7-8bdf-9e3c798cf7c6" x="675" y="61" width="100" height="17" hTextAlign="Center">
+					<expression><![CDATA[EQUALS($F{type},"Remboursement")==true?"Montant rem...":"Valeurs"]]></expression>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</element>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="43">
+				<element kind="rectangle" uuid="fd45331b-c8b9-4e2e-9f4e-f0aef6b9adb4" stretchType="ContainerHeight" x="25" y="1" width="752" height="25" backcolor="#FFFFFF">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="textField" uuid="066ea9a2-74a3-4ff4-9da8-a15d4528cd8a" x="30" y="5" width="641" height="20" bold="true" hTextAlign="Center">
+					<expression><![CDATA["TOTAL"]]></expression>
+				</element>
+				<element kind="line" uuid="cec7427a-09da-4c96-bcca-58fbded7e5c4" stretchType="ContainerHeight" x="673" y="1" width="1" height="25"/>
+				<element kind="textField" uuid="ddd5bdf0-7e93-4e64-a565-47bb0c7faf77" x="675" y="4" width="100" height="20" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+<!--					<expression><![CDATA[$V{valeur_Rembours1}]]></expression>-->
+                    <expression><![CDATA[$V{valeur_Rembours1} == null ? "" :
+                    new java.text.DecimalFormat("#,##0;-,##0",
+                        java.text.DecimalFormatSymbols.getInstance(java.util.Locale.FRANCE))
+                        .format($V{valeur_Rembours1})
+                        .replace('\u202F', ' ')
+                ]]></expression>
+				</element>
+				<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			</band>
+		</groupFooter>
+	</group>
+	<background splitType="Stretch"/>
+	<title height="50" splitType="Stretch">
+		<element kind="rectangle" uuid="f95c91e7-762f-4f6f-80b6-89ab29da88b0" stretchType="NoStretch" x="5" y="3" width="775" height="42" backcolor="#FFFFFF">
+			<pen lineColor="#3B88D1"/>
+		</element>
+		<element kind="line" uuid="7c3762b4-09d1-4669-a0a8-295bbe63cb2d" x="33" y="3" width="1" height="42"/>
+		<element kind="staticText" uuid="c97e283f-8017-428b-9657-1b5a378c7802" x="9" y="10" width="20" height="30" fontSize="14.0" bold="true" hTextAlign="Center">
+			<text><![CDATA[VI.]]></text>
+		</element>
+		<element kind="staticText" uuid="e00b46a4-ffb9-4fe0-9b62-534066d6dce0" x="38" y="5" width="727" height="40" fontSize="14.0" bold="true" hTextAlign="Left">
+			<text><![CDATA[INDICATION DES CHANGEMENTS INTERVENUS DANS LA COMPOSITION DU PORTEFEUILLE - TITRES AU COURS DE LA PERIODE DE REFERENCE]]></text>
+		</element>
+		<property name="com.jaspersoft.studio.unit.height" value="px"/>
+	</title>
+	<pageHeader splitType="Stretch"/>
+	<columnHeader splitType="Stretch"/>
+	<detail>
+		<band height="26" splitType="Stretch">
+			<element kind="rectangle" uuid="408764d8-d163-4894-911e-dfdf59d19fc1" stretchType="ContainerHeight" x="25" y="1" width="752" height="25" backcolor="#FFFFFF">
+				<pen lineColor="#3B88D1"/>
+			</element>
+			<element kind="textField" uuid="0d135043-fce0-4574-969c-65a715934072" x="30" y="5" width="37" height="20" textAdjust="StretchHeight">
+				<expression><![CDATA[$F{numero}]]></expression>
+			</element>
+			<element kind="textField" uuid="b781f4eb-3339-4f86-a7a8-0a12e9a4f289" x="80" y="1" width="159" height="20" textAdjust="StretchHeight">
+				<expression><![CDATA[$F{portefeuille}]]></expression>
+			</element>
+			<element kind="line" uuid="474a25ac-0e7d-49a6-998e-ea0ef29cad9c" stretchType="ContainerHeight" x="74" y="1" width="1" height="25"/>
+			<element kind="line" uuid="7fea32c0-a75b-4ac4-b9d5-7603077beb8d" stretchType="ContainerHeight" x="244" y="1" width="1" height="25"/>
+			<element kind="textField" uuid="ecd0924d-230c-454f-ac2d-547809b14e53" x="251" y="3" width="99" height="20">
+				<expression><![CDATA[$F{dateOp}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"))]]></expression>
+			</element>
+			<element kind="line" uuid="b3e2ba8d-1b0d-468d-8462-670d76f30bd7" stretchType="ContainerHeight" x="355" y="1" width="1" height="25"/>
+			<element kind="textField" uuid="cd513232-06d7-4f46-8803-b0ccef353d08" x="359" y="5" width="100" height="16" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+<!--				<expression><![CDATA[$F{qte_Ktal}]]></expression>-->
+                <expression><![CDATA[$F{qte_Ktal} == null ? "" :
+                    new java.text.DecimalFormat("#,##0;-,##0",
+                        java.text.DecimalFormatSymbols.getInstance(java.util.Locale.FRANCE))
+                        .format($F{qte_Ktal})
+                        .replace('\u202F', ' ')
+                ]]></expression>
+			</element>
+			<element kind="line" uuid="02ddf2de-5dd3-445f-9546-105109ac4d5c" stretchType="ContainerHeight" x="463" y="1" width="1" height="25"/>
+			<element kind="textField" uuid="e078efa6-2b5e-46f0-b32d-242cbe9acf4e" x="467" y="5" width="100" height="16" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+<!--				<expression><![CDATA[$F{cours_interet}]]></expression>-->
+                <expression><![CDATA[$F{cours_interet} == null ? "" :
+                    new java.text.DecimalFormat("#,##0;-,##0",
+                        java.text.DecimalFormatSymbols.getInstance(java.util.Locale.FRANCE))
+                        .format($F{cours_interet})
+                        .replace('\u202F', ' ')
+                ]]></expression>
+			</element>
+			<element kind="line" uuid="9738a0b9-470b-4bc1-8eb6-5777b3f2c573" stretchType="ContainerHeight" x="570" y="0" width="1" height="25"/>
+			<element kind="textField" uuid="6328c225-10a8-4d7a-b61e-de723fa5dde3" x="574" y="5" width="97" height="18" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+<!--				<expression><![CDATA[$F{frais}]]></expression>-->
+                <expression><![CDATA[$F{frais} == null ? "" :
+                    new java.text.DecimalFormat("#,##0;-,##0",
+                        java.text.DecimalFormatSymbols.getInstance(java.util.Locale.FRANCE))
+                        .format($F{frais})
+                        .replace('\u202F', ' ')
+                ]]></expression>
+			</element>
+			<element kind="line" uuid="bed28a53-51cc-4f5a-a92e-48fbdfa5bfe3" stretchType="ContainerHeight" x="673" y="1" width="1" height="25"/>
+			<element kind="textField" uuid="86a7677d-4397-4a25-a982-7e81157b55d2" x="677" y="5" width="98" height="20" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+<!--				<expression><![CDATA[$F{valeur_Rembours}]]></expression>-->
+                <expression><![CDATA[$F{valeur_Rembours} == null ? "" :
+                    new java.text.DecimalFormat("#,##0;-,##0",
+                        java.text.DecimalFormatSymbols.getInstance(java.util.Locale.FRANCE))
+                        .format($F{valeur_Rembours})
+                        .replace('\u202F', ' ')
+                ]]></expression>
+			</element>
+		</band>
+	</detail>
+	<columnFooter splitType="Stretch"/>
+	<pageFooter splitType="Stretch"/>
+	<summary height="42" splitType="Stretch"/>
+</jasperReport>

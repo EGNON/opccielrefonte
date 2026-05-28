@@ -1,0 +1,283 @@
+<!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 7.0.1-573496633c2b4074e32f433154b543003f7d2498  -->
+<jasperReport name="TR_IndicationChangement" language="java" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="779b18c7-dd8d-4886-b202-2a6eed9eeac9">
+    <property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+    <property name="com.jaspersoft.studio.data.defaultdataadapter" value="db_opcciel_data_adapter"/>
+<!--    <query language="SQL"><![CDATA[select * from [Impressions].[FT_ValeurInventaire3ans](9,2022)]]></query>-->
+    <field name="num" class="java.lang.Long">
+        <property name="com.jaspersoft.studio.field.name" value="num"/>
+        <property name="com.jaspersoft.studio.field.label" value="num"/>
+    </field>
+    <field name="annee1" class="java.lang.Long">
+        <property name="com.jaspersoft.studio.field.name" value="annee1"/>
+        <property name="com.jaspersoft.studio.field.label" value="annee1"/>
+    </field>
+    <field name="actif1" class="java.math.BigDecimal">
+        <property name="com.jaspersoft.studio.field.name" value="actif1"/>
+        <property name="com.jaspersoft.studio.field.label" value="actif1"/>
+    </field>
+    <field name="part1" class="java.math.BigDecimal">
+        <property name="com.jaspersoft.studio.field.name" value="part1"/>
+        <property name="com.jaspersoft.studio.field.label" value="part1"/>
+    </field>
+    <field name="annee2" class="java.lang.Long">
+        <property name="com.jaspersoft.studio.field.name" value="annee2"/>
+        <property name="com.jaspersoft.studio.field.label" value="annee2"/>
+    </field>
+    <field name="actif2" class="java.math.BigDecimal">
+        <property name="com.jaspersoft.studio.field.name" value="actif2"/>
+        <property name="com.jaspersoft.studio.field.label" value="actif2"/>
+    </field>
+    <field name="part2" class="java.math.BigDecimal">
+        <property name="com.jaspersoft.studio.field.name" value="part2"/>
+        <property name="com.jaspersoft.studio.field.label" value="part2"/>
+    </field>
+    <field name="annee3" class="java.lang.Long">
+        <property name="com.jaspersoft.studio.field.name" value="annee3"/>
+        <property name="com.jaspersoft.studio.field.label" value="annee3"/>
+    </field>
+    <field name="actif3" class="java.math.BigDecimal">
+        <property name="com.jaspersoft.studio.field.name" value="actif3"/>
+        <property name="com.jaspersoft.studio.field.label" value="actif3"/>
+    </field>
+    <field name="part3" class="java.math.BigDecimal">
+        <property name="com.jaspersoft.studio.field.name" value="part3"/>
+        <property name="com.jaspersoft.studio.field.label" value="part3"/>
+    </field>
+    <background splitType="Stretch"/>
+    <title height="90" splitType="Stretch">
+        <element kind="rectangle" uuid="f95c91e7-762f-4f6f-80b6-89ab29da88b0" stretchType="NoStretch" x="5" y="3" width="775" height="42" backcolor="#FFFFFF">
+            <pen lineColor="#3B88D1"/>
+        </element>
+        <element kind="line" uuid="7c3762b4-09d1-4669-a0a8-295bbe63cb2d" x="38" y="3" width="1" height="42"/>
+        <element kind="staticText" uuid="c97e283f-8017-428b-9657-1b5a378c7802" x="9" y="10" width="29" height="30" fontSize="14.0" bold="true" hTextAlign="Center">
+            <text><![CDATA[VIII.]]></text>
+        </element>
+        <element kind="staticText" uuid="e00b46a4-ffb9-4fe0-9b62-534066d6dce0" x="42" y="5" width="727" height="40" fontSize="14.0" bold="true" hTextAlign="Left">
+            <text><![CDATA[TABLEAU COMPARATIF PORTANT SUR LES TROIS DERNIERS EXERCICES ET COMPORTANT POUR CHAQUE FIN D'EXERCICE]]></text>
+        </element>
+        <element kind="line" uuid="b025963e-2f00-4047-be02-5f1672d2c6b7" x="234" y="57" width="1" height="1"/>
+        <element kind="line" uuid="37841a7a-d7e6-41ad-be32-765f601004d6" stretchType="ContainerHeight" x="461" y="57" width="1" height="1"/>
+        <element kind="rectangle" uuid="11402a7f-792d-4a02-be93-edfb0009a576" stretchType="ContainerHeight" x="20" y="58" width="752" height="32" backcolor="#FFFFFF">
+            <pen lineColor="#3B88D1"/>
+        </element>
+        <element kind="line" uuid="d609ef45-4bca-48fb-a080-3df77dc26d24" x="297" y="58" width="1" height="32">
+            <property name="com.jaspersoft.studio.unit.height" value="px"/>
+        </element>
+        <element kind="staticText" uuid="3d95349b-2645-49d1-a800-41214084406f" x="27" y="63" width="263" height="17" bold="true" hTextAlign="Center" vTextAlign="Middle">
+            <text><![CDATA[Elements]]></text>
+        </element>
+        <element kind="line" uuid="9f007fc9-441b-46f3-9919-d5fb5cd9e730" x="481" y="58" width="1" height="32">
+            <property name="com.jaspersoft.studio.unit.height" value="px"/>
+        </element>
+        <element kind="textField" uuid="35bf3c52-df70-4c98-9bb4-bb7ad39f11fa" x="487" y="63" width="144" height="17" bold="true" hTextAlign="Center">
+            <expression><![CDATA[$F{annee2}]]></expression>
+            <property name="com.jaspersoft.studio.unit.height" value="px"/>
+        </element>
+        <element kind="line" uuid="c843b622-1c4e-4280-8b47-d5b3bd0c6aae" stretchType="ContainerHeight" x="634" y="58" width="1" height="32">
+            <property name="com.jaspersoft.studio.unit.height" value="px"/>
+        </element>
+        <element kind="textField" uuid="7d74a248-f852-4fcc-bed7-cafcedbf3052" x="300" y="63" width="170" height="17" bold="true" hTextAlign="Center">
+            <expression><![CDATA[$F{annee3}]]></expression>
+        </element>
+        <element kind="textField" uuid="5489f05b-84c0-4032-9540-a6499f6ab501" x="640" y="63" width="125" height="16" bold="true" hTextAlign="Center">
+            <expression><![CDATA[$F{annee1}]]></expression>
+        </element>
+        <property name="com.jaspersoft.studio.unit.height" value="px"/>
+    </title>
+    <pageHeader splitType="Stretch"/>
+    <columnHeader splitType="Stretch"/>
+    <detail>
+        <band height="51" splitType="Stretch">
+            <element kind="rectangle" uuid="408764d8-d163-4894-911e-dfdf59d19fc1" stretchType="ContainerHeight" x="20" y="26" width="752" height="25" backcolor="#FFFFFF">
+                <pen lineColor="#3B88D1"/>
+            </element>
+            <element kind="textField" uuid="b781f4eb-3339-4f86-a7a8-0a12e9a4f289" x="27" y="26" width="263" height="20" textAdjust="StretchHeight">
+                <expression><![CDATA["Valeur nette d'inventaire par parts"]]></expression>
+            </element>
+            <element kind="line" uuid="7fea32c0-a75b-4ac4-b9d5-7603077beb8d" stretchType="ContainerHeight" x="297" y="26" width="1" height="25"/>
+            <element kind="textField" uuid="ecd0924d-230c-454f-ac2d-547809b14e53" x="304" y="28" width="169" height="20" pattern="#,##0.###;#,##0.###">
+<!--                <expression><![CDATA[$F{part3}]]></expression>-->
+                <expression><![CDATA[$F{part3} == null ? "" :
+                    new java.text.DecimalFormat("#,##0.####;-,##0.####",
+                        java.text.DecimalFormatSymbols.getInstance(java.util.Locale.FRANCE))
+                        .format($F{part3})
+                        .replace('\u202F', ' ')
+                ]]></expression>
+            </element>
+            <element kind="line" uuid="b3e2ba8d-1b0d-468d-8462-670d76f30bd7" stretchType="ContainerHeight" x="481" y="26" width="1" height="25"/>
+            <element kind="textField" uuid="e078efa6-2b5e-46f0-b32d-242cbe9acf4e" x="487" y="30" width="145" height="16" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+<!--                <expression><![CDATA[$F{part2}]]></expression>-->
+                <expression><![CDATA[$F{part2} == null ? "" :
+                    new java.text.DecimalFormat("#,##0.####;-,##0.####",
+                        java.text.DecimalFormatSymbols.getInstance(java.util.Locale.FRANCE))
+                        .format($F{part2})
+                        .replace('\u202F', ' ')
+                ]]></expression>
+            </element>
+            <element kind="line" uuid="9738a0b9-470b-4bc1-8eb6-5777b3f2c573" stretchType="ContainerHeight" x="634" y="25" width="1" height="25"/>
+            <element kind="textField" uuid="6328c225-10a8-4d7a-b61e-de723fa5dde3" x="640" y="30" width="129" height="18" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+<!--                <expression><![CDATA[$F{part1}]]></expression>-->
+                <expression><![CDATA[$F{part1} == null ? "" :
+                    new java.text.DecimalFormat("#,##0.####;-,##0.####",
+                        java.text.DecimalFormatSymbols.getInstance(java.util.Locale.FRANCE))
+                        .format($F{part1})
+                        .replace('\u202F', ' ')
+                ]]></expression>
+            </element>
+            <element kind="rectangle" uuid="f5bbe522-b51f-4aef-91a5-ef29942c4cad" stretchType="ContainerHeight" x="20" y="1" width="752" height="25" backcolor="#FFFFFF">
+                <pen lineColor="#3B88D1"/>
+            </element>
+            <element kind="textField" uuid="bf48e098-bbae-44dc-a1c5-086975bf4419" x="27" y="1" width="263" height="20" textAdjust="StretchHeight">
+                <expression><![CDATA["Valeur nette d'inventaire totale"]]></expression>
+            </element>
+            <element kind="line" uuid="e679f35b-ad07-4bd1-9a3a-7de1254c309f" stretchType="ContainerHeight" x="297" y="1" width="1" height="25"/>
+            <element kind="textField" uuid="5dedcdbe-f44c-405f-acbb-90cacfea9dd3" x="304" y="3" width="169" height="20" pattern="#,##0.###;#,##0.###">
+<!--                <expression><![CDATA[$F{actif3}]]></expression>-->
+                <expression><![CDATA[$F{actif3} == null ? "" :
+                    new java.text.DecimalFormat("#,##0;-,##0",
+                        java.text.DecimalFormatSymbols.getInstance(java.util.Locale.FRANCE))
+                        .format($F{actif3})
+                        .replace('\u202F', ' ')
+                ]]></expression>
+            </element>
+            <element kind="line" uuid="eb3e7269-8c5e-45fe-b215-b9863ea65c5f" stretchType="ContainerHeight" x="481" y="1" width="1" height="25"/>
+            <element kind="textField" uuid="e1aa8bb1-8bca-43b4-8ca9-5989f8b9e1c8" x="487" y="5" width="145" height="16" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+<!--                <expression><![CDATA[$F{actif2}]]></expression>-->
+                <expression><![CDATA[$F{actif2} == null ? "" :
+                    new java.text.DecimalFormat("#,##0;-,##0",
+                        java.text.DecimalFormatSymbols.getInstance(java.util.Locale.FRANCE))
+                        .format($F{actif2})
+                        .replace('\u202F', ' ')
+                ]]></expression>
+            </element>
+            <element kind="line" uuid="6ced409d-33f5-4a16-a9c0-972b5d005c16" stretchType="ContainerHeight" x="634" y="0" width="1" height="25"/>
+            <element kind="textField" uuid="a1e7df12-da6d-41ca-b8bf-c3122cadf8d5" x="640" y="5" width="129" height="18" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+<!--                <expression><![CDATA[$F{actif1}]]></expression>-->
+                <expression><![CDATA[$F{actif1} == null ? "" :
+                    new java.text.DecimalFormat("#,##0;-,##0",
+                        java.text.DecimalFormatSymbols.getInstance(java.util.Locale.FRANCE))
+                        .format($F{actif1})
+                        .replace('\u202F', ' ')
+                ]]></expression>
+            </element>
+        </band>
+    </detail>
+    <columnFooter splitType="Stretch"/>
+    <pageFooter splitType="Stretch"/>
+    <summary height="42" splitType="Stretch"/>
+</jasperReport>
+
+        <!--&lt;!&ndash; Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 7.0.1-573496633c2b4074e32f433154b543003f7d2498  &ndash;&gt;-->
+<!--<jasperReport name="TR_IndicationChangement" language="java" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="779b18c7-dd8d-4886-b202-2a6eed9eeac9">-->
+<!--	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>-->
+<!--	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="db_opcciel_data_adapter"/>-->
+<!--&lt;!&ndash;	<query language="SQL"><![CDATA[select * from [Impressions].[FT_ValeurInventaire3ans](9,2022)]]></query>&ndash;&gt;-->
+<!--	<field name="num" class="java.lang.Long">-->
+<!--		<property name="com.jaspersoft.studio.field.name" value="num"/>-->
+<!--		<property name="com.jaspersoft.studio.field.label" value="num"/>-->
+<!--	</field>-->
+<!--	<field name="annee1" class="java.lang.Long">-->
+<!--		<property name="com.jaspersoft.studio.field.name" value="annee1"/>-->
+<!--		<property name="com.jaspersoft.studio.field.label" value="annee1"/>-->
+<!--	</field>-->
+<!--	<field name="actif1" class="java.math.BigDecimal">-->
+<!--		<property name="com.jaspersoft.studio.field.name" value="actif1"/>-->
+<!--		<property name="com.jaspersoft.studio.field.label" value="actif1"/>-->
+<!--	</field>-->
+<!--	<field name="part1" class="java.math.BigDecimal">-->
+<!--		<property name="com.jaspersoft.studio.field.name" value="part1"/>-->
+<!--		<property name="com.jaspersoft.studio.field.label" value="part1"/>-->
+<!--	</field>-->
+<!--	<field name="annee2" class="java.lang.Long">-->
+<!--		<property name="com.jaspersoft.studio.field.name" value="annee2"/>-->
+<!--		<property name="com.jaspersoft.studio.field.label" value="annee2"/>-->
+<!--	</field>-->
+<!--	<field name="actif2" class="java.math.BigDecimal">-->
+<!--		<property name="com.jaspersoft.studio.field.name" value="actif2"/>-->
+<!--		<property name="com.jaspersoft.studio.field.label" value="actif2"/>-->
+<!--	</field>-->
+<!--	<field name="part2" class="java.math.BigDecimal">-->
+<!--		<property name="com.jaspersoft.studio.field.name" value="part2"/>-->
+<!--		<property name="com.jaspersoft.studio.field.label" value="part2"/>-->
+<!--	</field>-->
+<!--	<field name="annee3" class="java.lang.Long">-->
+<!--		<property name="com.jaspersoft.studio.field.name" value="annee3"/>-->
+<!--		<property name="com.jaspersoft.studio.field.label" value="annee3"/>-->
+<!--	</field>-->
+<!--	<field name="actif3" class="java.math.BigDecimal">-->
+<!--		<property name="com.jaspersoft.studio.field.name" value="actif3"/>-->
+<!--		<property name="com.jaspersoft.studio.field.label" value="actif3"/>-->
+<!--	</field>-->
+<!--	<field name="part3" class="java.math.BigDecimal">-->
+<!--		<property name="com.jaspersoft.studio.field.name" value="part3"/>-->
+<!--		<property name="com.jaspersoft.studio.field.label" value="part3"/>-->
+<!--	</field>-->
+<!--	<background splitType="Stretch"/>-->
+<!--	<title height="90" splitType="Stretch">-->
+<!--		<element kind="rectangle" uuid="f95c91e7-762f-4f6f-80b6-89ab29da88b0" stretchType="NoStretch" x="5" y="3" width="775" height="42" backcolor="#FFFFFF">-->
+<!--			<pen lineColor="#3B88D1"/>-->
+<!--		</element>-->
+<!--		<element kind="line" uuid="7c3762b4-09d1-4669-a0a8-295bbe63cb2d" x="38" y="3" width="1" height="42"/>-->
+<!--		<element kind="staticText" uuid="c97e283f-8017-428b-9657-1b5a378c7802" x="9" y="10" width="29" height="30" fontSize="14.0" bold="true" hTextAlign="Center">-->
+<!--			<text><![CDATA[VIII.]]></text>-->
+<!--		</element>-->
+<!--		<element kind="staticText" uuid="e00b46a4-ffb9-4fe0-9b62-534066d6dce0" x="42" y="5" width="727" height="40" fontSize="14.0" bold="true" hTextAlign="Left">-->
+<!--			<text><![CDATA[TABLEAU COMPARATIF PORTANT SUR LES TROIS DERNIERS EXERCICES ET COMPORTANT POUR CHAQUE FIN D'EXERCICE]]></text>-->
+<!--		</element>-->
+<!--		<element kind="line" uuid="b025963e-2f00-4047-be02-5f1672d2c6b7" x="234" y="57" width="1" height="1"/>-->
+<!--		<element kind="line" uuid="37841a7a-d7e6-41ad-be32-765f601004d6" stretchType="ContainerHeight" x="461" y="57" width="1" height="1"/>-->
+<!--		<element kind="rectangle" uuid="11402a7f-792d-4a02-be93-edfb0009a576" stretchType="ContainerHeight" x="20" y="58" width="752" height="32" backcolor="#FFFFFF">-->
+<!--			<pen lineColor="#3B88D1"/>-->
+<!--		</element>-->
+<!--		<element kind="line" uuid="d609ef45-4bca-48fb-a080-3df77dc26d24" x="297" y="58" width="1" height="32">-->
+<!--			<property name="com.jaspersoft.studio.unit.height" value="px"/>-->
+<!--		</element>-->
+<!--		<element kind="staticText" uuid="3d95349b-2645-49d1-a800-41214084406f" x="27" y="63" width="263" height="17" bold="true" hTextAlign="Center" vTextAlign="Middle">-->
+<!--			<text><![CDATA[Elements]]></text>-->
+<!--		</element>-->
+<!--		<element kind="line" uuid="9f007fc9-441b-46f3-9919-d5fb5cd9e730" x="481" y="58" width="1" height="32">-->
+<!--			<property name="com.jaspersoft.studio.unit.height" value="px"/>-->
+<!--		</element>-->
+<!--		<element kind="textField" uuid="35bf3c52-df70-4c98-9bb4-bb7ad39f11fa" x="487" y="63" width="144" height="17" bold="true" hTextAlign="Center">-->
+<!--			<expression><![CDATA[$F{annee2}]]></expression>-->
+<!--			<property name="com.jaspersoft.studio.unit.height" value="px"/>-->
+<!--		</element>-->
+<!--		<element kind="line" uuid="c843b622-1c4e-4280-8b47-d5b3bd0c6aae" stretchType="ContainerHeight" x="634" y="58" width="1" height="32">-->
+<!--			<property name="com.jaspersoft.studio.unit.height" value="px"/>-->
+<!--		</element>-->
+<!--		<element kind="textField" uuid="7d74a248-f852-4fcc-bed7-cafcedbf3052" x="300" y="63" width="170" height="17" bold="true" hTextAlign="Center">-->
+<!--			<expression><![CDATA[$F{annee3}]]></expression>-->
+<!--		</element>-->
+<!--		<element kind="textField" uuid="5489f05b-84c0-4032-9540-a6499f6ab501" x="640" y="63" width="125" height="16" bold="true" hTextAlign="Center">-->
+<!--			<expression><![CDATA[$F{annee1}]]></expression>-->
+<!--		</element>-->
+<!--		<property name="com.jaspersoft.studio.unit.height" value="px"/>-->
+<!--	</title>-->
+<!--	<pageHeader splitType="Stretch"/>-->
+<!--	<columnHeader splitType="Stretch"/>-->
+<!--	<detail>-->
+<!--		<band height="26" splitType="Stretch">-->
+<!--			<element kind="rectangle" uuid="408764d8-d163-4894-911e-dfdf59d19fc1" stretchType="ContainerHeight" x="20" y="1" width="752" height="25" backcolor="#FFFFFF">-->
+<!--				<pen lineColor="#3B88D1"/>-->
+<!--			</element>-->
+<!--			<element kind="textField" uuid="b781f4eb-3339-4f86-a7a8-0a12e9a4f289" x="27" y="1" width="263" height="20" textAdjust="StretchHeight">-->
+<!--				<expression><![CDATA["Valeur nette d'inventaire totale"]]></expression>-->
+<!--			</element>-->
+<!--			<element kind="line" uuid="7fea32c0-a75b-4ac4-b9d5-7603077beb8d" stretchType="ContainerHeight" x="297" y="1" width="1" height="25"/>-->
+<!--			<element kind="textField" uuid="ecd0924d-230c-454f-ac2d-547809b14e53" x="304" y="3" width="169" height="20" pattern="#,##0.###;#,##0.###">-->
+<!--				<expression><![CDATA[$F{part3}]]></expression>-->
+<!--			</element>-->
+<!--			<element kind="line" uuid="b3e2ba8d-1b0d-468d-8462-670d76f30bd7" stretchType="ContainerHeight" x="481" y="1" width="1" height="25"/>-->
+<!--			<element kind="textField" uuid="e078efa6-2b5e-46f0-b32d-242cbe9acf4e" x="487" y="5" width="145" height="16" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###" blankWhenNull="true">-->
+<!--				<expression><![CDATA[$F{part2}]]></expression>-->
+<!--			</element>-->
+<!--			<element kind="line" uuid="9738a0b9-470b-4bc1-8eb6-5777b3f2c573" stretchType="ContainerHeight" x="634" y="0" width="1" height="25"/>-->
+<!--			<element kind="textField" uuid="6328c225-10a8-4d7a-b61e-de723fa5dde3" x="640" y="5" width="129" height="18" pattern="#,##0.###;#,##0.###" blankWhenNull="true">-->
+<!--				<expression><![CDATA[$F{part1}]]></expression>-->
+<!--			</element>-->
+<!--		</band>-->
+<!--	</detail>-->
+<!--	<columnFooter splitType="Stretch"/>-->
+<!--	<pageFooter splitType="Stretch"/>-->
+<!--	<summary height="42" splitType="Stretch"/>-->
+<!--</jasperReport>-->

@@ -23,6 +23,7 @@ public class PosteComptableSeanceOpcvm extends Base {
     private Opcvm opcvm;
 	private String formuleSysteme;
     private Date dateValeur;
+    @Column(precision = 18,scale = 6)
     private BigDecimal valeur;
     private boolean estVerifie1;
     private LocalDateTime dateVerification1;

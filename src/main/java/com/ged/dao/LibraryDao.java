@@ -829,4 +829,61 @@ public interface LibraryDao extends JpaRepository<BaseEntity, Long> {
     @Query(value = "select * from [Impression].[FT_TableauDAmortissement](:idTitre) ", nativeQuery = true)
     List<TableauAmortissementProjection> tableauAmortissemen(String idTitre);
 
+    @Query(value = "select * from [OrdreDeBourse].[FT_ListeOrdreDeBourse](:idOpcvm,:dateDebut,:dateFin)" +
+            " where idOperation=:id", nativeQuery = true)
+    List<ListeOrdreDeBourseProjection> listeOrdreDeBourse(Long idOpcvm,LocalDateTime dateDebut,
+                                                          LocalDateTime dateFin,
+                                                          Long id);
+    @Query(value = "select * from [OrdreDeBourse].[FT_ListeOrdreDeBourse](:idOpcvm,:dateDebut,:dateFin)", nativeQuery = true)
+    Page<ListeOrdreDeBourseProjection> listeOrdreDeBourse(Long idOpcvm,LocalDateTime dateDebut,
+                                                          LocalDateTime dateFin,Pageable pageable);
+    @Query(value = "select * from [Circulaire8].[FT_Identification_Patrimoine_Part_New](:idOpcvm,:dateDebut,:dateFin)" +
+            " where titre=:titre " , nativeQuery = true)
+    List<IdentificationPatrimoinePartProjection> listeIdentificationPatrimoinePart(Long idOpcvm,
+                                                          LocalDateTime dateDebut,
+                                                          LocalDateTime dateFin,
+                                                          String titre);
+    @Query(value = "select * from [Circulaire8].[FT_Identification_Patrimoine_Part_New](:idOpcvm,:dateDebut,:dateFin)" +
+            " where titre=:titre " //+"order by titre asc,numero asc,libelle_petit_numero asc,type asc"
+            , nativeQuery = true)
+    List<IdentificationPatrimoinePartProjection> listePatrimoine(Long idOpcvm,
+                                                          LocalDateTime dateDebut,
+                                                          LocalDateTime dateFin,
+                                                          String titre);
+    @Query(value = "select * from [Circulaire8].[FT_Identification_Patrimoine_Part_New](:idOpcvm,:dateDebut,:dateFin)" +
+            " where titre=:titre " , nativeQuery = true)
+    List<IdentificationPatrimoinePartProjection> listePart(Long idOpcvm,
+                                                          LocalDateTime dateDebut,
+                                                          LocalDateTime dateFin,
+                                                          String titre);
+    @Query(value = "select * from [Circulaire8].[FT_Identification_Patrimoine_Part_New](:idOpcvm,:dateDebut,:dateFin)" +
+            " where titre ='IV. ' AND numero <> 'A' AND numero <> 'B' ", nativeQuery = true)
+    List<IdentificationPatrimoinePartProjection> listePart4(Long idOpcvm,
+                                                          LocalDateTime dateDebut,
+                                                          LocalDateTime dateFin);
+    @Query(value = "select * from [Circulaire8].[FT_Identification_Patrimoine_Part_New](:idOpcvm,:dateDebut,:dateFin)" +
+            " where titre ='IV. ' AND ( numero = 'A' OR numero = 'B' ) ", nativeQuery = true)
+    List<IdentificationPatrimoinePartProjection> listePart4_AB(Long idOpcvm,
+                                                            LocalDateTime dateDebut,
+                                                            LocalDateTime dateFin);
+    @Query(value = "select * from [Circulaire8].FT_Comparaison_VlOrigine_VlActuelle(:idOpcvm,:dateFin)"
+            , nativeQuery = true)
+    List<ComparaisonVlProjection> comparaisonVL(Long idOpcvm,
+                                                          LocalDateTime dateFin);
+
+    @Query(value = "select * from  [Circulaire8].[FT_Indication_Changement_new](:idOpcvm,:dateDebut,:dateFin)" +
+            " order by numerop asc,numero asc ", nativeQuery = true)
+    List<IndicationChangementProjection> listeIndicationChangement(Long idOpcvm,
+                                                            LocalDateTime dateDebut,
+                                                            LocalDateTime dateFin);
+    @Query(value = "select * from [Circulaire8].[FT_IndicationMouvement_New](:idOpcvm,:dateDebut,:dateFin)" +
+            " order by num asc ", nativeQuery = true)
+    List<IndicationMouvementProjection> listeIndicationMouvement(Long idOpcvm,
+                                                            LocalDateTime dateDebut,
+                                                            LocalDateTime dateFin);
+
+    @Query(value = "select * from [Impressions].[FT_ValeurInventaire3ans](:idOpcvm,:annee)"
+            , nativeQuery = true)
+    List<ValeurInventaireProjection> valeurInventaire(Long idOpcvm,
+                                                int annee);
 }

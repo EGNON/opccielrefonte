@@ -96,11 +96,8 @@
 	<group name="Group1">
 		<expression><![CDATA[$F{numCompteSgi}]]></expression>
 		<groupHeader>
-			<band height="179">
-				<element kind="textField" uuid="e9262d41-0183-4833-bb49-67a9a67843ea" x="4" y="0" width="230" height="20" fontName="Segoe UI">
-					<expression><![CDATA["Cotonou le, " + $P{letterDate}]]></expression>
-				</element>
-				<element kind="staticText" uuid="dfffb5a2-e499-4591-82e5-c548fe1802e8" x="1" y="59" width="550" height="120">
+			<band height="233">
+				<element kind="staticText" uuid="dfffb5a2-e499-4591-82e5-c548fe1802e8" x="1" y="113" width="550" height="120">
 					<text><![CDATA[]]></text>
 					<box>
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -109,16 +106,16 @@
 						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					</box>
 				</element>
-				<element kind="textField" uuid="6b21f353-4b62-496f-858a-fdfa50626a5d" x="10" y="70" width="459" height="20">
+				<element kind="textField" uuid="6b21f353-4b62-496f-858a-fdfa50626a5d" x="10" y="124" width="459" height="20">
 					<expression><![CDATA[$F{intitule}]]></expression>
 				</element>
-				<element kind="textField" uuid="7cd4661b-e933-495b-98f9-8fdf0278f881" x="10" y="90" width="459" height="20">
+				<element kind="textField" uuid="7cd4661b-e933-495b-98f9-8fdf0278f881" x="10" y="144" width="459" height="20">
 					<expression><![CDATA[$F{phone}]]></expression>
 				</element>
-				<element kind="textField" uuid="8b18147b-4c90-4436-9803-53cef99528c0" x="10" y="110" width="459" height="20">
+				<element kind="textField" uuid="8b18147b-4c90-4436-9803-53cef99528c0" x="10" y="164" width="459" height="20">
 					<expression><![CDATA[$F{mail}]]></expression>
 				</element>
-				<element kind="textField" uuid="5da0cf3c-3970-4b34-ba13-3d1d1ac2248f" mode="Opaque" x="1" y="30" width="550" height="29" backcolor="#BDD7EE" textAdjust="StretchHeight" hTextAlign="Center" vTextAlign="Middle">
+				<element kind="textField" uuid="5da0cf3c-3970-4b34-ba13-3d1d1ac2248f" mode="Opaque" x="1" y="84" width="550" height="29" backcolor="#BDD7EE" textAdjust="StretchHeight" hTextAlign="Center" vTextAlign="Middle">
 					<expression><![CDATA["AVIS DE "+ $F{codeNatureOperation}]]></expression>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<box>
@@ -128,14 +125,17 @@
 						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					</box>
 				</element>
-				<element kind="textField" uuid="10699cb3-cbda-468b-a973-bd93094d5fca" x="10" y="150" width="540" height="20" fontName="Segoe UI">
+				<element kind="textField" uuid="10699cb3-cbda-468b-a973-bd93094d5fca" x="10" y="204" width="540" height="20" fontName="Segoe UI">
 					<expression><![CDATA["Nous avons exécuté pour le compte titre N°"+$F{numCompteSgi} +"ce qui suit :"]]></expression>
+				</element>
+				<element kind="image" uuid="167c44b7-a14e-4c56-9c18-bfec2a1bbe42" x="3" y="4" width="545" height="74" scaleImage="FillFrame">
+					<expression><![CDATA["C:/OPCCIEL2/Resources/logo_(2).jpg"]]></expression>
 				</element>
 			</band>
 		</groupHeader>
 		<groupFooter>
-			<band height="99">
-				<element kind="staticText" uuid="0bba41be-1205-428f-afcf-33f3a096b5e6" mode="Opaque" x="0" y="10" width="550" height="80" backcolor="#BDD7EE" fontName="Segoe UI" bold="true" hTextAlign="Left">
+			<band height="93">
+				<element kind="staticText" uuid="0bba41be-1205-428f-afcf-33f3a096b5e6" mode="Opaque" x="0" y="4" width="550" height="80" backcolor="#BDD7EE" fontName="Segoe UI" bold="true" hTextAlign="Left">
 					<text><![CDATA[Capital: 100 000 000 F CFA Agrément N°SG/2017-02 CREPMF RC N° RCCM/RB/COT/15 B 14715 IFU N°: 3201502603811
 Rue du Gouverneur Gal Félix EBOUE R. 5.160 CARRE 211 ST MICHEL IMMEUBLE SGI BENIN 01 BP 4546 COTONOU BENIN                                                                       
 Tél : (229) 21 31 15 41/ 66 18 01 74        www.saphiram.com       contact@saphiram.com ]]></text>
@@ -160,13 +160,13 @@ Tél : (229) 21 31 15 41/ 66 18 01 74        www.saphiram.com       contact@saph
 				<pen lineColor="#342EF0"/>
 			</element>
 			<element kind="line" uuid="6e885835-6946-4f2b-8b98-330ec08cea8e" stretchType="ContainerHeight" x="79" y="90" width="1" height="29">
-				<pen lineColor="#342EF0"/>
+				<pen lineColor="#070621"/>
 			</element>
 			<element kind="line" uuid="9faed8f6-7ce0-4fed-b86a-f9499a650119" stretchType="ContainerHeight" x="200" y="90" width="1" height="28">
-				<pen lineColor="#342EF0"/>
+				<pen lineColor="#070621"/>
 			</element>
 			<element kind="line" uuid="ba199fd3-f28d-4d1b-8a1b-45edf385c2b5" stretchType="ContainerHeight" x="432" y="88" width="1" height="30">
-				<pen lineColor="#342EF0"/>
+				<pen lineColor="#070621"/>
 			</element>
 			<element kind="textField" uuid="30b2f9d4-ef15-446c-b996-058714f49e81" x="5" y="94" width="71" height="20" textAdjust="StretchHeight">
 				<expression><![CDATA[$F{idOperation}]]></expression>
@@ -180,29 +180,34 @@ Tél : (229) 21 31 15 41/ 66 18 01 74        www.saphiram.com       contact@saph
 				<patternExpression><![CDATA["EE dd/MM/yyyy"]]></patternExpression>
 			</element>
 			<element kind="textField" uuid="24a922f8-f983-4ef4-b79d-9cbc9dece2aa" x="434" y="94" width="113" height="20" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###-" blankWhenNull="true">
-				<expression><![CDATA[$F{coursVL}]]></expression>
+				<expression><![CDATA[$F{coursVL}== null ? "" :
+                    new java.text.DecimalFormat("#,##0.##;-,##0.##",
+                        java.text.DecimalFormatSymbols.getInstance(java.util.Locale.FRANCE))
+                        .format($F{coursVL})
+                        .replace('\u202F', ' ')
+                ]]></expression>
 			</element>
 			<element kind="rectangle" uuid="0be95957-e899-4a17-bb2b-e2c0be9af04d" x="1" y="59" width="550" height="30">
 				<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
-				<pen lineColor="#342EF0"/>
+				<pen lineColor="#0A0829"/>
 			</element>
 			<element kind="staticText" uuid="f7ec645d-ede6-41b1-b909-44f34d431d30" x="5" y="64" width="71" height="20" fontName="Segoe UI" bold="true" hTextAlign="Center">
 				<text><![CDATA[N°Opération]]></text>
 			</element>
 			<element kind="line" uuid="fa3a97ed-468a-454d-ab3d-fcd67fd1d5e6" x="79" y="60" width="1" height="29">
-				<pen lineColor="#342EF0"/>
+				<pen lineColor="#070621"/>
 			</element>
 			<element kind="staticText" uuid="506ec969-6d2e-4c23-9948-9e7454c39966" x="86" y="65" width="113" height="20" fontName="Segoe UI" bold="true" hTextAlign="Center">
 				<text><![CDATA[Date OP.]]></text>
 			</element>
 			<element kind="line" uuid="4df18c35-a664-47bf-8087-d1026cf72d08" x="200" y="60" width="1" height="28">
-				<pen lineColor="#342EF0"/>
+				<pen lineColor="#070621"/>
 			</element>
 			<element kind="staticText" uuid="ff34f6bf-02dd-499f-8d87-7e1448221d90" x="206" y="64" width="113" height="20" fontName="Segoe UI" bold="true" hTextAlign="Center">
 				<text><![CDATA[Date valeur]]></text>
 			</element>
 			<element kind="line" uuid="6e27ae3e-5f95-4f60-961f-d5eec821c723" x="432" y="58" width="1" height="30">
-				<pen lineColor="#342EF0"/>
+				<pen lineColor="#070621"/>
 			</element>
 			<element kind="staticText" uuid="2b817c61-ad99-42a2-b2bd-f6b8e5db3daf" x="434" y="63" width="112" height="20" fontName="Segoe UI" bold="true" hTextAlign="Center">
 				<text><![CDATA[VL]]></text>
@@ -217,7 +222,7 @@ Tél : (229) 21 31 15 41/ 66 18 01 74        www.saphiram.com       contact@saph
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 			</element>
-			<element kind="textField" uuid="fcc9ff27-a73f-4e40-87f3-2d6ab114f1ec" x="1" y="19" width="168" height="20" textAdjust="StretchHeight">
+			<element kind="textField" uuid="fcc9ff27-a73f-4e40-87f3-2d6ab114f1ec" x="1" y="19" width="168" height="20" textAdjust="StretchHeight" hTextAlign="Center">
 				<expression><![CDATA[$F{codeNatureOperation}]]></expression>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -236,7 +241,7 @@ Tél : (229) 21 31 15 41/ 66 18 01 74        www.saphiram.com       contact@saph
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 			</element>
-			<element kind="textField" uuid="d2d1f2c0-c421-4c88-b9ff-3fd661dbe403" x="384" y="19" width="168" height="20" textAdjust="StretchHeight">
+			<element kind="textField" uuid="d2d1f2c0-c421-4c88-b9ff-3fd661dbe403" x="384" y="19" width="168" height="20" textAdjust="StretchHeight" hTextAlign="Center">
 				<expression><![CDATA[$F{denominationOpcvm}]]></expression>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -255,16 +260,21 @@ Tél : (229) 21 31 15 41/ 66 18 01 74        www.saphiram.com       contact@saph
 				</box>
 			</element>
 			<element kind="line" uuid="c24e4ff8-dfbf-4a5f-88a2-56da47b6ad8c" x="324" y="59" width="1" height="30">
-				<pen lineColor="#342EF0"/>
+				<pen lineColor="#070621"/>
 			</element>
 			<element kind="line" uuid="2336f1af-b720-4978-982f-dfea4db42e1a" stretchType="ContainerHeight" x="324" y="89" width="1" height="30">
-				<pen lineColor="#342EF0"/>
+				<pen lineColor="#070621"/>
 			</element>
 			<element kind="staticText" uuid="aa8f6717-8c9d-4470-8474-c316e04a2dc1" x="328" y="63" width="100" height="20" fontName="Segoe UI" bold="true" hTextAlign="Center">
 				<text><![CDATA[QTE]]></text>
 			</element>
 			<element kind="textField" uuid="b5fe1c45-5661-4c65-aef6-3f38e1b474a9" x="328" y="93" width="100" height="20" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###-" blankWhenNull="true">
-				<expression><![CDATA[$F{nombrePartSousRachat}]]></expression>
+				<expression><![CDATA[$F{nombrePartSousRachat}== null ? "" :
+                    new java.text.DecimalFormat("#,##0.####;-,##0.####",
+                        java.text.DecimalFormatSymbols.getInstance(java.util.Locale.FRANCE))
+                        .format($F{nombrePartSousRachat})
+                        .replace('\u202F', ' ')
+                ]]></expression>
 			</element>
 			<element kind="staticText" uuid="0a8b4a3c-be6f-4da2-ae16-13333af82eb1" x="1" y="119" width="550" height="150">
 				<text><![CDATA[]]></text>
@@ -315,7 +325,12 @@ Tél : (229) 21 31 15 41/ 66 18 01 74        www.saphiram.com       contact@saph
 				</box>
 			</element>
 			<element kind="textField" uuid="9b2f2675-e24e-4a03-ada0-c9b4495deb41" x="432" y="160" width="119" height="20" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###-" blankWhenNull="true" hTextAlign="Right">
-				<expression><![CDATA[ROUND_UP(PRODUCT($F{coursVL},$F{nombrePartSousRachat}),0)]]></expression>
+				<expression><![CDATA[ROUND_UP(PRODUCT($F{coursVL},$F{nombrePartSousRachat}),0)== null ? "" :
+                    new java.text.DecimalFormat("#,##0;-,##0",
+                        java.text.DecimalFormatSymbols.getInstance(java.util.Locale.FRANCE))
+                        .format(ROUND_UP(PRODUCT($F{coursVL},$F{nombrePartSousRachat}),0))
+                        .replace('\u202F', ' ')
+                ]]></expression>
 				<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -325,7 +340,12 @@ Tél : (229) 21 31 15 41/ 66 18 01 74        www.saphiram.com       contact@saph
 				</box>
 			</element>
 			<element kind="textField" uuid="2d194080-3ffe-4079-afb3-36a34a19c079" x="432" y="194" width="119" height="20" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###-" blankWhenNull="true" hTextAlign="Right">
-				<expression><![CDATA[$F{commisiionSousRachat}]]></expression>
+				<expression><![CDATA[$F{commisiionSousRachat}== null ? "" :
+                    new java.text.DecimalFormat("#,##0;-,##0",
+                        java.text.DecimalFormatSymbols.getInstance(java.util.Locale.FRANCE))
+                        .format($F{commisiionSousRachat})
+                        .replace('\u202F', ' ')
+                ]]></expression>
 				<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -345,7 +365,12 @@ Tél : (229) 21 31 15 41/ 66 18 01 74        www.saphiram.com       contact@saph
 				</box>
 			</element>
 			<element kind="textField" uuid="0dda7f20-d582-48ba-9747-1986de7bac2c" x="432" y="229" width="119" height="20" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###-" blankWhenNull="true" hTextAlign="Right">
-				<expression><![CDATA[$F{tafcommissionSousRachat}]]></expression>
+				<expression><![CDATA[$F{tafcommissionSousRachat}== null ? "" :
+                    new java.text.DecimalFormat("#,##0;-,##0",
+                        java.text.DecimalFormatSymbols.getInstance(java.util.Locale.FRANCE))
+                        .format($F{tafcommissionSousRachat})
+                        .replace('\u202F', ' ')
+                ]]></expression>
 				<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -374,7 +399,14 @@ Tél : (229) 21 31 15 41/ 66 18 01 74        www.saphiram.com       contact@saph
 				</box>
 			</element>
 			<element kind="textField" uuid="d91ea20d-a560-4196-b980-7c84c3f0d281" x="432" y="249" width="119" height="20" textAdjust="StretchHeight" blankWhenNull="true" hTextAlign="Right">
-				<expression><![CDATA[(ROUND_UP(PRODUCT($F{coursVL},$F{nombrePartSousRachat}),0).doubleValue()-$F{commisiionSousRachat}.doubleValue()-$F{tafcommissionSousRachat}.doubleValue())]]></expression>
+				<expression><![CDATA[new java.text.DecimalFormat("#,##0;-,##0", 
+    java.text.DecimalFormatSymbols.getInstance(java.util.Locale.FRANCE))
+    .format(
+        Math.ceil($F{coursVL}.doubleValue() * $F{nombrePartSousRachat}.doubleValue()) 
+        - $F{commisiionSousRachat}.doubleValue() 
+        - $F{tafcommissionSousRachat}.doubleValue()
+    )
+    .replace('\u202F', ' ')]]></expression>
 				<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -384,7 +416,14 @@ Tél : (229) 21 31 15 41/ 66 18 01 74        www.saphiram.com       contact@saph
 				</box>
 			</element>
 			<element kind="textField" uuid="0de98260-66a3-4127-9a53-1e2f58a06c03" x="0" y="270" width="551" height="20" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###-" blankWhenNull="true">
-				<expression><![CDATA["En conséquence, nous créditons votre compte de : "+ (ROUND_UP(PRODUCT($F{coursVL},$F{nombrePartSousRachat}),0).doubleValue()-$F{commisiionSousRachat}.doubleValue()-$F{tafcommissionSousRachat}.doubleValue())]]></expression>
+				<expression><![CDATA["En conséquence, nous créditons votre compte de : "+ new java.text.DecimalFormat("#,##0;-,##0", 
+    java.text.DecimalFormatSymbols.getInstance(java.util.Locale.FRANCE))
+    .format(
+        Math.ceil($F{coursVL}.doubleValue() * $F{nombrePartSousRachat}.doubleValue()) 
+        - $F{commisiionSousRachat}.doubleValue() 
+        - $F{tafcommissionSousRachat}.doubleValue()
+    )
+    .replace('\u202F', ' ')]]></expression>
 				<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				<property name="com.jaspersoft.studio.unit.x" value="px"/>
 				<box>
@@ -416,8 +455,17 @@ Tél : (229) 21 31 15 41/ 66 18 01 74        www.saphiram.com       contact@saph
 		</band>
 	</detail>
 	<columnFooter splitType="Stretch"/>
-	<pageFooter height="3" splitType="Stretch">
+	<pageFooter height="34" splitType="Stretch">
+		<element kind="staticText" uuid="1a16f4d9-ce4c-460a-a556-800a3fd80e15" x="220" y="6" width="120" height="19" fontName="SansSerif" hTextAlign="Center">
+			<text><![CDATA[OPCCIEL 2.0]]></text>
+		</element>
+		<element kind="textField" uuid="933036fa-edaf-452d-a094-313efc0ee4d9" x="450" y="7" width="100" height="18" fontName="SansSerif" hTextAlign="Right">
+			<expression><![CDATA[$V{PAGE_NUMBER}]]></expression>
+		</element>
+		<element kind="textField" uuid="161ddc0f-c53e-414d-aa99-f9d50cebaa5e" x="2" y="5" width="140" height="20" fontName="SansSerif">
+			<expression><![CDATA["Imprimé  le, " + $P{letterDate}]]></expression>
+		</element>
 		<property name="com.jaspersoft.studio.unit.height" value="px"/>
 	</pageFooter>
-	<summary height="44" splitType="Stretch"/>
+	<summary splitType="Stretch"/>
 </jasperReport>

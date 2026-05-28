@@ -72,21 +72,21 @@
 	<group name="Group1" startNewPage="true">
 		<expression><![CDATA[$F{idActionnaire}]]></expression>
 		<groupHeader>
-			<band height="96">
-				<element kind="textField" uuid="a06ea76a-af0f-4578-a2fd-eb7571df08eb" mode="Opaque" x="2" y="32" width="550" height="24" forecolor="#000000" backcolor="#BDD7EE" fontName="Segoe UI" fontSize="14.0" bold="true" hTextAlign="Center">
+			<band height="140">
+				<element kind="textField" uuid="a06ea76a-af0f-4578-a2fd-eb7571df08eb" mode="Opaque" x="2" y="83" width="550" height="24" forecolor="#000000" backcolor="#BDD7EE" fontName="Segoe UI" fontSize="14.0" bold="true" hTextAlign="Center">
 					<expression><![CDATA["PERFORMANCE SUR LA PERIODE DU "+$F{dateDebut}+ " AU "+$F{dateFin}]]></expression>
 				</element>
-				<element kind="textField" uuid="96cdbacf-229e-46d6-8d1f-0ec54fe5d001" x="0" y="4" width="230" height="20" fontName="Segoe UI">
-					<expression><![CDATA["Cotonou le, " + $P{letterDate}]]></expression>
-				</element>
-				<element kind="rectangle" uuid="82acd4df-8ac2-4574-ac20-b35a702a8eba" x="1" y="60" width="552" height="29">
+				<element kind="rectangle" uuid="82acd4df-8ac2-4574-ac20-b35a702a8eba" x="1" y="111" width="552" height="29">
 					<pen lineColor="#3970E6"/>
 				</element>
-				<element kind="staticText" uuid="2b11fa63-8778-4d8c-bba8-a4a18a39471c" x="10" y="64" width="80" height="20" bold="true">
+				<element kind="staticText" uuid="2b11fa63-8778-4d8c-bba8-a4a18a39471c" x="10" y="115" width="80" height="20" bold="true">
 					<text><![CDATA[ACTIONNAIRE:]]></text>
 				</element>
-				<element kind="textField" uuid="a4b648f4-b7b1-4f43-adc1-c200700b1df3" x="90" y="64" width="430" height="20">
+				<element kind="textField" uuid="a4b648f4-b7b1-4f43-adc1-c200700b1df3" x="90" y="115" width="430" height="20">
 					<expression><![CDATA[$F{intitule}]]></expression>
+				</element>
+				<element kind="image" uuid="3094711b-c2b5-457e-b59d-d1811028849a" x="3" y="4" width="545" height="74" scaleImage="FillFrame">
+					<expression><![CDATA["C:/OPCCIEL2/Resources/logo_(2).jpg"]]></expression>
 				</element>
 			</band>
 		</groupHeader>
@@ -104,7 +104,7 @@
 	<group name="Group2">
 		<expression><![CDATA[$F{idOpcvm}]]></expression>
 		<groupHeader>
-			<band height="64">
+			<band height="59">
 				<element kind="rectangle" uuid="f28f96fa-7b25-4ddd-ab58-7b27532f8bac" x="1" y="0" width="552" height="29">
 					<pen lineColor="#3970E6"/>
 				</element>
@@ -114,40 +114,45 @@
 				<element kind="textField" uuid="eb06a9e2-8cc0-43d8-a712-9e5c751cdbb9" x="90" y="4" width="302" height="20">
 					<expression><![CDATA[$F{denominationOpcvm}]]></expression>
 				</element>
-				<element kind="rectangle" uuid="96fe418e-9b2d-4ace-8fdb-10ea1e98dbc8" x="1" y="35" width="552" height="29">
+				<element kind="rectangle" uuid="96fe418e-9b2d-4ace-8fdb-10ea1e98dbc8" x="1" y="35" width="552" height="24" backcolor="#BDD7EE">
 					<pen lineColor="#3970E6"/>
 				</element>
-				<element kind="staticText" uuid="60004485-b7b5-4c9c-bb3b-214a5ebdccd7" x="6" y="40" width="131" height="21">
+				<element kind="staticText" uuid="60004485-b7b5-4c9c-bb3b-214a5ebdccd7" x="6" y="40" width="131" height="15">
 					<text><![CDATA[Libellés]]></text>
 				</element>
-				<element kind="line" uuid="37520def-2664-447c-bcbc-ae7b891ff03a" stretchType="ContainerHeight" x="140" y="35" width="1" height="29">
+				<element kind="line" uuid="37520def-2664-447c-bcbc-ae7b891ff03a" stretchType="ContainerHeight" x="140" y="35" width="1" height="23">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<pen lineColor="#3970E6"/>
 				</element>
-				<element kind="staticText" uuid="3ce636a2-cb48-4fd6-a891-3b060c915126" x="146" y="39" width="70" height="21">
+				<element kind="staticText" uuid="3ce636a2-cb48-4fd6-a891-3b060c915126" x="146" y="37" width="70" height="18">
 					<text><![CDATA[Date]]></text>
 				</element>
-				<element kind="line" uuid="f5ed88be-28c3-4d0e-b3bd-2b2c86ccebb4" stretchType="ContainerHeight" x="217" y="35" width="1" height="29">
+				<element kind="line" uuid="f5ed88be-28c3-4d0e-b3bd-2b2c86ccebb4" stretchType="ContainerHeight" x="217" y="35" width="1" height="23">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<pen lineColor="#3970E6"/>
 				</element>
-				<element kind="staticText" uuid="b818fc4d-b1da-465c-9b6b-d9e75bc16de7" x="220" y="40" width="90" height="21">
+				<element kind="staticText" uuid="b818fc4d-b1da-465c-9b6b-d9e75bc16de7" x="220" y="38" width="90" height="17">
 					<text><![CDATA[Souscription]]></text>
 				</element>
-				<element kind="line" uuid="3054bac2-a113-46b8-819d-cb14d918b3c8" stretchType="ContainerHeight" x="312" y="35" width="1" height="29">
+				<element kind="line" uuid="3054bac2-a113-46b8-819d-cb14d918b3c8" stretchType="ContainerHeight" x="312" y="35" width="1" height="23">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<pen lineColor="#3970E6"/>
 				</element>
-				<element kind="staticText" uuid="35fc3023-875b-4d4f-8633-c766b919c908" x="316" y="40" width="76" height="21">
+				<element kind="staticText" uuid="35fc3023-875b-4d4f-8633-c766b919c908" x="316" y="37" width="76" height="21">
 					<text><![CDATA[Rachat]]></text>
 				</element>
-				<element kind="line" uuid="e13e92ad-2841-4b2d-9cec-13a21241b66d" stretchType="ContainerHeight" x="394" y="34" width="1" height="29">
+				<element kind="line" uuid="e13e92ad-2841-4b2d-9cec-13a21241b66d" stretchType="ContainerHeight" x="394" y="34" width="1" height="23">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<pen lineColor="#3970E6"/>
 				</element>
-				<element kind="staticText" uuid="8dee8317-7ac7-4418-8ff5-6190de6395ef" x="398" y="38" width="76" height="21">
+				<element kind="staticText" uuid="8dee8317-7ac7-4418-8ff5-6190de6395ef" x="398" y="37" width="76" height="19">
 					<text><![CDATA[Nb jours écoulés]]></text>
 				</element>
-				<element kind="line" uuid="d43999ba-4acf-45d3-a1cd-70b72bfa446e" stretchType="ContainerHeight" x="474" y="35" width="1" height="29">
+				<element kind="line" uuid="d43999ba-4acf-45d3-a1cd-70b72bfa446e" stretchType="ContainerHeight" x="474" y="35" width="1" height="23">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<pen lineColor="#3970E6"/>
 				</element>
-				<element kind="staticText" uuid="97e9b61d-a7c8-44b1-8a19-17dc02494509" x="474" y="40" width="77" height="21">
+				<element kind="staticText" uuid="97e9b61d-a7c8-44b1-8a19-17dc02494509" x="474" y="38" width="77" height="17">
 					<text><![CDATA[Montant pondéré]]></text>
 				</element>
 				<element kind="staticText" uuid="2fefcf47-8168-47ca-a0cb-c18dcb8dfd7d" x="396" y="4" width="44" height="20" bold="true">
@@ -159,7 +164,7 @@
 			</band>
 		</groupHeader>
 		<groupFooter>
-			<band height="131">
+			<band height="144">
 				<element kind="rectangle" uuid="85ee50b6-51ea-496e-96ad-4215ffd87e19" x="1" y="0" width="552" height="10">
 					<pen lineColor="#3970E6"/>
 				</element>
@@ -176,7 +181,12 @@
 					<pen lineColor="#3970E6"/>
 				</element>
 				<element kind="textField" uuid="fd60f213-c22e-4912-8f88-bbdb323da0eb" x="240" y="14" width="235" height="21" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###" hTextAlign="Center">
-					<expression><![CDATA[$F{revenuNet}]]></expression>
+					<expression><![CDATA[$F{revenuNet}== null ? "" :
+                    new java.text.DecimalFormat("#,##0;-,##0",
+                        java.text.DecimalFormatSymbols.getInstance(java.util.Locale.FRANCE))
+                        .format($F{revenuNet})
+                        .replace('\u202F', ' ')
+                ]]></expression>
 				</element>
 				<element kind="staticText" uuid="6e4ad588-b386-4aed-b672-bb32055df1a8" x="3" y="43" width="206" height="21" bold="true">
 					<text><![CDATA[Apports nets pondérés]]></text>
@@ -185,7 +195,12 @@
 					<pen lineColor="#3970E6"/>
 				</element>
 				<element kind="textField" uuid="19c8d2a2-302f-4145-a3a1-0f739e043419" x="240" y="43" width="235" height="21" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###" hTextAlign="Center">
-					<expression><![CDATA[$F{apportNet}]]></expression>
+					<expression><![CDATA[$F{apportNet}== null ? "" :
+                    new java.text.DecimalFormat("#,##0;-,##0",
+                        java.text.DecimalFormatSymbols.getInstance(java.util.Locale.FRANCE))
+                        .format($F{apportNet})
+                        .replace('\u202F', ' ')
+                ]]></expression>
 				</element>
 				<element kind="staticText" uuid="a7e08660-e8a4-41fa-b028-89ddf2c858a9" x="3" y="105" width="207" height="21" bold="true">
 					<text><![CDATA[Taux de rendement annualisé]]></text>
@@ -206,7 +221,7 @@
 		</groupFooter>
 	</group>
 	<background splitType="Stretch"/>
-	<title height="21" splitType="Stretch"/>
+	<title splitType="Stretch"/>
 	<pageHeader splitType="Stretch"/>
 	<columnHeader splitType="Stretch"/>
 	<detail>
@@ -232,32 +247,55 @@
 			<element kind="textField" uuid="c440f42c-e95b-4847-b7cd-12879dbce6f3" stretchType="ContainerHeight" x="3" y="5" width="134" height="17" textAdjust="StretchHeight">
 				<expression><![CDATA[$F{libelle}]]></expression>
 			</element>
-			<element kind="textField" uuid="b39f1431-66f8-42d0-a511-b9434bcb3e1a" x="141" y="5" width="75" height="17" textAdjust="StretchHeight" pattern="EE dd/MM/yyyy">
+			<element kind="textField" uuid="b39f1431-66f8-42d0-a511-b9434bcb3e1a" x="141" y="5" width="75" height="17" textAdjust="StretchHeight" pattern="EE dd/MM/yyyy" hTextAlign="Center">
 				<expression><![CDATA[$F{dateOp}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"))]]></expression>
 				<patternExpression><![CDATA["EE dd/MM/yyyy"]]></patternExpression>
 			</element>
-			<element kind="textField" uuid="a56a646a-751c-4af4-afdc-2658230568e0" x="220" y="5" width="90" height="17" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###">
-				<expression><![CDATA[$F{souscription}]]></expression>
+			<element kind="textField" uuid="a56a646a-751c-4af4-afdc-2658230568e0" x="220" y="5" width="90" height="17" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###" hTextAlign="Center">
+				<expression><![CDATA[$F{souscription} == null ? "" :
+                    new java.text.DecimalFormat("#,##0;-,##0",
+                        java.text.DecimalFormatSymbols.getInstance(java.util.Locale.FRANCE))
+                        .format($F{souscription})
+                        .replace('\u202F', ' ')
+                ]]></expression>
 			</element>
-			<element kind="textField" uuid="b464119d-a87a-4187-98c6-eb522beac412" x="316" y="5" width="76" height="17" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###">
-				<expression><![CDATA[$F{rachat}]]></expression>
+			<element kind="textField" uuid="b464119d-a87a-4187-98c6-eb522beac412" x="316" y="5" width="76" height="17" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###" hTextAlign="Center">
+				<expression><![CDATA[$F{rachat} == null ? "" :
+                    new java.text.DecimalFormat("#,##0;-,##0",
+                        java.text.DecimalFormatSymbols.getInstance(java.util.Locale.FRANCE))
+                        .format($F{rachat})
+                        .replace('\u202F', ' ')
+                ]]></expression>
 			</element>
-			<element kind="textField" uuid="edc0923f-47fd-4aa2-9953-7fbb77510afa" x="398" y="5" width="76" height="17" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###">
-				<expression><![CDATA[$F{nbreJours}]]></expression>
+			<element kind="textField" uuid="edc0923f-47fd-4aa2-9953-7fbb77510afa" x="398" y="5" width="76" height="17" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###" hTextAlign="Center">
+				<expression><![CDATA[$F{nbreJours}== null ? "" :
+                    new java.text.DecimalFormat("#,##0;-,##0",
+                        java.text.DecimalFormatSymbols.getInstance(java.util.Locale.FRANCE))
+                        .format($F{nbreJours})
+                        .replace('\u202F', ' ')
+                ]]></expression>
 			</element>
-			<element kind="textField" uuid="f116fc1e-222c-431e-9c96-22abc25b94ea" x="474" y="5" width="79" height="17" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###">
-				<expression><![CDATA[$F{montantPondere}]]></expression>
+			<element kind="textField" uuid="f116fc1e-222c-431e-9c96-22abc25b94ea" x="474" y="5" width="79" height="17" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###" hTextAlign="Center">
+				<expression><![CDATA[$F{montantPondere}== null ? "" :
+                    new java.text.DecimalFormat("#,##0.##;-,##0.##",
+                        java.text.DecimalFormatSymbols.getInstance(java.util.Locale.FRANCE))
+                        .format($F{montantPondere})
+                        .replace('\u202F', ' ')
+                ]]></expression>
 			</element>
 		</band>
 	</detail>
 	<columnFooter splitType="Stretch"/>
-	<pageFooter height="46" splitType="Stretch">
-		<element kind="textField" uuid="ee30964a-9173-4d5a-ae10-b236f1c08b97" x="450" y="4" width="100" height="25" hTextAlign="Right">
+	<pageFooter height="42" splitType="Stretch">
+		<element kind="staticText" uuid="6d3e8abf-f146-4088-82cf-9b4fc1f5a3b4" x="210" y="7" width="120" height="26" fontName="SansSerif" hTextAlign="Center">
+			<text><![CDATA[OPCCIEL 2.0]]></text>
+		</element>
+		<element kind="textField" uuid="c5fbb814-ef34-4897-95b6-0b9594582d58" x="448" y="8" width="100" height="25" fontName="SansSerif" hTextAlign="Right">
 			<expression><![CDATA[$V{PAGE_NUMBER}]]></expression>
 		</element>
-		<element kind="staticText" uuid="374ecb35-3ce7-4c38-ab96-19319b15e33b" x="0" y="6" width="120" height="26" fontName="Segoe UI">
-			<text><![CDATA[Edité avec OPCCIEL 2.0]]></text>
+		<element kind="textField" uuid="f80269be-4cd5-4b15-9cee-c05fde2ac4f0" x="0" y="6" width="140" height="20" fontName="SansSerif">
+			<expression><![CDATA["Imprimé  le, " + $P{letterDate}]]></expression>
 		</element>
 	</pageFooter>
-	<summary height="42" splitType="Stretch"/>
+	<summary splitType="Stretch"/>
 </jasperReport>

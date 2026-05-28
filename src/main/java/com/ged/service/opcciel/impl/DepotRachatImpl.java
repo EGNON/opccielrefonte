@@ -379,7 +379,7 @@ public class DepotRachatImpl implements DepotRachatService {
                     objDepot.setLibelleOperation("DEPOT DE " + phForms.get(j).getMontantSouscrit()+" FCFA POUR SOUSCRIPTION ");
                     objDepot.setIdSeance(seanceOpcvm.getIdSeanceOpcvm().getIdSeance());
                     objDepot.setQuantite(BigDecimal.ZERO);
-                    objDepot.setEcriture("E");
+                    objDepot.setEcriture("A");
                     objDepot.setType("S");
                     NatureOperation natureOperation = natureOperationDao.findByCodeNatureOperationIgnoreCase(
                             "DEP_SOUS").orElseThrow();
@@ -676,7 +676,7 @@ public class DepotRachatImpl implements DepotRachatService {
                 objDepot.setLibelleOperation("DEPOT DE " + pmForms.get(j).getMontantSouscrit()+" FCFA POUR SOUSCRIPTION ");
                 objDepot.setIdSeance(seanceOpcvm.getIdSeanceOpcvm().getIdSeance());
                 objDepot.setQuantite(BigDecimal.ZERO);
-                objDepot.setEcriture("E");
+                objDepot.setEcriture("A");
                 objDepot.setType("S");
                 NatureOperation natureOperation = natureOperationDao.findByCodeNatureOperationIgnoreCase(
                         "DEP_SOUS").orElseThrow();

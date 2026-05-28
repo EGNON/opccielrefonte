@@ -247,19 +247,19 @@
 	<group name="Group1" startNewPage="true">
 		<expression><![CDATA[$F{idActionnaire}]]></expression>
 		<groupHeader>
-			<band height="88">
-				<element kind="textField" uuid="e5054658-1f6d-47c5-8371-2b21c6572378" mode="Opaque" x="2" y="32" width="550" height="24" forecolor="#000000" backcolor="#BDD7EE" fontName="Segoe UI" fontSize="14.0" bold="true" hTextAlign="Center">
+			<band height="135">
+				<element kind="textField" uuid="e5054658-1f6d-47c5-8371-2b21c6572378" mode="Opaque" x="2" y="85" width="550" height="24" forecolor="#000000" backcolor="#BDD7EE" fontName="Segoe UI" fontSize="14.0" bold="true" hTextAlign="Center">
 					<expression><![CDATA["ETAT DE SUIVI DU CLIENT "+$F{personne}]]></expression>
 				</element>
-				<element kind="staticText" uuid="bf8e9d44-0f27-42d5-b042-03bbbc8de7e7" x="80" y="62" width="80" height="20" bold="true" underline="true">
+				<element kind="staticText" uuid="bf8e9d44-0f27-42d5-b042-03bbbc8de7e7" x="80" y="115" width="80" height="20" bold="true" underline="true">
 					<text><![CDATA[DATE EDITION:]]></text>
 				</element>
-				<element kind="textField" uuid="03a0ab7e-7b23-4829-be61-9580e63f1ce9" x="160" y="62" width="180" height="20" textAdjust="StretchHeight" pattern="EE dd/MM/yyyy" blankWhenNull="true">
+				<element kind="textField" uuid="03a0ab7e-7b23-4829-be61-9580e63f1ce9" x="160" y="115" width="180" height="20" textAdjust="StretchHeight" pattern="EE dd/MM/yyyy" blankWhenNull="true">
 					<expression><![CDATA[$F{dateEddition}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"))]]></expression>
 					<patternExpression><![CDATA["EE dd/MM/yyyy"]]></patternExpression>
 				</element>
-				<element kind="textField" uuid="48140988-acaa-4d4b-ab4b-bcadb9ae1ed5" x="0" y="4" width="230" height="20" fontName="Segoe UI">
-					<expression><![CDATA["Cotonou le, " + $P{letterDate}]]></expression>
+				<element kind="image" uuid="4770186f-6ac8-4280-a9e5-4c75643a67c4" x="3" y="4" width="545" height="74" scaleImage="FillFrame">
+					<expression><![CDATA["C:/OPCCIEL2/Resources/logo_(2).jpg"]]></expression>
 				</element>
 			</band>
 		</groupHeader>
@@ -292,8 +292,11 @@
 							</columnHeader>
 							<columnFooter height="2" rowSpan="1" style="Table_CH"/>
 							<detailCell height="30" style="Table_TD">
-								<element kind="textField" uuid="63505217-fadd-4222-b68b-bf0397e2aa4b" x="0" y="0" width="110" height="30" textAdjust="StretchHeight">
+								<element kind="textField" uuid="63505217-fadd-4222-b68b-bf0397e2aa4b" x="0" y="0" width="110" height="30" textAdjust="StretchHeight" hTextAlign="Center">
 									<expression><![CDATA[$F{denominationOpcvm}]]></expression>
+									<box>
+										<bottomPen lineWidth="1.0"/>
+									</box>
 								</element>
 							</detailCell>
 							<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column1"/>
@@ -308,8 +311,16 @@
 							</columnHeader>
 							<columnFooter height="2" rowSpan="1" style="Table_CH"/>
 							<detailCell height="30" style="Table_TD">
-								<element kind="textField" uuid="6c790d6a-f864-47df-82e6-380802035733" x="0" y="0" width="60" height="30" textAdjust="StretchHeight" pattern="#,##0.####;#,##0.####">
-									<expression><![CDATA[$F{nombrePartActuel}]]></expression>
+								<element kind="textField" uuid="6c790d6a-f864-47df-82e6-380802035733" x="0" y="0" width="60" height="30" textAdjust="StretchHeight" hTextAlign="Center">
+									<expression><![CDATA[$F{nombrePartActuel}== null ? "" :
+                    new java.text.DecimalFormat("#,##0.####;-,##0.####",
+                        java.text.DecimalFormatSymbols.getInstance(java.util.Locale.FRANCE))
+                        .format($F{nombrePartActuel})
+                        .replace('\u202F', ' ')
+                ]]></expression>
+									<box>
+										<bottomPen lineWidth="1.0"/>
+									</box>
 								</element>
 							</detailCell>
 							<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column2"/>
@@ -324,8 +335,16 @@
 							</columnHeader>
 							<columnFooter height="2" rowSpan="1" style="Table_CH"/>
 							<detailCell height="30" style="Table_TD">
-								<element kind="textField" uuid="d3440235-e1ab-4063-beb0-a0ead36267fd" x="0" y="0" width="60" height="30" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###">
-									<expression><![CDATA[$F{cump}]]></expression>
+								<element kind="textField" uuid="d3440235-e1ab-4063-beb0-a0ead36267fd" x="0" y="0" width="60" height="30" textAdjust="StretchHeight" hTextAlign="Center">
+									<expression><![CDATA[$F{cump}== null ? "" :
+                    new java.text.DecimalFormat("#,##0.##;-,##0.##",
+                        java.text.DecimalFormatSymbols.getInstance(java.util.Locale.FRANCE))
+                        .format($F{cump})
+                        .replace('\u202F', ' ')
+                ]]></expression>
+									<box>
+										<bottomPen lineWidth="1.0"/>
+									</box>
 								</element>
 							</detailCell>
 							<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column3"/>
@@ -340,8 +359,16 @@
 							</columnHeader>
 							<columnFooter height="2" rowSpan="1" style="Table_CH"/>
 							<detailCell height="30" style="Table_TD">
-								<element kind="textField" uuid="315d1928-19f7-4897-b3f9-0b41161579e9" x="0" y="0" width="60" height="30" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###">
-									<expression><![CDATA[$F{valeurLiquidativeActuelle}]]></expression>
+								<element kind="textField" uuid="315d1928-19f7-4897-b3f9-0b41161579e9" x="0" y="0" width="60" height="30" textAdjust="StretchHeight" hTextAlign="Center">
+									<expression><![CDATA[$F{valeurLiquidativeActuelle}== null ? "" :
+                    new java.text.DecimalFormat("#,##0.##;-,##0.##",
+                        java.text.DecimalFormatSymbols.getInstance(java.util.Locale.FRANCE))
+                        .format($F{valeurLiquidativeActuelle})
+                        .replace('\u202F', ' ')
+                ]]></expression>
+									<box>
+										<bottomPen lineWidth="1.0"/>
+									</box>
 								</element>
 							</detailCell>
 							<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column4"/>
@@ -356,8 +383,16 @@
 							</columnHeader>
 							<columnFooter height="2" rowSpan="1" style="Table_CH"/>
 							<detailCell height="30" style="Table_TD">
-								<element kind="textField" uuid="502526c8-031b-4029-8fe5-7a82e47a9105" x="0" y="0" width="80" height="30" textAdjust="StretchHeight" pattern="#,##0;#,##0">
-									<expression><![CDATA[PRODUCT( $F{nombrePartActuel},$F{cump})]]></expression>
+								<element kind="textField" uuid="502526c8-031b-4029-8fe5-7a82e47a9105" x="0" y="0" width="80" height="30" textAdjust="StretchHeight" hTextAlign="Center">
+									<expression><![CDATA[PRODUCT( $F{nombrePartActuel},$F{cump})== null ? "" :
+                    new java.text.DecimalFormat("#,##0;-,##0",
+                        java.text.DecimalFormatSymbols.getInstance(java.util.Locale.FRANCE))
+                        .format(PRODUCT( $F{nombrePartActuel},$F{cump}))
+                        .replace('\u202F', ' ')
+                ]]></expression>
+									<box>
+										<bottomPen lineWidth="1.0"/>
+									</box>
 								</element>
 							</detailCell>
 							<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column5"/>
@@ -372,8 +407,16 @@
 							</columnHeader>
 							<columnFooter height="2" rowSpan="1" style="Table_CH"/>
 							<detailCell height="30" style="Table_TD">
-								<element kind="textField" uuid="16015db1-23da-4620-94ed-8a00e6af0e75" x="0" y="0" width="90" height="30" textAdjust="StretchHeight" pattern="#,##0;#,##0">
-									<expression><![CDATA[$F{valorisation}]]></expression>
+								<element kind="textField" uuid="16015db1-23da-4620-94ed-8a00e6af0e75" x="0" y="0" width="90" height="30" textAdjust="StretchHeight" hTextAlign="Center">
+									<expression><![CDATA[$F{valorisation}== null ? "" :
+                    new java.text.DecimalFormat("#,##0;-,##0",
+                        java.text.DecimalFormatSymbols.getInstance(java.util.Locale.FRANCE))
+                        .format($F{valorisation})
+                        .replace('\u202F', ' ')
+                ]]></expression>
+									<box>
+										<bottomPen lineWidth="1.0"/>
+									</box>
 								</element>
 							</detailCell>
 							<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column6"/>
@@ -388,8 +431,16 @@
 							</columnHeader>
 							<columnFooter height="2" rowSpan="1" style="Table_CH"/>
 							<detailCell height="30" style="Table_TD">
-								<element kind="textField" uuid="4b8d748c-8adc-4f8c-b9a1-0d51f3b123b1" x="0" y="0" width="90" height="30" textAdjust="StretchHeight" pattern="#,##0;#,##0">
-									<expression><![CDATA[$F{plusValue}]]></expression>
+								<element kind="textField" uuid="4b8d748c-8adc-4f8c-b9a1-0d51f3b123b1" x="0" y="0" width="90" height="30" textAdjust="StretchHeight" hTextAlign="Center">
+									<expression><![CDATA[$F{plusValue}== null ? "" :
+                    new java.text.DecimalFormat("#,##0;-,##0",
+                        java.text.DecimalFormatSymbols.getInstance(java.util.Locale.FRANCE))
+                        .format($F{plusValue})
+                        .replace('\u202F', ' ')
+                ]]></expression>
+									<box>
+										<bottomPen lineWidth="1.0"/>
+									</box>
 								</element>
 							</detailCell>
 							<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column7"/>
@@ -422,7 +473,7 @@
 			</band>
 		</groupHeader>
 		<groupFooter>
-			<band height="10">
+			<band height="12">
 				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			</band>
 		</groupFooter>
@@ -493,11 +544,21 @@
 				<element kind="staticText" uuid="fa30c7ed-efcf-41a0-8b9c-b21a9bcc6a81" x="4" y="7" width="76" height="15" bold="true">
 					<text><![CDATA[TOTAL]]></text>
 				</element>
-				<element kind="textField" uuid="1881a320-b844-43fe-9e1c-a1e45cd5b06f" x="90" y="7" width="130" height="15" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
-					<expression><![CDATA["POINT DES TRANSFERTS DEPART".equals($F{titre})?0:"POINT DES TRANSFERTS ARRIVE".equals($F{titre})?0:$V{montant1}]]></expression>
+				<element kind="textField" uuid="1881a320-b844-43fe-9e1c-a1e45cd5b06f" x="88" y="7" width="130" height="15" blankWhenNull="true" hTextAlign="Right">
+					<expression><![CDATA["POINT DES TRANSFERTS DEPART".equals($F{titre})?0:"POINT DES TRANSFERTS ARRIVE".equals($F{titre})?0:$V{montant1}== null ? "" :
+                    new java.text.DecimalFormat("#,##0.####;-,##0.####",
+                        java.text.DecimalFormatSymbols.getInstance(java.util.Locale.FRANCE))
+                        .format($V{montant1})
+                        .replace('\u202F', ' ')
+                ]]></expression>
 				</element>
-				<element kind="textField" uuid="18fed46d-8d02-4b30-9e1a-b924df117bae" x="226" y="7" width="132" height="15" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
-					<expression><![CDATA[$V{part1}]]></expression>
+				<element kind="textField" uuid="18fed46d-8d02-4b30-9e1a-b924df117bae" x="226" y="7" width="132" height="15" blankWhenNull="true" hTextAlign="Right">
+					<expression><![CDATA[$V{part1}== null ? "" :
+                    new java.text.DecimalFormat("#,##0.####;-,##0.####",
+                        java.text.DecimalFormatSymbols.getInstance(java.util.Locale.FRANCE))
+                        .format($V{part1})
+                        .replace('\u202F', ' ')
+                ]]></expression>
 				</element>
 			</band>
 		</groupFooter>
@@ -514,26 +575,51 @@
 			<element kind="line" uuid="1e96910a-28af-4255-8b78-dafd2b029beb" stretchType="ContainerHeight" x="84" y="0" width="1" height="29">
 				<pen lineColor="#3970E6"/>
 			</element>
-			<element kind="textField" uuid="f5857403-309d-4e53-bb70-01c6e86e4b28" x="90" y="7" width="130" height="15" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###" blankWhenNull="true" bold="false">
-				<expression><![CDATA["POINT DES TRANSFERTS DEPART".equals($F{titre})?$F{beneficiaireDonateur}:"POINT DES TRANSFERTS ARRIVE".equals($F{titre})?$F{beneficiaireDonateur}:$F{montant}]]></expression>
+			<element kind="textField" uuid="f5857403-309d-4e53-bb70-01c6e86e4b28" x="88" y="7" width="130" height="15" textAdjust="StretchHeight" blankWhenNull="true" bold="false" hTextAlign="Right">
+				<expression><![CDATA["POINT DES TRANSFERTS DEPART".equals($F{titre})?$F{beneficiaireDonateur}:"POINT DES TRANSFERTS ARRIVE".equals($F{titre})?$F{beneficiaireDonateur}
+                       :$F{montant}== null ? "" :
+                    new java.text.DecimalFormat("#,##0;-,##0",
+                        java.text.DecimalFormatSymbols.getInstance(java.util.Locale.FRANCE))
+                        .format($F{montant})
+                        .replace('\u202F', ' ')
+
+
+                ]]></expression>
 			</element>
 			<element kind="line" uuid="9df70a72-b236-4726-9aad-d920c5322a7f" stretchType="ContainerHeight" x="222" y="0" width="1" height="29">
 				<pen lineColor="#3970E6"/>
 			</element>
-			<element kind="textField" uuid="137d62ba-ece2-4fbe-ba71-a23e315cb397" x="228" y="7" width="130" height="15" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###" blankWhenNull="true" bold="false">
-				<expression><![CDATA[$F{part}]]></expression>
+			<element kind="textField" uuid="137d62ba-ece2-4fbe-ba71-a23e315cb397" x="228" y="7" width="130" height="15" textAdjust="StretchHeight" blankWhenNull="true" bold="false" hTextAlign="Right">
+				<expression><![CDATA[$F{part}== null ? "" :
+                    new java.text.DecimalFormat("#,##0.####;-,##0.####",
+                        java.text.DecimalFormatSymbols.getInstance(java.util.Locale.FRANCE))
+                        .format($F{part})
+                        .replace('\u202F', ' ')
+                ]]></expression>
 			</element>
 			<element kind="line" uuid="a7cc3ebc-bd78-43b2-b630-d4b9a6700e3d" stretchType="ContainerHeight" x="361" y="0" width="1" height="29">
 				<pen lineColor="#3970E6"/>
 			</element>
-			<element kind="textField" uuid="a6abe11b-bee8-4965-8579-f89085957214" x="364" y="7" width="96" height="15" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###" blankWhenNull="true" bold="false">
-				<expression><![CDATA[$F{valeurLiquidative}]]></expression>
+			<element kind="textField" uuid="a6abe11b-bee8-4965-8579-f89085957214" x="364" y="7" width="92" height="15" textAdjust="StretchHeight" blankWhenNull="true" bold="false" hTextAlign="Right">
+				<expression><![CDATA[$F{valeurLiquidative}== null ? "" :
+                    new java.text.DecimalFormat("#,##0.##;-,##0.##",
+                        java.text.DecimalFormatSymbols.getInstance(java.util.Locale.FRANCE))
+                        .format($F{valeurLiquidative})
+                        .replace('\u202F', ' ')
+                ]]></expression>
+				<property name="com.jaspersoft.studio.unit.width" value="px"/>
 			</element>
 			<element kind="line" uuid="8266420b-e34d-4d83-ab7d-e68a151921f1" stretchType="ContainerHeight" x="460" y="0" width="1" height="29">
 				<pen lineColor="#3970E6"/>
 			</element>
-			<element kind="textField" uuid="97cb6aae-bdc5-4ca0-8039-120ac2fb5841" x="461" y="7" width="91" height="15" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###" blankWhenNull="true" bold="false">
-				<expression><![CDATA[$F{prixSouscription}]]></expression>
+			<element kind="textField" uuid="97cb6aae-bdc5-4ca0-8039-120ac2fb5841" x="461" y="7" width="88" height="15" textAdjust="StretchHeight" blankWhenNull="true" bold="false" hTextAlign="Right">
+				<expression><![CDATA[$F{prixSouscription}== null ? "" :
+                    new java.text.DecimalFormat("#,##0.##;-,##0.##",
+                        java.text.DecimalFormatSymbols.getInstance(java.util.Locale.FRANCE))
+                        .format($F{prixSouscription})
+                        .replace('\u202F', ' ')
+                ]]></expression>
+				<property name="com.jaspersoft.studio.unit.width" value="px"/>
 			</element>
 			<element kind="textField" uuid="a37efc42-f636-484e-8bf2-47cb0c90e23d" x="4" y="7" width="76" height="15" textAdjust="StretchHeight" pattern="EE dd/MM/yyyy" blankWhenNull="true">
 				<expression><![CDATA[$F{dateOperation}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"))]]></expression>
@@ -543,11 +629,14 @@
 	</detail>
 	<columnFooter splitType="Stretch"/>
 	<pageFooter height="39" splitType="Stretch">
-		<element kind="textField" uuid="bfed89db-1057-4eee-9246-a486e83325a4" x="450" y="4" width="100" height="25" hTextAlign="Right">
+		<element kind="staticText" uuid="543ee542-7780-428b-85c4-c6ec7e6ced4d" x="210" y="7" width="120" height="26" fontName="SansSerif" hTextAlign="Center">
+			<text><![CDATA[OPCCIEL 2.0]]></text>
+		</element>
+		<element kind="textField" uuid="cc9255b8-b7dc-47d5-929b-468e8e4fbd4a" x="448" y="8" width="100" height="25" fontName="SansSerif" hTextAlign="Right">
 			<expression><![CDATA[$V{PAGE_NUMBER}]]></expression>
 		</element>
-		<element kind="staticText" uuid="199a29a0-f559-48ed-99a9-c4fffffed24b" x="0" y="6" width="120" height="26" fontName="Segoe UI">
-			<text><![CDATA[Edité avec OPCCIEL 2.0]]></text>
+		<element kind="textField" uuid="691042e5-0776-4a80-bf99-ba6282a42541" x="0" y="6" width="140" height="20" fontName="SansSerif">
+			<expression><![CDATA["Imprimé  le, " + $P{letterDate}]]></expression>
 		</element>
 	</pageFooter>
 	<summary splitType="Stretch"/>

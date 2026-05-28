@@ -2,8 +2,8 @@
 <jasperReport name="fiche_Action" language="java" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f09c37e3-8210-41fc-ad60-0100b692f474">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="db_opcciel_data_adapter"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-    <parameter name="idTitre" class="java.lang.Long"/>
-    <query language="sql"><![CDATA[select * from Titre.[FT_Action]($P{idTitre})]]></query>
+	<parameter name="idTitre" class="java.lang.Long"/>
+	<query language="sql"><![CDATA[select * from Titre.[FT_Action]($P{idTitre})]]></query>
 	<field name="idTitre" class="java.lang.Long">
 		<property name="com.jaspersoft.studio.field.name" value="idTitre"/>
 		<property name="com.jaspersoft.studio.field.label" value="idTitre"/>
@@ -307,7 +307,7 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 			</element>
-			<element kind="textField" uuid="172e8b3f-0883-45ac-8960-19c366dfb948" x="177" y="309" width="232" height="21" textAdjust="StretchHeight" vTextAlign="Middle">
+			<element kind="textField" uuid="172e8b3f-0883-45ac-8960-19c366dfb948" x="177" y="309" width="232" height="21" fontSize="8.0" textAdjust="StretchHeight" vTextAlign="Middle">
 				<expression><![CDATA["CFA"]]></expression>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -523,7 +523,7 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 			</element>
-			<element kind="textField" uuid="abd8da95-6f55-48c2-b5b0-5e1197e4f8d1" x="177" y="543" width="232" height="20" textAdjust="StretchHeight" vTextAlign="Middle">
+			<element kind="textField" uuid="abd8da95-6f55-48c2-b5b0-5e1197e4f8d1" x="177" y="543" width="232" height="20" fontSize="8.0" textAdjust="StretchHeight" vTextAlign="Middle">
 				<expression><![CDATA[$F{appliqueFiscaliteLocale}==true?"OUI":"NON"]]></expression>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -610,73 +610,73 @@
 			<element kind="line" uuid="e1d93300-2010-4d88-92ca-21764f0baa42" stretchType="ContainerHeight" x="412" y="645" width="1" height="25">
 				<pen lineColor="#8294FA"/>
 			</element>
-			<element kind="textField" uuid="d96b4f0d-642e-4613-a6fe-62399bd93e78" x="177" y="39" width="232" height="20" vTextAlign="Middle">
+			<element kind="textField" uuid="d96b4f0d-642e-4613-a6fe-62399bd93e78" x="177" y="39" width="232" height="20" fontSize="8.0" vTextAlign="Middle">
 				<expression><![CDATA[$F{codeIsin}]]></expression>
 			</element>
-			<element kind="textField" uuid="9f2be35b-2eec-460e-8dbc-086d3e2c78bd" x="177" y="68" width="232" height="18" vTextAlign="Middle">
+			<element kind="textField" uuid="9f2be35b-2eec-460e-8dbc-086d3e2c78bd" x="177" y="68" width="232" height="18" fontSize="8.0" vTextAlign="Middle">
 				<expression><![CDATA[$F{dateEmission}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"))]]></expression>
 			</element>
-			<element kind="textField" uuid="b19b80f5-42b4-472a-9eeb-f610d0d6179e" x="178" y="96" width="231" height="22" vTextAlign="Middle">
+			<element kind="textField" uuid="b19b80f5-42b4-472a-9eeb-f610d0d6179e" x="178" y="96" width="231" height="22" fontSize="8.0" vTextAlign="Middle">
 				<expression><![CDATA[$F{dateOuverture}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"))]]></expression>
 			</element>
-			<element kind="textField" uuid="e045d191-2fb7-4136-811c-dca79f67c4b6" x="177" y="125" width="232" height="22" vTextAlign="Middle">
+			<element kind="textField" uuid="e045d191-2fb7-4136-811c-dca79f67c4b6" x="177" y="125" width="232" height="22" fontSize="8.0" vTextAlign="Middle">
 				<expression><![CDATA[$F{dateCloture}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"))]]></expression>
 			</element>
-			<element kind="textField" uuid="346284f5-ca01-4658-abd8-dec0747f5061" x="177" y="150" width="232" height="20" textAdjust="StretchHeight" vTextAlign="Middle">
+			<element kind="textField" uuid="346284f5-ca01-4658-abd8-dec0747f5061" x="177" y="150" width="232" height="20" fontSize="8.0" textAdjust="StretchHeight" vTextAlign="Middle">
 				<expression><![CDATA[$F{libelleTypeTitre}]]></expression>
 			</element>
-			<element kind="textField" uuid="59eb85db-bcdc-49c4-8092-d76cfcb71e17" x="177" y="172" width="232" height="20" textAdjust="StretchHeight" vTextAlign="Middle">
+			<element kind="textField" uuid="59eb85db-bcdc-49c4-8092-d76cfcb71e17" x="177" y="172" width="232" height="20" fontSize="8.0" textAdjust="StretchHeight" vTextAlign="Middle">
 				<expression><![CDATA[$F{libelleCompartiment}]]></expression>
 			</element>
-			<element kind="textField" uuid="299efb1a-0c28-4ebf-a3ca-140e2b7db802" x="178" y="195" width="231" height="19" textAdjust="StretchHeight" vTextAlign="Middle">
+			<element kind="textField" uuid="299efb1a-0c28-4ebf-a3ca-140e2b7db802" x="178" y="195" width="231" height="19" fontSize="8.0" textAdjust="StretchHeight" vTextAlign="Middle">
 				<expression><![CDATA[$F{symbolTitre}]]></expression>
 			</element>
-			<element kind="textField" uuid="d13cd62b-c912-413d-9882-7da132247548" x="178" y="215" width="231" height="25" textAdjust="StretchHeight" vTextAlign="Middle">
+			<element kind="textField" uuid="d13cd62b-c912-413d-9882-7da132247548" x="178" y="215" width="231" height="25" fontSize="8.0" textAdjust="StretchHeight" vTextAlign="Middle">
 				<expression><![CDATA[$F{designationTitre}]]></expression>
 			</element>
-			<element kind="textField" uuid="0e26e92c-c80d-4cec-adfe-d6359b9372d9" x="178" y="241" width="231" height="22" textAdjust="StretchHeight" vTextAlign="Middle">
+			<element kind="textField" uuid="0e26e92c-c80d-4cec-adfe-d6359b9372d9" x="178" y="241" width="231" height="22" fontSize="8.0" textAdjust="StretchHeight" vTextAlign="Middle">
 				<expression><![CDATA[$F{libelleCotation}]]></expression>
 			</element>
-			<element kind="textField" uuid="1a7459e9-0f5a-405c-bb95-7252e617ae6c" x="178" y="263" width="231" height="21" pattern="#,##0.###;#,##0.###" vTextAlign="Middle">
+			<element kind="textField" uuid="1a7459e9-0f5a-405c-bb95-7252e617ae6c" x="178" y="263" width="231" height="21" fontSize="8.0" pattern="#,##0.###;#,##0.###" vTextAlign="Middle">
 				<expression><![CDATA[$F{nominal}]]></expression>
 			</element>
-			<element kind="textField" uuid="34a1819f-2c93-4ce7-999a-f242b3041d56" x="178" y="287" width="231" height="21" textAdjust="StretchHeight" vTextAlign="Middle">
+			<element kind="textField" uuid="34a1819f-2c93-4ce7-999a-f242b3041d56" x="178" y="287" width="231" height="21" fontSize="8.0" textAdjust="StretchHeight" vTextAlign="Middle">
 				<expression><![CDATA[$F{libelleFr}]]></expression>
 			</element>
-			<element kind="textField" uuid="6352f7e1-a30f-450a-bfe7-ddcb463252cc" x="178" y="331" width="231" height="25" pattern="#,##0.###;#,##0.###" vTextAlign="Middle">
+			<element kind="textField" uuid="6352f7e1-a30f-450a-bfe7-ddcb463252cc" x="178" y="331" width="231" height="25" fontSize="8.0" pattern="#,##0.###;#,##0.###" vTextAlign="Middle">
 				<expression><![CDATA[$F{lotMinimum}]]></expression>
 			</element>
-			<element kind="textField" uuid="eb35cb5c-9a10-4435-a917-7b4375c64628" x="177" y="358" width="233" height="22" textAdjust="StretchHeight" vTextAlign="Middle">
+			<element kind="textField" uuid="eb35cb5c-9a10-4435-a917-7b4375c64628" x="177" y="358" width="233" height="22" fontSize="8.0" textAdjust="StretchHeight" vTextAlign="Middle">
 				<expression><![CDATA[$F{libelleTypeEmission}]]></expression>
 			</element>
-			<element kind="textField" uuid="c2b01bd4-e2a0-407e-913f-9419d0362ddb" x="178" y="384" width="231" height="23" textAdjust="StretchHeight" vTextAlign="Middle">
+			<element kind="textField" uuid="c2b01bd4-e2a0-407e-913f-9419d0362ddb" x="178" y="384" width="231" height="23" fontSize="8.0" textAdjust="StretchHeight" vTextAlign="Middle">
 				<expression><![CDATA[$F{libelleSecteurBoursier}]]></expression>
 			</element>
-			<element kind="textField" uuid="87fc177a-6dc2-457b-90ae-0678e46a214b" x="177" y="410" width="232" height="24" textAdjust="StretchHeight" vTextAlign="Middle">
+			<element kind="textField" uuid="87fc177a-6dc2-457b-90ae-0678e46a214b" x="177" y="410" width="232" height="24" fontSize="8.0" textAdjust="StretchHeight" vTextAlign="Middle">
 				<expression><![CDATA[$F{raisonSocialeEmetteur}]]></expression>
 			</element>
-			<element kind="textField" uuid="c216e6b4-4305-4b3d-9b4c-1de9b98c91ef" x="177" y="437" width="232" height="22" textAdjust="StretchHeight" vTextAlign="Middle">
+			<element kind="textField" uuid="c216e6b4-4305-4b3d-9b4c-1de9b98c91ef" x="177" y="437" width="232" height="22" fontSize="8.0" textAdjust="StretchHeight" vTextAlign="Middle">
 				<expression><![CDATA[$F{raisonSocialeRegistraire}]]></expression>
 			</element>
-			<element kind="textField" uuid="03e6a239-9ea6-406d-a031-8e19363b7fd8" x="177" y="461" width="232" height="24" fontSize="9.0" textAdjust="StretchHeight" vTextAlign="Middle">
+			<element kind="textField" uuid="03e6a239-9ea6-406d-a031-8e19363b7fd8" x="177" y="461" width="232" height="24" fontSize="8.0" textAdjust="StretchHeight" vTextAlign="Middle">
 				<expression><![CDATA[$F{libellePlace}]]></expression>
 			</element>
-			<element kind="textField" uuid="21d30205-6f03-427e-8fbc-72121b1d9b33" x="178" y="486" width="231" height="23" fontSize="9.0" textAdjust="StretchHeight" vTextAlign="Middle">
+			<element kind="textField" uuid="21d30205-6f03-427e-8fbc-72121b1d9b33" x="178" y="486" width="231" height="23" fontSize="8.0" textAdjust="StretchHeight" vTextAlign="Middle">
 				<expression><![CDATA[$F{raisonSocialeDepositaire}]]></expression>
 			</element>
-			<element kind="textField" uuid="4381c807-c61c-4a25-8ec4-3cb41088012d" x="178" y="513" width="231" height="23" pattern="#,##0.######;#,##0.######" vTextAlign="Middle">
+			<element kind="textField" uuid="4381c807-c61c-4a25-8ec4-3cb41088012d" x="178" y="513" width="231" height="23" fontSize="8.0" pattern="#,##0.######;#,##0.######" vTextAlign="Middle">
 				<expression><![CDATA[$F{tauxFiscalitePays}]]></expression>
 			</element>
-			<element kind="textField" uuid="4868aae7-052d-4d72-8a9d-0686a17b3f38" x="177" y="570" width="232" height="20" pattern="#,##0.######;#,##0.######" vTextAlign="Middle">
+			<element kind="textField" uuid="4868aae7-052d-4d72-8a9d-0686a17b3f38" x="177" y="570" width="232" height="20" fontSize="8.0" pattern="#,##0.######;#,##0.######" vTextAlign="Middle">
 				<expression><![CDATA[$F{tauxFiscaliteLocale}]]></expression>
 			</element>
-			<element kind="textField" uuid="e832d5f0-7ad8-4e88-962e-ec5c1194a73f" x="178" y="595" width="232" height="22" pattern="#,##0.###;#,##0.###" vTextAlign="Middle">
+			<element kind="textField" uuid="e832d5f0-7ad8-4e88-962e-ec5c1194a73f" x="178" y="595" width="232" height="22" fontSize="8.0" pattern="#,##0.###;#,##0.###" vTextAlign="Middle">
 				<expression><![CDATA[$F{irvm}]]></expression>
 			</element>
-			<element kind="textField" uuid="73e87e6e-f9f8-4b5b-a933-7eadbac587e7" x="177" y="621" width="233" height="24" textAdjust="StretchHeight" vTextAlign="Middle">
+			<element kind="textField" uuid="73e87e6e-f9f8-4b5b-a933-7eadbac587e7" x="177" y="621" width="233" height="24" fontSize="8.0" textAdjust="StretchHeight" vTextAlign="Middle">
 				<expression><![CDATA[$F{libelleTypeAction}]]></expression>
 			</element>
-			<element kind="textField" uuid="1f5ea963-8071-48c4-b4dc-f1ed266cb1a4" x="178" y="646" width="232" height="24" textAdjust="StretchHeight" vTextAlign="Middle">
+			<element kind="textField" uuid="1f5ea963-8071-48c4-b4dc-f1ed266cb1a4" x="178" y="646" width="232" height="24" fontSize="8.0" textAdjust="StretchHeight" vTextAlign="Middle">
 				<expression><![CDATA[$F{libelleSousTypeAction}]]></expression>
 			</element>
 			<element kind="line" uuid="f5dc3ba6-a3f6-464b-942e-aa7f6403c452" stretchType="ContainerHeight" x="480" y="39" width="1" height="631">

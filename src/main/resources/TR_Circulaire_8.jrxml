@@ -1,0 +1,663 @@
+<!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 7.0.1-573496633c2b4074e32f433154b543003f7d2498  -->
+<jasperReport name="TR_Circulaire_8" language="java" pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="3ae14ae3-41ea-4ea8-a896-4c519f3d5b69">
+    <property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+    <property name="com.jaspersoft.studio.data.defaultdataadapter" value="db_opcciel_data_adapter"/>
+    <parameter name="letterDate" class="java.lang.String"/>
+    <parameter name="titre" class="java.lang.String"/>
+    <parameter name="ALL_LIGNES_1" class="net.sf.jasperreports.engine.JRDataSource"/>
+    <parameter name="SUBREPORT_REF_1" class="net.sf.jasperreports.engine.JasperReport"/>
+    <parameter name="ALL_LIGNES_2" class="net.sf.jasperreports.engine.JRDataSource"/>
+    <parameter name="SUBREPORT_REF_2" class="net.sf.jasperreports.engine.JasperReport"/>
+    <parameter name="ALL_LIGNES_3" class="net.sf.jasperreports.engine.JRDataSource"/>
+    <parameter name="SUBREPORT_REF_3" class="net.sf.jasperreports.engine.JasperReport"/>
+    <parameter name="ALL_LIGNES_4" class="net.sf.jasperreports.engine.JRDataSource"/>
+    <parameter name="SUBREPORT_REF_4" class="net.sf.jasperreports.engine.JasperReport"/>
+    <parameter name="ALL_LIGNES_4AB" class="net.sf.jasperreports.engine.JRDataSource"/>
+    <parameter name="SUBREPORT_REF_4AB" class="net.sf.jasperreports.engine.JasperReport"/>
+    <parameter name="ALL_LIGNES_5" class="net.sf.jasperreports.engine.JRDataSource"/>
+    <parameter name="SUBREPORT_REF_5" class="net.sf.jasperreports.engine.JasperReport"/>
+    <parameter name="ALL_LIGNES_6" class="net.sf.jasperreports.engine.JRDataSource"/>
+    <parameter name="SUBREPORT_REF_6" class="net.sf.jasperreports.engine.JasperReport"/>
+    <parameter name="ALL_LIGNES_7" class="net.sf.jasperreports.engine.JRDataSource"/>
+    <parameter name="SUBREPORT_REF_7" class="net.sf.jasperreports.engine.JasperReport"/>
+    <parameter name="ALL_LIGNES_8" class="net.sf.jasperreports.engine.JRDataSource"/>
+    <parameter name="SUBREPORT_REF_8" class="net.sf.jasperreports.engine.JasperReport"/>
+    <field name="titre" class="java.lang.String">
+        <property name="com.jaspersoft.studio.field.name" value="titre"/>
+        <property name="com.jaspersoft.studio.field.label" value="titre"/>
+    </field>
+    <field name="libelleTitre" class="java.lang.String">
+        <property name="com.jaspersoft.studio.field.name" value="libelleTitre"/>
+        <property name="com.jaspersoft.studio.field.label" value="libelleTitre"/>
+    </field>
+    <field name="numero" class="java.lang.String">
+        <property name="com.jaspersoft.studio.field.name" value="numero"/>
+        <property name="com.jaspersoft.studio.field.label" value="numero"/>
+    </field>
+    <field name="libelle_numero" class="java.lang.String">
+        <property name="com.jaspersoft.studio.field.name" value="libelle_numero"/>
+        <property name="com.jaspersoft.studio.field.label" value="libelle_numero"/>
+    </field>
+    <field name="petit_Numero" class="java.lang.String">
+        <property name="com.jaspersoft.studio.field.name" value="petit_Numero"/>
+        <property name="com.jaspersoft.studio.field.label" value="petit_Numero"/>
+    </field>
+    <field name="libelle_Petit_numero" class="java.lang.String">
+        <property name="com.jaspersoft.studio.field.name" value="libelle_Petit_numero"/>
+        <property name="com.jaspersoft.studio.field.label" value="libelle_Petit_numero"/>
+    </field>
+    <field name="type" class="java.lang.String">
+        <property name="com.jaspersoft.studio.field.name" value="type"/>
+        <property name="com.jaspersoft.studio.field.label" value="type"/>
+    </field>
+    <field name="valeur" class="java.lang.String">
+        <property name="com.jaspersoft.studio.field.name" value="valeur"/>
+        <property name="com.jaspersoft.studio.field.label" value="valeur"/>
+    </field>
+    <field name="nombre" class="java.math.BigDecimal">
+        <property name="com.jaspersoft.studio.field.name" value="nombre"/>
+        <property name="com.jaspersoft.studio.field.label" value="nombre"/>
+    </field>
+    <group name="Group1">
+        <groupHeader>
+            <band height="194">
+                <element kind="subreport" uuid="c9d06d58-11ff-470c-86fa-e248253a5ed9" x="10" y="4" width="789" height="190" removeLineWhenBlank="true">
+                    <dataSourceExpression><![CDATA[$P{ALL_LIGNES_1}]]></dataSourceExpression>
+                    <expression><![CDATA[$P{SUBREPORT_REF_1}]]></expression>
+                </element>
+            </band>
+        </groupHeader>
+        <groupFooter>
+            <band/>
+        </groupFooter>
+    </group>
+    <group name="Group2">
+        <groupHeader>
+            <band height="204">
+                <element kind="subreport" uuid="d8832d0a-400d-47e7-bfb2-2ef8f704a7f5" x="10" y="4" width="789" height="200" removeLineWhenBlank="true">
+                    <dataSourceExpression><![CDATA[$P{ALL_LIGNES_2}]]></dataSourceExpression>
+                    <expression><![CDATA[$P{SUBREPORT_REF_2}]]></expression>
+                    <parameter name="letterDate">
+                        <expression><![CDATA[$P{letterDate}]]></expression>
+                    </parameter>
+                </element>
+            </band>
+        </groupHeader>
+        <groupFooter>
+            <band/>
+        </groupFooter>
+    </group>
+    <group name="Group3">
+        <groupHeader>
+            <band height="233">
+                <element kind="subreport" uuid="e68d4dca-452a-41f7-9893-d355f700d08f" x="10" y="3" width="790" height="230" removeLineWhenBlank="true">
+                    <dataSourceExpression><![CDATA[$P{ALL_LIGNES_3}]]></dataSourceExpression>
+                    <expression><![CDATA[$P{SUBREPORT_REF_3}]]></expression>
+                </element>
+            </band>
+        </groupHeader>
+        <groupFooter>
+            <band/>
+        </groupFooter>
+    </group>
+    <group name="Group4">
+        <groupHeader>
+            <band height="293">
+                <element kind="subreport" uuid="0c758076-df10-497a-8b7f-8e5a17be4a88" x="10" y="5" width="760" height="288" removeLineWhenBlank="true">
+                    <dataSourceExpression><![CDATA[$P{ALL_LIGNES_4}]]></dataSourceExpression>
+                    <expression><![CDATA[$P{SUBREPORT_REF_4}]]></expression>
+                </element>
+            </band>
+        </groupHeader>
+        <groupFooter>
+            <band/>
+        </groupFooter>
+    </group>
+    <group name="Group5">
+        <groupHeader>
+            <band height="189">
+                <element kind="subreport" uuid="dd805409-e8b9-4b0a-8722-f42bbb6ba020" x="6" y="2" width="754" height="180">
+                    <dataSourceExpression><![CDATA[$P{ALL_LIGNES_4AB}]]></dataSourceExpression>
+                    <expression><![CDATA[$P{SUBREPORT_REF_4AB}]]></expression>
+                </element>
+            </band>
+        </groupHeader>
+        <groupFooter>
+            <band/>
+        </groupFooter>
+    </group>
+    <group name="Group6">
+        <groupHeader>
+            <band height="237">
+                <element kind="subreport" uuid="5ed879e8-8e75-4b3a-81ec-5d7e46f54399" x="5" y="57" width="789" height="170" removeLineWhenBlank="true">
+                    <dataSourceExpression><![CDATA[$P{ALL_LIGNES_5}]]></dataSourceExpression>
+                    <expression><![CDATA[$P{SUBREPORT_REF_5}]]></expression>
+                </element>
+                <element kind="rectangle" uuid="2c1dc9a8-ea0f-4cdf-bd53-caf8536223ed" stretchType="NoStretch" x="5" y="6" width="786" height="42" backcolor="#FFFFFF">
+                    <pen lineColor="#3B88D1"/>
+                </element>
+                <element kind="line" uuid="689989e8-7004-49dc-a623-630e47bf7bd9" x="33" y="6" width="1" height="42"/>
+                <element kind="staticText" uuid="de5c1369-3a33-484c-af04-7d5342a61013" x="9" y="14" width="20" height="30" fontSize="14.0" bold="true" hTextAlign="Center">
+                    <text><![CDATA[V.]]></text>
+                </element>
+                <element kind="line" uuid="dbcf233c-a781-4aa8-9d88-2f8dd5178931" stretchType="NoStretch" x="569" y="6" width="1" height="42"/>
+                <element kind="staticText" uuid="2f9799f3-3b59-4d6d-b9c5-b0a9225f7259" x="36" y="8" width="529" height="40" fontSize="14.0" bold="true" hTextAlign="Left">
+                    <text><![CDATA[TABLEAU COMPARATIF DE LA VALEUR LIQUIDATIVE SUR LA PERIODE DE REFERENCE ET PAR RAPPORT A LA VALEUR D'ORIGINE]]></text>
+                </element>
+            </band>
+        </groupHeader>
+        <groupFooter>
+            <band/>
+        </groupFooter>
+    </group>
+    <group name="Group7">
+        <groupHeader>
+            <band height="102">
+                <element kind="subreport" uuid="3b836440-9e70-46f2-843e-e38d05fbeef9" x="10" y="5" width="789" height="91">
+                    <dataSourceExpression><![CDATA[$P{ALL_LIGNES_6}]]></dataSourceExpression>
+                    <expression><![CDATA[$P{SUBREPORT_REF_6}]]></expression>
+                </element>
+            </band>
+        </groupHeader>
+        <groupFooter>
+            <band/>
+        </groupFooter>
+    </group>
+    <group name="Group8">
+        <groupHeader>
+            <band height="179">
+                <element kind="subreport" uuid="d60ea10f-ee87-4d1c-953d-9ac2c63e621f" x="7" y="9" width="789" height="170">
+                    <dataSourceExpression><![CDATA[$P{ALL_LIGNES_7}]]></dataSourceExpression>
+                    <expression><![CDATA[$P{SUBREPORT_REF_7}]]></expression>
+                </element>
+            </band>
+        </groupHeader>
+        <groupFooter>
+            <band/>
+        </groupFooter>
+    </group>
+    <group name="Group9">
+        <groupHeader>
+            <band height="226">
+                <element kind="subreport" uuid="70a81cbf-bb9d-4671-b7f6-00d575653995" x="6" y="8" width="790" height="210">
+                    <dataSourceExpression><![CDATA[$P{ALL_LIGNES_8}]]></dataSourceExpression>
+                    <expression><![CDATA[$P{SUBREPORT_REF_8}]]></expression>
+                </element>
+            </band>
+        </groupHeader>
+        <groupFooter>
+            <band/>
+        </groupFooter>
+    </group>
+    <background splitType="Stretch"/>
+    <title height="78" splitType="Stretch">
+        <element kind="image" uuid="cd8f943f-b383-4502-a3c7-a37c0f3eed52" x="3" y="3" width="796" height="74" scaleImage="FillFrame">
+            <expression><![CDATA["C:/OPCCIEL2/Resources/logo_(2).jpg"]]></expression>
+        </element>
+    </title>
+    <pageHeader height="28" splitType="Stretch">
+        <element kind="rectangle" uuid="bf10fdec-1753-41a6-b999-efcc3eca2bbd" x="3" y="3" width="797" height="25" backcolor="#FFFFFF">
+            <pen lineColor="#3B88D1"/>
+        </element>
+        <element kind="textField" uuid="20c6c2c1-b927-42b6-b070-c51750ee5fd2" x="11" y="6" width="770" height="19" bold="true">
+            <expression><![CDATA[$P{titre}]]></expression>
+        </element>
+        <property name="com.jaspersoft.studio.unit.height" value="px"/>
+    </pageHeader>
+    <columnHeader splitType="Stretch"/>
+    <detail>
+        <band splitType="Stretch"/>
+    </detail>
+    <columnFooter splitType="Stretch"/>
+    <pageFooter height="45" splitType="Stretch">
+        <element kind="staticText" uuid="b1476357-f544-4b58-ba7c-a38fedbfb063" x="5" y="15" width="126" height="13">
+            <text><![CDATA[Edité avec OPCCIEL 2.0]]></text>
+        </element>
+        <element kind="textField" uuid="b9a3b66f-739e-4c34-b137-3a9bd27fbe6f" x="691" y="15" width="100" height="15" hTextAlign="Right">
+            <expression><![CDATA[$V{PAGE_NUMBER}]]></expression>
+        </element>
+    </pageFooter>
+    <summary splitType="Stretch"/>
+</jasperReport>
+
+        <!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 7.0.1-573496633c2b4074e32f433154b543003f7d2498  -->
+<!--<jasperReport name="TR_Circulaire_8" language="java" pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="3ae14ae3-41ea-4ea8-a896-4c519f3d5b69">-->
+<!--    <property name="com.jaspersoft.studio.data.sql.tables" value=""/>-->
+<!--    <property name="com.jaspersoft.studio.data.defaultdataadapter" value="db_opcciel_data_adapter"/>-->
+<!--    <parameter name="letterDate" class="java.lang.String"/>-->
+<!--    <parameter name="titre" class="java.lang.String"/>-->
+<!--    <parameter name="ALL_LIGNES_1" class="net.sf.jasperreports.engine.JRDataSource"/>-->
+<!--    <parameter name="SUBREPORT_REF_1" class="net.sf.jasperreports.engine.JasperReport"/>-->
+<!--    <parameter name="ALL_LIGNES_2" class="net.sf.jasperreports.engine.JRDataSource"/>-->
+<!--    <parameter name="SUBREPORT_REF_2" class="net.sf.jasperreports.engine.JasperReport"/>-->
+<!--    <parameter name="ALL_LIGNES_3" class="net.sf.jasperreports.engine.JRDataSource"/>-->
+<!--    <parameter name="SUBREPORT_REF_3" class="net.sf.jasperreports.engine.JasperReport"/>-->
+<!--    <parameter name="ALL_LIGNES_4" class="net.sf.jasperreports.engine.JRDataSource"/>-->
+<!--    <parameter name="SUBREPORT_REF_4" class="net.sf.jasperreports.engine.JasperReport"/>-->
+<!--    <parameter name="ALL_LIGNES_5" class="net.sf.jasperreports.engine.JRDataSource"/>-->
+<!--    <parameter name="SUBREPORT_REF_5" class="net.sf.jasperreports.engine.JasperReport"/>-->
+<!--    <parameter name="ALL_LIGNES_6" class="net.sf.jasperreports.engine.JRDataSource"/>-->
+<!--    <parameter name="SUBREPORT_REF_6" class="net.sf.jasperreports.engine.JasperReport"/>-->
+<!--    <parameter name="ALL_LIGNES_7" class="net.sf.jasperreports.engine.JRDataSource"/>-->
+<!--    <parameter name="SUBREPORT_REF_7" class="net.sf.jasperreports.engine.JasperReport"/>-->
+<!--    <parameter name="ALL_LIGNES_8" class="net.sf.jasperreports.engine.JRDataSource"/>-->
+<!--    <parameter name="SUBREPORT_REF_8" class="net.sf.jasperreports.engine.JasperReport"/>-->
+<!--    <parameter name="MY_PARAMETERS_MAP" class="java.util.Map"/>-->
+<!--    <field name="titre" class="java.lang.String">-->
+<!--        <property name="com.jaspersoft.studio.field.name" value="titre"/>-->
+<!--        <property name="com.jaspersoft.studio.field.label" value="titre"/>-->
+<!--    </field>-->
+<!--    <field name="libelleTitre" class="java.lang.String">-->
+<!--        <property name="com.jaspersoft.studio.field.name" value="libelleTitre"/>-->
+<!--        <property name="com.jaspersoft.studio.field.label" value="libelleTitre"/>-->
+<!--    </field>-->
+<!--    <field name="numero" class="java.lang.String">-->
+<!--        <property name="com.jaspersoft.studio.field.name" value="numero"/>-->
+<!--        <property name="com.jaspersoft.studio.field.label" value="numero"/>-->
+<!--    </field>-->
+<!--    <field name="libelle_numero" class="java.lang.String">-->
+<!--        <property name="com.jaspersoft.studio.field.name" value="libelle_numero"/>-->
+<!--        <property name="com.jaspersoft.studio.field.label" value="libelle_numero"/>-->
+<!--    </field>-->
+<!--    <field name="petit_Numero" class="java.lang.String">-->
+<!--        <property name="com.jaspersoft.studio.field.name" value="petit_Numero"/>-->
+<!--        <property name="com.jaspersoft.studio.field.label" value="petit_Numero"/>-->
+<!--    </field>-->
+<!--    <field name="libelle_Petit_numero" class="java.lang.String">-->
+<!--        <property name="com.jaspersoft.studio.field.name" value="libelle_Petit_numero"/>-->
+<!--        <property name="com.jaspersoft.studio.field.label" value="libelle_Petit_numero"/>-->
+<!--    </field>-->
+<!--    <field name="type" class="java.lang.String">-->
+<!--        <property name="com.jaspersoft.studio.field.name" value="type"/>-->
+<!--        <property name="com.jaspersoft.studio.field.label" value="type"/>-->
+<!--    </field>-->
+<!--    <field name="valeur" class="java.lang.String">-->
+<!--        <property name="com.jaspersoft.studio.field.name" value="valeur"/>-->
+<!--        <property name="com.jaspersoft.studio.field.label" value="valeur"/>-->
+<!--    </field>-->
+<!--    <field name="nombre" class="java.math.BigDecimal">-->
+<!--        <property name="com.jaspersoft.studio.field.name" value="nombre"/>-->
+<!--        <property name="com.jaspersoft.studio.field.label" value="nombre"/>-->
+<!--    </field>-->
+<!--    <group name="Group1">-->
+<!--        <groupHeader>-->
+<!--            <band height="194">-->
+<!--                <element kind="subreport" uuid="c9d06d58-11ff-470c-86fa-e248253a5ed9" x="10" y="4" width="789" height="190" removeLineWhenBlank="true">-->
+<!--                    <dataSourceExpression><![CDATA[$P{ALL_LIGNES_1}]]></dataSourceExpression>-->
+<!--                    <expression><![CDATA[$P{SUBREPORT_REF_1}]]></expression>-->
+<!--                </element>-->
+<!--            </band>-->
+<!--        </groupHeader>-->
+<!--        <groupFooter>-->
+<!--            <band/>-->
+<!--        </groupFooter>-->
+<!--    </group>-->
+<!--    <group name="Group2">-->
+<!--        <groupHeader>-->
+<!--            <band height="204">-->
+<!--                <element kind="subreport" uuid="d8832d0a-400d-47e7-bfb2-2ef8f704a7f5" x="10" y="4" width="789" height="200" removeLineWhenBlank="true">-->
+<!--                    <dataSourceExpression><![CDATA[$P{ALL_LIGNES_2}]]></dataSourceExpression>-->
+<!--                    <expression><![CDATA[$P{SUBREPORT_REF_2}]]></expression>-->
+<!--                    <parameter name="letterDate">-->
+<!--                        <expression><![CDATA[$P{letterDate}]]></expression>-->
+<!--                    </parameter>-->
+<!--                </element>-->
+<!--            </band>-->
+<!--        </groupHeader>-->
+<!--        <groupFooter>-->
+<!--            <band/>-->
+<!--        </groupFooter>-->
+<!--    </group>-->
+<!--    <group name="Group3">-->
+<!--        <groupHeader>-->
+<!--            <band height="233">-->
+<!--                <element kind="subreport" uuid="e68d4dca-452a-41f7-9893-d355f700d08f" x="10" y="3" width="790" height="230" removeLineWhenBlank="true">-->
+<!--                    <dataSourceExpression><![CDATA[$P{ALL_LIGNES_3}]]></dataSourceExpression>-->
+<!--                    <expression><![CDATA[$P{SUBREPORT_REF_3}]]></expression>-->
+<!--                </element>-->
+<!--            </band>-->
+<!--        </groupHeader>-->
+<!--        <groupFooter>-->
+<!--            <band/>-->
+<!--        </groupFooter>-->
+<!--    </group>-->
+<!--    <group name="Group4">-->
+<!--        <groupHeader>-->
+<!--            <band height="293">-->
+<!--                <element kind="subreport" uuid="0c758076-df10-497a-8b7f-8e5a17be4a88" x="10" y="5" width="789" height="288" removeLineWhenBlank="true">-->
+<!--                    <dataSourceExpression><![CDATA[$P{ALL_LIGNES_4}]]></dataSourceExpression>-->
+<!--                    <expression><![CDATA[$P{SUBREPORT_REF_4}]]></expression>-->
+<!--                </element>-->
+<!--            </band>-->
+<!--        </groupHeader>-->
+<!--        <groupFooter>-->
+<!--            <band/>-->
+<!--        </groupFooter>-->
+<!--    </group>-->
+<!--    <group name="Group5">-->
+<!--        <groupHeader>-->
+<!--            <band height="242">-->
+<!--                <element kind="subreport" uuid="5ed879e8-8e75-4b3a-81ec-5d7e46f54399" x="7" y="60" width="789" height="170" removeLineWhenBlank="true">-->
+<!--                    <dataSourceExpression><![CDATA[$P{ALL_LIGNES_5}]]></dataSourceExpression>-->
+<!--                    <expression><![CDATA[$P{SUBREPORT_REF_5}]]></expression>-->
+<!--                </element>-->
+<!--                <element kind="rectangle" uuid="2c1dc9a8-ea0f-4cdf-bd53-caf8536223ed" stretchType="NoStretch" x="9" y="8" width="786" height="42" backcolor="#FFFFFF">-->
+<!--                    <pen lineColor="#3B88D1"/>-->
+<!--                </element>-->
+<!--                <element kind="line" uuid="689989e8-7004-49dc-a623-630e47bf7bd9" x="37" y="8" width="1" height="42"/>-->
+<!--                <element kind="staticText" uuid="de5c1369-3a33-484c-af04-7d5342a61013" x="13" y="16" width="20" height="30" fontSize="14.0" bold="true" hTextAlign="Center">-->
+<!--                    <text><![CDATA[V.]]></text>-->
+<!--                </element>-->
+<!--                <element kind="line" uuid="dbcf233c-a781-4aa8-9d88-2f8dd5178931" stretchType="NoStretch" x="573" y="8" width="1" height="42"/>-->
+<!--                <element kind="staticText" uuid="2f9799f3-3b59-4d6d-b9c5-b0a9225f7259" x="40" y="10" width="529" height="40" fontSize="14.0" bold="true" hTextAlign="Left">-->
+<!--                    <text><![CDATA[TABLEAU COMPARATIF DE LA VALEUR LIQUIDATIVE SUR LA PERIODE DE REFERENCE ET PAR RAPPORT A LA VALEUR D'ORIGINE]]></text>-->
+<!--                </element>-->
+<!--            </band>-->
+<!--        </groupHeader>-->
+<!--        <groupFooter>-->
+<!--            <band/>-->
+<!--        </groupFooter>-->
+<!--    </group>-->
+<!--    <group name="Group6">-->
+<!--        <groupHeader>-->
+<!--            <band height="99">-->
+<!--                <element kind="subreport" uuid="3b836440-9e70-46f2-843e-e38d05fbeef9" x="10" y="8" width="789" height="91">-->
+<!--                    <dataSourceExpression><![CDATA[$P{ALL_LIGNES_6}]]></dataSourceExpression>-->
+<!--                    <expression><![CDATA[$P{SUBREPORT_REF_6}]]></expression>-->
+<!--                </element>-->
+<!--            </band>-->
+<!--        </groupHeader>-->
+<!--        <groupFooter>-->
+<!--            <band/>-->
+<!--        </groupFooter>-->
+<!--    </group>-->
+<!--    <group name="Group7">-->
+<!--        <groupHeader>-->
+<!--            <band height="188">-->
+<!--                <element kind="subreport" uuid="d60ea10f-ee87-4d1c-953d-9ac2c63e621f" x="10" y="10" width="789" height="170">-->
+<!--                    <dataSourceExpression><![CDATA[$P{ALL_LIGNES_7}]]></dataSourceExpression>-->
+<!--                    <expression><![CDATA[$P{SUBREPORT_REF_7}]]></expression>-->
+<!--                </element>-->
+<!--            </band>-->
+<!--        </groupHeader>-->
+<!--        <groupFooter>-->
+<!--            <band/>-->
+<!--        </groupFooter>-->
+<!--    </group>-->
+<!--    <group name="Group8">-->
+<!--        <groupHeader>-->
+<!--            <band height="234">-->
+<!--                <element kind="subreport" uuid="70a81cbf-bb9d-4671-b7f6-00d575653995" x="10" y="10" width="790" height="210">-->
+<!--                    <dataSourceExpression><![CDATA[$P{ALL_LIGNES_8}]]></dataSourceExpression>-->
+<!--                    <expression><![CDATA[$P{SUBREPORT_REF_8}]]></expression>-->
+<!--                </element>-->
+<!--            </band>-->
+<!--        </groupHeader>-->
+<!--        <groupFooter>-->
+<!--            <band/>-->
+<!--        </groupFooter>-->
+<!--    </group>-->
+<!--    <background splitType="Stretch"/>-->
+<!--    <title height="78" splitType="Stretch">-->
+<!--        <element kind="image" uuid="cd8f943f-b383-4502-a3c7-a37c0f3eed52" x="3" y="3" width="796" height="74" scaleImage="FillFrame">-->
+<!--            <expression><![CDATA["C:/OPCCIEL2/Resources/logo_(2).jpg"]]></expression>-->
+<!--        </element>-->
+<!--    </title>-->
+<!--    <pageHeader height="28" splitType="Stretch">-->
+<!--        <element kind="rectangle" uuid="bf10fdec-1753-41a6-b999-efcc3eca2bbd" x="3" y="3" width="797" height="25" backcolor="#FFFFFF">-->
+<!--            <pen lineColor="#3B88D1"/>-->
+<!--        </element>-->
+<!--        <element kind="textField" uuid="20c6c2c1-b927-42b6-b070-c51750ee5fd2" x="11" y="6" width="770" height="19" bold="true">-->
+<!--            <expression><![CDATA[$P{titre}]]></expression>-->
+<!--        </element>-->
+<!--        <property name="com.jaspersoft.studio.unit.height" value="px"/>-->
+<!--    </pageHeader>-->
+<!--    <columnHeader splitType="Stretch"/>-->
+<!--    <detail>-->
+<!--        <band splitType="Stretch"/>-->
+<!--    </detail>-->
+<!--    <columnFooter splitType="Stretch"/>-->
+<!--    <pageFooter height="45" splitType="Stretch">-->
+<!--        <element kind="staticText" uuid="b1476357-f544-4b58-ba7c-a38fedbfb063" x="5" y="15" width="126" height="13">-->
+<!--            <text><![CDATA[Edité avec OPCCIEL 2.0]]></text>-->
+<!--        </element>-->
+<!--        <element kind="textField" uuid="b9a3b66f-739e-4c34-b137-3a9bd27fbe6f" x="691" y="15" width="100" height="15" hTextAlign="Right">-->
+<!--            <expression><![CDATA[$V{PAGE_NUMBER}]]></expression>-->
+<!--        </element>-->
+<!--    </pageFooter>-->
+<!--    <summary splitType="Stretch"/>-->
+<!--</jasperReport>-->
+
+
+<!--        &lt;!&ndash; Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 7.0.1-573496633c2b4074e32f433154b543003f7d2498  &ndash;&gt;-->
+<!--<jasperReport name="TR_Circulaire_8" language="java" pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="3ae14ae3-41ea-4ea8-a896-4c519f3d5b69">-->
+<!--	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>-->
+<!--	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="db_opcciel_data_adapter"/>-->
+<!--	<parameter name="letterDate" class="java.lang.String"/>-->
+<!--	<parameter name="titre" class="java.lang.String"/>-->
+<!--    <parameter name="ALL_LIGNES_1" class="net.sf.jasperreports.engine.JRDataSource"/>-->
+<!--    <parameter name="SUBREPORT_REF_1" class="net.sf.jasperreports.engine.JasperReport"/>-->
+<!--    <parameter name="ALL_LIGNES_2" class="net.sf.jasperreports.engine.JRDataSource"/>-->
+<!--    <parameter name="SUBREPORT_REF_2" class="net.sf.jasperreports.engine.JasperReport"/>-->
+<!--    <parameter name="ALL_LIGNES_3" class="net.sf.jasperreports.engine.JRDataSource"/>-->
+<!--    <parameter name="SUBREPORT_REF_3" class="net.sf.jasperreports.engine.JasperReport"/>-->
+<!--    <parameter name="ALL_LIGNES_4" class="net.sf.jasperreports.engine.JRDataSource"/>-->
+<!--    <parameter name="SUBREPORT_REF_4" class="net.sf.jasperreports.engine.JasperReport"/>-->
+<!--    <parameter name="ALL_LIGNES_5" class="net.sf.jasperreports.engine.JRDataSource"/>-->
+<!--    <parameter name="SUBREPORT_REF_5" class="net.sf.jasperreports.engine.JasperReport"/>-->
+<!--    <parameter name="ALL_LIGNES_6" class="net.sf.jasperreports.engine.JRDataSource"/>-->
+<!--    <parameter name="SUBREPORT_REF_6" class="net.sf.jasperreports.engine.JasperReport"/>-->
+<!--    <parameter name="ALL_LIGNES_7" class="net.sf.jasperreports.engine.JRDataSource"/>-->
+<!--    <parameter name="SUBREPORT_REF_7" class="net.sf.jasperreports.engine.JasperReport"/>-->
+<!--    <parameter name="ALL_LIGNES_8" class="net.sf.jasperreports.engine.JRDataSource"/>-->
+<!--    <parameter name="SUBREPORT_REF_8" class="net.sf.jasperreports.engine.JasperReport"/>-->
+<!--&lt;!&ndash;	<query language="SQL"><![CDATA[select * from [Circulaire8].[FT_Identification_Patrimoine_Part_New](9,'01/04/2022','30/06/2022')&ndash;&gt;-->
+<!--&lt;!&ndash;where titre='II. ']]></query>&ndash;&gt;-->
+<!--	<field name="titre" class="java.lang.String">-->
+<!--		<property name="com.jaspersoft.studio.field.name" value="titre"/>-->
+<!--		<property name="com.jaspersoft.studio.field.label" value="titre"/>-->
+<!--	</field>-->
+<!--	<field name="libelleTitre" class="java.lang.String">-->
+<!--		<property name="com.jaspersoft.studio.field.name" value="libelleTitre"/>-->
+<!--		<property name="com.jaspersoft.studio.field.label" value="libelleTitre"/>-->
+<!--	</field>-->
+<!--	<field name="numero" class="java.lang.String">-->
+<!--		<property name="com.jaspersoft.studio.field.name" value="numero"/>-->
+<!--		<property name="com.jaspersoft.studio.field.label" value="numero"/>-->
+<!--	</field>-->
+<!--	<field name="libelle_numero" class="java.lang.String">-->
+<!--		<property name="com.jaspersoft.studio.field.name" value="libelle_numero"/>-->
+<!--		<property name="com.jaspersoft.studio.field.label" value="libelle_numero"/>-->
+<!--	</field>-->
+<!--	<field name="petit_Numero" class="java.lang.String">-->
+<!--		<property name="com.jaspersoft.studio.field.name" value="petit_Numero"/>-->
+<!--		<property name="com.jaspersoft.studio.field.label" value="petit_Numero"/>-->
+<!--	</field>-->
+<!--	<field name="libelle_Petit_numero" class="java.lang.String">-->
+<!--		<property name="com.jaspersoft.studio.field.name" value="libelle_Petit_numero"/>-->
+<!--		<property name="com.jaspersoft.studio.field.label" value="libelle_Petit_numero"/>-->
+<!--	</field>-->
+<!--	<field name="type" class="java.lang.String">-->
+<!--		<property name="com.jaspersoft.studio.field.name" value="type"/>-->
+<!--		<property name="com.jaspersoft.studio.field.label" value="type"/>-->
+<!--	</field>-->
+<!--	<field name="valeur" class="java.lang.String">-->
+<!--		<property name="com.jaspersoft.studio.field.name" value="valeur"/>-->
+<!--		<property name="com.jaspersoft.studio.field.label" value="valeur"/>-->
+<!--	</field>-->
+<!--	<field name="nombre" class="java.math.BigDecimal">-->
+<!--		<property name="com.jaspersoft.studio.field.name" value="nombre"/>-->
+<!--		<property name="com.jaspersoft.studio.field.label" value="nombre"/>-->
+<!--	</field>-->
+<!--	<group name="Group1">-->
+<!--		<groupHeader>-->
+<!--			<band height="194">-->
+<!--				<element kind="subreport" uuid="c9d06d58-11ff-470c-86fa-e248253a5ed9" x="10" y="4" width="789" height="190" removeLineWhenBlank="true">-->
+<!--                    <dataSourceExpression><![CDATA[$P{ALL_LIGNES_1}]]></dataSourceExpression>-->
+<!--                    <expression><![CDATA[$P{SUBREPORT_REF_1}]]></expression>-->
+<!--				</element>-->
+<!--			</band>-->
+<!--		</groupHeader>-->
+<!--		<groupFooter>-->
+<!--			<band/>-->
+<!--		</groupFooter>-->
+<!--	</group>-->
+<!--	<group name="Group2">-->
+<!--		<groupHeader>-->
+<!--			<band height="204">-->
+<!--				<element kind="subreport" uuid="d8832d0a-400d-47e7-bfb2-2ef8f704a7f5" x="10" y="4" width="789" height="200" removeLineWhenBlank="true">-->
+<!--                    <dataSourceExpression><![CDATA[$P{ALL_LIGNES_2}]]></dataSourceExpression>-->
+<!--                    <expression><![CDATA[$P{SUBREPORT_REF_2}]]></expression>-->
+<!--					<parameter name="letterDate">-->
+<!--						<expression><![CDATA[$P{letterDate}]]></expression>-->
+<!--					</parameter>-->
+<!--				</element>-->
+<!--			</band>-->
+<!--		</groupHeader>-->
+<!--		<groupFooter>-->
+<!--			<band/>-->
+<!--		</groupFooter>-->
+<!--	</group>-->
+<!--	<group name="Group3">-->
+<!--		<groupHeader>-->
+<!--			<band height="233">-->
+<!--				<element kind="subreport" uuid="e68d4dca-452a-41f7-9893-d355f700d08f" x="10" y="3" width="790" height="230" removeLineWhenBlank="true">-->
+<!--                    <dataSourceExpression><![CDATA[$P{ALL_LIGNES_3}]]></dataSourceExpression>-->
+<!--                    <expression><![CDATA[$P{SUBREPORT_REF_3}]]></expression>-->
+<!--				</element>-->
+<!--			</band>-->
+<!--		</groupHeader>-->
+<!--		<groupFooter>-->
+<!--			<band/>-->
+<!--		</groupFooter>-->
+<!--	</group>-->
+<!--	<group name="Group4">-->
+<!--		<groupHeader>-->
+<!--			<band height="293">-->
+<!--				<element kind="subreport" uuid="0c758076-df10-497a-8b7f-8e5a17be4a88" x="10" y="5" width="789" height="288" removeLineWhenBlank="true">-->
+<!--                    <dataSourceExpression><![CDATA[$P{ALL_LIGNES_4}]]></dataSourceExpression>-->
+<!--                    <expression><![CDATA[$P{SUBREPORT_REF_4}]]></expression>-->
+<!--				</element>-->
+<!--			</band>-->
+<!--		</groupHeader>-->
+<!--		<groupFooter>-->
+<!--			<band/>-->
+<!--		</groupFooter>-->
+<!--	</group>-->
+<!--    <group name="Group5">-->
+<!--        <groupHeader>-->
+<!--            <band height="242">-->
+<!--                <element kind="subreport" uuid="5ed879e8-8e75-4b3a-81ec-5d7e46f54399" x="7" y="60" width="789" height="170" removeLineWhenBlank="true">-->
+<!--                    <dataSourceExpression><![CDATA[$P{ALL_LIGNES_5}]]></dataSourceExpression>-->
+<!--                    <expression><![CDATA[$P{SUBREPORT_REF_5}]]></expression>-->
+<!--                </element>-->
+<!--                <element kind="rectangle" uuid="2c1dc9a8-ea0f-4cdf-bd53-caf8536223ed" stretchType="NoStretch" x="9" y="8" width="786" height="42" backcolor="#FFFFFF">-->
+<!--                    <pen lineColor="#3B88D1"/>-->
+<!--                </element>-->
+<!--                <element kind="line" uuid="689989e8-7004-49dc-a623-630e47bf7bd9" x="37" y="8" width="1" height="42"/>-->
+<!--                <element kind="staticText" uuid="de5c1369-3a33-484c-af04-7d5342a61013" x="13" y="16" width="20" height="30" fontSize="14.0" bold="true" hTextAlign="Center">-->
+<!--                    <text><![CDATA[V.]]></text>-->
+<!--                </element>-->
+<!--                <element kind="line" uuid="dbcf233c-a781-4aa8-9d88-2f8dd5178931" stretchType="NoStretch" x="573" y="8" width="1" height="42"/>-->
+<!--                <element kind="staticText" uuid="2f9799f3-3b59-4d6d-b9c5-b0a9225f7259" x="40" y="10" width="529" height="40" fontSize="14.0" bold="true" hTextAlign="Left">-->
+<!--                    <text><![CDATA[TABLEAU COMPARATIF DE LA VALEUR LIQUIDATIVE SUR LA PERIODE DE REFERENCE ET PAR RAPPORT A LA VALEUR D'ORIGINE]]></text>-->
+<!--                </element>-->
+<!--            </band>-->
+<!--        </groupHeader>-->
+<!--        <groupFooter>-->
+<!--            <band/>-->
+<!--        </groupFooter>-->
+<!--    </group>-->
+<!--&lt;!&ndash;	<group name="Group5">&ndash;&gt;-->
+<!--&lt;!&ndash;		<groupHeader>&ndash;&gt;-->
+<!--&lt;!&ndash;			<band height="198">&ndash;&gt;-->
+<!--&lt;!&ndash;				<element kind="subreport" uuid="5ed879e8-8e75-4b3a-81ec-5d7e46f54399" x="11" y="8" width="789" height="132" removeLineWhenBlank="true">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <dataSourceExpression><![CDATA[$P{ALL_LIGNES_5}]]></dataSourceExpression>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <expression><![CDATA[$P{SUBREPORT_REF_5}]]></expression>&ndash;&gt;-->
+<!--&lt;!&ndash;				</element>&ndash;&gt;-->
+<!--&lt;!&ndash;				<element kind="rectangle" uuid="2c1dc9a8-ea0f-4cdf-bd53-caf8536223ed" stretchType="NoStretch" x="13" y="148" width="786" height="42" backcolor="#FFFFFF">&ndash;&gt;-->
+<!--&lt;!&ndash;					<pen lineColor="#3B88D1"/>&ndash;&gt;-->
+<!--&lt;!&ndash;				</element>&ndash;&gt;-->
+<!--&lt;!&ndash;				<element kind="line" uuid="689989e8-7004-49dc-a623-630e47bf7bd9" x="41" y="148" width="1" height="42"/>&ndash;&gt;-->
+<!--&lt;!&ndash;				<element kind="staticText" uuid="de5c1369-3a33-484c-af04-7d5342a61013" x="17" y="156" width="20" height="30" fontSize="14.0" bold="true" hTextAlign="Center">&ndash;&gt;-->
+<!--&lt;!&ndash;					<text><![CDATA[V.]]></text>&ndash;&gt;-->
+<!--&lt;!&ndash;				</element>&ndash;&gt;-->
+<!--&lt;!&ndash;				<element kind="line" uuid="dbcf233c-a781-4aa8-9d88-2f8dd5178931" stretchType="NoStretch" x="577" y="148" width="1" height="42"/>&ndash;&gt;-->
+<!--&lt;!&ndash;				<element kind="staticText" uuid="2f9799f3-3b59-4d6d-b9c5-b0a9225f7259" x="44" y="150" width="529" height="40" fontSize="14.0" bold="true" hTextAlign="Left">&ndash;&gt;-->
+<!--&lt;!&ndash;					<text><![CDATA[TABLEAU COMPARATIF DE LA VALEUR LIQUIDATIVE SUR LA PERIODE DE REFERENCE ET PAR RAPPORT A LA VALEUR D'ORIGINE]]></text>&ndash;&gt;-->
+<!--&lt;!&ndash;				</element>&ndash;&gt;-->
+<!--&lt;!&ndash;			</band>&ndash;&gt;-->
+<!--&lt;!&ndash;		</groupHeader>&ndash;&gt;-->
+<!--&lt;!&ndash;		<groupFooter>&ndash;&gt;-->
+<!--&lt;!&ndash;			<band/>&ndash;&gt;-->
+<!--&lt;!&ndash;		</groupFooter>&ndash;&gt;-->
+<!--&lt;!&ndash;	</group>&ndash;&gt;-->
+<!--	<group name="Group6">-->
+<!--		<groupHeader>-->
+<!--			<band height="99">-->
+<!--				<element kind="subreport" uuid="3b836440-9e70-46f2-843e-e38d05fbeef9" x="10" y="8" width="789" height="91">-->
+<!--                    <dataSourceExpression><![CDATA[$P{ALL_LIGNES_6}]]></dataSourceExpression>-->
+<!--                    <expression><![CDATA[$P{SUBREPORT_REF_6}]]></expression>-->
+<!--				</element>-->
+<!--			</band>-->
+<!--		</groupHeader>-->
+<!--		<groupFooter>-->
+<!--			<band/>-->
+<!--		</groupFooter>-->
+<!--	</group>-->
+<!--	<group name="Group7">-->
+<!--		<groupHeader>-->
+<!--			<band height="188">-->
+<!--				<element kind="subreport" uuid="d60ea10f-ee87-4d1c-953d-9ac2c63e621f" x="10" y="10" width="789" height="170">-->
+<!--                    <dataSourceExpression><![CDATA[$P{ALL_LIGNES_7}]]></dataSourceExpression>-->
+<!--                    <expression><![CDATA[$P{SUBREPORT_REF_7}]]></expression>-->
+<!--				</element>-->
+<!--			</band>-->
+<!--		</groupHeader>-->
+<!--		<groupFooter>-->
+<!--			<band/>-->
+<!--		</groupFooter>-->
+<!--	</group>-->
+<!--	<group name="Group8">-->
+<!--		<groupHeader>-->
+<!--			<band height="234">-->
+<!--				<element kind="subreport" uuid="70a81cbf-bb9d-4671-b7f6-00d575653995" x="10" y="10" width="790" height="210">-->
+<!--                    <dataSourceExpression><![CDATA[$P{ALL_LIGNES_8}]]></dataSourceExpression>-->
+<!--                    <expression><![CDATA[$P{SUBREPORT_REF_8}]]></expression>-->
+<!--				</element>-->
+<!--			</band>-->
+<!--		</groupHeader>-->
+<!--		<groupFooter>-->
+<!--			<band/>-->
+<!--		</groupFooter>-->
+<!--	</group>-->
+<!--	<background splitType="Stretch"/>-->
+<!--	<title height="24" splitType="Stretch">-->
+<!--		<element kind="textField" uuid="22015a80-38e3-4b8a-8147-3620f72da466" x="3" y="3" width="217" height="16">-->
+<!--			<expression><![CDATA["Cotonou, le "+$P{letterDate}]]></expression>-->
+<!--		</element>-->
+<!--	</title>-->
+<!--	<pageHeader height="28" splitType="Stretch">-->
+<!--		<element kind="rectangle" uuid="bf10fdec-1753-41a6-b999-efcc3eca2bbd" x="3" y="3" width="797" height="25" backcolor="#FFFFFF">-->
+<!--			<pen lineColor="#3B88D1"/>-->
+<!--		</element>-->
+<!--		<element kind="textField" uuid="20c6c2c1-b927-42b6-b070-c51750ee5fd2" x="11" y="6" width="770" height="19" bold="true">-->
+<!--			<expression><![CDATA[$P{titre}]]></expression>-->
+<!--		</element>-->
+<!--		<property name="com.jaspersoft.studio.unit.height" value="px"/>-->
+<!--	</pageHeader>-->
+<!--	<columnHeader splitType="Stretch"/>-->
+<!--	<detail>-->
+<!--		<band splitType="Stretch"/>-->
+<!--	</detail>-->
+<!--	<columnFooter splitType="Stretch"/>-->
+<!--	<pageFooter height="45" splitType="Stretch">-->
+<!--		<element kind="staticText" uuid="b1476357-f544-4b58-ba7c-a38fedbfb063" x="5" y="15" width="126" height="13">-->
+<!--			<text><![CDATA[Edité avec OPCCIEL 2.0]]></text>-->
+<!--		</element>-->
+<!--		<element kind="textField" uuid="b9a3b66f-739e-4c34-b137-3a9bd27fbe6f" x="691" y="15" width="100" height="15" hTextAlign="Right">-->
+<!--			<expression><![CDATA[$V{PAGE_NUMBER}]]></expression>-->
+<!--		</element>-->
+<!--	</pageFooter>-->
+<!--	<summary splitType="Stretch"/>-->
+<!--</jasperReport>-->

@@ -1,0 +1,209 @@
+<!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 7.0.1-573496633c2b4074e32f433154b543003f7d2498  -->
+<jasperReport name="TR_Part_IV_AB" language="java" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="779b18c7-dd8d-4886-b202-2a6eed9eeac9">
+    <property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+    <property name="com.jaspersoft.studio.data.defaultdataadapter" value="db_opcciel_data_adapter"/>
+    <field name="titre" class="java.lang.String">
+        <property name="com.jaspersoft.studio.field.name" value="titre"/>
+        <property name="com.jaspersoft.studio.field.label" value="titre"/>
+    </field>
+    <field name="libelleTitre" class="java.lang.String">
+        <property name="com.jaspersoft.studio.field.name" value="libelleTitre"/>
+        <property name="com.jaspersoft.studio.field.label" value="libelleTitre"/>
+    </field>
+    <field name="numero" class="java.lang.String">
+        <property name="com.jaspersoft.studio.field.name" value="numero"/>
+        <property name="com.jaspersoft.studio.field.label" value="numero"/>
+    </field>
+    <field name="libelle_numero" class="java.lang.String">
+        <property name="com.jaspersoft.studio.field.name" value="libelle_numero"/>
+        <property name="com.jaspersoft.studio.field.label" value="libelle_numero"/>
+    </field>
+    <field name="petit_Numero" class="java.lang.String">
+        <property name="com.jaspersoft.studio.field.name" value="petit_Numero"/>
+        <property name="com.jaspersoft.studio.field.label" value="petit_Numero"/>
+    </field>
+    <field name="libelle_Petit_numero" class="java.lang.String">
+        <property name="com.jaspersoft.studio.field.name" value="libelle_Petit_numero"/>
+        <property name="com.jaspersoft.studio.field.label" value="libelle_Petit_numero"/>
+    </field>
+    <field name="type" class="java.lang.String">
+        <property name="com.jaspersoft.studio.field.name" value="type"/>
+        <property name="com.jaspersoft.studio.field.label" value="type"/>
+    </field>
+    <field name="valeur" class="java.lang.String">
+        <property name="com.jaspersoft.studio.field.name" value="valeur"/>
+        <property name="com.jaspersoft.studio.field.label" value="valeur"/>
+    </field>
+    <field name="nombre" class="java.math.BigDecimal">
+        <property name="com.jaspersoft.studio.field.name" value="nombre"/>
+        <property name="com.jaspersoft.studio.field.label" value="nombre"/>
+    </field>
+    <group name="Group1">
+        <expression><![CDATA[$F{numero}]]></expression>
+        <groupHeader>
+            <band height="31">
+                <element kind="rectangle" uuid="ae5410e3-5736-4df6-862b-b7362320c081" stretchType="ContainerHeight" x="7" y="2" width="787" height="29" backcolor="#FFFFFF">
+                    <property name="com.jaspersoft.studio.unit.height" value="px"/>
+                    <pen lineColor="#3B88D1"/>
+                </element>
+                <element kind="textField" uuid="f6683906-237e-4748-8bd4-ce2a5e99b033" x="12" y="5" width="68" height="24" hTextAlign="Left" vTextAlign="Middle">
+                    <expression><![CDATA[$F{numero}]]></expression>
+                </element>
+                <element kind="textField" uuid="c54a9583-c2ac-4d66-adab-cacff4418cad" x="90" y="5" width="699" height="24" textAdjust="StretchHeight" hTextAlign="Left" vTextAlign="Middle">
+                    <expression><![CDATA[$F{libelle_numero}]]></expression>
+                </element>
+                <element kind="line" uuid="5c3cc113-37ca-4cf5-b579-b9ecb18825f0" stretchType="ContainerHeight" x="84" y="2" width="1" height="28">
+                    <property name="com.jaspersoft.studio.unit.height" value="px"/>
+                </element>
+                <property name="com.jaspersoft.studio.unit.height" value="px"/>
+            </band>
+        </groupHeader>
+        <groupFooter>
+            <band height="10">
+                <property name="com.jaspersoft.studio.unit.height" value="px"/>
+            </band>
+        </groupFooter>
+    </group>
+    <background splitType="Stretch"/>
+    <title splitType="Stretch"/>
+    <pageHeader splitType="Stretch"/>
+    <columnHeader splitType="Stretch"/>
+    <detail>
+        <band height="30" splitType="Stretch">
+            <element kind="rectangle" uuid="408764d8-d163-4894-911e-dfdf59d19fc1" stretchType="ContainerHeight" x="7" y="1" width="787" height="29" backcolor="#FFFFFF">
+                <property name="com.jaspersoft.studio.unit.height" value="px"/>
+                <pen lineColor="#3B88D1"/>
+            </element>
+            <element kind="textField" uuid="0d135043-fce0-4574-969c-65a715934072" x="90" y="5" width="110" height="20" textAdjust="StretchHeight">
+                <expression><![CDATA[$F{petit_Numero}]]></expression>
+            </element>
+            <element kind="textField" uuid="b781f4eb-3339-4f86-a7a8-0a12e9a4f289" x="210" y="5" width="359" height="20" textAdjust="StretchHeight">
+                <expression><![CDATA[$F{libelle_Petit_numero}]]></expression>
+            </element>
+            <element kind="line" uuid="474a25ac-0e7d-49a6-998e-ea0ef29cad9c" stretchType="ContainerHeight" x="84" y="1" width="1" height="28">
+                <property name="com.jaspersoft.studio.unit.height" value="px"/>
+            </element>
+            <element kind="line" uuid="7fea32c0-a75b-4ac4-b9d5-7603077beb8d" stretchType="ContainerHeight" x="580" y="1" width="1" height="28">
+                <property name="com.jaspersoft.studio.unit.height" value="px"/>
+            </element>
+            <element kind="textField" uuid="ecd0924d-230c-454f-ac2d-547809b14e53" x="586" y="5" width="203" height="20">
+                <expression><![CDATA[$F{valeur}]]></expression>
+            </element>
+            <element kind="line" uuid="0d8a9e67-1345-459e-aec4-f6db0b684782" stretchType="ContainerHeight" x="205" y="1" width="1" height="28">
+                <property name="com.jaspersoft.studio.unit.height" value="px"/>
+            </element>
+            <property name="com.jaspersoft.studio.unit.height" value="px"/>
+        </band>
+    </detail>
+    <columnFooter splitType="Stretch"/>
+    <pageFooter splitType="Stretch"/>
+    <summary height="1" splitType="Stretch"/>
+    <noData height="1"/>
+</jasperReport>
+
+        <!--&lt;!&ndash; Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 7.0.1-573496633c2b4074e32f433154b543003f7d2498  &ndash;&gt;-->
+<!--<jasperReport name="TR_Part_IV_AB" language="java" pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="NoDataSection" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="779b18c7-dd8d-4886-b202-2a6eed9eeac9">-->
+<!--    <property name="com.jaspersoft.studio.data.sql.tables" value=""/>-->
+<!--    <property name="com.jaspersoft.studio.data.defaultdataadapter" value="db_opcciel_data_adapter"/>-->
+<!--    <parameter name="MY_PARAMETERS_MAP" class="java.util.Map"/>-->
+<!--    <field name="titre" class="java.lang.String">-->
+<!--        <property name="com.jaspersoft.studio.field.name" value="titre"/>-->
+<!--        <property name="com.jaspersoft.studio.field.label" value="titre"/>-->
+<!--    </field>-->
+<!--    <field name="libelleTitre" class="java.lang.String">-->
+<!--        <property name="com.jaspersoft.studio.field.name" value="libelleTitre"/>-->
+<!--        <property name="com.jaspersoft.studio.field.label" value="libelleTitre"/>-->
+<!--    </field>-->
+<!--    <field name="numero" class="java.lang.String">-->
+<!--        <property name="com.jaspersoft.studio.field.name" value="numero"/>-->
+<!--        <property name="com.jaspersoft.studio.field.label" value="numero"/>-->
+<!--    </field>-->
+<!--    <field name="libelle_numero" class="java.lang.String">-->
+<!--        <property name="com.jaspersoft.studio.field.name" value="libelle_numero"/>-->
+<!--        <property name="com.jaspersoft.studio.field.label" value="libelle_numero"/>-->
+<!--    </field>-->
+<!--    <field name="petit_Numero" class="java.lang.String">-->
+<!--        <property name="com.jaspersoft.studio.field.name" value="petit_Numero"/>-->
+<!--        <property name="com.jaspersoft.studio.field.label" value="petit_Numero"/>-->
+<!--    </field>-->
+<!--    <field name="libelle_Petit_numero" class="java.lang.String">-->
+<!--        <property name="com.jaspersoft.studio.field.name" value="libelle_Petit_numero"/>-->
+<!--        <property name="com.jaspersoft.studio.field.label" value="libelle_Petit_numero"/>-->
+<!--    </field>-->
+<!--    <field name="type" class="java.lang.String">-->
+<!--        <property name="com.jaspersoft.studio.field.name" value="type"/>-->
+<!--        <property name="com.jaspersoft.studio.field.label" value="type"/>-->
+<!--    </field>-->
+<!--    <field name="valeur" class="java.lang.String">-->
+<!--        <property name="com.jaspersoft.studio.field.name" value="valeur"/>-->
+<!--        <property name="com.jaspersoft.studio.field.label" value="valeur"/>-->
+<!--    </field>-->
+<!--    <field name="nombre" class="java.math.BigDecimal">-->
+<!--        <property name="com.jaspersoft.studio.field.name" value="nombre"/>-->
+<!--        <property name="com.jaspersoft.studio.field.label" value="nombre"/>-->
+<!--    </field>-->
+<!--    <group name="Group1">-->
+<!--        <expression><![CDATA[$F{numero}]]></expression>-->
+<!--        <groupHeader>-->
+<!--            <band height="40">-->
+<!--                <element kind="rectangle" uuid="ae5410e3-5736-4df6-862b-b7362320c081" stretchType="ContainerHeight" x="7" y="2" width="787" height="38" backcolor="#FFFFFF">-->
+<!--                    <pen lineColor="#3B88D1"/>-->
+<!--                </element>-->
+<!--                <element kind="textField" uuid="f6683906-237e-4748-8bd4-ce2a5e99b033" x="12" y="10" width="68" height="24" hTextAlign="Left" vTextAlign="Middle">-->
+<!--                    <expression><![CDATA[$F{numero}]]></expression>-->
+<!--                </element>-->
+<!--                <element kind="textField" uuid="c54a9583-c2ac-4d66-adab-cacff4418cad" x="90" y="10" width="699" height="24" textAdjust="StretchHeight" hTextAlign="Left" vTextAlign="Middle">-->
+<!--                    <expression><![CDATA[$F{libelle_numero}]]></expression>-->
+<!--                </element>-->
+<!--                <element kind="line" uuid="5c3cc113-37ca-4cf5-b579-b9ecb18825f0" stretchType="ContainerHeight" x="84" y="2" width="1" height="37">-->
+<!--                    <property name="com.jaspersoft.studio.unit.height" value="px"/>-->
+<!--                </element>-->
+<!--                <property name="com.jaspersoft.studio.unit.height" value="px"/>-->
+<!--            </band>-->
+<!--        </groupHeader>-->
+<!--        <groupFooter>-->
+<!--            <band height="10">-->
+<!--                <property name="com.jaspersoft.studio.unit.height" value="px"/>-->
+<!--            </band>-->
+<!--        </groupFooter>-->
+<!--    </group>-->
+<!--    <background splitType="Stretch"/>-->
+<!--    <title splitType="Stretch"/>-->
+<!--    <pageHeader splitType="Stretch"/>-->
+<!--    <columnHeader splitType="Stretch"/>-->
+<!--    <detail>-->
+<!--        <band height="40" splitType="Stretch">-->
+<!--            <element kind="rectangle" uuid="408764d8-d163-4894-911e-dfdf59d19fc1" stretchType="ContainerHeight" x="7" y="1" width="787" height="39" backcolor="#FFFFFF">-->
+<!--                <pen lineColor="#3B88D1"/>-->
+<!--            </element>-->
+<!--            <element kind="textField" uuid="0d135043-fce0-4574-969c-65a715934072" x="90" y="11" width="110" height="20" textAdjust="StretchHeight">-->
+<!--                <expression><![CDATA[$F{petit_Numero}]]></expression>-->
+<!--            </element>-->
+<!--            <element kind="textField" uuid="b781f4eb-3339-4f86-a7a8-0a12e9a4f289" x="210" y="11" width="359" height="20" textAdjust="StretchHeight">-->
+<!--                <expression><![CDATA[$F{petit_Numero}]]></expression>-->
+<!--            </element>-->
+<!--            <element kind="line" uuid="474a25ac-0e7d-49a6-998e-ea0ef29cad9c" stretchType="ContainerHeight" x="84" y="1" width="1" height="39">-->
+<!--                <property name="com.jaspersoft.studio.unit.height" value="px"/>-->
+<!--            </element>-->
+<!--            <element kind="line" uuid="7fea32c0-a75b-4ac4-b9d5-7603077beb8d" stretchType="ContainerHeight" x="580" y="1" width="1" height="39">-->
+<!--                <property name="com.jaspersoft.studio.unit.height" value="px"/>-->
+<!--            </element>-->
+<!--            <element kind="textField" uuid="ecd0924d-230c-454f-ac2d-547809b14e53" x="586" y="11" width="203" height="20">-->
+<!--                <expression><![CDATA[$F{valeur}]]></expression>-->
+<!--            </element>-->
+<!--            <element kind="line" uuid="0d8a9e67-1345-459e-aec4-f6db0b684782" stretchType="ContainerHeight" x="205" y="1" width="1" height="39">-->
+<!--                <property name="com.jaspersoft.studio.unit.height" value="px"/>-->
+<!--            </element>-->
+<!--            <property name="com.jaspersoft.studio.unit.height" value="px"/>-->
+<!--        </band>-->
+<!--    </detail>-->
+<!--    <columnFooter splitType="Stretch"/>-->
+<!--    <pageFooter splitType="Stretch"/>-->
+<!--    <summary height="1" splitType="Stretch"/>-->
+<!--    <noData height="45">-->
+<!--        <element kind="textField" uuid="d2051c35-de4c-47ba-ace4-00bbcd2cbcae" x="12" y="10" width="268" height="30">-->
+<!--            <expression><![CDATA["jesus tu es puissant"]]></expression>-->
+<!--        </element>-->
+<!--    </noData>-->
+<!--</jasperReport>-->
+

@@ -50,6 +50,7 @@ public class Operation extends Base implements Persistable<Long> {
     private LocalDateTime datePiece;
     private LocalDateTime dateValeur;
     private String referencePiece;
+    @Column(precision = 18,scale = 6)
     private BigDecimal montant;
     private String ecriture;
     private Boolean estOD;

@@ -2,6 +2,7 @@ package com.ged.service;
 
 import com.ged.dao.LibraryDao;
 import com.ged.dao.opcciel.OpcvmDao;
+import com.ged.dao.opcciel.OrdreDao;
 import com.ged.dao.opcciel.SeanceOpcvmDao;
 import com.ged.dao.opcciel.SocieteDeGestionDao;
 import com.ged.dao.opcciel.comptabilite.*;
@@ -60,6 +61,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.format.TextStyle;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -89,6 +91,8 @@ public class AppService {
     private final TransactionDao transactionDao;
     private final OperationMapper operationMapper;
     private final FormuleDao formuleDao;
+    private final OrdreMapper ordreMapper;
+    private final OrdreDao ordreDao;
     private final OperationFormuleDao operationFormuleDao;
     private final OperationCodeAnalytiqueDao operationCodeAnalytiqueDao;
     private final NatureOperationDao natureOperationDao;
@@ -101,7 +105,7 @@ public class AppService {
     private final OperationConstatationChargeMapper constatationChargeMapper;
     private final OperationCommissionMapper commissionMapper;
 
-    public AppService(UtilisateurDao utilisateurDao, LibraryDao libraryDao, ExerciceDao exerciceDao, ExerciceMapper exerciceMapper, PlanService planService, OpcvmService opcvmService, IbService ibService, MouvementDao mouvementDao, OpcvmMapper opcvmMapper, OpcvmDao opcvmDao, SeanceOpcvmMapper seanceOpcvmMapper, SeanceOpcvmDao seanceOpcvmDao, SocieteDeGestionMapper societeDeGestionMapper, SocieteDeGestionDao societeDeGestionDao, NatureOperationMapper natureOperationMapper, TransactionDao transactionDao, OperationMapper operationMapper, FormuleDao formuleDao, OperationFormuleDao operationFormuleDao, OperationCodeAnalytiqueDao operationCodeAnalytiqueDao, NatureOperationDao natureOperationDao, JournalDao journalDao, OperationJournalDao operationJournalDao, PersonneDao personneDao, OperationSouscriptionRachatMapper souscriptionRachatMapper, OperationRestitutionReliquatMapper operationRestitutionReliquatMapper, OperationTransfertPartMapper transfertPartMapper, OperationConstatationChargeMapper constatationChargeMapper, OperationCommissionMapper commissionMapper) {
+    public AppService(UtilisateurDao utilisateurDao, LibraryDao libraryDao, ExerciceDao exerciceDao, ExerciceMapper exerciceMapper, PlanService planService, OpcvmService opcvmService, IbService ibService, MouvementDao mouvementDao, OpcvmMapper opcvmMapper, OpcvmDao opcvmDao, SeanceOpcvmMapper seanceOpcvmMapper, SeanceOpcvmDao seanceOpcvmDao, SocieteDeGestionMapper societeDeGestionMapper, SocieteDeGestionDao societeDeGestionDao, NatureOperationMapper natureOperationMapper, TransactionDao transactionDao, OperationMapper operationMapper, FormuleDao formuleDao, OrdreMapper ordreMapper, OrdreDao ordreDao, OperationFormuleDao operationFormuleDao, OperationCodeAnalytiqueDao operationCodeAnalytiqueDao, NatureOperationDao natureOperationDao, JournalDao journalDao, OperationJournalDao operationJournalDao, PersonneDao personneDao, OperationSouscriptionRachatMapper souscriptionRachatMapper, OperationRestitutionReliquatMapper operationRestitutionReliquatMapper, OperationTransfertPartMapper transfertPartMapper, OperationConstatationChargeMapper constatationChargeMapper, OperationCommissionMapper commissionMapper) {
         this.utilisateurDao = utilisateurDao;
         this.libraryDao = libraryDao;
         this.exerciceDao = exerciceDao;
@@ -120,6 +124,8 @@ public class AppService {
         this.transactionDao = transactionDao;
         this.operationMapper = operationMapper;
         this.formuleDao = formuleDao;
+        this.ordreMapper = ordreMapper;
+        this.ordreDao = ordreDao;
         this.operationFormuleDao = operationFormuleDao;
         this.operationCodeAnalytiqueDao = operationCodeAnalytiqueDao;
         this.natureOperationDao = natureOperationDao;
@@ -4801,6 +4807,12 @@ public class AppService {
         String letterDate = dateFormatter.format(new Date());
 //        String dateFin = dateFormatter.format(date);
         parameters.put("letterDate", letterDate);
+        parameters.put(net.sf.jasperreports.engine.JRParameter.REPORT_LOCALE,
+                new Locale("fr", "FR"));     // ou Locale.FRANCE
+
+// Si tu veux aussi forcer le fuseau horaire (recommandé)
+        parameters.put(net.sf.jasperreports.engine.JRParameter.REPORT_TIME_ZONE,
+                java.util.TimeZone.getDefault());
         DateFormat dateFormatter2 = new SimpleDateFormat("yyyy/MM/dd");
         LocalDateTime dateDebut = request.getDateDebutEstimation();
         LocalDateTime dateFin = request.getDateEstimation();
@@ -5683,6 +5695,148 @@ public class AppService {
                     HttpStatus.MULTI_STATUS,
                     e);
         }
+    }
+    //liste ordre de bourse
+    public ResponseEntity<?> listeOrdreDeBourse(HistoriqueActionnaireRequest request) {
+
+        var parameters = request.getDatatableParameters();
+        try {
+            Pageable pageable = PageRequest.of(parameters.getStart()/ parameters.getLength(), parameters.getLength());
+            Page<ListeOrdreDeBourseProjection> listeOrdreDeBourseProjections;
+            if(parameters.getSearch() != null && !parameters.getSearch().getValue().isEmpty()) {
+                listeOrdreDeBourseProjections = new PageImpl<>(new ArrayList<>());
+            }
+            else {
+                listeOrdreDeBourseProjections = libraryDao.listeOrdreDeBourse(
+                       request.getIdOpcvm(),request.getDateDebut(),request.getDateFin(),
+                        pageable
+                );
+            }
+            List<ListeOrdreDeBourseProjection> content = listeOrdreDeBourseProjections.getContent().stream().toList();
+            DataTablesResponse<ListeOrdreDeBourseProjection> dataTablesResponse = new DataTablesResponse<>();
+            dataTablesResponse.setDraw(parameters.getDraw());
+            dataTablesResponse.setRecordsFiltered((int)listeOrdreDeBourseProjections.getTotalElements());
+            dataTablesResponse.setRecordsTotal((int)listeOrdreDeBourseProjections.getTotalElements());
+            dataTablesResponse.setData(content);
+            return ResponseHandler.generateResponse(
+                    "Portefeuille opcvm",
+                    HttpStatus.OK,
+                    dataTablesResponse);
+        }
+        catch(Exception e) {
+            return ResponseHandler.generateResponse(
+                    e.getMessage(),
+                    HttpStatus.MULTI_STATUS,
+                    e);
+        }
+    }
+    public ResponseEntity<?> enregistrerOrdreRelache(HistoriqueActionnaireRequest request) {
+
+        List<ListeOrdreDeBourseProjection>   listeOrdreDeBourseProjections = libraryDao.listeOrdreDeBourse(
+                       request.getIdOpcvm(),request.getDateDebut(),request.getDateFin(),request.getId()
+                );
+        String sortie="";
+        for(ListeOrdreDeBourseProjection o:listeOrdreDeBourseProjections){
+            var q =em.createStoredProcedureQuery("[Comptabilite].[PS_Operation_IP_New]");
+            q.registerStoredProcedureParameter("IdOperation",Long.class,ParameterMode.IN);
+            q.registerStoredProcedureParameter("idOpcvm",Long.class,ParameterMode.IN);
+            q.registerStoredProcedureParameter("idActionnaire",Long.class,ParameterMode.IN);
+            q.registerStoredProcedureParameter("idTitre",Long.class,ParameterMode.IN);
+            q.registerStoredProcedureParameter("IdTransaction",Long.class,ParameterMode.IN);
+            q.registerStoredProcedureParameter("idSeance",Long.class,ParameterMode.IN);
+            q.registerStoredProcedureParameter("codeNatureOperation",String.class,ParameterMode.IN);
+            q.registerStoredProcedureParameter("dateOperation",LocalDateTime.class,ParameterMode.IN);
+            q.registerStoredProcedureParameter("libelleOperation",String.class,ParameterMode.IN);
+            q.registerStoredProcedureParameter("dateSaisie",LocalDateTime.class,ParameterMode.IN);
+            q.registerStoredProcedureParameter("datePiece",LocalDateTime.class,ParameterMode.IN);
+            q.registerStoredProcedureParameter("dateValeur",LocalDateTime.class,ParameterMode.IN);
+            q.registerStoredProcedureParameter("referencePiece",String.class,ParameterMode.IN);
+            q.registerStoredProcedureParameter("montant",BigDecimal.class,ParameterMode.IN);
+            q.registerStoredProcedureParameter("ecriture",String.class,ParameterMode.IN);
+            q.registerStoredProcedureParameter("estOD",Boolean.class,ParameterMode.IN);
+            q.registerStoredProcedureParameter("type",String.class,ParameterMode.IN);
+            q.registerStoredProcedureParameter("valeurFormule",String.class,ParameterMode.IN);
+            q.registerStoredProcedureParameter("valeurCodeAnalytique",String.class,ParameterMode.IN);
+            q.registerStoredProcedureParameter("userLogin",String.class,ParameterMode.IN);
+            q.registerStoredProcedureParameter("dateDernModifClient",LocalDateTime.class,ParameterMode.IN);
+            q.registerStoredProcedureParameter("CodeLangue",String.class,ParameterMode.IN);
+            q.registerStoredProcedureParameter("Sortie",String.class,ParameterMode.OUT);
+
+            String CodeNatureOperation="";
+            String LibelleOperation="";
+            String ValeurFormule="";
+            String ValeurCodeAnalytique="";
+            OrdreDto ordreDto=ordreMapper.deOrdre(ordreDao.findById(o.getIdOrdre()).orElseThrow());
+            if (o.getCodeNatureOperation().trim().equalsIgnoreCase("ORDRE_ACH"))
+            {
+               CodeNatureOperation = "RORDRE_ACH";
+                LibelleOperation = "RELACHEMENT ORDRE D'ACHAT DE " +
+                        " " + ordreDto.getTitre().getSymbolTitre().trim().toUpperCase();
+            }
+            else if (o.getCodeNatureOperation().trim().toUpperCase().equals("ORDRE_VTE"))
+            {
+                CodeNatureOperation = "RORDRE_VTE";
+                LibelleOperation = "RELACHEMENT ORDRE DE VENTE DE " +
+                        " " + ordreDto.getTitre().getSymbolTitre().trim().toUpperCase();
+            }
+            else
+            {
+                CodeNatureOperation = "RORDRE_SOUS";
+                LibelleOperation = "RELACHEMENT ORDRE DE SOUSCRIPTION DE " +
+                        " " + ordreDto.getTitre().getSymbolTitre().trim().toUpperCase();
+            }
+            ValeurFormule = "5:" + ((ordreDto.getQuantiteLimite().subtract(ordreDto.getQuantiteExecute())).multiply(ordreDto.getCoursLimite()).toPlainString().replace(',', '.') +
+                    ";50:" + (ordreDto.getQuantiteLimite().subtract(ordreDto.getQuantiteExecute())).toString().replace(',', '.'));
+            ValeurCodeAnalytique = "OPC:" + ordreDto.getOpcvm().getIdOpcvm().toString() +
+                    ";TIT:" + ordreDto.getTitre().getIdTitre().toString();
+            SeanceOpcvm seanceOpcvm=seanceOpcvmDao.afficherSeanceEnCours(o.getIdOpcvm());
+            q.setParameter("IdOperation",0);
+            q.setParameter("idOpcvm",o.getIdOpcvm());
+            q.setParameter("idActionnaire",0);
+            q.setParameter("idTitre",o.getIdTitre());
+            q.setParameter("IdTransaction",0);
+            q.setParameter("idSeance",seanceOpcvm.getIdSeanceOpcvm().getIdSeance());
+            q.setParameter("codeNatureOperation",CodeNatureOperation);
+            q.setParameter("dateOperation",seanceOpcvm.getDateFermeture());
+            q.setParameter("libelleOperation",LibelleOperation);
+            q.setParameter("dateSaisie",LocalDateTime.now());
+            q.setParameter("datePiece",seanceOpcvm.getDateFermeture());
+            q.setParameter("dateValeur",seanceOpcvm.getDateFermeture());
+            q.setParameter("referencePiece","");
+            q.setParameter("montant",0);
+            q.setParameter("ecriture","E");
+            q.setParameter("estOD",false);
+            q.setParameter("type","OB");
+            q.setParameter("valeurFormule",ValeurFormule);
+            q.setParameter("valeurCodeAnalytique",ValeurCodeAnalytique);
+            q.setParameter("userLogin",request.getUserLogin());
+            q.setParameter("dateDernModifClient",LocalDateTime.now());
+            q.setParameter("CodeLangue","fr-FR");
+            q.setParameter("Sortie",sortie);
+            q.execute();
+            String[] s = new String[20];
+            String result = (String) q.getOutputParameterValue("Sortie");
+            s = result.split("#");
+            if(s[s.length-1]!=""){
+                var k=em.createStoredProcedureQuery("[OrdreDeBourse].[PS_Ordre_UP_Relache_New]");
+                k.registerStoredProcedureParameter("IdOrdre",Long.class,ParameterMode.IN);
+                k.registerStoredProcedureParameter("userLogin",String.class,ParameterMode.IN);
+                k.registerStoredProcedureParameter("CodeLangue",String.class,ParameterMode.IN);
+                k.registerStoredProcedureParameter("Sortie",String.class,ParameterMode.OUT);
+
+                k.setParameter("IdOrdre",o.getIdOrdre());
+                k.setParameter("userLogin",request.getUserLogin());
+                k.setParameter("CodeLangue","fr-FR");
+                k.setParameter("Sortie",sortie);
+
+                k.execute();
+            }
+        }
+        return ResponseHandler.generateResponse(
+                "Portefeuille opcvm",
+                HttpStatus.OK,
+                "Enregistrement effectué avec succès");
+
     }
     public void suiviClient(HistoriqueActionnaireRequest request, HttpServletResponse response) throws IOException, JRException, SQLException {
 
@@ -7372,6 +7526,177 @@ public class AppService {
 //                // Gérer les erreurs de fermeture si nécessaire
 //            }
 //        }
+
+
+    }
+    //circulaire8
+    public String genererTitreRapport(LocalDateTime dateDebut, LocalDateTime dateFin, String denominationOpcvm) {
+
+        if (dateDebut == null || dateFin == null) {
+            throw new IllegalArgumentException("Les dates de début et de fin sont obligatoires");
+        }
+
+        // Calcul du nombre de jours entre les deux dates (on ignore l'heure)
+        long days = ChronoUnit.DAYS.between(dateDebut.toLocalDate(), dateFin.toLocalDate());
+
+        // Formatage des dates au format français court (ex: 15/04/2026)
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+        String periode = " DU " + dateDebut.toLocalDate().format(formatter)
+                + " AU " + dateFin.toLocalDate().format(formatter);
+
+        String titre;
+
+        if (days > 0 && days <= 91) {
+            titre = "RAPPORT TRIMESTRIEL: " + periode + " [" + denominationOpcvm + "]";
+        }
+        else if (days > 91 && days <= 182) {
+            titre = "RAPPORT SEMESTRIEL: " + periode + " [" + denominationOpcvm + "]";
+        }
+        else if (days > 182) {
+            titre = "RAPPORT ANNUEL: " + periode + " [" + denominationOpcvm + "]";
+        }
+        else {
+            // Cas où la période est négative ou nulle
+            titre = "RAPPORT: " + periode + " [" + denominationOpcvm + "]";
+        }
+
+        return titre;
+    }
+    public ResponseEntity<Object> afficherCirculaire8(Circulaire8Request request, HttpServletResponse response) throws JRException, IOException {
+
+        InputStream rapportStream = null;
+        InputStream subreportStream = null;
+        InputStream subreportStream2 = null;
+        InputStream subreportStream3 = null;
+        InputStream subreportStream4 = null;
+        InputStream subreportStream4_AB = null;
+        InputStream subreportStream5 = null;
+        InputStream subreportStream6 = null;
+        InputStream subreportStream7 = null;
+        InputStream subreportStream8 = null;
+//        try {
+            // Récupération des données
+            List<IdentificationPatrimoinePartProjection> circulaire8 = new ArrayList<>();
+
+            // Chargement des fichiers .jrxml depuis le classpath
+            rapportStream = getClass().getResourceAsStream("/TR_Circulaire_8.jrxml");
+            subreportStream = getClass().getResourceAsStream("/TR_Identification_OPC.jrxml");
+            subreportStream2 = getClass().getResourceAsStream("/TR_Patrimoine.jrxml");
+            subreportStream3 = getClass().getResourceAsStream("/TR_Part.jrxml");
+            subreportStream4 = getClass().getResourceAsStream("/TR_Part_IV.jrxml");
+            subreportStream4_AB = getClass().getResourceAsStream("/TR_Part_IV_AB.jrxml");
+            subreportStream5 = getClass().getResourceAsStream("/TR_TableauComparatif_Detail.jrxml");
+            subreportStream6 = getClass().getResourceAsStream("/TR_IndicationChangement.jrxml");
+            subreportStream7 = getClass().getResourceAsStream("/TR_IndicationMouvement.jrxml");
+            subreportStream8 = getClass().getResourceAsStream("/TR_TableauComparatif_FinExo.jrxml");
+
+            if (rapportStream == null || subreportStream == null) {
+                throw new RuntimeException("Fichiers .jrxml introuvables dans le classpath !");
+            }
+
+            // Compiler les rapports à la volée
+            JasperReport rapportPrincipal = JasperCompileManager.compileReport(rapportStream);
+            JasperReport subreport = JasperCompileManager.compileReport(subreportStream);
+            JasperReport subreport2 = JasperCompileManager.compileReport(subreportStream2);
+            JasperReport subreport3 = JasperCompileManager.compileReport(subreportStream3);
+
+            JasperReport subreport4_AB = JasperCompileManager.compileReport(subreportStream4_AB);
+            JasperReport subreport4 = JasperCompileManager.compileReport(subreportStream4);
+            JasperReport subreport5 = JasperCompileManager.compileReport(subreportStream5);
+            JasperReport subreport6 = JasperCompileManager.compileReport(subreportStream6);
+            JasperReport subreport7 = JasperCompileManager.compileReport(subreportStream7);
+            JasperReport subreport8 = JasperCompileManager.compileReport(subreportStream8);
+
+
+            List<IdentificationPatrimoinePartProjection> identificationParimoinePartListe =
+                    libraryDao.listeIdentificationPatrimoinePart(
+                    request.getIdOpcvm(),  request.getDateDebut(),request.getDateFin(),"I. ");
+
+            List<IdentificationPatrimoinePartProjection> patrimoineListe =
+                    libraryDao.listePatrimoine(
+                    request.getIdOpcvm(),  request.getDateDebut(),request.getDateFin(),"II. ");
+
+            List<IdentificationPatrimoinePartProjection> partListe =
+                    libraryDao.listePart(
+                    request.getIdOpcvm(),  request.getDateDebut(),request.getDateFin(),"III. ");
+
+            List<IdentificationPatrimoinePartProjection> part4Liste =
+                    libraryDao.listePart4(
+                    request.getIdOpcvm(),  request.getDateDebut(),request.getDateFin());
+
+            List<IdentificationPatrimoinePartProjection> part4ABListe =
+                    libraryDao.listePart4_AB(
+                    request.getIdOpcvm(),  request.getDateDebut(),request.getDateFin());
+            System.out.println("size="+part4ABListe.size());
+            List<ComparaisonVlProjection> comparaisonVlListe =
+                    libraryDao.comparaisonVL(
+                    request.getIdOpcvm(), request.getDateFin());
+
+            List<IndicationChangementProjection> indicationChangementListe =
+                    libraryDao.listeIndicationChangement(
+                    request.getIdOpcvm(),request.getDateDebut(), request.getDateFin());
+
+            List<IndicationMouvementProjection> indicationMouvementListe =
+                    libraryDao.listeIndicationMouvement(
+                    request.getIdOpcvm(),request.getDateDebut(), request.getDateFin());
+
+            List<ValeurInventaireProjection> valeurInventaireListe =
+                    libraryDao.valeurInventaire(
+                    request.getIdOpcvm(),request.getDateFin().getYear());
+
+
+            // Préparation des paramètres
+            Map<String, Object> parameters = new HashMap<>();
+//            BigDecimal soldeEspece = portefeuille.get(0).getSoldeEspece();
+            DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
+            String letterDate = dateFormatter.format(new Date());
+            OpcvmDto opcvm = opcvmMapper.deOpcvm(opcvmDao.findById(request.getIdOpcvm()).orElseThrow());
+            String titre = genererTitreRapport(request.getDateDebut(),request.getDateFin(),opcvm.getDenominationOpcvm());
+            parameters.put("letterDate", letterDate);
+            parameters.put("titre", titre);
+//
+            parameters.put("ALL_LIGNES_1", new JRBeanCollectionDataSource(identificationParimoinePartListe));
+            parameters.put("SUBREPORT_REF_1", subreport);
+
+            parameters.put("ALL_LIGNES_2", new JRBeanCollectionDataSource(patrimoineListe));
+            parameters.put("SUBREPORT_REF_2", subreport2);
+
+            parameters.put("ALL_LIGNES_3", new JRBeanCollectionDataSource(partListe));
+            parameters.put("SUBREPORT_REF_3", subreport3);
+
+            parameters.put("ALL_LIGNES_4", new JRBeanCollectionDataSource(part4Liste));
+            parameters.put("SUBREPORT_REF_4", subreport4);
+
+            parameters.put("ALL_LIGNES_4AB", new JRBeanCollectionDataSource(part4ABListe));
+            parameters.put("SUBREPORT_REF_4AB", subreport4_AB);
+
+
+            parameters.put("ALL_LIGNES_5", new JRBeanCollectionDataSource(comparaisonVlListe));
+            parameters.put("SUBREPORT_REF_5", subreport5);
+
+            parameters.put("ALL_LIGNES_6", new JRBeanCollectionDataSource(indicationChangementListe));
+            parameters.put("SUBREPORT_REF_6", subreport6);
+
+            parameters.put("ALL_LIGNES_7", new JRBeanCollectionDataSource(indicationMouvementListe));
+            parameters.put("SUBREPORT_REF_7", subreport7);
+
+            parameters.put("ALL_LIGNES_8", new JRBeanCollectionDataSource(valeurInventaireListe));
+            parameters.put("SUBREPORT_REF_8", subreport8);
+
+
+            // Remplissage du rapport
+            JasperPrint print = JasperFillManager.fillReport(
+                    rapportPrincipal,
+                    parameters,
+                    new JRBeanCollectionDataSource(circulaire8)
+            );
+            JasperExportManager.exportReportToPdfStream(print, response.getOutputStream());
+            return ResponseHandler.generateResponse(
+                    "Circulaire8",
+                    HttpStatus.OK,
+                    circulaire8);
+
 
 
     }

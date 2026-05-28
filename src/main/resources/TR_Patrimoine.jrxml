@@ -1,0 +1,168 @@
+<!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 7.0.1-573496633c2b4074e32f433154b543003f7d2498  -->
+<jasperReport name="TR_Patrimoine" language="java" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b4f79a9a-4332-4333-92e5-1ee1d9ef0a24">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="db_opcciel_data_adapter"/>
+<!--	<query language="SQL"><![CDATA[select * from [Circulaire8].[FT_Identification_Patrimoine_Part_New](9,'01/04/2022','30/06/2022')-->
+<!--where titre ='II. ' -->
+<!--order by titre asc,numero asc,libelle_petit_numero asc,type asc]]></query>-->
+	<field name="titre" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="titre"/>
+		<property name="com.jaspersoft.studio.field.label" value="titre"/>
+	</field>
+	<field name="libelleTitre" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="libelleTitre"/>
+		<property name="com.jaspersoft.studio.field.label" value="libelleTitre"/>
+	</field>
+	<field name="numero" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="numero"/>
+		<property name="com.jaspersoft.studio.field.label" value="numero"/>
+	</field>
+	<field name="libelle_numero" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="libelle_numero"/>
+		<property name="com.jaspersoft.studio.field.label" value="libelle_numero"/>
+	</field>
+	<field name="petit_Numero" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="petit_Numero"/>
+		<property name="com.jaspersoft.studio.field.label" value="petit_Numero"/>
+	</field>
+	<field name="libelle_Petit_numero" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="libelle_Petit_numero"/>
+		<property name="com.jaspersoft.studio.field.label" value="libelle_Petit_numero"/>
+	</field>
+	<field name="type" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="type"/>
+		<property name="com.jaspersoft.studio.field.label" value="type"/>
+	</field>
+	<field name="valeur" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="valeur"/>
+		<property name="com.jaspersoft.studio.field.label" value="valeur"/>
+	</field>
+	<field name="nombre" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="nombre"/>
+		<property name="com.jaspersoft.studio.field.label" value="nombre"/>
+	</field>
+	<variable name="nombre1" resetType="Group" calculation="Sum" resetGroup="Group3" class="java.math.BigDecimal">
+		<expression><![CDATA[$F{nombre}]]></expression>
+	</variable>
+	<variable name="nombre2" resetType="Group" calculation="Sum" resetGroup="Group2" class="java.math.BigDecimal">
+		<expression><![CDATA[$F{nombre}]]></expression>
+	</variable>
+	<group name="Group1">
+		<expression><![CDATA[$F{titre}]]></expression>
+		<groupHeader>
+			<band height="11">
+				<element kind="rectangle" uuid="e693b7e4-5d7e-4a85-8fb0-9a4fd91f96f3" x="3" y="-14" width="767" height="25" backcolor="#FFFFFF">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="textField" uuid="64f3f6a0-32ce-458d-bb92-55bcffed4517" x="8" y="-10" width="72" height="20">
+					<expression><![CDATA[$F{titre}]]></expression>
+				</element>
+				<element kind="textField" uuid="94499f93-9de6-45cb-8aac-5b0f9cabb0fa" x="80" y="-10" width="480" height="20">
+					<expression><![CDATA[$F{libelleTitre}]]></expression>
+				</element>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band/>
+		</groupFooter>
+	</group>
+	<group name="Group2">
+		<expression><![CDATA[$F{libelle_Petit_numero}]]></expression>
+		<groupHeader>
+			<band height="53">
+				<element kind="rectangle" uuid="c2e1ae71-8c04-49ca-b85f-780e6add3174" stretchType="ContainerHeight" x="3" y="2" width="767" height="25" backcolor="#FFFFFF">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="textField" uuid="9ae8a6cc-d512-4900-9cee-cbe01be6c383" x="10" y="4" width="760" height="20" textAdjust="StretchHeight" bold="true" hTextAlign="Center">
+					<expression><![CDATA[$F{numero}+" "+UPPER($F{libelle_Petit_numero})]]></expression>
+				</element>
+				<element kind="rectangle" uuid="cc514bbf-d243-4936-bdf2-71fb72e2f6c3" stretchType="ContainerHeight" x="3" y="28" width="767" height="25" backcolor="#FFFFFF">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="line" uuid="378c2cb8-614d-4cb3-925e-598bbf0d0282" x="380" y="28" width="1" height="25"/>
+				<element kind="staticText" uuid="2e3a2817-ca11-4e62-a1cb-a8c55a95c7e1" x="10" y="30" width="361" height="20" hTextAlign="Center">
+					<text><![CDATA[Désignation]]></text>
+				</element>
+				<element kind="staticText" uuid="3333e876-9d09-4dd6-bba0-a8b07bbeda1d" x="390" y="30" width="380" height="20" hTextAlign="Center">
+					<text><![CDATA[VALEUR]]></text>
+				</element>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="26">
+				<element kind="rectangle" uuid="b13882da-15eb-40c7-9cb7-04ac35bfaa50" stretchType="ContainerHeight" x="3" y="1" width="767" height="25" backcolor="#FFFFFF">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="line" uuid="e813b828-3c8e-4159-a73f-2dbd103ac469" stretchType="ContainerHeight" x="380" y="1" width="1" height="25"/>
+				<element kind="staticText" uuid="2a66a9a6-94ec-40ac-9da3-e6bd2cf8b872" x="8" y="3" width="361" height="20" bold="true" hTextAlign="Left">
+					<text><![CDATA[TOTAL]]></text>
+				</element>
+				<element kind="textField" uuid="335d5539-1a38-4274-8e4a-1e0f91c0b2bb" x="390" y="3" width="380" height="20" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+                    <expression><![CDATA[OR(EQUALS($F{libelle_numero} ,"PORTEFEUILLE TITRE") , EQUALS( $F{libelle_numero},"PLACEMENTS MONETAIRES ET DISPONIBILITES"), EQUALS($F{libelle_numero} ,"CREANCES D'EXPLOITATION"), EQUALS($F{libelle_numero} ,"AUTRES ACTIFS"))?0:$V{nombre2} == null ? "" :
+                    new java.text.DecimalFormat("#,##0;-,##0",
+                        java.text.DecimalFormatSymbols.getInstance(java.util.Locale.FRANCE))
+                        .format(OR(EQUALS($F{libelle_numero} ,"PORTEFEUILLE TITRE") , EQUALS( $F{libelle_numero},"PLACEMENTS MONETAIRES ET DISPONIBILITES"), EQUALS($F{libelle_numero} ,"CREANCES D'EXPLOITATION"), EQUALS($F{libelle_numero} ,"AUTRES ACTIFS"))?0:$V{nombre2})
+                        .replace('\u202F', ' ')
+                ]]></expression>
+<!--                    <expression><![CDATA[OR(EQUALS($F{libelle_numero} ,"PORTEFEUILLE TITRE") , EQUALS( $F{libelle_numero},"PLACEMENTS MONETAIRES ET DISPONIBILITES"), EQUALS($F{libelle_numero} ,"CREANCES D'EXPLOITATION"), EQUALS($F{libelle_numero} ,"AUTRES ACTIFS"))?0:$V{nombre2}]]></expression>-->
+				</element>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="Group3">
+		<expression><![CDATA[$F{type}]]></expression>
+		<groupHeader>
+			<band height="26">
+				<element kind="rectangle" uuid="166070ee-b79a-48a4-aaa7-bf8194d30b3b" stretchType="ContainerHeight" x="3" y="1" width="767" height="25" backcolor="#FFFFFF">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="line" uuid="30e54d45-b736-4d83-bc10-fff563610008" stretchType="ContainerHeight" x="380" y="1" width="1" height="25"/>
+				<element kind="textField" uuid="0f458393-32b5-4611-a15c-69c8631a65ae" x="8" y="6" width="363" height="15" textAdjust="StretchHeight" bold="true" hTextAlign="Center">
+					<expression><![CDATA[$F{type}]]></expression>
+				</element>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="26">
+				<element kind="rectangle" uuid="78c4a4ad-1519-49e5-a560-adc6cd99f557" stretchType="ContainerHeight" x="3" y="1" width="767" height="25" backcolor="#FFFFFF">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="line" uuid="b5e5293e-6e67-4484-b541-5d3e606abe23" stretchType="ContainerHeight" x="380" y="1" width="1" height="25"/>
+				<element kind="textField" uuid="0aa2ca68-0014-4606-bc23-52dd14ba054f" x="8" y="6" width="363" height="15" textAdjust="StretchHeight" bold="true">
+					<expression><![CDATA["TOTAL "+$F{type}]]></expression>
+				</element>
+				<element kind="textField" uuid="f9bdf370-a8fe-451e-b394-d62ab75658c7" x="390" y="6" width="380" height="15" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+                    <expression><![CDATA[OR(EQUALS($F{libelle_numero}, "PORTEFEUILLE TITRE" ), EQUALS( $F{libelle_numero}, "PLACEMENTS MONETAIRES ET DISPONIBILITES"), EQUALS($F{libelle_numero}, "CREANCES D'EXPLOITATION" ) ,EQUALS($F{libelle_numero} ,"AUTRES ACTIFS"))?0:$V{nombre1} == null ? "" :
+                    new java.text.DecimalFormat("#,##0;-,##0",
+                        java.text.DecimalFormatSymbols.getInstance(java.util.Locale.FRANCE))
+                        .format(OR(EQUALS($F{libelle_numero}, "PORTEFEUILLE TITRE" ), EQUALS( $F{libelle_numero}, "PLACEMENTS MONETAIRES ET DISPONIBILITES"), EQUALS($F{libelle_numero}, "CREANCES D'EXPLOITATION" ) ,EQUALS($F{libelle_numero} ,"AUTRES ACTIFS"))?0:$V{nombre1})
+                        .replace('\u202F', ' ')
+                ]]></expression>
+<!--                    <expression><![CDATA[ OR(EQUALS($F{libelle_numero}, "PORTEFEUILLE TITRE" ), EQUALS( $F{libelle_numero}, "PLACEMENTS MONETAIRES ET DISPONIBILITES"), EQUALS($F{libelle_numero}, "CREANCES D'EXPLOITATION" ) ,EQUALS($F{libelle_numero} ,"AUTRES ACTIFS"))?0:$V{nombre1}]]></expression>-->
+				</element>
+			</band>
+		</groupFooter>
+	</group>
+	<background splitType="Stretch"/>
+	<title height="19" splitType="Stretch"/>
+	<pageHeader splitType="Stretch"/>
+	<columnHeader splitType="Stretch"/>
+	<detail>
+		<band height="26" splitType="Stretch">
+			<element kind="rectangle" uuid="bc1f11ca-c55e-4597-9b6c-b0c5bd29b379" stretchType="ContainerHeight" x="3" y="1" width="767" height="25" backcolor="#FFFFFF">
+				<pen lineColor="#3B88D1"/>
+			</element>
+			<element kind="line" uuid="c49a67fc-644a-40ec-9963-c7e48dfd4f1d" stretchType="ContainerHeight" x="380" y="1" width="1" height="25"/>
+			<element kind="textField" uuid="afa593f2-fb07-4180-a5e4-d5141918d6c5" x="8" y="6" width="363" height="15" textAdjust="StretchHeight" hTextAlign="Center">
+				<expression><![CDATA[$F{libelle_numero}.replaceAll("<[^>]*>", "")
+    .trim()]]></expression>
+			</element>
+			<element kind="textField" uuid="0a527fb8-d1fe-4bec-9404-2a2a40e400ae" x="390" y="6" width="380" height="15" blankWhenNull="true">
+				<expression><![CDATA[$F{valeur}]]></expression>
+			</element>
+		</band>
+	</detail>
+	<columnFooter splitType="Stretch"/>
+	<pageFooter splitType="Stretch"/>
+	<summary height="42" splitType="Stretch"/>
+</jasperReport>

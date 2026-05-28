@@ -1,16 +1,5 @@
 <!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 7.0.1-573496633c2b4074e32f433154b543003f7d2498  -->
 <jasperReport name="fiche_KYC" language="java" columnCount="1" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="5c7179f7-37c9-44d4-a38f-cbf2633fcf3a">
-<!--	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>-->
-<!--	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DB_OPCCIEL_ADAPTER"/>-->
-<!--	<property name="com.jaspersoft.studio.unit." value="pixel"/>-->
-<!--	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>-->
-<!--	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>-->
-<!--	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>-->
-<!--	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>-->
-<!--	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>-->
-<!--	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>-->
-<!--	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>-->
-<!--	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>-->
 	<parameter name="letterDate" class="java.lang.String"/>
 	<field name="autresRevenus" class="java.lang.Double">
 		<property name="com.jaspersoft.studio.field.name" value="autresRevenus"/>
@@ -537,5 +526,5 @@
 			<expression><![CDATA[$V{PAGE_NUMBER}]]></expression>
 		</element>
 	</pageFooter>
-	<summary height="35" splitType="Stretch"/>
+	<summary splitType="Stretch"/>
 </jasperReport>

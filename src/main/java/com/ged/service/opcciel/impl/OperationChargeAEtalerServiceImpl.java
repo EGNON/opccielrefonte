@@ -728,206 +728,300 @@ public String calculerExpressionTraitee(String expression) {
 }
 */
 
-    public String calculerExpressionTraitee(String expression) {
+//    public String calculerExpressionTraitee(String expression) {
+//        expression = expression.replace("+-", "-");
+//        expression = expression.replace("--", "+");
+//        expression = expression.replace("++", "+");
+//        expression = expression.replace("-+", "-");
+//
+//        int i = 0;
+//        boolean isDecimalPart = false;
+//        char car;
+//        BigDecimal nbreEnTempon = BigDecimal.ZERO;
+//        BigDecimal ct = BigDecimal.ONE;
+//        char opTp = '\0';
+//        String expresPriorite = "";
+//        int nbParantPrio = 0;
+//        BigDecimal retour = BigDecimal.ZERO;
+//        String chaineRetour = "";
+//
+//        try {
+//
+//            // Gestion des valeurs signées
+//            if (expression.startsWith("-")) {
+//                expression = "0" + expression;
+//            }
+//
+//            // Ajout caractère fin
+////            expression = expression.trim() + ".";
+//            expression = expression.trim() + "#";
+//            for (i = 0; i < expression.length(); i++) {
+//
+//                car = Character.toLowerCase(expression.charAt(i));
+//
+//                // Si chiffre
+//                if (Character.isDigit(car)) {
+//
+//                    if (!isDecimalPart) {
+//                        nbreEnTempon = nbreEnTempon
+//                                .multiply(BigDecimal.TEN)
+//                                .add(BigDecimal.valueOf(Character.getNumericValue(car)));
+//                    } else {
+//                        if (ct.compareTo(new BigDecimal("100000000000000")) < 0) {
+//                            ct = ct.multiply(BigDecimal.TEN);
+//                            nbreEnTempon = nbreEnTempon.add(
+//                                    BigDecimal.valueOf(Character.getNumericValue(car))
+//                                            .divide(ct, 30, RoundingMode.HALF_UP)
+//                            );
+//                        }
+//                    }
+//                }
+//
+//                // Virgule décimale
+//                if (car == ',' || car == '.') {
+//                    isDecimalPart = true;
+//                }
+//
+//                // Opérateurs
+//                if (car == '/' || car == '*' || car == '+' || car == '-') {
+//
+//                    isDecimalPart = false;
+//
+//                    switch (opTp) {
+//
+//                        case '/':
+//                            if (nbreEnTempon.compareTo(BigDecimal.ZERO) != 0) {
+////                                retour = retour.divide(nbreEnTempon, 30, RoundingMode.HALF_UP);
+//                                retour = retour.divide(nbreEnTempon, MathContext.DECIMAL128);
+//                            } else {
+//                                return "#Erreur: Division par zéro#";
+//                            }
+//                            break;
+//
+//                        case '*':
+//                            retour = retour.multiply(nbreEnTempon);
+//                            break;
+//
+//                        case '+':
+//                        case '-':
+//                            if (car == '/' || car == '*') {
+//
+//                                expresPriorite = nbreEnTempon.toString() + car;
+//                                int j = i;
+//                                nbParantPrio = 0;
+//
+////                                do {
+////                                    j++;
+////                                    char current = expression.charAt(j);
+////                                    if (current == '(') nbParantPrio++;
+////                                    if (current == ')') nbParantPrio--;
+////                                    expresPriorite += current;
+////
+////                                } while (j < expression.length() - 2 &&
+////                                        !((expression.charAt(j) == '+' || expression.charAt(j) == '-') && nbParantPrio == 0));
+//                                do {
+//                                    j++;
+//                                    char current = expression.charAt(j);
+//
+//                                    if (current == '(') nbParantPrio++;
+//                                    if (current == ')') nbParantPrio--;
+//
+//                                    if (!((current == '+' || current == '-') && nbParantPrio == 0)) {
+//                                        expresPriorite += current;
+//                                    }
+//
+//                                } while (j < expression.length() - 2 &&
+//                                        !((expression.charAt(j) == '+' || expression.charAt(j) == '-') && nbParantPrio == 0));
+//
+//                                BigDecimal val = new BigDecimal(
+//                                        calculerExpressionTraitee(expresPriorite)
+//                                );
+//
+//                                retour = (opTp == '+') ? retour.add(val) : retour.subtract(val);
+//                                i = j;
+//                                expresPriorite = "";
+//
+//                            } else if (opTp == '+') {
+//                                retour = retour.add(nbreEnTempon);
+//                            } else {
+//                                retour = retour.subtract(nbreEnTempon);
+//                            }
+//                            break;
+//
+//                        default:
+//                            retour = nbreEnTempon;
+//                            break;
+//                    }
+//
+//                    opTp = car;
+//                    nbreEnTempon = BigDecimal.ZERO;
+//                    ct = BigDecimal.ONE;
+//                    isDecimalPart = false;
+//                }
+//
+//                // Parenthèses
+//                if (car == '(') {
+//
+//                    int nbreParant = 1;
+//                    int j = i;
+//                    expresPriorite = "";
+//
+//                    do {
+//                        j++;
+//                        char current = expression.charAt(j);
+//
+//                        if (!(current == ')' && nbreParant == 1)) {
+//                            expresPriorite += current;
+//                        }
+//
+//                        if (current == '(') nbreParant++;
+//                        if (current == ')') nbreParant--;
+//
+//                    } while (j < expression.length() - 2 && nbreParant != 0);
+//
+//                    nbreEnTempon = new BigDecimal(
+//                            calculerExpressionTraitee(expresPriorite)
+//                    );
+//
+//                    i = j;
+//                    expresPriorite = "";
+//                }
+//
+//                // Fin expression
+////                if (car == '.') {
+//                if (car == '#') {
+//
+//                    switch (opTp) {
+//
+//                        case '/':
+//                            if (nbreEnTempon.compareTo(BigDecimal.ZERO) != 0) {
+//                                retour = retour.divide(nbreEnTempon, 30, RoundingMode.HALF_UP);
+//                            } else {
+//                                return "#Erreur: Division par zéro#";
+//                            }
+//                            break;
+//
+//                        case '*':
+//                            retour = retour.multiply(nbreEnTempon);
+//                            break;
+//
+//                        case '+':
+//                            retour = retour.add(nbreEnTempon);
+//                            break;
+//
+//                        case '-':
+//                            retour = retour.subtract(nbreEnTempon);
+//                            break;
+//
+//                        case '\0':
+//                            retour = nbreEnTempon;
+//                            break;
+//                    }
+//                }
+//            }
+//
+////            chaineRetour = retour.stripTrailingZeros().toPlainString();
+//            chaineRetour = retour.toPlainString();
+//
+//        } catch (Exception e) {
+//            return "#Erreur: Exception Interne#";
+//        }
+//
+//        return chaineRetour;
+//    }
 
-        int i = 0;
-        boolean isDecimalPart = false;
-        char car;
-        BigDecimal nbreEnTempon = BigDecimal.ZERO;
-        BigDecimal ct = BigDecimal.ONE;
-        char opTp = '\0';
-        String expresPriorite = "";
-        int nbParantPrio = 0;
-        BigDecimal retour = BigDecimal.ZERO;
-        String chaineRetour = "";
 
-        try {
+private static String calculerExpressionTraitee(String expression) {
 
-            // Gestion des valeurs signées
-            if (expression.startsWith("-")) {
-                expression = "0" + expression;
-            }
+    expression = expression.replace("+-", "-");
+    expression = expression.replace("--", "+");
+    expression = expression.replace("++", "+");
+    expression = expression.replace("-+", "-");
 
-            // Ajout caractère fin
-//            expression = expression.trim() + ".";
-            expression = expression.trim() + "#";
-            for (i = 0; i < expression.length(); i++) {
+    StringBuilder currentNumber = new StringBuilder();
 
-                car = Character.toLowerCase(expression.charAt(i));
+    BigDecimal retour = BigDecimal.ZERO;
+    char operateurCourant = '+';
 
-                // Si chiffre
-                if (Character.isDigit(car)) {
+    for (int i = 0; i < expression.length(); i++) {
 
-                    if (!isDecimalPart) {
-                        nbreEnTempon = nbreEnTempon
-                                .multiply(BigDecimal.TEN)
-                                .add(BigDecimal.valueOf(Character.getNumericValue(car)));
-                    } else {
-                        if (ct.compareTo(new BigDecimal("100000000000000")) < 0) {
-                            ct = ct.multiply(BigDecimal.TEN);
-                            nbreEnTempon = nbreEnTempon.add(
-                                    BigDecimal.valueOf(Character.getNumericValue(car))
-                                            .divide(ct, 15, RoundingMode.HALF_UP)
-                            );
-                        }
-                    }
-                }
+        char car = expression.charAt(i);
 
-                // Virgule décimale
-                if (car == ',' || car == '.') {
-                    isDecimalPart = true;
-                }
+        // Construction du nombre
+        if (Character.isDigit(car) || car == '.' || car == ',') {
 
-                // Opérateurs
-                if (car == '/' || car == '*' || car == '+' || car == '-') {
-
-                    isDecimalPart = false;
-
-                    switch (opTp) {
-
-                        case '/':
-                            if (nbreEnTempon.compareTo(BigDecimal.ZERO) != 0) {
-                                retour = retour.divide(nbreEnTempon, 15, RoundingMode.HALF_UP);
-                            } else {
-                                return "#Erreur: Division par zéro#";
-                            }
-                            break;
-
-                        case '*':
-                            retour = retour.multiply(nbreEnTempon);
-                            break;
-
-                        case '+':
-                        case '-':
-                            if (car == '/' || car == '*') {
-
-                                expresPriorite = nbreEnTempon.toString() + car;
-                                int j = i;
-                                nbParantPrio = 0;
-
-                                do {
-                                    j++;
-                                    char current = expression.charAt(j);
-                                    if (current == '(') nbParantPrio++;
-                                    if (current == ')') nbParantPrio--;
-                                    expresPriorite += current;
-
-                                } while (j < expression.length() - 2 &&
-                                        !((expression.charAt(j) == '+' || expression.charAt(j) == '-') && nbParantPrio == 0));
-
-                                BigDecimal val = new BigDecimal(
-                                        calculerExpressionTraitee(expresPriorite)
-                                );
-
-                                retour = (opTp == '+') ? retour.add(val) : retour.subtract(val);
-                                i = j;
-                                expresPriorite = "";
-
-                            } else if (opTp == '+') {
-                                retour = retour.add(nbreEnTempon);
-                            } else {
-                                retour = retour.subtract(nbreEnTempon);
-                            }
-                            break;
-
-                        default:
-                            retour = nbreEnTempon;
-                            break;
-                    }
-
-                    opTp = car;
-                    nbreEnTempon = BigDecimal.ZERO;
-                    ct = BigDecimal.ONE;
-                    isDecimalPart = false;
-                }
-
-                // Parenthèses
-                if (car == '(') {
-
-                    int nbreParant = 1;
-                    int j = i;
-                    expresPriorite = "";
-
-                    do {
-                        j++;
-                        char current = expression.charAt(j);
-
-                        if (!(current == ')' && nbreParant == 1)) {
-                            expresPriorite += current;
-                        }
-
-                        if (current == '(') nbreParant++;
-                        if (current == ')') nbreParant--;
-
-                    } while (j < expression.length() - 2 && nbreParant != 0);
-
-                    nbreEnTempon = new BigDecimal(
-                            calculerExpressionTraitee(expresPriorite)
-                    );
-
-                    i = j;
-                    expresPriorite = "";
-                }
-
-                // Fin expression
-//                if (car == '.') {
-                if (car == '#') {
-
-                    switch (opTp) {
-
-                        case '/':
-                            if (nbreEnTempon.compareTo(BigDecimal.ZERO) != 0) {
-                                retour = retour.divide(nbreEnTempon, 15, RoundingMode.HALF_UP);
-                            } else {
-                                return "#Erreur: Division par zéro#";
-                            }
-                            break;
-
-                        case '*':
-                            retour = retour.multiply(nbreEnTempon);
-                            break;
-
-                        case '+':
-                            retour = retour.add(nbreEnTempon);
-                            break;
-
-                        case '-':
-                            retour = retour.subtract(nbreEnTempon);
-                            break;
-
-                        case '\0':
-                            retour = nbreEnTempon;
-                            break;
-                    }
-                }
-            }
-
-            chaineRetour = retour.stripTrailingZeros().toPlainString();
-
-        } catch (Exception e) {
-            return "#Erreur: Exception Interne#";
+            currentNumber.append(car == ',' ? '.' : car);
         }
 
-        return chaineRetour;
+        // Opérateur rencontré OU fin de chaîne
+        if ((!Character.isDigit(car) && car != '.' && car != ',')
+                || i == expression.length() - 1) {
+
+            // Dernier caractère numérique
+            if (i == expression.length() - 1
+                    && (Character.isDigit(car) || car == '.' || car == ',')) {
+
+                currentNumber.append(car == ',' ? '.' : car);
+            }
+
+            if (currentNumber.length() > 0) {
+
+                BigDecimal nombre =
+                        new BigDecimal(currentNumber.toString(), MathContext.DECIMAL128);
+
+                switch (operateurCourant) {
+
+                    case '+':
+                        retour = retour.add(nombre, MathContext.DECIMAL128);
+                        break;
+
+                    case '-':
+                        retour = retour.subtract(nombre, MathContext.DECIMAL128);
+                        break;
+
+                    case '*':
+                        retour = retour.multiply(nombre, MathContext.DECIMAL128);
+                        break;
+
+                    case '/':
+                        retour = retour.divide(nombre, MathContext.DECIMAL128);
+                        break;
+                }
+
+                currentNumber.setLength(0);
+            }
+
+            if (car == '+' || car == '-' || car == '*' || car == '/') {
+                operateurCourant = car;
+            }
+        }
     }
+
+    return retour.toPlainString();
+}
     public String calculer(String expression,
                            String codePlan,
                            LocalDateTime dateEvalution,
                            Long idOpcvm) {
 
         String test = interpreter(expression, codePlan, dateEvalution, idOpcvm);
-
+        System.out.println("INTERPRETER JAVA = " + test);
         try {
             if (!test.contains("#Erreur#")) {
-
+                test = test.replace("+-", "-");
+                test = test.replace("--", "+");
+                test = test.replace("++", "+");
+                test = test.replace("-+", "-");
                 test = calculerExpressionTraitee(test.trim());
 
                 if (test.contains("Erreur")) {
                     test = "0";
                 }
 
-                test = new BigDecimal(test)
-                        .setScale(4, RoundingMode.HALF_UP)
+//                test = new BigDecimal(test)
+//                        .setScale(4, RoundingMode.HALF_UP)
+//                        .toPlainString();
+                test = new BigDecimal(test, MathContext.DECIMAL128)
                         .toPlainString();
             }
         } catch (Exception e) {

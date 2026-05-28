@@ -1,64 +1,38 @@
-<!-- Author: Romaric B. TOHOUNKPIN -->
 <!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 7.0.1-573496633c2b4074e32f433154b543003f7d2498  -->
 <jasperReport name="avis_souscription" language="java" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" whenResourceMissingType="Empty" uuid="a4efa5d1-664a-46a5-b7ec-76d3cc34548c">
 	<parameter name="letterDate" class="java.lang.String"/>
-	<field name="idOperation" class="java.lang.Long">
-	</field>
-	<field name="idActionnaire" class="java.lang.Long">
-	</field>
-	<field name="numCompteSgi" class="java.lang.String">
-	</field>
-	<field name="nomSigle" class="java.lang.String">
-	</field>
-	<field name="prenomRaison" class="java.lang.String">
-	</field>
-	<field name="intitule" class="java.lang.String">
-	</field>
-	<field name="mail" class="java.lang.String">
-	</field>
-	<field name="phone" class="java.lang.String">
-	</field>
-	<field name="idOpcvm" class="java.lang.Long">
-	</field>
-	<field name="denominationOpcvm" class="java.lang.String">
-	</field>
-	<field name="idPersonne" class="java.lang.Long">
-	</field>
-	<field name="codeNatureOperation" class="java.lang.String">
-	</field>
-	<field name="dateOperation" class="java.time.LocalDateTime">
-	</field>
-	<field name="dateValeur" class="java.time.LocalDateTime">
-	</field>
-	<field name="montantSousALiquider" class="java.math.BigDecimal">
-	</field>
-	<field name="sousRachatPart" class="java.math.BigDecimal">
-	</field>
-	<field name="commisiionSousRachat" class="java.math.BigDecimal">
-	</field>
-	<field name="tafcommissionSousRachat" class="java.math.BigDecimal">
-	</field>
-	<field name="retrocessionSousRachat" class="java.math.BigDecimal">
-	</field>
-	<field name="commissionSousRachatRetrocedee" class="java.math.BigDecimal">
-	</field>
-	<field name="modeValeurLiquidative" class="java.lang.String">
-	</field>
-	<field name="coursVL" class="java.math.BigDecimal">
-	</field>
-	<field name="nombrePartSousRachat" class="java.math.BigDecimal">
-	</field>
-	<field name="montantDepose" class="java.math.BigDecimal">
-	</field>
+	<field name="idOperation" class="java.lang.Long"/>
+	<field name="idActionnaire" class="java.lang.Long"/>
+	<field name="numCompteSgi" class="java.lang.String"/>
+	<field name="nomSigle" class="java.lang.String"/>
+	<field name="prenomRaison" class="java.lang.String"/>
+	<field name="intitule" class="java.lang.String"/>
+	<field name="mail" class="java.lang.String"/>
+	<field name="phone" class="java.lang.String"/>
+	<field name="idOpcvm" class="java.lang.Long"/>
+	<field name="denominationOpcvm" class="java.lang.String"/>
+	<field name="idPersonne" class="java.lang.Long"/>
+	<field name="codeNatureOperation" class="java.lang.String"/>
+	<field name="dateOperation" class="java.time.LocalDateTime"/>
+	<field name="dateValeur" class="java.time.LocalDateTime"/>
+	<field name="montantSousALiquider" class="java.math.BigDecimal"/>
+	<field name="sousRachatPart" class="java.math.BigDecimal"/>
+	<field name="commisiionSousRachat" class="java.math.BigDecimal"/>
+	<field name="tafcommissionSousRachat" class="java.math.BigDecimal"/>
+	<field name="retrocessionSousRachat" class="java.math.BigDecimal"/>
+	<field name="commissionSousRachatRetrocedee" class="java.math.BigDecimal"/>
+	<field name="modeValeurLiquidative" class="java.lang.String"/>
+	<field name="coursVL" class="java.math.BigDecimal"/>
+	<field name="nombrePartSousRachat" class="java.math.BigDecimal"/>
+	<field name="montantDepose" class="java.math.BigDecimal"/>
 	<group name="codeNatureOparation" keepTogether="true">
 		<expression><![CDATA[$F{codeNatureOperation} + $F{idOperation}]]></expression>
 		<groupHeader>
-			<band height="269">
-				<element kind="frame" uuid="14167dda-5cb1-44c7-acd0-d62828e6a6c9" x="0" y="41" width="555" height="139">
+			<band height="314">
+				<element kind="frame" uuid="14167dda-5cb1-44c7-acd0-d62828e6a6c9" x="0" y="86" width="555" height="139">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
-					<element kind="textField" uuid="f1e21e87-ce8c-4e1c-9cab-bdeaa68f9984" x="0" y="-36" width="227" height="15" fontName="Times New Roman" fontSize="12.0" vTextAlign="Middle">
-						<expression><![CDATA["Cotonou, le " + $P{letterDate}]]></expression>
-<!--						<patternExpression><![CDATA["EEEE, dd MMMM yyyy"]]></patternExpression>-->
+					<element kind="textField" uuid="f1e21e87-ce8c-4e1c-9cab-bdeaa68f9984" x="482" y="41" width="38" height="15" fontName="Times New Roman" fontSize="12.0" vTextAlign="Middle">
+						<expression><![CDATA[" "]]></expression>
 						<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					</element>
 					<element kind="textField" uuid="d45f05db-aa41-4949-9ad3-cb63405c7802" mode="Opaque" x="0" y="0" width="555" height="30" backcolor="#BDD7EE" fontName="Times New Roman" fontSize="13.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
@@ -111,7 +85,7 @@
 						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					</box>
 				</element>
-				<element kind="frame" uuid="87de0e45-7911-41d5-aa37-090043dcedea" x="0" y="181" width="555" height="88">
+				<element kind="frame" uuid="87de0e45-7911-41d5-aa37-090043dcedea" x="0" y="226" width="555" height="88">
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<element kind="frame" uuid="f6d81e0d-a019-4bfa-91c7-548a3f7c2089" x="0" y="8" width="555" height="50">
@@ -241,12 +215,15 @@
 						</box>
 					</element>
 				</element>
+				<element kind="image" uuid="d771e9c2-e0a7-4f2a-b88a-8072b8789e7c" x="3" y="4" width="545" height="74" scaleImage="FillFrame">
+					<expression><![CDATA["C:/OPCCIEL2/Resources/logo_(2).jpg"]]></expression>
+				</element>
 				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			</band>
 		</groupHeader>
 		<groupFooter>
-			<band height="345">
-				<element kind="frame" uuid="eb5f4733-fddb-45dc-bb32-d2ac9050216c" x="0" y="0" width="555" height="317">
+			<band height="311">
+				<element kind="frame" uuid="eb5f4733-fddb-45dc-bb32-d2ac9050216c" x="0" y="0" width="555" height="271">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<element kind="textField" uuid="3c12a812-cc29-44b5-a843-42d68e04870e" x="0" y="20" width="444" height="20" fontName="Times New Roman" fontSize="12.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
 						<expression><![CDATA["LIBELLE"]]></expression>
@@ -269,17 +246,17 @@
 							<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 						</box>
 					</element>
-					<element kind="frame" uuid="210c35de-a3a7-4fcc-8554-6f7ccfcdc321" x="0" y="40" width="444" height="130">
+					<element kind="frame" uuid="210c35de-a3a7-4fcc-8554-6f7ccfcdc321" x="0" y="40" width="444" height="110">
 						<element kind="textField" uuid="f56d87c5-357b-42a0-94a3-e35585e0461d" x="172" y="12" width="100" height="20" fontName="Times New Roman" fontSize="10.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
 							<expression><![CDATA["MONTANT BRUT"]]></expression>
 							<property name="com.jaspersoft.studio.unit.height" value="px"/>
 						</element>
-						<element kind="textField" uuid="a7657570-fddb-4fa9-8efb-f69d67d671cf" x="172" y="53" width="100" height="20" fontName="Times New Roman" fontSize="10.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+						<element kind="textField" uuid="a7657570-fddb-4fa9-8efb-f69d67d671cf" x="172" y="43" width="100" height="20" fontName="Times New Roman" fontSize="10.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
 							<expression><![CDATA["COMMISSION"]]></expression>
 							<property name="com.jaspersoft.studio.unit.height" value="px"/>
 							<property name="com.jaspersoft.studio.unit.x" value="px"/>
 						</element>
-						<element kind="textField" uuid="1dab6b9d-bfa0-42e4-88ff-622bea5c17f3" x="172" y="95" width="100" height="20" fontName="Times New Roman" fontSize="10.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+						<element kind="textField" uuid="1dab6b9d-bfa0-42e4-88ff-622bea5c17f3" x="172" y="78" width="100" height="20" fontName="Times New Roman" fontSize="10.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
 							<expression><![CDATA["TAFA"]]></expression>
 							<property name="com.jaspersoft.studio.unit.height" value="px"/>
 							<property name="com.jaspersoft.studio.unit.x" value="px"/>
@@ -291,20 +268,33 @@
 							<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 						</box>
 					</element>
-					<element kind="frame" uuid="70fcb403-f34f-4492-a183-e0392a3c7fba" x="444" y="40" width="111" height="130">
+					<element kind="frame" uuid="70fcb403-f34f-4492-a183-e0392a3c7fba" x="444" y="40" width="111" height="110">
 						<property name="com.jaspersoft.studio.unit.width" value="px"/>
 						<element kind="textField" uuid="76c0544e-01af-4721-b9aa-48709a451eaa" x="6" y="12" width="100" height="20" fontName="Times New Roman" fontSize="10.0" pattern="#,##0.000000;(#,##0.000000-)" blankWhenNull="true" bold="true" hTextAlign="Right" vTextAlign="Middle">
-							<expression>
-								<![CDATA[new DecimalFormat("#,##0.000000").format(($F{coursVL}.doubleValue())*($F{nombrePartSousRachat}.doubleValue()))]]>
-							</expression>
+							<expression><![CDATA[PRODUCT($F{coursVL}, $F{nombrePartSousRachat})== null ? "" :
+                    new java.text.DecimalFormat("#,##0;-,##0",
+                        java.text.DecimalFormatSymbols.getInstance(java.util.Locale.FRANCE))
+                        .format(PRODUCT($F{coursVL}, $F{nombrePartSousRachat}))
+                        .replace('\u202F', ' ')
+                ]]></expression>
 							<property name="com.jaspersoft.studio.unit.y" value="px"/>
 						</element>
-						<element kind="textField" uuid="a4d8e54a-046e-4088-a4f0-e0f441e186cc" x="6" y="53" width="100" height="20" fontName="Times New Roman" fontSize="10.0" pattern="#,##0.000000;(#,##0.000000-)" blankWhenNull="true" bold="true" hTextAlign="Right" vTextAlign="Middle">
-							<expression><![CDATA[$F{commisiionSousRachat}]]></expression>
+						<element kind="textField" uuid="a4d8e54a-046e-4088-a4f0-e0f441e186cc" x="6" y="43" width="100" height="20" fontName="Times New Roman" fontSize="10.0" pattern="#,##0.000000;(#,##0.000000-)" blankWhenNull="true" bold="true" hTextAlign="Right" vTextAlign="Middle">
+							<expression><![CDATA[$F{commisiionSousRachat}== null ? "" :
+                    new java.text.DecimalFormat("#,##0;-,##0",
+                        java.text.DecimalFormatSymbols.getInstance(java.util.Locale.FRANCE))
+                        .format($F{commisiionSousRachat})
+                        .replace('\u202F', ' ')
+                ]]></expression>
 							<property name="com.jaspersoft.studio.unit.y" value="px"/>
 						</element>
-						<element kind="textField" uuid="8a723b83-a415-4e68-b92d-7d8aa64869d3" x="6" y="95" width="100" height="20" fontName="Times New Roman" fontSize="10.0" pattern="#,##0.000000;(#,##0.000000-)" blankWhenNull="true" bold="true" hTextAlign="Right" vTextAlign="Middle">
-							<expression><![CDATA[$F{tafcommissionSousRachat}]]></expression>
+						<element kind="textField" uuid="8a723b83-a415-4e68-b92d-7d8aa64869d3" x="6" y="78" width="100" height="20" fontName="Times New Roman" fontSize="10.0" pattern="#,##0.000000;(#,##0.000000-)" blankWhenNull="true" bold="true" hTextAlign="Right" vTextAlign="Middle">
+							<expression><![CDATA[$F{tafcommissionSousRachat}== null ? "" :
+                    new java.text.DecimalFormat("#,##0;-,##0",
+                        java.text.DecimalFormatSymbols.getInstance(java.util.Locale.FRANCE))
+                        .format($F{tafcommissionSousRachat})
+                        .replace('\u202F', ' ')
+                ]]></expression>
 							<property name="com.jaspersoft.studio.unit.y" value="px"/>
 						</element>
 						<box>
@@ -331,7 +321,7 @@
 							<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 						</box>
 					</element>
-					<element kind="textField" uuid="7b15f19d-3ee0-45cc-a4aa-6624bf190e70" x="0" y="170" width="444" height="20" fontName="Times New Roman" fontSize="10.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+					<element kind="textField" uuid="7b15f19d-3ee0-45cc-a4aa-6624bf190e70" x="0" y="151" width="444" height="20" fontName="Times New Roman" fontSize="10.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
 						<expression><![CDATA["TOTAL"]]></expression>
 						<property name="com.jaspersoft.studio.unit.height" value="px"/>
 						<box>
@@ -341,8 +331,19 @@
 							<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 						</box>
 					</element>
-					<element kind="textField" uuid="c834faad-daa2-4f1b-aafb-f8cf9110b780" x="444" y="170" width="111" height="20" fontName="Times New Roman" fontSize="10.0" pattern="#,##0.000000;(#,##0.000000-)" blankWhenNull="true" bold="true" hTextAlign="Right" vTextAlign="Middle">
-						<expression><![CDATA[(($F{codeNatureOperation}.equals("RACHAT")) ? (($F{coursVL}.doubleValue())*($F{nombrePartSousRachat}.doubleValue()) - $F{commisiionSousRachat}.doubleValue() - $F{tafcommissionSousRachat}.doubleValue()) : (($F{coursVL}.doubleValue())*($F{nombrePartSousRachat}.doubleValue()) + $F{commisiionSousRachat}.doubleValue() + $F{tafcommissionSousRachat}.doubleValue()))]]></expression>
+					<element kind="textField" uuid="c834faad-daa2-4f1b-aafb-f8cf9110b780" x="444" y="151" width="111" height="20" fontName="Times New Roman" fontSize="10.0" pattern="#,##0.000000;(#,##0.000000-)" blankWhenNull="true" bold="true" hTextAlign="Right" vTextAlign="Middle">
+						<expression><![CDATA[new java.text.DecimalFormat("#,##0;-,##0", 
+    java.text.DecimalFormatSymbols.getInstance(java.util.Locale.FRANCE))
+    .format(
+        $F{codeNatureOperation}.equals("RACHAT") 
+        ? ($F{coursVL}.doubleValue() * $F{nombrePartSousRachat}.doubleValue() 
+           - $F{commisiionSousRachat}.doubleValue() 
+           - $F{tafcommissionSousRachat}.doubleValue())
+        : ($F{coursVL}.doubleValue() * $F{nombrePartSousRachat}.doubleValue() 
+           + $F{commisiionSousRachat}.doubleValue() 
+           + $F{tafcommissionSousRachat}.doubleValue())
+    )
+    .replace('\u202F', ' ')]]></expression>
 						<property name="com.jaspersoft.studio.unit.height" value="px"/>
 						<property name="com.jaspersoft.studio.unit.width" value="px"/>
 						<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="10">
@@ -352,13 +353,24 @@
 							<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 						</box>
 					</element>
-					<element kind="frame" uuid="576b7baa-cf70-4c99-bdec-ae0c2423f156" x="0" y="190" width="555" height="30">
+					<element kind="frame" uuid="576b7baa-cf70-4c99-bdec-ae0c2423f156" x="0" y="171" width="555" height="30">
 						<element kind="textField" uuid="58e4ae1b-0fbb-483c-bbc4-72503860edea" x="5" y="5" width="245" height="20" fontName="Times New Roman" fontSize="10.0" vTextAlign="Middle">
 							<expression><![CDATA["En conséquence, nous débitons/créditons votre compte de "]]></expression>
 							<property name="com.jaspersoft.studio.unit.height" value="px"/>
 						</element>
 						<element kind="textField" uuid="f6fdd544-9b22-4568-aeb1-e1e234f1b2c0" x="251" y="5" width="100" height="20" fontName="Times New Roman" fontSize="10.0" pattern="#,##0.###;(#,##0.###-)" blankWhenNull="true" vTextAlign="Middle">
-							<expression><![CDATA[(($F{codeNatureOperation}.equals("RACHAT")) ? (($F{coursVL}.doubleValue())*($F{nombrePartSousRachat}.doubleValue()) - $F{commisiionSousRachat}.doubleValue() - $F{tafcommissionSousRachat}.doubleValue()) : (($F{coursVL}.doubleValue())*($F{nombrePartSousRachat}.doubleValue()) + $F{commisiionSousRachat}.doubleValue() + $F{tafcommissionSousRachat}.doubleValue()))]]></expression>
+							<expression><![CDATA[new java.text.DecimalFormat("#,##0;-,##0", 
+    java.text.DecimalFormatSymbols.getInstance(java.util.Locale.FRANCE))
+    .format(
+        $F{codeNatureOperation}.equals("RACHAT") 
+        ? $F{coursVL}.doubleValue() * $F{nombrePartSousRachat}.doubleValue() 
+          - $F{commisiionSousRachat}.doubleValue() 
+          - $F{tafcommissionSousRachat}.doubleValue()
+        : $F{coursVL}.doubleValue() * $F{nombrePartSousRachat}.doubleValue() 
+          + $F{commisiionSousRachat}.doubleValue() 
+          + $F{tafcommissionSousRachat}.doubleValue()
+    )
+    .replace('\u202F', ' ')]]></expression>
 							<property name="com.jaspersoft.studio.unit.height" value="px"/>
 							<property name="com.jaspersoft.studio.unit.y" value="px"/>
 						</element>
@@ -369,7 +381,7 @@
 							<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 						</box>
 					</element>
-					<element kind="textField" uuid="a24a2362-3747-4c9a-87d2-098806385ea6" x="0" y="220" width="555" height="97" fontName="Times New Roman" fontSize="11.0" italic="true" bold="true" hTextAlign="Center" vTextAlign="Middle">
+					<element kind="textField" uuid="a24a2362-3747-4c9a-87d2-098806385ea6" x="0" y="201" width="555" height="70" fontName="Times New Roman" fontSize="11.0" bold="true" italic="true" hTextAlign="Center" vTextAlign="Middle">
 						<expression><![CDATA["Nous vous remercions pour votre confiance"]]></expression>
 						<box>
 							<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -379,7 +391,7 @@
 						</box>
 					</element>
 				</element>
-				<element kind="textField" uuid="17e51e70-344a-4950-a64c-4f01c459048f" x="0" y="323" width="555" height="20" fontName="Times New Roman" fontSize="10.0" bold="true" italic="true" vTextAlign="Middle">
+				<element kind="textField" uuid="17e51e70-344a-4950-a64c-4f01c459048f" x="0" y="280" width="555" height="20" fontName="Times New Roman" fontSize="10.0" bold="true" italic="true" vTextAlign="Middle">
 					<expression><![CDATA["Cet avis édité par ordinateur ne porte pas de signature"]]></expression>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</element>
@@ -387,7 +399,7 @@
 		</groupFooter>
 	</group>
 	<background splitType="Stretch"/>
-	<pageHeader height="29"/>
+	<pageHeader/>
 	<detail>
 		<band height="20" splitType="Stretch">
 			<element kind="frame" uuid="942ad56e-c220-4a8f-93c7-2b56431a1cad" x="0" y="0" width="555" height="20">
@@ -429,7 +441,12 @@
 					</box>
 				</element>
 				<element kind="textField" uuid="ba2a8def-f2e0-4707-afc2-71ca51980b52" x="324" y="0" width="120" height="20" fontName="Times New Roman" fontSize="12.0" pattern="#,##0.000000;(#,##0.000000-)" blankWhenNull="true" hTextAlign="Right" vTextAlign="Middle">
-					<expression><![CDATA[$F{nombrePartSousRachat}]]></expression>
+					<expression><![CDATA[$F{nombrePartSousRachat}== null ? "" :
+                    new java.text.DecimalFormat("#,##0.####;-,##0.####",
+                        java.text.DecimalFormatSymbols.getInstance(java.util.Locale.FRANCE))
+                        .format($F{nombrePartSousRachat})
+                        .replace('\u202F', ' ')
+                ]]></expression>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
@@ -443,7 +460,12 @@
 				</element>
 				<element kind="textField" uuid="67cf2c9d-8d86-4a9c-a050-77e65f136f58" x="444" y="0" width="111" height="20" printWhenGroupChanges="codeNatureOparation" fontName="Times New Roman" fontSize="12.0" pattern="#,##0.000000;(#,##0.000000-)" blankWhenNull="true" hTextAlign="Right" vTextAlign="Middle">
 					<paragraph spacingAfter="0"/>
-					<expression><![CDATA[$F{coursVL}]]></expression>
+					<expression><![CDATA[$F{coursVL}== null ? "" :
+                    new java.text.DecimalFormat("#,##0.##;-,##0.##",
+                        java.text.DecimalFormatSymbols.getInstance(java.util.Locale.FRANCE))
+                        .format($F{coursVL})
+                        .replace('\u202F', ' ')
+                ]]></expression>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
@@ -466,11 +488,20 @@
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 		</band>
 	</detail>
-	<pageFooter height="56" splitType="Stretch">
+	<pageFooter height="91" splitType="Stretch">
 		<element kind="textField" uuid="fe38ef48-bec6-437b-9a25-341cf118b72c" mode="Opaque" x="0" y="0" width="555" height="56" backcolor="#BDD7EE" fontName="Times New Roman" fontSize="9.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
 			<expression><![CDATA["           Capital: 100 000 000 F CFA Agrément N°SG/2017-02 CREPMF RC N° RCCM/RB/COT/15 B 14715 IFU N°: 3201502603811" +
 "\n   Rue du Gouverneur Gal Félix EBOUE R. 5.160 CARRE 211 ST MICHEL IMMEUBLE SGI BENIN 01 BP 4546 COTONOU BENIN" +
 "\n                Tél : (229) 21 31 15 41/ 66 18 01 74        www.saphiram.com       contact@saphiram.com "]]></expression>
+		</element>
+		<element kind="staticText" uuid="e3e62e60-9589-4455-8953-b7d84f17a98f" x="217" y="65" width="120" height="19" fontName="SansSerif" hTextAlign="Center">
+			<text><![CDATA[OPCCIEL 2.0]]></text>
+		</element>
+		<element kind="textField" uuid="d4dd5625-a4ab-4e87-9099-f73516aad015" x="447" y="66" width="100" height="18" fontName="SansSerif" hTextAlign="Right">
+			<expression><![CDATA[$V{PAGE_NUMBER}]]></expression>
+		</element>
+		<element kind="textField" uuid="b947848a-e12f-4f7f-8197-57c699f1b84f" x="-1" y="64" width="140" height="20" fontName="SansSerif">
+			<expression><![CDATA["Imprimé  le, " + $P{letterDate}]]></expression>
 		</element>
 	</pageFooter>
 </jasperReport>

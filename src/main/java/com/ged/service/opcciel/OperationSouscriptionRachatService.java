@@ -26,7 +26,9 @@ public interface OperationSouscriptionRachatService {
     ResponseEntity<Object> creer(OperationSouscriptionRachatDto operationSouscriptionRachatDto);
     ResponseEntity<Object> avisOperation(String idOperation);
     ResponseEntity<Object> avisOperation(String idOperation,HttpServletResponse response);
+    ResponseEntity<Object> avisOperationSouscription(String idOperation,HttpServletResponse response);
     ResponseEntity<Object> avisOperation2(String idOperation) throws JRException, FileNotFoundException;
+    ResponseEntity<Object> avisOperationSouscription2(String idOperation) throws JRException, FileNotFoundException;
 
     ResponseEntity<Object> avisSouscriptionExportJasperReport(HttpServletResponse response, List<OperationSouscriptionRachatDto> operationSouscriptionRachatDtoList);
 

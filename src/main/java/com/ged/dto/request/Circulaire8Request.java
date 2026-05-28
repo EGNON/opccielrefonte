@@ -12,30 +12,10 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class HistoriqueActionnaireRequest {
+public class Circulaire8Request {
     private Long idOpcvm;
-    private Long id;
-    private String idActionnaire;
-    private String userLogin;
     private LocalDateTime dateDebut;
     private LocalDateTime dateFin;
-    private DatatableParameters datatableParameters;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getUserLogin() {
-        return userLogin;
-    }
-
-    public void setUserLogin(String userLogin) {
-        this.userLogin = userLogin;
-    }
 
     public Long getIdOpcvm() {
         return idOpcvm;
@@ -43,14 +23,6 @@ public class HistoriqueActionnaireRequest {
 
     public void setIdOpcvm(Long idOpcvm) {
         this.idOpcvm = idOpcvm;
-    }
-
-    public String getIdActionnaire() {
-        return idActionnaire;
-    }
-
-    public void setIdActionnaire(String idActionnaire) {
-        this.idActionnaire = idActionnaire;
     }
 
     public LocalDateTime getDateDebut() {
@@ -67,13 +39,5 @@ public class HistoriqueActionnaireRequest {
 
     public void setDateFin(LocalDateTime dateFin) {
         this.dateFin = dateFin;
-    }
-
-    public DatatableParameters getDatatableParameters() {
-        return datatableParameters;
-    }
-
-    public void setDatatableParameters(DatatableParameters datatableParameters) {
-        this.datatableParameters = datatableParameters;
     }
 }

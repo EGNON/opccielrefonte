@@ -27,12 +27,14 @@ public class DepotRachat extends Base {
     //private Long idPersonne;
     private Long idTransaction;
     private Long idOcc;
+    @Column(precision =18,scale = 6)
     private BigDecimal quantite;
     private String modeVL;
     private Boolean estGenere;
     private Boolean estVerifier;
     private String nomVerificateur;
     private LocalDateTime dateVerification;
+    @Column(precision = 18,scale = 6)
     private BigDecimal montantSouscrit;
     @ManyToOne
     @JoinColumn(name = "idPersonne",referencedColumnName = "idPersonne")

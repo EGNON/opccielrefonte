@@ -1,0 +1,171 @@
+<!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 7.0.1-573496633c2b4074e32f433154b543003f7d2498  -->
+<jasperReport name="TR_Identification_OPC" language="java" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9bff7920-686a-4789-9909-ca2265cd5f47">
+    <property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+    <property name="com.jaspersoft.studio.data.defaultdataadapter" value="db_opcciel_data_adapter"/>
+    <field name="titre" class="java.lang.String">
+        <property name="com.jaspersoft.studio.field.name" value="titre"/>
+        <property name="com.jaspersoft.studio.field.label" value="titre"/>
+    </field>
+    <field name="libelleTitre" class="java.lang.String">
+        <property name="com.jaspersoft.studio.field.name" value="libelleTitre"/>
+        <property name="com.jaspersoft.studio.field.label" value="libelleTitre"/>
+    </field>
+    <field name="numero" class="java.lang.String">
+        <property name="com.jaspersoft.studio.field.name" value="numero"/>
+        <property name="com.jaspersoft.studio.field.label" value="numero"/>
+    </field>
+    <field name="libelle_numero" class="java.lang.String">
+        <property name="com.jaspersoft.studio.field.name" value="libelle_numero"/>
+        <property name="com.jaspersoft.studio.field.label" value="libelle_numero"/>
+    </field>
+    <field name="petit_Numero" class="java.lang.String">
+        <property name="com.jaspersoft.studio.field.name" value="petit_Numero"/>
+        <property name="com.jaspersoft.studio.field.label" value="petit_Numero"/>
+    </field>
+    <field name="libelle_Petit_numero" class="java.lang.String">
+        <property name="com.jaspersoft.studio.field.name" value="libelle_Petit_numero"/>
+        <property name="com.jaspersoft.studio.field.label" value="libelle_Petit_numero"/>
+    </field>
+    <field name="type" class="java.lang.String">
+        <property name="com.jaspersoft.studio.field.name" value="type"/>
+        <property name="com.jaspersoft.studio.field.label" value="type"/>
+    </field>
+    <field name="valeur" class="java.lang.String">
+        <property name="com.jaspersoft.studio.field.name" value="valeur"/>
+        <property name="com.jaspersoft.studio.field.label" value="valeur"/>
+    </field>
+    <field name="nombre" class="java.math.BigDecimal">
+        <property name="com.jaspersoft.studio.field.name" value="nombre"/>
+        <property name="com.jaspersoft.studio.field.label" value="nombre"/>
+    </field>
+    <group name="Group1">
+        <expression><![CDATA[$F{titre}]]></expression>
+        <groupHeader>
+            <band height="61">
+                <element kind="rectangle" uuid="c9b9b38d-df9e-4478-94f1-d3c4c00fd0eb" x="3" y="3" width="547" height="25" backcolor="#FFFFFF">
+                    <pen lineColor="#3B88D1"/>
+                </element>
+                <element kind="staticText" uuid="b9b495b8-6b44-4665-bd17-a4b2104a88cd" x="11" y="10" width="529" height="17" fontSize="10.0" bold="true" hTextAlign="Center">
+                    <text><![CDATA[FICHE DE RENSEIGNEMENTS]]></text>
+                </element>
+                <element kind="textField" uuid="c5115a1d-9c89-4cb4-a950-0693f31f64bb" x="3" y="41" width="46" height="20">
+                    <expression><![CDATA[$F{titre}]]></expression>
+                </element>
+                <element kind="textField" uuid="b732c378-93ce-4e59-8614-29b395543cb7" x="49" y="41" width="490" height="20">
+                    <expression><![CDATA[$F{libelleTitre}]]></expression>
+                </element>
+            </band>
+        </groupHeader>
+        <groupFooter>
+            <band/>
+        </groupFooter>
+    </group>
+    <background splitType="Stretch"/>
+    <title splitType="Stretch"/>
+    <pageHeader splitType="Stretch"/>
+    <columnHeader splitType="Stretch"/>
+    <detail>
+        <band height="25" splitType="Stretch">
+            <element kind="rectangle" uuid="14a55b60-d405-416c-8850-450b3a40e12f" stretchType="ContainerHeight" x="3" y="0" width="547" height="25" backcolor="#FFFFFF">
+                <pen lineColor="#3B88D1"/>
+            </element>
+            <element kind="textField" uuid="25e9742e-de9b-4eb7-924c-bfee56412488" x="11" y="7" width="239" height="18" textAdjust="StretchHeight">
+                <expression><![CDATA[$F{libelle_numero}]]></expression>
+            </element>
+            <element kind="line" uuid="d00a11b9-0100-41c0-9efc-3272724bdf7c" stretchType="ContainerHeight" x="260" y="0" width="1" height="25"/>
+            <element kind="textField" uuid="9b729454-fb2c-41bd-92a3-e00668a9e94d" x="270" y="7" width="270" height="18" textAdjust="StretchHeight">
+                <expression><![CDATA[$F{valeur}]]></expression>
+            </element>
+        </band>
+    </detail>
+    <columnFooter splitType="Stretch"/>
+    <pageFooter splitType="Stretch"/>
+    <summary height="42" splitType="Stretch"/>
+</jasperReport>
+
+        <!--&lt;!&ndash; Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 7.0.1-573496633c2b4074e32f433154b543003f7d2498  &ndash;&gt;-->
+<!--<jasperReport name="TR_Identification_OPC" language="java" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9bff7920-686a-4789-9909-ca2265cd5f47">-->
+<!--	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>-->
+<!--	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="db_opcciel_data_adapter"/>-->
+<!--&lt;!&ndash;	<query language="SQL"><![CDATA[select * from [Circulaire8].[FT_Identification_Patrimoine_Part_New](9,'01/04/2022','30/06/2022')&ndash;&gt;-->
+<!--&lt;!&ndash;where titre ='I. ']]></query>&ndash;&gt;-->
+<!--	<field name="titre" class="java.lang.String">-->
+<!--		<property name="com.jaspersoft.studio.field.name" value="titre"/>-->
+<!--		<property name="com.jaspersoft.studio.field.label" value="titre"/>-->
+<!--	</field>-->
+<!--	<field name="libelleTitre" class="java.lang.String">-->
+<!--		<property name="com.jaspersoft.studio.field.name" value="libelleTitre"/>-->
+<!--		<property name="com.jaspersoft.studio.field.label" value="libelleTitre"/>-->
+<!--	</field>-->
+<!--	<field name="numero" class="java.lang.String">-->
+<!--		<property name="com.jaspersoft.studio.field.name" value="numero"/>-->
+<!--		<property name="com.jaspersoft.studio.field.label" value="numero"/>-->
+<!--	</field>-->
+<!--	<field name="libelle_numero" class="java.lang.String">-->
+<!--		<property name="com.jaspersoft.studio.field.name" value="libelle_numero"/>-->
+<!--		<property name="com.jaspersoft.studio.field.label" value="libelle_numero"/>-->
+<!--	</field>-->
+<!--	<field name="petit_Numero" class="java.lang.String">-->
+<!--		<property name="com.jaspersoft.studio.field.name" value="petit_Numero"/>-->
+<!--		<property name="com.jaspersoft.studio.field.label" value="petit_Numero"/>-->
+<!--	</field>-->
+<!--	<field name="libelle_Petit_numero" class="java.lang.String">-->
+<!--		<property name="com.jaspersoft.studio.field.name" value="libelle_Petit_numero"/>-->
+<!--		<property name="com.jaspersoft.studio.field.label" value="libelle_Petit_numero"/>-->
+<!--	</field>-->
+<!--	<field name="type" class="java.lang.String">-->
+<!--		<property name="com.jaspersoft.studio.field.name" value="type"/>-->
+<!--		<property name="com.jaspersoft.studio.field.label" value="type"/>-->
+<!--	</field>-->
+<!--	<field name="valeur" class="java.lang.String">-->
+<!--		<property name="com.jaspersoft.studio.field.name" value="valeur"/>-->
+<!--		<property name="com.jaspersoft.studio.field.label" value="valeur"/>-->
+<!--	</field>-->
+<!--	<field name="nombre" class="java.math.BigDecimal">-->
+<!--		<property name="com.jaspersoft.studio.field.name" value="nombre"/>-->
+<!--		<property name="com.jaspersoft.studio.field.label" value="nombre"/>-->
+<!--	</field>-->
+<!--	<group name="Group1">-->
+<!--		<expression><![CDATA[$F{titre}]]></expression>-->
+<!--		<groupHeader>-->
+<!--			<band height="61">-->
+<!--				<element kind="rectangle" uuid="c9b9b38d-df9e-4478-94f1-d3c4c00fd0eb" x="3" y="3" width="547" height="25" backcolor="#FFFFFF">-->
+<!--					<pen lineColor="#3B88D1"/>-->
+<!--				</element>-->
+<!--				<element kind="staticText" uuid="b9b495b8-6b44-4665-bd17-a4b2104a88cd" x="11" y="10" width="529" height="17" fontSize="10.0" bold="true" hTextAlign="Center">-->
+<!--					<text><![CDATA[FICHE DE RENSEIGNEMENTS]]></text>-->
+<!--				</element>-->
+<!--				<element kind="textField" uuid="c5115a1d-9c89-4cb4-a950-0693f31f64bb" x="3" y="41" width="46" height="20">-->
+<!--					<expression><![CDATA[$F{titre}]]></expression>-->
+<!--				</element>-->
+<!--				<element kind="textField" uuid="b732c378-93ce-4e59-8614-29b395543cb7" x="49" y="41" width="490" height="20">-->
+<!--					<expression><![CDATA[$F{libelleTitre}]]></expression>-->
+<!--				</element>-->
+<!--			</band>-->
+<!--		</groupHeader>-->
+<!--		<groupFooter>-->
+<!--			<band/>-->
+<!--		</groupFooter>-->
+<!--	</group>-->
+<!--	<background splitType="Stretch"/>-->
+<!--	<title splitType="Stretch"/>-->
+<!--	<pageHeader splitType="Stretch"/>-->
+<!--	<columnHeader splitType="Stretch"/>-->
+<!--	<detail>-->
+<!--		<band height="25" splitType="Stretch">-->
+<!--			<element kind="rectangle" uuid="14a55b60-d405-416c-8850-450b3a40e12f" x="3" y="0" width="547" height="25" backcolor="#FFFFFF">-->
+<!--				<pen lineColor="#3B88D1"/>-->
+<!--			</element>-->
+<!--			<element kind="textField" uuid="25e9742e-de9b-4eb7-924c-bfee56412488" x="11" y="7" width="239" height="18">-->
+<!--				<expression><![CDATA[$F{libelle_numero}]]></expression>-->
+<!--			</element>-->
+<!--			<element kind="line" uuid="d00a11b9-0100-41c0-9efc-3272724bdf7c" x="260" y="0" width="1" height="25"/>-->
+<!--			<element kind="textField" uuid="9b729454-fb2c-41bd-92a3-e00668a9e94d" x="270" y="7" width="270" height="18">-->
+<!--				<expression><![CDATA[$F{valeur}]]></expression>-->
+<!--			</element>-->
+<!--		</band>-->
+<!--	</detail>-->
+<!--	<columnFooter splitType="Stretch"/>-->
+<!--	<pageFooter splitType="Stretch"/>-->
+<!--	<summary height="42" splitType="Stretch"/>-->
+<!--</jasperReport>-->

@@ -420,6 +420,7 @@ public class PersonnePhysiqueServiceImpl implements PersonnePhysiqueService {
                 personnePhysique.setEstExpose(personnePhysiqueDto.getEstExpose());
                 personnePhysique.setDenomination(physiqueDto.getNom() + " " + physiqueDto.getPrenom());
                 personnePhysique.setNomPersonnePhysique(physiqueDto.getNom());
+                personnePhysique.setEmail(physiqueDto.getEmailPerso());
                 personnePhysique.setPrenomPersonnePhysique(physiqueDto.getPrenom());
                 personnePhysique.setNumCompteSgi(physiqueDto.getNumeroCpteDeposit());
                 if (physiqueDto.getProfession() != null && physiqueDto.getProfession().getIdProf() != null) {
@@ -550,6 +551,7 @@ public class PersonnePhysiqueServiceImpl implements PersonnePhysiqueService {
                 personnePhysique.setStatutCompte("OUVERT");
                 personnePhysique.setDenomination(personnePhysiqueDto.getNom() + " " + personnePhysiqueDto.getPrenom());
                 personnePhysique.setNomPersonnePhysique(personnePhysiqueDto.getNom());
+                personnePhysique.setEmail(personnePhysiqueDto.getEmailPerso());
                 personnePhysique.setPrenomPersonnePhysique(personnePhysiqueDto.getPrenom());
                 personnePhysique.setNumCompteSgi(personnePhysiqueDto.getNumeroCpteDeposit());
                 if (personnePhysiqueDto.getProfession() != null && personnePhysiqueDto.getProfession().getIdProf() != null) {
@@ -693,6 +695,7 @@ public class PersonnePhysiqueServiceImpl implements PersonnePhysiqueService {
         personnePhysique.setDenomination(personnePhysiqueDto.getNom() + " " + personnePhysiqueDto.getPrenom());
         personnePhysique.setStatutCompte("OUVERT");
         personnePhysique.setNomPersonnePhysique(personnePhysiqueDto.getNom());
+        personnePhysique.setEmail(personnePhysiqueDto.getEmailPerso());
         personnePhysique.setPrenomPersonnePhysique(personnePhysiqueDto.getPrenom());
         personnePhysique.setNumCompteSgi(personnePhysiqueDto.getNumeroCpteDeposit());
         PersonnePhysiqueDto physiqueDto;
@@ -868,6 +871,7 @@ public class PersonnePhysiqueServiceImpl implements PersonnePhysiqueService {
                     }
                     if (personnePhysiqueSelonId.getEmailPerso() != null && personnePhysiqueDto.getEmailPerso() == null) {
                         personnePhysique.setEmailPerso(personnePhysiqueSelonId.getEmailPerso());
+                        personnePhysique.setEmail(personnePhysiqueSelonId.getEmailPerso());
                     }
                     if (personnePhysiqueSelonId.getEmailPro() != null && personnePhysiqueDto.getEmailPro() == null) {
                         personnePhysique.setEmailPro(personnePhysiqueSelonId.getEmailPro());
@@ -1099,6 +1103,7 @@ public class PersonnePhysiqueServiceImpl implements PersonnePhysiqueService {
         PersonnePhysique personnePhysiqueSelonId = new PersonnePhysique();
         personnePhysique.setDenomination(personnePhysiqueDto.getNom() + " " + personnePhysiqueDto.getPrenom());
         personnePhysique.setNomPersonnePhysique(personnePhysiqueDto.getNom());
+        personnePhysique.setEmail(personnePhysiqueDto.getEmailPerso());
         personnePhysique.setPrenomPersonnePhysique(personnePhysiqueDto.getPrenom());
         PersonnePhysiqueDto physiqueDto;
         if(personnePhysiqueDto.getIdPersonne()!=null && personnePhysiqueDto.getIdPersonne()!=0)
@@ -1271,6 +1276,7 @@ public class PersonnePhysiqueServiceImpl implements PersonnePhysiqueService {
                     }
                     if (personnePhysiqueSelonId.getEmailPerso() != null && personnePhysiqueDto.getEmailPerso() == null) {
                         personnePhysique.setEmailPerso(personnePhysiqueSelonId.getEmailPerso());
+                        personnePhysique.setEmail(personnePhysiqueSelonId.getEmailPerso());
                     }
                     if (personnePhysiqueSelonId.getEmailPro() != null && personnePhysiqueDto.getEmailPro() == null) {
                         personnePhysique.setEmailPro(personnePhysiqueSelonId.getEmailPro());

@@ -57,17 +57,27 @@ public class OperationSouscriptionRachatController {
 
          operationSouscriptionRachatService.avisOperation(idOperation,response);
     }
+    @GetMapping("/jasperpdf/avisoperationsouscription/{idOperation}")
+    public void avisOperationSouscription(@PathVariable String idOperation,
+                                                HttpServletResponse response)
+    {
+        response.setContentType("application/pdf");
+        DateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy:hh:mm:ss");
+        String currentDateTime = dateFormatter.format(new Date());
+
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=avis_Rachat" + currentDateTime + ".pdf";
+        response.setHeader(headerKey, headerValue);
+
+         operationSouscriptionRachatService.avisOperationSouscription(idOperation,response);
+    }
     @GetMapping("/jasperpdf/avisoperation2/{idOperation}")
     public ResponseEntity<Object> avisOperation2(@PathVariable String idOperation) throws JRException, FileNotFoundException {
-//        response.setContentType("application/pdf");
-//        DateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy:hh:mm:ss");
-//        String currentDateTime = dateFormatter.format(new Date());
-//
-//        String headerKey = "Content-Disposition";
-//        String headerValue = "attachment; filename=avis_Rachat" + currentDateTime + ".pdf";
-//        response.setHeader(headerKey, headerValue);
-
         return operationSouscriptionRachatService.avisOperation2(idOperation);
+    }
+    @GetMapping("/jasperpdf/avisoperationsouscription2/{idOperation}")
+    public ResponseEntity<Object> avisOperationSouscription2(@PathVariable String idOperation) throws JRException, FileNotFoundException {
+        return operationSouscriptionRachatService.avisOperationSouscription2(idOperation);
     }
     @PostMapping("/{idOpcvm}/{codeNatureOperation}")
     public ResponseEntity<Object> listeOperationSouscriptionRachat(@PathVariable Long idOpcvm,

@@ -1,0 +1,114 @@
+<!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 7.0.1-573496633c2b4074e32f433154b543003f7d2498  -->
+<jasperReport name="TR_TableauComparatif_Detail" language="java" columnCount="1" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="50c8ae49-7afe-4409-b878-d922769d6533">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="db_opcciel_data_adapter"/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+<!--	<query language="SQL"><![CDATA[	select * from [Circulaire8].FT_Comparaison_VlOrigine_VlActuelle (9,'30/06/2022')]]></query>-->
+	<field name="sigleOpcvm" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="sigleOpcvm"/>
+		<property name="com.jaspersoft.studio.field.label" value="sigleOpcvm"/>
+	</field>
+	<field name="denominationOpcvm" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="denominationOpcvm"/>
+		<property name="com.jaspersoft.studio.field.label" value="denominationOpcvm"/>
+	</field>
+	<field name="dateActuelle" class="java.time.LocalDateTime">
+		<property name="com.jaspersoft.studio.field.name" value="dateActuelle"/>
+		<property name="com.jaspersoft.studio.field.label" value="dateActuelle"/>
+	</field>
+	<field name="valActuelle" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="valActuelle"/>
+		<property name="com.jaspersoft.studio.field.label" value="valActuelle"/>
+	</field>
+	<field name="dateOrigine" class="java.time.LocalDateTime">
+		<property name="com.jaspersoft.studio.field.name" value="dateOrigine"/>
+		<property name="com.jaspersoft.studio.field.label" value="dateOrigine"/>
+	</field>
+	<field name="vlOrigine" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="vlOrigine"/>
+		<property name="com.jaspersoft.studio.field.label" value="vlOrigine"/>
+	</field>
+	<field name="variation" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="variation"/>
+		<property name="com.jaspersoft.studio.field.label" value="variation"/>
+	</field>
+	<background splitType="Stretch"/>
+	<title height="59" splitType="Stretch">
+		<element kind="rectangle" uuid="24b3f0dc-f5f2-4363-b052-74b92cdefabc" stretchType="ContainerHeight" x="4" y="8" width="585" height="25" backcolor="#FFFFFF">
+			<pen lineColor="#3B88D1"/>
+		</element>
+		<element kind="line" uuid="1c069d10-4777-4ed0-9b9e-22b325a936c5" x="218" y="8" width="1" height="25"/>
+		<element kind="staticText" uuid="033eeae2-7bd8-4403-8169-e8c95bcabf04" x="11" y="10" width="198" height="20" hTextAlign="Center">
+			<text><![CDATA[Origine]]></text>
+		</element>
+		<element kind="staticText" uuid="70579de2-3a6e-4c8f-82b0-2c47050022f1" x="449" y="10" width="132" height="20" hTextAlign="Center">
+			<text><![CDATA[Variation]]></text>
+		</element>
+		<element kind="line" uuid="95b047da-12d1-4a2a-8d6b-4dde52a4c07c" stretchType="ContainerHeight" x="445" y="8" width="1" height="25"/>
+		<element kind="staticText" uuid="cd5d4b54-457e-4b9c-9993-327faf6b5dab" x="219" y="10" width="220" height="20" hTextAlign="Center">
+			<text><![CDATA[Actuelle]]></text>
+		</element>
+		<element kind="rectangle" uuid="1a28c883-6f5c-4f7a-a39f-cb15e1911c7f" stretchType="ContainerHeight" x="4" y="34" width="585" height="25" backcolor="#FFFFFF">
+			<pen lineColor="#3B88D1"/>
+		</element>
+		<element kind="line" uuid="b0701e4f-d45e-404d-bdd2-e6296c8eaa68" x="218" y="34" width="1" height="25"/>
+		<element kind="staticText" uuid="b0af183d-e67b-467f-8f45-4292f09031b2" x="9" y="36" width="99" height="20" hTextAlign="Center">
+			<text><![CDATA[Valeur]]></text>
+		</element>
+		<element kind="staticText" uuid="0a647d4c-3d0b-416c-829c-ded6ee342176" x="449" y="36" width="132" height="20" hTextAlign="Center">
+			<text><![CDATA[%]]></text>
+		</element>
+		<element kind="line" uuid="b32f8e47-fd10-4762-b666-baecd9b48327" stretchType="ContainerHeight" x="445" y="34" width="1" height="25"/>
+		<element kind="line" uuid="460416e3-1e24-4fee-af06-8ddc13ca6c90" x="113" y="34" width="1" height="25"/>
+		<element kind="staticText" uuid="eae388fa-5830-4feb-af76-486a2129c0bc" x="119" y="36" width="99" height="20" hTextAlign="Center">
+			<text><![CDATA[Date]]></text>
+		</element>
+		<element kind="staticText" uuid="f8a7a259-ecb5-4d69-9271-4d4b3b5004cd" x="340" y="34" width="99" height="20" hTextAlign="Center">
+			<text><![CDATA[Date]]></text>
+		</element>
+		<element kind="staticText" uuid="a1f2479d-11e2-4c70-bb49-ddf88504ebcc" x="230" y="34" width="99" height="20" hTextAlign="Center">
+			<text><![CDATA[Valeur]]></text>
+		</element>
+		<element kind="line" uuid="3e5678dc-7746-4666-a552-b5216b67d61e" x="334" y="34" width="1" height="25"/>
+		<property name="com.jaspersoft.studio.unit.height" value="px"/>
+	</title>
+	<pageHeader splitType="Stretch"/>
+	<columnHeader splitType="Stretch"/>
+	<detail>
+		<band height="26" splitType="Stretch">
+			<element kind="rectangle" uuid="31306538-0542-4682-aea1-7f86f70e2406" stretchType="ContainerHeight" x="4" y="1" width="585" height="25" backcolor="#FFFFFF">
+				<pen lineColor="#3B88D1"/>
+			</element>
+			<element kind="line" uuid="f207913b-c43f-4fbb-a719-661afccdbba9" x="218" y="1" width="1" height="25"/>
+			<element kind="line" uuid="0b8fa8f4-699b-4baf-98e3-849810697861" stretchType="ContainerHeight" x="445" y="1" width="1" height="25"/>
+			<element kind="line" uuid="2fef31f1-fb63-473e-b92e-325667c010ad" x="113" y="1" width="1" height="25"/>
+			<element kind="line" uuid="3ff41234-9778-4fd6-ae22-315692983184" x="334" y="1" width="1" height="25"/>
+			<element kind="textField" uuid="8619c25d-20d4-4934-b987-72951f1cbd68" x="11" y="4" width="97" height="16" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{vlOrigine}]]></expression>
+			</element>
+			<element kind="textField" uuid="54be3903-4a0f-42ad-bd97-f636e26bea31" x="118" y="6" width="91" height="14">
+				<expression><![CDATA[$F{dateOrigine}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"))]]></expression>
+			</element>
+			<element kind="textField" uuid="6cfc2a1b-4a8f-4f95-8585-82b68a005628" x="229" y="5" width="100" height="15" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{valActuelle}]]></expression>
+			</element>
+			<element kind="textField" uuid="665c2050-cb0f-4178-a2dd-06f6d462f438" x="339" y="4" width="100" height="16">
+				<expression><![CDATA[$F{dateActuelle}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"))]]></expression>
+			</element>
+			<element kind="textField" uuid="3ccfc87d-e557-458b-ae11-0be58ed25756" x="450" y="7" width="131" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{variation}]]></expression>
+			</element>
+		</band>
+	</detail>
+	<columnFooter splitType="Stretch"/>
+	<pageFooter height="31" splitType="Stretch"/>
+	<summary height="42" splitType="Stretch"/>
+</jasperReport>
