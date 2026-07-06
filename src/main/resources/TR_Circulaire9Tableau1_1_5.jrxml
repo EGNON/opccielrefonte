@@ -1,0 +1,97 @@
+<!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 7.0.1-573496633c2b4074e32f433154b543003f7d2498  -->
+<jasperReport name="TR_Circulaire9Tableau1_1_5" language="java" columnCount="1" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="5" bottomMargin="5" uuid="6d0c1caa-29ff-434f-8c70-58b6c981f10e">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="db_opcciel_data_adapter"/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+<!--	<query language="SQL"><![CDATA[select * from Impressions.FT_Circulaire9Tableau1_New (9,'01/01/2014','30/06/2026')-->
+<!--where numero < 6-->
+<!--]]></query>-->
+	<field name="numero" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="numero"/>
+		<property name="com.jaspersoft.studio.field.label" value="numero"/>
+	</field>
+	<field name="element" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="element"/>
+		<property name="com.jaspersoft.studio.field.label" value="element"/>
+	</field>
+	<field name="valeur1" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="valeur1"/>
+		<property name="com.jaspersoft.studio.field.label" value="valeur1"/>
+	</field>
+	<field name="valeur2" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="valeur2"/>
+		<property name="com.jaspersoft.studio.field.label" value="valeur2"/>
+	</field>
+	<field name="valeur3" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="valeur3"/>
+		<property name="com.jaspersoft.studio.field.label" value="valeur3"/>
+	</field>
+	<field name="valeur4" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="valeur4"/>
+		<property name="com.jaspersoft.studio.field.label" value="valeur4"/>
+	</field>
+	<field name="valeur5" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="valeur5"/>
+		<property name="com.jaspersoft.studio.field.label" value="valeur5"/>
+	</field>
+	<field name="valeur6" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="valeur6"/>
+		<property name="com.jaspersoft.studio.field.label" value="valeur6"/>
+	</field>
+	<field name="autre" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="autre"/>
+		<property name="com.jaspersoft.studio.field.label" value="autre"/>
+	</field>
+	<background splitType="Stretch"/>
+	<title height="27" splitType="Stretch">
+		<element kind="rectangle" uuid="57794d4d-7ff5-4310-9335-ee4e876f3c11" stretchType="ContainerHeight" x="7" y="2" width="713" height="25" backcolor="#FFFFFF">
+			<pen lineColor="#3B88D1"/>
+		</element>
+		<element kind="textField" uuid="12321ae0-e79f-464f-8553-33796283e5dc" x="44" y="6" width="182" height="20" textAdjust="StretchHeight" bold="true" hTextAlign="Center">
+			<expression><![CDATA["Type d'information"]]></expression>
+		</element>
+		<element kind="line" uuid="544849f8-e3d7-479d-bbed-a5580c5734e7" stretchType="ContainerHeight" x="41" y="2" width="1" height="25">
+			<property name="com.jaspersoft.studio.unit.x" value="px"/>
+		</element>
+		<element kind="line" uuid="65047a2d-12db-408b-9333-585cba7425ee" stretchType="ContainerHeight" x="227" y="2" width="1" height="25"/>
+		<element kind="staticText" uuid="605987d3-41a6-44a0-b243-66e7cb9e309d" x="228" y="7" width="492" height="17" bold="true" hTextAlign="Center">
+			<text><![CDATA[Informations]]></text>
+		</element>
+	</title>
+	<pageHeader splitType="Stretch"/>
+	<columnHeader splitType="Stretch"/>
+	<detail>
+		<band height="26" splitType="Stretch">
+			<element kind="rectangle" uuid="632b39cf-fd92-4904-aa6b-4b5085329b1d" stretchType="ContainerHeight" x="7" y="1" width="713" height="25" backcolor="#FFFFFF">
+				<pen lineColor="#3B88D1"/>
+			</element>
+			<element kind="textField" uuid="a7585712-8ba5-416d-af71-0a552c17e3dc" x="8" y="1" width="32" height="20" textAdjust="StretchHeight">
+				<expression><![CDATA[$F{numero}]]></expression>
+				<property name="com.jaspersoft.studio.unit.width" value="px"/>
+			</element>
+			<element kind="textField" uuid="b06c29dd-f048-4e11-b677-4ee68988cd7d" x="44" y="1" width="182" height="20" textAdjust="StretchHeight">
+				<expression><![CDATA[$F{element}]]></expression>
+			</element>
+			<element kind="line" uuid="619dc8e5-02bc-412f-86c4-3aa0317e3c20" stretchType="ContainerHeight" x="41" y="1" width="1" height="25">
+				<property name="com.jaspersoft.studio.unit.x" value="px"/>
+			</element>
+			<element kind="line" uuid="eaa30757-b168-41fc-9e06-0dc133efa76d" stretchType="ContainerHeight" x="227" y="1" width="1" height="25">
+				<property name="com.jaspersoft.studio.unit.x" value="px"/>
+			</element>
+			<element kind="textField" uuid="f7aced88-cd3f-48b3-a223-5b5ea9c42cf0" x="228" y="3" width="492" height="20" markup="html" textAdjust="StretchHeight" linkType="" hTextAlign="Left">
+				<expression><![CDATA[$F{valeur1}]]></expression>
+			</element>
+		</band>
+	</detail>
+	<columnFooter splitType="Stretch"/>
+	<pageFooter splitType="Stretch"/>
+	<summary splitType="Stretch"/>
+</jasperReport>

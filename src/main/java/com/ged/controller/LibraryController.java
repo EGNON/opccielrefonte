@@ -90,6 +90,32 @@ public class LibraryController {
 
         service.afficherCirculaire8(request,response);
     }
+    //circulaire9
+    @PostMapping("/opcvm/etats/circulaire9")
+    public void cirulaire9(@RequestBody @Valid Circulaire8Request request, HttpServletResponse response) throws JRException, IOException {
+        response.setContentType("application/pdf");
+        DateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy:hh:mm:ss");
+        String currentDateTime = dateFormatter.format(new Date());
+
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=circulaire9_" + currentDateTime + ".pdf";
+        response.setHeader(headerKey, headerValue);
+
+        service.afficherCirculaire9(request,response);
+    }
+    //consultation ecriture
+    @PostMapping("/opcvm/etats/consultationecriture")
+    public void consultationEcriturePrint(@RequestBody AvisTransfertPartRequest request, HttpServletResponse response) throws JRException, IOException {
+        response.setContentType("application/pdf");
+        DateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy:hh:mm:ss");
+        String currentDateTime = dateFormatter.format(new Date());
+
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=ecritures_comptables" + currentDateTime + ".pdf";
+        response.setHeader(headerKey, headerValue);
+
+        service.consulationEcriturePrint(request,response);
+    }
 //    @PostMapping("/opcvm/etats/portefeuille")
     @PostMapping("/opcvm/etats/portefeuille")
     public void porteFeuille(@RequestBody @Valid DifferenceEstimationRequest request, HttpServletResponse response) throws JRException, IOException {

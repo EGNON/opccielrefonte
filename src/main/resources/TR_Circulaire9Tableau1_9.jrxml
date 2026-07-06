@@ -1,0 +1,93 @@
+<!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 7.0.1-573496633c2b4074e32f433154b543003f7d2498  -->
+<jasperReport name="TR_Circulaire9Tableau1_1_5" language="java" columnCount="1" pageWidth="842" pageHeight="595" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="5" bottomMargin="20" uuid="6d0c1caa-29ff-434f-8c70-58b6c981f10e">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="db_opcciel_data_adapter"/>
+<!--	<query language="SQL"><![CDATA[select * from Impressions.FT_Circulaire9Tableau1_New (9,'01/01/2014','30/06/2026')-->
+<!--where numero =9]]></query>-->
+	<field name="numero" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="numero"/>
+		<property name="com.jaspersoft.studio.field.label" value="numero"/>
+	</field>
+	<field name="element" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="element"/>
+		<property name="com.jaspersoft.studio.field.label" value="element"/>
+	</field>
+	<field name="valeur1" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="valeur1"/>
+		<property name="com.jaspersoft.studio.field.label" value="valeur1"/>
+	</field>
+	<field name="valeur2" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="valeur2"/>
+		<property name="com.jaspersoft.studio.field.label" value="valeur2"/>
+	</field>
+	<field name="valeur3" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="valeur3"/>
+		<property name="com.jaspersoft.studio.field.label" value="valeur3"/>
+	</field>
+	<field name="valeur4" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="valeur4"/>
+		<property name="com.jaspersoft.studio.field.label" value="valeur4"/>
+	</field>
+	<field name="valeur5" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="valeur5"/>
+		<property name="com.jaspersoft.studio.field.label" value="valeur5"/>
+	</field>
+	<field name="valeur6" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="valeur6"/>
+		<property name="com.jaspersoft.studio.field.label" value="valeur6"/>
+	</field>
+	<field name="autre" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="autre"/>
+		<property name="com.jaspersoft.studio.field.label" value="autre"/>
+	</field>
+	<group name="Group1">
+		<expression><![CDATA[$F{element}]]></expression>
+		<groupHeader>
+			<band height="21">
+				<element kind="rectangle" uuid="b03b3dbc-f582-49e7-8e8f-31afe96b4ea4" stretchType="ContainerHeight" x="7" y="1" width="713" height="20" backcolor="#FFFFFF">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="textField" uuid="fbc0d34a-260a-4834-9c28-374d9f07dab4" x="8" y="1" width="32" height="16" textAdjust="StretchHeight">
+					<expression><![CDATA[$F{numero}]]></expression>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</element>
+				<element kind="textField" uuid="3cf8f318-4536-4104-b91b-5fdb802a5e27" x="46" y="1" width="674" height="16" textAdjust="StretchHeight" bold="true">
+					<expression><![CDATA[$F{element}]]></expression>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</element>
+				<element kind="line" uuid="7b0a3cab-6409-4f66-ab7b-38775901cbef" stretchType="ContainerHeight" x="41" y="1" width="1" height="20">
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</element>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="6">
+				<element kind="line" uuid="34b8a1e3-423f-4b72-b5fd-a1f033c23693" x="7" y="0" width="712" height="1"/>
+				<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			</band>
+		</groupFooter>
+	</group>
+	<background splitType="Stretch"/>
+	<title splitType="Stretch"/>
+	<pageHeader splitType="Stretch"/>
+	<columnHeader splitType="Stretch"/>
+	<detail>
+		<band height="21" splitType="Stretch">
+			<element kind="line" uuid="eaa30757-b168-41fc-9e06-0dc133efa76d" stretchType="ContainerHeight" x="227" y="1" width="1" height="20">
+				<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			</element>
+			<element kind="textField" uuid="a96475f5-c8b6-43c3-b0af-32c91812d54d" x="230" y="2" width="480" height="17" textAdjust="StretchHeight" hTextAlign="Left">
+				<expression><![CDATA[$F{valeur1}]]></expression>
+			</element>
+			<element kind="line" uuid="70d11f3a-cd1a-41d2-8f55-c70131a7c3c0" stretchType="ContainerHeight" x="720" y="1" width="1" height="20">
+				<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			</element>
+			<element kind="line" uuid="0eacc0d5-859f-446e-97b9-3bd91c24d16a" stretchType="ContainerHeight" x="7" y="0" width="1" height="20">
+				<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			</element>
+		</band>
+	</detail>
+	<columnFooter splitType="Stretch"/>
+	<pageFooter splitType="Stretch"/>
+	<summary splitType="Stretch"/>
+</jasperReport>

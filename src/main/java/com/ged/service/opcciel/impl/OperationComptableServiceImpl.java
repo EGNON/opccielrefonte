@@ -96,7 +96,16 @@ public class OperationComptableServiceImpl implements OperationService {
                     parameters.getStart()/ parameters.getLength(), parameters.getLength());
             Page<ConsultationEcritureProjection> operationPage;
             if(parameters.getSearch() != null && !parameters.getSearch().getValue().isEmpty()) {
-                operationPage = new PageImpl<>(new ArrayList<>());
+                operationPage = libraryDao.listeOperationsFiltree(
+                        request.getIdOpcvm() == 0L ? null : request.getIdOpcvm(),
+                        request.getIdOperation() == 0L ? null : request.getIdOperation(),
+                        request.getIdTransaction() == 0L ? null :  request.getIdTransaction(),
+                        request.getNatureOperation() != null ? request.getNatureOperation().getCodeNatureOperation().trim() : null,
+                        request.getDateDeb(),
+                        request.getDateFn(),
+                        parameters.getSearch().getValue(),
+                        pageable
+                );
             }
             else {
                 System.out.println("datefin="+request.getDateFin());

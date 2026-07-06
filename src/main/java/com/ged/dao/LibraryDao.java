@@ -707,6 +707,20 @@ public interface LibraryDao extends JpaRepository<BaseEntity, Long> {
             @Param("dateFin") String dateFin,
             Pageable pageable
     );
+    @Query(value = "select * from [Comptabilite].[FT_Operation_Ecriture]" +
+            "(:idOpcvm,:idOperation,:idTransaction," +
+            ":code,:dateDebut,:dateFin) o " +
+            " where concat(o.idOperation,' ',o.libelleoperation) like concat('%',:valeur,'%') order by o.idOperation desc ",nativeQuery = true)
+    Page<ConsultationEcritureProjection> listeOperationsFiltree(
+            @Param("idOpcvm") Long idOpcvm,
+            @Param("idOperation") Long idOperation,
+            @Param("idTransaction") Long idTransaction,
+            @Param("code") String code,
+            @Param("dateDebut") String dateDebut,
+            @Param("dateFin") String dateFin,
+            @Param("valeur") String valeur,
+            Pageable pageable
+    );
     @Query(value = "select * from [Comptabilite].[FT_Operation_Ecriture_Resultat](:idOpcvm," +
             ":codeNatureOperation,:codeExercice) o order by o.idOperation desc ",nativeQuery = true)
     Page<ConsultationEcritureProjection> listeOperationsResultat(
@@ -714,6 +728,10 @@ public interface LibraryDao extends JpaRepository<BaseEntity, Long> {
             @Param("codeNatureOperation") String codeNatureOperation,
             @Param("codeExercice") Long codeExercice,
             Pageable pageable
+    );
+    @Query(value = "select * from [Comptabilite].[FT_AfficherEcritureNew](:idOperation)",nativeQuery = true)
+    List<ConsultationEcriturePrintProjection> listeOperations(
+            @Param("idOperation") String idOperation
     );
     @Query(value = "select * from [Operation].[FT_OperationTransfertDePart](:idOpcvm,:supprimer)" +
             "",
@@ -886,4 +904,66 @@ public interface LibraryDao extends JpaRepository<BaseEntity, Long> {
             , nativeQuery = true)
     List<ValeurInventaireProjection> valeurInventaire(Long idOpcvm,
                                                 int annee);
+
+    @Query(value = "select * from Impressions.FT_Circulaire9Tableau1_New (:idOpcvm,:dateDebut,:dateFin) " +
+            "where numero < 6", nativeQuery = true)
+    List<Circulaire9Projection> circulaire9_5(Long idOpcvm,
+                                             LocalDateTime dateDebut,
+                                             LocalDateTime dateFin);
+    @Query(value = "select * from Impressions.FT_Circulaire9Tableau1_New (:idOpcvm,:dateDebut,:dateFin) " +
+            "where numero = 6", nativeQuery = true)
+    List<Circulaire9Projection> circulaire9_6(Long idOpcvm,
+                                             LocalDateTime dateDebut,
+                                             LocalDateTime dateFin);
+    @Query(value = "select * from Impressions.FT_Circulaire9Tableau1_New (:idOpcvm,:dateDebut,:dateFin) " +
+            "where numero =7", nativeQuery = true)
+    List<Circulaire9Projection> circulaire9_7(Long idOpcvm,
+                                             LocalDateTime dateDebut,
+                                             LocalDateTime dateFin);
+    @Query(value = "select * from Impressions.FT_Circulaire9Tableau1_New (:idOpcvm,:dateDebut,:dateFin) " +
+            "where numero =8", nativeQuery = true)
+    List<Circulaire9Projection> circulaire9_8(Long idOpcvm,
+                                             LocalDateTime dateDebut,
+                                             LocalDateTime dateFin);
+    @Query(value = "select * from Impressions.FT_Circulaire9Tableau1_New (:idOpcvm,:dateDebut,:dateFin) " +
+            "where numero =9", nativeQuery = true)
+    List<Circulaire9Projection> circulaire9_9(Long idOpcvm,
+                                             LocalDateTime dateDebut,
+                                             LocalDateTime dateFin);
+    @Query(value = "select * from Impressions.FT_Circulaire9Tableau1_New (:idOpcvm,:dateDebut,:dateFin) " +
+            "where numero =10", nativeQuery = true)
+    List<Circulaire9Projection> circulaire9_10(Long idOpcvm,
+                                             LocalDateTime dateDebut,
+                                             LocalDateTime dateFin);
+    @Query(value = "select * from Impressions.FT_Circulaire9Tableau1_New (:idOpcvm,:dateDebut,:dateFin) " +
+            "where numero =11", nativeQuery = true)
+    List<Circulaire9Projection> circulaire9_11(Long idOpcvm,
+                                             LocalDateTime dateDebut,
+                                             LocalDateTime dateFin);
+    @Query(value = "select * from Impressions.FT_Circulaire9Tableau1_New (:idOpcvm,:dateDebut,:dateFin) " +
+            "where numero =12", nativeQuery = true)
+    List<Circulaire9Projection> circulaire9_12(Long idOpcvm,
+                                             LocalDateTime dateDebut,
+                                             LocalDateTime dateFin);
+    @Query(value = "select * from Impressions.FT_Circulaire9Tableau1_New (:idOpcvm,:dateDebut,:dateFin) " +
+            "where numero =13", nativeQuery = true)
+    List<Circulaire9Projection> circulaire9_13(Long idOpcvm,
+                                             LocalDateTime dateDebut,
+                                             LocalDateTime dateFin);
+    @Query(value = "select * from Impressions.FT_Circulaire9Tableau1_New (:idOpcvm,:dateDebut,:dateFin) " +
+            "where numero =14", nativeQuery = true)
+    List<Circulaire9Projection> circulaire9_14(Long idOpcvm,
+                                             LocalDateTime dateDebut,
+                                             LocalDateTime dateFin);
+    @Query(value = "select * from Impressions.FT_Circulaire9Tableau1_New (:idOpcvm,:dateDebut,:dateFin) " +
+            "where autre = 'actionnaire' or element = 'Investisseurs qualifiés' or element = 'Investisseurs non qualifiés'", nativeQuery = true)
+    List<Circulaire9Projection> circulaire9_15(Long idOpcvm,
+                                             LocalDateTime dateDebut,
+                                             LocalDateTime dateFin);
+    @Query(value = "select * from Impressions.FT_Circulaire9Tableau1_New (:idOpcvm,:dateDebut,:dateFin) " +
+            "where autre = 'pourcentageActifsOPC' or autre = 'dispositionGestionLiquiditeOPC' or autre = 'profilRisqueOPC' " +
+            "or autre = 'PrincipaleCategorieActifsOPC' or autre = 'resultatSimulationCrise'", nativeQuery = true)
+    List<Circulaire9Projection> circulaire9_16(Long idOpcvm,
+                                             LocalDateTime dateDebut,
+                                             LocalDateTime dateFin);
 }

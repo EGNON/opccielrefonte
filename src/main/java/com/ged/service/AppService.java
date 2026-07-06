@@ -7377,6 +7377,31 @@ public class AppService {
                     e);
         }
     }
+    //consultation ecriture print
+    public void consulationEcriturePrint(AvisTransfertPartRequest request, HttpServletResponse response) throws IOException, JRException {
+
+        List<ConsultationEcriturePrintProjection> list=libraryDao.listeOperations(request.getIdOperation());
+        Map<String, Object> parameters = new HashMap<>();
+        DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
+        String letterDate = dateFormatter.format(new Date());
+
+        parameters.put("letterDate", letterDate);
+        OpcvmDto opcvmDto=opcvmMapper.deOpcvm(opcvmDao.findById(request.getIdOpcvm()).orElseThrow());
+        parameters.put("denominationOpcvm", opcvmDto.getDenominationOpcvm());
+        InputStream inputStream = getClass().getResourceAsStream("/Ecritures_Comptables.jrxml");
+        if (inputStream == null) {
+            throw new FileNotFoundException("Fichier JRXML introuvable dans le classpath");
+        }
+
+        JasperReport jasperReport = JasperCompileManager.compileReport(inputStream);
+        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(list);
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
+
+        // Export vers le flux de sortie HTTP
+        JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());
+
+
+    }
     //portefeuille
     public ResponseEntity<?> afficherPortefeuille(ConstatationChargeListeRequest request) {
         var parameters = request.getDatatableParameters();
@@ -7529,6 +7554,174 @@ public class AppService {
 
 
     }
+    //circulaire9
+    public ResponseEntity<Object> afficherCirculaire9(Circulaire8Request request, HttpServletResponse response) throws JRException, IOException {
+
+        InputStream rapportStream = null;
+        InputStream subreportStream5 = null;
+        InputStream subreportStream6 = null;
+        InputStream subreportStream7 = null;
+        InputStream subreportStream8 = null;
+        InputStream subreportStream9 = null;
+        InputStream subreportStream10 = null;
+        InputStream subreportStream11 = null;
+        InputStream subreportStream12 = null;
+        InputStream subreportStream13 = null;
+        InputStream subreportStream14 = null;
+        InputStream subreportStream15 = null;
+        InputStream subreportStream16 = null;
+//        try {
+        // Récupération des données
+        List<IdentificationPatrimoinePartProjection> circulaire8 = new ArrayList<>();
+
+        // Chargement des fichiers .jrxml depuis le classpath
+        rapportStream = getClass().getResourceAsStream("/TR_Circulaire_9.jrxml");
+        subreportStream5 = getClass().getResourceAsStream("/TR_Circulaire9Tableau1_1_5.jrxml");
+        subreportStream6 = getClass().getResourceAsStream("/TR_Circulaire9Tableau1_6.jrxml");
+        subreportStream7 = getClass().getResourceAsStream("/TR_Circulaire9Tableau1_7.jrxml");
+        subreportStream8 = getClass().getResourceAsStream("/TR_Circulaire9Tableau1_8.jrxml");
+        subreportStream9 = getClass().getResourceAsStream("/TR_Circulaire9Tableau1_9.jrxml");
+        subreportStream10 = getClass().getResourceAsStream("/TR_Circulaire9Tableau1_10.jrxml");
+        subreportStream11 = getClass().getResourceAsStream("/TR_Circulaire9Tableau1_11.jrxml");
+        subreportStream12 = getClass().getResourceAsStream("/TR_Circulaire9Tableau1_12.jrxml");
+        subreportStream13 = getClass().getResourceAsStream("/TR_Circulaire9Tableau1_13.jrxml");
+        subreportStream14 = getClass().getResourceAsStream("/TR_Circulaire9Tableau1_14.jrxml");
+        subreportStream15 = getClass().getResourceAsStream("/TR_Circulaire9Tableau1_15.jrxml");
+        subreportStream16 = getClass().getResourceAsStream("/TR_Circulaire9Tableau1_16.jrxml");
+
+        if (rapportStream == null || subreportStream5 == null) {
+            throw new RuntimeException("Fichiers .jrxml introuvables dans le classpath !");
+        }
+
+        // Compiler les rapports à la volée
+        JasperReport rapportPrincipal = JasperCompileManager.compileReport(rapportStream);
+        JasperReport subreport5 = JasperCompileManager.compileReport(subreportStream5);
+        JasperReport subreport6 = JasperCompileManager.compileReport(subreportStream6);
+        JasperReport subreport7 = JasperCompileManager.compileReport(subreportStream7);
+
+        JasperReport subreport8 = JasperCompileManager.compileReport(subreportStream8);
+        JasperReport subreport9 = JasperCompileManager.compileReport(subreportStream9);
+        JasperReport subreport10 = JasperCompileManager.compileReport(subreportStream10);
+        JasperReport subreport11 = JasperCompileManager.compileReport(subreportStream11);
+        JasperReport subreport12 = JasperCompileManager.compileReport(subreportStream12);
+        JasperReport subreport13 = JasperCompileManager.compileReport(subreportStream13);
+        JasperReport subreport14 = JasperCompileManager.compileReport(subreportStream14);
+        JasperReport subreport15 = JasperCompileManager.compileReport(subreportStream15);
+        JasperReport subreport16 = JasperCompileManager.compileReport(subreportStream16);
+
+
+        List<Circulaire9Projection> circulaire9_5 =
+                libraryDao.circulaire9_5(
+                        request.getIdOpcvm(),  request.getDateDebut(),request.getDateFin());
+
+        List<Circulaire9Projection> circulaire9_6 =
+                libraryDao.circulaire9_6(
+                        request.getIdOpcvm(),  request.getDateDebut(),request.getDateFin());
+
+        List<Circulaire9Projection> circulaire9_7 =
+                libraryDao.circulaire9_7(
+                        request.getIdOpcvm(),  request.getDateDebut(),request.getDateFin());
+
+        List<Circulaire9Projection> circulaire9_8 =
+                libraryDao.circulaire9_8(
+                        request.getIdOpcvm(),  request.getDateDebut(),request.getDateFin());
+
+        List<Circulaire9Projection> circulaire9_9 =
+                libraryDao.circulaire9_9(
+                        request.getIdOpcvm(),  request.getDateDebut(),request.getDateFin());
+
+        List<Circulaire9Projection> circulaire9_10 =
+                libraryDao.circulaire9_10(
+                        request.getIdOpcvm(),request.getDateDebut(), request.getDateFin());
+
+        List<Circulaire9Projection> circulaire9_11 =
+                libraryDao.circulaire9_11(
+                        request.getIdOpcvm(),request.getDateDebut(), request.getDateFin());
+
+        List<Circulaire9Projection> circulaire9_12 =
+                libraryDao.circulaire9_12(
+                        request.getIdOpcvm(),request.getDateDebut(), request.getDateFin());
+
+        List<Circulaire9Projection> circulaire9_13 =
+                libraryDao.circulaire9_13(
+                        request.getIdOpcvm(),request.getDateDebut(),request.getDateFin());
+
+        List<Circulaire9Projection> circulaire9_14 =
+                libraryDao.circulaire9_14(
+                        request.getIdOpcvm(),request.getDateDebut(),request.getDateFin());
+
+        List<Circulaire9Projection> circulaire9_15 =
+                libraryDao.circulaire9_15(
+                        request.getIdOpcvm(),request.getDateDebut(),request.getDateFin());
+
+        List<Circulaire9Projection> circulaire9_16 =
+                libraryDao.circulaire9_16(
+                        request.getIdOpcvm(),request.getDateDebut(),request.getDateFin());
+
+
+        // Préparation des paramètres
+        Map<String, Object> parameters = new HashMap<>();
+//            BigDecimal soldeEspece = portefeuille.get(0).getSoldeEspece();
+        DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
+        String letterDate = dateFormatter.format(new Date());
+        OpcvmDto opcvm = opcvmMapper.deOpcvm(opcvmDao.findById(request.getIdOpcvm()).orElseThrow());
+        String titre = genererTitreRapport9(request.getDateDebut(),request.getDateFin(),opcvm.getDenominationOpcvm());
+        parameters.put("letterDate", letterDate);
+        parameters.put("titre", titre);
+//
+        parameters.put("ALL_LIGNES_5", new JRBeanCollectionDataSource(circulaire9_5));
+        parameters.put("SUBREPORT_REF_5", subreport5);
+
+        parameters.put("ALL_LIGNES_6", new JRBeanCollectionDataSource(circulaire9_6));
+        parameters.put("SUBREPORT_REF_6", subreport6);
+
+        parameters.put("ALL_LIGNES_7", new JRBeanCollectionDataSource(circulaire9_7));
+        parameters.put("SUBREPORT_REF_7", subreport7);
+
+        parameters.put("ALL_LIGNES_8", new JRBeanCollectionDataSource(circulaire9_8));
+        parameters.put("SUBREPORT_REF_8", subreport8);
+
+        parameters.put("ALL_LIGNES_9", new JRBeanCollectionDataSource(circulaire9_9));
+        parameters.put("SUBREPORT_REF_9", subreport9);
+
+
+        parameters.put("ALL_LIGNES_10", new JRBeanCollectionDataSource(circulaire9_10));
+        parameters.put("SUBREPORT_REF_10", subreport10);
+
+        parameters.put("ALL_LIGNES_11", new JRBeanCollectionDataSource(circulaire9_11));
+        parameters.put("SUBREPORT_REF_11", subreport11);
+
+        parameters.put("ALL_LIGNES_12", new JRBeanCollectionDataSource(circulaire9_12));
+        parameters.put("SUBREPORT_REF_12", subreport12);
+
+        parameters.put("ALL_LIGNES_13", new JRBeanCollectionDataSource(circulaire9_13));
+        parameters.put("SUBREPORT_REF_13", subreport13);
+
+        parameters.put("ALL_LIGNES_14", new JRBeanCollectionDataSource(circulaire9_14));
+        parameters.put("SUBREPORT_REF_14", subreport14);
+
+        parameters.put("ALL_LIGNES_15", new JRBeanCollectionDataSource(circulaire9_15));
+        parameters.put("SUBREPORT_REF_15", subreport15);
+
+        parameters.put("ALL_LIGNES_16", new JRBeanCollectionDataSource(circulaire9_16));
+        parameters.put("SUBREPORT_REF_16", subreport16);
+
+
+        // Remplissage du rapport
+        JasperPrint print = JasperFillManager.fillReport(
+                rapportPrincipal,
+                parameters,
+                new JRBeanCollectionDataSource(circulaire8)
+        );
+        JasperExportManager.exportReportToPdfStream(print, response.getOutputStream());
+        return ResponseHandler.generateResponse(
+                "Circulaire9",
+                HttpStatus.OK,
+                circulaire8);
+
+
+
+    }
     //circulaire8
     public String genererTitreRapport(LocalDateTime dateDebut, LocalDateTime dateFin, String denominationOpcvm) {
 
@@ -7560,6 +7753,48 @@ public class AppService {
             // Cas où la période est négative ou nulle
             titre = "RAPPORT: " + periode + " [" + denominationOpcvm + "]";
         }
+
+        return titre;
+    }
+    public String genererTitreRapport9(LocalDateTime dateDebut, LocalDateTime dateFin, String denominationOpcvm) {
+
+        if (dateDebut == null || dateFin == null) {
+            throw new IllegalArgumentException("Les dates de début et de fin sont obligatoires");
+        }
+
+        // Calcul du nombre de jours entre les deux dates (on ignore l'heure)
+        long days = ChronoUnit.DAYS.between(dateDebut.toLocalDate(), dateFin.toLocalDate());
+
+        // Formatage des dates au format français court (ex: 15/04/2026)
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+        String periode = " DU " + dateDebut.toLocalDate().format(formatter)
+                + " AU " + dateFin.toLocalDate().format(formatter);
+
+        String titre="";
+
+        if (days > 0 && days <= 91) {
+            titre =  "Informations requises au titre de l’article 36 alinéa 1 et 2 de l’instruction et transmises trimestriellement : ["
+                    + dateDebut.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))
+                    + "-"
+                    + dateFin.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))
+                    + "]";
+        }
+        else if (days > 91 && days <= 182) {
+            titre =  "Informations requises au titre de l’article 36 alinéa 1 et 2 de l’instruction et transmises semestriellement : ["
+                    + dateDebut.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))
+                    + "-"
+                    + dateFin.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))
+                    + "]";
+        }
+        else if (days > 182) {
+            titre = "Informations requises au titre de l’article 36 alinéa 1 et 2 de l’instruction et transmises annuellement : ["
+                    + dateDebut.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))
+                    + "-"
+                    + dateFin.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))
+                    + "]";
+        }
+
 
         return titre;
     }
