@@ -55,12 +55,12 @@ public class Personne extends Base {
     private String numeroCpteDeposit;
     //OPCCIEL1
    private String libelleTypePersonne;
-    /*private String CodePays;
-   private String CodeLangue;
+//    private String CodePays;
+//   private String CodeLangue;
    @Column(columnDefinition="BIT")
-   private Boolean EstActifPersonne = false;
-   private String codeCategorieClient;
-   private String codeSousTypeClient;*/
+   private Boolean EstActifPersonne;
+//   private String codeCategorieClient;
+//   private String codeSousTypeClient;
     @Column(nullable =true)
     private Long numOrdre=0L;
     //FIN OPCCIEL1
@@ -160,6 +160,14 @@ public class Personne extends Base {
     {
         this.documents.add(document);
         document.setPersonne(this);
+    }
+
+    public Boolean getEstActifPersonne() {
+        return EstActifPersonne;
+    }
+
+    public void setEstActifPersonne(Boolean estActifPersonne) {
+        EstActifPersonne = estActifPersonne;
     }
 
     public String getStatutCompte() {

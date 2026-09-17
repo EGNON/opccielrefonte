@@ -12,6 +12,7 @@ public class VerificationEcritureRequest {
     private Long idSeance;
     private Long idOpcvm;
     private Long idOperation;
+    private String idOperationEcriture;
     private Long idTransaction;
     private TypeOperationDto typeOperationDto;
     private LocalDateTime dateDebut;
@@ -21,6 +22,14 @@ public class VerificationEcritureRequest {
     private Boolean verificationNiveau;
     private String codeTypeOperation;
     private DatatableParameters datatableParameters;
+
+    public String getIdOperationEcriture() {
+        return idOperationEcriture;
+    }
+
+    public void setIdOperationEcriture(String idOperationEcriture) {
+        this.idOperationEcriture = idOperationEcriture;
+    }
 
     public String getCodeTypeOperation() {
         return codeTypeOperation;

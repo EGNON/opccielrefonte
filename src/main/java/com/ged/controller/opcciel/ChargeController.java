@@ -3,6 +3,7 @@ package com.ged.controller.opcciel;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.ged.datatable.DatatableParameters;
 import com.ged.dto.opcciel.ChargeDto;
+import com.ged.dto.opcciel.CleChargeDto;
 import com.ged.entity.opcciel.CleCharge;
 import com.ged.service.opcciel.ChargeService;
 import jakarta.validation.Valid;
@@ -30,11 +31,11 @@ public class ChargeController {
         return ChargeService.afficherTous();
     }
 
-    @GetMapping("/{id}")
+    @PostMapping ("/selonid")
 //    @PreAuthorize("hasAuthority('ROLE_DEGRE')")
-    public ResponseEntity<Object> afficher(@PathVariable Long id)
+    public ResponseEntity<Object> afficher(@RequestBody CleChargeDto id)
     {
-        return ChargeService.afficherChargeSelonId(id);
+        return ChargeService.afficherChargeSelonId(id.getIdOpcvm(),id.getCodeCharge());
     }
 
     @PostMapping("/datatable/list/{idOpcvm}")

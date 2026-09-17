@@ -254,7 +254,7 @@ public class LibraryController {
     }
     @PostMapping("/opcvm/balance/liste")
     public ResponseEntity<?> balanceListe(@RequestBody @Valid BalanceRequest request) {
-        return service.afficherBalance(request);
+        return service.afficherBalanceListe(request);
     }
 
     //grandLivre

@@ -241,6 +241,7 @@ public class PersonneMoraleServiceImpl implements PersonneMoraleService {
             PersonneMoraleDto moraleDto;
             PersonneMorale personneMorale = personneMoraleMapper.dePersonneMoraleDto(personneMoraleDto);
             personneMorale.setStatutCompte("OUVERT");
+            personneMorale.setDenomination(personneMoraleDto.getRaisonSociale() + " [" + personneMoraleDto.getSigle() + "]");
             PersonneMorale personneMoraleSelonId = new PersonneMorale();
             if(personneMoraleDto.getIdPersonne()!=null && personneMoraleDto.getIdPersonne()!=0)
                 personneMoraleSelonId=personneMoraleDao.findById(personneMoraleDto.getIdPersonne()).orElseThrow();
@@ -482,7 +483,10 @@ public class PersonneMoraleServiceImpl implements PersonneMoraleService {
             personneMoraleSelonId=null;
         if(personneMoraleDto.getEstExpose()==null){
             if(personneMoraleSelonId!=null)
-                personneMorale.setEstExpose(personneMoraleSelonId.getEstExpose());
+                if(personneMoraleSelonId.getEstExpose()!=null)
+                    personneMorale.setEstExpose(personneMoraleSelonId.getEstExpose());
+                else
+                    personneMorale.setEstExpose(false);
             else
                 personneMorale.setEstExpose(false);
 
@@ -490,7 +494,10 @@ public class PersonneMoraleServiceImpl implements PersonneMoraleService {
         }
         if(personneMoraleDto.getEstJuge()==null){
             if(personneMoraleSelonId!=null)
-                personneMorale.setEstJuge(personneMoraleSelonId.getEstJuge());
+                if(personneMoraleSelonId.getEstJuge()!=null)
+                    personneMorale.setEstJuge(personneMoraleSelonId.getEstJuge());
+                else
+                    personneMorale.setEstJuge(false);
             else
                 personneMorale.setEstJuge(false);
 

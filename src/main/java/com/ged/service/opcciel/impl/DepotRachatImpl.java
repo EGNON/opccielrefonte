@@ -393,6 +393,9 @@ public class DepotRachatImpl implements DepotRachatService {
                     objDepot.setEstVerifie2(false);
                     objDepot.setUserLoginVerificateur1("");
                     objDepot.setUserLoginVerificateur2("");
+                    objDepot.setDateVerification1(LocalDateTime.parse("2050-12-31T00:00:00"));
+                    objDepot.setDateVerification2(LocalDateTime.parse("2050-12-31T00:00:00"));
+                    objDepot.setUserLogin(phForms.get(0).getUserLogin());
                     objDepot = depotRachatDao.save(objDepot);
                     message="Enregistrement effectué avec succès";
                 }
@@ -690,6 +693,10 @@ public class DepotRachatImpl implements DepotRachatService {
                 objDepot.setEstVerifie2(false);
                 objDepot.setUserLoginVerificateur1("");
                 objDepot.setUserLoginVerificateur2("");
+
+                objDepot.setDateVerification1(LocalDateTime.parse("2050-12-31T00:00:00"));
+                objDepot.setDateVerification2(LocalDateTime.parse("2050-12-31T00:00:00"));
+                objDepot.setUserLogin(pmForms.get(0).getUserLogin());
                 objDepot = depotRachatDao.save(objDepot);
                 message="Enregistrement effectué avec succès";
             }
@@ -1243,7 +1250,16 @@ public class DepotRachatImpl implements DepotRachatService {
             }
             NatureOperation natureOperation = natureOperationDao.findById(DepotRachatDto.getNatureOperation().getCodeNatureOperation()).orElseThrow();
             DepotRachat.setNatureOperation(natureOperation);
-
+            DepotRachat.setEstOD(false);
+            DepotRachat.setEstGenere(false);
+            DepotRachat.setEstVerifier(false);
+            DepotRachat.setEstVerifie1(false);
+            DepotRachat.setEstVerifie2(false);
+            DepotRachat.setUserLoginVerificateur1("");
+            DepotRachat.setUserLoginVerificateur2("");
+            DepotRachat.setDateVerification1(LocalDateTime.parse("2050-12-31T00:00:00"));
+            DepotRachat.setDateVerification2(LocalDateTime.parse("2050-12-31T00:00:00"));
+            DepotRachat.setUserLogin(DepotRachatDto.getUserLogin());
             DepotRachat = depotRachatDao.save(DepotRachat);
             System.out.println("Dep === " + DepotRachat);
             return ResponseHandler.generateResponse(
@@ -1288,6 +1304,16 @@ public class DepotRachatImpl implements DepotRachatService {
             if (natureOperation != null)
                 DepotRachat.setNatureOperation(natureOperation);
 
+            DepotRachat.setEstOD(false);
+            DepotRachat.setEstGenere(false);
+            DepotRachat.setEstVerifier(false);
+            DepotRachat.setEstVerifie1(false);
+            DepotRachat.setEstVerifie2(false);
+            DepotRachat.setUserLoginVerificateur1("");
+            DepotRachat.setUserLoginVerificateur2("");
+            DepotRachat.setDateVerification1(LocalDateTime.parse("2050-12-31T00:00:00"));
+            DepotRachat.setDateVerification2(LocalDateTime.parse("2050-12-31T00:00:00"));
+            DepotRachat.setUserLogin(DepotRachatDto.getUserLogin());
             DepotRachat = depotRachatDao.save(DepotRachat);
             System.out.println("Dep === " + DepotRachat);
             return ResponseHandler.generateResponse(
@@ -1771,7 +1797,16 @@ public class DepotRachatImpl implements DepotRachatService {
                 NatureOperation natureOperation=natureOperationDao.findById(depotRachatDto.getNatureOperation().getCodeNatureOperation()).orElseThrow();
                 DepotRachat.setNatureOperation(natureOperation);
             }
-
+            DepotRachat.setEstOD(false);
+            DepotRachat.setEstGenere(false);
+            DepotRachat.setEstVerifier(false);
+            DepotRachat.setEstVerifie1(false);
+            DepotRachat.setEstVerifie2(false);
+            DepotRachat.setUserLoginVerificateur1("");
+            DepotRachat.setUserLoginVerificateur2("");
+            DepotRachat.setDateVerification1(LocalDateTime.parse("2050-12-31T00:00:00"));
+            DepotRachat.setDateVerification2(LocalDateTime.parse("2050-12-31T00:00:00"));
+            DepotRachat.setUserLogin(depotRachatDto.getUserLogin());
 
             DepotRachat = depotRachatDao.save(DepotRachat);
             return ResponseHandler.generateResponse(

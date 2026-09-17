@@ -1,0 +1,259 @@
+<!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 7.0.1-573496633c2b4074e32f433154b543003f7d2498  -->
+<jasperReport name="paiementDividende" language="java" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="bb18a15b-1c13-4866-a7ff-31cad196608b">
+    <property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+    <property name="com.jaspersoft.studio.data.defaultdataadapter" value="db_opcciel_data_adapter"/>
+    <parameter name="dateFermerture" class="java.time.LocalDateTime"/>
+    <parameter name="dateOuverture" class="java.time.LocalDateTime"/>
+    <parameter name="idSeance" class="java.lang.Long"/>
+    <parameter name="designationOpcvm" class="java.lang.String"/>
+    <parameter name="letterDate" class="java.lang.String"/>
+    <!--	<query language="SQL"><![CDATA[select op.idOperation as idOperation-->
+    <!--            ,op.idTransaction as idTransaction-->
+    <!--            ,op.idSeance as idSeance-->
+    <!--            ,op.idSeancePaiement as idSeancePaiement-->
+    <!--            ,op.idOpcvm as idOpcvm-->
+    <!--            ,op.codeNatureOperation as codeNatureOperation-->
+    <!--            ,op.dateSolde as dateSolde-->
+    <!--            ,op.dateOperation as dateOperation-->
+    <!--            ,op.libelleOperation as libelleOperation-->
+    <!--            ,c.designation as designation-->
+    <!--            ,op.dateSaisie as dateSaisie-->
+    <!--            ,op.datePiece as datePiece-->
+    <!--            ,op.dateValeur as dateValeur-->
+    <!--            ,op.referencePiece as referencePiece-->
+    <!--            ,op.montant as montant-->
+    <!--            ,op.montantCharge as montantCharge-->
+    <!--            ,op.codeCharge as codeCharge-->
+    <!--            ,op.estPayee as estPayee-->
+    <!--             from Operation.T_OperationConstatationCharge op -->
+    <!--            inner join Parametre.T_Charge c on c.codeCharge=op.codeCharge and c.idOpcvm=op.idOpcvm -->
+    <!--            where (op.idOpcvm =8 and op.supprimer = 0 and op.estPayee=0)-->
+    <!--             or (op.idOpcvm = 8 and op.supprimer = 0 and op.idSeance=2041 and op.estPayee=1)-->
+    <!--             order by op.idOperation desc]]></query>-->
+    <field name="idOperation" class="java.lang.Long">
+        <property name="com.jaspersoft.studio.field.name" value="idOperation"/>
+        <property name="com.jaspersoft.studio.field.label" value="idOperation"/>
+    </field>
+    <field name="idTransaction" class="java.lang.Long">
+        <property name="com.jaspersoft.studio.field.name" value="idTransaction"/>
+        <property name="com.jaspersoft.studio.field.label" value="idTransaction"/>
+    </field>
+    <field name="idSeance" class="java.lang.Long">
+        <property name="com.jaspersoft.studio.field.name" value="idSeance"/>
+        <property name="com.jaspersoft.studio.field.label" value="idSeance"/>
+    </field>
+    <field name="idSeancePaiement" class="java.lang.Long">
+        <property name="com.jaspersoft.studio.field.name" value="idSeancePaiement"/>
+        <property name="com.jaspersoft.studio.field.label" value="idSeancePaiement"/>
+    </field>
+    <field name="idOpcvm" class="java.lang.Long">
+        <property name="com.jaspersoft.studio.field.name" value="idOpcvm"/>
+        <property name="com.jaspersoft.studio.field.label" value="idOpcvm"/>
+    </field>
+    <field name="codeNatureOperation" class="java.lang.String">
+        <property name="com.jaspersoft.studio.field.name" value="codeNatureOperation"/>
+        <property name="com.jaspersoft.studio.field.label" value="codeNatureOperation"/>
+    </field>
+    <!--	<field name="dateSolde" class="java.sql.Date">-->
+    <!--		<property name="com.jaspersoft.studio.field.name" value="dateSolde"/>-->
+    <!--		<property name="com.jaspersoft.studio.field.label" value="dateSolde"/>-->
+    <!--	</field>-->
+    <!--	<field name="dateOperation" class="java.sql.Date">-->
+    <!--		<property name="com.jaspersoft.studio.field.name" value="dateOperation"/>-->
+    <!--		<property name="com.jaspersoft.studio.field.label" value="dateOperation"/>-->
+    <!--	</field>-->
+    <field name="libelleOperation" class="java.lang.String">
+        <property name="com.jaspersoft.studio.field.name" value="libelleOperation"/>
+        <property name="com.jaspersoft.studio.field.label" value="libelleOperation"/>
+    </field>
+    <field name="designation" class="java.lang.String">
+        <property name="com.jaspersoft.studio.field.name" value="designation"/>
+        <property name="com.jaspersoft.studio.field.label" value="designation"/>
+    </field>
+    <!--	<field name="dateSaisie" class="java.sql.Timestamp">-->
+    <!--		<property name="com.jaspersoft.studio.field.name" value="dateSaisie"/>-->
+    <!--		<property name="com.jaspersoft.studio.field.label" value="dateSaisie"/>-->
+    <!--	</field>-->
+    <!--	<field name="datePiece" class="java.sql.Timestamp">-->
+    <!--		<property name="com.jaspersoft.studio.field.name" value="datePiece"/>-->
+    <!--		<property name="com.jaspersoft.studio.field.label" value="datePiece"/>-->
+    <!--	</field>-->
+    <!--	<field name="dateValeur" class="java.sql.Timestamp">-->
+    <!--		<property name="com.jaspersoft.studio.field.name" value="dateValeur"/>-->
+    <!--		<property name="com.jaspersoft.studio.field.label" value="dateValeur"/>-->
+    <!--	</field>-->
+    <field name="referencePiece" class="java.lang.String">
+        <property name="com.jaspersoft.studio.field.name" value="referencePiece"/>
+        <property name="com.jaspersoft.studio.field.label" value="referencePiece"/>
+    </field>
+    <field name="montant" class="java.math.BigDecimal">
+        <property name="com.jaspersoft.studio.field.name" value="montant"/>
+        <property name="com.jaspersoft.studio.field.label" value="montant"/>
+    </field>
+    <field name="montantCharge" class="java.math.BigDecimal">
+        <property name="com.jaspersoft.studio.field.name" value="montantCharge"/>
+        <property name="com.jaspersoft.studio.field.label" value="montantCharge"/>
+    </field>
+    <field name="codeCharge" class="java.lang.String">
+        <property name="com.jaspersoft.studio.field.name" value="codeCharge"/>
+        <property name="com.jaspersoft.studio.field.label" value="codeCharge"/>
+    </field>
+    <field name="estPayee" class="java.lang.Boolean">
+        <property name="com.jaspersoft.studio.field.name" value="estPayee"/>
+        <property name="com.jaspersoft.studio.field.label" value="estPayee"/>
+    </field>
+    <variable name="montant1" resetType="Group" calculation="Sum" resetGroup="Group1" class="java.math.BigDecimal">
+        <expression><![CDATA[$F{montant}]]></expression>
+    </variable>
+    <variable name="montantCharge1" resetType="Group" calculation="Sum" resetGroup="Group1" class="java.math.BigDecimal">
+        <expression><![CDATA[$F{montantCharge}]]></expression>
+    </variable>
+    <group name="Group1">
+        <expression><![CDATA[$F{idOpcvm}]]></expression>
+        <groupHeader>
+            <band height="88">
+                <element kind="rectangle" uuid="bd412c8c-e9eb-486a-ba47-d127c3c2b45e" x="3" y="8" width="547" height="52" backcolor="#FFFFFF">
+                    <pen lineColor="#3B88D1"/>
+                </element>
+                <element kind="textField" uuid="14a9046d-f817-49fa-995f-304e779924c0" x="73" y="40" width="64" height="15">
+                    <expression><![CDATA[$P{idSeance}]]></expression>
+                </element>
+                <element kind="staticText" uuid="72f3cb9f-314e-4712-862c-668c98b4f983" x="9" y="40" width="59" height="15" bold="true">
+                    <text><![CDATA[SEANCE:]]></text>
+                </element>
+                <element kind="rectangle" uuid="aefc2639-8607-4ae5-8dc5-488f61844647" x="2" y="63" width="547" height="25" backcolor="#BDD7EE">
+                    <pen lineColor="#3B88D1"/>
+                </element>
+                <element kind="line" uuid="b3cd5ca4-6ac3-47ae-9408-dc8b4fe6876d" x="317" y="63" width="1" height="25">
+                    <pen lineColor="#3B88D1"/>
+                </element>
+                <element kind="staticText" uuid="44089ee0-06e5-4526-82d1-1f813c59eefc" x="6" y="68" width="305" height="15" bold="true" hTextAlign="Center">
+                    <text><![CDATA[Charge(s)]]></text>
+                </element>
+                <element kind="staticText" uuid="cb657f71-d24b-4df0-b18e-d579059f13d6" x="322" y="68" width="107" height="15" bold="true" hTextAlign="Center">
+                    <text><![CDATA[Solde provisionne]]></text>
+                </element>
+                <element kind="staticText" uuid="f524dcde-787a-40c6-9096-7a4f14f8d0fe" x="440" y="68" width="100" height="15" bold="true" hTextAlign="Center">
+                    <text><![CDATA[Montant réel]]></text>
+                </element>
+                <element kind="line" uuid="ae9d962c-1655-40e8-a3f3-781b936fe0aa" x="433" y="63" width="1" height="25">
+                    <pen lineColor="#3B88D1"/>
+                </element>
+                <element kind="textField" uuid="40d5e88b-cf6f-4648-9d2c-e46f27b16597" x="73" y="18" width="215" height="15">
+                    <expression><![CDATA[$P{designationOpcvm}]]></expression>
+                </element>
+                <element kind="staticText" uuid="96866c09-4360-4a76-9383-bec18c4e9f44" x="10" y="18" width="58" height="15" bold="true">
+                    <text><![CDATA[OPCVM :]]></text>
+                </element>
+                <element kind="textField" uuid="427d645b-a2fe-4cbe-ab32-f64b8c142b5f" x="210" y="41" width="78" height="15">
+                    <expression><![CDATA[$P{dateOuverture}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"))]]></expression>
+                </element>
+                <element kind="staticText" uuid="23817c38-aed2-49a6-a9d0-aebc135a675c" x="146" y="41" width="59" height="15" bold="true">
+                    <text><![CDATA[DATE OUV:]]></text>
+                </element>
+                <element kind="textField" uuid="532e384c-b3fb-4cdf-9170-ebf261a5d039" x="371" y="43" width="78" height="15">
+                    <expression><![CDATA[$P{dateFermerture}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"))]]></expression>
+                </element>
+                <element kind="staticText" uuid="fc43a5ce-8e22-4182-ab87-ed9beb59e474" x="298" y="43" width="73" height="15" bold="true">
+                    <text><![CDATA[DATE FERM:]]></text>
+                </element>
+            </band>
+        </groupHeader>
+        <groupFooter>
+            <band height="38">
+                <element kind="rectangle" uuid="a5f5bbb3-777a-42e6-89e0-12d2c9bebac6" x="2" y="1" width="547" height="25" backcolor="#BDD7EE">
+                    <pen lineColor="#3B88D1"/>
+                </element>
+                <element kind="line" uuid="eb5475e2-3aa6-4e96-a271-ea109c419791" x="317" y="1" width="1" height="25">
+                    <pen lineColor="#3B88D1"/>
+                </element>
+                <element kind="staticText" uuid="1b93c12d-7a02-45a6-b03c-740763ab37ed" x="6" y="6" width="303" height="15" bold="true" hTextAlign="Center">
+                    <text><![CDATA[TOTAL]]></text>
+                </element>
+                <element kind="line" uuid="66c4967b-c5b1-4568-ad72-d6895bb42c80" x="433" y="1" width="1" height="25">
+                    <pen lineColor="#3B88D1"/>
+                </element>
+                <element kind="textField" uuid="8db127ca-6b88-4f4e-abd2-dc7e5430ddf6" x="322" y="6" width="107" height="15" textAdjust="StretchHeight"  blankWhenNull="true" bold="true" hTextAlign="Right">
+<!--                    <expression><![CDATA[$V{montant1}]]></expression>-->
+                    <expression><![CDATA[
+                        $V{montant1}== null ? "" :
+                        new java.text.DecimalFormat("#,##0;-,##0",
+                            java.text.DecimalFormatSymbols.getInstance(java.util.Locale.FRANCE))
+                            .format($V{montant1})
+                            .replace('\u202F', ' ')
+                    ]]></expression>
+                </element>
+                <element kind="textField" uuid="96c83225-2d01-4492-8de7-b73630600c30" x="440" y="6" width="100" height="15" textAdjust="StretchHeight"  blankWhenNull="true" bold="true" hTextAlign="Right">
+<!--                    <expression><![CDATA[$V{montantCharge1}]]></expression>-->
+                    <expression><![CDATA[
+                        $V{montantCharge1}== null ? "" :
+                        new java.text.DecimalFormat("#,##0;-,##0",
+                            java.text.DecimalFormatSymbols.getInstance(java.util.Locale.FRANCE))
+                            .format($V{montantCharge1})
+                            .replace('\u202F', ' ')
+                    ]]></expression>
+                </element>
+            </band>
+        </groupFooter>
+    </group>
+    <background splitType="Stretch"/>
+    <title height="51" splitType="Stretch">
+        <element kind="textField" uuid="fb5f9b1c-09fe-4b8a-a768-77fcd2adf225" x="3" y="3" width="217" height="16">
+            <expression><![CDATA["Cotonou, le "+$P{letterDate}]]></expression>
+        </element>
+        <element kind="rectangle" uuid="e7708729-76d8-4a79-b1cd-2d30493c9d98" x="2" y="26" width="548" height="25" backcolor="#BDD7EE">
+            <pen lineColor="#3B88D1"/>
+        </element>
+        <element kind="textField" uuid="d0257c06-3a95-4f6b-82c1-4f237d78ee09" x="10" y="30" width="530" height="16" bold="true" hTextAlign="Center">
+            <expression><![CDATA["PAIEMENT DES CHARGES"]]></expression>
+        </element>
+    </title>
+    <pageHeader splitType="Stretch"/>
+    <columnHeader splitType="Stretch"/>
+    <detail>
+        <band height="26" splitType="Stretch">
+            <element kind="rectangle" uuid="3347cf57-635c-465f-9e9c-4ee1f877a543" stretchType="ContainerHeight" x="2" y="1" width="547" height="25" backcolor="#FFFFFF">
+                <pen lineColor="#3B88D1"/>
+            </element>
+            <element kind="line" uuid="13807d38-fedb-4650-872c-2365f53f7863" stretchType="ContainerHeight" x="317" y="1" width="1" height="25">
+                <pen lineColor="#3B88D1"/>
+            </element>
+            <element kind="line" uuid="131d3250-bf2d-426a-a2bf-2819194173e2" stretchType="ContainerHeight" x="433" y="1" width="1" height="25">
+                <pen lineColor="#3B88D1"/>
+            </element>
+            <element kind="textField" uuid="516965a4-a0ee-4f62-9537-0a6ff754da0e" x="9" y="6" width="300" height="15">
+                <expression><![CDATA[$F{designation}]]></expression>
+            </element>
+            <element kind="textField" uuid="8f05f47e-9075-4ee0-bf24-9b62b5295164" x="323" y="6" width="106" height="15" textAdjust="StretchHeight"  blankWhenNull="true" hTextAlign="Right">
+<!--                <expression><![CDATA[$F{montant}]]></expression>-->
+                <expression><![CDATA[
+                        $F{montant}== null ? "" :
+                        new java.text.DecimalFormat("#,##0;-,##0",
+                            java.text.DecimalFormatSymbols.getInstance(java.util.Locale.FRANCE))
+                            .format($F{montant})
+                            .replace('\u202F', ' ')
+                    ]]></expression>
+            </element>
+            <element kind="textField" uuid="d9b9f9c9-00c1-4c30-930c-d2d3cc953670" x="440" y="6" width="100" height="15" textAdjust="StretchHeight"  blankWhenNull="true" hTextAlign="Right">
+<!--                <expression><![CDATA[$F{montantCharge}]]></expression>-->
+                <expression><![CDATA[
+                        $F{montantCharge}== null ? "" :
+                        new java.text.DecimalFormat("#,##0;-,##0",
+                            java.text.DecimalFormatSymbols.getInstance(java.util.Locale.FRANCE))
+                            .format($F{montantCharge})
+                            .replace('\u202F', ' ')
+                    ]]></expression>
+            </element>
+        </band>
+    </detail>
+    <columnFooter splitType="Stretch"/>
+    <pageFooter height="32" splitType="Stretch">
+        <element kind="staticText" uuid="152867b6-f5f9-4394-8021-d3f158204b7d" x="2" y="10" width="126" height="13">
+            <text><![CDATA[Edité avec OPCCIEL 2.0]]></text>
+        </element>
+        <element kind="textField" uuid="597d20a0-2dff-4630-b84d-e2412278baa8" x="449" y="5" width="100" height="18" hTextAlign="Right">
+            <expression><![CDATA[$V{PAGE_NUMBER}]]></expression>
+        </element>
+    </pageFooter>
+    <summary splitType="Stretch"/>
+</jasperReport>

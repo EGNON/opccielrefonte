@@ -9,9 +9,9 @@ public interface ChargeService {
     ResponseEntity<?> afficherListeCharges(Long idOpcvm);
     ResponseEntity<Object> afficherTous(DatatableParameters parameters, Long idOpcvm);
     ResponseEntity<Object> afficherTous();
-    Charge afficherSelonId(Long idCharge);
-    ResponseEntity<Object>  afficherChargeSelonId(Long idCharge);
-    ResponseEntity<Object> afficher(Long idCharge);
+    Charge afficherSelonId(Long idOpcvm,String codeCharge);
+    ResponseEntity<Object>  afficherChargeSelonId(Long idOpcvm,String codeCharge);
+    ResponseEntity<Object> afficher(Long idOpcvm,String codeCharge);
     ResponseEntity<Object> creer(ChargeDto chargeDto);
     ResponseEntity<Object> modifier(ChargeDto chargeDto);
     ResponseEntity<Object> supprimer(Long idCharge);

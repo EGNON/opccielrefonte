@@ -16,8 +16,25 @@ public class Emetteur extends Base {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idEmetteur;
     private Long idPersonne;
-
+    private String siglePersonneMorale;
+    private String raisonSociale;
     public Emetteur() {
+    }
+
+    public String getSiglePersonneMorale() {
+        return siglePersonneMorale;
+    }
+
+    public void setSiglePersonneMorale(String siglePersonneMorale) {
+        this.siglePersonneMorale = siglePersonneMorale;
+    }
+
+    public String getRaisonSociale() {
+        return raisonSociale;
+    }
+
+    public void setRaisonSociale(String raisonSociale) {
+        this.raisonSociale = raisonSociale;
     }
 
     public Long getIdEmetteur() {

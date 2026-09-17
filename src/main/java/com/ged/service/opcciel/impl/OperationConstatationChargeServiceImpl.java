@@ -4,6 +4,7 @@ import com.ged.dao.opcciel.OperationConstatationChargeDao;
 import com.ged.dao.opcciel.SeanceOpcvmDao;
 import com.ged.dao.opcciel.comptabilite.NatureOperationDao;
 import com.ged.datatable.DataTablesResponse;
+import com.ged.dto.opcciel.OpcvmDto;
 import com.ged.dto.opcciel.OperationConstatationChargeDto;
 import com.ged.dto.opcciel.comptabilite.NatureOperationDto;
 import com.ged.dto.request.ConstatationChargeEditRequest;
@@ -21,17 +22,24 @@ import com.ged.validator.ObjectsValidator;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.ParameterMode;
 import jakarta.persistence.PersistenceContext;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import org.springframework.data.domain.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.math.BigDecimal;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -107,15 +115,9 @@ public class OperationConstatationChargeServiceImpl implements OperationConstata
                             idSeance).stream().collect(Collectors.toList());
                 else
                     operationConstatationChargePage = constatationChargeDao.afficherListeOperation(
-                            idOpcvm
+                            idOpcvm,idSeance
                     ).stream().collect(Collectors.toList());
 //            }
-//            List<OperationConstatationChargeDto> content = operationConstatationChargePage.getContent().stream().map(constatationChargeMapper::deEntite).toList();
-//            DataTablesResponse<OperationConstatationChargeDto> dataTablesResponse = new DataTablesResponse<>();
-//            dataTablesResponse.setDraw(parameters.getDraw());
-//            dataTablesResponse.setRecordsFiltered((int)operationConstatationChargePage.getTotalElements());
-//            dataTablesResponse.setRecordsTotal((int)operationConstatationChargePage.getTotalElements());
-//            dataTablesResponse.setData(content);
             return ResponseHandler.generateResponse(
                     "Liste des constatations",
                     HttpStatus.OK,
@@ -127,6 +129,54 @@ public class OperationConstatationChargeServiceImpl implements OperationConstata
                     HttpStatus.MULTI_STATUS,
                     e);
         }
+    }
+
+    @Override
+    public void imprimerConstationCharge(Long idOpcvm, Long idSeance, HttpServletResponse response) throws IOException, JRException {
+
+//            Pageable pageable = PageRequest.of(parameters.getStart()/ parameters.getLength(), parameters.getLength());
+            List<OperationConstatationChargeProjection> operationConstatationChargePage;
+
+            SeanceOpcvm seanceOpcvm=seanceOpcvmDao.afficherSeance(idOpcvm, idSeance);
+            SeanceOpcvm seanceOpcvmEnCours=seanceOpcvmDao.afficherSeanceEnCours(idOpcvm);
+            Long idSeanceCourant=0L;
+            Long idSeanceEnCours=0L;
+            if(seanceOpcvm!=null)
+                idSeanceCourant=seanceOpcvm.getIdSeanceOpcvm().getIdSeance();
+
+            if(seanceOpcvmEnCours!=null)
+                idSeanceEnCours=seanceOpcvmEnCours.getIdSeanceOpcvm().getIdSeance();
+
+            if( idSeanceCourant.equals(idSeanceEnCours))
+                operationConstatationChargePage = constatationChargeDao.afficherListeOperation(
+                        idOpcvm,
+                        idSeance).stream().collect(Collectors.toList());
+            else
+                operationConstatationChargePage = constatationChargeDao.afficherListeOperation(
+                        idOpcvm,idSeance
+                ).stream().collect(Collectors.toList());
+
+        Map<String, Object> parameters = new HashMap<>();
+        DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
+        String letterDate = dateFormatter.format(new Date());
+
+        parameters.put("letterDate", letterDate);
+
+        parameters.put("designationOpcvm", seanceOpcvm.getOpcvm().getDenominationOpcvm());
+        parameters.put("dateOuverture", seanceOpcvm.getDateOuverture());
+        parameters.put("dateFermerture", seanceOpcvm.getDateFermeture());
+        parameters.put("idSeance", idSeance);
+        InputStream inputStream = getClass().getResourceAsStream("/paiementCharge.jrxml");
+        if (inputStream == null) {
+            throw new FileNotFoundException("Fichier JRXML introuvable dans le classpath");
+        }
+
+        JasperReport jasperReport = JasperCompileManager.compileReport(inputStream);
+        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(operationConstatationChargePage);
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
+
+        // Export vers le flux de sortie HTTP
+        JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());
     }
 
     @Override

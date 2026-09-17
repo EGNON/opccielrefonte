@@ -2,6 +2,8 @@ package com.ged.dto.lab;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import java.time.LocalDateTime;
+
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class TransactionDto {
     private long IdOperation;
@@ -12,8 +14,25 @@ public class TransactionDto {
     private double montant;
     private double qtePart;
     private String nomPays;
-
+    private LocalDateTime dateOperation;
+    private String libelleNatureOperation;
     public TransactionDto() {
+    }
+
+    public LocalDateTime getDateOperation() {
+        return dateOperation;
+    }
+
+    public void setDateOperation(LocalDateTime dateOperation) {
+        this.dateOperation = dateOperation;
+    }
+
+    public String getLibelleNatureOperation() {
+        return libelleNatureOperation;
+    }
+
+    public void setLibelleNatureOperation(String libelleNatureOperation) {
+        this.libelleNatureOperation = libelleNatureOperation;
     }
 
     public long getIdOperation() {

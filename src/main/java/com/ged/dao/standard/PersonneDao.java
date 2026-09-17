@@ -149,7 +149,7 @@ public interface PersonneDao extends JpaRepository<Personne, Long> {
     PersonneProjection afficherPersonnePhysiqueMoraleSelonId(long id);
     @Query(value = "select p from Personne as p inner join StatutPersonne as sp " +
             "on sp.idStatutPersonne.idPersonne = p.idPersonne inner join Qualite as q " +
-            "on q.idQualite = sp.idStatutPersonne.idQualite where lower(q.libelleQualite) = lower(:qualite) " +
+            "on q.idQualite = sp.idStatutPersonne.idQualite where ltrim(rtrim(lower(q.libelleQualite))) = lower(:qualite) " +
             "order by p.denomination asc")
     List<Personne> afficherTousSelonQualite(@Param("qualite") String qualite);
     @Query(value = "select p from Personne as p inner join StatutPersonne as sp " +

@@ -185,7 +185,7 @@ public ResponseEntity<?> verifierEtape(@PathVariable Long niveau,
         return appService.afficherDetailsEcriture(idOperation);
     }
     @PostMapping("/jasperpdf/verificationecriture/{niveau}/{codeTypeOperation}")
-    public void ordreDeBourseApercu(@PathVariable String niveau,
+    public void verificationEcriture(@PathVariable String niveau,
                                                       @PathVariable String codeTypeOperation,
                                                       @RequestBody VerificationEcritureRequest verificationEcritureRequest,
                                                       HttpServletResponse response) throws JRException, IOException {
@@ -198,5 +198,20 @@ public ResponseEntity<?> verifierEtape(@PathVariable Long niveau,
         response.setHeader(headerKey, headerValue);
 
          operationService.verificationeEcritureNiveauPrint(verificationEcritureRequest,response,niveau,codeTypeOperation);
+    }
+    @PostMapping("/jasperpdf/verificationecriturefinal/{niveau}/{codeTypeOperation}")
+    public void verificationEcritureFinal(@PathVariable String niveau,
+                                                      @PathVariable String codeTypeOperation,
+                                                      @RequestBody VerificationEcritureRequest verificationEcritureRequest,
+                                                      HttpServletResponse response) throws JRException, IOException {
+        response.setContentType("application/pdf");
+        DateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy:hh:mm:ss");
+        String currentDateTime = dateFormatter.format(new Date());
+
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=verification_Niveau"+niveau+"_" + currentDateTime + ".pdf";
+        response.setHeader(headerKey, headerValue);
+
+         operationService.verificationeEcritureNiveauPrintFinal(verificationEcritureRequest,response,niveau,codeTypeOperation);
     }
 }

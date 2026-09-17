@@ -17,6 +17,7 @@ public class PersonneDto {
     private String mobile2;
     private String fixe1;
     private String fixe2;
+    private Boolean EstActifPersonne;
     private String statutCompte;
     private String bp;
     private String emailPerso;
@@ -53,6 +54,14 @@ public class PersonneDto {
     private String typePersonne;
     private CategorieClientDto categorieClient;
     private SousTypeClientDto sousTypeClient;
+
+    public Boolean getEstActifPersonne() {
+        return EstActifPersonne;
+    }
+
+    public void setEstActifPersonne(Boolean estActifPersonne) {
+        EstActifPersonne = estActifPersonne;
+    }
 
     public String getStatutCompte() {
         return statutCompte;

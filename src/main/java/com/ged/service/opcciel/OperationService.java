@@ -32,5 +32,9 @@ public interface OperationService {
                                                             HttpServletResponse response,
                                                             String niveau,
                                                             String codeTypeOperation) throws IOException, JRException;
+ResponseEntity<Object> verificationeEcritureNiveauPrintFinal(VerificationEcritureRequest verificationEcritureRequest,
+                                                            HttpServletResponse response,
+                                                            String niveau,
+                                                            String codeTypeOperation) throws IOException, JRException;
 
 }

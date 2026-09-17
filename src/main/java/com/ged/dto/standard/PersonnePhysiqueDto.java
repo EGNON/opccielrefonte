@@ -12,6 +12,7 @@ import java.util.Set;
 public class PersonnePhysiqueDto extends PersonneDto{
     private Long idPersonne;
     private String nom;
+    private Boolean EstMineur;
     private String email;
     private String prenom;
     private String sexe;
@@ -61,6 +62,15 @@ public class PersonnePhysiqueDto extends PersonneDto{
 //    public Long getId() {
 //        return idPersonne;
 //    }
+
+
+    public Boolean getEstMineur() {
+        return EstMineur;
+    }
+
+    public void setEstMineur(Boolean estMineur) {
+        EstMineur = estMineur;
+    }
 
     public String getEmail() {
         return email;

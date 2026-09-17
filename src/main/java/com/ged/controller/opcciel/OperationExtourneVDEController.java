@@ -61,13 +61,14 @@ public class OperationExtourneVDEController {
         this.seanceOpcvmMapper = seanceOpcvmMapper;
         this.libraryDao = libraryDao;
     }
-    @GetMapping("/jasperpdf/vde/{idSeance}/{idOpcvm}/{estVerifie}/{estVerifie1}/{estVerifie2}/{niveau}")
+    @GetMapping("/jasperpdf/vde/{idSeance}/{idOpcvm}/{niveau}")
     public void ordreDeBourseApercu(@PathVariable Long idSeance,
-                                                      @PathVariable Long idOpcvm,
-                                                      @PathVariable Boolean estVerifie,
-                                                      @PathVariable Boolean estVerifie1,
-                                                      @PathVariable Boolean estVerifie2,
-                                                      @PathVariable Long niveau,
+                                  @PathVariable Long idOpcvm,
+                                  @PathVariable Long niveau,
+                                  @RequestParam Boolean estVerifie,
+                                  @RequestParam Boolean estVerifie1,
+                                  @RequestParam Boolean estVerifie2,
+
                                                       HttpServletResponse response) throws JRException, IOException {
         response.setContentType("application/pdf");
         DateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy:hh:mm:ss");
@@ -79,14 +80,14 @@ public class OperationExtourneVDEController {
 
          operationExtourneVDEService.jaspertReportVDE(idSeance,idOpcvm,estVerifie,estVerifie1,estVerifie2,niveau,response);
     }
-    @GetMapping("/excel/vde/{idSeance}/{idOpcvm}/{estVerifie}/{estVerifie1}/{estVerifie2}/{niveau}")
+    @GetMapping("/excel/vde/{idSeance}/{idOpcvm}/{niveau}")
     public ResponseEntity<byte[]> excelVDE(@PathVariable Long idSeance,
-                                                      @PathVariable Long idOpcvm,
-                                                      @PathVariable Boolean estVerifie,
-                                                      @PathVariable Boolean estVerifie1,
-                                                      @PathVariable Boolean estVerifie2,
-                                                      @PathVariable Long niveau,
-                                                      HttpServletResponse response) throws JRException, IOException {
+                                          @PathVariable Long idOpcvm,
+                                          @PathVariable Long niveau,
+                                          @RequestParam Boolean estVerifie,
+                                          @RequestParam Boolean estVerifie1,
+                                          @RequestParam Boolean estVerifie2,
+                                          HttpServletResponse response) throws JRException, IOException {
         List<OperationExtourneVDEProjection> list=libraryDao.operationExtourneVDE(idSeance, idOpcvm, estVerifie, estVerifie1, estVerifie2);
         InputStream reportStream = getClass().getResourceAsStream("/verificationVDEN1.jrxml");
         JasperReport jasperReport = JasperCompileManager.compileReport(reportStream);

@@ -837,11 +837,40 @@ public class OperationComptableServiceImpl implements OperationService {
 
         parameters.put("letterDate", letterDate);
         parameters.put("niveau", niveau);
-//        File file = ResourceUtils.getFile("classpath:verificationEcritureComptable.jrxml");
-//        JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
-//        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(list);
-//        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport,parameters, dataSource);
-//        JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());
+
+
+        InputStream inputStream = getClass().getResourceAsStream("/verificationEcritureComptable.jrxml");
+        if (inputStream == null) {
+            throw new FileNotFoundException("Fichier JRXML introuvable dans le classpath");
+        }
+
+        JasperReport jasperReport = JasperCompileManager.compileReport(inputStream);
+        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(list);
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
+
+        // Export vers le flux de sortie HTTP
+        JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());
+        return ResponseHandler.generateResponse(
+                "Verification ecriture",
+                HttpStatus.OK,
+                list);
+    }
+    @Override
+    public ResponseEntity<Object> verificationeEcritureNiveauPrintFinal(VerificationEcritureRequest verificationEcritureRequest,
+                                                                   HttpServletResponse response,
+                                                                   String niveau,
+                                                                   String codeTypeOperation) throws IOException, JRException {
+        List<ListeVerificationEcritureProjection> list=libraryDao.listeVerificationEcriture(verificationEcritureRequest.getIdOpcvm(),
+                verificationEcritureRequest.getCodeTypeOperation() == null ? null : codeTypeOperation, verificationEcritureRequest.getDateDebut()
+                , verificationEcritureRequest.getDateFin(), verificationEcritureRequest.getEstVerifie1(),
+                verificationEcritureRequest.getEstVerifie2(), verificationEcritureRequest.getIdOperationEcriture());
+        Map<String, Object> parameters = new HashMap<>();
+        DateFormat dateFormatter = new SimpleDateFormat("dd MMMM yyyy");
+        String letterDate = dateFormatter.format(new Date());
+
+        parameters.put("letterDate", letterDate);
+        parameters.put("niveau", niveau);
+
 
         InputStream inputStream = getClass().getResourceAsStream("/verificationEcritureComptable.jrxml");
         if (inputStream == null) {

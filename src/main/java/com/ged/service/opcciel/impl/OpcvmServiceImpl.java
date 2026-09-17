@@ -377,7 +377,7 @@ public class OpcvmServiceImpl implements OpcvmService {
     @Override
     public ResponseEntity<Object> afficherTous(DatatableParameters parameters) {
         try {
-            Sort sort = Sort.by(Sort.Direction.ASC,"denominationOpcvm");
+            Sort sort = Sort.by(Sort.Direction.ASC,"idOpcvm");
             Pageable pageable = PageRequest.of(
                     parameters.getStart()/ parameters.getLength(), parameters.getLength(),sort);
             Page<Opcvm> opcvmPage;
@@ -427,10 +427,11 @@ public class OpcvmServiceImpl implements OpcvmService {
     @Override
     public ResponseEntity<Object> afficherListe() {
         try {
+            Sort sort=Sort.by(Sort.Direction.ASC,"idOpcvm");
             return ResponseHandler.generateResponse(
                     "Liste des opcvms" ,
                     HttpStatus.OK,
-                    opcvmDao.findAll().stream().map(opcvmMapper::deOpcvm).collect(Collectors.toList()));
+                    opcvmDao.findAll(sort).stream().map(opcvmMapper::deOpcvm).collect(Collectors.toList()));
         }
         catch (Exception e)
         {

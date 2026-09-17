@@ -33,7 +33,7 @@ public class PersonnePhysique extends Personne{
     private String LieuNaissance;
 //    @Column(nullable =true)
     @Column(columnDefinition="BIT")
-    private boolean EstMineur=false;
+    private Boolean EstMineur;
     /*private String nomDeJeuneFille;
     private String PhotoPersonnePhysique;
     private String SignaturePersonnePhysique;
@@ -589,54 +589,55 @@ public class PersonnePhysique extends Personne{
         CodePaysNaissance = codePaysNaissance;
     }
 */
-    public boolean isEstMineur() {
+
+    public Boolean getEstMineur() {
         return EstMineur;
     }
 
-    public void setEstMineur(boolean estMineur) {
+    public void setEstMineur(Boolean estMineur) {
         EstMineur = estMineur;
     }
 
     /*public String getNomDeJeuneFille() {
-        return nomDeJeuneFille;
-    }
+            return nomDeJeuneFille;
+        }
 
-    public void setNomDeJeuneFille(String nomDeJeuneFille) {
-        this.nomDeJeuneFille = nomDeJeuneFille;
-    }
+        public void setNomDeJeuneFille(String nomDeJeuneFille) {
+            this.nomDeJeuneFille = nomDeJeuneFille;
+        }
 
-    public String getPhotoPersonnePhysique() {
-        return PhotoPersonnePhysique;
-    }
+        public String getPhotoPersonnePhysique() {
+            return PhotoPersonnePhysique;
+        }
 
-    public void setPhotoPersonnePhysique(String photoPersonnePhysique) {
-        PhotoPersonnePhysique = photoPersonnePhysique;
-    }
+        public void setPhotoPersonnePhysique(String photoPersonnePhysique) {
+            PhotoPersonnePhysique = photoPersonnePhysique;
+        }
 
-    public String getSignaturePersonnePhysique() {
-        return SignaturePersonnePhysique;
-    }
+        public String getSignaturePersonnePhysique() {
+            return SignaturePersonnePhysique;
+        }
 
-    public void setSignaturePersonnePhysique(String signaturePersonnePhysique) {
-        SignaturePersonnePhysique = signaturePersonnePhysique;
-    }
+        public void setSignaturePersonnePhysique(String signaturePersonnePhysique) {
+            SignaturePersonnePhysique = signaturePersonnePhysique;
+        }
 
-    public String getLibelleSecteurActivite() {
-        return LibelleSecteurActivite;
-    }
+        public String getLibelleSecteurActivite() {
+            return LibelleSecteurActivite;
+        }
 
-    public void setLibelleSecteurActivite(String libelleSecteurActivite) {
-        LibelleSecteurActivite = libelleSecteurActivite;
-    }
+        public void setLibelleSecteurActivite(String libelleSecteurActivite) {
+            LibelleSecteurActivite = libelleSecteurActivite;
+        }
 
-    public String getLibelleProfession() {
-        return LibelleProfession;
-    }
+        public String getLibelleProfession() {
+            return LibelleProfession;
+        }
 
-    public void setLibelleProfession(String libelleProfession) {
-        LibelleProfession = libelleProfession;
-    }
-*/
+        public void setLibelleProfession(String libelleProfession) {
+            LibelleProfession = libelleProfession;
+        }
+    */
     public String getNumCompteDepositaire() {
         return numCompteDepositaire;
     }

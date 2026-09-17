@@ -44,8 +44,8 @@ public class OpcvmMapper {
         BeanUtils.copyProperties(opcvm, opcvmDto);
         if(opcvm.getClassification()!=null)
             opcvmDto.setClassification(classificationOPCMapper.deClassification(opcvm.getClassification()));
-       /* if(opcvm.getPersonneEmetteur()!=null)
-            opcvmDto.setPersonneEmetteur(personneMoraleMapper.dePersonneMorale(opcvm.getPersonneEmetteur()));*/
+        if(opcvm.getPersonneEmetteur()!=null)
+            opcvmDto.setPersonneEmetteur(personneMoraleMapper.dePersonneMorale(opcvm.getPersonneEmetteur()));
         if(opcvm.getPersonneIntervenant()!=null)
             opcvmDto.setPersonneIntervenant(personneMoraleMapper.dePersonneMorale(opcvm.getPersonneIntervenant()));
         if(opcvm.getFormeJuridiqueOpc()!=null)

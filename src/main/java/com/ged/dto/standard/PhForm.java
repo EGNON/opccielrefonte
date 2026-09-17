@@ -22,6 +22,7 @@ public class PhForm {
     private Boolean estGenere;
     private Boolean estVerifier;
     private String nomVerificateur;
+    private String userLogin;
     private LocalDateTime dateVerification;
     private BigDecimal montantSouscrit;
     private TitreDto titre;
@@ -57,6 +58,15 @@ public class PhForm {
     private String numeroCpteDeposit;
     private ProfessionDto profession;
     private PaysDto paysNationalite;
+
+
+    public String getUserLogin() {
+        return userLogin;
+    }
+
+    public void setUserLogin(String userLogin) {
+        this.userLogin = userLogin;
+    }
 
     public Long getIdSeance() {
         return idSeance;

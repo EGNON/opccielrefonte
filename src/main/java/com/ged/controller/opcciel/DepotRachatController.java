@@ -389,6 +389,75 @@ public class DepotRachatController {
                 encoded
         );
     }
+    @PostMapping("/download/liste/verification/depot/niveau2")
+    public ResponseEntity<Object> downloadListeVerifDepotNiveuaFinal(@RequestBody DownloadRequest downloadRequest) {
+        Context context = new Context();
+        Opcvm opcvm = opcvmService.afficherSelonId(downloadRequest.getIdOpcvm());
+        SeanceOpcvm seanceOpcvm = seanceService.afficherSeanceEnCours(downloadRequest.getIdOpcvm());
+        String templateName = "verifDepotsouscription";
+        List<DepotRachatDto> depots;
+        if(downloadRequest.getNiveau() == 0 || downloadRequest.getNiveau() == 1)
+        {
+            if(downloadRequest.getNiveau() == 1)
+                templateName = "verifNiv1DepotSouscription";
+            depots = depotRachatDao.listeVerifDepotSeance(downloadRequest.getIdOpcvm(), downloadRequest.getIdSeance())
+                    .stream().map(depotRachatMapper::deDepotRachat).collect(Collectors.toList());
+        }
+        else
+        {
+            depots = depotRachatDao.tousLesDepotsSouscription(
+                downloadRequest.getIdOpcvm(),
+                downloadRequest.getIdSeance(),
+                null,
+                    Boolean.TRUE,
+                    Boolean.TRUE
+            ).stream().map(depotRachatMapper::deDepotRachat).toList();
+            templateName = "verifNiv2DepotSouscription";
+        }
+        String dateVerification1 = "";
+        String userVerification1 = "";
+        String dateVerification2 = "";
+        String userVerification2 = "";
+        if(depots.size() > 0) {
+            DepotRachatDto depot = depots.get(0);
+            if(depot != null) {
+                if(depot.getDateVerification1() != null  && depot.getUserLoginVerificateur1() != null) {
+                    dateVerification1 = DateTimeFormatter.ofPattern("dd/MM/yyyy").format(depot.getDateVerification1());
+                    userVerification1 = depots.get(0).getUserLoginVerificateur1();
+                }
+                if(depot.getDateVerification2() != null  && depot.getUserLoginVerificateur2() != null) {
+                    dateVerification2 = DateTimeFormatter.ofPattern("dd/MM/yyyy").format(depot.getDateVerification2());
+                    userVerification2 = depot.getUserLoginVerificateur2();
+                }
+            }
+        }
+        BigDecimal totalDepot = depots.stream()
+                .map(x -> x.getMontant().add(BigDecimal.valueOf(0)))
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+        BigDecimal totalSouscrit = depots.stream()
+                .map(x -> x.getMontantSouscrit().add(BigDecimal.valueOf(0)))
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+        context.setVariables(Map.of(
+                "depots", depots,
+                "opcvm", opcvm,
+                "seance", seanceOpcvm,
+                "totalDepot", totalDepot,
+                "totalSouscrit", totalSouscrit,
+                "dateVerification1", dateVerification1,
+                "userVerification1", userVerification1,
+                "dateVerification2", dateVerification2,
+                "userVerification2", userVerification2
+        ));
+        context.setVariable("df", DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
+        String html2Convert = templateEngine.process(templateName, context);
+        String encoded = pdfGeneratorService.htmlToPdf(html2Convert);
+
+        return ResponseHandler.generateResponse(
+                "LISTE DE VERIFICATION DES SOUSCRIPTIONS",
+                HttpStatus.OK,
+                encoded
+        );
+    }
 
     @PostMapping("/confirmer/liste/verification/depots/tous")
     public ResponseEntity<Object> addAll(@Valid @RequestBody VerifDepSouscriptionIntRachatDto verifDepSouscriptionIntRachatDto) {

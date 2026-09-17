@@ -13,7 +13,7 @@ import org.springframework.data.jpa.repository.Query;
 import java.math.BigDecimal;
 import java.util.List;
 
-public interface ChargeDao extends JpaRepository<Charge, Long> {
+public interface ChargeDao extends JpaRepository<Charge, CleCharge> {
     @Query(value = "select c from Charge c where c.supprimer = false " +
             "and c.idCharge.idOpcvm = :idOpcvm")
     List<Charge> afficherChargeParIdOpcvm(Long idOpcvm);
@@ -26,8 +26,8 @@ public interface ChargeDao extends JpaRepository<Charge, Long> {
             "c.natureOperation as natureOperation," +
             "c.appliquerSurActifNet as  appliquerSurActifNet " +
             "from Charge c " +
-            "where c.idCharge=:id")
-    ChargeProjection rechercherChargeSelonId(Long id);
+            "where c.idCharge.idOpcvm=:id and c.idCharge.codeCharge=:code")
+    ChargeProjection rechercherChargeSelonId(Long id,String code);
 
     @Modifying()
     @Query(value = "update  Charge c set " +

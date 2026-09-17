@@ -415,6 +415,8 @@ public class PersonnePhysiqueServiceImpl implements PersonnePhysiqueService {
 
                 PersonnePhysique personnePhysique=personnePhysiqueMapper.dePersonnePhysiqueDto(physiqueDto);
                 personnePhysique.setStatutCompte("OUVERT");
+                personnePhysique.setEstMineur(personnePhysiqueDto.getEstMineur());
+                personnePhysique.setEstActifPersonne(personnePhysiqueDto.getEstActifPersonne());
                 personnePhysique.setIdPersonne(personnePhysiqueDto.getIdPersonne());
                 personnePhysique.setEstJuge(personnePhysiqueDto.getEstJuge());
                 personnePhysique.setEstExpose(personnePhysiqueDto.getEstExpose());
@@ -549,6 +551,8 @@ public class PersonnePhysiqueServiceImpl implements PersonnePhysiqueService {
             else {
                 PersonnePhysique personnePhysique = personnePhysiqueMapper.dePersonnePhysiqueDto(personnePhysiqueDto);
                 personnePhysique.setStatutCompte("OUVERT");
+                personnePhysique.setEstMineur(personnePhysiqueDto.getEstMineur());
+                personnePhysique.setEstActifPersonne(personnePhysiqueDto.getEstActifPersonne());
                 personnePhysique.setDenomination(personnePhysiqueDto.getNom() + " " + personnePhysiqueDto.getPrenom());
                 personnePhysique.setNomPersonnePhysique(personnePhysiqueDto.getNom());
                 personnePhysique.setEmail(personnePhysiqueDto.getEmailPerso());
@@ -660,7 +664,7 @@ public class PersonnePhysiqueServiceImpl implements PersonnePhysiqueService {
                 if (personnePhysiqueSave.getIdPersonne() != null) {
                     if (
 //                            StringUtils.hasLength(personnePhysiqueSave.getEmailPro()) ||
-                                    personnePhysiqueSave.getEmailPerso().trim()!=""
+                            !personnePhysiqueSave.getEmailPerso().trim().equals("")
                     ) {
                         mailSenderServiceImpl.send("Remerciement",
                                 personnePhysiqueSave.getEmailPerso(),
@@ -694,6 +698,8 @@ public class PersonnePhysiqueServiceImpl implements PersonnePhysiqueService {
         PersonnePhysique personnePhysiqueSelonId = new PersonnePhysique();
         personnePhysique.setDenomination(personnePhysiqueDto.getNom() + " " + personnePhysiqueDto.getPrenom());
         personnePhysique.setStatutCompte("OUVERT");
+        personnePhysique.setEstMineur(personnePhysiqueDto.getEstMineur());
+        personnePhysique.setEstActifPersonne(personnePhysiqueDto.getEstActifPersonne());
         personnePhysique.setNomPersonnePhysique(personnePhysiqueDto.getNom());
         personnePhysique.setEmail(personnePhysiqueDto.getEmailPerso());
         personnePhysique.setPrenomPersonnePhysique(personnePhysiqueDto.getPrenom());
@@ -705,14 +711,20 @@ public class PersonnePhysiqueServiceImpl implements PersonnePhysiqueService {
             physiqueDto=null;
         if(personnePhysiqueDto.getEstExpose()==null){
             if(physiqueDto!=null)
-                personnePhysique.setEstExpose(physiqueDto.getEstExpose());
+                if(physiqueDto.getEstExpose()!=null)
+                    personnePhysique.setEstExpose(physiqueDto.getEstExpose());
+                else
+                    personnePhysique.setEstExpose(false);
             else
                 personnePhysique.setEstExpose(false);
             personnePhysiqueDto.setEstExpose(personnePhysique.getEstExpose());
         }
         if(personnePhysiqueDto.getEstJuge()==null){
             if(physiqueDto!=null)
-                personnePhysique.setEstJuge(physiqueDto.getEstJuge());
+                if(physiqueDto.getEstJuge()!=null)
+                    personnePhysique.setEstJuge(physiqueDto.getEstJuge());
+                else
+                    personnePhysique.setEstJuge(false);
             else
                 personnePhysique.setEstJuge(false);
             personnePhysiqueDto.setEstJuge(personnePhysique.getEstJuge());
@@ -730,6 +742,16 @@ public class PersonnePhysiqueServiceImpl implements PersonnePhysiqueService {
                     if (personnePhysiqueSelonId.getNumeroCpteDeposit() != null && personnePhysiqueDto.getNumeroCpteDeposit() == null) {
                         personnePhysique.setNumeroCpteDeposit(personnePhysiqueSelonId.getNumeroCpteDeposit());
                         personnePhysique.setNumCompteSgi(personnePhysiqueSelonId.getNumeroCpteDeposit());
+                    }
+                     if (personnePhysiqueSelonId.getStatutCompte() != null && personnePhysiqueDto.getStatutCompte() == null) {
+                        personnePhysique.setStatutCompte(personnePhysiqueSelonId.getStatutCompte());
+
+                    }
+                     if (personnePhysiqueSelonId.getEstMineur() != null && personnePhysiqueDto.getEstMineur() == null) {
+                        personnePhysique.setEstMineur(personnePhysiqueSelonId.getEstMineur());
+                    }
+                     if (personnePhysiqueSelonId.getEstActifPersonne() != null && personnePhysiqueDto.getEstActifPersonne() == null) {
+                        personnePhysique.setEstActifPersonne(personnePhysiqueSelonId.getEstActifPersonne());
                     }
 
                     if (personnePhysiqueSelonId.getMobile2() != null && personnePhysiqueDto.getMobile2() == null) {
@@ -1393,6 +1415,15 @@ public class PersonnePhysiqueServiceImpl implements PersonnePhysiqueService {
                     }
                     if (personnePhysiqueSelonId.getStatutMatrimonial() != null && personnePhysiqueDto.getStatutMatrimonial() == null) {
                         personnePhysique.setStatutMatrimonial(personnePhysiqueSelonId.getStatutMatrimonial());
+                    }
+                    if (personnePhysiqueSelonId.getStatutCompte() != null && personnePhysiqueDto.getStatutCompte() == null) {
+                        personnePhysique.setStatutCompte(personnePhysiqueSelonId.getStatutCompte());
+                    }
+                    if (personnePhysiqueSelonId.getEstMineur() != null && personnePhysiqueDto.getEstMineur() == null) {
+                        personnePhysique.setEstMineur(personnePhysiqueSelonId.getEstMineur());
+                    }
+                    if (personnePhysiqueSelonId.getEstActifPersonne() != null && personnePhysiqueDto.getEstActifPersonne() == null) {
+                        personnePhysique.setEstActifPersonne(personnePhysiqueSelonId.getEstActifPersonne());
                     }
                 }
             }

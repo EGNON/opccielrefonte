@@ -9,6 +9,7 @@ import com.ged.datatable.DatatableParameters;
 import com.ged.dto.opcciel.ChargeDto;
 import com.ged.dto.request.ChargeListeRequest;
 import com.ged.entity.opcciel.Charge;
+import com.ged.entity.opcciel.CleCharge;
 import com.ged.entity.opcciel.Opcvm;
 import com.ged.entity.opcciel.comptabilite.NatureOperation;
 import com.ged.mapper.opcciel.ChargeMapper;
@@ -112,17 +113,21 @@ public class ChargeServiceImpl implements ChargeService {
         }
     }
     @Override
-    public Charge afficherSelonId(Long idCharge) {
-        return chargeDao.findById(idCharge).orElseThrow(() -> new EntityNotFoundException(Charge.class, "code", idCharge.toString()));
+    public Charge afficherSelonId(Long idOpcvm,String codeCharge) {
+        CleCharge cleCharge=new CleCharge();
+        cleCharge.setIdOpcvm(idOpcvm);
+        cleCharge.setCodeCharge(codeCharge);
+        return chargeDao.findById(cleCharge).orElseThrow(() -> new EntityNotFoundException(Charge.class, "code", codeCharge.toString()));
     }
 
     @Override
-    public ResponseEntity<Object>  afficherChargeSelonId(Long idCharge) {
+    public ResponseEntity<Object>  afficherChargeSelonId(Long idOpcvm,String codeCharge) {
         try {
             return ResponseHandler.generateResponse(
-                    "Charge  dont id = " + idCharge,
+                    "Charge  dont id = " + codeCharge,
                     HttpStatus.OK,
-                    chargeMapper.deChargeProjection(chargeDao.rechercherChargeSelonId(idCharge)));
+                    chargeMapper.deCharge(afficherSelonId(idOpcvm, codeCharge)));
+//                    chargeMapper.deChargeProjection(chargeDao.rechercherChargeSelonId(idOpcvm, codeCharge)));
         }
         catch (Exception e)
         {
@@ -134,12 +139,12 @@ public class ChargeServiceImpl implements ChargeService {
     }
 
     @Override
-    public ResponseEntity<Object> afficher(Long codeCharge) {
+    public ResponseEntity<Object> afficher(Long idOpcvm,String codeCharge) {
         try {
             return ResponseHandler.generateResponse(
                     "Charge  dont id = " + codeCharge,
                     HttpStatus.OK,
-                    chargeMapper.deCharge(afficherSelonId(codeCharge)));
+                    chargeMapper.deCharge(afficherSelonId(idOpcvm, codeCharge)));
         }
         catch (Exception e)
         {

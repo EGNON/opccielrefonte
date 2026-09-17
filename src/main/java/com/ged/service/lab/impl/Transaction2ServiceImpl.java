@@ -7,6 +7,7 @@ import com.ged.response.ResponseHandler;
 import com.ged.service.lab.TransactionService;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.ParameterMode;
+import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.StoredProcedureQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -15,6 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -24,8 +26,10 @@ public class Transaction2ServiceImpl implements TransactionService {
     private int page;
     private int size;
     @Autowired
-    @Qualifier("refonteEntityManagerFactory")
-    private EntityManager emOpcciel;
+     @Qualifier("refonteEntityManagerFactory")
+    private  EntityManager emOpcciel;
+
+
     @Override
     public ResponseEntity<Object> afficherTous(DatatableParameters parameters,long critere) {
         try {
@@ -35,26 +39,48 @@ public class Transaction2ServiceImpl implements TransactionService {
 
 //            emOpcciel.unwrap(Session.class);
 //            if (!emOpcciel.isOpen()) {
-            emOpcciel = emOpcciel.getEntityManagerFactory().createEntityManager();
+                 emOpcciel = emOpcciel.getEntityManagerFactory().createEntityManager();
 //                System.out.println("pass");
 //            }
 
-            StoredProcedureQuery query = emOpcciel.createStoredProcedureQuery("[Parametre].[PS_Transaction2]");
+
+            StoredProcedureQuery query = emOpcciel.createStoredProcedureQuery("[Parametre].[PS_Transaction]");
             //Déclarer les différents paramètres
             query.registerStoredProcedureParameter("IdCritereAlerte", Long.class, ParameterMode.IN);
 
-
+            query.registerStoredProcedureParameter("Recherche", String.class, ParameterMode.IN);
+            query.registerStoredProcedureParameter("Start", Integer.class, ParameterMode.IN);
+            query.registerStoredProcedureParameter("Length", Integer.class, ParameterMode.IN);
+            System.out.println("search="+parameters.getSearch().getValue());
             //Fournir les différents paramètres
             query.setParameter("IdCritereAlerte", critere);
-//            System.out.println("passez");
+//            if(parameters.getSearch().getValue()!=null && !parameters.getSearch().getValue().isEmpty())
+//                query.setParameter("Recherche",
+//                        parameters.getSearch().getValue());
+//            else
+                query.setParameter("Recherche",
+                        null);;
 
+            query.setParameter("Start",
+                    parameters.getStart());
+
+            query.setParameter("Length",
+                    parameters.getLength());
             query.execute();
 //            System.out.println("passons");
             transaction= query.getResultList();
 //            System.out.println("passera");
-
+            int total=0;
+            int totalFiltered=0;
             for(Object[] o:transaction)
             {
+                if (total == 0) {
+                    total = ((Number) o[11]).intValue();
+                    if(!parameters.getSearch().getValue().isEmpty())
+                         totalFiltered = ((Number) o[12]).intValue();
+                    else
+                        totalFiltered=total;
+                }
                 TransactionDto transac=new TransactionDto();
                 transac.setIdOperation(Long.valueOf(o[0].toString()));
                 transac.setSigleOpcvm((o[1].toString()));
@@ -64,102 +90,114 @@ public class Transaction2ServiceImpl implements TransactionService {
                 transac.setMontant(Double.valueOf(o[5].toString()));
                 transac.setQtePart(Double.valueOf(o[6].toString()));
                 transac.setNomPays((o[7].toString()));
+                transac.setDateOperation(LocalDateTime.parse(o[9].toString().replaceAll(" ","T")));
+                transac.setLibelleNatureOperation((o[10].toString()));
                 transactionDto.add(transac);
 //                System.out.println(transac.getDenomination().toString()+" "+transac.getMontant());
             }
-//            List<TransactionDto>  transactionDto;
-////            emOpcciel.unwrap(Session.class);
-////            if (!emOpcciel.isOpen()) {
-//                emOpcciel = emOpcciel.getEntityManagerFactory().createEntityManager();
-////                System.out.println("pass");
-////            }
-//
-//            StoredProcedureQuery query = emOpcciel.createStoredProcedureQuery("[Parametre].[PS_Transaction2]");
-//            //Déclarer les différents paramètres
-//            query.registerStoredProcedureParameter("IdCritereAlerte", Long.class, ParameterMode.IN);
-//
-//
-//            //Fournir les différents paramètres
-//            query.setParameter("IdCritereAlerte", critere);
-//
-//
-//            query.execute();
-//            transactionDto= query.getResultList();
-//            System.out.println(query.getResultList().size());
-//            for(TransactionDto o:transactionDto)
-//            {
-//                System.out.println(o.getDenomination()+" "+o.getMontant());
+            DataTablesResponse<TransactionDto> response = new DataTablesResponse<>();
+            response.setDraw(parameters.getDraw());
+            response.setRecordsTotal(total);
+            response.setRecordsFiltered(totalFiltered);
+            response.setData(transactionDto);
+//            page= parameters.getStart();
+//            size=parameters.getLength();
+//            page+=1;
+//            int totalpages = transactionDto.size() / page;
+//            int max =0;
+//            if(page>=totalpages) {
+//                max = page + 9;//size*(page+1);//transactionDto.size();
+//                if(max>transactionDto.size())
+//                {
+//                    max=transactionDto.size();
+//                }
 //            }
-            page= parameters.getStart();
-            size=parameters.getLength();
-            page+=1;
-            int totalpages = transactionDto.size() / page;
-            int max =0;
-            if(page>=totalpages) {
-                max = page + 9;//size*(page+1);//transactionDto.size();
-                if(max>transactionDto.size())
-                {
-                    max=transactionDto.size();
-                }
-            }
-            else
-                if(totalpages>10) {
-                    max = page + 9;//size*(page+1);
-                    if(max>transactionDto.size())
-                    {
-                        max=transactionDto.size();
-                    }
-                }
-                else
-                    max=totalpages;
-            int min =0;
-            String nbreZero="1";
-            String taille=String.valueOf(transactionDto.size());
-            int diviseur=1;
-            if(max==transactionDto.size())
-            {
-                for(int l=1;l<taille.length();l++)
-                {
-                    nbreZero+="0";
-                }
-            }
-            diviseur=Integer.valueOf(nbreZero);
-            int valeur=0;
-            if(page >totalpages) {
-                min = max - size;
-                if(max==transactionDto.size())
-                {
-                    valeur=(max/diviseur);
-                    min=valeur*diviseur;
-                }
-            }
-            else
-                if(totalpages>10) {
-                    min = max - size;//size*page;
-                    if(max==transactionDto.size())
-                    {
-                        valeur=(max/diviseur);
-                        min=valeur*diviseur;
-                    }
-                }
-                else
-                    min=0;
+//            else
+//                if(totalpages>10) {
+//                    max = page + 9;//size*(page+1);
+//                    if(max>transactionDto.size())
+//                    {
+//                        max=transactionDto.size();
+//                    }
+//                }
+//                else
+//                    max=totalpages;
+//            int min =0;
+//            String nbreZero="1";
+//            String taille=String.valueOf(transactionDto.size());
+//            int diviseur=1;
+//            if(max==transactionDto.size())
+//            {
+//                for(int l=1;l<taille.length();l++)
+//                {
+//                    nbreZero+="0";
+//                }
+//            }
+//            diviseur=Integer.valueOf(nbreZero);
+//            int valeur=0;
+//            if(page >totalpages) {
+//                min = max - size;
+//                if(max==transactionDto.size())
+//                {
+//                    valeur=(max/diviseur);
+//                    min=valeur*diviseur;
+//                }
+//            }
+//            else
+//                if(totalpages>10) {
+//                    min = max - size;//size*page;
+//                    if(max==transactionDto.size())
+//                    {
+//                        valeur=(max/diviseur);
+//                        min=valeur*diviseur;
+//                    }
+//                }
+//                else
+//                    min=0;
+//
+//            Sort sort=Sort.by(Sort.Direction.DESC,"denomination");
+//            Pageable pageable = PageRequest.of(
+//                    parameters.getStart()/ parameters.getLength(), parameters.getLength(),sort);
+//            Page<TransactionDto> transactionPage=new PageImpl<>(transactionDto.subList(min, max), pageable, transactionDto.size());
+//
+//            List<TransactionDto> content =transactionPage.getContent().stream().collect(Collectors.toList());
+//            DataTablesResponse<TransactionDto> dataTablesResponse = new DataTablesResponse<>();
+//            dataTablesResponse.setDraw(parameters.getDraw());
+//            dataTablesResponse.setRecordsFiltered((int) transactionPage.getTotalElements());
+//            dataTablesResponse.setRecordsTotal((int) transactionPage.getTotalElements());
+//            dataTablesResponse.setData(content);
 
-            Sort sort=Sort.by(Sort.Direction.DESC,"denomination");
-            Pageable pageable = PageRequest.of(
-                    parameters.getStart()/ parameters.getLength(), parameters.getLength(),sort);
-            Page<TransactionDto> transactionPage=new PageImpl<>(transactionDto.subList(min, max), pageable, transactionDto.size());
+//            int start = parameters.getStart();
+//            int length = parameters.getLength();
+//
+//            int total = transactionDto.size();
+//
+//            int fromIndex = Math.min(start, total);
+//            int toIndex = Math.min(start + length, total);
+//
+//            List<TransactionDto> content = transactionDto.subList(fromIndex, toIndex);
+//
+//            Pageable pageable = PageRequest.of(
+//                    start / length,
+//                    length,
+//                    Sort.by(Sort.Direction.DESC, "denomination"));
+//
+//            Page<TransactionDto> transactionPage =
+//                    new PageImpl<>(content, pageable, total);
+//            DataTablesResponse<TransactionDto> response = new DataTablesResponse<>();
+//            response.setDraw(parameters.getDraw());
+//            response.setRecordsTotal(total);
+//            response.setRecordsFiltered(total);
+//            response.setData(content);
 
-            List<TransactionDto> content =transactionPage.getContent().stream().collect(Collectors.toList());
-            DataTablesResponse<TransactionDto> dataTablesResponse = new DataTablesResponse<>();
-            dataTablesResponse.setDraw(parameters.getDraw());
-            dataTablesResponse.setRecordsFiltered((int) transactionPage.getTotalElements());
-            dataTablesResponse.setRecordsTotal((int) transactionPage.getTotalElements());
-            dataTablesResponse.setData(content);
             return ResponseHandler.generateResponse(
-                    "Liste des alertes par page datatable",
+                    "Liste des alertes",
                     HttpStatus.OK,
-                    dataTablesResponse);
+                    response);
+//            return ResponseHandler.generateResponse(
+//                    "Liste des alertes par page datatable",
+//                    HttpStatus.OK,
+//                    dataTablesResponse);
         }
         catch(Exception e)
         {
@@ -168,8 +206,11 @@ public class Transaction2ServiceImpl implements TransactionService {
                     HttpStatus.MULTI_STATUS,
                     e);
         }
+//        finally {
+//            emOpcciel.close();
+//        }
 
-        //return  null;
+
     }
 
     @Override

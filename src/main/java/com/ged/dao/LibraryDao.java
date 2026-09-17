@@ -30,6 +30,9 @@ public interface LibraryDao extends JpaRepository<BaseEntity, Long> {
     @Query(value = "select * from [OrdreDeBourse].[FT_OrdrePourImpression_New](:numeroOrdre)", nativeQuery = true)
     List<OrdreProjection> listeOrdreApercu(@Param("numeroOrdre") String numeroOrdre);
 
+    @Query(value = "select * from [Parametre].[FT_ListeSanctionONU]()", nativeQuery = true)
+    List<SanctionsONUProjection> listeSanctionOnu();
+
     @Query(value = "select * from [Impressions].[FT_PortefeuilleOPCVM_New2](:idOpcvm ,:dateEstimation)", nativeQuery = true)
     List<PortefeuilleOpcvmProjection> portefeuilleOPCVM(Long idOpcvm,LocalDateTime dateEstimation);
     @Query(value = "select * from [Impressions].[FT_PortefeuilleOPCVM_New2](:idOpcvm ,:dateEstimation)", nativeQuery = true)

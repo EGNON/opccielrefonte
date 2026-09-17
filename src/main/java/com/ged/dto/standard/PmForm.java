@@ -23,6 +23,7 @@ public class PmForm {
     private Boolean estGenere;
     private Boolean estVerifier;
     private String nomVerificateur;
+    private String userLogin;
     private LocalDateTime dateVerification;
     private BigDecimal montantSouscrit;
     private TitreDto titre;
@@ -49,6 +50,14 @@ public class PmForm {
         //Champs PersonnePhysique
     private String sigle;
     private String raisonSociale;
+
+    public String getUserLogin() {
+        return userLogin;
+    }
+
+    public void setUserLogin(String userLogin) {
+        this.userLogin = userLogin;
+    }
 
     public String getNumeroCpteDeposit() {
         return numeroCpteDeposit;

@@ -81,6 +81,7 @@ public class DepotRachat extends Base {
     private Boolean estVerifie1;
     private LocalDateTime dateVerification1;
     private String userLoginVerificateur1;
+    private String userLogin;
     private Boolean estVerifie2;
     private LocalDateTime dateVerification2;
     private String userLoginVerificateur2;
@@ -95,6 +96,14 @@ public class DepotRachat extends Base {
     private Transaction transaction;*/
 
     public DepotRachat() {
+    }
+
+    public String getUserLogin() {
+        return userLogin;
+    }
+
+    public void setUserLogin(String userLogin) {
+        this.userLogin = userLogin;
     }
 
     public Long getIdTransaction() {
