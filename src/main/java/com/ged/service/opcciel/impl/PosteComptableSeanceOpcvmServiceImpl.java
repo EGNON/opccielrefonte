@@ -541,25 +541,39 @@ public class PosteComptableSeanceOpcvmServiceImpl implements PosteComptableSeanc
                         }
                         else
                         {
-                            String code = obj.getCodePosteComptable().trim();
+//                            String code = obj.getCodePosteComptable().trim();
+
+                            String codePoste = obj.getCodePosteComptable().trim();
+
+                            String pattern = (codePoste.equals("_VL") || codePoste.equals("_VLD"))
+                                    ? "%.2f"
+                                    : "%.4f";
+
+                            String verbe = String.format(
+                                    java.util.Locale.US,
+                                    pattern,
+                                    new BigDecimal(valeurCodePoste)
+                            );
+
+                            valeurCP = new BigDecimal(verbe);
 
                             // Détermine le format en fonction du code
-                            String pattern = (code.equals("_VL") || code.equals("_VLD")) ? "0.00" : "0.0000";
-
-                            // Convertir en BigDecimal
-                            BigDecimal valeur = new BigDecimal(valeurCodePoste);
-
-                            // Déterminer le nombre de décimales sans arrondi
-                            int scale = pattern.equals("0.00") ? 2 : 4;
-                            valeur = valeur.setScale(scale, RoundingMode.DOWN);
-
-                            // Formater avec DecimalFormat
-                            DecimalFormat df = new DecimalFormat(pattern);
-                            df.setRoundingMode(RoundingMode.DOWN); // par sécurité
-                            String verbe = df.format(valeur);
-
-                            // Convertir en BigDecimal sans erreur à cause de virgule
-                            valeurCP = new BigDecimal(verbe.replace(',', '.'));
+//                            String pattern = (code.equals("_VL") || code.equals("_VLD")) ? "0.00" : "0.0000";
+//
+//                            // Convertir en BigDecimal
+//                            BigDecimal valeur = new BigDecimal(valeurCodePoste);
+//
+//                            // Déterminer le nombre de décimales sans arrondi
+//                            int scale = pattern.equals("0.00") ? 2 : 4;
+//                            valeur = valeur.setScale(scale, RoundingMode.DOWN);
+//
+//                            // Formater avec DecimalFormat
+//                            DecimalFormat df = new DecimalFormat(pattern);
+//                            df.setRoundingMode(RoundingMode.DOWN); // par sécurité
+//                            String verbe = df.format(valeur);
+//
+//                            // Convertir en BigDecimal sans erreur à cause de virgule
+//                            valeurCP = new BigDecimal(verbe.replace(',', '.'));
                         }
                         //ajout du code poste à la liste à afficher
                         PosteComptableSeanceOpcvmDto objP = new PosteComptableSeanceOpcvmDto();

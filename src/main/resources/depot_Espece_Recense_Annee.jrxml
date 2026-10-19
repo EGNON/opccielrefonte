@@ -69,26 +69,40 @@
 			<element kind="line" uuid="702c83cd-882d-4e4b-9fe4-3c6ccf2dc501" stretchType="ContainerHeight" x="91" y="0" width="1" height="30"/>
 			<element kind="line" uuid="cea3c446-549f-4294-a438-450516897284" stretchType="ContainerHeight" x="246" y="0" width="1" height="30"/>
 			<element kind="line" uuid="336629b4-4476-41ea-a4ab-14401a16becd" stretchType="ContainerHeight" x="350" y="0" width="1" height="30"/>
-			<element kind="textField" uuid="3ffcd5fa-f4fb-428c-a2d1-748c695cb090" x="4" y="0" width="87" height="20" textAdjust="StretchHeight">
+			<element kind="textField" uuid="3ffcd5fa-f4fb-428c-a2d1-748c695cb090" x="4" y="0" width="87" height="20" textAdjust="StretchHeight" vTextAlign="Middle">
 				<expression><![CDATA[$F{dateOperation}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"))]]></expression>
 				<patternExpression><![CDATA["EE dd/MM/yyyy"]]></patternExpression>
 				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d83b3406-4dce-4099-85bf-03e8815fda14"/>
 			</element>
-			<element kind="textField" uuid="f5bc493c-f59b-4b70-b85f-cd1271e40545" stretchType="NoStretch" x="93" y="0" width="147" height="20" textAdjust="StretchHeight">
+			<element kind="textField" uuid="f5bc493c-f59b-4b70-b85f-cd1271e40545" stretchType="NoStretch" x="93" y="0" width="147" height="20" textAdjust="StretchHeight" vTextAlign="Middle">
 				<expression><![CDATA[$F{denomination}]]></expression>
 				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="9f65282b-2e11-4df8-a751-dbb2c331eedd"/>
 			</element>
-			<element kind="textField" uuid="924286b8-1782-4db2-984f-be9593316bb0" x="248" y="0" width="96" height="20" pattern="#,##0.###;#,##0.###-">
-				<expression><![CDATA[$F{montantDepose}]]></expression>
+			<element kind="textField" uuid="924286b8-1782-4db2-984f-be9593316bb0" x="248" y="0" width="96" height="20" hTextAlign="Right" vTextAlign="Middle">
+<!--				<expression><![CDATA[$F{montantDepose}]]></expression>-->
+                <expression><![CDATA[
+                        $F{montantDepose} == null ? "" :
+                        new java.text.DecimalFormat("#,##0;-#,##0",
+                            java.text.DecimalFormatSymbols.getInstance(java.util.Locale.FRANCE))
+                            .format($F{montantDepose})
+                            .replace('\u202F', ' ')
+                    ]]></expression>
 				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="80fe44ac-5c90-435f-ae6f-4d9bd5d385dc"/>
 			</element>
-			<element kind="textField" uuid="f8fa0bcb-900f-4b5a-922f-3dc27dae6f4b" stretchType="NoStretch" x="353" y="0" width="93" height="20" textAdjust="StretchHeight">
+			<element kind="textField" uuid="f8fa0bcb-900f-4b5a-922f-3dc27dae6f4b" stretchType="NoStretch" x="353" y="0" width="93" height="20" textAdjust="StretchHeight" vTextAlign="Middle">
 				<expression><![CDATA[$F{denominationOpcvm}]]></expression>
 				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a3388142-ae4b-44b5-a357-e08bb910c19d"/>
 			</element>
 			<element kind="line" uuid="9f20547e-e50a-40bb-8f14-74ac196e0101" stretchType="ContainerHeight" x="452" y="1" width="1" height="29"/>
-			<element kind="textField" uuid="4fdd5b15-9d75-404d-8fe6-7fa75c49ea0a" x="453" y="4" width="90" height="16">
-				<expression><![CDATA[$F{total}]]></expression>
+			<element kind="textField" uuid="4fdd5b15-9d75-404d-8fe6-7fa75c49ea0a" x="453" y="4" width="90" height="16" hTextAlign="Right" vTextAlign="Middle">
+<!--				<expression><![CDATA[$F{total}]]></expression>-->
+                <expression><![CDATA[
+                        $F{total} == null ? "" :
+                        new java.text.DecimalFormat("#,##0;-#,##0",
+                            java.text.DecimalFormatSymbols.getInstance(java.util.Locale.FRANCE))
+                            .format($F{total})
+                            .replace('\u202F', ' ')
+                    ]]></expression>
 				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a3388142-ae4b-44b5-a357-e08bb910c19d"/>
 			</element>
 		</band>

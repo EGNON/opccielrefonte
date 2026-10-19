@@ -341,8 +341,8 @@ public class AvisOperationBourseServiceImpl implements AvisOperationBourseServic
 
             if (avisOperationBourseDto.getOrdre() != null) {
                 codeRole = avisOperationBourseDto.getOrdre().getRole().trim();
-                montantBrut = new BigDecimal(Double.valueOf(avisOperationBourseDto.getCoursLimite().toString()) *
-                        Double.valueOf(avisOperationBourseDto.getQuantiteLimite().toString())).setScale(0, RoundingMode.HALF_UP);
+                montantBrut = avisOperationBourseDto.getCoursLimite().multiply(
+                        avisOperationBourseDto.getQuantiteLimite()).setScale(0, RoundingMode.HALF_EVEN);
 
                 codeClasseTitre = avisOperationBourseDto.getOrdre().getTitre().getTypeTitre().getClasseTitre().getCodeClasseTitre().trim().toUpperCase();
                 LocalDateTime dateTime =LocalDateTime.now();
@@ -354,9 +354,9 @@ public class AvisOperationBourseServiceImpl implements AvisOperationBourseServic
                     dateTime=LocalDateTime.parse(avisOperationBourseDto.getDateOperation().toString().substring(0,10)+"T00:00:00");;
                     i = dateTime.atZone(ZoneId.systemDefault()).toInstant();
                     date = Date.from(i);
-                    interetCourru = new BigDecimal(Double.valueOf(libraryDao.interetCouru(avisOperationBourseDto.getOrdre().getTitre().getIdTitre(),
-                            date, false, null).toString()) *
-                            Double.valueOf(avisOperationBourseDto.getQuantiteLimite().toString())).setScale(0, RoundingMode.HALF_UP);
+                    interetCourru = (libraryDao.interetCouru(avisOperationBourseDto.getOrdre().getTitre().getIdTitre(),
+                            date, false, null)).multiply(
+                            avisOperationBourseDto.getQuantiteLimite()).setScale(0, RoundingMode.HALF_EVEN);
 
                     if (codeClasseTitre.equals("TCN")) {
                         Tcn otcn = new Tcn();
@@ -371,11 +371,11 @@ public class AvisOperationBourseServiceImpl implements AvisOperationBourseServic
                             dateTime=LocalDateTime.parse(otcn.getDateDernierPaiement().toString().substring(0,10)+"T00:00:00");
                             i = dateTime.atZone(ZoneId.systemDefault()).toInstant();
                             date = Date.from(i);
-                            BigDecimal toto = new BigDecimal(Double.valueOf(libraryDao.interetCouru(
+                            BigDecimal toto =libraryDao.interetCouru(
                                     avisOperationBourseDto.getOrdre().getTitre().getIdTitre(),
-                                    date, false, null).toString()) *
-                                    Double.valueOf(avisOperationBourseDto.getQuantiteLimite().toString())
-                            );
+                                    date, false, null).multiply(
+                                    avisOperationBourseDto.getQuantiteLimite())
+                            ;
 
                             interetPrecompte = toto;
                         } else
@@ -389,8 +389,8 @@ public class AvisOperationBourseServiceImpl implements AvisOperationBourseServic
                 if (objTOD != null) {
                     if (objTOD.getBorneInferieur() < montantBrut.doubleValue() &&
                             montantBrut.doubleValue() < objTOD.getBorneSuperieur()) {
-                        commissionDepo = new BigDecimal(
-                                Double.valueOf((montantBrut.doubleValue() + interetCourru.doubleValue())) * objTOD.getTaux() / 100).setScale(0,RoundingMode.HALF_UP);
+                        commissionDepo = (montantBrut.add(interetCourru)).multiply(BigDecimal.valueOf(objTOD.getTaux()))
+                                .divide( BigDecimal.valueOf(100L)).setScale(0,RoundingMode.HALF_EVEN);
                     } else {
                         commissionDepo = new BigDecimal(objTOD.getForfait());
                     }
@@ -402,8 +402,9 @@ public class AvisOperationBourseServiceImpl implements AvisOperationBourseServic
                 if (objTOP != null) {
                     if (objTOP.getBorneInferieur() < montantBrut.doubleValue() &&
                             montantBrut.doubleValue() < objTOP.getBorneSuperieur()) {
-                        commissionPlace = new BigDecimal(
-                                Double.valueOf((montantBrut.doubleValue() + interetCourru.doubleValue())) * objTOP.getTaux() / 100).setScale(0,RoundingMode.HALF_UP);
+                        commissionPlace = (montantBrut.add(interetCourru))
+                                .multiply(BigDecimal.valueOf(objTOP.getTaux()))
+                                        .divide(BigDecimal.valueOf(100L)).setScale(0,RoundingMode.HALF_EVEN);
                     } else {
                         commissionPlace = new BigDecimal(objTOP.getForfait());
                     }
@@ -416,8 +417,9 @@ public class AvisOperationBourseServiceImpl implements AvisOperationBourseServic
                 if (objTOS != null) {
                     if (objTOS.getBorneInferieur() < montantBrut.doubleValue() &&
                             montantBrut.doubleValue() < objTOS.getBorneSuperieur()) {
-                        commissionSGI = new BigDecimal(
-                                Double.valueOf((montantBrut.doubleValue() + interetCourru.doubleValue())) * objTOS.getTaux() / 100).setScale(0,RoundingMode.HALF_UP);
+                        commissionSGI = (montantBrut.add(interetCourru)).multiply(
+                                BigDecimal.valueOf(objTOS.getTaux()))
+                                .divide(BigDecimal.valueOf(100L)).setScale(0,RoundingMode.HALF_EVEN);
                     } else {
                         commissionSGI = new BigDecimal(objTOS.getForfait());
                     }
@@ -429,27 +431,28 @@ public class AvisOperationBourseServiceImpl implements AvisOperationBourseServic
                         plusOuMoinsValue = BigDecimal.valueOf(0);
                     } else {
                         //calculer la plus value
-                        plusOuMoinsValue = new BigDecimal(montantBrut.doubleValue() - new BigDecimal(
-                                Double.valueOf(avisOperationBourseDto.getCump().toString()) *
-                                        Double.valueOf(avisOperationBourseDto.getQuantiteLimite().toString())).
-                                setScale(0, RoundingMode.HALF_UP).doubleValue());
+                        plusOuMoinsValue = montantBrut.subtract(
+                                (avisOperationBourseDto.getCump().multiply(
+                                        avisOperationBourseDto.getQuantiteLimite()))).
+                                setScale(0, RoundingMode.HALF_EVEN);
                     }
                     //calcul du montant net
                     //montantNet = montantBrut + interetCourru - commissionPlace - commissionSGI - tafCommissionSGI -
                     //   commissionDepo - irvm - ((codeClasseTitre.Trim().ToUpper() == "TCN") ? interetPrecompte : 0);
-                    montantNet = new BigDecimal(montantBrut.doubleValue() +
-                            interetCourru.doubleValue() - commissionPlace.doubleValue()
-                            - commissionSGI.doubleValue() - tafCommissionSGI.doubleValue() -
-                            commissionDepo.doubleValue() - irvm.doubleValue()
-                            - interetPrecompte.doubleValue());
+                    montantNet =montantBrut.add(
+                            interetCourru).subtract( commissionPlace)
+                            .subtract(commissionSGI).subtract( tafCommissionSGI)
+                            .subtract(
+                            commissionDepo).subtract(irvm).subtract(
+                            interetPrecompte);
 
                 } else {
                     //montantNet = montantBrut + commissionPlace + commissionSGI + tafCommissionSGI +
                     //    commissionDepo + interetCourru - ((codeClasseTitre.Trim().ToUpper() == "TCN")?interetPrecompte:0);
-                    montantNet = new BigDecimal(montantBrut.doubleValue()
-                            + commissionPlace.doubleValue() + commissionSGI.doubleValue()
-                            + tafCommissionSGI.doubleValue() +
-                            commissionDepo.doubleValue() + interetCourru.doubleValue() - interetPrecompte.doubleValue());
+                    montantNet = montantBrut.add(
+                           commissionPlace).add(commissionSGI)
+                            .add(tafCommissionSGI).add(
+                            commissionDepo).add(interetCourru).subtract(interetPrecompte);
                 }
             }
 

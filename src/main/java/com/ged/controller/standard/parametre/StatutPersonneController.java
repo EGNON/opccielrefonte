@@ -4,18 +4,22 @@ import com.ged.dao.standard.PersonneDao;
 import com.ged.dao.standard.PersonneMoraleDao;
 import com.ged.dao.titresciel.DepositaireDao;
 import com.ged.dao.titresciel.EmetteurDao;
+import com.ged.dao.titresciel.GarantDao;
 import com.ged.dao.titresciel.RegistraireDao;
 import com.ged.dto.standard.StatutPersonneDto;
 import com.ged.dto.titresciel.DepositaireDto;
 import com.ged.dto.titresciel.EmetteurDto;
+import com.ged.dto.titresciel.GarantDto;
 import com.ged.dto.titresciel.RegistraireDto;
 import com.ged.entity.standard.*;
 import com.ged.entity.titresciel.Depositaire;
 import com.ged.entity.titresciel.Emetteur;
+import com.ged.entity.titresciel.Garant;
 import com.ged.entity.titresciel.Registraire;
 import com.ged.mapper.standard.QualiteMapper;
 import com.ged.mapper.titresciel.DepositaireMapper;
 import com.ged.mapper.titresciel.EmetteurMapper;
+import com.ged.mapper.titresciel.GarantMapper;
 import com.ged.mapper.titresciel.RegistraireMapper;
 import com.ged.service.standard.PersonneMoraleService;
 import com.ged.service.standard.PersonnePhysiqueService;
@@ -34,6 +38,7 @@ public class StatutPersonneController {
     private final QualiteService qualiteService;
     private final QualiteMapper qualiteMapper;
     private final RegistraireMapper registraireMapper;
+    private final GarantMapper garantMapper;
     private final EmetteurMapper emetteurMapper;
     private final DepositaireMapper depositaireMapper;
     private final PersonneDao personneDao;
@@ -41,14 +46,16 @@ public class StatutPersonneController {
     private final RegistraireDao registraireDao;
     private final EmetteurDao emetteurDao;
     private final DepositaireDao depositaireDao;
+    private final GarantDao garantDao;
     private final PersonnePhysiqueService personnePhysiqueService;
     private final PersonneMoraleService personneMoraleService;
 
-    public StatutPersonneController(StatutPersonneService statutPersonneService, QualiteService qualiteService, QualiteMapper qualiteMapper, RegistraireMapper registraireMapper, EmetteurMapper emetteurMapper, DepositaireMapper depositaireMapper, PersonneDao personneDao, PersonneMoraleDao personneMoraleDao, RegistraireDao registraireDao, EmetteurDao emetteurDao, DepositaireDao depositaireDao, PersonnePhysiqueService personnePhysiqueService, PersonneMoraleService personneMoraleService) {
+    public StatutPersonneController(StatutPersonneService statutPersonneService, QualiteService qualiteService, QualiteMapper qualiteMapper, RegistraireMapper registraireMapper, GarantMapper garantMapper, EmetteurMapper emetteurMapper, DepositaireMapper depositaireMapper, PersonneDao personneDao, PersonneMoraleDao personneMoraleDao, RegistraireDao registraireDao, EmetteurDao emetteurDao, DepositaireDao depositaireDao, GarantDao garantDao, PersonnePhysiqueService personnePhysiqueService, PersonneMoraleService personneMoraleService) {
         this.statutPersonneService = statutPersonneService;
         this.qualiteService = qualiteService;
         this.qualiteMapper = qualiteMapper;
         this.registraireMapper = registraireMapper;
+        this.garantMapper = garantMapper;
         this.emetteurMapper = emetteurMapper;
         this.depositaireMapper = depositaireMapper;
         this.personneDao = personneDao;
@@ -56,6 +63,7 @@ public class StatutPersonneController {
         this.registraireDao = registraireDao;
         this.emetteurDao = emetteurDao;
         this.depositaireDao = depositaireDao;
+        this.garantDao = garantDao;
         this.personnePhysiqueService = personnePhysiqueService;
         this.personneMoraleService = personneMoraleService;
     }
@@ -140,6 +148,22 @@ public class StatutPersonneController {
             depositaireDto.setRaisonSociale(personneMorale.getRaisonSociale());
             Depositaire depositaire =depositaireMapper.deDepositaireDto(depositaireDto);
             depositaireDao.save(depositaire);
+        }
+        if(qualite1.getLibelleQualite().equalsIgnoreCase("garants")) {
+            PersonneMorale personneMorale = personneMoraleDao.findById(statutPersonneDto.getPersonne().getIdPersonne()).orElseThrow();
+            GarantDto garantDto=new GarantDto();
+            garantDto.setBp(personneMorale.getBp());
+            garantDto.setDenomination(personneMorale.getDenomination());
+            garantDto.setEstActifPersonne(personneMorale.getEstActifPersonne());
+            garantDto.setIdPersonne(personneMorale.getIdPersonne());
+            garantDto.setDateCreationServeur(LocalDateTime.now());
+            garantDto.setDateDernModifClient(LocalDateTime.now());
+            garantDto.setDateDernModifServeur(LocalDateTime.now());
+            garantDto.setSigle(personneMorale.getSigle());
+            garantDto.setSiglePersonneMorale(personneMorale.getSiglePersonneMorale());
+            garantDto.setRaisonSociale(personneMorale.getRaisonSociale());
+            Garant garant =garantMapper.deGarantDto(garantDto);
+            garantDao.save(garant);
         }
             //System.out.println("qualité="+qualite1.getLibelleQualite());
         if(!qualite1.getLibelleQualite().equalsIgnoreCase("prospect")) {

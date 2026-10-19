@@ -9,6 +9,7 @@ public interface DividendeActionnaireProjection {
   LocalDateTime getDateOp();
   Long getIdOpcvm();
   Long getIdActionnaire();
+  String getActionnaire();
   BigDecimal getMontantARecevoir();
   BigDecimal getNombrePart();
   BigDecimal getMontantPayer();

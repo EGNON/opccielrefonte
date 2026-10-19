@@ -11,7 +11,6 @@
 	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
-<!--	<query language="SQL"><![CDATA[	select * from [Circulaire8].FT_Comparaison_VlOrigine_VlActuelle (9,'30/06/2022')]]></query>-->
 	<field name="sigleOpcvm" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.name" value="sigleOpcvm"/>
 		<property name="com.jaspersoft.studio.field.label" value="sigleOpcvm"/>
@@ -91,19 +90,19 @@
 			<element kind="line" uuid="0b8fa8f4-699b-4baf-98e3-849810697861" stretchType="ContainerHeight" x="445" y="1" width="1" height="25"/>
 			<element kind="line" uuid="2fef31f1-fb63-473e-b92e-325667c010ad" x="113" y="1" width="1" height="25"/>
 			<element kind="line" uuid="3ff41234-9778-4fd6-ae22-315692983184" x="334" y="1" width="1" height="25"/>
-			<element kind="textField" uuid="8619c25d-20d4-4934-b987-72951f1cbd68" x="11" y="4" width="97" height="16" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+			<element kind="textField" uuid="8619c25d-20d4-4934-b987-72951f1cbd68" x="11" y="4" width="97" height="16" pattern="#,##0.###;#,##0.###" blankWhenNull="true" hTextAlign="Right" vTextAlign="Middle">
 				<expression><![CDATA[$F{vlOrigine}]]></expression>
 			</element>
-			<element kind="textField" uuid="54be3903-4a0f-42ad-bd97-f636e26bea31" x="118" y="6" width="91" height="14">
+			<element kind="textField" uuid="54be3903-4a0f-42ad-bd97-f636e26bea31" x="118" y="6" width="91" height="14" hTextAlign="Right" vTextAlign="Middle">
 				<expression><![CDATA[$F{dateOrigine}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"))]]></expression>
 			</element>
-			<element kind="textField" uuid="6cfc2a1b-4a8f-4f95-8585-82b68a005628" x="229" y="5" width="100" height="15" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+			<element kind="textField" uuid="6cfc2a1b-4a8f-4f95-8585-82b68a005628" x="229" y="5" width="100" height="15" pattern="#,##0.###;#,##0.###" blankWhenNull="true" hTextAlign="Right" vTextAlign="Middle">
 				<expression><![CDATA[$F{valActuelle}]]></expression>
 			</element>
-			<element kind="textField" uuid="665c2050-cb0f-4178-a2dd-06f6d462f438" x="339" y="4" width="100" height="16">
+			<element kind="textField" uuid="665c2050-cb0f-4178-a2dd-06f6d462f438" x="339" y="4" width="100" height="16" hTextAlign="Right" vTextAlign="Middle">
 				<expression><![CDATA[$F{dateActuelle}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"))]]></expression>
 			</element>
-			<element kind="textField" uuid="3ccfc87d-e557-458b-ae11-0be58ed25756" x="450" y="7" width="131" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+			<element kind="textField" uuid="3ccfc87d-e557-458b-ae11-0be58ed25756" x="450" y="7" width="131" height="13" pattern="#,##0.###;#,##0.###" blankWhenNull="true" hTextAlign="Right" vTextAlign="Middle">
 				<expression><![CDATA[$F{variation}]]></expression>
 			</element>
 		</band>

@@ -12,7 +12,16 @@ import java.time.LocalDateTime;
 public class CumpRequest {
     private Long idOpcvm;
     private Long idActionnaire;
+    private Long idTitre;
     private LocalDateTime dateEstimation;
+
+    public Long getIdTitre() {
+        return idTitre;
+    }
+
+    public void setIdTitre(Long idTitre) {
+        this.idTitre = idTitre;
+    }
 
     public Long getIdOpcvm() {
         return idOpcvm;

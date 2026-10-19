@@ -2,9 +2,6 @@
 <jasperReport name="TR_Patrimoine" language="java" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b4f79a9a-4332-4333-92e5-1ee1d9ef0a24">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="db_opcciel_data_adapter"/>
-<!--	<query language="SQL"><![CDATA[select * from [Circulaire8].[FT_Identification_Patrimoine_Part_New](9,'01/04/2022','30/06/2022')-->
-<!--where titre ='II. ' -->
-<!--order by titre asc,numero asc,libelle_petit_numero asc,type asc]]></query>-->
 	<field name="titre" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.name" value="titre"/>
 		<property name="com.jaspersoft.studio.field.label" value="titre"/>
@@ -97,14 +94,13 @@
 				<element kind="staticText" uuid="2a66a9a6-94ec-40ac-9da3-e6bd2cf8b872" x="8" y="3" width="361" height="20" bold="true" hTextAlign="Left">
 					<text><![CDATA[TOTAL]]></text>
 				</element>
-				<element kind="textField" uuid="335d5539-1a38-4274-8e4a-1e0f91c0b2bb" x="390" y="3" width="380" height="20" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
-                    <expression><![CDATA[OR(EQUALS($F{libelle_numero} ,"PORTEFEUILLE TITRE") , EQUALS( $F{libelle_numero},"PLACEMENTS MONETAIRES ET DISPONIBILITES"), EQUALS($F{libelle_numero} ,"CREANCES D'EXPLOITATION"), EQUALS($F{libelle_numero} ,"AUTRES ACTIFS"))?0:$V{nombre2} == null ? "" :
+				<element kind="textField" uuid="335d5539-1a38-4274-8e4a-1e0f91c0b2bb" x="390" y="3" width="370" height="20" pattern="#,##0.###;#,##0.###" blankWhenNull="true" hTextAlign="Right">
+					<expression><![CDATA[OR(EQUALS($F{libelle_numero} ,"PORTEFEUILLE TITRE") , EQUALS( $F{libelle_numero},"PLACEMENTS MONETAIRES ET DISPONIBILITES"), EQUALS($F{libelle_numero} ,"CREANCES D'EXPLOITATION"), EQUALS($F{libelle_numero} ,"AUTRES ACTIFS"))?0:$V{nombre2} == null ? "" :
                     new java.text.DecimalFormat("#,##0;-,##0",
                         java.text.DecimalFormatSymbols.getInstance(java.util.Locale.FRANCE))
                         .format(OR(EQUALS($F{libelle_numero} ,"PORTEFEUILLE TITRE") , EQUALS( $F{libelle_numero},"PLACEMENTS MONETAIRES ET DISPONIBILITES"), EQUALS($F{libelle_numero} ,"CREANCES D'EXPLOITATION"), EQUALS($F{libelle_numero} ,"AUTRES ACTIFS"))?0:$V{nombre2})
                         .replace('\u202F', ' ')
                 ]]></expression>
-<!--                    <expression><![CDATA[OR(EQUALS($F{libelle_numero} ,"PORTEFEUILLE TITRE") , EQUALS( $F{libelle_numero},"PLACEMENTS MONETAIRES ET DISPONIBILITES"), EQUALS($F{libelle_numero} ,"CREANCES D'EXPLOITATION"), EQUALS($F{libelle_numero} ,"AUTRES ACTIFS"))?0:$V{nombre2}]]></expression>-->
 				</element>
 			</band>
 		</groupFooter>
@@ -131,14 +127,13 @@
 				<element kind="textField" uuid="0aa2ca68-0014-4606-bc23-52dd14ba054f" x="8" y="6" width="363" height="15" textAdjust="StretchHeight" bold="true">
 					<expression><![CDATA["TOTAL "+$F{type}]]></expression>
 				</element>
-				<element kind="textField" uuid="f9bdf370-a8fe-451e-b394-d62ab75658c7" x="390" y="6" width="380" height="15" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
-                    <expression><![CDATA[OR(EQUALS($F{libelle_numero}, "PORTEFEUILLE TITRE" ), EQUALS( $F{libelle_numero}, "PLACEMENTS MONETAIRES ET DISPONIBILITES"), EQUALS($F{libelle_numero}, "CREANCES D'EXPLOITATION" ) ,EQUALS($F{libelle_numero} ,"AUTRES ACTIFS"))?0:$V{nombre1} == null ? "" :
+				<element kind="textField" uuid="f9bdf370-a8fe-451e-b394-d62ab75658c7" x="390" y="6" width="370" height="15" pattern="#,##0.###;#,##0.###" blankWhenNull="true" hTextAlign="Right">
+					<expression><![CDATA[OR(EQUALS($F{libelle_numero}, "PORTEFEUILLE TITRE" ), EQUALS( $F{libelle_numero}, "PLACEMENTS MONETAIRES ET DISPONIBILITES"), EQUALS($F{libelle_numero}, "CREANCES D'EXPLOITATION" ) ,EQUALS($F{libelle_numero} ,"AUTRES ACTIFS"))?0:$V{nombre1} == null ? "" :
                     new java.text.DecimalFormat("#,##0;-,##0",
                         java.text.DecimalFormatSymbols.getInstance(java.util.Locale.FRANCE))
                         .format(OR(EQUALS($F{libelle_numero}, "PORTEFEUILLE TITRE" ), EQUALS( $F{libelle_numero}, "PLACEMENTS MONETAIRES ET DISPONIBILITES"), EQUALS($F{libelle_numero}, "CREANCES D'EXPLOITATION" ) ,EQUALS($F{libelle_numero} ,"AUTRES ACTIFS"))?0:$V{nombre1})
                         .replace('\u202F', ' ')
                 ]]></expression>
-<!--                    <expression><![CDATA[ OR(EQUALS($F{libelle_numero}, "PORTEFEUILLE TITRE" ), EQUALS( $F{libelle_numero}, "PLACEMENTS MONETAIRES ET DISPONIBILITES"), EQUALS($F{libelle_numero}, "CREANCES D'EXPLOITATION" ) ,EQUALS($F{libelle_numero} ,"AUTRES ACTIFS"))?0:$V{nombre1}]]></expression>-->
 				</element>
 			</band>
 		</groupFooter>
@@ -153,11 +148,11 @@
 				<pen lineColor="#3B88D1"/>
 			</element>
 			<element kind="line" uuid="c49a67fc-644a-40ec-9963-c7e48dfd4f1d" stretchType="ContainerHeight" x="380" y="1" width="1" height="25"/>
-			<element kind="textField" uuid="afa593f2-fb07-4180-a5e4-d5141918d6c5" x="8" y="6" width="363" height="15" textAdjust="StretchHeight" hTextAlign="Center">
+			<element kind="textField" uuid="afa593f2-fb07-4180-a5e4-d5141918d6c5" x="8" y="6" width="363" height="15" textAdjust="StretchHeight" hTextAlign="Left" vTextAlign="Middle">
 				<expression><![CDATA[$F{libelle_numero}.replaceAll("<[^>]*>", "")
     .trim()]]></expression>
 			</element>
-			<element kind="textField" uuid="0a527fb8-d1fe-4bec-9404-2a2a40e400ae" x="390" y="6" width="380" height="15" blankWhenNull="true">
+			<element kind="textField" uuid="0a527fb8-d1fe-4bec-9404-2a2a40e400ae" x="390" y="6" width="370" height="15" blankWhenNull="true" hTextAlign="Right">
 				<expression><![CDATA[$F{valeur}]]></expression>
 			</element>
 		</band>

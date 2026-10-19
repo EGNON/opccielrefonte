@@ -24,7 +24,6 @@
 		<property name="com.jaspersoft.studio.field.name" value="idSeance"/>
 		<property name="com.jaspersoft.studio.field.label" value="idSeance"/>
 	</field>
-
 	<field name="dateValeur" class="java.time.LocalDateTime">
 		<property name="com.jaspersoft.studio.field.name" value="dateValeur"/>
 		<property name="com.jaspersoft.studio.field.label" value="dateValeur"/>
@@ -33,7 +32,6 @@
 		<property name="com.jaspersoft.studio.field.name" value="valeur"/>
 		<property name="com.jaspersoft.studio.field.label" value="valeur"/>
 	</field>
-
 	<field name="dateVerification1" class="java.time.LocalDateTime">
 		<property name="com.jaspersoft.studio.field.name" value="dateVerification1"/>
 		<property name="com.jaspersoft.studio.field.label" value="dateVerification1"/>
@@ -42,7 +40,6 @@
 		<property name="com.jaspersoft.studio.field.name" value="userLoginVerificateur1"/>
 		<property name="com.jaspersoft.studio.field.label" value="userLoginVerificateur1"/>
 	</field>
-
 	<field name="dateVerification2" class="java.time.LocalDateTime">
 		<property name="com.jaspersoft.studio.field.name" value="dateVerification2"/>
 		<property name="com.jaspersoft.studio.field.label" value="dateVerification2"/>
@@ -80,7 +77,7 @@
 					<text><![CDATA[DATE FERM. :]]></text>
 				</element>
 				<element kind="textField" uuid="4e042d2b-dc7e-4f4f-99b8-a661e503bf66" x="734" y="42" width="64" height="15" textAdjust="StretchHeight" blankWhenNull="false">
-					<expression><![CDATA[$F{idSeance}]]></expression>
+					<expression><![CDATA[$F{idSeance}-1L]]></expression>
 				</element>
 				<element kind="staticText" uuid="19d99e10-7d5f-4d6a-afb0-31eb4e079a9e" x="676" y="42" width="58" height="15">
 					<text><![CDATA[SEANCE :]]></text>

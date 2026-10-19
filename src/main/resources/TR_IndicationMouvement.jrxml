@@ -2,8 +2,6 @@
 <jasperReport name="TR_IndicationChangement" language="java" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="779b18c7-dd8d-4886-b202-2a6eed9eeac9">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="db_opcciel_data_adapter"/>
-<!--	<query language="SQL"><![CDATA[select * from [Circulaire8].[FT_IndicationMouvement_New](9,'01/04/2022','30/06/2022')-->
-<!--order by num asc]]></query>-->
 	<field name="num" class="java.lang.Long">
 		<property name="com.jaspersoft.studio.field.name" value="num"/>
 		<property name="com.jaspersoft.studio.field.label" value="num"/>
@@ -65,7 +63,7 @@
 		<element kind="line" uuid="88492d49-b780-4822-8ee7-30ebffcba9a4" x="69" y="58" width="1" height="45">
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 		</element>
-		<element kind="staticText" uuid="3d95349b-2645-49d1-a800-41214084406f" x="75" y="63" width="159" height="40" bold="true" hTextAlign="Center" vTextAlign="Middle">
+		<element kind="staticText" uuid="3d95349b-2645-49d1-a800-41214084406f" x="75" y="63" width="215" height="40" bold="true" hTextAlign="Center" vTextAlign="Middle">
 			<text><![CDATA[Données]]></text>
 		</element>
 		<element kind="line" uuid="9f007fc9-441b-46f3-9919-d5fb5cd9e730" x="408" y="58" width="1" height="45">
@@ -87,10 +85,10 @@
 		<element kind="line" uuid="c843b622-1c4e-4280-8b47-d5b3bd0c6aae" stretchType="ContainerHeight" x="658" y="58" width="1" height="44">
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 		</element>
-		<element kind="textField" uuid="7d74a248-f852-4fcc-bed7-cafcedbf3052" x="303" y="68" width="100" height="30" bold="true">
+		<element kind="textField" uuid="7d74a248-f852-4fcc-bed7-cafcedbf3052" x="303" y="68" width="100" height="30" bold="true" hTextAlign="Center" vTextAlign="Middle">
 			<expression><![CDATA["Solde au "+$F{dateDebut}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"))]]></expression>
 		</element>
-		<element kind="textField" uuid="5489f05b-84c0-4032-9540-a6499f6ab501" x="665" y="65" width="100" height="30" bold="true">
+		<element kind="textField" uuid="5489f05b-84c0-4032-9540-a6499f6ab501" x="665" y="65" width="100" height="30" bold="true" hTextAlign="Center" vTextAlign="Middle">
 			<expression><![CDATA["Solde au "+$F{dateFin}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"))]]></expression>
 		</element>
 		<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -102,17 +100,16 @@
 			<element kind="rectangle" uuid="408764d8-d163-4894-911e-dfdf59d19fc1" stretchType="ContainerHeight" x="20" y="1" width="752" height="25" backcolor="#FFFFFF">
 				<pen lineColor="#3B88D1"/>
 			</element>
-			<element kind="textField" uuid="0d135043-fce0-4574-969c-65a715934072" x="25" y="5" width="37" height="20" textAdjust="StretchHeight">
+			<element kind="textField" uuid="0d135043-fce0-4574-969c-65a715934072" x="25" y="5" width="37" height="20" textAdjust="StretchHeight" vTextAlign="Middle">
 				<expression><![CDATA[$F{num}]]></expression>
 			</element>
-			<element kind="textField" uuid="b781f4eb-3339-4f86-a7a8-0a12e9a4f289" x="75" y="1" width="159" height="20" textAdjust="StretchHeight">
+			<element kind="textField" uuid="b781f4eb-3339-4f86-a7a8-0a12e9a4f289" x="75" y="1" width="215" height="20" textAdjust="StretchHeight" hTextAlign="Justified" vTextAlign="Middle">
 				<expression><![CDATA[$F{donnees}]]></expression>
 			</element>
 			<element kind="line" uuid="474a25ac-0e7d-49a6-998e-ea0ef29cad9c" stretchType="ContainerHeight" x="69" y="1" width="1" height="25"/>
 			<element kind="line" uuid="7fea32c0-a75b-4ac4-b9d5-7603077beb8d" stretchType="ContainerHeight" x="297" y="1" width="1" height="25"/>
-			<element kind="textField" uuid="ecd0924d-230c-454f-ac2d-547809b14e53" x="304" y="3" width="99" height="20">
-<!--				<expression><![CDATA[$F{soldeDebut}]]></expression>-->
-                <expression><![CDATA[$F{soldeDebut} == null ? "" :
+			<element kind="textField" uuid="ecd0924d-230c-454f-ac2d-547809b14e53" x="304" y="3" width="99" height="20" hTextAlign="Right" vTextAlign="Middle">
+				<expression><![CDATA[$F{soldeDebut} == null ? "" :
                     new java.text.DecimalFormat("#,##0;-,##0",
                         java.text.DecimalFormatSymbols.getInstance(java.util.Locale.FRANCE))
                         .format($F{soldeDebut})
@@ -120,9 +117,8 @@
                 ]]></expression>
 			</element>
 			<element kind="line" uuid="b3e2ba8d-1b0d-468d-8462-670d76f30bd7" stretchType="ContainerHeight" x="408" y="1" width="1" height="25"/>
-			<element kind="textField" uuid="cd513232-06d7-4f46-8803-b0ccef353d08" x="412" y="5" width="123" height="16" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
-<!--				<expression><![CDATA[$F{augmentation}]]></expression>-->
-                <expression><![CDATA[$F{augmentation} == null ? "" :
+			<element kind="textField" uuid="cd513232-06d7-4f46-8803-b0ccef353d08" x="412" y="5" width="123" height="16" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###" blankWhenNull="true" hTextAlign="Right" vTextAlign="Middle">
+				<expression><![CDATA[$F{augmentation} == null ? "" :
                     new java.text.DecimalFormat("#,##0;-,##0",
                         java.text.DecimalFormatSymbols.getInstance(java.util.Locale.FRANCE))
                         .format($F{augmentation})
@@ -130,9 +126,8 @@
                 ]]></expression>
 			</element>
 			<element kind="line" uuid="02ddf2de-5dd3-445f-9546-105109ac4d5c" stretchType="ContainerHeight" x="537" y="1" width="1" height="25"/>
-			<element kind="textField" uuid="e078efa6-2b5e-46f0-b32d-242cbe9acf4e" x="543" y="5" width="112" height="16" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
-<!--				<expression><![CDATA[$F{diminution}]]></expression>-->
-                <expression><![CDATA[$F{diminution} == null ? "" :
+			<element kind="textField" uuid="e078efa6-2b5e-46f0-b32d-242cbe9acf4e" x="543" y="5" width="112" height="16" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###" blankWhenNull="true" hTextAlign="Right" vTextAlign="Middle">
+				<expression><![CDATA[$F{diminution} == null ? "" :
                     new java.text.DecimalFormat("#,##0;-,##0",
                         java.text.DecimalFormatSymbols.getInstance(java.util.Locale.FRANCE))
                         .format($F{diminution})
@@ -140,9 +135,8 @@
                 ]]></expression>
 			</element>
 			<element kind="line" uuid="9738a0b9-470b-4bc1-8eb6-5777b3f2c573" stretchType="ContainerHeight" x="659" y="0" width="1" height="25"/>
-			<element kind="textField" uuid="6328c225-10a8-4d7a-b61e-de723fa5dde3" x="665" y="5" width="104" height="18" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
-<!--				<expression><![CDATA[$F{soldeFin}]]></expression>-->
-                <expression><![CDATA[$F{soldeFin} == null ? "" :
+			<element kind="textField" uuid="6328c225-10a8-4d7a-b61e-de723fa5dde3" x="665" y="5" width="104" height="18" pattern="#,##0.###;#,##0.###" blankWhenNull="true" hTextAlign="Right" vTextAlign="Middle">
+				<expression><![CDATA[$F{soldeFin} == null ? "" :
                     new java.text.DecimalFormat("#,##0;-,##0",
                         java.text.DecimalFormatSymbols.getInstance(java.util.Locale.FRANCE))
                         .format($F{soldeFin})

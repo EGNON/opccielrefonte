@@ -2,8 +2,6 @@
 <jasperReport name="TR_IndicationChangement" language="java" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="779b18c7-dd8d-4886-b202-2a6eed9eeac9">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="db_opcciel_data_adapter"/>
-<!--	<query language="SQL"><![CDATA[select * from [Circulaire8].[FT_Indication_Changement_new](9,'01/04/2022','30/06/2022')-->
-<!--order by numerop asc,numero asc]]></query>-->
 	<field name="numero" class="java.lang.Long">
 		<property name="com.jaspersoft.studio.field.name" value="numero"/>
 		<property name="com.jaspersoft.studio.field.label" value="numero"/>
@@ -54,10 +52,10 @@
 				<element kind="rectangle" uuid="ae5410e3-5736-4df6-862b-b7362320c081" stretchType="ContainerHeight" x="24" y="5" width="753" height="25" backcolor="#FFFFFF">
 					<pen lineColor="#3B88D1"/>
 				</element>
-				<element kind="textField" uuid="f6683906-237e-4748-8bd4-ce2a5e99b033" x="30" y="9" width="37" height="20">
+				<element kind="textField" uuid="f6683906-237e-4748-8bd4-ce2a5e99b033" x="30" y="9" width="37" height="20" vTextAlign="Middle">
 					<expression><![CDATA[$F{numerop}]]></expression>
 				</element>
-				<element kind="textField" uuid="c54a9583-c2ac-4d66-adab-cacff4418cad" x="80" y="9" width="670" height="20" textAdjust="StretchHeight">
+				<element kind="textField" uuid="c54a9583-c2ac-4d66-adab-cacff4418cad" x="80" y="9" width="670" height="20" textAdjust="StretchHeight" vTextAlign="Middle">
 					<expression><![CDATA[$F{libelle_Numero}]]></expression>
 				</element>
 				<element kind="line" uuid="5c3cc113-37ca-4cf5-b579-b9ecb18825f0" stretchType="ContainerHeight" x="74" y="5" width="1" height="25"/>
@@ -125,9 +123,8 @@
 					<expression><![CDATA["TOTAL"]]></expression>
 				</element>
 				<element kind="line" uuid="cec7427a-09da-4c96-bcca-58fbded7e5c4" stretchType="ContainerHeight" x="673" y="1" width="1" height="25"/>
-				<element kind="textField" uuid="ddd5bdf0-7e93-4e64-a565-47bb0c7faf77" x="675" y="4" width="100" height="20" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
-<!--					<expression><![CDATA[$V{valeur_Rembours1}]]></expression>-->
-                    <expression><![CDATA[$V{valeur_Rembours1} == null ? "" :
+				<element kind="textField" uuid="ddd5bdf0-7e93-4e64-a565-47bb0c7faf77" x="675" y="4" width="100" height="20" pattern="#,##0.###;#,##0.###" blankWhenNull="true" hTextAlign="Right" vTextAlign="Middle">
+					<expression><![CDATA[$V{valeur_Rembours1} == null ? "" :
                     new java.text.DecimalFormat("#,##0;-,##0",
                         java.text.DecimalFormatSymbols.getInstance(java.util.Locale.FRANCE))
                         .format($V{valeur_Rembours1})
@@ -159,21 +156,20 @@
 			<element kind="rectangle" uuid="408764d8-d163-4894-911e-dfdf59d19fc1" stretchType="ContainerHeight" x="25" y="1" width="752" height="25" backcolor="#FFFFFF">
 				<pen lineColor="#3B88D1"/>
 			</element>
-			<element kind="textField" uuid="0d135043-fce0-4574-969c-65a715934072" x="30" y="5" width="37" height="20" textAdjust="StretchHeight">
+			<element kind="textField" uuid="0d135043-fce0-4574-969c-65a715934072" x="30" y="5" width="37" height="20" textAdjust="StretchHeight" vTextAlign="Middle">
 				<expression><![CDATA[$F{numero}]]></expression>
 			</element>
-			<element kind="textField" uuid="b781f4eb-3339-4f86-a7a8-0a12e9a4f289" x="80" y="1" width="159" height="20" textAdjust="StretchHeight">
+			<element kind="textField" uuid="b781f4eb-3339-4f86-a7a8-0a12e9a4f289" x="80" y="3" width="159" height="20" textAdjust="StretchHeight" hTextAlign="Justified" vTextAlign="Middle">
 				<expression><![CDATA[$F{portefeuille}]]></expression>
 			</element>
 			<element kind="line" uuid="474a25ac-0e7d-49a6-998e-ea0ef29cad9c" stretchType="ContainerHeight" x="74" y="1" width="1" height="25"/>
 			<element kind="line" uuid="7fea32c0-a75b-4ac4-b9d5-7603077beb8d" stretchType="ContainerHeight" x="244" y="1" width="1" height="25"/>
-			<element kind="textField" uuid="ecd0924d-230c-454f-ac2d-547809b14e53" x="251" y="3" width="99" height="20">
+			<element kind="textField" uuid="ecd0924d-230c-454f-ac2d-547809b14e53" x="251" y="3" width="99" height="20" hTextAlign="Center" vTextAlign="Middle">
 				<expression><![CDATA[$F{dateOp}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"))]]></expression>
 			</element>
 			<element kind="line" uuid="b3e2ba8d-1b0d-468d-8462-670d76f30bd7" stretchType="ContainerHeight" x="355" y="1" width="1" height="25"/>
-			<element kind="textField" uuid="cd513232-06d7-4f46-8803-b0ccef353d08" x="359" y="5" width="100" height="16" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
-<!--				<expression><![CDATA[$F{qte_Ktal}]]></expression>-->
-                <expression><![CDATA[$F{qte_Ktal} == null ? "" :
+			<element kind="textField" uuid="cd513232-06d7-4f46-8803-b0ccef353d08" x="359" y="5" width="100" height="16" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###" blankWhenNull="true" hTextAlign="Right" vTextAlign="Middle">
+				<expression><![CDATA[$F{qte_Ktal} == null ? "" :
                     new java.text.DecimalFormat("#,##0;-,##0",
                         java.text.DecimalFormatSymbols.getInstance(java.util.Locale.FRANCE))
                         .format($F{qte_Ktal})
@@ -181,9 +177,8 @@
                 ]]></expression>
 			</element>
 			<element kind="line" uuid="02ddf2de-5dd3-445f-9546-105109ac4d5c" stretchType="ContainerHeight" x="463" y="1" width="1" height="25"/>
-			<element kind="textField" uuid="e078efa6-2b5e-46f0-b32d-242cbe9acf4e" x="467" y="5" width="100" height="16" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
-<!--				<expression><![CDATA[$F{cours_interet}]]></expression>-->
-                <expression><![CDATA[$F{cours_interet} == null ? "" :
+			<element kind="textField" uuid="e078efa6-2b5e-46f0-b32d-242cbe9acf4e" x="467" y="5" width="100" height="16" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###" blankWhenNull="true" hTextAlign="Right" vTextAlign="Middle">
+				<expression><![CDATA[$F{cours_interet} == null ? "" :
                     new java.text.DecimalFormat("#,##0;-,##0",
                         java.text.DecimalFormatSymbols.getInstance(java.util.Locale.FRANCE))
                         .format($F{cours_interet})
@@ -191,9 +186,8 @@
                 ]]></expression>
 			</element>
 			<element kind="line" uuid="9738a0b9-470b-4bc1-8eb6-5777b3f2c573" stretchType="ContainerHeight" x="570" y="0" width="1" height="25"/>
-			<element kind="textField" uuid="6328c225-10a8-4d7a-b61e-de723fa5dde3" x="574" y="5" width="97" height="18" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
-<!--				<expression><![CDATA[$F{frais}]]></expression>-->
-                <expression><![CDATA[$F{frais} == null ? "" :
+			<element kind="textField" uuid="6328c225-10a8-4d7a-b61e-de723fa5dde3" x="574" y="5" width="97" height="18" pattern="#,##0.###;#,##0.###" blankWhenNull="true" hTextAlign="Right" vTextAlign="Middle">
+				<expression><![CDATA[$F{frais} == null ? "" :
                     new java.text.DecimalFormat("#,##0;-,##0",
                         java.text.DecimalFormatSymbols.getInstance(java.util.Locale.FRANCE))
                         .format($F{frais})
@@ -201,9 +195,8 @@
                 ]]></expression>
 			</element>
 			<element kind="line" uuid="bed28a53-51cc-4f5a-a92e-48fbdfa5bfe3" stretchType="ContainerHeight" x="673" y="1" width="1" height="25"/>
-			<element kind="textField" uuid="86a7677d-4397-4a25-a982-7e81157b55d2" x="677" y="5" width="98" height="20" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
-<!--				<expression><![CDATA[$F{valeur_Rembours}]]></expression>-->
-                <expression><![CDATA[$F{valeur_Rembours} == null ? "" :
+			<element kind="textField" uuid="86a7677d-4397-4a25-a982-7e81157b55d2" x="677" y="5" width="98" height="20" pattern="#,##0.###;#,##0.###" blankWhenNull="true" hTextAlign="Right" vTextAlign="Middle">
+				<expression><![CDATA[$F{valeur_Rembours} == null ? "" :
                     new java.text.DecimalFormat("#,##0;-,##0",
                         java.text.DecimalFormatSymbols.getInstance(java.util.Locale.FRANCE))
                         .format($F{valeur_Rembours})

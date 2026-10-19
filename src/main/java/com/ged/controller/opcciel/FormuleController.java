@@ -7,6 +7,7 @@ import com.ged.dto.lab.reportings.FormuleParametre;
 import com.ged.dto.opcciel.comptabilite.FormuleDto;
 import com.ged.dto.opcciel.comptabilite.SoldeCompteDto;
 import com.ged.dto.opcciel.comptabilite.SoldeCompteFormuleDto;
+import com.ged.dto.request.CumpRequest;
 import com.ged.service.opcciel.FormuleService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
@@ -50,13 +51,11 @@ public class FormuleController {
     {
         return formuleService.afficher(id);
     }
-    @GetMapping("/cump/{idOpcvm}/{idTitre}/{dateEstimation}")
+    @PostMapping("/cump")
     //    @PreAuthorize("hasAuthority('ROLE_DEGRE')")
-    public ResponseEntity<Object> afficherCump(@PathVariable Long idOpcvm,
-                                               @PathVariable  Long idTitre,
-                                               @PathVariable LocalDateTime dateEstimation)
+    public ResponseEntity<Object> afficherCump(@RequestBody CumpRequest request)
     {
-        return formuleService.afficherCump(idOpcvm, idTitre, dateEstimation);
+        return formuleService.afficherCump(request.getIdOpcvm(),request.getIdTitre(),request.getDateEstimation());
     }
     @PostMapping("/quantitereel")
         //    @PreAuthorize("hasAuthority('ROLE_DEGRE')")

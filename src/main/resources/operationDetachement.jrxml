@@ -148,11 +148,25 @@
 				<element kind="textField" uuid="24e70d3e-dbae-49db-be72-8fb2414087cf" x="7" y="6" width="383" height="20" hTextAlign="Center">
 					<expression><![CDATA["TOTAL "]]></expression>
 				</element>
-				<element kind="textField" uuid="3db292f6-f415-4aa4-a8d0-856fb6db2454" x="400" y="6" width="70" height="20" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
-					<expression><![CDATA[$V{montantBrut1}]]></expression>
+				<element kind="textField" uuid="3db292f6-f415-4aa4-a8d0-856fb6db2454" x="399" y="6" width="70" height="20" textAdjust="StretchHeight"  blankWhenNull="true" hTextAlign="Right" vTextAlign="Middle">
+<!--					<expression><![CDATA[$V{montantBrut1}]]></expression>-->
+                    <expression><![CDATA[
+                        $V{montantBrut1} == null ? "" :
+                        new java.text.DecimalFormat("#,##0;-#,##0",
+                            java.text.DecimalFormatSymbols.getInstance(java.util.Locale.FRANCE))
+                            .format($V{montantBrut1})
+                            .replace('\u202F', ' ')
+                    ]]></expression>
 				</element>
-				<element kind="textField" uuid="d468c929-b4a5-45d0-8877-9caf7d1c3892" x="474" y="6" width="73" height="20" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
-					<expression><![CDATA[$V{montant1}]]></expression>
+				<element kind="textField" uuid="d468c929-b4a5-45d0-8877-9caf7d1c3892" x="474" y="6" width="73" height="20" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###" blankWhenNull="true" hTextAlign="Right" vTextAlign="Middle">
+<!--					<expression><![CDATA[$V{montant1}]]></expression>-->
+                    <expression><![CDATA[
+                        $V{montant1} == null ? "" :
+                        new java.text.DecimalFormat("#,##0;-#,##0",
+                            java.text.DecimalFormatSymbols.getInstance(java.util.Locale.FRANCE))
+                            .format($V{montant1})
+                            .replace('\u202F', ' ')
+                    ]]></expression>
 				</element>
 			</band>
 		</groupFooter>
@@ -181,29 +195,78 @@
 			<element kind="line" uuid="ca68219a-478d-4b9d-9dbc-2a0dee3793b3" stretchType="ContainerHeight" x="473" y="0" width="1" height="30"/>
 			<element kind="line" uuid="6b2435d5-f7c5-4174-b9bc-569b3bfc950e" stretchType="ContainerHeight" x="395" y="0" width="1" height="30"/>
 			<element kind="line" uuid="317ae346-01e8-48ea-a0f5-a17cd0dca0b3" stretchType="ContainerHeight" x="325" y="0" width="1" height="30"/>
-			<element kind="textField" uuid="3002b531-241b-4b9d-80d8-0ebe431b9e69" x="8" y="3" width="77" height="25" textAdjust="StretchHeight">
+			<element kind="textField" uuid="3002b531-241b-4b9d-80d8-0ebe431b9e69" x="8" y="3" width="77" height="25" textAdjust="StretchHeight" vTextAlign="Middle">
 				<expression><![CDATA[$F{symboleTitre}]]></expression>
 			</element>
-			<element pattern="#,##0.###;#,##0.###" kind="textField" uuid="0c02da30-9659-4024-938f-10d17ca01dec" stretchType="ContainerHeight" x="89" y="1" width="55" height="27" textAdjust="StretchHeight">
-				<expression><![CDATA[$F{qteDetenue}]]></expression>
+			<element kind="textField" uuid="0c02da30-9659-4024-938f-10d17ca01dec" stretchType="ContainerHeight" x="89" y="1" width="55" height="27" textAdjust="StretchHeight"  hTextAlign="Right" vTextAlign="Middle">
+<!--				<expression><![CDATA[$F{qteDetenue}]]></expression>-->
+                <expression><![CDATA[
+                        $F{qteDetenue} == null ? "" :
+                        new java.text.DecimalFormat("#,##0;-#,##0",
+                            java.text.DecimalFormatSymbols.getInstance(java.util.Locale.FRANCE))
+                            .format($F{qteDetenue})
+                            .replace('\u202F', ' ')
+                    ]]></expression>
 			</element>
-			<element pattern="#,##0.###;#,##0.###" kind="textField" uuid="43dfcda5-d2e8-449b-976d-21cae7ada3af" stretchType="ContainerHeight" x="147" y="1" width="55" height="27" textAdjust="StretchHeight">
-				<expression><![CDATA[$F{quantiteAmortie}]]></expression>
+			<element kind="textField" uuid="43dfcda5-d2e8-449b-976d-21cae7ada3af" stretchType="ContainerHeight" x="147" y="1" width="55" height="27" textAdjust="StretchHeight"  hTextAlign="Right" vTextAlign="Middle">
+<!--				<expression><![CDATA[$F{quantiteAmortie}]]></expression>-->
+                <expression><![CDATA[
+                        $F{quantiteAmortie} == null ? "" :
+                        new java.text.DecimalFormat("#,##0;-#,##0",
+                            java.text.DecimalFormatSymbols.getInstance(java.util.Locale.FRANCE))
+                            .format($F{quantiteAmortie})
+                            .replace('\u202F', ' ')
+                    ]]></expression>
 			</element>
-			<element pattern="#,##0.###;#,##0.###" kind="textField" uuid="3f1c601d-4261-4810-9a5e-b3198345b12a" stretchType="ContainerHeight" x="207" y="0" width="58" height="25" textAdjust="StretchHeight">
-				<expression><![CDATA[$F{nominalRemb}]]></expression>
+			<element kind="textField" uuid="3f1c601d-4261-4810-9a5e-b3198345b12a" stretchType="ContainerHeight" x="207" y="0" width="58" height="25" textAdjust="StretchHeight"  hTextAlign="Right" vTextAlign="Middle">
+<!--				<expression><![CDATA[$F{nominalRemb}]]></expression>-->
+                <expression><![CDATA[
+                        $F{nominalRemb} == null ? "" :
+                        new java.text.DecimalFormat("#,##0;-#,##0",
+                            java.text.DecimalFormatSymbols.getInstance(java.util.Locale.FRANCE))
+                            .format($F{nominalRemb})
+                            .replace('\u202F', ' ')
+                    ]]></expression>
 			</element>
-			<element pattern="#,##0.###;#,##0.###" kind="textField" uuid="63b0d69f-5299-456c-acd7-6efe42fd33b3" stretchType="ContainerHeight" x="273" y="2" width="50" height="25" textAdjust="StretchHeight">
-				<expression><![CDATA[$F{capitalRembourse}]]></expression>
+			<element kind="textField" uuid="63b0d69f-5299-456c-acd7-6efe42fd33b3" stretchType="ContainerHeight" x="273" y="2" width="50" height="25" textAdjust="StretchHeight"  hTextAlign="Right" vTextAlign="Middle">
+<!--				<expression><![CDATA[$F{capitalRembourse}]]></expression>-->
+                <expression><![CDATA[
+                        $F{capitalRembourse} == null ? "" :
+                        new java.text.DecimalFormat("#,##0;-#,##0",
+                            java.text.DecimalFormatSymbols.getInstance(java.util.Locale.FRANCE))
+                            .format($F{capitalRembourse})
+                            .replace('\u202F', ' ')
+                    ]]></expression>
 			</element>
-			<element pattern="#,##0.###;#,##0.###" kind="textField" uuid="ee2c12b8-41cc-4aa1-9589-5f08f81dc3c9" stretchType="ContainerHeight" x="331" y="2" width="59" height="25" textAdjust="StretchHeight">
-				<expression><![CDATA[$F{couponDividendeUnitaire}]]></expression>
+			<element kind="textField" uuid="ee2c12b8-41cc-4aa1-9589-5f08f81dc3c9" stretchType="ContainerHeight" x="331" y="2" width="59" height="25" textAdjust="StretchHeight"  hTextAlign="Right" vTextAlign="Middle">
+<!--				<expression><![CDATA[$F{couponDividendeUnitaire}]]></expression>-->
+                <expression><![CDATA[
+                        $F{couponDividendeUnitaire} == null ? "" :
+                        new java.text.DecimalFormat("#,##0.00;-#,##0.00",
+                            java.text.DecimalFormatSymbols.getInstance(java.util.Locale.FRANCE))
+                            .format($F{couponDividendeUnitaire})
+                            .replace('\u202F', ' ')
+                    ]]></expression>
 			</element>
-			<element  kind="textField" uuid="05fd3f37-4857-4f7f-ba71-a4a5974dc981" stretchType="ContainerHeight" x="477" y="-1" width="70" height="30" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
-				<expression><![CDATA[SUM($F{montant} )]]></expression>
+			<element kind="textField" uuid="05fd3f37-4857-4f7f-ba71-a4a5974dc981" stretchType="ContainerHeight" x="477" y="-1" width="70" height="30" textAdjust="StretchHeight"  blankWhenNull="true" hTextAlign="Right" vTextAlign="Middle">
+<!--				<expression><![CDATA[SUM($F{montant} )]]></expression>-->
+                <expression><![CDATA[
+                        SUM($F{montant}) == null ? "" :
+                        new java.text.DecimalFormat("#,##0;-#,##0",
+                            java.text.DecimalFormatSymbols.getInstance(java.util.Locale.FRANCE))
+                            .format(SUM($F{montant}))
+                            .replace('\u202F', ' ')
+                    ]]></expression>
 			</element>
-			<element kind="textField" uuid="b655b21c-9712-4724-8fc8-ce2e7f1d1afa" stretchType="ContainerHeight" x="398" y="2" width="72" height="25" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
-				<expression><![CDATA[$F{montantBrut}]]></expression>
+			<element kind="textField" uuid="b655b21c-9712-4724-8fc8-ce2e7f1d1afa" stretchType="ContainerHeight" x="398" y="2" width="72" height="25" textAdjust="StretchHeight"  blankWhenNull="true" hTextAlign="Right" vTextAlign="Middle">
+<!--				<expression><![CDATA[$F{montantBrut}]]></expression>-->
+                <expression><![CDATA[
+                        $F{montantBrut} == null ? "" :
+                        new java.text.DecimalFormat("#,##0;-#,##0",
+                            java.text.DecimalFormatSymbols.getInstance(java.util.Locale.FRANCE))
+                            .format($F{montantBrut})
+                            .replace('\u202F', ' ')
+                    ]]></expression>
 			</element>
 		</band>
 	</detail>

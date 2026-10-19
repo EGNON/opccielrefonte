@@ -438,7 +438,11 @@ public class LibraryController {
     public ResponseEntity<?> pointrachatdetailleListe(@RequestBody @Valid PointRachatDetailleRequest request) {
         return service.afficherPointRachatDetailleListe(request);
     }
-
+    //releve
+    @PostMapping("/opcvm/releve/liste")
+    public ResponseEntity<?> releveListe(@RequestBody @Valid PointSouscriptionDetailleRequest request) {
+        return service.afficherReleve(request);
+    }
     //etatfinancierannuelf1bilan
     @PostMapping("/opcvm/etats/etatfinancierannuelf1bilan")
     public void etatfinancierannuelf1bilan(@RequestBody @Valid EtatFinancierAnnuelF1BilanRequest request, HttpServletResponse response) throws JRException, IOException {
@@ -1117,7 +1121,18 @@ public class LibraryController {
     public ResponseEntity<?> afficherhistoriquevlliste(@RequestBody @Valid HistoriqueVLRequest request){
         return service.afficherHistoriqueVLListe(request);
     }
+    @PostMapping("/opcvm/etats/historiquevl")
+    public void historiqueVL(@RequestBody @Valid DeclarationCommissionActifRequest request, HttpServletResponse response) throws JRException, IOException {
+        response.setContentType("application/pdf");
+        DateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy:hh:mm:ss");
+        String currentDateTime = dateFormatter.format(new Date());
 
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=Historique vl" + currentDateTime + ".pdf";
+        response.setHeader(headerKey, headerValue);
+
+        service.historiqueVL(request,response);
+    }
     //portefeuilleactionnaireformat2
     @PostMapping("/etats/portefeuilleactionnaireformat2")
     public void afficherportefeuilleactionnaire (@RequestBody @Valid PortefeuilleActionnaireRequest request, HttpServletResponse response) throws JRException, IOException, SQLException {
@@ -1169,7 +1184,19 @@ public class LibraryController {
 
          service.afficherEtatFinancierTrimestrielEtatMensuelSouscriptions(request,response);
     }
+    //control profil
+    @PostMapping("/opcvm/etats/controlprofil")
+    public void controlProfil(@RequestBody @Valid DeclarationCommissionActifRequest request, HttpServletResponse response) throws JRException, IOException {
+        response.setContentType("application/pdf");
+        DateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy:hh:mm:ss");
+        String currentDateTime = dateFormatter.format(new Date());
 
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=Control profil" + currentDateTime + ".pdf";
+        response.setHeader(headerKey, headerValue);
+
+        service.controlProfil(request,response);
+    }
     //declarationcommissionactif
     @PostMapping("/opcvm/etats/declarationcommissionactif")
     public void declarationcommissionactif(@RequestBody @Valid DeclarationCommissionActifRequest request, HttpServletResponse response) throws JRException, IOException {
@@ -1305,6 +1332,18 @@ public class LibraryController {
         response.setHeader(headerKey, headerValue);
 
         service.phaseDetachement(request,response);
+    }
+    @PostMapping("/opcvm/etats/dividendeActionnaire")
+    public void dividendeActionnaire(@RequestBody @Valid PhaseDetachementRequest request, HttpServletResponse response) throws JRException, IOException {
+        response.setContentType("application/pdf");
+        DateFormat dateFormatter = new SimpleDateFormat("ddMMyyyy:hh:mm:ss");
+        String currentDateTime = dateFormatter.format(new Date());
+
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=phase_detachement" + currentDateTime + ".pdf";
+        response.setHeader(headerKey, headerValue);
+
+        service.afficherDividendeActionnaire(request,response);
     }
     @PostMapping("/precalculphasedetachement")
     public ResponseEntity<?> precalculPhaseDetachement(@RequestBody PhaseDetachementRequest request) {

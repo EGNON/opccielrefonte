@@ -192,6 +192,9 @@ public interface LibraryDao extends JpaRepository<BaseEntity, Long> {
     @Query(value = "select * from [Parametre].[FT_HistoriqueVL_New] (:idOpcvm,:dateDebut,:dateFin)", nativeQuery = true)
     List<HistoriqueVLProjection> historiqueVL(Long idOpcvm, LocalDateTime dateDebut, LocalDateTime dateFin);
 
+    @Query(value = "select * from [Impressions].[FT_ControlProfil_New] (:dateEstimation,:idOpcvm)", nativeQuery = true)
+    List<ControlProfilProjection> controlProfil(LocalDateTime dateEstimation,Long idOpcvm);
+
     @Query(value = "select * from Impressions.FT_CompositionDetailleActif_New (:idOpcvm,:dateEstimation)", nativeQuery = true)
     List<CompositionDetailleActifProjection> compositionDetailleActif(@Param("idOpcvm") Long idOpcvm, @Param("dateEstimation") LocalDateTime dateEstimation);
 
@@ -821,6 +824,10 @@ public interface LibraryDao extends JpaRepository<BaseEntity, Long> {
     List<DividendeActionnaireProjection>  dividendeActionnaire(
         String codeExercice,Long idDetachement,Long idOpcvm
     );
+    @Query(value = "select * from [Dividende].[FT_DividendeActionnaire_new](:codeExercice,:idDetachement,:idOpcvm)", nativeQuery = true)
+    List<DividendeActionnaireProjection>  dividendeActionnaire_new(
+        String codeExercice,Long idDetachement,Long idOpcvm
+    );
     @Query(value = "select * from [Dividende].[FT_DetachementCoupon](:codeExercice,:idOpcvm)", nativeQuery = true)
     List<DetachementCouponProjection>  detachementCoupon(
         String codeExercice, Long idOpcvm
@@ -829,6 +836,11 @@ public interface LibraryDao extends JpaRepository<BaseEntity, Long> {
     List<PhasePaiementProjection>  phasePaiement(
         String codeExercice, Long idOpcvm
     );
+    @Query(value = "select * from[Impressions].[FT_ReleveImpression_New](:idOpcvm,:dateDebut,:dateFin)", nativeQuery = true)
+    List<ReleveProjection>  releve(
+            Long idOpcvm,LocalDateTime dateDebut,LocalDateTime dateFin
+    );
+
     @Query(value = "select * from [Operation].[FT_OperationChargeAEtaler](:idSeance,:idOpcvm,:supprimer," +
             ":estVerifie1,:estVerifie2)", nativeQuery = true)
     List<FT_GenererChargeProjection> afficherChargeAEtaler(
@@ -858,12 +870,10 @@ public interface LibraryDao extends JpaRepository<BaseEntity, Long> {
     @Query(value = "select * from [OrdreDeBourse].[FT_ListeOrdreDeBourse](:idOpcvm,:dateDebut,:dateFin)", nativeQuery = true)
     Page<ListeOrdreDeBourseProjection> listeOrdreDeBourse(Long idOpcvm,LocalDateTime dateDebut,
                                                           LocalDateTime dateFin,Pageable pageable);
-    @Query(value = "select * from [Circulaire8].[FT_Identification_Patrimoine_Part_New](:idOpcvm,:dateDebut,:dateFin)" +
-            " where titre=:titre " , nativeQuery = true)
+    @Query(value = "select * from [Circulaire8].[FT_Identification_Patrimoine_Part_New](:idOpcvm,:dateDebut,:dateFin)" , nativeQuery = true)
     List<IdentificationPatrimoinePartProjection> listeIdentificationPatrimoinePart(Long idOpcvm,
                                                           LocalDateTime dateDebut,
-                                                          LocalDateTime dateFin,
-                                                          String titre);
+                                                          LocalDateTime dateFin);
     @Query(value = "select * from [Circulaire8].[FT_Identification_Patrimoine_Part_New](:idOpcvm,:dateDebut,:dateFin)" +
             " where titre=:titre " //+"order by titre asc,numero asc,libelle_petit_numero asc,type asc"
             , nativeQuery = true)

@@ -1,0 +1,224 @@
+<!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 7.0.1-573496633c2b4074e32f433154b543003f7d2498  -->
+<jasperReport name="Balance" language="java" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c9b5c6dc-450e-4661-80c5-045f537ab493">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="db_opcciel_data_adapter"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<parameter name="letterDate" class="java.lang.String"/>
+	<parameter name="libelleClassification" class="java.lang.String"/>
+	<parameter name="denominationOpcvm" class="java.lang.String"/>
+	<parameter name="idOpcvm" class="java.lang.Long"/>
+<!--	<query language="SQL"><![CDATA[select * from  Impressions.FT_ControlProfil_New ('09/10/2026',8)]]></query>-->
+	<field name="idTitre" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="idTitre"/>
+		<property name="com.jaspersoft.studio.field.label" value="idTitre"/>
+	</field>
+	<field name="typeCritère" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="typeCritère"/>
+		<property name="com.jaspersoft.studio.field.label" value="typeCritère"/>
+	</field>
+	<field name="detailCritere" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="detailCritere"/>
+		<property name="com.jaspersoft.studio.field.label" value="detailCritere"/>
+	</field>
+	<field name="portefeuille" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="portefeuille"/>
+		<property name="com.jaspersoft.studio.field.label" value="portefeuille"/>
+	</field>
+	<field name="tauxreference" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="tauxreference"/>
+		<property name="com.jaspersoft.studio.field.label" value="tauxreference"/>
+	</field>
+	<field name="montant" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="montant"/>
+		<property name="com.jaspersoft.studio.field.label" value="montant"/>
+	</field>
+	<field name="pourcentageActifNet" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="pourcentageActifNet"/>
+		<property name="com.jaspersoft.studio.field.label" value="pourcentageActifNet"/>
+	</field>
+	<field name="observation" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="observation"/>
+		<property name="com.jaspersoft.studio.field.label" value="observation"/>
+	</field>
+	<field name="actifNet" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="actifNet"/>
+		<property name="com.jaspersoft.studio.field.label" value="actifNet"/>
+	</field>
+	<field name="inf" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="inf"/>
+		<property name="com.jaspersoft.studio.field.label" value="inf"/>
+	</field>
+	<field name="sup" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="sup"/>
+		<property name="com.jaspersoft.studio.field.label" value="sup"/>
+	</field>
+	<field name="estInf" class="java.lang.Boolean">
+		<property name="com.jaspersoft.studio.field.name" value="estInf"/>
+		<property name="com.jaspersoft.studio.field.label" value="estInf"/>
+	</field>
+	<field name="estSup" class="java.lang.Boolean">
+		<property name="com.jaspersoft.studio.field.name" value="estSup"/>
+		<property name="com.jaspersoft.studio.field.label" value="estSup"/>
+	</field>
+	<group name="Group1">
+		<expression><![CDATA[$F{typeCritère}]]></expression>
+		<groupHeader>
+			<band height="35">
+				<element kind="textField" uuid="2e8ebeff-7816-4a38-a6b2-aa9893b1580a" x="76" y="9" width="424" height="19">
+					<expression><![CDATA[$F{typeCritère}]]></expression>
+				</element>
+				<element kind="staticText" uuid="ede700ed-f68d-4bc8-8c12-75122c629e32" x="5" y="9" width="70" height="19" bold="true" hTextAlign="Left">
+					<text><![CDATA[Type critère:]]></text>
+				</element>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="6"/>
+		</groupFooter>
+	</group>
+	<group name="Group2">
+		<expression><![CDATA[$F{detailCritere}]]></expression>
+		<groupHeader>
+			<band height="60">
+				<element kind="rectangle" uuid="80685069-6128-4599-80f4-39c83b5c96d4" x="0" y="28" width="800" height="32" backcolor="#BDD7EE">
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="line" uuid="e1b1f359-afbf-4a17-a0b0-7c506e50f001" x="72" y="28" width="1" height="31">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="line" uuid="d4e1c376-577b-40d2-baaa-6fc6bee0aa3a" x="543" y="28" width="1" height="31">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="line" uuid="cba3d1c1-9b9a-4430-9fac-e632096fbfea" x="300" y="28" width="1" height="31">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="staticText" uuid="a16cc896-c3c1-4de2-a9ca-258aeb267855" x="3" y="29" width="66" height="19" bold="true" hTextAlign="Center">
+					<text><![CDATA[Id Titre]]></text>
+				</element>
+				<element kind="staticText" uuid="47bcb4b8-d8f6-408f-8ceb-a14b8040de79" x="80" y="34" width="217" height="19" bold="true" hTextAlign="Center">
+					<text><![CDATA[Portefeuille]]></text>
+				</element>
+				<element kind="staticText" uuid="7cd3b7ee-92a2-4ca1-970d-8686381a4356" x="431" y="35" width="99" height="16" bold="true" hTextAlign="Center">
+					<text><![CDATA[Montant]]></text>
+				</element>
+				<element kind="staticText" uuid="5465e1fa-a933-4163-afbc-a35055beeaa0" x="549" y="35" width="94" height="15" bold="true" hTextAlign="Center">
+					<text><![CDATA[% de l'actif net]]></text>
+				</element>
+				<element kind="line" uuid="5d4c9d7f-eeb8-4b6a-9c10-d8ee137dd907" x="423" y="28" width="1" height="31">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="staticText" uuid="c5982393-2a6c-4233-b3cf-2d5e60de686b" x="305" y="35" width="114" height="16" bold="true" hTextAlign="Center">
+					<text><![CDATA[Taux référence]]></text>
+				</element>
+				<element kind="textField" uuid="657a515d-0b7d-480e-8ce9-ed6ad791fcbf" x="76" y="3" width="724" height="19" textAdjust="StretchHeight">
+					<expression><![CDATA[$F{detailCritere}]]></expression>
+				</element>
+				<element kind="staticText" uuid="9f04cb9d-3fe2-4918-83fb-755744dde0b0" x="5" y="3" width="70" height="19" bold="true" hTextAlign="Left">
+					<text><![CDATA[Détail critère:]]></text>
+				</element>
+				<element kind="line" uuid="68c04711-e5f1-44dd-9886-3a7cb345ac62" x="650" y="29" width="1" height="31">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<pen lineColor="#3B88D1"/>
+				</element>
+				<element kind="staticText" uuid="7bd99569-5f2e-4484-a9d6-eda306687363" x="660" y="38" width="132" height="15" bold="true" hTextAlign="Center">
+					<text><![CDATA[Observations]]></text>
+				</element>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="9"/>
+		</groupFooter>
+	</group>
+	<background splitType="Stretch"/>
+	<title height="115" splitType="Stretch">
+		<element kind="rectangle" uuid="d6bf9987-56fd-43ee-9032-de30e4df181b" x="0" y="25" width="801" height="35" backcolor="#BDD7EE">
+			<pen lineColor="#3B88D1"/>
+		</element>
+		<element kind="textField" uuid="f526bdf5-610b-4433-bf77-ffc76251565f" x="3" y="3" width="217" height="16">
+			<expression><![CDATA["Cotonou, le "+$P{letterDate}]]></expression>
+		</element>
+		<element kind="staticText" uuid="0867a956-7206-4431-9aa5-53f6ca7d0e85" x="150" y="35" width="500" height="17" fontSize="10.0" bold="true" hTextAlign="Center">
+			<text><![CDATA[CONTROL PROFIL D'INVESTISSEMENT]]></text>
+		</element>
+		<element kind="staticText" uuid="3f7b1d7e-4706-4c1d-a24e-cc8063e400a2" x="7" y="91" width="49" height="19" bold="true" hTextAlign="Left">
+			<text><![CDATA[Actif net:]]></text>
+		</element>
+		<element kind="textField" uuid="d7fba160-d8bf-494b-9402-d6d0b91414a0" x="56" y="91" width="144" height="19">
+			<expression><![CDATA[$F{actifNet}]]></expression>
+		</element>
+		<element kind="textField" uuid="ec85fcbe-640e-4cd5-a82a-70096c2965e1" x="249" y="68" width="70" height="19">
+			<expression><![CDATA[$P{idOpcvm}]]></expression>
+		</element>
+		<element kind="textField" uuid="fb623996-4202-4b56-aea1-29dcba958a3c" x="319" y="68" width="324" height="19">
+			<expression><![CDATA[$P{denominationOpcvm}]]></expression>
+		</element>
+		<element kind="textField" uuid="38531b5b-2160-4a90-b3bd-6709762ad14b" x="644" y="91" width="144" height="19">
+			<expression><![CDATA[$P{libelleClassification}]]></expression>
+		</element>
+		<element kind="staticText" uuid="4e62544a-f64b-4619-a371-57b4c16b0e53" x="570" y="91" width="74" height="19" bold="true" hTextAlign="Left">
+			<text><![CDATA[Classification:]]></text>
+		</element>
+	</title>
+	<pageHeader splitType="Stretch"/>
+	<columnHeader splitType="Stretch"/>
+	<detail>
+		<band height="30" splitType="Stretch">
+			<element kind="rectangle" uuid="bb93f126-79e4-4906-b730-a2d1c41d9538" stretchType="ContainerHeight" x="0" y="1" width="800" height="29" backcolor="#FFFFFF">
+				<pen lineColor="#3B88D1"/>
+			</element>
+			<element kind="line" uuid="6b537dff-e768-4e43-82f5-23e220e801dc" stretchType="ContainerHeight" x="650" y="1" width="1" height="29">
+				<pen lineColor="#3B88D1"/>
+			</element>
+			<element kind="line" uuid="a6f15c39-8868-4d08-9838-0d3039db837e" stretchType="ContainerHeight" x="300" y="1" width="1" height="29">
+				<pen lineColor="#3B88D1"/>
+			</element>
+			<element kind="line" uuid="a901c5d9-3349-4e81-b048-5395e2cc18a4" stretchType="ContainerHeight" x="72" y="1" width="1" height="29">
+				<pen lineColor="#3B88D1"/>
+			</element>
+			<element kind="line" uuid="41e703d9-03d7-4cde-9ac8-f7954fb3957d" stretchType="ContainerHeight" x="423" y="1" width="1" height="29">
+				<pen lineColor="#3B88D1"/>
+			</element>
+			<element kind="line" uuid="179ad337-5a2d-42de-8367-6e02276d30f5" stretchType="ContainerHeight" x="543" y="1" width="1" height="29">
+				<pen lineColor="#3B88D1"/>
+			</element>
+			<element kind="textField" uuid="8c9ff31e-8715-4915-9393-b76caeeeea81" x="3" y="9" width="66" height="18" textAdjust="StretchHeight" hTextAlign="Center">
+				<expression><![CDATA[$F{idTitre}]]></expression>
+			</element>
+			<element kind="textField" uuid="b98dde53-cf4f-4069-b864-d6d8ab97b4fe" x="80" y="9" width="217" height="18" textAdjust="StretchHeight" hTextAlign="Center">
+				<expression><![CDATA[$F{portefeuille}]]></expression>
+			</element>
+			<element kind="textField" uuid="94a7d593-2ad8-46cf-b6ef-7bb968fc47ce" x="305" y="9" width="114" height="18" textAdjust="StretchHeight" blankWhenNull="true" hTextAlign="Center">
+				<expression><![CDATA[$F{tauxreference}]]></expression>
+			</element>
+			<element kind="textField" uuid="340b4d27-fcd0-4200-bb8e-966347ed65b4" x="431" y="9" width="106" height="18" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###" blankWhenNull="true" hTextAlign="Center">
+<!--				<expression><![CDATA[$F{montant}]]></expression>-->
+                <expression><![CDATA[
+                        $F{montant}== null ? "" :
+                        new java.text.DecimalFormat("#,##0;-,##0",
+                            java.text.DecimalFormatSymbols.getInstance(java.util.Locale.FRANCE))
+                            .format($F{montant})
+                            .replace('\u202F', ' ')
+                    ]]></expression>
+			</element>
+			<element kind="textField" uuid="90a4da18-06f6-47ec-8d16-856b496cf408" x="549" y="7" width="94" height="18" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###" blankWhenNull="true" hTextAlign="Center">
+				<expression><![CDATA[$F{pourcentageActifNet}]]></expression>
+			</element>
+			<element kind="textField" uuid="17d1826c-cada-466d-9c33-d3fb1e0d74a6" x="660" y="9" width="137" height="18" textAdjust="StretchHeight" pattern="#,##0.###;#,##0.###" blankWhenNull="true">
+				<expression><![CDATA[$F{observation}.trim()]]></expression>
+			</element>
+		</band>
+	</detail>
+	<columnFooter splitType="Stretch"/>
+	<pageFooter height="40" splitType="Stretch">
+		<element kind="staticText" uuid="4d1d2c3d-26cd-4570-beea-b35c37f879f7" x="5" y="10" width="126" height="13">
+			<text><![CDATA[Edité avec OPCCIEL 2.0]]></text>
+		</element>
+		<element kind="textField" uuid="94d4db9c-5aaf-4b0b-94c3-c108df67ef6f" x="700" y="6" width="100" height="17" hTextAlign="Right">
+			<expression><![CDATA[$V{PAGE_NUMBER}]]></expression>
+		</element>
+	</pageFooter>
+	<summary height="1" splitType="Stretch"/>
+</jasperReport>

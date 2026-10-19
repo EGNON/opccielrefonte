@@ -290,7 +290,7 @@
 			<pen lineColor="#3B88D1"/>
 		</element>
 		<element kind="textField" uuid="0d7a6eaf-48c2-4648-b973-1d669f0def4a" x="100" y="33" width="600" height="16">
-			<expression><![CDATA["LISTE DE VERIFICATION DES ECRITURES DES CHARGES NIVEAU "+"(2) "+"DU "+$F{dateDebut}+" AU "+$F{dateFin}]]></expression>
+			<expression><![CDATA["LISTE DE VERIFICATION DES ECRITURES DES CHARGES NIVEAU "+"(2) "+"DU "+$F{dateDebut}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"))+" AU "+$F{dateFin}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"))]]></expression>
 		</element>
 	</title>
 	<pageHeader splitType="Stretch"/>

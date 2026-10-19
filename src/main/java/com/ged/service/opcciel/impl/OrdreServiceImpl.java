@@ -338,8 +338,13 @@ public class OrdreServiceImpl implements OrdreService {
                     LocalDateTime dateTime=LocalDateTime.parse(ordreDto.getDateOrdre().toString().substring(0,10)+"T00:00:00");;
                     Instant i = dateTime.atZone(ZoneId.systemDefault()).toInstant();
                     Date date = Date.from(i);
-                    interetCourru = new BigDecimal(Double.valueOf(libraryDao.interetCouru(titre.getIdTitre(),date, false,null).toString()) *
-                            Double.valueOf(ordreDto.getQuantiteLimite().toString())).setScale(0,RoundingMode.HALF_UP);
+                    interetCourru = (
+                                    libraryDao.interetCouru(titre.getIdTitre(), date, false, null)
+                            )
+                            .multiply(ordreDto.getQuantiteLimite())
+                            .setScale(0, RoundingMode.HALF_EVEN);
+//                    interetCourru = new BigDecimal(Double.valueOf(libraryDao.interetCouru(titre.getIdTitre(),date, false,null).toString()) *
+//                            Double.valueOf(ordreDto.getQuantiteLimite().toString())).setScale(0,RoundingMode.HALF_UP);
                 }
                 //DEPOSITAIRE
                 Long idDepositaire=depositaireDao.findByIdPersonne(titre.getDepositaire().getIdPersonne()).getIdDepositaire();
@@ -349,8 +354,13 @@ public class OrdreServiceImpl implements OrdreService {
                     if (objTOD.getBorneInferieur() < montantBrut.doubleValue() &&
                             montantBrut.doubleValue() < objTOD.getBorneSuperieur())
                     {
-                        commissionDepo = new BigDecimal(
-                                Double.valueOf((montantBrut.doubleValue() + interetCourru.doubleValue())) * objTOD.getTaux() / 100).setScale(0,RoundingMode.HALF_UP);
+                        commissionDepo = montantBrut
+                                .add(interetCourru)
+                                .multiply(BigDecimal.valueOf(objTOD.getTaux()))
+                                .divide(BigDecimal.valueOf(100))
+                                .setScale(0, RoundingMode.HALF_EVEN);
+//                        commissionDepo = ((montantBrut.add(interetCourru))
+//                                .multiply(BigDecimal.valueOf(objTOD.getTaux())).divide(BigDecimal.valueOf(100))).setScale(0,RoundingMode.HALF_UP);
                     }
                     else
                     {
@@ -365,8 +375,12 @@ public class OrdreServiceImpl implements OrdreService {
                     if (objTOP.getBorneInferieur() < montantBrut.doubleValue() &&
                             montantBrut.doubleValue() < objTOP.getBorneSuperieur())
                     {
-                        commissionPlace= new BigDecimal(
-                                Double.valueOf((montantBrut.doubleValue() + interetCourru.doubleValue())) * objTOP.getTaux() / 100).setScale(0,RoundingMode.HALF_UP);
+                        commissionPlace = montantBrut
+                                .add(interetCourru)
+                                .multiply(BigDecimal.valueOf(objTOP.getTaux()))
+                                .divide(BigDecimal.valueOf(100))
+                                .setScale(0, RoundingMode.HALF_EVEN);
+                        //commissionPlace= (montantBrut.add(interetCourru)).multiply(BigDecimal.valueOf(objTOP.getTaux() / 100)).setScale(0,RoundingMode.HALF_EVEN);
                     }
                     else
                     {
@@ -382,8 +396,9 @@ public class OrdreServiceImpl implements OrdreService {
                     if (objTOS.getBorneInferieur() < montantBrut.doubleValue() &&
                             montantBrut.doubleValue() < objTOS.getBorneSuperieur())
                     {
-                        commissionSGI= new BigDecimal(
-                                Double.valueOf((montantBrut.doubleValue() + interetCourru.doubleValue())) * objTOS.getTaux() / 100).setScale(0,RoundingMode.HALF_UP);
+                        commissionSGI= (montantBrut.add(interetCourru)).
+                                multiply(
+                                BigDecimal.valueOf(objTOS.getTaux())).divide(BigDecimal.valueOf(100L)).setScale(0,RoundingMode.HALF_EVEN);
                     }
                     else
                     {
@@ -397,15 +412,19 @@ public class OrdreServiceImpl implements OrdreService {
                     //calculer apres le montant de l'irvm après détermination de l'IRVM
 
                     //calcul du montant net
-                    montantNet = new BigDecimal(montantBrut.doubleValue() + interetCourru.doubleValue() - commissionPlace.doubleValue()
-                            - commissionSGI.doubleValue() - tafCommissionSGI.doubleValue() -
-                            commissionDepo.doubleValue() - irvm.doubleValue());
+                    montantNet = montantBrut
+                            .add(interetCourru)
+                            .subtract( commissionPlace).
+                            subtract(commissionSGI).subtract( tafCommissionSGI)
+                            .subtract(
+                            commissionDepo).subtract(irvm);
                 }
                 else
                 {
-                    montantNet =new BigDecimal(montantBrut.doubleValue()
-                            + commissionPlace.doubleValue() + commissionSGI.doubleValue() + tafCommissionSGI.doubleValue() +
-                            commissionDepo.doubleValue() + interetCourru.doubleValue());
+                    montantNet =montantBrut.add(
+                             commissionPlace).add(commissionSGI).add(tafCommissionSGI)
+                            .add(
+                            commissionDepo).add(interetCourru);
                 }
 
                 //détermination dela quantité disponible pour le titre
